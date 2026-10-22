@@ -1,0 +1,88 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_error_layouts",
+    "actual_three",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_ERROR_LAYOUTS_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/inline/certificates"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/inline/inputs.json",
+    "bytes": 178804,
+    "sha256": "82b9bd8b6871d17feeebaf9c1792ee0adc6c29e36c557afaf368342e227782a9"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/inline/driver.py",
+    "bytes": 6750,
+    "sha256": "e33bd4249b579a5cbd97c699399ae0b7f78faf362918e830c2f541d668cae7f7"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Exact frozen balanced [Word64, every payload] layout, canonical frozen zero-tag function and checked adapters to/from the complete payload observation view. Check arbitrary heterogeneous field preservation and both comparison transfers, empty-U handling, exact carrier/nil structural oracle,0..70 case layouts, nontrivial wrong-layout/case-field controls and original2050 error-view named identities/raw bytes. The shared builder was factored; run that affected original error-view suite. No source role/tag assignment/validity/dispatch authority or frontend/kernel/axiom/budget changes, unrelated suite or equivalent intermediate full gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T04:16:51.460720+00:00",
+  "exit_code": 0,
+  "seconds": 487.5554683340015,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/inline/stdout.log",
+    "bytes": 503,
+    "sha256": "5a0da1e4c970f272f8b66b47b2ce161adb803da731ee1707897115f03f06555a"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/inline/stderr.log",
+    "bytes": 259,
+    "sha256": "7a86c57f7055efcda266d807c780e71febd5df35decaddfefdd5b27324d1d853"
+  },
+  "certificates": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/inline/certificates/layout-N0.mpcert",
+      "bytes": 485077,
+      "sha256": "f5c618df23d1ecec09ce8593839ce879afb4d1fd4d83eda0573f0062b9646030"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/inline/certificates/layout-N3.mpcert",
+      "bytes": 490686,
+      "sha256": "bb54e243d7d9ee01e1f1719596521b377e0d143132d1664bed15ffa6832a3998"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/inline/certificates/layout-N70.mpcert",
+      "bytes": 1113774,
+      "sha256": "90118419c3c539d5c8fc29e44cb69e95a63baf8056c8304e9778377251bbbe80"
+    }
+  ],
+  "finished_at_utc": "2026-10-22T04:24:59.028293+00:00"
+}

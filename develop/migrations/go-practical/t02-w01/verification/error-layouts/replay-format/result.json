@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/tests/go_practical_error_layout_replay.rs"
+  ],
+  "exit_code": 0,
+  "original_source_sha256": "23dcd0258cd87f6b338c49d7fd6f751639f6b7e2d669a31520d2be786f287b66",
+  "formatted_source_sha256": "81d5a9afa6ae258a2b3eb2fae2838a4140d435c704a70f8771767357b631da45",
+  "scope": "Only the new replay test. It will run after every original matrix input/report is complete; no live matrix input was changed."
+}

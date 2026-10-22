@@ -13,6 +13,7 @@ use sha2::{Digest, Sha256};
 mod array;
 mod composition;
 mod dependencies;
+mod error_layout;
 mod error_value;
 mod finite_vector;
 mod integer;
@@ -211,6 +212,20 @@ pub struct GoErrorValueFoundation {
 }
 
 impl GoErrorValueFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoErrorLayoutFoundation {
+    case_count: usize,
+    certificate: Vec<u8>,
+}
+impl GoErrorLayoutFoundation {
+    pub fn case_count(&self) -> usize {
+        self.case_count
+    }
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
     }
@@ -2248,15 +2263,61 @@ pub fn import_go_practical_product_relation_foundation(
 /// Full 64-bit tags paired with an entire payload in an observation view.
 /// Exact frozen-layout adapters, source universes and dispatch remain separate.
 pub fn generate_go_practical_error_value_foundation() -> Result<GoErrorValueFoundation> {
+    let mut builder = error_value_builder()?;
+    builder.certificate.module = "Mpk.Go.Practical.ErrorValueFoundation".into();
+    Ok(GoErrorValueFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+fn error_value_builder() -> Result<Builder> {
+    error_value_builder_with_recipes().map(|(builder, _)| builder)
+}
+
+fn error_value_builder_with_recipes() -> Result<(Builder, BTreeMap<String, syntax::Expr>)> {
     let mut builder = range_builder()?;
     let recipes = word::append_with_recipes(&mut builder)?;
     product::append(&mut builder)?;
     product_relation::append(&mut builder)?;
     error_value::append(&mut builder, &recipes)?;
-    builder.certificate.module = "Mpk.Go.Practical.ErrorValueFoundation".into();
-    Ok(GoErrorValueFoundation {
+    Ok((builder, recipes))
+}
+
+/// Specialize the exact balanced error carrier for arbitrary case payload types.
+/// Case count supplies no source-universe, tag-assignment or validity authority.
+pub fn generate_go_practical_error_layout_foundation(
+    case_count: usize,
+) -> Result<GoErrorLayoutFoundation> {
+    // Each payload necessarily emits a getter and six complete observation
+    // laws. This is the existing certificate declaration budget, not a new
+    // case-count admission rule. Check it before allocating recipe parameters.
+    if case_count
+        .checked_mul(7)
+        .is_none_or(|n| n > MAX_DECLARATIONS)
+    {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let (mut builder, recipes) = error_value_builder_with_recipes()?;
+    error_layout::append(&mut builder, case_count, &recipes)?;
+    builder.certificate.module = format!("Mpk.Go.Practical.ErrorLayout.N{case_count}");
+    Ok(GoErrorLayoutFoundation {
+        case_count,
         certificate: builder.finish()?,
     })
+}
+
+pub fn import_go_practical_error_layout_foundation(
+    candidate: &[u8],
+    case_count: usize,
+) -> Result<GoErrorLayoutFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_error_layout_foundation(case_count)?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
 }
 
 pub fn import_go_practical_error_value_foundation(

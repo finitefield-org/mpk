@@ -1,0 +1,42 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: useless conversion to the same type: `std::path::PathBuf`
+  --> crates/mpk-vc/tests/go_practical_error_layouts.rs:30:20
+   |
+30 |         let root = std::path::PathBuf::from(root);
+   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider removing `std::path::PathBuf::from()`: `root`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#useless_conversion
+   = note: `-D clippy::useless-conversion` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::useless_conversion)]`
+
+error: for loop over a single element
+  --> crates/mpk-vc/tests/go_practical_error_layouts.rs:32:9
+   |
+32 | /         for (ext, raw) in [("rust.json", format!("{}\n", result.json).into_bytes())] {
+33 | |             std::fs::OpenOptions::new()
+34 | |                 .write(true)
+35 | |                 .create_new(true)
+...  |
+39 | |                 .unwrap();
+40 | |         }
+   | |_________^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#single_element_loop
+   = note: `-D clippy::single-element-loop` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::single_element_loop)]`
+help: try
+   |
+32 ~         {
+33 +             let (ext, raw) = ("rust.json", format!("{}\n", result.json).into_bytes());
+34 +             std::fs::OpenOptions::new()
+35 +                 .write(true)
+36 +                 .create_new(true)
+37 +                 .open(root.join(format!("{name}.{ext}")))
+38 +                 .unwrap()
+39 +                 .write_all(&raw)
+40 +                 .unwrap();
+41 +         }
+   |
+
+error: could not compile `mpk-vc` (test "go_practical_error_layouts") due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...

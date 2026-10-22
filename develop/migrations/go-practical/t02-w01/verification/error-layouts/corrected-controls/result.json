@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_error_layouts",
+    "reject_wrong_layout_nil_field_order_or_incomplete_adapters",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_ERROR_LAYOUTS_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/certificates"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/inputs.json",
+    "bytes": 179666,
+    "sha256": "6a28f7ffc1186371a35cdd4525f03e98a10af8c7422271c4b1ca877d2942bbd2"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/driver.py",
+    "bytes": 6850,
+    "sha256": "fccaab67caf021375104169b4fa01a54e93495d125fe8430dfefbf3647a17c6b"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Original expensive Rust matrix is terminal: all71 layout streams and ownership root passed, original unused-type negative failed because its replacement is valid math. Preserve that execution and all prelaunch sources. Only the original main control expectation/output-helper style is corrected. Run its ten actual corruption cases alone and compare full artifacts/reports literally with the independently checked originals; reuse their existing Go results. The temporary include-based independent test source is retained in its complete original snapshot and removed from active Cargo targets to avoid repeating the expensive matrix. Scoped strict lint and format cover only changed generator/main/client/replay plus the affected original error-value test. No whole gate, unrelated suites, source/profile authority, or kernel/budget changes.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T06:12:26.240931+00:00",
+  "exit_code": 0,
+  "seconds": 20.563765292055905,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/stdout.log",
+    "bytes": 596,
+    "sha256": "38470b0976fc8bd51b7bd70f21723d51d46c6aba1773396c2d292f7cc4094326"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/stderr.log",
+    "bytes": 258,
+    "sha256": "7f774900bee27ecf1280b63038c8501a44d9f8069fe325d63706aa104d38808e"
+  },
+  "certificates": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/certificates/dropped-N0-from-view-tag.mpcert",
+      "bytes": 485086,
+      "sha256": "82371542c35da32a73427187e9e4d2641e8474deb894c8b474ac41531e2ca554"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/certificates/dropped-N3-from-view-tag.mpcert",
+      "bytes": 490715,
+      "sha256": "cbb2d537209006e4565ba3db72da450bfaf5b02b75ee324f4e832c1ab9523536"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/certificates/dropped-N3-payload0.mpcert",
+      "bytes": 490711,
+      "sha256": "058319368793d07c9eb2b064e22268a54618daca48d0c57d8d80bc5e5ded77ba"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/certificates/dropped-N3-payload2.mpcert",
+      "bytes": 490711,
+      "sha256": "c2f33bedf3928ba06d1e9c5b180958b63574ffba879690a0ea9c55445352c521"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/certificates/dropped-N70-from-view-tag.mpcert",
+      "bytes": 1114138,
+      "sha256": "f49815eb1c13cb7bf1ea88c53ddf04a2f07f4c40bdfa26cd495ec4fed00a1957"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/certificates/dropped-N70-payload0.mpcert",
+      "bytes": 1114134,
+      "sha256": "6ee6dfc6478b6f8ca6c9371136f920f1b92dc9358cbf6221b36265a8ef8a0674"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/certificates/dropped-N70-payload64.mpcert",
+      "bytes": 1114134,
+      "sha256": "559fadfeb417f856d3231a0178411352ee53450ad74d5cf514bb6455504eab29"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/certificates/dropped-N70-payload69.mpcert",
+      "bytes": 1114134,
+      "sha256": "681783bea41324be270ac5174e9111c897ba88180f9f366ed820eb0ba89539ad"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/certificates/wrong-tag.mpcert",
+      "bytes": 490712,
+      "sha256": "02cd308d501475eec93ba978dd3ff099530516393ac237b60a3436d154a61599"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/corrected-controls/certificates/wrong-zero-tag.mpcert",
+      "bytes": 490735,
+      "sha256": "df6bdf550cf459f890d1f65143af475a4070095ba1d030a3e95a43c2c7f24793"
+    }
+  ],
+  "finished_at_utc": "2026-10-22T06:12:46.811479+00:00"
+}

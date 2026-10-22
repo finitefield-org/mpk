@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_error_layout_controls",
+    "controls_without_unreferenced_type_probe",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_ERROR_LAYOUTS_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/certificates"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/inputs.json",
+    "bytes": 180010,
+    "sha256": "d65b1d5aaa3262c0e90f1bc7294c30f0f8e3ad5ca111c8e4322554be7c1c1abb"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/driver.py",
+    "bytes": 8343,
+    "sha256": "b96490f9936dce82a30c8cffbe9fd360861464bb4bed156570b4f41508327328"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Independent actual control root reuses the original immutable main test helpers through include!. The explicit filter runs only the ten real tag/zero/payload/adapter corruptions, not included original test roots. The unused carrier-type replacement is instead covered by the already-passing actual named-client/ownership boundary. No consumed matrix file or producer changed. Actual typed client of the exported N0 carrier. A wrong but unused Sort0 definition can be a valid mathematical declaration; require its real named-carrier/nil client to type-reject rather than count unreferenced definition replacement as semantic rejection. This new independent test file is not consumed by the already-running original matrix, whose source inputs stay unchanged. Original producer and matrix code do not change. Exact frozen balanced [Word64, every payload] layout, canonical frozen zero-tag function and checked adapters to/from the complete payload observation view. Check arbitrary heterogeneous field preservation and both comparison transfers, empty-U handling, exact carrier/nil structural oracle,0..70 case layouts, nontrivial wrong-layout/case-field controls and original2050 error-view named identities/raw bytes. The current inline construction root already passes0/3/70 with frozen structural and all old-identity checks; final tests skip only that duplicate root while still kernel-checking every size0..70. Preserve both executions and all original streams. The shared builder was factored; run that affected original error-view suite. No source role/tag assignment/validity/dispatch authority or frontend/kernel/axiom/budget changes, unrelated suite or equivalent intermediate full gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T04:49:49.273339+00:00",
+  "exit_code": 0,
+  "seconds": 18.157198292086832,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/stdout.log",
+    "bytes": 580,
+    "sha256": "20f9b12a6c9782ce264558020a83f82a401f78de5942ec4348677a4f4c80a822"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/stderr.log",
+    "bytes": 274,
+    "sha256": "0ff32bb948b54a9896998be23aa9ab3b1efdd5461065995fdcd485f057dc1222"
+  },
+  "certificates": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/certificates/dropped-N0-from-view-tag.mpcert",
+      "bytes": 485086,
+      "sha256": "82371542c35da32a73427187e9e4d2641e8474deb894c8b474ac41531e2ca554"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/certificates/dropped-N3-from-view-tag.mpcert",
+      "bytes": 490715,
+      "sha256": "cbb2d537209006e4565ba3db72da450bfaf5b02b75ee324f4e832c1ab9523536"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/certificates/dropped-N3-payload0.mpcert",
+      "bytes": 490711,
+      "sha256": "058319368793d07c9eb2b064e22268a54618daca48d0c57d8d80bc5e5ded77ba"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/certificates/dropped-N3-payload2.mpcert",
+      "bytes": 490711,
+      "sha256": "c2f33bedf3928ba06d1e9c5b180958b63574ffba879690a0ea9c55445352c521"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/certificates/dropped-N70-from-view-tag.mpcert",
+      "bytes": 1114138,
+      "sha256": "f49815eb1c13cb7bf1ea88c53ddf04a2f07f4c40bdfa26cd495ec4fed00a1957"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/certificates/dropped-N70-payload0.mpcert",
+      "bytes": 1114134,
+      "sha256": "6ee6dfc6478b6f8ca6c9371136f920f1b92dc9358cbf6221b36265a8ef8a0674"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/certificates/dropped-N70-payload64.mpcert",
+      "bytes": 1114134,
+      "sha256": "559fadfeb417f856d3231a0178411352ee53450ad74d5cf514bb6455504eab29"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/certificates/dropped-N70-payload69.mpcert",
+      "bytes": 1114134,
+      "sha256": "681783bea41324be270ac5174e9111c897ba88180f9f366ed820eb0ba89539ad"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/certificates/wrong-tag.mpcert",
+      "bytes": 490712,
+      "sha256": "02cd308d501475eec93ba978dd3ff099530516393ac237b60a3436d154a61599"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/controls/certificates/wrong-zero-tag.mpcert",
+      "bytes": 490735,
+      "sha256": "df6bdf550cf459f890d1f65143af475a4070095ba1d030a3e95a43c2c7f24793"
+    }
+  ],
+  "finished_at_utc": "2026-10-22T04:50:07.437751+00:00"
+}

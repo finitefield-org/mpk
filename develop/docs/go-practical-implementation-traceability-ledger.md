@@ -1,24 +1,24 @@
 # Go Practical Implementation Traceability Ledger
 
-Updated: 2026-10-20. Objective: execute
+Updated: 2026-10-22. Objective: execute
 [the Go design](09_go_practical_subset_design.md) and
 [work plan](09_go_practical_subset_design-todo.md), starting at T01-W01.
 This ledger owns implementation status. No practical Go profile is active.
 
 ## 1. Scheduling authority and preserved scope
 
-The user explicitly authorized Go implementation before the practical C#
-release on 2026-10-16. The amended sequence is the current registered
-Go/Rust/scalar-C#/Java baseline -> practical Go v1 -> practical Go v2 ->
-remaining practical C# -> Dart -> TypeScript -> Python. The change is recorded
-in the 06/08/09 design/work-plan documents and the roadmap. It removes only the
-C#-release prerequisite. All Go source-semantics, proof, stage and release
-gates remain required; the full 11-stage scope remains intact.
+The current user amendment limits MPK to **Go and Rust only**, as recorded
+in [the normative language scope](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md).
+The active sequence is retained Go/Rust -> practical Go v1 -> practical Go v2.
+Java, C# and other-language implementation, resumption and release dependencies
+are retired. All Go source-semantics, proof, stage and release gates remain
+required; the full 11-stage Go scope remains intact.
 
-Retain the unresolved CSHARP-03 checkpoint. It is not a completed foundation
-or a live-process claim. Any common implementation that Go uses must meet
-Go's own independent validation and both-checker proof gates. Resume C# only
-after reconciling the intervening shared artifacts and active registry.
+Historical checkpoint descriptions, including the original 2026-10-16 C#
+test deferral and unresolved CSHARP-03 evidence, apply only to their original
+inputs. They confer no current other-language support or resumption task.
+Any common implementation that Go uses must meet Go's independent validation
+and both-checker proof gates.
 
 ## 2. Status
 
@@ -34,9 +34,9 @@ after reconciling the intervening shared artifacts and active registry.
 | GO-PRAC-T03–T07 | Not started | Sequential remaining v1 implementation and public release |
 | GO-PRAC-T08–T11 | Not started | Sequential v2 freeze, maps, pointers and public release |
 
-T01 is complete under the explicit C# test deferral. T02 remains In progress;
-its cumulative `scripts/check-fast.sh --skip-csharp` gate is due in T02-W04,
-not an intermediate W.
+T01 completed under its historical explicit C# test deferral. T02 remains
+In progress under the current Go/Rust scope; its cumulative
+`./scripts/check-fast.sh` gate is due in T02-W04, not an intermediate W.
 
 ## 3. T01-W01 baseline and deliverables
 
@@ -7872,3 +7872,35 @@ all169 application demands/T02-T11 remain open. Earlier historical-scope
 findings remain for the final gate. Go/Rust only; R01/R06/W01 stay open, the
 public profile stays inactive and the T02 full gate stays final W04:
 `./scripts/check-fast.sh`.
+## 160. T02-W01 exact frozen error carrier adapters
+
+The [frozen error-layout checkpoint](../migrations/go-practical/t02-w01/verification/error-layouts/README.md)
+uses the exact balanced `[Word64, T0, ..., Tn-1]` carrier and frozen supplied-zero
+nil recipe. Whole-tag/whole-payload observations, construction/nil/round-trip
+laws and both nil/case comparison transfers require actual checked witnesses;
+no function extensionality or source-zero authority is assumed. Empty U keeps
+only Word64 in the actual carrier. All2050 prior error-view identities and full
+raw bytes remain exact. Both cores accept all71 sizes0..70;85 distinct complete
+streams agree with74 zero-axiom mathematical acceptances and11 genuine type
+rejections. Current N70 has2568 declarations122677 terms1113774 bytes under the
+unchanged native budgets, with no smaller case-count admission cap.
+
+The expensive original Rust matrix and ownership root passed. Its separate
+unused-type rejection expectation failed because the replaced unused definition
+is valid mathematics. That original failure remains intact; an actual typed
+client rejects the wrong named carrier. Corrected10 controls match all original
+paired bytes/reports literally; scoped Clippy/format and full71 fresh-original
+literal-byte replay pass.22 source epochs retain11,515 complete original inputs
+via exact committed blobs or complete changed originals, including the prior
+Clippy failure and separate hash-observer error. The temporary include-based
+control target is retained in its original input archive and removed from active
+Cargo targets to avoid a duplicate expensive matrix. Active scheduling/R07
+wording now follows the Go/Rust-only amendment; historical evidence is retained.
+
+Actual source/capture/U/tag bindings, canonical zero/inactive-case validity and
+receiver/dispatch/precondition/result/storage/frame/lifetime/runtime/program
+proofs, full56-family foundation/private registry/context, canonical scope/
+contract wire, native Linux and all169 application demands/T02-T11 remain due.
+Earlier historical-scope findings remain for the final gate. Go/Rust only;
+R01/R06/W01 stay open, public practical profile stays inactive and the T02 full
+gate stays final W04: `./scripts/check-fast.sh`.

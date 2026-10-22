@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--check",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_ordinary.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/error_layout.rs",
+    "crates/mpk-vc/tests/go_practical_error_layouts.rs",
+    "crates/mpk-vc/tests/go_practical_error_layout_carrier_client.rs",
+    "crates/mpk-vc/tests/go_practical_error_layout_replay.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/scoped-format/inputs.json",
+    "bytes": 179631,
+    "sha256": "408ac69b68c46ca467db49be750a5accbabfc7b3bd820b40b8805b1e4445ceb7"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/scoped-format/driver.py",
+    "bytes": 6850,
+    "sha256": "fccaab67caf021375104169b4fa01a54e93495d125fe8430dfefbf3647a17c6b"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Original expensive Rust matrix is terminal: all71 layout streams and ownership root passed, original unused-type negative failed because its replacement is valid math. Preserve that execution and all prelaunch sources. Only the original main control expectation/output-helper style is corrected. Run its ten actual corruption cases alone and compare full artifacts/reports literally with the independently checked originals; reuse their existing Go results. The temporary include-based independent test source is retained in its complete original snapshot and removed from active Cargo targets to avoid repeating the expensive matrix. Scoped strict lint and format cover only changed generator/main/client/replay plus the affected original error-value test. No whole gate, unrelated suites, source/profile authority, or kernel/budget changes.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T06:12:36.977591+00:00",
+  "exit_code": 0,
+  "seconds": 0.2016212500166148,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/scoped-format/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/scoped-format/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-22T06:12:37.180204+00:00"
+}

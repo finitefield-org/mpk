@@ -1,0 +1,917 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_error_values",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_ERROR_VALUES_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/inputs.json",
+    "bytes": 178814,
+    "sha256": "ad1c69586ccca9f6d196a06bbe9ee495a887bf6f962e929084725369d309d95b"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/driver.py",
+    "bytes": 6750,
+    "sha256": "e33bd4249b579a5cbd97c699399ae0b7f78faf362918e830c2f541d668cae7f7"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Exact frozen balanced [Word64, every payload] layout, canonical frozen zero-tag function and checked adapters to/from the complete payload observation view. Check arbitrary heterogeneous field preservation and both comparison transfers, empty-U handling, exact carrier/nil structural oracle,0..70 case layouts, nontrivial wrong-layout/case-field controls and original2050 error-view named identities/raw bytes. The shared builder was factored; run that affected original error-view suite. No source role/tag assignment/validity/dispatch authority or frontend/kernel/axiom/budget changes, unrelated suite or equivalent intermediate full gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T04:07:36.429425+00:00",
+  "exit_code": 0,
+  "seconds": 91.35845633398276,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/stdout.log",
+    "bytes": 851,
+    "sha256": "95f75bdb34a188ee6af998a2bfc5116bf72be47f5584d190e65b6ff5f394060d"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/stderr.log",
+    "bytes": 256,
+    "sha256": "97ed759d8ba608f7734f885c64658dfe6e0cf2a5d66b7041d261ecd468ae83e4"
+  },
+  "certificates": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/constant-case-match.mpcert",
+      "bytes": 471022,
+      "sha256": "d94c3776b614995d72d50be0cfb1def49c052abd3e30271256faf27b486efb93"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/dropped-copy-tag.mpcert",
+      "bytes": 471054,
+      "sha256": "51ef3cdf025c79993b5e3d3c10e61eac434f74e28263974d79496562297eaac0"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/dropped-payload.mpcert",
+      "bytes": 471016,
+      "sha256": "aa73bb6844ee3780f564c1a441344d79bbf0b3f6b0c74fd933fdc4d86bb07a03"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-AndFalseLeft.mpcert",
+      "bytes": 471041,
+      "sha256": "dcf42367958020190056761512ab8ec1e650d7a844cc99eaa07d9e6ecb233452"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-AndFalseRight.mpcert",
+      "bytes": 471041,
+      "sha256": "cbdec497c4ab6cc758f3e577d9ae0e9d61336d4302131bd3403bcce6709eb02f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-NilHasNoNonzeroCase.mpcert",
+      "bytes": 471048,
+      "sha256": "56d17fcf890956e0733dcdaf78d0ff8e83e97f98e9c1d4d90994c1a81d1a3fbd"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-NonzeroMakeIsNonNil.mpcert",
+      "bytes": 471048,
+      "sha256": "53ffd5247d403adf8f2f6057cd140ad8b2c1da8507499313860840bebf9aa7fd"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-NonzeroMakeIsNotNil.mpcert",
+      "bytes": 471048,
+      "sha256": "284ba80fc8619e2c16e1f57229b37648e60700c3efbbc25883c9cb74c5e125b1"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt0.mpcert",
+      "bytes": 471043,
+      "sha256": "e7573e2baf5bf30202612712ab3597871a102ac7aa70da90dd0128a05474f33d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt1.mpcert",
+      "bytes": 471043,
+      "sha256": "d2e02e825bf040ee50b5ebbc84c41ea767e73292a0a4465a2b5a48bf49124690"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt10.mpcert",
+      "bytes": 471043,
+      "sha256": "ebf398586cc0e5c99b319aa97eaf565325cebfd5ef74886fa955438b06e38578"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt11.mpcert",
+      "bytes": 471043,
+      "sha256": "35595515a375cfda49461955540d1a40777cfc9ac8ee93bcd6742405cc96c69c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt12.mpcert",
+      "bytes": 471043,
+      "sha256": "25de5c96b5c345299069e479582d28578309be0a799d085badde5d91b0f47749"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt13.mpcert",
+      "bytes": 471043,
+      "sha256": "8ae13d67ca9e986b116f05cf502ff2749cbdf1c789c75ee10216823b6d1ca9d8"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt14.mpcert",
+      "bytes": 471043,
+      "sha256": "e4f2ab075e21a4d917778f15f706de1a5487634998124be54a7f721c315ad883"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt15.mpcert",
+      "bytes": 471043,
+      "sha256": "ebeacb4e772567c039a6757abfe957e2d72cecc5f169eccd481f98bd2fa34f14"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt16.mpcert",
+      "bytes": 471043,
+      "sha256": "ab09ae2fa0bc4196438eeee190cf1d950c9197679b78ceedee86cab1bc29be00"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt17.mpcert",
+      "bytes": 471043,
+      "sha256": "8ec47ca767c769d0816d4a8ed149a2fe3e9f78cee8c92d8212652c552cbe18e6"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt18.mpcert",
+      "bytes": 471043,
+      "sha256": "43e065dc2cb7f6a02f6083b4a47aeba6b37f9a9f7a250ad5b1f56e2ddb025c96"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt19.mpcert",
+      "bytes": 471043,
+      "sha256": "02a98ef06ccb5568989d96818f85963eb29642e9cbf2269b1c90cd39ecc9653d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt2.mpcert",
+      "bytes": 471043,
+      "sha256": "399623c90d584843a1ab8f03f6451d9362405c77837f6c30504ecde7f433f511"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt20.mpcert",
+      "bytes": 471043,
+      "sha256": "c7b374b425b2a08dff21d3f2e55c23eeac9972257f753274ed0966737b6ca3a8"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt21.mpcert",
+      "bytes": 471043,
+      "sha256": "ad80a22000b7be79fa035887e174364c07f58d32a34afb120c61c0ea02f71dfd"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt22.mpcert",
+      "bytes": 471043,
+      "sha256": "e543c6606697d0f87aa8197b09ede9e5784fb601ee9683dbbfb7732d0ec41239"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt23.mpcert",
+      "bytes": 471043,
+      "sha256": "d79b728e7368b3378b01706418db79425c06856f2681e56bd6108bf975e3d142"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt24.mpcert",
+      "bytes": 471043,
+      "sha256": "fbfd43ccca2c95ec820810c8b549db3f26586cdfb42e68c9ea189d8401340889"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt25.mpcert",
+      "bytes": 471043,
+      "sha256": "c797daab1f8e89f661d68cd7f2106d7c61d9ac7948ac16c2f1546f88e3b8ad76"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt26.mpcert",
+      "bytes": 471043,
+      "sha256": "ccb26855edf27f59d5b6d14cbc949e0e680cda30148a56738f1e2a7fd75efdd2"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt27.mpcert",
+      "bytes": 471043,
+      "sha256": "e3396d4e3a49d8c622f4b65cd86d86dc18b2413230c1f8d3b7b5f40e8167d879"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt28.mpcert",
+      "bytes": 471043,
+      "sha256": "3c7212cc318344581754bc2870b16ae74cc18103527f38a276344b0cad304245"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt29.mpcert",
+      "bytes": 471043,
+      "sha256": "96996ebc41f0bf4bc57cbb67de655b269fbfec048f6646557ff30a4577b9b1fc"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt3.mpcert",
+      "bytes": 471043,
+      "sha256": "fb95a0fd4c9ba3a5cd483ab226e27c10f3558372fe618c341613241e5a851c5f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt30.mpcert",
+      "bytes": 471043,
+      "sha256": "ca74eb3ec2243f19407e8216eacf009eafdd7e4bc3cbee56664b67dbb7378274"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt31.mpcert",
+      "bytes": 471043,
+      "sha256": "3005a1f278daf34b280bf4c42978a3adfbe54e61a784882355a6362deb4088d5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt32.mpcert",
+      "bytes": 471043,
+      "sha256": "6b6fff3b7ce11e5889bb937357c867272ed0a08c72738ff73d80efeac7975179"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt33.mpcert",
+      "bytes": 471043,
+      "sha256": "33bee7118c0bff88f6626e3b5e811d7f846ec680f4e353d61935681dcdd7ed3c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt34.mpcert",
+      "bytes": 471043,
+      "sha256": "83d7b5cd9567455f60ce40c8864ff5a3b0cd894e7c4bb466ddf9c7bee53a37db"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt35.mpcert",
+      "bytes": 471043,
+      "sha256": "8f30f20f3cd7b4d3ac278021fc06a06bbec509fbbe10c8a511da0c95649cac17"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt36.mpcert",
+      "bytes": 471043,
+      "sha256": "eba7e3ebdc9af4968a147275749c6b205d5c21a7185037f3d438cd415ca7f48f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt37.mpcert",
+      "bytes": 471043,
+      "sha256": "86b572783e42ce4b2c21e7f3c61f9df077d55edd7637413b87312e1d2b320b00"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt38.mpcert",
+      "bytes": 471043,
+      "sha256": "fe1919dfcc0fbb05f89fb32199dfa1120758d59da4f46262e02fa15e1f6291b6"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt39.mpcert",
+      "bytes": 471043,
+      "sha256": "36bea4fa38383d4f60358e58b55b1b94c90d686dcf7cc802660ae40f9d448bdd"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt4.mpcert",
+      "bytes": 471043,
+      "sha256": "f5b1fec6273cdec9b86055117b3d2713d213b8a4435aee989b02100ff34e6e06"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt40.mpcert",
+      "bytes": 471043,
+      "sha256": "a30afa0f4d8f2f04734a805a08f3cb738e611fab2056da281d7c99a26bca61f8"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt41.mpcert",
+      "bytes": 471043,
+      "sha256": "8a7fe2cd949c2512e7b7147f0d79cd3378ca0a6c4af2427287c562970a913a32"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt42.mpcert",
+      "bytes": 471043,
+      "sha256": "f834437e92e158d78854a0942fe018bee214a99d3cd76511136ead11b7208376"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt43.mpcert",
+      "bytes": 471043,
+      "sha256": "c05b30d12d3dd257cd7da428fcd9387bd15a0e0b7c66eea9639dfe6a97bb97e7"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt44.mpcert",
+      "bytes": 471043,
+      "sha256": "16fa65d8bda3ef04bb1e6b70add88100946e6a58ad48f77c715ddfd34a90c77b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt45.mpcert",
+      "bytes": 471043,
+      "sha256": "a3b250159a143e1a9263d02893d77bcaa256985ab089a798bfeed21471eb2ef5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt46.mpcert",
+      "bytes": 471043,
+      "sha256": "7bda7d20ee8674ea1096674cd8d2ea4bf9c33f5b357620634b8c8a3c12f92812"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt47.mpcert",
+      "bytes": 471043,
+      "sha256": "9a477ebdecb440191456bd0cf543bc4fd1f85dfd18ecf028476f5e169ca74934"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt48.mpcert",
+      "bytes": 471043,
+      "sha256": "74da0f828fe00a4368905aef8adac208a962602705a6d01477227a5c8383bdfa"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt49.mpcert",
+      "bytes": 471043,
+      "sha256": "1706f903e9b2bc3e74bf8b9ad3775af19d28568c29b5c609c8395c6b7cac9b26"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt5.mpcert",
+      "bytes": 471043,
+      "sha256": "83c803f8e68f5af4aad7125d891391d273954cb43c9b011f7ee8f709da3fac09"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt50.mpcert",
+      "bytes": 471043,
+      "sha256": "595056ee5f92398f7dcbf02a635c8f27a5da5953c3ed4f695957c3af87b5b8be"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt51.mpcert",
+      "bytes": 471043,
+      "sha256": "55cdc61c495da8e6e190269fe5ccfb8a67ce2f0d48a4cc1741dbca059c1d1534"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt52.mpcert",
+      "bytes": 471043,
+      "sha256": "ab318dc6d749f26cbf5daed85e65fe94efe44d963051bfe4d7a13951d4fe136d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt53.mpcert",
+      "bytes": 471043,
+      "sha256": "0aa9592d52c26bef342dc3a82b4b934bf6f8d4401ba3013bcde24902e4145fff"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt54.mpcert",
+      "bytes": 471043,
+      "sha256": "cc66d3d19a8d56282a9a3cfe2035d04923201658a3488dc930fc4df6503f8328"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt55.mpcert",
+      "bytes": 471043,
+      "sha256": "14780cc2d4eaac60e2f3297fb7411bc6abd58382c4a51e860de8c8183a7fe6b5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt56.mpcert",
+      "bytes": 471043,
+      "sha256": "8e42f9b5ec4faef574be744c19e142e2afe0edfb475dffe92d534b75868f9320"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt57.mpcert",
+      "bytes": 471043,
+      "sha256": "8ffd5be48710563b82e1cf892650932085b88f4c0772da092d65d7c4917e22d6"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt58.mpcert",
+      "bytes": 471043,
+      "sha256": "72518d0011bbbd72598004965bbd02e011e00e4490648ab6ca54d01d7c8cc3b7"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt59.mpcert",
+      "bytes": 471043,
+      "sha256": "6867adb438a15eb598c52d0eb667397a1ce1c82bb4008d656ac66eab665ab324"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt6.mpcert",
+      "bytes": 471043,
+      "sha256": "be54c63eccb0e4c1c1ccd53310ede76d621275de07294d10b3011930f860eef0"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt60.mpcert",
+      "bytes": 471043,
+      "sha256": "9ae0209f598b20166d6812f553b0ebe4b63c24c379cafd0c98ff8ce5909cf447"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt61.mpcert",
+      "bytes": 471043,
+      "sha256": "d2a2e2181eee28b6f98e4ef6fd504a24f447b5c65911438a1fb7d8f4352d253f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt62.mpcert",
+      "bytes": 471043,
+      "sha256": "41f3dc5a15e8302b2c510690318821464b7f8047b2f4852c70a5f28510baa032"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt63.mpcert",
+      "bytes": 471043,
+      "sha256": "c363690e0471ff7fdefa06705d441492aa5d82d846d428409e14ef672b9de517"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt7.mpcert",
+      "bytes": 471043,
+      "sha256": "585a0c15052ad5e3b657b04fe1081d0081b86a20b61b69a54cf38eda50654788"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt8.mpcert",
+      "bytes": 471043,
+      "sha256": "ef7a6bc8aa8eda223cf96ab549388ad97757064917c9739ad535b4d693c22411"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/erased-TagDifferentAt9.mpcert",
+      "bytes": 471043,
+      "sha256": "996697743a76ac33e68e9372b3dc92aede95068883b38ebdaab610a546760a4a"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/error-boundaries.mpcert",
+      "bytes": 481149,
+      "sha256": "3a67cbfc8d3da4b8ef34ba138b86a34774e632737ed45a9ccd924732382b63a0"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/error-values.mpcert",
+      "bytes": 471001,
+      "sha256": "1b5fd24d70d005c7873921971577b7ba9c13a97c7bd61a7261d2fa8c24b80c10"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-AndFalseLeft.mpcert",
+      "bytes": 471044,
+      "sha256": "b8a5a8942cb4f1610991060cfce6d599095f88413fcc0dfbeaecc27e412b9d5c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-AndFalseRight.mpcert",
+      "bytes": 471044,
+      "sha256": "258e1ed20eee2b45cbc596128751ccd6de4e807874cb28cb4bfe1c7fb00e8a9b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-ConcreteZeroIsNonNil.mpcert",
+      "bytes": 471038,
+      "sha256": "e4cc192345af463f7ee45e62427d30f478adb9d9dd16dfc32d52d256369b7bbf"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-CopyHasCase.mpcert",
+      "bytes": 471045,
+      "sha256": "9508b75b55503c4cd0d7528d54938b0c511420416e8878f413fa1c8c178d2027"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-CopyIsNil.mpcert",
+      "bytes": 471039,
+      "sha256": "ffd60b3c5cc373c6abf5029516085c74b650a96f00e8eb12ca6b7765e55546fb"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-CopyIsNonNil.mpcert",
+      "bytes": 471039,
+      "sha256": "56ea3886a87b064891639fe70c8657408aff4445f9d67202091e45d8d0a9467d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-CopyPayload.mpcert",
+      "bytes": 471039,
+      "sha256": "aac26d0ce4acb0d7ec683542aa13cd7d9f1c29d61e83e7d9c4eb245076f59aeb"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-CopyPointwise.mpcert",
+      "bytes": 471039,
+      "sha256": "452d07e68d3f85f5a4e851018f16f38d78d5b74ffb14b7fa2d9c50128a659b56"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-CopyTag.mpcert",
+      "bytes": 471039,
+      "sha256": "15850b90eb1eb6f678ff1dcc8455e600da7d8773f924870bec67b6c591c388c1"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-CopyTagAt.mpcert",
+      "bytes": 471069,
+      "sha256": "5237cae507a46d1246a00064705ea7cfa5654172fddb70dec5d5d363a6655ec7"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-HasCaseOfMake.mpcert",
+      "bytes": 471050,
+      "sha256": "db28639549fddddeebffad276b5ec9ae6ae6d354df13260f161d8cf3cc7b44bf"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-IsNilOfMake.mpcert",
+      "bytes": 471044,
+      "sha256": "93a6600f204b228732765944f02dc7e45f9274197b3d0ccf60a3a4e732f3df25"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-MakeHasOwnCase.mpcert",
+      "bytes": 471044,
+      "sha256": "b183e754cabb5d4a088749e0a5bc6cc604a6e1e48307e56abe4282cc23940b03"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-NilDefinition.mpcert",
+      "bytes": 471038,
+      "sha256": "fdcb017969dbe3ef03d9ad9db1112f3f7d6c291cc18cc6c3cd65e022a4e87015"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-NilHasNoNonzeroCase.mpcert",
+      "bytes": 471051,
+      "sha256": "c72d24b6114daabcf87482ff371c102e2fe89e9df90198c7ae51d04ee1a60aac"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-NilIsNil.mpcert",
+      "bytes": 471038,
+      "sha256": "e20cb757c422fa21e7ad4ccb4f72ffd0f18c0d0fbcdefa81bfb7ce8475f2c2f1"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-NilIsNotNonNil.mpcert",
+      "bytes": 471038,
+      "sha256": "9900f3ed217f514c68621df6c0785278570ed002fe16bab56496ac9adf4e4bcb"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-NilPayload.mpcert",
+      "bytes": 471038,
+      "sha256": "8640825ef1cc539f6e6bd6c62496fb39e2604d2aa7c4da67cbbab742d951db62"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-NilTag.mpcert",
+      "bytes": 471038,
+      "sha256": "a26f4f3cd0234ef8fa33e6d39cfb89047fe3612bf417b275df2fbf1c00d07725"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-NonNilDefinition.mpcert",
+      "bytes": 471039,
+      "sha256": "f5bc753fa5108503d7df4190a68c5f5ef70c82b8db618b737c8b90885e748eac"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-NonzeroMakeIsNonNil.mpcert",
+      "bytes": 471051,
+      "sha256": "1954ebf5326d517ef742b9a06273282223c00f2a4dcb9abb54effacae2a79960"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-NonzeroMakeIsNotNil.mpcert",
+      "bytes": 471051,
+      "sha256": "a82ca9da111d8744f6d6ee53d7473fde79f45146cc5dffedbfe88ac0aab96853"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-PayloadOfMake.mpcert",
+      "bytes": 471044,
+      "sha256": "8277fe360fc96d69f23c36ccdf080d2050fe991a2890bc26d533ec73b071cdfc"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt0.mpcert",
+      "bytes": 471046,
+      "sha256": "613b77d1de866530ce99ca3e0a1624e0991e1d15f46936ceafa7ffa03c60ec98"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt1.mpcert",
+      "bytes": 471046,
+      "sha256": "80d1e4773afce4176519cf0c1c1b9ef0567a53d974ff63337b8b931b1b69a0e1"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt10.mpcert",
+      "bytes": 471046,
+      "sha256": "4cd1aba0b710ae3a79ffa250c4d085262dd793c5df88e66621061fc4bd2c28e5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt11.mpcert",
+      "bytes": 471046,
+      "sha256": "a017a422bcf1b9857654c42e5bac9315cd30e81fd22eecdcb0e824f2c34000ea"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt12.mpcert",
+      "bytes": 471046,
+      "sha256": "af46324da68e78ee1dd2df83079031a9c4914d570fe501d55af0cd6295ac43ca"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt13.mpcert",
+      "bytes": 471046,
+      "sha256": "07c0063571de6386a9f41ebf05906ed04d5c06d18c04d8c336a378db5731d76f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt14.mpcert",
+      "bytes": 471046,
+      "sha256": "58863608fe412ae4e0d9396f50939475daf4317b2333af90da880e2962c110be"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt15.mpcert",
+      "bytes": 471046,
+      "sha256": "d0a7bbdbfefdff04528c62ade626b36c5a0ac3dd7bc3417b89e5d61e5aae53c0"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt16.mpcert",
+      "bytes": 471046,
+      "sha256": "ed25d4e73379db70adc47cf714d8b6cb7ed4661d6838f2518a5877f65bc48c07"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt17.mpcert",
+      "bytes": 471046,
+      "sha256": "a660b051073d605d129352d99c31e5e87e764b02fa1c0a068f074d335066b155"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt18.mpcert",
+      "bytes": 471046,
+      "sha256": "9e0f82c72fca8e2489d77296065195ef259be83eb081b26a09faa786253b5e20"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt19.mpcert",
+      "bytes": 471046,
+      "sha256": "bd9d9afeda082bca97e4e7251d56d7657ac3faadb5abe1f57e51470def7a34fb"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt2.mpcert",
+      "bytes": 471046,
+      "sha256": "33ba9a5daf272d0bdd78701e0adebc9e8ea1e14dcbb9d50dfbcbbebc9017db21"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt20.mpcert",
+      "bytes": 471046,
+      "sha256": "5eff0af20e7391c0c94fa48ba42c359417166cd4010f95b0d487f78bc3750a4b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt21.mpcert",
+      "bytes": 471046,
+      "sha256": "067619325157b830aedb4c5cf1370c2732f56b1564657545cc3ed6ed5d47a2e6"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt22.mpcert",
+      "bytes": 471046,
+      "sha256": "64a2294bb2912e0826239f66306109a70831143272491d219f49a355636b92fc"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt23.mpcert",
+      "bytes": 471046,
+      "sha256": "a1e163de83e63b8d17846c34eeaa39cfc7e501835f0c1b1cbb676f6910554653"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt24.mpcert",
+      "bytes": 471046,
+      "sha256": "abe3c4c9e91da4b7235b011d66a5c0141df2fdc961cc21ae193d36a30180c4c5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt25.mpcert",
+      "bytes": 471046,
+      "sha256": "2008fa965804c77c73545da33a262235bb2365f392bba9018829dc95b3e23dd6"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt26.mpcert",
+      "bytes": 471046,
+      "sha256": "d401239700d265ba799e6129d30f255db69e6ef6c2595983e206b789bc79c947"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt27.mpcert",
+      "bytes": 471046,
+      "sha256": "4d7f5590064f3658f276bda3549440f652b7d6ea257e9c5d679a62915482d4a7"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt28.mpcert",
+      "bytes": 471046,
+      "sha256": "ad7a940ae43d0e8b29ec21e0b5572aef6072fbed51346232e37373a7f1ac1094"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt29.mpcert",
+      "bytes": 471046,
+      "sha256": "510b4a882d089037b1a0b25ca90f8600b876b19d33363381a6edf5dbcbcd0056"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt3.mpcert",
+      "bytes": 471046,
+      "sha256": "b0cf86c4c67c75c66c37fa57e61455c7e6aeeeab0ff6f13959ff293a965a2a64"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt30.mpcert",
+      "bytes": 471046,
+      "sha256": "66112c499cd336eb32a239ff497461a6a2678a95786b036948e9b17f39cadb66"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt31.mpcert",
+      "bytes": 471046,
+      "sha256": "0063d07e8eb15d0d77f6a32c52f8cace8a8e5194f8c43b27aa366d28b64e3f4f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt32.mpcert",
+      "bytes": 471046,
+      "sha256": "01a720de7a23399e07dbf3145f41795b9504c4a61f5b7e3f899108943de65f71"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt33.mpcert",
+      "bytes": 471046,
+      "sha256": "2d222868023e412675d868d9ac0bbf7b6fed3ee039f2fe8c1506c8c8989a2224"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt34.mpcert",
+      "bytes": 471046,
+      "sha256": "a3dd5ff5ef8ae365f1bfb656fc1ec9dee79c59828c97cd0ef9874805f01e9b07"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt35.mpcert",
+      "bytes": 471046,
+      "sha256": "79b8bfd8d2244fef79a7aa2f6838db1e8e4909dafb348db48d748485547790ac"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt36.mpcert",
+      "bytes": 471046,
+      "sha256": "bc35c7ad627c12178ef06425de0da49dbb1fcf3c4ffe8a1b87cb198081cdc25d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt37.mpcert",
+      "bytes": 471046,
+      "sha256": "544ca3d6793c118c34b57debedade066304190441f08b9639083a6039ad08877"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt38.mpcert",
+      "bytes": 471046,
+      "sha256": "3f460d321787130fd87517bf277c0a05160eb822a52bef48ad57c25488ee2a48"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt39.mpcert",
+      "bytes": 471046,
+      "sha256": "da071ceccd32b0c4877bbf0b2a40801a0b049ef1a0688092dcefbed8d7f70ab3"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt4.mpcert",
+      "bytes": 471046,
+      "sha256": "d682868680110f83079eda4f04e738356718159ab01f92b5ac7f61580de8838b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt40.mpcert",
+      "bytes": 471046,
+      "sha256": "708ab18373cfd66c22f10070d2a54d51d3669ac90d3c23105963af637e667967"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt41.mpcert",
+      "bytes": 471046,
+      "sha256": "7102cdbe98c702becd477f4a317c613cc65c10def3e865662132e9fd2fe3aaf8"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt42.mpcert",
+      "bytes": 471046,
+      "sha256": "b1a201aa4aab271b9691faefd0cbeb47e3200bf03864b18db15b5463b47eb25e"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt43.mpcert",
+      "bytes": 471046,
+      "sha256": "8f6296deeb89ee26b48cc21a584110372a36268e954c1c357971c16a3945b899"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt44.mpcert",
+      "bytes": 471046,
+      "sha256": "cf6b4eec5297b8cbfe40aa3c6b5571425585268cc1fdc151c600cebc12334176"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt45.mpcert",
+      "bytes": 471046,
+      "sha256": "22ab719363a1ba41edaa6f43169927838156c0e2e9b78e01fda164a36d63b5b2"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt46.mpcert",
+      "bytes": 471046,
+      "sha256": "053d50b4d83db8f00aec599d3f0dd19117b08e26203a8e777470bf7d04836b97"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt47.mpcert",
+      "bytes": 471046,
+      "sha256": "2f6be3dca5d5112976ee25419978ac74f5f8753b9cb80c7eae38c84e5be6ecf5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt48.mpcert",
+      "bytes": 471046,
+      "sha256": "f7276f7dcd4de61db1af9eb25b815f6846035a5d1cede120a22efa532f274584"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt49.mpcert",
+      "bytes": 471046,
+      "sha256": "5b8c4c4b71bef5d6790cb89bd16a2de09ce40c93917a9483efdd8a0c79d97b67"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt5.mpcert",
+      "bytes": 471046,
+      "sha256": "83bb3b81db351b0f5b3550edd09c80fd4d3e3c080870746760506642b6545750"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt50.mpcert",
+      "bytes": 471046,
+      "sha256": "76150b5cd8b1307004754728b9d92fe1d1e6d2cedf1a645c1e15e7477d077ece"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt51.mpcert",
+      "bytes": 471046,
+      "sha256": "dad380c54818312ec0bd8e30e93fb026c95d33cc0a74ede77ebc4dc0703312d5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt52.mpcert",
+      "bytes": 471046,
+      "sha256": "2c1d9b44d62e2cdccefd5592c9c4c2794598bb95831c27d0c871f00fe4e02208"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt53.mpcert",
+      "bytes": 471046,
+      "sha256": "7755f014ba077f015b1cbba552cc9bc646afedec6f8cf4dcbde74b41d9edc712"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt54.mpcert",
+      "bytes": 471046,
+      "sha256": "f059745c2a65b9227125ef9f922c20c0fb07d630034e413c42a04eb619c42407"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt55.mpcert",
+      "bytes": 471046,
+      "sha256": "f34675eaad38a83a245a70a8467e0c60a8d4691cab63eb439364ffa4b89ee9e5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt56.mpcert",
+      "bytes": 471046,
+      "sha256": "4d550c542eafdcd204108a0e24a4ff3cf258272a1ce2b0f532d6eab086d861b3"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt57.mpcert",
+      "bytes": 471046,
+      "sha256": "e628f6d9b9c6ca12b4a24431401515d5c2c33ea7e0b7320008c0d158b4502be5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt58.mpcert",
+      "bytes": 471046,
+      "sha256": "875f2e35bd7486e8d70d628519792b2733f4cedcc114e76b7d6ea3f34ca181f5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt59.mpcert",
+      "bytes": 471046,
+      "sha256": "5f837ef75a9240c2024b4397c997facc6be0466afd9958f823ae6775b4e65097"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt6.mpcert",
+      "bytes": 471046,
+      "sha256": "b24d16652b1b9ca53c8a7c6e3af23d2f8931702e765d9fb217e973a10658b73b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt60.mpcert",
+      "bytes": 471046,
+      "sha256": "3caa9c498452d1e56ac73efefa27a3e8630a9603a4691c9321588907b893fe44"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt61.mpcert",
+      "bytes": 471046,
+      "sha256": "9ad4a9866ab82f3972ca61c1f4d229a76ddade89522609fd434b2ecf8f229de1"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt62.mpcert",
+      "bytes": 471046,
+      "sha256": "2aee70e1bc5dc9b0e36177b6ece7ac9a7bd74aa3b100ab165e5b10d2d5add0d0"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt63.mpcert",
+      "bytes": 471046,
+      "sha256": "f63c81d8b9a8313c76fa19502574f78d08f91b42d44bccfc427b48463105cdc0"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt7.mpcert",
+      "bytes": 471046,
+      "sha256": "36e993bc809b7579bdc631c79e0963c02293979b29ffcc96632d38d1d321e808"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt8.mpcert",
+      "bytes": 471046,
+      "sha256": "37a1d1a5824db0a6151d07bdf1adbbc204a7bf21449be49587acccbded9e5e9c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagDifferentAt9.mpcert",
+      "bytes": 471046,
+      "sha256": "f9471a100447730e6de7777b927bc70967a693cbeffe43963ea7498c7284f068"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagEqualReflexive.mpcert",
+      "bytes": 471033,
+      "sha256": "9cdca6b60efbf23222524b1a927535893cac1c4f33eb8d42d9862069ca05531a"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagOfMake.mpcert",
+      "bytes": 471044,
+      "sha256": "9e330820133db19789a3a3873161813a59405fb1b1f64cf10b47036a3ca02a13"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-TagOneIsNonzero.mpcert",
+      "bytes": 471027,
+      "sha256": "adbd0e069e8f6644a75e64f94a6629609dfaee5b8b1ced1ffdf20dbb6751a14d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-concrete-zero-is-nil.mpcert",
+      "bytes": 472604,
+      "sha256": "3bbbf136e5d71138a56d458da75777adae6bf07823590898845a01e820ca6e42"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-high-tag-is-nil.mpcert",
+      "bytes": 472599,
+      "sha256": "a5a5905801b98fcb2457e95021e716b5eb54aa6ce63259835b0d5106c9ea371c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/false-nil-is-non-nil.mpcert",
+      "bytes": 472598,
+      "sha256": "48ad9fe43029c1f98c18cf54cace92eddfb59f7527d036914709b2beaed04366"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/low-bit-nil.mpcert",
+      "bytes": 471069,
+      "sha256": "309407ef7c0f1247ad2a05b666a4a5210f05ca438ab27ffadc5db9c56c9a30f5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-layouts/affected/certificates/error-values/wrong-nil-tag.mpcert",
+      "bytes": 471038,
+      "sha256": "e06fc0c2a0ab771d67cefff89014fc0905c0c74b7c04a10767518cdbcab793f2"
+    }
+  ],
+  "finished_at_utc": "2026-10-22T04:09:07.838199+00:00"
+}
