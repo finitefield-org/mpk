@@ -3,6 +3,11 @@
 use super::*;
 use std::sync::Arc;
 mod directives;
+mod error_dispatch;
+pub use error_dispatch::{
+    derive_go_source_error_selection, GoSourceErrorDispatch, GoSourceErrorSelection,
+    GoSourceErrorSelectionError,
+};
 
 pub(super) fn compiler_directive(
     scopes: &GoSourceScopes,
@@ -105,6 +110,28 @@ pub struct GoSourceSelectionCall {
     callee: GoSourceSelectionRef,
     node: usize,
 }
+/// A single original receiver operand. It still requires a non-nil safety proof.
+#[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+pub struct GoSourceErrorCall {
+    caller: GoSourceSelectionRef,
+    node: usize,
+    receiver: usize,
+    expression: bool,
+}
+impl GoSourceErrorCall {
+    pub fn caller(&self) -> &GoSourceSelectionRef {
+        &self.caller
+    }
+    pub fn call_node(&self) -> usize {
+        self.node
+    }
+    pub fn receiver_node(&self) -> usize {
+        self.receiver
+    }
+    pub fn method_expression(&self) -> bool {
+        self.expression
+    }
+}
 impl GoSourceSelectionCall {
     pub fn caller(&self) -> &GoSourceSelectionRef {
         &self.caller
@@ -172,8 +199,34 @@ pub struct GoSourceSelection {
     calls: Vec<GoSourceSelectionCall>,
     error_boxings: Vec<GoErrorBoxing>,
     boxed_error_types: Vec<String>,
+    error_calls: Vec<GoSourceErrorCall>,
+    body_types: BTreeMap<GoSourceSelectionRef, GoSelectedBodyTypes>,
+}
+/// Lightweight checked graph; no per-body copy of all original source scopes.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(super) struct GoSelectedBodyTypes {
+    pub(super) types: BTreeMap<String, GoSourceTypeKey>,
+    pub(super) underlying: BTreeMap<String, String>,
+    pub(super) declarations: BTreeMap<String, GoTypeDeclarationKey>,
+    pub(super) implementations: Vec<GoErrorImplementation>,
+}
+impl GoSelectedBodyTypes {
+    fn checked(typing: &GoValueTyping) -> Self {
+        Self {
+            types: typing.types.clone(),
+            underlying: typing.underlying.clone(),
+            declarations: typing.declarations.clone(),
+            implementations: typing.error_implementations.clone(),
+        }
+    }
 }
 impl GoSourceSelection {
+    pub(super) fn checked_body_types(
+        &self,
+        r: &GoSourceSelectionRef,
+    ) -> Option<&GoSelectedBodyTypes> {
+        self.body_types.get(r)
+    }
     pub(super) fn scopes(&self) -> &GoSourceScopes {
         &self.scopes
     }
@@ -194,6 +247,9 @@ impl GoSourceSelection {
     }
     pub fn calls(&self) -> &[GoSourceSelectionCall] {
         &self.calls
+    }
+    pub fn error_calls(&self) -> &[GoSourceErrorCall] {
+        &self.error_calls
     }
     /// Concrete-to-error sites in selected bodies, including all branches but
     /// excluding unevaluated operands. Entry error cases are separate inputs.
@@ -219,12 +275,16 @@ struct Pending {
 }
 struct Selection<'a> {
     scopes: &'a GoSourceScopes,
+    graph_engine: Engine<'a>,
     originals: BTreeMap<GoSourceSelectionRef, Original>,
     work: Vec<Pending>,
     done: BTreeSet<(GoSourceSelectionRef, GoSourceSelectionRole)>,
     dependencies: BTreeSet<GoSourceSelectionDependency>,
     calls: BTreeSet<GoSourceSelectionCall>,
     error_boxings: BTreeSet<GoErrorBoxing>,
+    allow_error_calls: bool,
+    error_calls: BTreeMap<GoSourceErrorCall, Vec<GoSourceSelectionRef>>,
+    body_types: BTreeMap<GoSourceSelectionRef, GoSelectedBodyTypes>,
 }
 fn fail(
     locator: &GoSourceSelectionRef,
@@ -323,12 +383,16 @@ impl<'a> Selection<'a> {
         }
         Self {
             scopes,
+            graph_engine: Engine::new(scopes),
             originals,
             work: vec![],
             done: BTreeSet::new(),
             dependencies: BTreeSet::new(),
             calls: BTreeSet::new(),
             error_boxings: BTreeSet::new(),
+            allow_error_calls: false,
+            error_calls: BTreeMap::new(),
+            body_types: BTreeMap::new(),
         }
     }
     fn need(
@@ -429,9 +493,8 @@ impl<'a> Selection<'a> {
         graph: &GoDerivedSourceTypes,
         path: &[GoSourceSelectionRef],
     ) -> SelectionResult<()> {
-        let mut engine = Engine::new(self.scopes);
         if let Some(root) = graph.roots().first() {
-            engine
+            self.graph_engine
                 .graph_type(graph, root)
                 .map_err(|e| fail(from, from.node, GoSourceSelectionErrorKind::Typing(e), path))?;
         }
@@ -467,7 +530,19 @@ impl<'a> Selection<'a> {
                 )?;
             }
         }
-        for implementation in engine.error_implementations.values().flatten() {
+        // Reuse the original method index, but attach only this graph's own
+        // compatibility dependencies to this declaration.
+        let implementations = graph
+            .types()
+            .filter_map(|key| {
+                self.graph_engine
+                    .error_implementations
+                    .get(key.id())
+                    .cloned()
+                    .flatten()
+            })
+            .collect::<Vec<_>>();
+        for implementation in implementations {
             let method = implementation.method();
             if !method.receiver_path().is_empty() {
                 return Err(fail(
@@ -699,34 +774,59 @@ impl<'a> Selection<'a> {
                                     path,
                                 ));
                             }
-                            let (Some(source), Some(declaration)) = (
-                                method.declaration_source_object_id(),
-                                method.declaration_node(),
-                            ) else {
-                                return Err(fail(
-                                    from,
-                                    node,
-                                    GoSourceSelectionErrorKind::Unsupported,
+                            if method.declaration_node().is_none() && self.allow_error_calls {
+                                if runtime {
+                                    let receiver = if header.method_expression() {
+                                        *list(&n, "Args").first().ok_or_else(|| {
+                                            fail(
+                                                from,
+                                                node,
+                                                GoSourceSelectionErrorKind::Unsupported,
+                                                path,
+                                            )
+                                        })?
+                                    } else {
+                                        header.receiver_node()
+                                    };
+                                    self.error_calls.insert(
+                                        GoSourceErrorCall {
+                                            caller: from.clone(),
+                                            node,
+                                            receiver,
+                                            expression: header.method_expression(),
+                                        },
+                                        path.to_vec(),
+                                    );
+                                }
+                            } else {
+                                let (Some(source), Some(declaration)) = (
+                                    method.declaration_source_object_id(),
+                                    method.declaration_node(),
+                                ) else {
+                                    return Err(fail(
+                                        from,
+                                        node,
+                                        GoSourceSelectionErrorKind::Unsupported,
+                                        path,
+                                    ));
+                                };
+                                let target = GoSourceSelectionRef::new(source, declaration);
+                                self.need(
+                                    target.clone(),
+                                    GoSourceSelectionRole::SignatureDependency,
                                     path,
-                                ));
-                            };
-                            let target = GoSourceSelectionRef::new(source, declaration);
-                            self.need(
-                                target.clone(),
-                                GoSourceSelectionRole::SignatureDependency,
-                                path,
-                            )?;
-                            if runtime {
-                                self.calls.insert(GoSourceSelectionCall {
-                                    caller: from.clone(),
-                                    callee: target.clone(),
-                                    node,
-                                });
-                                self.need(target, GoSourceSelectionRole::BodyDependency, path)?;
+                                )?;
+                                if runtime {
+                                    self.calls.insert(GoSourceSelectionCall {
+                                        caller: from.clone(),
+                                        callee: target.clone(),
+                                        node,
+                                    });
+                                    self.need(target, GoSourceSelectionRole::BodyDependency, path)?;
+                                }
                             }
-                            let selector = self.node(&from.source, header.function_node());
                             tasks.push((
-                                child(selector, "X").map_err(err)?,
+                                header.receiver_node(),
                                 runtime && !header.method_expression(),
                             ));
                         }
@@ -1025,6 +1125,10 @@ impl<'a> Selection<'a> {
                         Some(body.typing()),
                         &w.path,
                     )?;
+                    self.body_types.insert(
+                        w.locator.clone(),
+                        GoSelectedBodyTypes::checked(body.typing()),
+                    );
                 }
             }
             "TypeSpec" => self.walk(
@@ -1221,6 +1325,8 @@ pub fn derive_go_source_selection(
         .into_iter()
         .collect();
     let error_boxings = builder.error_boxings.into_iter().collect();
+    let error_calls = builder.error_calls.into_keys().collect();
+    let body_types = builder.body_types;
     Ok(GoSourceSelection {
         scopes: Arc::new(scopes),
         packages: keys.wire.packages.clone(),
@@ -1230,5 +1336,7 @@ pub fn derive_go_source_selection(
         calls,
         error_boxings,
         boxed_error_types,
+        error_calls,
+        body_types,
     })
 }

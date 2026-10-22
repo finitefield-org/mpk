@@ -7759,3 +7759,25 @@ full capture/overlay/context binding, finite Error dispatch, dynamic entry/store
 frame/runtime/program proofs, full56 foundation/private registry and nativeLinux/
 all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open, public profile
 stays inactive and the T02 full gate stays finalW04: `./scripts/check-fast.sh`.
+
+## 155. T02-W01 finite original Error source selection
+
+The [finite Error source-selection checkpoint](../migrations/go-practical/t02-w01/verification/error-dispatch/README.md)
+expands every original interface invocation to the single growing union of
+entry/body cases. All possible original target bodies add their actual calls,
+boxings and dependencies until no call/case pair remains. Receiver operand spans,
+aliases/parentheses, global target conservatism, boxing-only signatures and
+root-to-target effect/cycle rejections remain explicit. Go metadata now includes
+executed bound receiver producers. Three new/18 affected old Rust roots,23
+intact native comparisons,70 explicit tags/70 growth rounds, old51 native closure
+cases and scoped Clippy/vet/formats pass. The190 production inputs rebuild twice
+from independent empty caches to identical8592898-byte outputs with SHA256
+`7b5e4fecdd8ba29bc62ceb1e621bd0c7e8adfd80d40d53b5db04269135f00738`.
+A sampled partial initial run is retained as interrupted; checked lightweight
+body graphs and shared original method indexing remove repeated work before the
+complete suite passes. Original old vectors remain intact; exactly three direct
+builtin-error headers gain exact native comparison. Application-role/capture/
+overlay/context authority, dynamic receiver/nil/callee-contract/runtime/store/
+frame/state/program proofs, full56 foundation/private registry and nativeLinux/
+all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 remain open, public profile
+stays inactive and the T02 full gate stays finalW04: `./scripts/check-fast.sh`.

@@ -422,8 +422,16 @@ impl Engine<'_> {
             return Err(GoScalarTypingError::Unsupported);
         }
         let (method, signature) = self.source_method(&candidate, path)?;
-        let signature = signature.ok_or(GoScalarTypingError::Unsupported)?;
-        self.graph_type(signature.types(), &method.receiver)?;
+        if let Some(signature) = signature {
+            self.graph_type(signature.types(), &method.receiver)?;
+        } else {
+            // Only the actual predeclared error method has no original FuncDecl.
+            // This is header typing; finite targets and nil safety are separate.
+            if !self.is_error(typ) || method.name != "Error" || !method.path.is_empty() {
+                return Err(GoScalarTypingError::Unsupported);
+            }
+            self.builtin("string")?;
+        }
         let mut parameters = vec![];
         if expression {
             parameters.push(typ.into())

@@ -1,0 +1,18 @@
+{
+  "status": "profile_observed",
+  "actual_sampling_command": [
+    "/usr/bin/sample",
+    "55387",
+    "2",
+    "1",
+    "-file",
+    "/private/tmp/mpk-error-dispatch-first.sample.txt"
+  ],
+  "raw_sample_bytes": 1054858,
+  "raw_sample_sha256": "b789459c5892d99d716fd406aa6eaea43a37025de043b85f1cacc4ef7f4d4952",
+  "original_test_epoch": "first",
+  "observed_process": "/Users/kazuyoshitoshiya/ff/mpk/target/debug/deps/go_practical_error_dispatch-05da831c430fc891",
+  "reason_for_interrupt": "Actual sample shows repeated method receiver indexing within Selection::graph and repeated value-domain construction. Preserve this partial baseline, share the immutable graph engine and reuse previously checked lightweight body types before completing the same full case suite. This is an implementation performance repair, not an observation-timeout restart.",
+  "complete_baseline_suite_passed": false,
+  "signal": 2
+}

@@ -16,6 +16,18 @@ pub struct GoErrorEntryConstraint {
     cases: Vec<GoSourceSelectionRef>,
 }
 impl GoErrorEntryConstraint {
+    pub fn root(&self) -> &GoSourceSelectionRef {
+        &self.root
+    }
+    pub fn input_position(&self) -> usize {
+        self.input
+    }
+    pub fn path(&self) -> &[GoErrorEntryStep] {
+        &self.path
+    }
+    pub fn cases(&self) -> &[GoSourceSelectionRef] {
+        &self.cases
+    }
     pub fn new(
         root: GoSourceSelectionRef,
         input: usize,
@@ -198,19 +210,19 @@ impl Domain<'_> {
         }
         Ok(())
     }
-    fn absorb(&mut self, typing: &GoValueTyping) -> DomainResult<()> {
-        for key in typing.types() {
+    fn absorb(&mut self, typing: &selection::GoSelectedBodyTypes) -> DomainResult<()> {
+        for key in typing.types.values() {
             self.engine
                 .put_key(key.clone())
                 .map_err(|e| failure(GoSourceDomainErrorKind::Typing(e), Some(key.id())))?;
-            if let Some(base) = typing.underlying(key.id()) {
+            if let Some(base) = typing.underlying.get(key.id()) {
                 self.engine.underlying.insert(key.id().into(), base.into());
             }
         }
-        for d in typing.declarations() {
+        for d in typing.declarations.values() {
             self.engine.declarations.insert(d.id.clone(), d.clone());
         }
-        for implementation in typing.error_implementations() {
+        for implementation in &typing.implementations {
             self.engine.error_implementations.insert(
                 implementation.value_type_id().into(),
                 Some(implementation.clone()),
@@ -399,18 +411,13 @@ pub fn derive_go_source_value_domain(
                     GoSourceSelectionRole::SelectedRoot | GoSourceSelectionRole::BodyDependency
                 )
             }) {
-                let body = check_go_function_body(scopes, r.source_object_id(), r.node()).map_err(
-                    |e| {
-                        failure(
-                            GoSourceDomainErrorKind::Typing(match e.kind() {
-                                GoBodyErrorKind::Typing(t) => *t,
-                                _ => GoScalarTypingError::Unsupported,
-                            }),
-                            None,
-                        )
-                    },
-                )?;
-                domain.absorb(body.typing())?;
+                let body = selection.checked_body_types(r).ok_or_else(|| {
+                    failure(
+                        GoSourceDomainErrorKind::Typing(GoScalarTypingError::Locator),
+                        None,
+                    )
+                })?;
+                domain.absorb(body)?;
             }
         } else if d.kind() == "type" {
             let graph = derive_go_source_type_declaration(scopes, r.source_object_id(), r.node())

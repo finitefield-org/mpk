@@ -1367,3 +1367,12 @@ original owner IDs and array-length/slice-capacity distinctions. Scoped source
 checks pass; application/stdlib role authority, raw overlay/context binding,
 finite Error dispatch, runtime/store/frame/program proofs and R01/R06/W01
 completion remain due. Go/Rust only; the T02 full gate remains final W04.
+
+The [finite Error source-selection checkpoint](verification/error-dispatch/README.md)
+combines explicit entry cases and original body boxings in a growing worklist.
+Every possible Error target body contributes dependencies and further cases;
+70 explicit targets and70 successive growth rounds are checked without a small
+case/iteration cap. Original bound receiver expressions are also included as
+executed dependencies in Go metadata. Scoped source checks pass; receiver-once/
+nil/callee-contract runtime proofs and complete capture/overlay/context authority
+remain due. R01/R06/W01 stay open, Go/Rust only, and the T02 gate stays final W04.

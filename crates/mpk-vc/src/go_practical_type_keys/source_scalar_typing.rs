@@ -28,9 +28,11 @@ pub use methods::{GoErrorImplementation, GoMethodCallHeader, GoSourceMethod};
 use operators::comparison;
 pub use returns::{check_go_return_statement, GoReturnTyping};
 pub use selection::{
-    derive_go_source_selection, GoSourceSelection, GoSourceSelectionCall,
-    GoSourceSelectionDeclaration, GoSourceSelectionDependency, GoSourceSelectionError,
-    GoSourceSelectionErrorKind, GoSourceSelectionRef, GoSourceSelectionRole,
+    derive_go_source_error_selection, derive_go_source_selection, GoSourceErrorCall,
+    GoSourceErrorDispatch, GoSourceErrorSelection, GoSourceErrorSelectionError, GoSourceSelection,
+    GoSourceSelectionCall, GoSourceSelectionDeclaration, GoSourceSelectionDependency,
+    GoSourceSelectionError, GoSourceSelectionErrorKind, GoSourceSelectionRef,
+    GoSourceSelectionRole,
 };
 pub use slice_builtins::GoSliceBuiltinHeader;
 

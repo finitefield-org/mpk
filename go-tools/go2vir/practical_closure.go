@@ -573,6 +573,13 @@ func (b *practicalClosureBuilder) walk(ref practicalClosureRef, roots []ast.Node
 				}
 			}
 		arguments:
+			if selection != nil && selection.Kind() == types.MethodVal {
+				// The method name is a signature reference, but its bound receiver
+				// is an evaluated operand even when the target is an interface call.
+				if selector, ok := practicalClosureUnparen(n.Fun).(*ast.SelectorExpr); ok {
+					push(selector.X, t.runtime, false)
+				}
+			}
 			for i := len(n.Args) - 1; i >= 0; i-- {
 				push(n.Args[i], runArgs, false)
 			}

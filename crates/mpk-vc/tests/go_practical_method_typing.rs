@@ -148,7 +148,22 @@ fn matches_original_go_method_and_error_types() {
             }
         };
         retain(&format!("case-{n:05}-actual.json"), &outcome);
-        if input["outside_value_typing"] == true && row["native"]["accepted"] == true {
+        // The original corpus predates finite error invocation headers. Keep
+        // its bytes intact while promoting exactly the actual direct builtin
+        // error calls; promoted/interface/pointer method values stay outside.
+        let direct_error_call = row["native"]["method_calls"]
+            .as_array()
+            .is_some_and(|calls| {
+                calls.len() == 1
+                    && calls[0]["declaration_source"].is_null()
+                    && calls[0]["selected_receiver"]["kind"] == "builtin"
+                    && calls[0]["selected_receiver"]["name"] == "error"
+                    && calls[0]["path"].as_array().is_some_and(Vec::is_empty)
+            });
+        if input["outside_value_typing"] == true
+            && row["native"]["accepted"] == true
+            && !direct_error_call
+        {
             assert!(row["native"]["accepted"] == true);
             if actual.is_ok() {
                 failures.push(format!("outside case {n} {} accepted", input["label"]));
