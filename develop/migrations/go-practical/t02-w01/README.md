@@ -1376,3 +1376,13 @@ case/iteration cap. Original bound receiver expressions are also included as
 executed dependencies in Go metadata. Scoped source checks pass; receiver-once/
 nil/callee-contract runtime proofs and complete capture/overlay/context authority
 remain due. R01/R06/W01 stay open, Go/Rust only, and the T02 gate stays final W04.
+
+The [original source-overlay checkpoint](verification/source-overlays/README.md)
+reads exact captured sidecar bytes, preflights all70 closed expression heads and
+binds original package/function/value-receiver selectors, complete named entry
+error paths and exact physical loops. It connects explicit entry overlays to
+finite source selection without creating capture-dependent binding/contract IDs.
+Thirteen actual source/sidecar pairs,70 input slots and source budgets are checked.
+Expression typing, full logical/header namespaces and whole-module optional
+sidecar/default contract reconstruction remain due; R01/R06/W01 stay open.
+Go/Rust only, with the T02 full gate still deferred to final W04.

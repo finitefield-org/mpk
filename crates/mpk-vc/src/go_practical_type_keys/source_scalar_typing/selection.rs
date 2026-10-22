@@ -1092,7 +1092,12 @@ impl<'a> Selection<'a> {
                     &w.path,
                 )?;
                 if role == GoSourceSelectionRole::BodyDependency {
-                    if signature.name() == Some("init") {
+                    if signature.name() == Some("init")
+                        && !signature
+                            .slots()
+                            .iter()
+                            .any(|s| s.role() == GoSourceSignatureRole::Receiver)
+                    {
                         return Err(fail(
                             &w.locator,
                             w.locator.node,

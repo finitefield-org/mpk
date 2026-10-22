@@ -7781,3 +7781,26 @@ overlay/context authority, dynamic receiver/nil/callee-contract/runtime/store/
 frame/state/program proofs, full56 foundation/private registry and nativeLinux/
 all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 remain open, public profile
 stays inactive and the T02 full gate stays finalW04: `./scripts/check-fast.sh`.
+
+## 156. T02-W01 original source-overlay syntax and entry binding
+
+The [source-overlay checkpoint](../migrations/go-practical/t02-w01/verification/source-overlays/README.md)
+retains exact original sidecar bytes, closes all70 source-expression syntax arms
+and binds actual package/function/value receiver aliases, signature-ordered
+entry paths and exact physical loop selectors. A saturating type-DAG path count
+requires complete entry coverage without exponential path enumeration. Explicit
+entry overlays feed the same finite Error selection; no capture-dependent IDs,
+normalized contract or typed-expression authority is invented. Five new/seven
+affected Rust roots,13 actual native source/sidecar comparisons,70 input slots,
+syntax/node/depth/byte boundaries, old51 native cases and Clippy/vet/formats pass.
+Package initialization remains excluded while ordinary value methods named init
+are now distinguished correctly.190 production inputs rebuild twice from
+independent empty caches to identical8592898-byte outputs with SHA256
+`83a70eb46d774cfbf9e76910685ceefe7cbe20f6bde62f0f9025777a0e2ba28e`.
+Original root-guard/style/coverage failures remain retained. Logical expression
+types/header/bound/snapshot namespaces, whole-module optional sidecars/default
+contracts, canonical blank-field zero obligations, application-role/capture/
+context authority and all runtime/source/program proofs, full56 foundation/
+private registry and nativeLinux/all169/T02–T11 remain due. Go/Rust only;
+R01/R06/W01 stay open, public profile stays inactive and the T02 gate stays
+finalW04: `./scripts/check-fast.sh`.

@@ -18,7 +18,7 @@ fn digest(value: &str) -> bool {
             .bytes()
             .all(|c| c.is_ascii_digit() || (b'a'..=b'f').contains(&c))
 }
-fn logical_path(value: &str) -> bool {
+pub(super) fn logical_path(value: &str) -> bool {
     !value.is_empty()
         && value.len() <= 1024
         && !value.starts_with('/')
@@ -26,7 +26,7 @@ fn logical_path(value: &str) -> bool {
         && !value.chars().any(|c| c < ' ')
         && value.split('/').all(|p| !matches!(p, "" | "." | ".."))
 }
-fn identifier(value: &str) -> bool {
+pub(super) fn identifier(value: &str) -> bool {
     if matches!(
         value,
         "break"

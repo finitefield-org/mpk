@@ -118,10 +118,10 @@ impl GoDeclaredSourceBindingType {
         &self.types
     }
 }
-fn attr<'a>(node: &'a GoSyntaxNode, key: &str) -> Option<&'a str> {
+pub(super) fn attr<'a>(node: &'a GoSyntaxNode, key: &str) -> Option<&'a str> {
     node.attributes().find_map(|(k, v)| (k == key).then_some(v))
 }
-fn list<'a>(node: &'a GoSyntaxNode, role: &str) -> &'a [usize] {
+pub(super) fn list<'a>(node: &'a GoSyntaxNode, role: &str) -> &'a [usize] {
     node.edges()
         .iter()
         .find(|e| e.role() == role)

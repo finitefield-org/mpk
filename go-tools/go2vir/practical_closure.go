@@ -734,7 +734,7 @@ func (b *practicalClosureBuilder) process(w practicalClosureWork) error {
 			return err
 		}
 		if role == "body_dependency" {
-			if n.Name.Name == "init" {
+			if n.Name.Name == "init" && n.Recv == nil {
 				if err := b.issue("initialization_root", w.ref, n, w.path); err != nil {
 					return err
 				}
