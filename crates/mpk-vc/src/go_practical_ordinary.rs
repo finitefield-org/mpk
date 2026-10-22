@@ -13,6 +13,7 @@ use sha2::{Digest, Sha256};
 mod array;
 mod composition;
 mod dependencies;
+mod error_value;
 mod finite_vector;
 mod integer;
 mod natural;
@@ -202,6 +203,17 @@ pub struct GoProductFoundation {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoProductRelationFoundation {
     certificate: Vec<u8>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct GoErrorValueFoundation {
+    certificate: Vec<u8>,
+}
+
+impl GoErrorValueFoundation {
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -2227,6 +2239,33 @@ pub fn import_go_practical_product_relation_foundation(
         return Err(GoOrdinaryError::Limit);
     }
     let expected = generate_go_practical_product_relation_foundation()?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
+/// Full 64-bit tags paired with an entire payload in an observation view.
+/// Exact frozen-layout adapters, source universes and dispatch remain separate.
+pub fn generate_go_practical_error_value_foundation() -> Result<GoErrorValueFoundation> {
+    let mut builder = range_builder()?;
+    let recipes = word::append_with_recipes(&mut builder)?;
+    product::append(&mut builder)?;
+    product_relation::append(&mut builder)?;
+    error_value::append(&mut builder, &recipes)?;
+    builder.certificate.module = "Mpk.Go.Practical.ErrorValueFoundation".into();
+    Ok(GoErrorValueFoundation {
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_error_value_foundation(
+    candidate: &[u8],
+) -> Result<GoErrorValueFoundation> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_error_value_foundation()?;
     if candidate != expected.certificate_bytes() {
         return Err(GoOrdinaryError::Linkage);
     }

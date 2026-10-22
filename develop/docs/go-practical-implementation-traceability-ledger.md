@@ -7850,3 +7850,25 @@ proofs, full56 foundation/private registry/nativeLinux/all169/T02–T11 remain d
 Earlier unchanged historical-scope findings remain for final-gate resolution.
 Go/Rust only; R01/R06/W01 stay open, the public profile stays inactive and the
 T02 full gate remains final W04: `./scripts/check-fast.sh`.
+
+## 159. T02-W01 ordinary tagged error-value observations
+
+The [tagged error-value checkpoint](../migrations/go-practical/t02-w01/verification/error-values/README.md)
+adds9 ordinary definitions and90 laws for complete64-bit tags and an arbitrary
+whole payload observation view. Full-tag reflexivity, mismatch at each bit,
+nil/nonzero constructors, concrete-zero non-nil and copy preservation require
+actual checked witnesses; no function extensionality or new reduction is used.
+All1892 original Word and94 Product.Relation identities and raw producer hashes
+remain exact. Four new/eight affected Rust roots, scoped Clippy/format and169
+same-byte library streams pass: two zero-axiom acceptances and167 genuine type
+rejections. All64 single-bit tags/four two-field payloads give528 actual-DAG
+observations. Original fuel, computed-major and malformed-test-name failures
+remain retained; none supplies semantic-negative evidence. The pair is a view,
+and adapters to the exact frozen balanced error carrier, source U/tag/zero/
+inactive-field validity and dynamic receiver/nil/dispatch/precondition/result/
+frame/store/runtime/program proofs remain due. Full56 foundation/private
+registry/context, canonical scope/contract/capture authority, native Linux and
+all169 application demands/T02-T11 remain open. Earlier historical-scope
+findings remain for the final gate. Go/Rust only; R01/R06/W01 stay open, the
+public profile stays inactive and the T02 full gate stays final W04:
+`./scripts/check-fast.sh`.
