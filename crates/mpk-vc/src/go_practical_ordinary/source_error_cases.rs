@@ -121,6 +121,14 @@ impl GoSourceErrorCaseCatalogue {
     /// A row selects one boxed source type, while testing every target in the
     /// same complete U. Selection never changes carriers, payloads or U.
     pub fn generate_row(&self, boxed_type: &str) -> Result<GoSourceErrorCaseRow> {
+        let (builder, mut row) = self.row_builder(boxed_type)?;
+        row.certificate = builder.finish()?;
+        Ok(row)
+    }
+    pub(super) fn base_builder(&self) -> Builder {
+        self.builder.clone()
+    }
+    pub(super) fn row_builder(&self, boxed_type: &str) -> Result<(Builder, GoSourceErrorCaseRow)> {
         let (_, ordinal) = self
             .cases
             .iter()
@@ -218,15 +226,16 @@ impl GoSourceErrorCaseCatalogue {
             )?;
         }
         builder.certificate.module = module.clone();
-        Ok(GoSourceErrorCaseRow {
+        let row = GoSourceErrorCaseRow {
             source_module: self.source_module.clone(),
             boxing_module: self.boxing_module.clone(),
             operations_module: self.operations_module.clone(),
             module,
             boxed_type: boxed_type.into(),
             cases: self.cases.clone(),
-            certificate: builder.finish()?,
-        })
+            certificate: vec![],
+        };
+        Ok((builder, row))
     }
     pub fn import_row(&self, candidate: &[u8], boxed_type: &str) -> Result<GoSourceErrorCaseRow> {
         if candidate.len() > MAX_BYTES {

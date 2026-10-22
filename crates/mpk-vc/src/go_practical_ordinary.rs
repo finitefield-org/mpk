@@ -26,6 +26,7 @@ mod sequence;
 mod slice_descriptor;
 mod source_error_boxing;
 mod source_error_cases;
+mod source_error_dispatch;
 mod source_error_layout;
 mod source_error_operations;
 mod storage_lens;
@@ -41,6 +42,10 @@ pub use source_error_boxing::{
 pub use source_error_cases::{
     generate_go_practical_source_error_case_catalogue, GoSourceErrorCaseCatalogue,
     GoSourceErrorCaseRow,
+};
+pub use source_error_dispatch::{
+    generate_go_practical_source_error_dispatch_catalogue, GoSourceErrorDispatchCatalogue,
+    GoSourceErrorDispatchRow,
 };
 pub use source_error_layout::{
     generate_go_practical_source_error_layout_foundation,

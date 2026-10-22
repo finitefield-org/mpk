@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_ordinary.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_error_cases.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_error_dispatch.rs",
+    "crates/mpk-vc/tests/go_practical_source_error_dispatch.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-selector/entries-format/inputs.json",
+    "bytes": 302157,
+    "sha256": "d9380c91c85d0521378e0dcf341e01e780008709fb568d88a7110e41b7ab78c9"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-selector/entries-format/driver.py",
+    "bytes": 6978,
+    "sha256": "59da91695abbd2a433f07b1a2a865dcea10df013c41154a243b8d1b6f92d83f7"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Finite target selection consumes an immutable original source Error selection, every exact case/method/signature/receiver path and every original call/receiver site. All same-U case-row/source-type/payload/observation identities remain. Check nil and each boxed case at every selected site, method expression/receiver-call/multiple-site forms, all70 large targets plus nil, fresh literal replay of all78 old case rows, real false-target and source-owner negatives, independent exact selector/statement/native-bit checks and both complete cores. No method run/callee/effect/receiver-once/validity/canonical context authority is inferred. Native caps and Go/Rust-only scope unchanged, no reduced U/case/root/helper/parameter admission cap, no intermediate full gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": true,
+  "started_at_utc": "2026-10-22T18:27:50.025937+00:00",
+  "exit_code": 0,
+  "seconds": 0.19056416593957692,
+  "whole_source_inputs_unchanged": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-selector/entries-format/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-selector/entries-format/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-22T18:27:50.217897+00:00"
+}

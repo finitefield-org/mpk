@@ -8039,3 +8039,36 @@ loop/runtime/program/full56 foundation/private registry/context/nativeLinux/
 all169/T02-T11 remain due. Earlier historical-scope findings remain for the final
 strict gate. Go/Rust only; R01/R06/W01 stay open, the public practical profile
 stays inactive and the full T02 gate stays final W04: `./scripts/check-fast.sh`.
+
+## 165. T02-W01 original-source error target selection
+
+The [target-selection checkpoint](../migrations/go-practical/t02-w01/verification/source-error-selector/README.md)
+binds every original call/receiver/method-expression site to the complete
+same-U exact method declaration/body/receiver path/signature table in private
+preparation names. Ordinary suffix/branch/value equations select the correct
+named target for arbitrary full boxed payloads and NoTarget for nil. Every
+prior case-row/source type/zero/constructor/nil/copy/payload/comparison proof
+remains; no caller table/oracle, reduced U or new admission cap is introduced.
+
+Both cores agree on99 full streams:93 zero-axiom mathematical acceptances and6
+genuine type rejections. Normal92 include21 small-site rows and all70 large
+concrete types plus nil. Original Go physical call/receiver spans and exact
+targets agree. Independent comparison checks10,336 selector definitions,
+15,274 full selector statements,9,975 old case-row statements,11,348 old
+operation statements and327,808 actual tag bits;92 actual decoded selector
+observations agree. All78 prior case rows replay literally. Scoped Clippy/
+format pass; large maxima1,846 declarations,
+20,605 terms/623,001 bytes fit unchanged
+native caps. All18 source epochs/13,992 input rows and363
+current Go prelaunch originals remain. Initial missing-entry, invalid forward
+reference and unused-import failures remain separate from source failures and
+genuine type controls. No observer timeout caused native execution restart.
+A coherent wrong named ordinal and a different accepted call-site row fail
+exact import and independent frozen ownership despite valid mathematics.
+
+NoTarget is no nil safety/receiver-once/callee/precondition/joint-result/effect/
+frame theorem. All source execution/validity/canonical capture/module/U/tag/
+target/context, full56 foundation/private registry/native Linux/all169/T02-T11
+proofs remain due. Earlier historical-scope findings remain for the final
+strict gate. Go/Rust only; R01/R06/W01 stay open, the public practical profile
+stays inactive and the full T02 gate stays final W04: `./scripts/check-fast.sh`.

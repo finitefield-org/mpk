@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1m 54s
+     Running tests/go_practical_source_error_dispatch.rs (target/debug/deps/go_practical_source_error_dispatch-49aafd4a64b3c5ac)
+
+thread 'source_dispatch_empty_single_context_expression_and_multiple_sites' (56076690) panicked at crates/mpk-vc/tests/go_practical_source_error_dispatch.rs:91:63:
+called `Result::unwrap()` on an `Err` value: Domain(GoSourceDomainError { kind: MissingEntry, source: Some(GoSourceSelectionRef { source: "88fbf77a486a5fc15bd749aa41188c438bc9f30621475d8208e6a3cf5a31285e", node: 166 }), input: Some(0), path: [], typ: Some("5a184d54e7bc575ae47064a4ca8316be8c2dc71c1bc030903999cf18f071e177") })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_error_dispatch`
