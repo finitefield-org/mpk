@@ -8102,3 +8102,36 @@ foundation/private registry/nativeLinux/all169/T02-T11 remain due. Earlier
 historical-scope scanner findings remain for the final strict gate. Go/Rust
 only; R01/R06/W01 stay open, the public practical profile stays inactive, and
 the full T02 gate stays final W04: `./scripts/check-fast.sh`.
+
+## 167. T02-W01 source-error complete inactive-payload representation
+
+The [representation checkpoint](../migrations/go-practical/t02-w01/verification/source-error-representation/README.md)
+adds the closed actual case-tag and every inactive whole-source-payload-zero
+conditions. Real full Box/Nil witnesses establish them; copy transfers each
+observation. Selection/nil/copy consequences use that same representation
+proof. All prior receiver/selector/source identities remain; active-payload
+validity stays separately due, without free predicates, funext, reduced U or
+new admission caps.
+
+Both full cores agree on108 streams:100 zero-axiom mathematical acceptances
+and8 genuine type rejections. Normal99 include21 original small rows/all71
+large rows/7 new original-Go bool/64bit/empty-struct/array/string/slice rows.
+Independent comparison covers99 predicates/16,032 new statements/4,981 whole
+inactive zeros/all old statements/330,944 tag bits/396 actual decoded target,
+nil and copy observations. All92 old receiver streams replay literally;
+scoped Clippy and Rust/Go formats pass. Coherent wrong ordinal and another
+accepted site fail exact import/frozen owner. Large maxima
+2,217 declarations/26,684 terms/
+797,421 bytes fit unchanged caps. All20 source epochs/
+28,208 input rows/406 current Go prelaunch originals retain the
+first missing-helper fixture failure and corrected full payload comparison,
+without observation-timeout restarts.
+
+Full active/input/source validity, receiver-once/nil safety/callee/precondition/
+results/effects/frame, canonical capture/module/U/tag/target/context, full56
+foundation/private registry/nativeLinux/all169/T02-T11 remain due. One export-hash data token has7 retained literal matches, with0 matches in
+all2,220 semantic strings. Literal review failure remains visible; strict
+binary handling and earlier historical-scope source findings stay due at the
+final strict gate. Go/Rust only;
+R01/R06/W01 stay open, the public practical profile stays inactive and the
+full T02 gate stays final W04: `./scripts/check-fast.sh`.

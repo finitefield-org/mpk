@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--test",
+    "go_practical_source_error_representation",
+    "--test",
+    "go_practical_source_error_representation_controls",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/lint/inputs.json",
+    "bytes": 304756,
+    "sha256": "06670b8a0f6ef6fe73e20ca94fa48c9c7e285fbea910507d6dabccb273208551"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/lint/driver.py",
+    "bytes": 7169,
+    "sha256": "fa253a13cd9b47a7e0ed79184402bead34aff6ff2779f1b56f906977d7bdc54d"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Finite target selection consumes an immutable original source Error selection, every exact case/method/signature/receiver path and every original call/receiver site. All same-U case-row/source-type/payload/observation identities remain. Check nil and each boxed case at every selected site, method expression/receiver-call/multiple-site forms, all70 large targets plus nil, fresh literal replay of all78 old case rows, real false-target and source-owner negatives, independent exact selector/statement/native-bit checks and both complete cores. No method run/callee/effect/receiver-once/validity/canonical context authority is inferred. Native caps and Go/Rust-only scope unchanged, no reduced U/case/root/helper/parameter admission cap, no intermediate full gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T19:56:34.907568+00:00",
+  "exit_code": 0,
+  "seconds": 38.65509554208256,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/lint/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/lint/stderr.log",
+    "bytes": 147,
+    "sha256": "4e5fcae09a656c194b158b1240aff813f679eea4b53bc190dd250a5acebe6ec2"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-22T19:57:13.573180+00:00"
+}

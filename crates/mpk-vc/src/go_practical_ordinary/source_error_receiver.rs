@@ -454,6 +454,14 @@ impl GoSourceErrorDispatchCatalogue {
         call: &GoSourceErrorCall,
         boxed_type: Option<&str>,
     ) -> Result<GoSourceErrorReceiverRow> {
+        let (builder, row) = self.receiver_row_builder(call, boxed_type)?;
+        complete_row(builder, row)
+    }
+    pub(super) fn receiver_row_builder(
+        &self,
+        call: &GoSourceErrorCall,
+        boxed_type: Option<&str>,
+    ) -> Result<(Builder, GoSourceErrorReceiverRow)> {
         let (mut builder, prior) = self.row_builder(call, boxed_type)?;
         let prior = source_error_dispatch::complete_row(builder.clone(), prior)?;
         let types = std::iter::once(word::word_type(64)?)
@@ -478,11 +486,14 @@ impl GoSourceErrorDispatchCatalogue {
         generator.copying()?;
         generator.witnesses()?;
         builder.certificate.module = module.clone();
-        Ok(GoSourceErrorReceiverRow {
-            prior,
-            module,
-            certificate: builder.finish()?,
-        })
+        Ok((
+            builder,
+            GoSourceErrorReceiverRow {
+                prior,
+                module,
+                certificate: vec![],
+            },
+        ))
     }
     pub fn import_receiver_row(
         &self,
@@ -499,4 +510,11 @@ impl GoSourceErrorDispatchCatalogue {
         }
         Ok(expected)
     }
+}
+pub(super) fn complete_row(
+    builder: Builder,
+    mut row: GoSourceErrorReceiverRow,
+) -> Result<GoSourceErrorReceiverRow> {
+    row.certificate = builder.finish()?;
+    Ok(row)
 }

@@ -1,0 +1,108 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_source_error_representation",
+    "heterogeneous_original",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_SOURCE_ERROR_REPRESENTATION_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/heterogeneous/certificates"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/heterogeneous/inputs.json",
+    "bytes": 324288,
+    "sha256": "cb0aa9b40c8b3b89c6501aa456f8697fcc7e97ad1921c6c3e05b902089fc4dc6"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/heterogeneous/driver.py",
+    "bytes": 7413,
+    "sha256": "32c9395a2b9159df80c241da39665de19b88c1416e48b27e17ef4b8cabf012cb"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Concrete closed representation predicate over the full original receiver: exact same-U source tag and equality of every inactive payload to its original source zero. Check projections, actual full Box/Nil witnesses, copy preservation and selection/nil consequences, retaining all source and previous receiver/selector identities. No arbitrary active-payload validity or canonical capture/source-execution authority is inferred; no funext, axiom, reduced U or case/root/helper/parameter cap. Full21 small and71 large rows, prior92 literal-byte replay, genuine false inactive/tag/copy/target controls and independent exact predicate/statements/actual observation checks in both complete cores. Native budgets and Go/Rust-only scope unchanged; scoped checks only.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T19:57:42.207323+00:00",
+  "exit_code": 0,
+  "seconds": 4.9857473749434575,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/heterogeneous/stdout.log",
+    "bytes": 868,
+    "sha256": "e3d4cad215e341586738c3be66a3188a5484abbc3bbca6abb2982b26cbf9c273"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/heterogeneous/stderr.log",
+    "bytes": 212,
+    "sha256": "47b16f57c78d290d46fcf0a8abd07da8ae32d97559d5433bdafda1153b86e356"
+  },
+  "certificates": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/heterogeneous/certificates/heterogeneous-payloads-call0-012b5f48368cb98bba816258741102982f2544c897b6c3463ac3c1b78735e3cf.mpcert",
+      "bytes": 104119,
+      "sha256": "abd9250dd82c84638f4297a22d4acd0fc3d26d8b248ea7f8fe101ecdedf15e95"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/heterogeneous/certificates/heterogeneous-payloads-call0-341ba961c25053afd7d06b06ee0c81a6716b196097f2b25b29f982e3388c32d1.mpcert",
+      "bytes": 104079,
+      "sha256": "3f5dd9828066f5937638de81d63a1406d9de981daa2b4c1474a79502da907787"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/heterogeneous/certificates/heterogeneous-payloads-call0-484c5c4d664b27e9d0ab62254ec27213f8be44c51b6c8e65f3707f1bb5cf13f7.mpcert",
+      "bytes": 104047,
+      "sha256": "186aa8b92acc6aa3b16a52371e3bdab8d9df869766cec0f37245c04e139e03db"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/heterogeneous/certificates/heterogeneous-payloads-call0-57d6daba46cfefdf24fd3c613086aa2f7909ce723458381eca6c45b41a54b515.mpcert",
+      "bytes": 104000,
+      "sha256": "cfc3ff199d97391c19018099a0e66e0961b16004356ca2dae62d918c25b0bf1b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/heterogeneous/certificates/heterogeneous-payloads-call0-add3eac03d23d52e0376d31b18fbc5525d0947726bae4a9196328d9dc5d82922.mpcert",
+      "bytes": 104109,
+      "sha256": "f00a527dc1218f2ad8c207aebe5f75d0ca9ec35e6585473e2e86e9f242e4b4a1"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/heterogeneous/certificates/heterogeneous-payloads-call0-bd34a4d3b08bf4b11499dfe8cfaf7b64e5738dffbb353c5982da8430925cdb45.mpcert",
+      "bytes": 104079,
+      "sha256": "22e74caa6b55efa4f787856ececb1743e94031121f8d9a3fa8e9e97411004cb2"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/heterogeneous/certificates/heterogeneous-payloads-call0-nil.mpcert",
+      "bytes": 102729,
+      "sha256": "879cae471eda05b1ba70281d7a919281176b1ec4d5f8840a67673564db2399cf"
+    }
+  ],
+  "finished_at_utc": "2026-10-22T19:57:47.201531+00:00"
+}
