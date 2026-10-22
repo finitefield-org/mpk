@@ -4,6 +4,17 @@ use super::*;
 use std::sync::Arc;
 mod directives;
 
+pub(super) fn compiler_directive(
+    scopes: &GoSourceScopes,
+    locator: &GoSourceSelectionRef,
+) -> Option<(usize, usize)> {
+    let source = scopes.source(locator.source_object_id())?;
+    let node = source.nodes().get(locator.node())?;
+    directives::function_docs(source)
+        .get(&node.start())
+        .copied()
+}
+
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 pub struct GoSourceSelectionRef {
     source: String,
@@ -163,6 +174,9 @@ pub struct GoSourceSelection {
     boxed_error_types: Vec<String>,
 }
 impl GoSourceSelection {
+    pub(super) fn scopes(&self) -> &GoSourceScopes {
+        &self.scopes
+    }
     pub fn source(&self, id: &str) -> Option<&GoParsedSource> {
         self.scopes.source(id)
     }

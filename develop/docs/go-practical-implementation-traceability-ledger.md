@@ -7740,3 +7740,22 @@ capture/contracts/source runtime/state/program proofs, full56 foundation/private
 registry and nativeLinux/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay
 open, public profile stays inactive, and the T02 full gate stays finalW04:
 `./scripts/check-fast.sh`.
+
+## 154. T02-W01 source error entry domains and static value properties
+
+The [source-domain checkpoint](../migrations/go-practical/t02-w01/verification/source-domains/README.md)
+requires complete finite explicit entry cases over original receiver-first input
+paths and combines them with actual selected-body cases. Independent original
+source types supply alias identity, compatible named payloads, Error signature
+dependencies, expanded-cycle/Plain/depth/per-value-weight checks and normalized
+owner/length/capacity paths. Five new Rust roots agree with15 intact original Go
+compiler graph observations and cover70 explicit cases, imported body cases,
+zero/inactive cycles, ownership, payload exclusions and signature-only directives.
+Six affected old Rust roots and scoped Clippy/vet/formats pass. Original failed
+compile/lint/rejection-stage expectations remain retained; unchanged production
+frontend, SDK/frozen/ordinary bases are checked without unrelated semantic tests.
+The current type-package envelope lacks authoritative application/stdlib roles;
+full capture/overlay/context binding, finite Error dispatch, dynamic entry/store/
+frame/runtime/program proofs, full56 foundation/private registry and nativeLinux/
+all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay open, public profile
+stays inactive and the T02 full gate stays finalW04: `./scripts/check-fast.sh`.

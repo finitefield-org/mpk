@@ -4,6 +4,7 @@ use super::*;
 mod aggregates;
 mod assignments;
 mod bodies;
+mod domains;
 mod error_boxings;
 mod literals;
 mod members;
@@ -16,6 +17,11 @@ pub use assignments::{check_go_assignment_statement, GoAssignmentTarget, GoAssig
 pub use bodies::{
     check_go_function_body, GoBodyBranch, GoBodyConstant, GoBodyErrorKind, GoBodyExpression,
     GoBodyStatement, GoBodyTyping, GoBodyTypingError,
+};
+pub use domains::{
+    derive_go_source_value_domain, GoBoundErrorEntry, GoErrorEntryConstraint, GoErrorEntryStep,
+    GoResolvedErrorEntryStep, GoSourceDomainError, GoSourceDomainErrorKind, GoSourceValueDomain,
+    GoSourceValueProperties,
 };
 pub use error_boxings::{GoErrorBoxing, GoErrorBoxingProjection};
 pub use methods::{GoErrorImplementation, GoMethodCallHeader, GoSourceMethod};

@@ -1358,3 +1358,12 @@ capture/contracts/source runtime/state/program proofs, full56 foundation/private
 registry and nativeLinux/all169/T02–T11 remain due. Go/Rust only; R01/R06/W01 stay
 open, public profile stays inactive, and the T02 full gate stays finalW04:
 `./scripts/check-fast.sh`.
+
+The [source value-domain checkpoint](verification/source-domains/README.md)
+binds complete explicit error entry paths to original selected input types and
+combines their cases with the selected-body union. Static expanded-cycle,
+Root/Plain, depth and per-value weight checks now use that single union, with
+original owner IDs and array-length/slice-capacity distinctions. Scoped source
+checks pass; application/stdlib role authority, raw overlay/context binding,
+finite Error dispatch, runtime/store/frame/program proofs and R01/R06/W01
+completion remain due. Go/Rust only; the T02 full gate remains final W04.

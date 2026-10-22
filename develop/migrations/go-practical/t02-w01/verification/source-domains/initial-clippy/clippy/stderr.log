@@ -1,0 +1,29 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: unnecessary use of `clone` to create a slice from a reference
+   --> crates/mpk-vc/tests/go_practical_source_domains.rs:268:44
+    |
+268 |     let s = derive_go_source_selection(&k, &[r.clone()]).unwrap();
+    |                                            ^^^^^^^^^^^^ help: try: `std::slice::from_ref(&r)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#cloned_ref_to_slice_refs
+    = note: `-D clippy::cloned-ref-to-slice-refs` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::cloned_ref_to_slice_refs)]`
+
+error: unnecessary use of `clone` to create a slice from a reference
+   --> crates/mpk-vc/tests/go_practical_source_domains.rs:287:51
+    |
+287 |     let selected = derive_go_source_selection(&k, &[slice.clone()]).unwrap();
+    |                                                   ^^^^^^^^^^^^^^^^ help: try: `std::slice::from_ref(&slice)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#cloned_ref_to_slice_refs
+
+error: unnecessary use of `clone` to create a slice from a reference
+   --> crates/mpk-vc/tests/go_practical_source_domains.rs:299:51
+    |
+299 |     let selected = derive_go_source_selection(&k, &[r.clone()]).unwrap();
+    |                                                   ^^^^^^^^^^^^ help: try: `std::slice::from_ref(&r)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#cloned_ref_to_slice_refs
+
+error: could not compile `mpk-vc` (test "go_practical_source_domains") due to 3 previous errors
+warning: build failed, waiting for other jobs to finish...
