@@ -1386,3 +1386,14 @@ Thirteen actual source/sidecar pairs,70 input slots and source budgets are check
 Expression typing, full logical/header namespaces and whole-module optional
 sidecar/default contract reconstruction remain due; R01/R06/W01 stay open.
 Go/Rust only, with the T02 full gate still deferred to final W04.
+
+The [original contract-expression checkpoint](verification/contract-expressions/README.md)
+adds internal type derivation for all70 source heads, actual lexical header
+bindings, fresh logical binders and complete entry/return/header heap snapshots.
+Contract-only source types retain the same Root/Plain checks and global U;
+typing does not discharge partial-operation safety. Six new/20 unique affected
+old Rust roots and4 original native functions/10 headers/58 exact bindings pass,
+with scoped Clippy/vet/formats and complete original-input records. Canonical
+capture-dependent scope/contract/context IDs and whole-module callee/default
+contracts remain due, together with all runtime/source/program proofs and
+R01/R06/W01 completion. Go/Rust only; the T02 full gate stays final W04.

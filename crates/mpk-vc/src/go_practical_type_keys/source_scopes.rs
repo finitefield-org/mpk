@@ -117,6 +117,51 @@ impl GoSourceScopes {
     pub fn bindings(&self) -> &[GoSourceNameBinding] {
         &self.bindings
     }
+    /// Variables visible at this original loop's header. Start in the loop's
+    /// implicit scope, never its body's scope: declarations inside the body
+    /// must not leak into an invariant. Range binders are visible at the body
+    /// boundary, including the header observation before its first iteration.
+    pub(super) fn loop_header_variables(
+        &self,
+        source: &str,
+        node: usize,
+    ) -> Result<Vec<GoSourceNameBinding>> {
+        let parsed = self.syntax.get(source).ok_or(GoSourceScopeError::Locator)?;
+        let n = parsed
+            .nodes()
+            .get(node)
+            .ok_or(GoSourceScopeError::Locator)?;
+        if !matches!(n.kind(), "ForStmt" | "RangeStmt") {
+            return Err(GoSourceScopeError::Locator);
+        }
+        let body = child(n, "Body").ok_or(GoSourceScopeError::Syntax)?;
+        let position = parsed.nodes()[body].start();
+        let mut scope = *self
+            .node_scopes
+            .get(&(source.to_string(), node))
+            .ok_or(GoSourceScopeError::Locator)?;
+        let mut names = BTreeSet::new();
+        let mut variables = vec![];
+        loop {
+            let current = &self.scopes[scope];
+            // Package storage and file imports are not invocation bindings.
+            if current.file || current.parent.is_none() {
+                break;
+            }
+            for (name, &id) in &current.names {
+                let binding = &self.bindings[id];
+                if binding.visible_from <= position
+                    && names.insert(name.clone())
+                    && binding.kind == GoSourceNameKind::Variable
+                {
+                    variables.push(binding.clone());
+                }
+            }
+            scope = current.parent.ok_or(GoSourceScopeError::Syntax)?;
+        }
+        variables.sort_by(|a, b| a.name.cmp(&b.name));
+        Ok(variables)
+    }
     pub(super) fn sources(&self) -> impl Iterator<Item = (&str, &GoParsedSource)> {
         self.syntax.iter().map(|(id, source)| (id.as_str(), source))
     }

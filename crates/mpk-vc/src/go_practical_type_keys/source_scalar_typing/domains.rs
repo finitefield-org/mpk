@@ -198,6 +198,40 @@ impl GoSourceValueDomain {
         self.underlying.get(id).map(String::as_str)
     }
 }
+/// Extend the checked source domain with contract-only annotations. They do
+/// not add error tags or select method bodies. Recheck the expanded Root/Plain
+/// graph against exactly the same global universe, including zero-size edges.
+pub(in super::super) fn extend_contract_domain(
+    original: &GoSourceValueDomain,
+    graphs: &[GoDerivedSourceTypes],
+    builtins: &[GoSourceTypeKey],
+) -> DomainResult<GoSourceValueDomain> {
+    let mut domain = Domain {
+        engine: Engine::new(original.selection.scopes()),
+    };
+    domain.engine.keys = original.types.clone();
+    domain.engine.underlying = original.underlying.clone();
+    for graph in graphs {
+        domain.graph(graph)?;
+    }
+    for key in builtins {
+        domain
+            .engine
+            .put_key(key.clone())
+            .map_err(|e| failure(GoSourceDomainErrorKind::Typing(e), Some(key.id())))?;
+    }
+    let cases = original
+        .cases
+        .iter()
+        .map(|c| c.value_type_id().to_string())
+        .collect::<Vec<_>>();
+    let properties = domain.properties(&cases)?;
+    let mut result = original.clone();
+    result.types = domain.engine.keys;
+    result.underlying = domain.engine.underlying;
+    result.properties = properties;
+    Ok(result)
+}
 struct Domain<'a> {
     engine: Engine<'a>,
 }

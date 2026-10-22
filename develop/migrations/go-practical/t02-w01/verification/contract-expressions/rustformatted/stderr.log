@@ -1,0 +1,18 @@
+error: unexpected closing delimiter: `}`
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_contract_expressions.rs:202:1
+    |
+142 | fn rejects_type_nominal_phase_and_lexical_counterexamples() {
+    |                                                             - the nearest open delimiter
+...
+147 |     let mut tests=vec![
+    |                       - the nearest open delimiter
+...
+172 |         ("nested old",ensures(&v,equality(old(old(nat("0")))))),GoContractTypingErrorKind::Scope),
+    |                                                                                                 - missing open `(` for this delimiter
+...
+185 |     ];
+    |     - missing open `[` for this delimiter
+...
+202 | }
+    | ^ unexpected closing delimiter
+

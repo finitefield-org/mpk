@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+    "test",
+    "-json",
+    "-count=1",
+    "-timeout=40m",
+    "-run",
+    "^TestPracticalContractExpressionOriginalScopes$"
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-go-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod",
+    "MPK_GO_PRACTICAL_SYNTAX_EVIDENCE": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/native/observations"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/native/inputs.json",
+    "bytes": 272590,
+    "sha256": "ea865fb87e833e5e64e4bdbd18a12e893d1c780e60adcd42b905c1c140d84869"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/native/driver.py",
+    "bytes": 7544,
+    "sha256": "9482d289b813fabe3286c7a66ba064ef96c1d103f8bff319d0fe8af697d88b44"
+  },
+  "selection_reason": "New original contract-expression typing extends the source domain and caches checked local types. Check all70 heads, lexical/header/old namespaces, native original Go header bindings, and affected overlay/scopes/domain/selection consumers. No production Go frontend change; unrelated semantics and frontend rebuilds are unnecessary.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T01:47:38.612329+00:00",
+  "exit_code": 0,
+  "seconds": 48.65067074995022,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/native/stdout.log",
+    "bytes": 1453,
+    "sha256": "e1797284dacfddbd9ec01dd316f59479f5f9964104c48ccfa23eb0ef89d0ffd8"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/native/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "whole_source_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-22T01:48:27.461529+00:00",
+  "pass_tests": [
+    "TestPracticalContractExpressionOriginalScopes"
+  ],
+  "fail_tests": [],
+  "skip_tests": []
+}

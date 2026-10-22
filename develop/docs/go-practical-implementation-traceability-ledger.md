@@ -7804,3 +7804,26 @@ context authority and all runtime/source/program proofs, full56 foundation/
 private registry and nativeLinux/all169/T02–T11 remain due. Go/Rust only;
 R01/R06/W01 stay open, public profile stays inactive and the T02 gate stays
 finalW04: `./scripts/check-fast.sh`.
+
+## 157. T02-W01 original contract-expression typing and namespaces
+
+The [contract-expression checkpoint](../migrations/go-practical/t02-w01/verification/contract-expressions/README.md)
+derives all70 expression heads from original entry sidecars and the same finite
+error universe. Logical/source and nominal/alias types, word endpoints, direct
+fields and contract-only Root/Plain graphs retain original identities. Actual
+lexical headers, fresh Nat binders and whole entry/return/header observations
+remain distinct; partial operations still need definedness proofs. Six new/20
+unique affected old Rust roots,4 native functions/10 headers/58 exact bindings,
+39 type/scope counterexamples and scoped Clippy/vet/formats pass. Three owners
+rerun with a complete explicit original-input inventory after the initial
+passing run's receipt gap; all465 output files match literally. Four prior
+archived output maps also match literally. Original failures and all native
+bytes/modes remain retained; SDK14496 files/202722007 bytes remain exact.
+Production Go is unchanged, so its rebuild and unrelated tests are not repeated.
+Canonical capture-dependent scope/contract/context authority, whole-module
+callee/default contracts, blank-field zero obligations and entry/callee/store/
+frame/loop/state/runtime/program proofs, full56 foundation/private registry and
+nativeLinux/all169/T02–T11 remain due. Earlier unchanged historical-scope scanner
+findings still require final-gate resolution. Go/Rust only; R01/R06/W01 stay open,
+the public profile stays inactive and the T02 full gate stays final W04:
+`./scripts/check-fast.sh`.

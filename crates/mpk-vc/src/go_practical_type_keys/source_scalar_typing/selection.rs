@@ -209,18 +209,44 @@ pub(super) struct GoSelectedBodyTypes {
     pub(super) underlying: BTreeMap<String, String>,
     pub(super) declarations: BTreeMap<String, GoTypeDeclarationKey>,
     pub(super) implementations: Vec<GoErrorImplementation>,
+    local_types: BTreeMap<(usize, usize), String>,
 }
 impl GoSelectedBodyTypes {
-    fn checked(typing: &GoValueTyping) -> Self {
+    fn checked(body: &GoBodyTyping) -> Self {
+        let typing = body.typing();
         Self {
             types: typing.types.clone(),
             underlying: typing.underlying.clone(),
             declarations: typing.declarations.clone(),
             implementations: typing.error_implementations.clone(),
+            local_types: body
+                .local_variables()
+                .iter()
+                .map(|b| {
+                    (
+                        (b.declaration_node(), b.name_node()),
+                        body.local_type_id(b).unwrap().to_string(),
+                    )
+                })
+                .collect(),
         }
     }
 }
 impl GoSourceSelection {
+    pub(in super::super) fn checked_local_type(
+        &self,
+        root: &GoSourceSelectionRef,
+        binding: &GoSourceNameBinding,
+    ) -> Option<&str> {
+        if binding.source_object_id() != root.source_object_id() {
+            return None;
+        }
+        self.body_types
+            .get(root)?
+            .local_types
+            .get(&(binding.declaration_node(), binding.name_node()))
+            .map(String::as_str)
+    }
     pub(super) fn checked_body_types(
         &self,
         r: &GoSourceSelectionRef,
@@ -1130,10 +1156,8 @@ impl<'a> Selection<'a> {
                         Some(body.typing()),
                         &w.path,
                     )?;
-                    self.body_types.insert(
-                        w.locator.clone(),
-                        GoSelectedBodyTypes::checked(body.typing()),
-                    );
+                    self.body_types
+                        .insert(w.locator.clone(), GoSelectedBodyTypes::checked(&body));
                 }
             }
             "TypeSpec" => self.walk(

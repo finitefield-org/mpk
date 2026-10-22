@@ -19,6 +19,13 @@ impl std::fmt::Display for GoSourceTypeError {
 }
 impl std::error::Error for GoSourceTypeError {}
 type Result<T> = std::result::Result<T, GoSourceTypeError>;
+// Contract type spelling uses the same admitted predeclared types and private
+// type identity constructor as original Go annotations; no supplied type graph.
+pub(super) fn builtin_source_type(scopes: &GoSourceScopes, name: &str) -> Result<GoSourceTypeKey> {
+    let mut builder = Builder::new(scopes);
+    let id = builder.builtin(name)?;
+    builder.types.remove(&id).ok_or(GoSourceTypeError::Mismatch)
+}
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoDerivedSourceTypes {
     scopes: std::sync::Arc<GoSourceScopes>,

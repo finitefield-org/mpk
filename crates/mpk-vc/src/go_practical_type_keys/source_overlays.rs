@@ -3,7 +3,14 @@
 use super::*;
 use serde_json::Value;
 use std::sync::Arc;
+mod expressions;
 mod syntax;
+pub use expressions::{
+    derive_go_typed_source_overlays, GoContractExpression, GoContractExpressionReference,
+    GoContractExpressionType, GoContractHeaderBinding, GoContractObservation, GoContractPhase,
+    GoContractTypingError, GoContractTypingErrorKind, GoTypedOverlayLoop, GoTypedSourceOverlay,
+    GoTypedSourceOverlaySet,
+};
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]

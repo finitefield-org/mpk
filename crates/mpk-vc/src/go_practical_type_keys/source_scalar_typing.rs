@@ -5,6 +5,7 @@ mod aggregates;
 mod assignments;
 mod bodies;
 mod domains;
+pub(super) use domains::extend_contract_domain;
 mod error_boxings;
 mod literals;
 mod members;
