@@ -7971,3 +7971,37 @@ foundation/private registry/context, native Linux and all169/T02-T11 remain due.
 Earlier historical-scope scanner findings remain for the final strict gate.
 R01/R06/W01 stay open; the public practical profile stays inactive and the
 cumulative T02 gate remains final W04: `./scripts/check-fast.sh`.
+
+## 163. T02-W01 source-specific nil and copy equations
+
+The [nil/copy checkpoint](../migrations/go-practical/t02-w01/verification/source-error-operations/README.md)
+uses the complete original source U and frozen nil/source zeros. Whole
+NilRecipe/CopyRecipe and payload laws, every copied field and nil/case
+observations have ordinary checked witnesses. Nil keeps the constant-false
+64-bit representation; no function identity with the Word.Zero decision tree
+is assumed. Generic transfer and explicit bit rewrites respect legacy
+Bool.rec without new kernel rules or function extensionality. The nil builder
+closes FrozenZeroIsZero, retaining every old boxing named identity; all5 old
+boxing artifacts replay literally in the saved original target tests.
+
+Both cores agree on16 full streams:6 zero-axiom mathematical acceptances and10
+genuine type rejections. Normal5 include70 cases/73 source types. Independent
+frozen comparison covers25 definitions,226 complete theorem statements,78
+copied fields and5,312 actual tag bits. A coherently healed constant-false
+case comparator passes mathematics but fails exact import and the operation
+body oracle. N70 has3,358 declarations,48,646 terms and945,474 bytes under
+unchanged limits, with no smaller case/root/helper/parameter cap. Current
+Clippy/format pass; prior unchanged source5/generic71 evidence is reused.
+All20 source epochs/10,897 rows and110 current Go prelaunch inputs remain.
+The original representation mismatch, concrete-fold fuel exhaustion and
+computed-major proof mismatch retain exact sources/bytes/reports and prefix
+diagnoses. Diagnostic subset acceptance never replaces a full stream check.
+
+Source-Go nil/copy/boxing/comparison and zero evaluation, arbitrary-input/
+inactive-case validity, canonical capture/module/U/tag bindings, all entry/
+receiver/dispatch/precondition/result/store/frame/lifetime/loop/runtime/
+program proofs, full56 foundation/private registry/context, native Linux and
+all169/T02-T11 remain due. Earlier historical-scope findings remain for the
+final strict gate. Go/Rust only; R01/R06/W01 stay open, the public practical
+profile stays inactive and the T02 full gate stays final W04:
+`./scripts/check-fast.sh`.

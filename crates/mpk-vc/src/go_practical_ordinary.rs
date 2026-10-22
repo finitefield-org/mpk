@@ -26,6 +26,7 @@ mod sequence;
 mod slice_descriptor;
 mod source_error_boxing;
 mod source_error_layout;
+mod source_error_operations;
 mod storage_lens;
 mod string;
 mod syntax;
@@ -39,6 +40,10 @@ pub use source_error_boxing::{
 pub use source_error_layout::{
     generate_go_practical_source_error_layout_foundation,
     import_go_practical_source_error_layout_foundation, GoSourceErrorLayoutFoundation,
+};
+pub use source_error_operations::{
+    generate_go_practical_source_error_operations_foundation,
+    import_go_practical_source_error_operations_foundation, GoSourceErrorOperationsFoundation,
 };
 
 const BOOL: &str = "Std.Bool";

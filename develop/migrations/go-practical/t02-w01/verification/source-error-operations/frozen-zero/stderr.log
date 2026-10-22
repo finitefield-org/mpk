@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1m 18s
+     Running tests/go_practical_source_error_operations.rs (target/debug/deps/go_practical_source_error_operations-b4b44382138041f0)
+
+thread 'complete_source_error_operations_empty_single_grown_and_root_payloads' (54159521) panicked at crates/mpk-vc/tests/go_practical_source_error_operations.rs:200:5:
+nil-only: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"24769417619b72a78cd43ff0c3d3437b19d4d1dfe7c2a5685c925debbbcbae5d"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"168810\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"175670\",\"side\":\"lhs\",\"term_index\":\"170778\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_error_operations`

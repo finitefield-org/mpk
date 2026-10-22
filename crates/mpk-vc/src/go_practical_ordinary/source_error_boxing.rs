@@ -575,6 +575,24 @@ impl Boxing<'_> {
 pub fn generate_go_practical_source_error_boxing_foundation(
     domain: &GoSourceValueDomain,
 ) -> Result<GoSourceErrorBoxingFoundation> {
+    let (builder, mut foundation) = boxing_builder(domain)?;
+    foundation.certificate = builder.finish()?;
+    Ok(foundation)
+}
+pub(super) fn boxing_builder(
+    domain: &GoSourceValueDomain,
+) -> Result<(Builder, GoSourceErrorBoxingFoundation)> {
+    build(domain, false)
+}
+pub(super) fn nil_builder(
+    domain: &GoSourceValueDomain,
+) -> Result<(Builder, GoSourceErrorBoxingFoundation)> {
+    build(domain, true)
+}
+fn build(
+    domain: &GoSourceValueDomain,
+    nil_zero_law: bool,
+) -> Result<(Builder, GoSourceErrorBoxingFoundation)> {
     let (builder, layout, _) = source_error_layout::source_builder(domain)?;
     // Keep the entire existing error-value basis and all source type/zero
     // recipes. Generic layout adapters retain their own unchanged complete
@@ -584,13 +602,19 @@ pub fn generate_go_practical_source_error_boxing_foundation(
         "Mpk.Go.Practical.ErrorLayout.N{}.Nil",
         layout.case_type_ids().len()
     );
+    let zero_law = format!(
+        "Mpk.Go.Practical.ErrorLayout.N{}.FrozenZeroIsZero",
+        layout.case_type_ids().len()
+    );
     let roots = builder
         .certificate
         .declarations
         .iter()
         .filter_map(|d| {
             let name = &builder.certificate.name_table[d.name as usize];
-            (!name.starts_with("Mpk.Go.Practical.ErrorLayout.") || name == &nil)
+            (!name.starts_with("Mpk.Go.Practical.ErrorLayout.")
+                || name == &nil
+                || (nil_zero_law && name == &zero_law))
                 .then(|| name.clone())
         })
         .collect::<Vec<_>>();
@@ -626,12 +650,13 @@ pub fn generate_go_practical_source_error_boxing_foundation(
         tags.push((id, ordinal));
     }
     builder.certificate.module = module.clone();
-    Ok(GoSourceErrorBoxingFoundation {
+    let foundation = GoSourceErrorBoxingFoundation {
         source_module,
         module,
         cases: tags,
-        certificate: builder.finish()?,
-    })
+        certificate: vec![],
+    };
+    Ok((builder, foundation))
 }
 pub fn import_go_practical_source_error_boxing_foundation(
     candidate: &[u8],
