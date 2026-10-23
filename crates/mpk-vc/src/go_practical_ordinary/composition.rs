@@ -6,6 +6,59 @@ use std::collections::BTreeSet;
 
 const SCOPE: &str = "Mpk.Go.Practical.Word.SignedDivision.Prerequisite";
 
+/// Extend a producer-generated closed row, retaining every declaration and
+/// original term. No caller root list, renaming or reduced source domain.
+pub(super) fn extend_complete_source_row(certificate: Certificate) -> Result<Builder> {
+    if !certificate.imports.is_empty()
+        || !certificate.proof_node_table.is_empty()
+        || !certificate.theory_certificates.is_empty()
+        || certificate.source_manifest.is_some()
+        || certificate.axiom_report.summary.total_axiom_count != 0
+        || certificate.declarations.iter().any(|d| {
+            !matches!(
+                d.kind,
+                DeclarationKind::Def { .. }
+                    | DeclarationKind::Theorem { .. }
+                    | DeclarationKind::Inductive { .. }
+                    | DeclarationKind::Constructor { .. }
+                    | DeclarationKind::Recursor { .. }
+            )
+        })
+    {
+        return Err(GoOrdinaryError::Foundation);
+    }
+    let identities = fingerprints(&certificate);
+    let mut builder = Builder::new()?;
+    for (name, identity) in fingerprints(&builder.certificate) {
+        if identities.get(&name) != Some(&identity) {
+            return Err(GoOrdinaryError::Linkage);
+        }
+    }
+    let globals: BTreeMap<_, _> = certificate
+        .declarations
+        .iter()
+        .enumerate()
+        .map(|(i, d)| (certificate.name_table[d.name as usize].clone(), i as u32))
+        .collect();
+    let boolean = *globals.get(BOOL).ok_or(GoOrdinaryError::Linkage)?;
+    let DeclarationKind::Inductive { ty: sort } = certificate.declarations[boolean as usize].kind
+    else {
+        return Err(GoOrdinaryError::Foundation);
+    };
+    let terms = certificate
+        .term_table
+        .iter()
+        .enumerate()
+        .map(|(i, t)| (key(t), i as u32))
+        .collect();
+    builder.certificate = certificate;
+    builder.globals = globals;
+    builder.terms = terms;
+    builder.sort = sort;
+    builder.boolean = builder.constant(BOOL)?;
+    Ok(builder)
+}
+
 /// Combine the complete original source-layout declarations with the checked
 /// basic string library. Shared declarations must have identical complete
 /// identities. This recipe neither renames a declaration nor accepts caller

@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "scope": "Diagnostic prefix localization only, preserving the full original rejected certificate; native core caps unchanged. No prefix counts as a normal row/source-U proof.",
+  "started_at_utc": "2026-10-23T03:10:35.973179+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/fuel-diagnosis/driver.py",
+    "bytes": 3709,
+    "sha256": "32631b688e3b6a5bbf91b462ae4582a46b1fd60329ff1a788146738ff89672ba"
+  },
+  "complete_prelaunch_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/fuel-diagnosis/prelaunch-inputs.json",
+    "bytes": 8909,
+    "sha256": "077dd6ce4030fa06ae1546bc557192be24d76c83c803ec774df67ecff4bbb816"
+  },
+  "commands": [
+    [
+      "rustc",
+      "--edition=2021",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/diagnose-prefix.rs",
+      "-L",
+      "dependency=target/debug/deps",
+      "-o",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/fuel-diagnosis/diagnosis",
+      "--extern",
+      "mpk_cert=target/debug/deps/libmpk_cert-56581625005ce3b7.rlib",
+      "--extern",
+      "mpk_kernel=target/debug/deps/libmpk_kernel-0d580f7bf4ab7bf5.rlib"
+    ],
+    [
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/fuel-diagnosis/diagnosis",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/index-only.mpcert"
+    ]
+  ],
+  "tools": {
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "compiled_diagnostic_binary_before_execution": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/fuel-diagnosis/diagnosis",
+    "bytes": 1060648,
+    "sha256": "e6bc0b9c9a0cb8b87bae3ac727b41f08979846189927d9e8ac1ed78c08442621"
+  },
+  "whole_inputs_unchanged": true,
+  "exit_code": 0,
+  "seconds": 16.612432333058678,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/fuel-diagnosis/stdout.log",
+    "bytes": 892,
+    "sha256": "44555df0e5eae88bcc4a9a927414f8112e7dd709aefb0dd1e1d2fd959f15069e"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/fuel-diagnosis/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "finished_at_utc": "2026-10-23T03:10:52.625984+00:00"
+}

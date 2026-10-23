@@ -34,6 +34,7 @@ mod source_error_representation;
 mod source_string;
 mod source_string_index;
 mod source_string_length;
+mod source_string_operation;
 mod source_value_relations;
 mod storage_lens;
 mod string;
@@ -73,6 +74,10 @@ pub use source_string_index::{
 pub use source_string_length::{
     generate_go_practical_source_string_length_catalogue, GoSourceStringLengthCatalogue,
     GoSourceStringLengthRow,
+};
+pub use source_string_operation::{
+    generate_go_practical_source_string_operation_catalogue, GoSourceStringOperationCatalogue,
+    GoSourceStringOperationRow,
 };
 pub use source_value_relations::{
     generate_go_practical_source_value_relation_catalogue, GoSourceValueRelationCatalogue,

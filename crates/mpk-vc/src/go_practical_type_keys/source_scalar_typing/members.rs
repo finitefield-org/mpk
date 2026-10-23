@@ -88,6 +88,11 @@ impl Engine<'_> {
                     return Err(GoScalarTypingError::Type);
                 }
             }
+            // Runtime indexing materializes an otherwise untyped string
+            // operand. Retain that actual source type in the selected domain.
+            if base.typ.is_none() {
+                self.builtin("string")?;
+            }
             let id = self.builtin("uint8")?;
             return Ok(self.atom(&id, false));
         }

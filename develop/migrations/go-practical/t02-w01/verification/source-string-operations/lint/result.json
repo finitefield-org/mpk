@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--test",
+    "go_practical_source_string_operation",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/lint/inputs.json",
+    "bytes": 296973,
+    "sha256": "e14ceb6739cc5426607dd98122857d37d7000af5c30b8f1defa1bdcd00ed5c14"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/lint/driver.py",
+    "bytes": 9171,
+    "sha256": "f28f41870ea679679aaa488d0382fc34630d309da0970693b454683cc913ef1d"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Changed original-source operation-site/type derivation and string operand/result proof binding, plus error-free complete source-type layouts and runtime literal-string materialization. Cover real selected bodies, exact builtin resolution, all child calls and complete original types/U, same captured operand product, actual guards and exact result carriers. Retain unchanged error-bearing predecessor bytes. No source expression execution/callee/frame/context/profile claim, pruned source/U, new cap or broad intermediate gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-23T02:40:00.912493+00:00",
+  "exit_code": 0,
+  "seconds": 20.146268915967084,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/lint/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/lint/stderr.log",
+    "bytes": 147,
+    "sha256": "109a0227abb3e9933e0ebfeccb4c9db8cd1ae5d6457558f933203e281e3497fa"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-23T02:40:21.060240+00:00"
+}

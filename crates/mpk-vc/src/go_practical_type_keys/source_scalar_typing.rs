@@ -37,6 +37,10 @@ pub use selection::{
     GoSourceSelectionRole,
 };
 pub use slice_builtins::GoSliceBuiltinHeader;
+mod string_operations;
+pub use string_operations::{
+    derive_go_source_string_operations, GoSourceStringOperation, GoSourceStringOperationKind,
+};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum GoScalarTypingError {

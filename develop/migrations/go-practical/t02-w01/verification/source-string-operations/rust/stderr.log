@@ -1,0 +1,23 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1m 48s
+     Running tests/go_practical_source_string_operation.rs (target/debug/deps/go_practical_source_string_operation-a2ddb70733497dd6)
+
+thread 'source_operations_controls' (58417321) panicked at crates/mpk-vc/tests/go_practical_source_string_operation.rs:113:63:
+called `Result::unwrap()` on an `Err` value: Selection(GoSourceSelectionError { source: "5edeb21aedd0382e263f060ff5d96e98378957e65676420857bd353fef5ebdef", node: 19, kind: Signature(Type(Scope)), path: [GoSourceSelectionRef { source: "5edeb21aedd0382e263f060ff5d96e98378957e65676420857bd353fef5ebdef", node: 19 }] })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'source_operations_index_without_error_or_int' (58417326) panicked at crates/mpk-vc/tests/go_practical_source_string_operation.rs:91:22:
+called `Result::unwrap()` on an `Err` value: Type(Scope)
+
+thread 'source_operations_length_without_error_or_byte' (58417329) panicked at crates/mpk-vc/tests/go_practical_source_string_operation.rs:91:22:
+called `Result::unwrap()` on an `Err` value: Type(Scope)
+
+thread 'source_operations_literal_materializes_string' (58417332) panicked at crates/mpk-vc/tests/go_practical_source_string_operation.rs:91:22:
+called `Result::unwrap()` on an `Err` value: Type(Scope)
+
+thread 'source_operations_pure' (58417508) panicked at crates/mpk-vc/tests/go_practical_source_string_operation.rs:113:63:
+called `Result::unwrap()` on an `Err` value: Selection(GoSourceSelectionError { source: "5edeb21aedd0382e263f060ff5d96e98378957e65676420857bd353fef5ebdef", node: 19, kind: Signature(Type(Scope)), path: [GoSourceSelectionRef { source: "5edeb21aedd0382e263f060ff5d96e98378957e65676420857bd353fef5ebdef", node: 19 }] })
+
+thread 'source_operations_wide' (58417511) panicked at crates/mpk-vc/tests/go_practical_source_string_operation.rs:113:63:
+called `Result::unwrap()` on an `Err` value: Selection(GoSourceSelectionError { source: "d1d645904099cc5097953388aa1561d16c223d7999cce9b148c0711d1a46761a", node: 19, kind: Signature(Type(Scope)), path: [GoSourceSelectionRef { source: "d1d645904099cc5097953388aa1561d16c223d7999cce9b148c0711d1a46761a", node: 19 }] })
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_string_operation`

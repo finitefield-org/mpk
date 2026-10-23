@@ -267,6 +267,52 @@ pub(super) fn source_builder(
     };
     Ok((builder, foundation, recipes))
 }
+
+/// All original value types, including units which never mention error.
+/// The existing error-bearing path is unchanged, with its exact identities.
+/// No source error key or payload case is synthesized for an error-free unit.
+pub(super) fn source_type_builder(
+    domain: &GoSourceValueDomain,
+) -> Result<(Builder, String, Vec<String>)> {
+    if domain
+        .types()
+        .any(|k| matches!(k, GoSourceTypeKey::Builtin { name, .. } if name == "error"))
+    {
+        let (builder, layout, _) = source_builder(domain)?;
+        return Ok((builder, layout.module, layout.cases));
+    }
+    if !domain.error_cases().is_empty() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    let mut source = Sources {
+        domain,
+        keys: domain.types().map(|k| (k.id().to_string(), k)).collect(),
+        cases: vec![],
+        active: BTreeSet::new(),
+        done: BTreeSet::new(),
+        order: vec![],
+    };
+    for id in source.keys.keys().cloned().collect::<Vec<_>>() {
+        source.visit(&id)?;
+    }
+    let rows = source
+        .order
+        .iter()
+        .map(|id| (source.keys[id], domain.underlying(id)))
+        .collect::<Vec<_>>();
+    let preimage = serde_json::to_vec(&rows).map_err(|_| GoOrdinaryError::Linkage)?;
+    let mut h = Sha256::new();
+    h.update(b"MPK-GO-SOURCE-TYPE-LAYOUT-PREPARATION-1\0");
+    h.update(preimage);
+    let module = format!("Mpk.Go.Practical.SourceTypeLayout.S{:x}", h.finalize());
+    let (mut builder, _) = error_value_builder_with_recipes()?;
+    for id in &source.order {
+        let (ty, zero) = shape(&source, &module, id)?;
+        emit_source(&mut builder, &module, id, ty, zero)?;
+    }
+    builder.certificate.module = module.clone();
+    Ok((builder, module, vec![]))
+}
 fn emit_source(builder: &mut Builder, module: &str, id: &str, ty: Expr, zero: Expr) -> Result<()> {
     emit(
         builder,

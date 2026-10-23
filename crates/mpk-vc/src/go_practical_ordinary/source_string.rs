@@ -103,14 +103,14 @@ impl GoSourceStringCatalogue {
 pub fn generate_go_practical_source_string_catalogue(
     domain: &GoSourceValueDomain,
 ) -> Result<GoSourceStringCatalogue> {
-    let (source_builder, layout, _) = source_error_layout::source_builder(domain)?;
+    let (source_builder, source, cases) = source_error_layout::source_type_builder(domain)?;
     let prior_layout = source_builder.clone().finish()?;
     let mut generic = word_index_builder()?;
     string::append(&mut generic)?;
     let generic_string = generic.clone().finish()?;
     let builder = composition::source_string_prerequisites(
         &[source_builder.certificate, generic.certificate],
-        layout.module_name(),
+        &source,
     )?;
     let keys = domain
         .types()
@@ -142,11 +142,11 @@ pub fn generate_go_practical_source_string_catalogue(
     }
     Ok(GoSourceStringCatalogue {
         builder,
-        source: layout.module_name().into(),
+        source,
         types: keys.into_values().collect(),
         underlying,
         strings,
-        cases: layout.case_type_ids().to_vec(),
+        cases,
         prior_layout,
         generic_string,
     })

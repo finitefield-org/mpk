@@ -244,6 +244,11 @@ impl GoSelectedBodyTypes {
     }
 }
 impl GoSourceSelection {
+    pub(in super::super) fn checked_body_locators(
+        &self,
+    ) -> impl Iterator<Item = &GoSourceSelectionRef> {
+        self.body_types.keys()
+    }
     pub(in super::super) fn checked_local_type(
         &self,
         root: &GoSourceSelectionRef,

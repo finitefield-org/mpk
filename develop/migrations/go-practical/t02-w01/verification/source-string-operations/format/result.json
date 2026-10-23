@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_ordinary.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/composition.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_error_layout.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_string.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_string_operation.rs",
+    "crates/mpk-vc/src/go_practical_type_keys.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/selection.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/members.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/string_operations.rs",
+    "crates/mpk-vc/tests/go_practical_source_string_operation.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/format/inputs.json",
+    "bytes": 297001,
+    "sha256": "ee71e2ae8bfa412e5dad5cc346e370cf5e37a4db7482e2580d26314987557c3f"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/format/driver.py",
+    "bytes": 9171,
+    "sha256": "f28f41870ea679679aaa488d0382fc34630d309da0970693b454683cc913ef1d"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Changed original-source operation-site/type derivation and string operand/result proof binding, plus error-free complete source-type layouts and runtime literal-string materialization. Cover real selected bodies, exact builtin resolution, all child calls and complete original types/U, same captured operand product, actual guards and exact result carriers. Retain unchanged error-bearing predecessor bytes. No source expression execution/callee/frame/context/profile claim, pruned source/U, new cap or broad intermediate gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": true,
+  "started_at_utc": "2026-10-23T02:37:00.020243+00:00",
+  "exit_code": 0,
+  "seconds": 0.23213454196229577,
+  "whole_source_inputs_unchanged": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/format/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/format/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-23T02:37:00.253541+00:00"
+}

@@ -1,0 +1,155 @@
+{
+  "status": "failed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_source_string_operation",
+    "source_operations",
+    "--",
+    "--nocapture",
+    "--test-threads=1",
+    "--skip",
+    "source_operations_preserve_error_bearing_predecessor_bytes"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_SOURCE_STRING_OPERATION_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/inputs.json",
+    "bytes": 297508,
+    "sha256": "99bf5322d58ae6c041dab9359a34cd2215fb5b719761037881fd302fb5b07341"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/driver.py",
+    "bytes": 9431,
+    "sha256": "72a7a7a8d041a6374c4ca2c9653360e527ab1c66584a840e00833529114ead58"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Changed original-source operation-site/type derivation and string operand/result proof binding, plus error-free complete source-type layouts and runtime literal-string materialization. Cover real selected bodies, exact builtin resolution, all child calls and complete original types/U, same captured operand product, actual guards and exact result carriers. Retain unchanged error-bearing predecessor bytes. No source expression execution/callee/frame/context/profile claim, pruned source/U, new cap or broad intermediate gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-23T03:06:57.350752+00:00",
+  "exit_code": 101,
+  "seconds": 210.34748999995645,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/stdout.log",
+    "bytes": 656,
+    "sha256": "3b41d613dfb9fe084c957628b9e5d45fc2e8c865bbeebe0d9f615b84c248529c"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/stderr.log",
+    "bytes": 3147,
+    "sha256": "3ef361235e90ea61ff4d5bcbdeebcff4c403a61794bb3d0a96a210c5e5234d47"
+  },
+  "certificates": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/control-erased-domain.mpcert",
+      "bytes": 340921,
+      "sha256": "826707d77c96c27e40ced2b44eb2cc870f36c4d0c46105e10dece3e000554fd5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/control-extra-theorem.mpcert",
+      "bytes": 341091,
+      "sha256": "92659f597da3caf1c75697db3a79363c44f95164304edd479cf4879a9bc85ade"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/control-zero-result.mpcert",
+      "bytes": 340924,
+      "sha256": "3f0c0e39e9e47c14fb3d6647cf1b7f9e796b55a68c166cfb5b8bf759d52f8c37"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/index-only.mpcert",
+      "bytes": 311568,
+      "sha256": "7870b76d42f65c0ba747e82037d874fcdde51db3b2b9e22ba31a6c9166ae4d61"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/length-only.mpcert",
+      "bytes": 335132,
+      "sha256": "8914a60e29a5721a393cc31272ef03d240b4d8695fe68030d862444e7832df96"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/literal-only.mpcert",
+      "bytes": 310780,
+      "sha256": "04139867f2b276e7d5e7f72bf3ca02729e6706cb300b519ff639817e9002de57"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/pure-000.mpcert",
+      "bytes": 340892,
+      "sha256": "d0de9805db308273b3cd29528eff3f62b72e85e7e4b7142b9cee172c350ce641"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/pure-001.mpcert",
+      "bytes": 340896,
+      "sha256": "8443ec437dec6d4f31ed3f29ab19a97c4f833265d70b5480b4d17e4a36110077"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/pure-002.mpcert",
+      "bytes": 340892,
+      "sha256": "c96075c6e8de73e1ff575db4e92b69a6608d52d5f78d9eec6ff9a51366a16352"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/pure-003.mpcert",
+      "bytes": 340892,
+      "sha256": "bc58ec86cfd9d574eae0907af7147063509a8d8d71278d0ac0c89e39462c8527"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/pure-004.mpcert",
+      "bytes": 315302,
+      "sha256": "9e69524cd2b353a6471a524fd3db277ebe8bef82d47e836ef0269d2f7e606a9e"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/wide-000.mpcert",
+      "bytes": 401500,
+      "sha256": "146f8cf00c2529ffac6e1b9a7fd6311938cfceeaa12eb546216d4f07e9125acd"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/wide-001.mpcert",
+      "bytes": 401578,
+      "sha256": "5a12e5888b30ae7283387b3319e8e5b57481b24001720dc4c63f6ff3266b148c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/wide-002.mpcert",
+      "bytes": 401500,
+      "sha256": "8eab8ebab7a60a1af7648b51e43fb663daf8161235ff22e50b05e632df0acdab"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/wide-003.mpcert",
+      "bytes": 401500,
+      "sha256": "524cdf8821b70fe06335f04517610b3612396c32d784abe5ea820185584dde91"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-operations/remaining/certificates/wide-004.mpcert",
+      "bytes": 374937,
+      "sha256": "de2dcee5106de8fa56e5de536f6e216327d376d35132a68a448ff0d3426e7e73"
+    }
+  ],
+  "finished_at_utc": "2026-10-23T03:10:27.707972+00:00"
+}
