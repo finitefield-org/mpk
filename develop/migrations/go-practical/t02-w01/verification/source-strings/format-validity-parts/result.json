@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_ordinary.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/composition.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_string.rs",
+    "crates/mpk-vc/tests/go_practical_source_string.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/format-validity-parts/inputs.json",
+    "bytes": 284444,
+    "sha256": "8a377fd64ba464597f385a8e9555b603e83a9465b941deb49b76ed4aab57c3b1"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/format-validity-parts/driver.py",
+    "bytes": 7162,
+    "sha256": "8ea7a0dd2b915978ae5256f70220e23841e860f8aa93e2d5820530a61526b7d0"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Affected new source string adapters and multi-input composition only: all original source types and complete U, builtin and nominal string rows, whole source/math roundtrips, original zero equality and validity, whole 64-bit lengths and all256 byte slots, constructor and guarded byte observation laws. Existing unrelated ordinary producers and kernel code unchanged. No Go expression evaluation, signed int result/index, full context authority, funext, axiom, reduced universe or new admission cap. New native Go fixture observations are comparison data. Scoped format, Clippy and fixture-only native test; full T02 gate deferred.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": true,
+  "started_at_utc": "2026-10-23T00:34:05.141313+00:00",
+  "exit_code": 0,
+  "seconds": 0.30409908294677734,
+  "whole_source_inputs_unchanged": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/format-validity-parts/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/format-validity-parts/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-23T00:34:05.449026+00:00"
+}

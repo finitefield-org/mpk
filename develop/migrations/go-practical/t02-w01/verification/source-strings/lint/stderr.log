@@ -1,0 +1,39 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0597]: `names` does not live long enough
+   --> crates/mpk-vc/src/go_practical_ordinary/source_string.rs:302:25
+    |
+297 |             let names = (0..slot_count)
+    |                 ----- binding `names` declared here
+...
+302 |             args.extend(names.iter().map(|n| (n.as_str(), boolean())));
+    |                         ^^^^^                ----------------------- returning this value requires that `names` is borrowed for `'static`
+    |                         |
+    |                         borrowed value does not live long enough
+...
+330 |         }
+    |         - `names` dropped here while still borrowed
+    |
+note: requirements that the value outlives `'static` introduced here
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/iter/traits/collect.rs:416:30
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/iter/traits/iterator.rs:834:11
+
+error[E0597]: `names` does not live long enough
+   --> crates/mpk-vc/src/go_practical_ordinary/source_string.rs:307:25
+    |
+297 |             let names = (0..slot_count)
+    |                 ----- binding `names` declared here
+...
+307 |             args.extend(names.iter().map(|n| (n.as_str(), boolean())));
+    |                         ^^^^^                ----------------------- returning this value requires that `names` is borrowed for `'static`
+    |                         |
+    |                         borrowed value does not live long enough
+...
+498 |     }
+    |     - `names` dropped here while still borrowed
+    |
+note: requirements that the value outlives `'static` introduced here
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/iter/traits/collect.rs:416:30
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/iter/traits/iterator.rs:834:11
+
+For more information about this error, try `rustc --explain E0597`.
+error: could not compile `mpk-vc` (lib) due to 2 previous errors

@@ -31,6 +31,7 @@ mod source_error_layout;
 mod source_error_operations;
 mod source_error_receiver;
 mod source_error_representation;
+mod source_string;
 mod source_value_relations;
 mod storage_lens;
 mod string;
@@ -60,6 +61,9 @@ pub use source_error_operations::{
 };
 pub use source_error_receiver::GoSourceErrorReceiverRow;
 pub use source_error_representation::GoSourceErrorRepresentationRow;
+pub use source_string::{
+    generate_go_practical_source_string_catalogue, GoSourceStringCatalogue, GoSourceStringRow,
+};
 pub use source_value_relations::{
     generate_go_practical_source_value_relation_catalogue, GoSourceValueRelationCatalogue,
     GoSourceValueRelationRow,
