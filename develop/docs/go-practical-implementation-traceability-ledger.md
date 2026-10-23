@@ -8264,3 +8264,28 @@ Actual pinned original Go compilation and immutable original-package reconstruct
 The first complete replacement fixture produced a valid intact original owner, then exposed an accidental main-module-only restriction in the new handoff. The corrected handoff retains the separately owned main manifest and the requested package's actual original module without introducing root admission. The complete original failed Go inputs/export/SDK outputs and exact source remain. The first Rust suite passed source derivation/full32-byte replay, replacement and raw-source mutation roots; its remaining control incorrectly expected missing package roots to pass the shared generic reader. Only that expectation was corrected to the actual shared Reference rejection, and only the affected control root reran. All original runtime logs, inputs and drivers remain; no semantic/source/case/root is pruned, no new cap or axiom is introduced, and no live verification restarts on an observation timeout. All three native original trees, 43913 files/349990541 bytes and original modes, remain losslessly archived and physically retained under unique no-overwrite paths.
 
 These are privately owned source-only candidates and provenance identities, not authenticated installed capture contexts, source admission, callee execution/precondition/result/effect/frame proofs, operand-once/order proofs or source/IR/program correspondence. Complete context/descriptor/private registry/capture and foundation assembly, all169 theorem demands, native Linux release gates and remaining T02-T11 work remain due. R01/R06/W01 stay open and the practical profile stays inactive. The cumulative T02 gate remains final W04: ./scripts/check-fast.sh. Go/Rust only; no removed-language implementation/test/release prerequisite is added.
+
+
+## 176. T02-W01 remaining other-language roadmap directions retired
+
+The [scope follow-up](../migrations/go-rust-only/remaining-plan-directions/README.md)
+removes the remaining current instructions to begin another-language phase from
+the completed Rust work record and shared-boundary audit. Both direct current
+development to the existing Go priority and serial T/W order while retaining
+the checked Rust profile. Complete previous document bytes and modes remain;
+historical audit outcomes do not authorize another frontend or release claim.
+No executable source, registry identity, proof rule, resource cap or frozen
+conformance member changes.
+
+The existing installed-registry root passes: exactly Go/Rust are registered;
+removed and unknown profiles reject. This boundary is the affected validation
+target, so unchanged frontend, source-proof and kernel suites are not repeated.
+All nine Markdown links and both complete prior documents' bytes/modes check.
+The actual command, complete stdout/stderr and full prelaunch local inputs are
+retained, with consumed inputs unchanged throughout the real test. Review of
+the current plan finds no remaining direction to start the retired successor
+phase; historical phase identifiers remain historical evidence.
+
+R01/R06/T02-W01 stay open, the practical Go profile stays inactive, and all
+remaining foundation/context/source-program/native-Linux/T02-T11 work stays due.
+The cumulative T02 gate is deferred to final T02-W04: `./scripts/check-fast.sh`.

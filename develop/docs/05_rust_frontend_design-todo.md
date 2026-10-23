@@ -4,6 +4,11 @@ Source design: `develop/docs/05_rust_frontend_design.md`
 
 Status: completed Go/VIR/Rust migration task record (2026-08-24).
 
+Current scope: MPK supports [Go and Rust only](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md).
+Other-language milestones and release dependencies are retired. Continue the
+[Go work plan](09_go_practical_subset_design-todo.md) in its existing priority
+and serial T/W order while retaining the checked Rust profile.
+
 GIR_CUTOVER_STATUS: complete; RUST_PHASES: complete; RETAINED_GIR_TERMINOLOGY: historical
 
 This document turns the breaking GIR-to-VIR migration and Rust frontend design
@@ -41,8 +46,8 @@ Out of scope:
   pointers, allocation, traits, generics, enums, loops, recursion, external
   dependencies, macros, build scripts, floating point, and 128-bit integers;
 - mixed-language VIR modules or cross-language calls in v0;
-- multi-language design, feasibility, specification, or production milestones
-  during this Go/VIR/Rust program; and
+- design, feasibility, specification, or production milestones for source
+  languages other than Go and Rust; and
 - placeholder future-language IDs, selection branches, semantic profiles,
   release tuples, bundles, or dormant production hooks.
 
@@ -166,14 +171,12 @@ Out of scope:
     assembler uses the same materialization and accepts release output only
     after two separately empty clean builds produce byte-identical main/driver
     files.
-13. Future-language work follows
-    `06_multilanguage_frontend_design.md` and
-    `06_multilanguage_frontend_design-todo.md` only after this entire program
-    completes. No `MLANG-*` or future-language milestone starts before
-    `RUST-07-T05`; thereafter every design, specification, and implementation
-    phase waits for its immediate predecessor. This program may not add or
-    reserve future-language schemas, profile IDs, registry entries, CLI
-    selection branches, release tuples, bundles, or frontend code.
+13. MPK supports Go and Rust only. Completion of `RUST-07-T05` leads to the
+    [Go work plan](09_go_practical_subset_design-todo.md), without another
+    language's design, implementation or release prerequisite. Do not add or
+    reserve schemas, profile IDs, registry entries, CLI selection branches,
+    release tuples, bundles or frontend code for another source language.
+    The former multi-language plans are retired historical records.
 
 ## Component Ownership
 
@@ -239,10 +242,10 @@ VIR-00-T01..T10
 Tasks within a phase may run in parallel only when their explicit dependencies
 allow it. A phase exit gate still requires every task in that phase.
 
-The multi-language sequence is outside and strictly after this critical path.
-`MLANG-00` starts only when `RUST-07-T05` completes; all later phases follow
-the serial order in `06_multilanguage_frontend_design-todo.md`. Completing this
-Rust program does not require implementing or designing a future language.
+After this completed critical path, follow the
+[Go work plan](09_go_practical_subset_design-todo.md) in its existing priority
+and serial T/W order. Other-language phases and release dependencies are
+retired under the [language scope](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md).
 
 ## Common Definition of Done
 
