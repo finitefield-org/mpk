@@ -59,13 +59,10 @@ pass both source-free checkers. The migration is complete only when Go reaches
 the same shared path and no production component consumes or emits GIR v0.
 Producing VIR alone is not source-program verification.
 
-C#, Java, Dart, TypeScript, and Python are planned only as post-Rust expansion.
-No multi-language design, feasibility, specification, or production milestone
-starts while this program runs. After the Rust hardening/release gate
-`RUST-07-T05`, the follow-on program starts its own design phase and then
-continues one phase at a time. The governing follow-on documents are
-`06_multilanguage_frontend_design.md` and
-`06_multilanguage_frontend_design-todo.md`.
+The [Go/Rust-only language scope](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md)
+retires the former other-language expansion program. Following the completed
+Rust release, continue the [practical Go work plan](09_go_practical_subset_design-todo.md)
+without another language's implementation or release prerequisite.
 
 ## 2. Context and current constraints
 
@@ -3406,35 +3403,22 @@ hold:
 - documentation never presents rustc, `rust2vir`, VIR, or a successful build as
   trusted proof evidence.
 
-## 25. Post-Rust multi-language handoff
+## 25. Go/Rust development after the Rust release
 
-This design deliberately validates the shared architecture with exactly two
-source languages before starting the multi-language program. No multi-language
-design, feasibility, specification, or production milestone runs during this
-Go/VIR/Rust program. It must not add an unused plugin framework, future-
-language branch, or widened frozen parser.
+MPK supports exactly two program source languages, Go and Rust. The completed
+Rust profile remains supported while practical Go expands in its accepted
+priority and serial T/W order. No other-language frontend, profile, dormant
+extension hook, future task or release prerequisite is part of this plan.
 
-After `RUST-07-T05`, `MLANG-00` may use the completed Go/Rust path for semantic
-comparison and compiler-API feasibility work. `MLANG-01` then designs the
-strict successor extension mechanism and freezes the C# specification package.
-Production phases proceed serially. The original queue was C#, Java, Dart,
-TypeScript, and Python; the 2026-09-02 governance amendment in
-`08_csharp_practical_subset_design.md` inserts the proposed CSHARP-03 practical
-profile after Java and before Dart. Each admitted language/profile phase has a
-globally unique semantic profile, pinned registered frontend/toolchain bundle,
-complete conformance vectors, and both-checker release gate.
+A widened Go/Rust profile must freeze its subset and compiler boundary, bind
+all compiled consumers and release identities, and pass its required local
+and native Linux gates before activation. Shared contract changes migrate
+all affected Go/Rust producers and consumers together. Certificate v0, checker
+acceptance and axiom categories remain unchanged. Mixed-language VIR and FFI
+claims remain outside the supported scope.
 
-The first added language may require successor versions of VIR, frontend,
-selection, manifest, release, policy, or evidence contracts because current v0
-unions are closed over Go and Rust. If a shared serialized contract changes,
-all active Go/Rust producers and consumers migrate atomically; no permanent
-dual public IR input is introduced. Certificate v0, the trust boundary, and
-axiom-category encoding remain unchanged.
-
-Mixed-language VIR and source-language FFI remain out of scope. Independently
-verified languages compose only through checked hash-pinned certificate
-imports. Exact gates and language-specific risks are owned by
-`06_multilanguage_frontend_design.md` and its todo.
+The [Go design](09_go_practical_subset_design.md) and
+[work plan](09_go_practical_subset_design-todo.md) own the current expansion.
 
 ## 26. Primary references
 

@@ -4822,7 +4822,7 @@ git diff --check
 | 22 alternatives | execution rules 1-13; no adapter, dual release path, GIR reinterpretation, syn-only, textual MIR, LLVM, or trusted frontend task exists |
 | 23 risks | bundle/compiler risks: RUST-03; semantics: VIR-01/RUST-04; migration: GO-VIR-02; hardening: RUST-07 |
 | 24 completion criteria | GO-VIR-02-T12, RUST-06-T04, RUST-07-T05 |
-| 25 post-Rust multi-language handoff | RUST-07-T05, then MLANG-00, MLANG-01, and CSHARP-02 in `06_multilanguage_frontend_design-todo.md` |
+| 25 Go/Rust development after the Rust release | Completed RUST-07-T05; practical Go follows `09_go_practical_subset_design-todo.md` under `LANGUAGE_SUPPORT_SCOPE_V1.md` |
 
 ## Final Handoff Checklist
 

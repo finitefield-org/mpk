@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/native-comparison/driver.py",
+    "bytes": 5144,
+    "sha256": "30e26fa5ef3657cf17eed148e7c18c820daa656d9b68805e8fcd68fc638c0c19"
+  },
+  "complete_prelaunch_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/native-comparison/prelaunch-inputs.json",
+    "bytes": 15113,
+    "sha256": "5eaaf37e51ff3bb8cb7ef9b08827bb27e5843031e21a5870afcc7c468df0485e"
+  },
+  "started_at_utc": "2026-10-23T01:58:20.357814+00:00",
+  "whole_inputs_unchanged": true,
+  "native_dynamic_len_calls": [
+    {
+      "constant": false,
+      "end": 560,
+      "operand_type": "string",
+      "result_type": "int",
+      "source": "7f981ddc95415203724d24f15616352c8d9a4be1aa7a4933a4086247476ededd",
+      "start": 554
+    },
+    {
+      "constant": false,
+      "end": 567,
+      "operand_type": "example.com/policy.Named",
+      "result_type": "int",
+      "source": "7f981ddc95415203724d24f15616352c8d9a4be1aa7a4933a4086247476ededd",
+      "start": 561
+    },
+    {
+      "constant": false,
+      "end": 574,
+      "operand_type": "example.com/policy.Chained",
+      "result_type": "int",
+      "source": "7f981ddc95415203724d24f15616352c8d9a4be1aa7a4933a4086247476ededd",
+      "start": 568
+    },
+    {
+      "constant": false,
+      "end": 581,
+      "operand_type": "example.com/policy/helper.Remote",
+      "result_type": "int",
+      "source": "7f981ddc95415203724d24f15616352c8d9a4be1aa7a4933a4086247476ededd",
+      "start": 575
+    }
+  ],
+  "native_string_type_identities": {
+    "f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1": "string",
+    "7ce31e5d1945ff70174fcb0730265ec641c232438cb6fa5beac70b384b73c2ac": "example.com/policy.Named",
+    "2c63770d6468745cfb8ae5c715a3ba08e8bfd3847df12878bd2381c94f50b58d": "example.com/policy.Chained",
+    "94a3d3d82058008fed9c5c281298a7e121388fbc18566728752fa44da200ebe0": "example.com/policy/helper.Remote"
+  },
+  "source_int_width": 64,
+  "source_int_signed": true,
+  "all_12_source_length_rows_compared": true,
+  "complete_original_error_case_counts": [
+    0,
+    4,
+    70
+  ],
+  "native_facts_passed_to_Rust_constructor": false,
+  "source_expression_or_context_authority": false,
+  "finished_at_utc": "2026-10-23T01:58:27.315499+00:00"
+}

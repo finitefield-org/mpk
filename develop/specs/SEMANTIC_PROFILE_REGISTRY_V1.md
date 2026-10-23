@@ -2,12 +2,11 @@
 
 Status: normative registry mechanism. The installed registry is Go/Rust-only
 revision 4. [LANGUAGE_SUPPORT_SCOPE_V1.md](LANGUAGE_SUPPORT_SCOPE_V1.md)
-supersedes the historical extension and activation clauses below. Revisions
-2/3 and removed-language profiles are not compiled or accepted.
+owns language membership and activation. Revisions 2/3 and removed-language
+profiles are not compiled or accepted.
 
-This specification is the `MLANG-01-T02` successor-extension decision. MPK
-chooses a closed, hash-pinned semantic-profile registry rather than adding a
-new source-language branch to every common tagged union. The registry carries
+MPK uses a closed, hash-pinned semantic-profile registry for the supported
+Go/Rust profiles. The registry carries
 only immutable identities that select validators compiled into the exact
 release binaries. It is not a schema language, executable registry, plugin
 system, compatibility layer, or proof input.
@@ -24,8 +23,7 @@ VIR, VC, policy/evidence documents, and AI output remain untrusted helper data.
 Certificate v0, its binary encoding and hash domains, both source-free checker
 inputs, checker acceptance, and the four axiom categories do not change.
 
-This specification closes the four shape gaps from
-`../docs/mlang-01-go-rust-csharp-gap-audit.md`:
+This specification binds four common Go/Rust artifact boundaries:
 
 | Gap | Frozen owner in this specification |
 | --- | --- |
@@ -34,10 +32,10 @@ This specification closes the four shape gaps from
 | `S03` | release-root binding, tuple/descriptor entry hashes, and compiled frontend/release contracts |
 | `S04` | fixed policy, evidence, and AI contract bindings |
 
-It does not freeze any C# profile content. Registry revision 1 contains only
-the two already implemented Go/Rust profiles. `MLANG-01-T03` may define one
-C# entry by creating revision 2 under section 11; it must not alter either
-revision-1 entry.
+The installed revision 4 contains only Go fixed and Rust checked entries.
+Revision 1 is retained for explicit predecessor conformance tests, never as an
+installed fallback. Other-language profiles and future implementation tasks
+are outside the current scope.
 
 ## 2. Closed JSON and transport
 
@@ -313,7 +311,8 @@ The envelope transports declarative profile data, not validators. A release
 contract value may name only inventory-relative records already present in
 the surrounding validated descriptor and may never name a validator,
 checker, dynamic library to load as validation code, plugin, or external
-resource. T03 owns the exact C# values; registry bytes do not contain them.
+resource. Compiled Go/Rust contracts own exact payload validation; registry
+bytes cannot supply new validators.
 
 ## 6. Compiled contract closure and no-plugin proof
 
@@ -439,12 +438,10 @@ The exact successor release-shape delta is:
   compiler, launcher, managed/native runtime, component, and inventory
   relationships before any process starts.
 
-For managed execution, the surrounding common inventory still identifies all
-bytes. A profile release/frontend value may select a pinned native host from
-that inventory and pinned managed assemblies/content as arguments or inputs;
-it cannot request ambient `.NET`, loader, assembly resolution, restore,
-network, `PATH`, or host-global installation. This is the closed descriptor
-and runner-dispatch mechanism whose exact C# records remain owned by T03.
+The Go/Rust release binds each compiler, subordinate driver and native
+runtime input to the registered inventory. Contract values cannot request an
+ambient compiler, loader, network resource, PATH lookup or host-global
+installation. The current runner dispatches only the compiled Go/Rust paths.
 
 ## 8. Successor artifact shape and versioning
 
@@ -621,56 +618,44 @@ and a later source diagnostic cannot hide a registry or context failure.
 
 ## 11. Registry revision and profile admission
 
-Within schema v1, revisions are append-only by membership, not by array-tail
-position:
+The installed release accepts exactly its embedded schema, ID, revision and
+hash. Revision arithmetic grants no compatibility. Revision 4 implements the
+user-authorized Go/Rust-only scope and retains the original Go/Rust entry
+bytes and entry hashes. Historical registries remain evidence of their own
+epochs; their removed entries are not current registrations.
 
-1. revision 1 is the exact Go/Rust base in section 4.3;
-2. revision `N+1` contains every revision-`N` entry byte-for-byte and may add
-   entries only for the one next serial language phase, after which the full
-   array is sorted again by section 4.1; for this roadmap each phase adds
-   exactly one entry, so revision 2 adds only C# even though `csharp` sorts
-   before the retained Go/Rust entries;
-3. changing any existing entry requires a new semantic-profile ID and a new
-   entry; an old entry may cease to have a release tuple but remains in the
-   registry history;
-4. changing registry/entry shape, validation, common operation vocabulary, or
-   a common hash meaning requires a new registry and affected artifact schema
-   version, not another v1 revision; and
-5. the runtime accepts only the one schema/ID/revision/hash embedded in its
-   release. Revision arithmetic never grants compatibility.
+A new or widened profile may belong only to Go or Rust. It requires a new
+profile identity when existing entry semantics change, complete normative
+contracts and vectors, compiled validators and the owning work plan's full
+activation gates. No entry, release tuple or implementation hook may be
+reserved for another source language. The practical Go draft is inactive and
+is not an installed entry.
 
-A release may select only a subset of registry entries through release tuples,
-which permits fail-closed deactivation without deleting history. An entry for
-a future language must not be added before that language's normative profile
-and vectors are complete. At the original freeze, T03 owned the first C# entry
-and exact revision-2 root while Java and later languages were absent. Revision
-3 subsequently appended Java without changing the retained entries; the same
-admission rule applies to every later language.
-
-Every registry update is a reviewed release change with an exact predecessor
-diff, new root hash, regenerated cross-profile vectors, and all affected helper
-artifact hashes. There is no runtime install/update command.
+Changing registry/entry shape, common validation or hash meanings requires a
+new schema version. Every registry change requires an exact predecessor diff,
+new canonical root hash, regenerated affected cross-profile and artifact
+hashes, and atomic release binding. There is no runtime install/update command
+and no fallback to a predecessor registry.
 
 ## 12. Atomic migration and no dual IR
 
-The predecessor schemas were required to remain the sole production path until
-the C# implementation/release change performed all of these steps atomically:
+A Go/Rust profile or shared-schema migration must update the complete source
+pipeline as one release change:
 
-1. consume without alteration T03's already frozen exact C# entry, revision-2
-   root, profile specification, compiled-profile payloads, and vectors;
-2. compile every revision-2 contract into `mpk`, `go2vir`, `rust2vir`, the
-   Rust subordinate driver, and `csharp2vir` as applicable;
-3. migrate every Go/Rust/C# producer and consumer in section 8 to the sole
-   successor schema;
-4. update the release assembler, installed-tree closure, registry roots,
-   bundle descriptors, tuples, recipes, API routes, policy/evidence/AI
-   projections, examples, fixtures, and documentation in the same release;
-5. regenerate every changed Go/Rust hash and prove all old flat fields and
-   schema discriminators reject;
-6. install only the revision-2 semantic registry and successor bundle
-   registry beside the one successor `bin/mpk`; and
+1. freeze and consume the exact profile, registry root, compiled contract
+   payloads and vectors;
+2. compile every active contract into `mpk`, `go2vir`, `rust2vir` and the Rust
+   subordinate driver as applicable;
+3. migrate all affected Go/Rust producers and consumers in section 8;
+4. update the release assembler, installed-tree closure, registries, bundle
+   descriptors, tuples, recipes, API, policy/evidence/AI projections, examples,
+   fixtures and documentation together;
+5. regenerate changed hashes and prove unsupported predecessor schemas,
+   removed profiles and crossed contexts reject;
+6. install only the current semantic registry and bundle registry with the
+   matching successor `bin/mpk`; and
 7. pass determinism, cross-profile, no-plugin, Certificate v0, both-checker,
-   axiom, and full installed-release gates before publication.
+   axiom and full installed-release gates before publication.
 
 The successor binary MUST NOT accept `mpk.vir.v0` or expose a second import
 route, version flag, compatibility parser, adapter, fallback hash domain, or
@@ -723,21 +708,14 @@ closed conformance model and hash checker; it exports no library item and is
 not linked into `mpk`, a frontend, a checker, or any production parser/emitter.
 The repository vector manifest pins the vector's raw bytes.
 
-## 14. Historical T03 handoff and current exit state
+## 14. Current installed state
 
-`MLANG-01-T03` used this mechanism without changing it. T03 owned only:
+The active production routes select only revision 4: Go fixed and Rust checked,
+two frontend/toolchain pairs and three target tuples. Removed-language
+implementations, contracts and release tuples are absent. Unknown profiles,
+revision-2/3 registries and crossed contexts reject before source capture.
 
-- the exact C# language/profile, parameter, selection, nine contract IDs, and
-  corresponding compiled-profile payload values;
-- the immutable C# entry hash and revision-2 root hash;
-- C# semantic, Roslyn/toolchain, source-map, manifest, runner, policy,
-  evidence, AI, diagnostic, limit, and rejection content; and
-- every C# conformance/hash vector and implementation-test owner.
-
-It preserved both revision-1 entries exactly and left every later language
-absent. `CSHARP-02` then completed the atomic implementation in section 12.
-
-At freeze, this design introduced no production parser/emitter, released dual
-IR input, C# entry, executable registry field, or checker/trust change. The
-active production routes now select only the embedded revision-3 identity and
-still have no dual-IR mode, executable registry field, or checker/trust change.
+The Go practical profile remains under development and uninstalled. Activation
+requires its complete work plan and native Linux release checks. Historical
+release receipts cannot establish acceptance for the current registry bytes.
+There is no dual-IR mode, executable registry field or checker/trust change.

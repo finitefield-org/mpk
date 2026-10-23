@@ -185,6 +185,114 @@ pub(super) fn source_string_index_prerequisites(inputs: &[Certificate; 2]) -> Re
     Ok(composer.builder)
 }
 
+/// Keep the complete original string row plus fixed balanced half/power roots.
+/// No source byte type, caller root set or alternative bound is introduced.
+pub(super) fn source_string_length_prerequisites(inputs: &[Certificate; 3]) -> Result<Builder> {
+    let mut index = BTreeMap::new();
+    let mut identities = BTreeMap::new();
+    let mut roots = vec![];
+    let mut required = BTreeSet::new();
+    for depth in 0..=6 {
+        required.insert(format!(
+            "Mpk.Go.Practical.Word.SignedBounds.HalfDefinition{depth}"
+        ));
+        if depth < 6 {
+            required.insert(format!(
+                "Mpk.Go.Practical.Word.Numeric.PowerTwoWeight{depth}"
+            ));
+        }
+    }
+    for name in [
+        "Mpk.Go.Practical.Word.SignedBounds.W64.UnsignedHalfLess",
+        "Mpk.Go.Practical.Word.Numeric.PowerTwoZero",
+        "Mpk.Go.Practical.Word.Numeric.PowerTwoSucc",
+        "Mpk.Go.Practical.Word.Numeric.PowerTwoAdd",
+        "Mpk.Go.Practical.Word.Numeric.W64.Signed",
+        "Mpk.Go.Practical.Word.Shifts.PowerMinusBalance",
+        "Mpk.Go.Practical.Word.Shifts.PowerPositive",
+        "Mpk.Go.Practical.Word.Shifts.CountPositiveDecomposition",
+        "Mpk.Go.Practical.Word.Shifts.CountNoLessExtension",
+        "Mpk.Go.Practical.Word.Order.LessPositiveExtension",
+        "Mpk.Go.Practical.Word.Index.UpperBound",
+        "Mpk.Go.Practical.Word.Index.NotTrueReflect",
+        "Mpk.Go.Practical.Int.FromNat",
+        "Mpk.Go.Practical.Int.Make",
+    ] {
+        required.insert(name.to_string());
+    }
+    for (s, certificate) in inputs.iter().enumerate() {
+        if !certificate.imports.is_empty()
+            || !certificate.proof_node_table.is_empty()
+            || !certificate.theory_certificates.is_empty()
+            || certificate.source_manifest.is_some()
+            || certificate.axiom_report.summary.total_axiom_count != 0
+            || certificate.declarations.iter().any(|d| {
+                !matches!(
+                    d.kind,
+                    DeclarationKind::Def { .. }
+                        | DeclarationKind::Theorem { .. }
+                        | DeclarationKind::Inductive { .. }
+                        | DeclarationKind::Constructor { .. }
+                        | DeclarationKind::Recursor { .. }
+                )
+            })
+        {
+            return Err(GoOrdinaryError::Foundation);
+        }
+        let hashes = fingerprints(certificate);
+        for (i, declaration) in certificate.declarations.iter().enumerate() {
+            let name = certificate.name_table[declaration.name as usize].clone();
+            if let Some(previous) = identities.get(&name) {
+                if previous != &hashes[&name] {
+                    return Err(GoOrdinaryError::Linkage);
+                }
+            } else {
+                identities.insert(name.clone(), hashes[&name].clone());
+                index.insert(name.clone(), (s, i));
+            }
+            if s == 0
+                || required.contains(&name)
+                || matches!(
+                    declaration.kind,
+                    DeclarationKind::Inductive { .. }
+                        | DeclarationKind::Constructor { .. }
+                        | DeclarationKind::Recursor { .. }
+                )
+            {
+                roots.push(name);
+            }
+        }
+    }
+    if required.iter().any(|name| !index.contains_key(name)) {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    let builder = Builder::new()?;
+    for (name, identity) in fingerprints(&builder.certificate) {
+        if identities.get(&name) != Some(&identity) {
+            return Err(GoOrdinaryError::Linkage);
+        }
+    }
+    let mut composer = Composer {
+        inputs,
+        signed_division_names: false,
+        builder,
+        index,
+        cloned: BTreeMap::new(),
+        visiting: BTreeSet::new(),
+        terms: BTreeMap::new(),
+        levels: BTreeMap::new(),
+    };
+    for name in composer.dependency_order(&roots)? {
+        composer.declaration(&name)?;
+    }
+    for (name, identity) in fingerprints(&composer.builder.certificate) {
+        if identities.get(&name) != Some(&identity) {
+            return Err(GoOrdinaryError::Linkage);
+        }
+    }
+    Ok(composer.builder)
+}
+
 /// Close compiled-in declaration roots without changing any retained named
 /// type, body, proof or inductive metadata. This is producer packaging only;
 /// each resulting complete ordinary certificate still needs both checkers.

@@ -147,3 +147,18 @@ Full-byte audit records retain one finding in the original failed-scan stdout.
 It remains a reported historical diagnostic; zero findings are not claimed
 for every decoded diagnostic buffer. The current source scan is separate.
 No matcher, seal or source/JSON/directory exclusion changes.
+
+
+## Current documentation closure
+
+The [current documentation checkpoint](current-documentation/README.md) removes
+remaining other-language continuation and release instructions from active
+charter, summary, Rust handoff, roadmap, release gates and registry admission
+rules. Complete original bytes remain historical evidence. Existing Go/Rust
+registry rejection checks, publication reconstruction and current link review
+pass; no removed-language test or native release acceptance is claimed.
+
+The scope closure additionally retires127 C#-only tagged checker replay roots,
+keeps the generic certificate/protocol suite, and corrects current reference
+and Rust upgrade directions. The two affected shared protocol roots and Go
+format pass after a retained unused-import compile failure.

@@ -1,29 +1,23 @@
 # Milestones and Acceptance Criteria
 
-## Authority during the VIR migration
+## Current language scope and milestone ownership
 
-M0 through M10 record the completed Go-only implementation baseline. The Rust
-milestones below also completed through `RUST-07-T05`; subsequent work follows
-the serial multi-language handoff and does not create a parallel helper path.
+MPK supports [Go and Rust only](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md).
+M0 through M10 below record the completed Go implementation baseline.
+`VIR-00`, `VIR-01`, `GO-VIR-02` and `RUST-03` through `RUST-07-T05` completed
+the shared Go/VIR/Rust migration and scoped Rust release. Certificate v0 and
+source-free checker acceptance remain unchanged.
 
-Forward implementation followed the dependency-ordered milestones in
-`../docs/05_rust_frontend_design-todo.md`: VIR-00 froze the replacement
-contracts, VIR-01 built shared foundations, GO-VIR-02 cut the Go path over to
-VIR, and RUST-03 through RUST-07-T05 completed the pinned Rust frontend and
-release. The cutover replaced the applicable M6/M7 helper interfaces as one
-release change while leaving Certificate v0 and checker acceptance unchanged.
-
-The multi-language program in
-`../docs/06_multilanguage_frontend_design-todo.md` is a strictly post-Rust
-handoff, not a parallel track, an extension of M0 through M10, or a prerequisite
-for completing Rust v0. Its single sequence is:
+Current expansion follows [the practical Go work plan](../docs/09_go_practical_subset_design-todo.md):
 
 ```text
-RUST-07-T05 -> MLANG-00 -> MLANG-01 -> CSHARP-02 -> JAVA-03
-  -> CSHARP-03 -> DART-04 -> TYPESCRIPT-05 -> PYTHON-06
+GO-PRAC-T01 -> T02 -> T03 -> T04 -> T05 -> T06 -> T07 -> T08 -> T09 -> T10 -> T11
 ```
 
-No phase in that sequence overlaps its predecessor.
+Continue its accepted feature priority and serial T/W order. T01 is complete;
+T02-W01 remains in progress and the practical Go profile is inactive. Other
+languages have no implementation, resumption task or release prerequisite.
+Historical migration records apply only to their original identities.
 
 ## M0: Project charter accepted
 

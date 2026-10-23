@@ -2,9 +2,11 @@
 
 Status: project charter for the MPK MVP.
 
-The Go cutover is complete. Rust work follows
-`05_rust_frontend_design-todo.md`; Certificate v0 and the trust boundary do not
-change.
+MPK supports Go and Rust only, as defined by
+[LANGUAGE_SUPPORT_SCOPE_V1.md](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md).
+The Go/VIR/Rust cutover is complete. Practical Go work follows
+[the Go work plan](09_go_practical_subset_design-todo.md); Certificate v0 and
+the trust boundary do not change.
 
 ## Mission
 
@@ -51,27 +53,20 @@ The MVP is limited to the smallest chain needed to demonstrate certificate-first
 
 Unsupported or ambiguous behavior must fail closed. The MVP must reject rather than approximate unsupported core features, unsupported Go features, unknown certificate tags, non-canonical encodings, unresolved metavariables, checker fuel exhaustion, unrecognized theory-certificate formats, and solver evidence that is not independently checkable.
 
-## Post-MVP source-language direction
+## Source-language direction
 
-C#, Java, Dart, TypeScript, and Python belong to a source-frontend program
-outside the MVP acceptance boundary. That program began only after the
-Go/VIR/Rust sequence completed `RUST-07-T05`; C# scalar is active, Java is
-complete through T10 including native release acceptance, and practical C# T01
-has published its normative but inactive freeze package. Its governance
-remains in `06_multilanguage_frontend_design.md`.
+Development expands the practical Go subset in the accepted priority and
+serial T/W order while retaining the checked Rust profile. Other-language
+frontends, profiles, release prerequisites and future implementation tasks
+are removed. Build tools and browser application code do not constitute MPK
+source-language support.
 
-Execution is one flow: `MLANG-00` then performs common semantic and compiler-
-API research, `MLANG-01` freezes the successor extension and C# package, and
-production admission proceeds C#, Java, the `CSHARP-03` practical C# profile,
-Dart, TypeScript, then Python. Practical C# T02-W01/W02/W03/W04/W05 are
-complete and T02-W06 is the next ready item.
-Each phase must freeze its own subset
-and semantic profile, fail closed at a pinned compiler or analysis boundary,
-and reuse the unchanged certificate and source-free checker boundary. There
-are no mixed-language VIR modules or FFI claims in this program, and current
-Go/Rust contracts must not reserve dormant future-language IDs or
-implementation hooks. The exact tasks are owned by
-`06_multilanguage_frontend_design-todo.md`.
+Each accepted Go/Rust profile has an explicit supported subset, pinned
+compiler boundary, immutable release identities and fail-closed validation.
+Both languages use the same canonical certificate and source-free checker
+boundary. Mixed-language VIR modules and FFI claims remain unsupported.
+Historical migration records describe their original bytes and confer no
+current support or release acceptance.
 
 ## Acceptance Philosophy
 

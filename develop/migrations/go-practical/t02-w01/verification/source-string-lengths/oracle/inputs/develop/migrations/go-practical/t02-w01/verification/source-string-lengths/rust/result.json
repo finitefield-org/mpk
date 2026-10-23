@@ -1,0 +1,153 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_source_string_length",
+    "source_lengths",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_SOURCE_STRING_LENGTH_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/inputs.json",
+    "bytes": 286938,
+    "sha256": "4b31fecd2f459b06f073f410d41b768bdb0190fef2125aadd698e0becb5c8f08"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/driver.py",
+    "bytes": 7464,
+    "sha256": "cd79de0fca6f5a59df4d240d263dd04df3974210e714f5ff906620eb21f97758"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Only the new original-source dynamic string length int result, its fixed-root composer and actual string/int callers change. Preserve all original types/U and every prior source-string identity. Prove full64 header preservation, whole source-int adapters, actual signed nonnegative length under the real256 bound, actual balanced Int equality and original zeros without a source uint8 prerequisite. Use unbounded Nat order and balanced2^63 threshold, not length truncation or bounded unrolling. Cover all builtin/nominal string types in empty/four/seventy-case original units, false word/validity/integer controls, both full cores, independent structure/bits and original native dynamic len typing. No source execution/operand-once/context activation, cap increase, funext, axiom or intermediate broad gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-23T01:51:37.512862+00:00",
+  "exit_code": 0,
+  "seconds": 282.9569982079556,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/stdout.log",
+    "bytes": 1538,
+    "sha256": "ef72f6d52e9b14bab8446fe39c260e7d6b8dbe8e88a82d77cb7b2591353a8764"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/stderr.log",
+    "bytes": 273,
+    "sha256": "1e3171021d4df7ab08cc7fe16fce0249b327f2c2e55b80b03cba92fd1535cb29"
+  },
+  "certificates": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/control-constant-length.mpcert",
+      "bytes": 343740,
+      "sha256": "e74335fe4cef1f65ad3bc22f2b40f239be37b510fc2dcf0be0638220b85e984b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/control-erased-real-length-bound.mpcert",
+      "bytes": 343780,
+      "sha256": "c67f67caa80b7baae93db7ff99fbad83d0cfeea391a3b71fdf037dfe6f12ebea"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/control-extra.mpcert",
+      "bytes": 344076,
+      "sha256": "90045369db1a4a8c10ab830ccfd85e234472fe1b2b6601d81a5b59c3703cc572"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/control-unsigned-integer-interpretation.mpcert",
+      "bytes": 343763,
+      "sha256": "989614f4aa18e435dba1dbc6b5f397d440c6e8f9b178d8500f0eda88741614be"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/source-length-empty-2c63770d6468745cfb8ae5c715a3ba08e8bfd3847df12878bd2381c94f50b58d.mpcert",
+      "bytes": 336027,
+      "sha256": "0ce29bd8196ca2b30b8c0b161faa26654c57348e91ab94f3f0455cab43bcb187"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/source-length-empty-7ce31e5d1945ff70174fcb0730265ec641c232438cb6fa5beac70b384b73c2ac.mpcert",
+      "bytes": 336027,
+      "sha256": "1d2dded7bc5e2e97020ad28de10efdaacd7e89e4d59b67ffeae0d2d06583509c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/source-length-empty-94a3d3d82058008fed9c5c281298a7e121388fbc18566728752fa44da200ebe0.mpcert",
+      "bytes": 336027,
+      "sha256": "1485befa55321106ac2c0f228aa303a748b98b719770aa31d17b664bdded8af2"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/source-length-empty-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1.mpcert",
+      "bytes": 336023,
+      "sha256": "7e390cc549ea085ed0d2c49d13e6f85fb394c040d7673e874acdbb70d3c6d4ba"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/source-length-small-2c63770d6468745cfb8ae5c715a3ba08e8bfd3847df12878bd2381c94f50b58d.mpcert",
+      "bytes": 343731,
+      "sha256": "caab711d422899e3d1141b88393c903a707323e70ba0fdf3a2b2ae992defc59b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/source-length-small-7ce31e5d1945ff70174fcb0730265ec641c232438cb6fa5beac70b384b73c2ac.mpcert",
+      "bytes": 343731,
+      "sha256": "a072756ff9c6255d699e36705ebbae27c58ae6b5a03f50c6bf4d242d7c1c27ae"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/source-length-small-94a3d3d82058008fed9c5c281298a7e121388fbc18566728752fa44da200ebe0.mpcert",
+      "bytes": 343731,
+      "sha256": "4681bd05e5b97ac6b30ddb9f0960a26c4a56ae76da4d20849c451e51cb8539f2"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/source-length-small-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1.mpcert",
+      "bytes": 343731,
+      "sha256": "78d635736b861aa770efafe0a57322dfd3a16a0433fcc13bc71421ab8c19b7a8"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/source-length-wide-2c63770d6468745cfb8ae5c715a3ba08e8bfd3847df12878bd2381c94f50b58d.mpcert",
+      "bytes": 395672,
+      "sha256": "e110c2598bbe986bbca74f0cc57092a7dedc0e9a8676e4fdc16de0aba2144140"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/source-length-wide-7ce31e5d1945ff70174fcb0730265ec641c232438cb6fa5beac70b384b73c2ac.mpcert",
+      "bytes": 395672,
+      "sha256": "4ddabbe9c90be8c933130d2e878e73307494c5451cf6b39b54c8faf4b42e23e2"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/source-length-wide-94a3d3d82058008fed9c5c281298a7e121388fbc18566728752fa44da200ebe0.mpcert",
+      "bytes": 395672,
+      "sha256": "d597491c944e7d7b14bdd908176ea7fb3bb39077dd261d43f0673d078d597e60"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates/source-length-wide-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1.mpcert",
+      "bytes": 395613,
+      "sha256": "ba7fa0491ed6e34428716e1400b80f12c02f04213932e003683f55c3aba5e7f3"
+    }
+  ],
+  "finished_at_utc": "2026-10-23T01:56:20.479267+00:00"
+}

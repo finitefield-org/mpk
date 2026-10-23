@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_ordinary.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/composition.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_string_length.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_string_length/math.rs",
+    "crates/mpk-vc/tests/go_practical_source_string_length.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/format-path-fixed/inputs.json",
+    "bytes": 286591,
+    "sha256": "a43592ca96695799a7795c94c49a49a5ebb347efcf62eb22b8141929787d82c1"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/format-path-fixed/driver.py",
+    "bytes": 7464,
+    "sha256": "cd79de0fca6f5a59df4d240d263dd04df3974210e714f5ff906620eb21f97758"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Only the new original-source dynamic string length int result, its fixed-root composer and actual string/int callers change. Preserve all original types/U and every prior source-string identity. Prove full64 header preservation, whole source-int adapters, actual signed nonnegative length under the real256 bound, actual balanced Int equality and original zeros without a source uint8 prerequisite. Use unbounded Nat order and balanced2^63 threshold, not length truncation or bounded unrolling. Cover all builtin/nominal string types in empty/four/seventy-case original units, false word/validity/integer controls, both full cores, independent structure/bits and original native dynamic len typing. No source execution/operand-once/context activation, cap increase, funext, axiom or intermediate broad gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": true,
+  "started_at_utc": "2026-10-23T01:40:51.175400+00:00",
+  "exit_code": 0,
+  "seconds": 0.1923443339765072,
+  "whole_source_inputs_unchanged": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/format-path-fixed/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/format-path-fixed/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-23T01:40:51.368829+00:00"
+}
