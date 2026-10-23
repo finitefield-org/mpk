@@ -1,0 +1,15 @@
+{
+  "status": "waiter_environment_corrected_before_execution",
+  "at_utc": "2026-10-22T22:03:58.263341+00:00",
+  "script": "develop/migrations/go-practical/t02-w01/verification/source-value-relations/apply-after-replay.py",
+  "script_sha256": "6372ff9478a0d7d01e1fa78ffc54131703b66028ba87f328c3643c095f35a09d",
+  "initial_waiter_exit": 143,
+  "initial_waiter_had_no_stdout_or_stderr": true,
+  "source_mutation_before_restart": false,
+  "Git_command_before_restart": false,
+  "reason": "The application waiter also launches receipt drivers containing Git commands. It was moved outside the sandbox before reaching either source application or those commands.",
+  "new_waiter_handle": 20002,
+  "original_Rust_checker_handle": 87390,
+  "original_Go_checker_handle": 26898,
+  "original_native_verification_restarted": false
+}

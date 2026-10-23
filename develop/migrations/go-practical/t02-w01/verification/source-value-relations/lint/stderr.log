@@ -1,0 +1,13 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: methods called `from_*` usually take no `self`
+   --> crates/mpk-vc/src/go_practical_ordinary/source_value_relations.rs:255:22
+    |
+255 |     fn from_equality(&self, module: &str, x: Expr, y: Expr, same: Expr) -> Expr {
+    |                      ^^^^^
+    |
+    = help: consider choosing a less ambiguous name
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#wrong_self_convention
+    = note: `-D clippy::wrong-self-convention` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::wrong_self_convention)]`
+
+error: could not compile `mpk-vc` (lib) due to 1 previous error

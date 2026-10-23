@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/observe-structural.py", line 12, in <module>
+    rows=[m.inspect(p) for p in files]
+          ^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/structural-oracle.py", line 238, in inspect
+    return {'decoded_leaf_observations':leaf_rows,'decoded_leaf_changes_observed':sum(r['every_encoded_leaf_change_is_observed'] for r in leaf_rows),'certificate':str(path),'raw_sha256':hashlib.sha256(raw).hexdigest(),'closed_relation_definitions':definition_count,'closed_relation_statements':statement_count,'whole_row_statements':len(row_laws),'all_source_types':len(keys),'cases':results,'empty_U_has_no_constructor':not bool(tags),'full_source_U_preserved':True,'declarations':len(declarations),'terms':len(terms),'bytes':len(raw),'actual_tag_bit_observations':64*len(cases),'complete_operation_definitions_compared':operation_definition_count,'complete_operation_theorem_types_compared':operation_statement_count,'all_copy_payload_fields_preserved':len(cases),'actual_nil_tag_bit_observations':64}
+                                                                                                                                                                                          ^^^^^^^^^^^^^^^^^^^
+TypeError: object supporting the buffer API required

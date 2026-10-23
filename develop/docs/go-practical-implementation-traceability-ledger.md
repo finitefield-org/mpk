@@ -8135,3 +8135,47 @@ binary handling and earlier historical-scope source findings stay due at the
 final strict gate. Go/Rust only;
 R01/R06/W01 stay open, the public practical profile stays inactive and the
 full T02 gate stays final W04: `./scripts/check-fast.sh`.
+
+
+## 168. T02-W01 complete original-source value relations and Go/Rust routing
+
+The [source-value checkpoint](../migrations/go-practical/t02-w01/verification/source-value-relations/README.md)
+derives closed observations from every original same-U source type. Words,
+array padding, all string bytes, complete slice descriptors/ghost fields,
+ordered structs and every error payload remain. Equivalence, equality lifts,
+zero, whole-field assembly/projections and copy/nil/box/active transfers are
+ordinary zero-axiom proofs. All prior source-specific identities remain;
+unchanged call-site libraries retain their own complete old proofs. No source
+case/root/helper/parameter cap or function extensionality is introduced.
+
+Both cores agree on97 distinct full streams:89 mathematical acceptances and8
+genuine type mismatches. Final83 normal rows cover5 small,71 large and7
+heterogeneous rows;5 original pilot rows remain separate. Independent checks
+cover10684 closed definitions/37603 type/field statements/
+10538 whole-error statements/22013 actual encoded leaf changes
+and identical-zero observations. Complete tag observations remain. A coherent
+constant byte view is valid mathematics but fails exact source import and the
+independent identity-body oracle.
+
+The missing-projection, whole-product fuel, nil-only function-type and first
+control fixture failures retain actual inputs/outputs. The adapter audit
+checks100 source-type choices; only nil-only error changes. Fixed isolated
+sources pass the affected small/first-control checks, four complete-library/
+boundary byte replays and literal final worktree binding. The initial control
+suite's two passed roots remain; only its failed first root reruns. Scoped
+Clippy/format pass. Maxima2156 declarations/33228 terms/
+806470 bytes fit unchanged caps. All34 source epochs/
+24819 original source rows/379 Go prelaunch rows
+remain. Native verification is never restarted after an observation timeout.
+
+The remaining active multi-language roadmap routing is retired. Complete old
+plan bytes and the intervening retirement notice are preserved as historical
+records; current routing leads only to Go/Rust. No other-language test or
+workflow runs.
+
+These relations are not Go comparison, source/input validity or program
+correspondence. Full validity/execution/callee/result/effect/frame/context,
+full56/private registry/nativeLinux/all169/T02-T11 remain due. Prior historical
+scope findings and semantic binary handling remain for the final strict gate.
+Go/Rust only; R01/R06/W01 stay open, the practical profile stays inactive and
+the cumulative T02 gate remains final W04: `./scripts/check-fast.sh`.

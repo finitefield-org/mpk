@@ -1,0 +1,13 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1m 50s
+     Running tests/go_practical_source_value_relations.rs (target/debug/deps/go_practical_source_value_relations-d9b46e74a77037b9)
+relation diagnostic: original operations
+relation diagnostic: compiled roots 39
+relation diagnostic: roots retained
+relation diagnostic: source type 5a184d54e7bc575ae47064a4ca8316be8c2dc71c1bc030903999cf18f071e177
+relation diagnostic: source type f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1
+
+thread 'closed_source_relations_empty_and_small_all_fields' (56863015) panicked at crates/mpk-vc/tests/go_practical_source_value_relations.rs:137:83:
+called `Result::unwrap()` on an `Err` value: Linkage
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_value_relations`

@@ -1,0 +1,83 @@
+{
+  "status": "applied_exact_isolated_tested_source_bytes",
+  "original_Rust_terminal": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/final-large/result.json",
+    "bytes": 28902,
+    "sha256": "bc57a07aef69e8633b038ac6855a362e8853455b1f216e2ee90fb0aa3e5c029a"
+  },
+  "isolated_replay_terminal": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/producer-replay/result.json",
+    "bytes": 3823,
+    "sha256": "24dc10049e893fdecc355a4d80f9ffc8849eaf5358774d9b92519b0a1f85c529"
+  },
+  "actual_driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/source-application/driver.py",
+    "bytes": 3285,
+    "sha256": "6372ff9478a0d7d01e1fa78ffc54131703b66028ba87f328c3643c095f35a09d"
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "before": {
+        "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+        "bytes": 83355,
+        "sha256": "db332bf41e1ad87804df7a0e9e3413e4999907855ebf6acbc30cc4b59b7109a1"
+      },
+      "tested_after": {
+        "path": "/private/tmp/mpk-source-value-relations-unary-copy/crates/mpk-vc/src/go_practical_ordinary.rs",
+        "bytes": 83355,
+        "sha256": "db332bf41e1ad87804df7a0e9e3413e4999907855ebf6acbc30cc4b59b7109a1"
+      },
+      "before_mode": 420,
+      "after_mode": 420
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/source_value_relations.rs",
+      "before": {
+        "path": "crates/mpk-vc/src/go_practical_ordinary/source_value_relations.rs",
+        "bytes": 34356,
+        "sha256": "3b82fe02ac63e59fb1f5dce01c3781e522b55d0d27191d049c65de52c37459af"
+      },
+      "tested_after": {
+        "path": "/private/tmp/mpk-source-value-relations-unary-copy/crates/mpk-vc/src/go_practical_ordinary/source_value_relations.rs",
+        "bytes": 34590,
+        "sha256": "25a4b758c4257c7668be10824a8a9eeaaecc0e93b0486ee7dcb78a95934bd6f7"
+      },
+      "before_mode": 420,
+      "after_mode": 420
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_source_value_relations.rs",
+      "before": {
+        "path": "crates/mpk-vc/tests/go_practical_source_value_relations.rs",
+        "bytes": 8496,
+        "sha256": "ae30e878c9429ec901a73013c19f195c6cf227ad3161cf1e40c96fddac822a37"
+      },
+      "tested_after": {
+        "path": "/private/tmp/mpk-source-value-relations-unary-copy/crates/mpk-vc/tests/go_practical_source_value_relations.rs",
+        "bytes": 10692,
+        "sha256": "e07caa73903de26d928e4bc971ee1655b6b4c628a067f7a872b0683a5381a444"
+      },
+      "before_mode": 420,
+      "after_mode": 420
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_source_value_relations_controls.rs",
+      "before": {
+        "path": "crates/mpk-vc/tests/go_practical_source_value_relations_controls.rs",
+        "bytes": 17602,
+        "sha256": "5967e67c927911d2b998a52f3e1436caf7211386f51b39bfa4680ff3b68e0541"
+      },
+      "tested_after": {
+        "path": "/private/tmp/mpk-source-value-relations-unary-copy/crates/mpk-vc/tests/go_practical_source_value_relations_controls.rs",
+        "bytes": 17602,
+        "sha256": "3d1a0f337e322eb65a2118e4889ad06ae1dcfe370c4c9c91802ca18c188d7237"
+      },
+      "before_mode": 420,
+      "after_mode": 420
+    }
+  ],
+  "Go_streaming_inputs_mutated": false,
+  "reason": "Original Rust source consumers have ended. Any continuing Go checker reads only its unchanged binary/13 Go sources, accepted certificate/report/metadata and immutable receipt JSON; these four Rust files are not its inputs.",
+  "finished_at_utc": "2026-10-22T23:18:07.691154+00:00"
+}

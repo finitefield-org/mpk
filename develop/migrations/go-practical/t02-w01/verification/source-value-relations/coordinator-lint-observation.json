@@ -1,0 +1,12 @@
+{
+  "status": "coordinators_stopped_at_real_lint_failure",
+  "failed_lint_result": "lint/result.json",
+  "application_coordinator": "apply-after-replay.py",
+  "application_exit_code": 1,
+  "application_error": "AssertionError: ('lint', 1)",
+  "final_observer": "final-observe.py",
+  "final_observer_exit_code": 1,
+  "observer_error": "AssertionError at the same failed lint result before any large oracle execution",
+  "original_Rust_or_Go_native_verification_restarted": false,
+  "correction": "Rename only the private helper and perform scoped format/lint in new epochs; a new coordinator waits on those actual corrected epochs."
+}

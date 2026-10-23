@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 2m 11s
+     Running tests/go_practical_source_value_relations.rs (target/debug/deps/go_practical_source_value_relations-d9b46e74a77037b9)
+
+thread 'closed_source_relations_heterogeneous_full_payloads' (56912120) panicked at crates/mpk-vc/tests/go_practical_source_value_relations.rs:215:9:
+heterogeneous-payloads-nil: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"14785977c25a97e3ce31de7063a1110d1186ddefb08ae7fb29712b8c3459c9f9"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"rhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"37096\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"37311\",\"side\":\"rhs\",\"term_index\":\"38337\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_value_relations`

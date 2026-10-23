@@ -18,6 +18,8 @@ vectors. `probes/go-practical/` contains development tools. `migrations/`
 preserves original inputs, failures and historical receipts; these apply only
 to their original bytes and do not confer current support or acceptance.
 `docs/`, `tasks/` and `roadmap/` contain supporting design and tracking files.
+Older multi-language plans are retired historical records. They do not
+authorize another frontend, future language phase or release prerequisite.
 
 Execute focused local validation during each W. At the final W of each T,
 run `../scripts/check-fast.sh` over the cumulative changes. Release validation
