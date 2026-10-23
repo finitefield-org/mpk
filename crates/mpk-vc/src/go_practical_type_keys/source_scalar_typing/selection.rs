@@ -797,6 +797,19 @@ impl<'a> Selection<'a> {
                             ..
                         }) => tasks.push((fun, false)),
                         _ => {
+                            // An original anonymous type such as []byte is a
+                            // conversion callee, not a method or first-class
+                            // function. Body typing has already checked the
+                            // actual conversion argument and result.
+                            if let Ok(graph) = derive_go_source_type(self.scopes, &from.source, fun)
+                            {
+                                self.graph(from, &graph, path)?;
+                                tasks.push((fun, false));
+                                tasks.extend(
+                                    list(&n, "Args").iter().map(|&n| (n, arguments_runtime)),
+                                );
+                                continue;
+                            }
                             let header = typing
                                 .and_then(|t| {
                                     t.method_call_headers().iter().find(|h| {

@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_source_execution",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_SOURCE_EXECUTION_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/rust-conversions/observations"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/rust-conversions/inputs.json",
+    "bytes": 300345,
+    "sha256": "26ee42c9572cd420025187f535f88184dd12fa2bfc9b97c00d7f65691cde16e6"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/rust-conversions/driver.py",
+    "bytes": 6679,
+    "sha256": "f926e6da96074ec6f6ced441d3c29e2209e0d2c00fef4885565f1cd1c111570a"
+  },
+  "formatter_mutation_expected": false,
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Actual original-source executor and its direct value/type/body/callee consumers. Validate source-permitted concrete execution, source faults, observation exhaustion and unavailable strategies separately; original nominal identities and complete U remain. This untrusted observer is not a proof, source/IR equivalence, full Go order/effect theorem or context activation. No unrelated old matrices or intermediate broad gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "started_at_utc": "2026-10-23T03:56:05.316813+00:00",
+  "exit_code": 0,
+  "seconds": 152.04297362500802,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/rust-conversions/stdout.log",
+    "bytes": 264,
+    "sha256": "e4c1c64d17d077942cf94689ec3403c9755bef17b12b91f16fe631c3d7568e46"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/rust-conversions/stderr.log",
+    "bytes": 265,
+    "sha256": "fda790e880fc62ee4175452dcf49410b932a8f6af5e29057fdfafa27ff660a94"
+  },
+  "finished_at_utc": "2026-10-23T03:58:37.361749+00:00"
+}

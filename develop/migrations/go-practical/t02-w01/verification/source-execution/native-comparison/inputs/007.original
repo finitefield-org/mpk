@@ -1,0 +1,2714 @@
+[
+  {
+    "after": [
+      {
+        "hex": "",
+        "kind": "bytes"
+      }
+    ],
+    "entry": "Length",
+    "fault": null,
+    "name": "empty-length",
+    "result": [
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "hex": "00ff6162",
+        "kind": "bytes"
+      }
+    ],
+    "entry": "Length",
+    "fault": null,
+    "name": "raw-length",
+    "result": [
+      {
+        "bits": "4",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "kind": "bytes"
+      }
+    ],
+    "entry": "Length",
+    "fault": null,
+    "name": "wide-length",
+    "result": [
+      {
+        "bits": "257",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "hex": "00ff6162",
+        "kind": "bytes"
+      },
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "At",
+    "fault": null,
+    "name": "nominal-index",
+    "result": [
+      {
+        "bits": "255",
+        "kind": "word",
+        "width": 8
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "hex": "6162",
+        "kind": "bytes"
+      },
+      {
+        "bits": "18446744073709551615",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "At",
+    "fault": "IndexBounds",
+    "name": "huge-index",
+    "original_panic": "runtime error: index out of range [18446744073709551615] with length 2",
+    "result": []
+  },
+  {
+    "after": [
+      {
+        "hex": "6162",
+        "kind": "bytes"
+      },
+      {
+        "bits": "255",
+        "kind": "word",
+        "width": 8
+      }
+    ],
+    "entry": "Signed",
+    "fault": "IndexBounds",
+    "name": "negative-index",
+    "original_panic": "runtime error: index out of range [-1]",
+    "result": []
+  },
+  {
+    "after": [
+      {
+        "hex": "6162",
+        "kind": "bytes"
+      },
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 8
+      }
+    ],
+    "entry": "Signed",
+    "fault": null,
+    "name": "signed-index",
+    "result": [
+      {
+        "bits": "98",
+        "kind": "word",
+        "width": 8
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Literal",
+    "fault": null,
+    "name": "literal-0",
+    "result": [
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 8
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Literal",
+    "fault": null,
+    "name": "literal-1",
+    "result": [
+      {
+        "bits": "255",
+        "kind": "word",
+        "width": 8
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "2",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Literal",
+    "fault": "IndexBounds",
+    "name": "literal-2",
+    "original_panic": "runtime error: index out of range [2] with length 2",
+    "result": []
+  },
+  {
+    "after": [],
+    "entry": "Constant",
+    "fault": null,
+    "name": "constant-len",
+    "result": [
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "2",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "FromCall",
+    "fault": null,
+    "name": "call-index",
+    "result": [
+      {
+        "bits": "99",
+        "kind": "word",
+        "width": 8
+      }
+    ]
+  },
+  {
+    "after": [],
+    "entry": "CallLength",
+    "fault": null,
+    "name": "call-length",
+    "result": [
+      {
+        "bits": "3",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [],
+    "entry": "Shadow",
+    "fault": null,
+    "name": "ordinary-len",
+    "result": [
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "128",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "255",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Compute",
+    "fault": null,
+    "name": "arithmetic-14",
+    "result": [
+      {
+        "bits": "127",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "129",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "128",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "128",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "128",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "kind": "bool",
+        "value": true
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "127",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "2",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "63",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Compute",
+    "fault": null,
+    "name": "arithmetic-15",
+    "result": [
+      {
+        "bits": "129",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "125",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "254",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "63",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "kind": "bool",
+        "value": false
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "249",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "3",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Compute",
+    "fault": null,
+    "name": "arithmetic-16",
+    "result": [
+      {
+        "bits": "252",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "246",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "235",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "254",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "255",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "252",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "kind": "bool",
+        "value": true
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "7",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "253",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "8",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Compute",
+    "fault": null,
+    "name": "arithmetic-17",
+    "result": [
+      {
+        "bits": "4",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "10",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "235",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "254",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "kind": "bool",
+        "value": false
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "127",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Compute",
+    "fault": "DivideByZero",
+    "name": "arithmetic-18",
+    "original_panic": "runtime error: integer divide by zero",
+    "result": []
+  },
+  {
+    "after": [
+      {
+        "bits": "9223372036854775807",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "bits": "18446744073709551615",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Overflow64",
+    "fault": null,
+    "name": "full64",
+    "result": [
+      {
+        "bits": "9223372036854775808",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "bits": "9223372036854775808",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "4294967295",
+        "kind": "word",
+        "width": 32
+      }
+    ],
+    "entry": "Convert",
+    "fault": null,
+    "name": "rune--1",
+    "result": [
+      {
+        "hex": "efbfbd",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 32
+      }
+    ],
+    "entry": "Convert",
+    "fault": null,
+    "name": "rune-0",
+    "result": [
+      {
+        "hex": "00",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "128578",
+        "kind": "word",
+        "width": 32
+      }
+    ],
+    "entry": "Convert",
+    "fault": null,
+    "name": "rune-128578",
+    "result": [
+      {
+        "hex": "f09f9982",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "55296",
+        "kind": "word",
+        "width": 32
+      }
+    ],
+    "entry": "Convert",
+    "fault": null,
+    "name": "rune-55296",
+    "result": [
+      {
+        "hex": "efbfbd",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "1114112",
+        "kind": "word",
+        "width": 32
+      }
+    ],
+    "entry": "Convert",
+    "fault": null,
+    "name": "rune-1114112",
+    "result": [
+      {
+        "hex": "efbfbd",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "hex": "00ff61e38182eda080f09f9982",
+        "kind": "bytes"
+      }
+    ],
+    "entry": "RoundBytes",
+    "fault": null,
+    "name": "RoundBytes",
+    "result": [
+      {
+        "hex": "00ff61e38182eda080f09f9982",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "hex": "00ff61e38182eda080f09f9982",
+        "kind": "bytes"
+      }
+    ],
+    "entry": "RoundRunes",
+    "fault": null,
+    "name": "RoundRunes",
+    "result": [
+      {
+        "hex": "00efbfbd61e38182efbfbdefbfbdefbfbdf09f9982",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "hex": "",
+        "kind": "bytes"
+      },
+      {
+        "bits": "255",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "kind": "bool",
+        "value": false
+      }
+    ],
+    "entry": "Choices",
+    "fault": null,
+    "name": "short-False",
+    "result": [
+      {
+        "kind": "bool",
+        "value": false
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "hex": "",
+        "kind": "bytes"
+      },
+      {
+        "bits": "255",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "kind": "bool",
+        "value": true
+      }
+    ],
+    "entry": "Choices",
+    "fault": "IndexBounds",
+    "name": "short-True",
+    "original_panic": "runtime error: index out of range [-1]",
+    "result": []
+  },
+  {
+    "after": [
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "items": [
+          {
+            "bits": "10",
+            "kind": "word",
+            "width": 64
+          },
+          {
+            "bits": "20",
+            "kind": "word",
+            "width": 64
+          }
+        ],
+        "kind": "aggregate"
+      }
+    ],
+    "entry": "Swap",
+    "fault": null,
+    "name": "two-phase",
+    "result": [
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "items": [
+          {
+            "bits": "99",
+            "kind": "word",
+            "width": 64
+          },
+          {
+            "bits": "20",
+            "kind": "word",
+            "width": 64
+          }
+        ],
+        "kind": "aggregate"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "18446744073709551615",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "items": [
+          {
+            "bits": "10",
+            "kind": "word",
+            "width": 64
+          },
+          {
+            "bits": "20",
+            "kind": "word",
+            "width": 64
+          }
+        ],
+        "kind": "aggregate"
+      }
+    ],
+    "entry": "Swap",
+    "fault": "IndexBounds",
+    "name": "assignment-fault",
+    "original_panic": "runtime error: index out of range [-1]",
+    "result": []
+  },
+  {
+    "after": [
+      {
+        "items": [
+          {
+            "bits": "10",
+            "kind": "word",
+            "width": 64
+          },
+          {
+            "bits": "20",
+            "kind": "word",
+            "width": 64
+          }
+        ],
+        "kind": "aggregate"
+      }
+    ],
+    "entry": "Both",
+    "fault": null,
+    "name": "parallel",
+    "result": [
+      {
+        "items": [
+          {
+            "bits": "20",
+            "kind": "word",
+            "width": 64
+          },
+          {
+            "bits": "10",
+            "kind": "word",
+            "width": 64
+          }
+        ],
+        "kind": "aggregate"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "17",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Named",
+    "fault": null,
+    "name": "named",
+    "result": [
+      {
+        "bits": "17",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "kind": "error",
+        "nil": true
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "capacity": 1,
+        "items": [
+          {
+            "bits": "2",
+            "kind": "word",
+            "width": 64
+          }
+        ],
+        "kind": "slice",
+        "length": 1,
+        "nil": false
+      }
+    ],
+    "entry": "Once",
+    "fault": null,
+    "name": "joint-once",
+    "result": [
+      {
+        "bits": "2",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "bits": "2",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Loop",
+    "fault": null,
+    "name": "loop-0",
+    "result": [
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "3",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Loop",
+    "fault": null,
+    "name": "loop-3",
+    "result": [
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "100",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Loop",
+    "fault": null,
+    "name": "loop-100",
+    "result": [
+      {
+        "bits": "26",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "18446744073709551615",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Switch",
+    "fault": null,
+    "name": "switch--1",
+    "result": [
+      {
+        "hex": "64",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Switch",
+    "fault": null,
+    "name": "switch-0",
+    "result": [
+      {
+        "hex": "61",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Switch",
+    "fault": null,
+    "name": "switch-1",
+    "result": [
+      {
+        "hex": "61",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "2",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Switch",
+    "fault": null,
+    "name": "switch-2",
+    "result": [
+      {
+        "hex": "62",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "3",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Switch",
+    "fault": null,
+    "name": "switch-3",
+    "result": [
+      {
+        "hex": "64",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "items": [
+          {
+            "bits": "4",
+            "kind": "word",
+            "width": 64
+          },
+          {
+            "bits": "5",
+            "kind": "word",
+            "width": 64
+          },
+          {
+            "bits": "6",
+            "kind": "word",
+            "width": 64
+          }
+        ],
+        "kind": "aggregate"
+      }
+    ],
+    "entry": "Range",
+    "fault": null,
+    "name": "range",
+    "result": [
+      {
+        "bits": "18",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "capacity": 3,
+        "items": [
+          {
+            "bits": "1",
+            "kind": "word",
+            "width": 64
+          },
+          {
+            "bits": "1",
+            "kind": "word",
+            "width": 64
+          },
+          {
+            "bits": "9",
+            "kind": "word",
+            "width": 64
+          }
+        ],
+        "kind": "slice",
+        "length": 3,
+        "nil": false
+      }
+    ],
+    "entry": "Update",
+    "fault": null,
+    "name": "overlap-copy",
+    "result": [
+      {
+        "bits": "13",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "capacity": 0,
+        "items": [],
+        "kind": "slice",
+        "length": 0,
+        "nil": true
+      }
+    ],
+    "entry": "SliceLenCap",
+    "fault": null,
+    "name": "nil-slice",
+    "result": [
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "kind": "bool",
+        "value": true
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "capacity": 0,
+        "items": [],
+        "kind": "slice",
+        "length": 0,
+        "nil": false
+      }
+    ],
+    "entry": "SliceLenCap",
+    "fault": null,
+    "name": "empty-slice",
+    "result": [
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "kind": "bool",
+        "value": false
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "capacity": 3,
+        "items": [
+          {
+            "bits": "1",
+            "kind": "word",
+            "width": 8
+          }
+        ],
+        "kind": "slice",
+        "length": 1,
+        "nil": false
+      }
+    ],
+    "entry": "SliceLenCap",
+    "fault": null,
+    "name": "slice-tail",
+    "result": [
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "bits": "3",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "kind": "bool",
+        "value": false
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "capacity": 1,
+        "items": [
+          {
+            "bits": "5",
+            "kind": "word",
+            "width": 64
+          }
+        ],
+        "kind": "slice",
+        "length": 1,
+        "nil": false
+      },
+      {
+        "capacity": 1,
+        "items": [
+          {
+            "bits": "5",
+            "kind": "word",
+            "width": 64
+          }
+        ],
+        "kind": "slice",
+        "length": 1,
+        "nil": false
+      }
+    ],
+    "entry": "Aliased",
+    "fault": null,
+    "name": "aliased",
+    "result": [
+      {
+        "bits": "5",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "items": [
+          {
+            "bits": "1",
+            "kind": "word",
+            "width": 64
+          },
+          {
+            "bits": "2",
+            "kind": "word",
+            "width": 64
+          }
+        ],
+        "kind": "aggregate"
+      }
+    ],
+    "entry": "ArrayView",
+    "fault": null,
+    "name": "array-view",
+    "result": [
+      {
+        "bits": "9",
+        "kind": "word",
+        "width": 64
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "items": [
+          {
+            "bits": "3",
+            "kind": "word",
+            "width": 64
+          },
+          {
+            "hex": "61",
+            "kind": "bytes"
+          }
+        ],
+        "kind": "aggregate"
+      }
+    ],
+    "entry": "FieldView",
+    "fault": null,
+    "name": "field-update",
+    "result": [
+      {
+        "items": [
+          {
+            "bits": "5",
+            "kind": "word",
+            "width": 64
+          },
+          {
+            "hex": "6121",
+            "kind": "bytes"
+          }
+        ],
+        "kind": "aggregate"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "hex": "00ff6162",
+        "kind": "bytes"
+      },
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "bits": "3",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Bounds",
+    "fault": null,
+    "name": "substring",
+    "result": [
+      {
+        "hex": "ff61",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "hex": "00",
+        "kind": "bytes"
+      },
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "bits": "2",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Bounds",
+    "fault": "SliceBounds",
+    "name": "bad-substring",
+    "original_panic": "runtime error: slice bounds out of range [:2] with length 1",
+    "result": []
+  },
+  {
+    "after": [
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "bits": "3",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Make",
+    "fault": null,
+    "name": "make",
+    "result": [
+      {
+        "capacity": 3,
+        "items": [
+          {
+            "bits": "0",
+            "kind": "word",
+            "width": 64
+          }
+        ],
+        "kind": "slice",
+        "length": 1,
+        "nil": false
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "3",
+        "kind": "word",
+        "width": 64
+      },
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Make",
+    "fault": "MakeBounds",
+    "name": "bad-make",
+    "original_panic": "runtime error: makeslice: cap out of range",
+    "result": []
+  },
+  {
+    "after": [
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "18446744073709551615",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Shift",
+    "fault": "NegativeShift",
+    "name": "negative-shift",
+    "original_panic": "runtime error: negative shift amount",
+    "result": []
+  },
+  {
+    "after": [
+      {
+        "bits": "255",
+        "kind": "word",
+        "width": 8
+      },
+      {
+        "bits": "9223372036854775807",
+        "kind": "word",
+        "width": 64
+      }
+    ],
+    "entry": "Shift",
+    "fault": null,
+    "name": "huge-shift",
+    "result": [
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 8
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "kind": "error",
+        "nil": true
+      }
+    ],
+    "entry": "Entry",
+    "fault": "NilInterfaceCall",
+    "name": "nil-error",
+    "original_panic": "runtime error: invalid memory address or nil pointer dereference",
+    "result": []
+  },
+  {
+    "after": [
+      {
+        "bits": "65501",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-00",
+    "result": [
+      {
+        "hex": "636173653030",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65502",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-01",
+    "result": [
+      {
+        "hex": "636173653031",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65503",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-02",
+    "result": [
+      {
+        "hex": "636173653032",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65504",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-03",
+    "result": [
+      {
+        "hex": "636173653033",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65505",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-04",
+    "result": [
+      {
+        "hex": "636173653034",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65506",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-05",
+    "result": [
+      {
+        "hex": "636173653035",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65507",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-06",
+    "result": [
+      {
+        "hex": "636173653036",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65508",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-07",
+    "result": [
+      {
+        "hex": "636173653037",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65509",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-08",
+    "result": [
+      {
+        "hex": "636173653038",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65510",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-09",
+    "result": [
+      {
+        "hex": "636173653039",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65511",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-10",
+    "result": [
+      {
+        "hex": "636173653130",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65512",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-11",
+    "result": [
+      {
+        "hex": "636173653131",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65513",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-12",
+    "result": [
+      {
+        "hex": "636173653132",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65514",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-13",
+    "result": [
+      {
+        "hex": "636173653133",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65515",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-14",
+    "result": [
+      {
+        "hex": "636173653134",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65516",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-15",
+    "result": [
+      {
+        "hex": "636173653135",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65517",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-16",
+    "result": [
+      {
+        "hex": "636173653136",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65518",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-17",
+    "result": [
+      {
+        "hex": "636173653137",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65519",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-18",
+    "result": [
+      {
+        "hex": "636173653138",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65520",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-19",
+    "result": [
+      {
+        "hex": "636173653139",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65521",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-20",
+    "result": [
+      {
+        "hex": "636173653230",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65522",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-21",
+    "result": [
+      {
+        "hex": "636173653231",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65523",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-22",
+    "result": [
+      {
+        "hex": "636173653232",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65524",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-23",
+    "result": [
+      {
+        "hex": "636173653233",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65525",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-24",
+    "result": [
+      {
+        "hex": "636173653234",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65526",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-25",
+    "result": [
+      {
+        "hex": "636173653235",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65527",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-26",
+    "result": [
+      {
+        "hex": "636173653236",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65528",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-27",
+    "result": [
+      {
+        "hex": "636173653237",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65529",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-28",
+    "result": [
+      {
+        "hex": "636173653238",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65530",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-29",
+    "result": [
+      {
+        "hex": "636173653239",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65531",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-30",
+    "result": [
+      {
+        "hex": "636173653330",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65532",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-31",
+    "result": [
+      {
+        "hex": "636173653331",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65533",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-32",
+    "result": [
+      {
+        "hex": "636173653332",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65534",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-33",
+    "result": [
+      {
+        "hex": "636173653333",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "65535",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-34",
+    "result": [
+      {
+        "hex": "636173653334",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "0",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-35",
+    "result": [
+      {
+        "hex": "636173653335",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "1",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-36",
+    "result": [
+      {
+        "hex": "636173653336",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "2",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-37",
+    "result": [
+      {
+        "hex": "636173653337",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "3",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-38",
+    "result": [
+      {
+        "hex": "636173653338",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "4",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-39",
+    "result": [
+      {
+        "hex": "636173653339",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "5",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-40",
+    "result": [
+      {
+        "hex": "636173653430",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "6",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-41",
+    "result": [
+      {
+        "hex": "636173653431",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "7",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-42",
+    "result": [
+      {
+        "hex": "636173653432",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "8",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-43",
+    "result": [
+      {
+        "hex": "636173653433",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "9",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-44",
+    "result": [
+      {
+        "hex": "636173653434",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "10",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-45",
+    "result": [
+      {
+        "hex": "636173653435",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "11",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-46",
+    "result": [
+      {
+        "hex": "636173653436",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "12",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-47",
+    "result": [
+      {
+        "hex": "636173653437",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "13",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-48",
+    "result": [
+      {
+        "hex": "636173653438",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "14",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-49",
+    "result": [
+      {
+        "hex": "636173653439",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "15",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-50",
+    "result": [
+      {
+        "hex": "636173653530",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "16",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-51",
+    "result": [
+      {
+        "hex": "636173653531",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "17",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-52",
+    "result": [
+      {
+        "hex": "636173653532",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "18",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-53",
+    "result": [
+      {
+        "hex": "636173653533",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "19",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-54",
+    "result": [
+      {
+        "hex": "636173653534",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "20",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-55",
+    "result": [
+      {
+        "hex": "636173653535",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "21",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-56",
+    "result": [
+      {
+        "hex": "636173653536",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "22",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-57",
+    "result": [
+      {
+        "hex": "636173653537",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "23",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-58",
+    "result": [
+      {
+        "hex": "636173653538",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "24",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-59",
+    "result": [
+      {
+        "hex": "636173653539",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "25",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-60",
+    "result": [
+      {
+        "hex": "636173653630",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "26",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-61",
+    "result": [
+      {
+        "hex": "636173653631",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "27",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-62",
+    "result": [
+      {
+        "hex": "636173653632",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "28",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-63",
+    "result": [
+      {
+        "hex": "636173653633",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "29",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-64",
+    "result": [
+      {
+        "hex": "636173653634",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "30",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-65",
+    "result": [
+      {
+        "hex": "636173653635",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "31",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-66",
+    "result": [
+      {
+        "hex": "636173653636",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "32",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-67",
+    "result": [
+      {
+        "hex": "636173653637",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "33",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-68",
+    "result": [
+      {
+        "hex": "636173653638",
+        "kind": "bytes"
+      }
+    ]
+  },
+  {
+    "after": [
+      {
+        "bits": "34",
+        "kind": "word",
+        "width": 16
+      }
+    ],
+    "entry": "Entry",
+    "fault": null,
+    "name": "error-69",
+    "result": [
+      {
+        "hex": "636173653639",
+        "kind": "bytes"
+      }
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: equality checks against false can be replaced by a negation
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/execution/expressions.rs:304:17
+    |
+304 |                 s.is_nil() == false
+    |                 ^^^^^^^^^^^^^^^^^^^ help: try: `!s.is_nil()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#bool_comparison
+    = note: `-D clippy::bool-comparison` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::bool_comparison)]`
+
+error: could not compile `mpk-vc` (lib) due to 1 previous error

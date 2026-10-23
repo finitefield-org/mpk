@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+    "-w",
+    "go-tools/go2vir/practical_source_execution_test.go"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "GOROOT": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-go-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/go-format-initial/inputs.json",
+    "bytes": 299120,
+    "sha256": "8b1a282e7c3650da77b8f74c5624962d9c55ccfc62eea2e2dc34377b338f5a66"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/go-format-initial/driver.py",
+    "bytes": 6461,
+    "sha256": "4263dd5423cf6e62783e67766768b7030fe6be05777348b9f8061645522b56dc"
+  },
+  "formatter_mutation_expected": true,
+  "tools": {
+    "go": {
+      "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+      "bytes": 14117888,
+      "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b"
+    },
+    "gofmt": {
+      "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+      "bytes": 2914768,
+      "sha256": "f8c812fc7e22867e5970a687898cd62d8c15561ccc6800c84ac9fdc6583e4b03"
+    }
+  },
+  "selection_reason": "Actual original-source executor and its direct value/type/body/callee consumers. Validate source-permitted concrete execution, source faults, observation exhaustion and unavailable strategies separately; original nominal identities and complete U remain. This untrusted observer is not a proof, source/IR equivalence, full Go order/effect theorem or context activation. No unrelated old matrices or intermediate broad gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "started_at_utc": "2026-10-23T03:46:22.782269+00:00",
+  "exit_code": 0,
+  "seconds": 0.0566707500256598,
+  "whole_source_inputs_unchanged": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/go-format-initial/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/go-format-initial/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "finished_at_utc": "2026-10-23T03:46:22.839859+00:00"
+}

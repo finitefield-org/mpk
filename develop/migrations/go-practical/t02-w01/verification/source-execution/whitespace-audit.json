@@ -1,0 +1,73 @@
+{
+  "status": "passed_with_exact_immutable_libtest_stdout_eof_records",
+  "initial_default_check": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "exit_code": 2,
+    "stdout": "develop/migrations/go-practical/t02-w01/verification/source-execution/rust-conversions/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-execution/rust-final/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-execution/rust-initial/stdout.log:13: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-execution/selection-regression/stdout.log:8: new blank line at EOF.\n",
+    "stderr": ""
+  },
+  "preserved_original_stdout": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-execution/rust-conversions/stdout.log",
+      "bytes": 264,
+      "sha256": "e4c1c64d17d077942cf94689ec3403c9755bef17b12b91f16fe631c3d7568e46"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-execution/rust-final/stdout.log",
+      "bytes": 263,
+      "sha256": "7d2b44199eed38397dd1f60dcdfeb5a71f63f52cefb0c3d42bc48c1e8f2255d2"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-execution/rust-initial/stdout.log",
+      "bytes": 431,
+      "sha256": "d12200df46f39d1dbfbc895360f1fd9b9edfa2571a345be191c99f9d1b8fff84"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-execution/selection-regression/stdout.log",
+      "bytes": 318,
+      "sha256": "7fe3c839835774c743b674510e29157cb50df8657253371ebcd773af79f2eda2"
+    }
+  ],
+  "default_check_all_other_files": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      ".",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-execution/rust-conversions/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-execution/rust-final/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-execution/rust-initial/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-execution/selection-regression/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "raw_stdout_other_whitespace_check": {
+    "command": [
+      "/usr/bin/git",
+      "-c",
+      "core.whitespace=-blank-at-eof",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      "develop/migrations/go-practical/t02-w01/verification/source-execution/rust-conversions/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-execution/rust-final/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-execution/rust-initial/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-execution/selection-regression/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "persistent_git_or_scanner_configuration_weakened": false,
+  "scope": "Only exact receipt-bound original libtest stdout EOF blank lines are retained. Every other staged file receives the default whitespace check. No persistent Git or repository scanner setting changes."
+}

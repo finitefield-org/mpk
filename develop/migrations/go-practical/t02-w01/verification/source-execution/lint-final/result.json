@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--test",
+    "go_practical_source_execution",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/lint-final/inputs.json",
+    "bytes": 301049,
+    "sha256": "67eeabf8eb290fd3dd01fe8689f8a4e2a33caabc8066956a73562902fc6c2271"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/lint-final/driver.py",
+    "bytes": 6999,
+    "sha256": "99fc39a0d1745cd8cc7d103cf5d5d5a50fe6f2d8427cdeed97d837d5c2dd9165"
+  },
+  "formatter_mutation_expected": false,
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Actual original-source executor and its direct value/type/body/callee consumers. Validate source-permitted concrete execution, source faults, observation exhaustion and unavailable strategies separately; original nominal identities and complete U remain. This untrusted observer is not a proof, source/IR equivalence, full Go order/effect theorem or context activation. No unrelated old matrices or intermediate broad gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "started_at_utc": "2026-10-23T04:02:28.951734+00:00",
+  "exit_code": 0,
+  "seconds": 137.973429625039,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/lint-final/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/lint-final/stderr.log",
+    "bytes": 305,
+    "sha256": "fdfbd0259f77e0762231da6c10525474f524f82f379b720d4a649aaa65d2e5f9"
+  },
+  "finished_at_utc": "2026-10-23T04:04:46.927676+00:00"
+}

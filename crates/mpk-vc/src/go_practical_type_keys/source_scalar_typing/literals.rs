@@ -1,7 +1,11 @@
 //! Check actual literal element syntax, including contextual elided types.
 use super::*;
 impl Engine<'_> {
-    fn literal_indices(&mut self, source: &str, node: usize) -> Result<Vec<(u64, usize)>> {
+    pub(super) fn literal_indices(
+        &mut self,
+        source: &str,
+        node: usize,
+    ) -> Result<Vec<(u64, usize)>> {
         let mut result = vec![];
         let mut seen = BTreeSet::new();
         let mut next = 0u64;

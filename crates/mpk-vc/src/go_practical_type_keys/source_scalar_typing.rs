@@ -7,6 +7,12 @@ mod bodies;
 mod domains;
 pub(super) use domains::extend_contract_domain;
 mod error_boxings;
+mod execution;
+pub use execution::{
+    execute_go_source, GoSourceExecution, GoSourceExecutionError, GoSourceExecutionErrorKind,
+    GoSourceExecutionEvent, GoSourceExecutionEventKind, GoSourceExecutionStatus,
+    GoSourceRuntimeData, GoSourceRuntimeFault, GoSourceRuntimeSlice, GoSourceRuntimeValue,
+};
 mod literals;
 mod members;
 mod methods;

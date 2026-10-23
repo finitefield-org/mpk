@@ -1,0 +1,93 @@
+    Checking mpk-core v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-core)
+    Checking mpk-cert v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cert)
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0502]: cannot borrow `*f` as mutable because it is also borrowed as immutable
+  --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/execution/expressions.rs:73:25
+   |
+24 |         let src = f.root.source_object_id();
+   |                   ------ immutable borrow occurs here
+...
+73 |                 let x = self.one(f, child(&node, "X").map_err(|_| source())?, None)?;
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ mutable borrow occurs here
+...
+76 |                     self.field_path(x.type_id(), attr(&s, "Name").ok_or_else(source)?, src)?;
+   |                                                                                        --- immutable borrow later used here
+
+error[E0502]: cannot borrow `*f` as mutable because it is also borrowed as immutable
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/execution/expressions.rs:111:25
+    |
+ 24 |         let src = f.root.source_object_id();
+    |                   ------ immutable borrow occurs here
+...
+111 |                 let x = self.one(f, left, operand.as_deref())?;
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ mutable borrow occurs here
+...
+129 |                 self.at = GoSourceSelectionRef::new(src, n);
+    |                                                     --- immutable borrow later used here
+
+error[E0502]: cannot borrow `*f` as mutable because it is also borrowed as immutable
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/execution/expressions.rs:120:25
+    |
+ 24 |           let src = f.root.source_object_id();
+    |                     ------ immutable borrow occurs here
+...
+120 |                   let y = self.one(
+    |  _________________________^
+121 | |                     f,
+122 | |                     right,
+123 | |                     if matches!(op, "<<" | ">>") {
+...   |
+127 | |                     },
+128 | |                 )?;
+    | |_________________^ mutable borrow occurs here
+129 |                   self.at = GoSourceSelectionRef::new(src, n);
+    |                                                       --- immutable borrow later used here
+
+error[E0502]: cannot borrow `*f` as mutable because it is also borrowed as immutable
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/execution/expressions.rs:134:25
+    |
+ 24 |         let src = f.root.source_object_id();
+    |                   ------ immutable borrow occurs here
+...
+134 |                 let x = self.one(f, child(&node, "X").map_err(|_| source())?, None)?;
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ mutable borrow occurs here
+135 |                 let i = self.one(f, child(&node, "Index").map_err(|_| source())?, None)?;
+136 |                 self.at = GoSourceSelectionRef::new(src, n);
+    |                                                     --- immutable borrow later used here
+
+error[E0502]: cannot borrow `*f` as mutable because it is also borrowed as immutable
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/execution/expressions.rs:135:25
+    |
+ 24 |         let src = f.root.source_object_id();
+    |                   ------ immutable borrow occurs here
+...
+135 |                 let i = self.one(f, child(&node, "Index").map_err(|_| source())?, None)?;
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ mutable borrow occurs here
+136 |                 self.at = GoSourceSelectionRef::new(src, n);
+    |                                                     --- immutable borrow later used here
+
+error[E0502]: cannot borrow `*f` as mutable because it is also borrowed as immutable
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/execution/expressions.rs:158:25
+    |
+ 24 |         let src = f.root.source_object_id();
+    |                   ------ immutable borrow occurs here
+...
+158 |                 let x = self.one(f, child(&node, "X").map_err(|_| source())?, None)?;
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ mutable borrow occurs here
+...
+175 |                 self.at = GoSourceSelectionRef::new(src, n);
+    |                                                     --- immutable borrow later used here
+
+error[E0502]: cannot borrow `*f` as mutable because it is also borrowed as immutable
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/execution/expressions.rs:167:33
+    |
+ 24 |         let src = f.root.source_object_id();
+    |                   ------ immutable borrow occurs here
+...
+167 |                         let v = self.one(f, b, None)?;
+    |                                 ^^^^^^^^^^^^^^^^^^^^ mutable borrow occurs here
+168 |                         self.at = GoSourceSelectionRef::new(src, n);
+    |                                                             --- immutable borrow later used here
+
+For more information about this error, try `rustc --explain E0502`.
+error: could not compile `mpk-vc` (lib) due to 7 previous errors
