@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--test",
+    "go_practical_source_string_index",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/lint-controls/inputs.json",
+    "bytes": 285077,
+    "sha256": "94f1fdf1d9aa0ec2afe2e699ae9d67462d8312a40699f84686541bd7b5ec08d2"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/lint-controls/driver.py",
+    "bytes": 7268,
+    "sha256": "0c4e79ac499e9aa04788c614c762718c887d6ee69e01da2a7b70cfd7892e34f9"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "New full-source integer index widths/signs and string read consumer only: retain every original source type/U and every prior string declaration identity. Actual zero extension preserves complete unsigned values; signed definedness requires the actual sign bit clear, with actual balanced-Int correspondence and guarded data read. Cover all builtin/nominal integer and string types, original heterogeneous and all70-case units, genuine false sign/high-bit/read controls and independent complete definitions/statements/native type observations. No source-expression execution, signed Go len result, context activation, funext, axiom, cap increase or reduced U. Full T02 gate deferred.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-23T00:58:17.185167+00:00",
+  "exit_code": 0,
+  "seconds": 33.0455167919863,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/lint-controls/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/lint-controls/stderr.log",
+    "bytes": 147,
+    "sha256": "90d0627bf25e6284f59738aae74aaba823674bf0ec91ca72c5910e90fd7c94b4"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-23T00:58:50.232249+00:00"
+}

@@ -1,0 +1,730 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_source_string_index",
+    "source_string_indices",
+    "--",
+    "--nocapture",
+    "--test-threads=1",
+    "--skip",
+    "source_string_indices_heterogeneous"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_SOURCE_STRING_INDEX_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/inputs.json",
+    "bytes": 285510,
+    "sha256": "3e7cf5b7bfde783168461698a3e89af4f239fb807dbb12245c5a34f1c1104bda"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/driver.py",
+    "bytes": 7315,
+    "sha256": "ef4d134c1298c1aed8f844942acd822684f7ba940ad0f1eda894b8c3b06c6f1a"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "New full-source integer index widths/signs and string read consumer only: retain every original source type/U and every prior string declaration identity. Actual zero extension preserves complete unsigned values; signed definedness requires the actual sign bit clear, with actual balanced-Int correspondence and guarded data read. Cover all builtin/nominal integer and string types, original heterogeneous and all70-case units, genuine false sign/high-bit/read controls and independent complete definitions/statements/native type observations. No source-expression execution, signed Go len result, context activation, funext, axiom, cap increase or reduced U. Full T02 gate deferred.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-23T01:06:47.178518+00:00",
+  "exit_code": 0,
+  "seconds": 365.51484754204284,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/stdout.log",
+    "bytes": 21360,
+    "sha256": "d8d1c07e3c9e4e8b4dfee0515a17195aba8865b5fd5a4e193669bb7dafe973c0"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/stderr.log",
+    "bytes": 196,
+    "sha256": "aec7a94e7cca23f86c523bf7ba69ce308afb46e2847147222c4f4658493c62ae"
+  },
+  "certificates": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/control-coherent-read.mpcert",
+      "bytes": 325502,
+      "sha256": "2729b7ac5748a5b5773bddecae95bb6b42d549cccf94f5bf61eb3cfdac6fc3f7"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/control-constant-read.mpcert",
+      "bytes": 325433,
+      "sha256": "842fb9d0b9a2a332b143558a983b9978b02be91c353e12d32fdcf37bbc8d9f4a"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/control-erased-sign.mpcert",
+      "bytes": 325427,
+      "sha256": "fd122929b7556a00097c28eccd2957ce5d17ec9b86a7e6beea106dd82652d7e4"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/control-repeated-low-byte.mpcert",
+      "bytes": 324929,
+      "sha256": "489f50f5a08d84d5b5c7dafc1e4845258201a8cf8ec255774610aaf61af2f531"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-0153002808f6b1ad75b3a70c513a6c3ddcbb229b3c5ba012642aefc3f15a44ba.mpcert",
+      "bytes": 365232,
+      "sha256": "a3bc76a1f7b5b3c9ab22badc50f4e14d2a11b88976294ce8677b900e551cd40c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-01a0fdb395102c563c3e4fb9c79664571c1c404fe71791ac9f51b75d19a244b1.mpcert",
+      "bytes": 365232,
+      "sha256": "67c77efa38ea52e3117daab424f9994c9ebd115fac878d1b45220af98e2725a3"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-0450884812f8303cd115cf8c21f7aeca2b2baf3b17d96562aecf48748d08caf2.mpcert",
+      "bytes": 365232,
+      "sha256": "c6afa10145058965bd31bf8f4c640cd8ecf8e94cab322cf48bcb328ddae912e9"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-05a8e0498be421843fea795572795f49558d1962cb7e963d537e37b154f6d29c.mpcert",
+      "bytes": 365232,
+      "sha256": "72fd93a99de54bb03183003f56c5644c67dc96b729501b503ee7bc7348a77148"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-09390868af511992ff982db39d8ef3a7e4df8ec87dc6508a70fafe5bd4b92318.mpcert",
+      "bytes": 365232,
+      "sha256": "e7112dd482c29dbb84248fde152f6d7a966aeaad2bb77ca72f94ac8816400b76"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-0be14c8231db56a1abd5425ee4aa19a4978089e34ae60d5cd77ce1fd746a9973.mpcert",
+      "bytes": 365232,
+      "sha256": "523a47ac9f6395fe74b2f9720c02704501cc175828a3045843d75afa0335830a"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-0fbfafb4843864b99153ed50357af1c1a083b4b6295dae900f1b097731998e58.mpcert",
+      "bytes": 365232,
+      "sha256": "c04b1a9158d41af6fb85de2861b3c9fca065de71038f0c5ffc4f5ba426acf079"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-11efba017e15f5a5d272a48a19de8b9f2f2237d74f13440069ad61a7e5837c93.mpcert",
+      "bytes": 365232,
+      "sha256": "15b5358f9c2ce93c1a6300f3ef6f99f4b0977533c9d5836550efdd5a6c842958"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-13dd4f3eeec9632922b983f813bf63e4f80a42e45c423a4a15eeb7da1310af9c.mpcert",
+      "bytes": 365232,
+      "sha256": "15744675fa58b2aaa4e2efa9de645013163e7be4db6aa049988af56cbdac4e8d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-160cd575f109d835ae14fe7c439f238590e76eed64ce35c8b823acea20e58df0.mpcert",
+      "bytes": 365232,
+      "sha256": "663aae4c032d0b0799f4b61e360061cbb1878b672db08a6fce1644dc4a3659cd"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-1b1acbd215b9b48c576556475f3845f0c713580f8826701e25f7121d45dd9cfd.mpcert",
+      "bytes": 365232,
+      "sha256": "0fd1378151622fc847b1ec7170d5958fb5ccb3b847ae03cb5e7c6357cf568402"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-1d161ee707f3006376b5faca40f0e8e7ec5c326f4ca618512f853da2a96f2c71.mpcert",
+      "bytes": 365232,
+      "sha256": "79c2bdd1c99f135b51ea08cc1682045ef3b3db97b06369123d8f777c910b8bae"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-1db133a53e61ee710b4cf51c5c2f5e3c01afd810b45f406aa5facb9935d2d9eb.mpcert",
+      "bytes": 365232,
+      "sha256": "d38e160acb11189565d4263713d33d9af311f706a4a39c64285a4792cf088c6e"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-25e222feecd71ae08a8dba44bd1ee252772e23000ef1c942291cfd53ac30bf8c.mpcert",
+      "bytes": 365232,
+      "sha256": "e657829a43d1e464d01ad8ea016eba0b156525226d7e9412bbc5f3adf4cd0f09"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-26430c55b95bf02c8711e54aa67d99e8d615ff5349cde0bb95caac92b383660c.mpcert",
+      "bytes": 365232,
+      "sha256": "2d135dd193783c031a93ba18e11935b3f86b88b21334c8e43fccef41828c3c74"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-26b41400a7c3a97b0aba532e78568de8711054dfe198a4fd35cc7e3aba749d43.mpcert",
+      "bytes": 365232,
+      "sha256": "52f7a76d953307fe6c7d46852f1e80463a60d48686d54694e99212b520120bb5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-271eecc990a7c27c4a88b2aea1fb44d77c2afaecd306e5a789b02705724bbc56.mpcert",
+      "bytes": 365232,
+      "sha256": "01eba0709ca828b33daaf45392c41c175f1f295b99ff24105078659d1c042c10"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-2b753a8d920d34758e232afab5d75dcbf4dd1dadfd53359a3876da6b5a678fd6.mpcert",
+      "bytes": 365232,
+      "sha256": "2552627d7b74e9971b3301cb64e735676c4a465e4ea79987ba2cf36e82362010"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-2eb0ebb12048e71c062956d084900ecd0a94dd5eff01747ebfa1e2089687a731.mpcert",
+      "bytes": 365232,
+      "sha256": "f4425e91474e44bd2a7efbe6742b98b680d80ada4e0815beeac944fa32f12113"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-2fbc6788c86a1de7c3a2778c8f4b4e19d8da007ff4a647b48d40ac432aedf1a2.mpcert",
+      "bytes": 365232,
+      "sha256": "e159371f7798bd8b6babee1cb49c4f1069104f52bb0458da70f600c5eeb7c00b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-3c9016f681562e41db87c6bb54561ba7b9207a0f8e78b58599609d7996e1872e.mpcert",
+      "bytes": 365232,
+      "sha256": "a7b6ece07a2fe92bfe44fc5f1a5b5f0b12511fb23d4470d583c0be42fef6b6de"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-3e5a8d7db211162e453452c13219884251645f6ae5c1eddca94550839f3b368e.mpcert",
+      "bytes": 365232,
+      "sha256": "4ff3467bac589b9f2ef61a8a9080d24225ab908dfd2b88014de148b202c21c0c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-41e843ee13560def4bef7f03ec5e2252c3b7200ac79f05bfe516e20cf7c21f3e.mpcert",
+      "bytes": 365232,
+      "sha256": "462ee06b4b802f1e0bc0ac410efcb9096b81a24a7475477f95bfebc9e0f9107f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-436e1e7def5c63a127a9b0fe0674c08d76befa16124b8348b79edeae70a457cb.mpcert",
+      "bytes": 365232,
+      "sha256": "816fdb8a5509ff2ca0a5bc8326b254f75b37659ce0c320eb44f015e5c7ce5793"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-5b1ae1d0fdb6ddba13ace8b7698a15368b0a51f069709003b609d7c837455dc1.mpcert",
+      "bytes": 365232,
+      "sha256": "d4263d3355fa313a6546e7fdcaf1fea63a9541c3bec3b54a6551f0d4f018481b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-5c0d4f3adb6ec119886eb2ebac330aaebad0b76fa8b9a4d4e35b0215ad911546.mpcert",
+      "bytes": 365232,
+      "sha256": "7e9c1a13db68be34cdb48161b35809d5feafff9eb7edb1a84a405e80954b17a2"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-5c2e75253bec9209274be5bc6cc0451c60611966305014e90e9c6b091e37f0be.mpcert",
+      "bytes": 365232,
+      "sha256": "06cdd37b7d79f154d3396f49cfe178bae3c31a6a854a264338f3a075739a3b19"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-5d77a98cacd5a826f4fa07286b733430c35a4d4bd938c1b92ec7b939a3786364.mpcert",
+      "bytes": 365232,
+      "sha256": "b8adf14713542439ef4c8e02cf9a87799aeeb6c6bebe6bcc51d3690e05d70559"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-6343b47963a432b023703c7871d9c4bb08607825be30d57c79210c899f5b2914.mpcert",
+      "bytes": 365232,
+      "sha256": "23dc37ea1477456b6a285185d70b57787cb1e9acdc65b6b86f47aef761af250c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-637b1e53946f1efb443e11ac38251a9173b9303ecdad95fa13811f681e3977db.mpcert",
+      "bytes": 365232,
+      "sha256": "8ce4332ecdaf3cb019fb7ca5d772e1c9911b923ac242cc35e22287a1bc9b08d2"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-64444cea7201ae84228fa9dfd1f40e7d17ad601b2348719617fd9a6304534254.mpcert",
+      "bytes": 365232,
+      "sha256": "3869f1e7c1ee8e640d44195d83c6b29c7e7caf8d6411944936802b673019f75e"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-64b45c71f772274f5b5f2e0cef8c09165d9ca98be2bd0108303857a1f40cecf4.mpcert",
+      "bytes": 365232,
+      "sha256": "8226f163a472f336256a45b6f1f24a6d3692bad8fd56960e048c29f3fee29cf9"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-65aaf6e2f2c9aca16bdbd21f1ab0161664c5c6b7e814a47db0df18cf40c9053c.mpcert",
+      "bytes": 365232,
+      "sha256": "e677e717f4946089788f62084e6cea88181642c323d42bf5b407594036dc8d92"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-67aad9cf025140319b805658fabd70ae2363be67cc9f73b4573fbd4d31d0e113.mpcert",
+      "bytes": 365232,
+      "sha256": "2adaf37fdb22b76b159a038c72f714f147d5fbeaa122787abb8053b2b21a3a59"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-6afaeedbb6eb04b9ff2ec7ca4bcdccb9bd7848db135ef5f7a4531aeaf4d9aff5.mpcert",
+      "bytes": 365232,
+      "sha256": "56959291028eeea9c6bbac43812eb64ca842eaec015495271658100c3065704a"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-7022164535ad80c23fb426e78eb0734448c1ee16197a3a3a9e15fa03745af7d2.mpcert",
+      "bytes": 365232,
+      "sha256": "ca3896316d133182bac2c46cbf31a1f5f4fb93bcdc20d6f7004297e80c0bb055"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-7c8c18067910200941556594a77c3bdb02b25435ab09a24ac9b4a3c0ea2eeff9.mpcert",
+      "bytes": 365232,
+      "sha256": "06e5222f200c0cacf1f53a3db4985fd0c06beaa3842880505d52e3215e5cd1ea"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-7eee6d6500556ee1cc8038cb8e88f7398ff0db7214122dba4e2d962f9bdf1918.mpcert",
+      "bytes": 365232,
+      "sha256": "cfcc77b7cb1800d12b3454f81c21c21ea1dec2d3a646fe22110a627686e2bcd5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-7ff0fd01a9a0dc384693674500e4811795b5bb6d4c26a2078ae58ab343025106.mpcert",
+      "bytes": 365232,
+      "sha256": "6037b978a4f9b206c6eed5595efed9c642a8861a9dc715a632d7b056f934a97f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-832a6e3d6f417c5152db0eac66d7022a8bf5d4f47089892d37da7058194fe74c.mpcert",
+      "bytes": 365232,
+      "sha256": "934f5e5e0e945830129fe8f45ea5a5d6051c72125a751eb53ddeaa917c0f11b5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-8435e8caa75d99f8ef3e482b06c5aafb0d84758c6aee08503cb5ee67bd0c48c1.mpcert",
+      "bytes": 365232,
+      "sha256": "8d1b9915b0ebc37585f52bbf7cdc226fd5c4206d6a20286a3b60d6e2bb21d32f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-84a697d6247f048007689aea71dae46ed7d333e0955a1e06b97d5ae2909062ab.mpcert",
+      "bytes": 365232,
+      "sha256": "697bf0c9fdf871151bab118989d1bc343f8184d40abc9f85e3418b8f46cc0c57"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-8922e6637cbc036c7e2edf342fb9db37b195221bc34c917534cea03c6f9eaa55.mpcert",
+      "bytes": 365232,
+      "sha256": "74ff1d3573cb9297ceef90a0d90be7377cfd3a352de3640bb44d979cd2fce925"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-8d5d46e817211fc9afd015252124ec6d34904ed4734edd39214ac5ede35e168b.mpcert",
+      "bytes": 365232,
+      "sha256": "5f39b5ab00e0a9b1cc21b1da9d05fb5c56dc2b6ec08e9eb0ba3783f50e16eedc"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-8eca6c0ed172cb685cea73d069bcfedc06540ef1b7adacf089fdc38e3fe9c0cb.mpcert",
+      "bytes": 365232,
+      "sha256": "08c8cb8bbd3bcccdb65fda93e50514ea1261d8439604f8b0a2b5ab84fb032ddc"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-8fec4f2cce1d0fa44b0b38d65720d87757c8b9cf02466a244bb3fb7a5ec88043.mpcert",
+      "bytes": 365232,
+      "sha256": "497dbc97c28bda26a2316d16b1ca6fbe5d0b4a0e506bfff08d84ac6b8dc367a1"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-925ba6652e9acfe6608034de1a79ba2f1cdf04b7583393aa1c0e018391fddeaa.mpcert",
+      "bytes": 365232,
+      "sha256": "734174560d7a0f9b7bac8e2341f67dc782318141ecf8ade834fd85df38e0a9dd"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-9474fb10a63e057d25e13621518262344633625e979856ddf710a317a5e4c4ff.mpcert",
+      "bytes": 365232,
+      "sha256": "5ef0ffd15ed4042fe9573de86393f5655cba34b1959ff8d4cd2f74d2f5dad02d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-992a3086ba55973eefe4cd656b42ff64d23ac06c06c958b9f62f95da376d09c5.mpcert",
+      "bytes": 365232,
+      "sha256": "5f63cbb269e5f7b97fac4f7ba132c00616986a228d0c5bdabd1557d239299b5b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-9ff960b8b522e8613d9385d27e82b59b032f79a26342c5306c162c2b5dc51183.mpcert",
+      "bytes": 365232,
+      "sha256": "fe7c7b38b682122f58f2d679a232b5e0f7420c9acfc62b06e8ac40765d406393"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-abb099414213b57720c6c0f15b479bbac32641d789e878a6d26c3bc2a60744aa.mpcert",
+      "bytes": 365232,
+      "sha256": "12e6416369c224b0d3ea4ba727330f0d8cc57a301e91da9e906f5a5c04d0a697"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-ad149c091368a65777dc41881d8d863dbd7bb14fd9e797b69b6623f103dc4b47.mpcert",
+      "bytes": 365232,
+      "sha256": "b581960dea065849e0565fe64843597d87ea0d0d8abc262b92b003ab3045e2cd"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-add1576845750eea28df962b6aa3eeb7e2cce341d978314e95081c9c0791b505.mpcert",
+      "bytes": 365232,
+      "sha256": "6ff10cab8af8f6f086319a5a3ad7a8587b6fa5e583d8b44b77876b82c01a16ac"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-aec193b6283dd932a060dc486ae73157fa5f32f3370ca843ccfe449c32cec02d.mpcert",
+      "bytes": 365232,
+      "sha256": "bfa1abc04ac2d0b9a4ce88b244f09d54ae5b8d61a881c1b98bad6a6db7089993"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-aec350de003d7e8ffaf39b5d5cdf00a0e61cbe6a5d9112f087f7fad2648cb11a.mpcert",
+      "bytes": 365232,
+      "sha256": "c648856cdff50547cb82d65a00ac35aaa2a4da876ddd6f8cd384930a4d65dc6a"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-afc362e90373a9eb02f4c56ad969ff9499c2865edbd24b4b63851cf2ef8fa3e8.mpcert",
+      "bytes": 365232,
+      "sha256": "edea64dfd1f82f380bfa064088da1c73f445c9ad6d6c7bcc450a4ce16f84c8f0"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-b36df8cafeb33e19eb541ebf63d950e26ccc6b0a5368658034cc24e2b82356e1.mpcert",
+      "bytes": 365232,
+      "sha256": "35ae84ea083464fdf1109048c53c25ad41e5a84fcab0069b78bd68cdb075ff59"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-bc6450c3063755752398c1859c95724be9aa732775c6ee64ac7e4cd2de9bf73d.mpcert",
+      "bytes": 365232,
+      "sha256": "e71dc36f5b254fab50a54d4adfa1cb52c0f26da73601a83a88f4f298c4d6fbab"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-c66570771884a34d9a781fe044c665cb2e59ea62ad12035c7699b5e33b2b9038.mpcert",
+      "bytes": 365232,
+      "sha256": "41d2ab59e0f4bef068e201de82b69c2a3ee7c23db3a20dd836fd1e5139b70422"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-d07b5003ee14dfdabe6e1e3b53ece20c5a2febe81ccf14611b3a6bf5522a1b97.mpcert",
+      "bytes": 365232,
+      "sha256": "5dd40babd1a9e36d44cc188c41ed014c46bca99fa8e029760873a7fe40873efb"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-d0970a1afcc024124f3056810f9e430a72bb13cbbde36d96e18b17c014af2db8.mpcert",
+      "bytes": 365232,
+      "sha256": "21362432342c26f763f11f40b2ff47bb138f36c5f5bb1ba5e444f0a27864deb4"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-d3eb67d19c74d9dac098019d921826f44521fe14c6a9897a14d7b000edf9a848.mpcert",
+      "bytes": 365232,
+      "sha256": "8c2a907d921bf98df6ec4912b3cf17d9d9bfcf10b0ec1e2c240cab16a73b54b3"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-daf1f454e24a917b72a3477974f16d45767bb8974f640c8a79c36b2236dbe401.mpcert",
+      "bytes": 365232,
+      "sha256": "436daa6c843e245f1222447a79c4ed499aab05e64c569a20220bd036e5df131c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-ed801cd9b68262314f7a3917d94d0b412c7bc1087a79345897a9d2971aaff1a4.mpcert",
+      "bytes": 365232,
+      "sha256": "09291b7e24a2afd31a1598159c7bb3cca5d08f74ddd3fbab8a4004b93430edd6"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-f63a92c770fec09c1240ce0c1b62e23d96efda99e4213ee3f3f0fc2442af0d01.mpcert",
+      "bytes": 365232,
+      "sha256": "06aefd2e588b5e39ce419e6e42f9e45e6acefdb9ab34e9d5f3c2ec251cdb1615"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-f63fa6f0c61fe67c724785b909034b18b7199c2369748a4f62771a612837137f.mpcert",
+      "bytes": 365232,
+      "sha256": "d09e127d762c71b4ca9a673ef37fc794023c0b5c35852076b6cd89d6d63c665d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-f84e5193e1f5c62054e06dbb9c2e8e8fbff18bbfc8ae1940c4bd5383aab2459c.mpcert",
+      "bytes": 365232,
+      "sha256": "ce86064b1205b380d0b5780171d068b91fe9ef7088d769d5bc36b963b8ec54fe"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-f9a665a494c899e478169b36eb85ecc85af1f8052ee24a6053ba850d6be4fe0c.mpcert",
+      "bytes": 365232,
+      "sha256": "4f70f6b7b3013dcd4fe7bbd932ab4c2301772faabbea19b69952591beebc2599"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-f9ab3838e2f02bb4a10cdc0dc15b5f97fd7e801d9bd465addb6d076603075eeb.mpcert",
+      "bytes": 365232,
+      "sha256": "075139e7a809a433133dbbca2250f0b4e123dfb35d5def978d3f91fd60718fb1"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-fa5c03b39bc7838eaa375e4626ea6adac4903d1ea7587fced9492465414cae31.mpcert",
+      "bytes": 365232,
+      "sha256": "fc15553da32b4cf44bfaed14b21765db2e99a90dc68699bfaf8a0f6d199f6f67"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/seventy-cases-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-fd94fdf4142d78514c8dfade4fbb864ce69e5ff2c51e11cffd40ba260f962d34.mpcert",
+      "bytes": 365232,
+      "sha256": "aa6b230e7986e9a9473d8957dfc68304625cc203f0a1fbfb5110057f3dadaaf5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-1db133a53e61ee710b4cf51c5c2f5e3c01afd810b45f406aa5facb9935d2d9eb.mpcert",
+      "bytes": 324791,
+      "sha256": "04ac9525e90fbab345bcaae9cd66811bc94e50f2935f57f57c698153fd340434"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-4426f691f8cfc8d0e873c103bf6c63d7eeddeb070ad81c038b752c855c00d01a.mpcert",
+      "bytes": 325417,
+      "sha256": "91a91b5da8f530e73d03ad383944246e905cd14ba004e9aceca535a8e6e306e8"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-4d65507f3459ca1887d57e39c7c493281e21539a204521d29dd1d8e2a3f3429f.mpcert",
+      "bytes": 325419,
+      "sha256": "1b77431305d47ba410438c9c20b0493474a73b799495d391ea95291bbc1f8210"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-777061d6cc90bdad0e2e2eec402bd50cf91f6bad3b822ae404ab702694ee618e.mpcert",
+      "bytes": 325419,
+      "sha256": "e607dcbbd06733f45847e6f7a4cbbcaab81a6dcdceee1085c2e0f6043e6f24d0"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-7a5e690aeccace604df4213ce83ad0edac167286c829c20f712c7af546296f5c.mpcert",
+      "bytes": 325415,
+      "sha256": "e1005f6161fb7bd6cf37e1f501a21b32964daa80a2ab5755ab23b2458446e1a4"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-85620a7c62ac5622a644d6cff635ac18874ee769155e26c820c1f2f31de74282.mpcert",
+      "bytes": 324791,
+      "sha256": "e89d3ed8b1d36c8f780dba3239e8630a2a416743157f9d5750e2550f53edbf05"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-86310dc29e0bd19ad64c728140280672405bc669f80aeff4e9a26c97ea1be014.mpcert",
+      "bytes": 324837,
+      "sha256": "7c676bd2ef3ae79056b7037cb09497e211dea9babb43b62a1dea64a435db927b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-8ae14e0de1e75aadaf5ca75bf8e381701c5ffcbddd0de1b90207064002f04df8.mpcert",
+      "bytes": 325419,
+      "sha256": "a6d105cba88afe5ab6d30d131799f99532f1c92104af66c95e944bbcf0176817"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-91743db8426d96abb1c1d0c4a396af726ca0f7dc822635688862384c26d871cc.mpcert",
+      "bytes": 324837,
+      "sha256": "b307e7d3889fa7520c85465554e4aa60a0f2305c4744a52a0aed148db7ac4f26"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-9259dd6c4c5c8a37b6299c83a676d1467fee75ce0bc75c27f4639863c1b7dc87.mpcert",
+      "bytes": 324831,
+      "sha256": "9ebf4607526ad49faf0736999e2b4518954726d4f99fe2793c8e6997483f54d7"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-a2171c220057e0ab8eb9653a13cf06ae9813ec52f18c1796840a340d4996fb37.mpcert",
+      "bytes": 325417,
+      "sha256": "9161cb467ce12cc61501cd5df0bde8d3db25e3d08490593514151e138c4c611c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-ca80470f01f6150f1e5ac50a0b0f67d0387e9b291eec6de4894522f8af061f7e.mpcert",
+      "bytes": 325369,
+      "sha256": "d1ea18dfde833d494fbee0799b0e0eff35e8fb9cfe27ea031c7ed633c7ea1b56"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-dde88e0d10bc15e63503c50979987d3389d7973ccf27b1893dd5de9cf01c863b.mpcert",
+      "bytes": 324791,
+      "sha256": "a997cc366d1b56dcbdd22096fab906a459876b858cf7e27256d337ffaa21e9c1"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-2c85c221b1873db522390e04d693c4bbbd0d04eb614e5715d8deaa969bb5b2cc-f72ed16f87978cd3649ab28985ccdafa362cdf2bb6eb01e36f03240ddb49ae67.mpcert",
+      "bytes": 324831,
+      "sha256": "2bca5bdca14f643d2b6b791f7e4527d933d73160eb3a8eb605390bd81de81bf5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-1db133a53e61ee710b4cf51c5c2f5e3c01afd810b45f406aa5facb9935d2d9eb.mpcert",
+      "bytes": 324791,
+      "sha256": "59d11d8e890402eb33a1a06b779b7ab2c4f02af13046fbc7ebe36477cfb8d36b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-4426f691f8cfc8d0e873c103bf6c63d7eeddeb070ad81c038b752c855c00d01a.mpcert",
+      "bytes": 325417,
+      "sha256": "b0126295941f08e69727cdc55e06c40fd1c167c56e51b1659778164292fd8b13"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-4d65507f3459ca1887d57e39c7c493281e21539a204521d29dd1d8e2a3f3429f.mpcert",
+      "bytes": 325419,
+      "sha256": "6694dda49ba223eeaca189eae316f1a563c8596ea2a955bc9f12a37d6d249107"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-777061d6cc90bdad0e2e2eec402bd50cf91f6bad3b822ae404ab702694ee618e.mpcert",
+      "bytes": 325419,
+      "sha256": "25397c780f8539a3dcece7d9d16ace45be03c41262586ae90597ad7fd0b1fedb"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-7a5e690aeccace604df4213ce83ad0edac167286c829c20f712c7af546296f5c.mpcert",
+      "bytes": 325415,
+      "sha256": "63872f03b6650604b0523a04931d6fad7e4118455cb8d70a14c2d8b2b1477920"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-85620a7c62ac5622a644d6cff635ac18874ee769155e26c820c1f2f31de74282.mpcert",
+      "bytes": 324791,
+      "sha256": "023350cebd377ba6cd278dec65203a1065227cff35e6ae91bc3a67354fac8bb2"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-86310dc29e0bd19ad64c728140280672405bc669f80aeff4e9a26c97ea1be014.mpcert",
+      "bytes": 324837,
+      "sha256": "f9ade867c5fb34d254d74f87cc46d17abb86c891b16fba96b376853349c06188"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-8ae14e0de1e75aadaf5ca75bf8e381701c5ffcbddd0de1b90207064002f04df8.mpcert",
+      "bytes": 325419,
+      "sha256": "b3ed755c905db106f056d1598b361042bad3a2f23d697db4d74798fc0a76901d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-91743db8426d96abb1c1d0c4a396af726ca0f7dc822635688862384c26d871cc.mpcert",
+      "bytes": 324837,
+      "sha256": "e8abdc896b57bbe7b4d8c473a69f9a43611999e116322eea4817694ce7c5685a"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-9259dd6c4c5c8a37b6299c83a676d1467fee75ce0bc75c27f4639863c1b7dc87.mpcert",
+      "bytes": 324831,
+      "sha256": "c2c7f47b2415f15ddea11033f09d4163c062adfab0131474447ba399da3a63d7"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-a2171c220057e0ab8eb9653a13cf06ae9813ec52f18c1796840a340d4996fb37.mpcert",
+      "bytes": 325417,
+      "sha256": "95e4c7908fc800ed67aa83306eca531a057a797fbab3938ff7db281d3dcd3503"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-ca80470f01f6150f1e5ac50a0b0f67d0387e9b291eec6de4894522f8af061f7e.mpcert",
+      "bytes": 325369,
+      "sha256": "d5c08fa25121179cf0b2b6fdc7a95fa1cd1ed2d6d26a3840fd86f380721a7c2d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-dde88e0d10bc15e63503c50979987d3389d7973ccf27b1893dd5de9cf01c863b.mpcert",
+      "bytes": 324791,
+      "sha256": "5c09b47782801e22bb0216cf7adeb1b13d40dea0949e0ec728337b483e3f6b9b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-6bd1ec55c4c198977133e385d0517e026ee0099dce2c7dd7ad298e6ebb333a79-f72ed16f87978cd3649ab28985ccdafa362cdf2bb6eb01e36f03240ddb49ae67.mpcert",
+      "bytes": 324831,
+      "sha256": "a22510a9ee3fd229d5de81d033ccd3ea4aafc5df70d02d1e86eddf787cc3e2bd"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-1db133a53e61ee710b4cf51c5c2f5e3c01afd810b45f406aa5facb9935d2d9eb.mpcert",
+      "bytes": 324791,
+      "sha256": "c204913c3cfdd8f585264775b084d95e17d8722cdce5c7cfcf12a5fe515a55af"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-4426f691f8cfc8d0e873c103bf6c63d7eeddeb070ad81c038b752c855c00d01a.mpcert",
+      "bytes": 325417,
+      "sha256": "dcd6d42f0fd9e2047d8ff0f86674622dc11c4bcef1f12b5e189c3110642a4aa2"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-4d65507f3459ca1887d57e39c7c493281e21539a204521d29dd1d8e2a3f3429f.mpcert",
+      "bytes": 325419,
+      "sha256": "2f0b506a85a11a04361837c19e09775f0ece39dfb979363ec8879c58074fd3d1"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-777061d6cc90bdad0e2e2eec402bd50cf91f6bad3b822ae404ab702694ee618e.mpcert",
+      "bytes": 325419,
+      "sha256": "12c938728005996f0dcc996848cbfb830f20163cc7cae402a7a4fd0b5af30ea1"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-7a5e690aeccace604df4213ce83ad0edac167286c829c20f712c7af546296f5c.mpcert",
+      "bytes": 325415,
+      "sha256": "4922c5ebadcde0f88fad88c09a3cb527ccecb6277041d97e7ae44e20e52f3bf3"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-85620a7c62ac5622a644d6cff635ac18874ee769155e26c820c1f2f31de74282.mpcert",
+      "bytes": 324791,
+      "sha256": "57ac946ba2cd4ca7eea81778d01c4561f51bd7b41d27e7f62db5ed84e79fc029"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-86310dc29e0bd19ad64c728140280672405bc669f80aeff4e9a26c97ea1be014.mpcert",
+      "bytes": 324837,
+      "sha256": "c4e594ef58322ee5f0aeeda3c9916a49cd146c54ecf034afd7d5d194b38ca4ea"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-8ae14e0de1e75aadaf5ca75bf8e381701c5ffcbddd0de1b90207064002f04df8.mpcert",
+      "bytes": 325419,
+      "sha256": "878bf32247e8bec56d6d5919b618d520a13a1852aac8210b109a84fd3960cc55"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-91743db8426d96abb1c1d0c4a396af726ca0f7dc822635688862384c26d871cc.mpcert",
+      "bytes": 324837,
+      "sha256": "2e5f58e32e8034e424f613edb7f9c9f1b25c9861e911e51ab26eed95fd80fe7d"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-9259dd6c4c5c8a37b6299c83a676d1467fee75ce0bc75c27f4639863c1b7dc87.mpcert",
+      "bytes": 324831,
+      "sha256": "7787a63a0af00fcd6ff41e99557ca171b8594562770fe3bd7df310b8bf8375f5"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-a2171c220057e0ab8eb9653a13cf06ae9813ec52f18c1796840a340d4996fb37.mpcert",
+      "bytes": 325417,
+      "sha256": "c9c1f98969a3a40454af5d67ca8dcd70df18d3c97d5378a98e7931a64952a3b3"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-ca80470f01f6150f1e5ac50a0b0f67d0387e9b291eec6de4894522f8af061f7e.mpcert",
+      "bytes": 325369,
+      "sha256": "6dd7bd0dc8db14b3f80f61d3a6241450f09e2ace002ab86b7ebeb2e078cd831c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-dde88e0d10bc15e63503c50979987d3389d7973ccf27b1893dd5de9cf01c863b.mpcert",
+      "bytes": 324791,
+      "sha256": "2433f418e36d18a81ea3cad91c0a9b36c417c9216af2f412ab54cf3160a37a16"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-aa9e1bf680184a753d88629f460bda6de067fb828ea96271f5aabe040c0ccb2f-f72ed16f87978cd3649ab28985ccdafa362cdf2bb6eb01e36f03240ddb49ae67.mpcert",
+      "bytes": 324831,
+      "sha256": "5cac4fc3494c85d41828f779c1e41118f67b73185c417ccbfe4ec94322529c31"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-1db133a53e61ee710b4cf51c5c2f5e3c01afd810b45f406aa5facb9935d2d9eb.mpcert",
+      "bytes": 324791,
+      "sha256": "b5d9a59671a3a4f8c6f20df76c7097f4ddf0fe3ebb936a2452b442681abf9738"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-4426f691f8cfc8d0e873c103bf6c63d7eeddeb070ad81c038b752c855c00d01a.mpcert",
+      "bytes": 325417,
+      "sha256": "74e10227e3cf2b9df9c732f7f49de9b3bdfb8e18d2ed6481cd12aa4fcaad150f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-4d65507f3459ca1887d57e39c7c493281e21539a204521d29dd1d8e2a3f3429f.mpcert",
+      "bytes": 325419,
+      "sha256": "b78246ea01cab6051ffd26fa7a4e7d24d550ae2c2a2518b2dd2527181670413e"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-777061d6cc90bdad0e2e2eec402bd50cf91f6bad3b822ae404ab702694ee618e.mpcert",
+      "bytes": 325419,
+      "sha256": "3a63d4754dc428581614cd4ceedbb162f01591b99e2ee97b204eab180fb58541"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-7a5e690aeccace604df4213ce83ad0edac167286c829c20f712c7af546296f5c.mpcert",
+      "bytes": 325415,
+      "sha256": "4b94d9fa5810941a030bc74e30fdc6856e9c5c7c2c88d146644895aea1323400"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-85620a7c62ac5622a644d6cff635ac18874ee769155e26c820c1f2f31de74282.mpcert",
+      "bytes": 324791,
+      "sha256": "e3a90f87e28ade38da2c8dc03a8f379024f87bd77a6c3f77a910be29c4da9738"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-86310dc29e0bd19ad64c728140280672405bc669f80aeff4e9a26c97ea1be014.mpcert",
+      "bytes": 324837,
+      "sha256": "c9b861e39a766477ca916cbc3b1aa530a53535c2c5fcfb8e8bb043c895fc0d88"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-8ae14e0de1e75aadaf5ca75bf8e381701c5ffcbddd0de1b90207064002f04df8.mpcert",
+      "bytes": 325419,
+      "sha256": "411eac3732a473e6179b4d51b508e7f5cfbe41fc83cdcfbbf42bbefcdf540bd9"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-91743db8426d96abb1c1d0c4a396af726ca0f7dc822635688862384c26d871cc.mpcert",
+      "bytes": 324837,
+      "sha256": "79c70341cc23369d8689a0445bfb77e81f821729583c4fda8dd73b0682ad3722"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-9259dd6c4c5c8a37b6299c83a676d1467fee75ce0bc75c27f4639863c1b7dc87.mpcert",
+      "bytes": 324831,
+      "sha256": "a70dbca6cea6eb473e4f7c9ec5eac364e613bcf0f38690421228598d2aa66c46"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-a2171c220057e0ab8eb9653a13cf06ae9813ec52f18c1796840a340d4996fb37.mpcert",
+      "bytes": 325417,
+      "sha256": "77ca6d5d4da1216f423438ceed1265f4d59c313f6eb07174584e2ad6c3f820f6"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-ca80470f01f6150f1e5ac50a0b0f67d0387e9b291eec6de4894522f8af061f7e.mpcert",
+      "bytes": 325369,
+      "sha256": "d01ed942e0f71709dda892e0fca8d7642ffa8ab389b51c846b92272e731a1c51"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-dde88e0d10bc15e63503c50979987d3389d7973ccf27b1893dd5de9cf01c863b.mpcert",
+      "bytes": 324791,
+      "sha256": "ffcdf77715432afd660c94d631b557da8d2a11f099cfa7c7616dd468008751b4"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/certificates/source-string-indices-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-f72ed16f87978cd3649ab28985ccdafa362cdf2bb6eb01e36f03240ddb49ae67.mpcert",
+      "bytes": 324831,
+      "sha256": "2791d25c1e92ab6407a2eae9d318e83b7473eeebfdcab6dc548870ace04f031c"
+    }
+  ],
+  "finished_at_utc": "2026-10-23T01:12:52.844533+00:00"
+}

@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+    "test",
+    "-json",
+    "-count=1",
+    "-timeout=40m",
+    "-run",
+    "^TestPracticalSourceStringIndexOriginalTypes$"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "GOROOT": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-go-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod",
+    "MPK_GO_PRACTICAL_SYNTAX_EVIDENCE": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/native/native-originals"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/native/inputs.json",
+    "bytes": 285028,
+    "sha256": "e620538f1d9d73877f38dee1de1d9f72a6b7c16226631a2d873c1e693628e6a0"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/native/driver.py",
+    "bytes": 7268,
+    "sha256": "0c4e79ac499e9aa04788c614c762718c887d6ee69e01da2a7b70cfd7892e34f9"
+  },
+  "tools": {
+    "go": {
+      "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+      "bytes": 14117888,
+      "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b"
+    },
+    "gofmt": {
+      "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+      "bytes": 2914768,
+      "sha256": "f8c812fc7e22867e5970a687898cd62d8c15561ccc6800c84ac9fdc6583e4b03"
+    }
+  },
+  "selection_reason": "New full-source integer index widths/signs and string read consumer only: retain every original source type/U and every prior string declaration identity. Actual zero extension preserves complete unsigned values; signed definedness requires the actual sign bit clear, with actual balanced-Int correspondence and guarded data read. Cover all builtin/nominal integer and string types, original heterogeneous and all70-case units, genuine false sign/high-bit/read controls and independent complete definitions/statements/native type observations. No source-expression execution, signed Go len result, context activation, funext, axiom, cap increase or reduced U. Full T02 gate deferred.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-23T00:58:18.374996+00:00",
+  "exit_code": 0,
+  "seconds": 100.58371420798358,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/native/stdout.log",
+    "bytes": 1440,
+    "sha256": "6153050a78f7ba4fa2ac18ed13e28262121f4a0c246388e2d0c670b756f5bf19"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/native/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-23T00:59:58.965313+00:00"
+}

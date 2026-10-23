@@ -87,6 +87,104 @@ pub(super) fn source_string_prerequisites(
     Ok(composer.builder)
 }
 
+/// Retain the complete original source-string row and fixed full-width index
+/// conversion/integer roots. This internal recipe accepts no caller root set.
+pub(super) fn source_string_index_prerequisites(inputs: &[Certificate; 2]) -> Result<Builder> {
+    let mut index = BTreeMap::new();
+    let mut identities = BTreeMap::new();
+    let mut roots = vec![];
+    let mut required = BTreeSet::new();
+    for width in [8, 16, 32, 64] {
+        required.insert(format!("Mpk.Go.Practical.Word.W{width}.UnsignedTo64"));
+        required.insert(format!(
+            "Mpk.Go.Practical.Word.Conversions.W{width}.UnsignedTo64.UnsignedExact"
+        ));
+        for member in ["Signed", "SignedPositive", "SignedNegative"] {
+            required.insert(format!("Mpk.Go.Practical.Word.Numeric.W{width}.{member}"));
+        }
+    }
+    for member in [
+        "FromNat",
+        "PositiveOfFromNat",
+        "NegativeOfFromNat",
+        "Equivalent",
+    ] {
+        required.insert(format!("Mpk.Go.Practical.Int.{member}"));
+    }
+
+    for (s, certificate) in inputs.iter().enumerate() {
+        if !certificate.imports.is_empty()
+            || !certificate.proof_node_table.is_empty()
+            || !certificate.theory_certificates.is_empty()
+            || certificate.source_manifest.is_some()
+            || certificate.axiom_report.summary.total_axiom_count != 0
+            || certificate.declarations.iter().any(|d| {
+                !matches!(
+                    d.kind,
+                    DeclarationKind::Def { .. }
+                        | DeclarationKind::Theorem { .. }
+                        | DeclarationKind::Inductive { .. }
+                        | DeclarationKind::Constructor { .. }
+                        | DeclarationKind::Recursor { .. }
+                )
+            })
+        {
+            return Err(GoOrdinaryError::Foundation);
+        }
+        let hashes = fingerprints(certificate);
+        for (i, declaration) in certificate.declarations.iter().enumerate() {
+            let name = certificate.name_table[declaration.name as usize].clone();
+            if let Some(previous) = identities.get(&name) {
+                if previous != &hashes[&name] {
+                    return Err(GoOrdinaryError::Linkage);
+                }
+            } else {
+                identities.insert(name.clone(), hashes[&name].clone());
+                index.insert(name.clone(), (s, i));
+            }
+            if s == 0
+                || required.contains(&name)
+                || matches!(
+                    declaration.kind,
+                    DeclarationKind::Inductive { .. }
+                        | DeclarationKind::Constructor { .. }
+                        | DeclarationKind::Recursor { .. }
+                )
+            {
+                roots.push(name);
+            }
+        }
+    }
+    if required.iter().any(|name| !index.contains_key(name)) {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    let builder = Builder::new()?;
+    for (name, identity) in fingerprints(&builder.certificate) {
+        if identities.get(&name) != Some(&identity) {
+            return Err(GoOrdinaryError::Linkage);
+        }
+    }
+    let mut composer = Composer {
+        inputs,
+        signed_division_names: false,
+        builder,
+        index,
+        cloned: BTreeMap::new(),
+        visiting: BTreeSet::new(),
+        terms: BTreeMap::new(),
+        levels: BTreeMap::new(),
+    };
+    for name in composer.dependency_order(&roots)? {
+        composer.declaration(&name)?;
+    }
+    for (name, identity) in fingerprints(&composer.builder.certificate) {
+        if identities.get(&name) != Some(&identity) {
+            return Err(GoOrdinaryError::Linkage);
+        }
+    }
+    Ok(composer.builder)
+}
+
 /// Close compiled-in declaration roots without changing any retained named
 /// type, body, proof or inductive metadata. This is producer packaging only;
 /// each resulting complete ordinary certificate still needs both checkers.

@@ -1,0 +1,93 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_source_string_index",
+    "source_string_indices_heterogeneous",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_SOURCE_STRING_INDEX_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/certificates"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/inputs.json",
+    "bytes": 285550,
+    "sha256": "15d16ddd8fb5d9f7916b9f4f924c48dba5a8752c1a37679106e02fcf650f2f88"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/driver.py",
+    "bytes": 7282,
+    "sha256": "69780317dbe4d55a71c73083e1a031a1decc276a2901a4a60df2d3ff14935527"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "New full-source integer index widths/signs and string read consumer only: retain every original source type/U and every prior string declaration identity. Actual zero extension preserves complete unsigned values; signed definedness requires the actual sign bit clear, with actual balanced-Int correspondence and guarded data read. Cover all builtin/nominal integer and string types, original heterogeneous and all70-case units, genuine false sign/high-bit/read controls and independent complete definitions/statements/native type observations. No source-expression execution, signed Go len result, context activation, funext, axiom, cap increase or reduced U. Full T02 gate deferred.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-23T01:03:12.033426+00:00",
+  "exit_code": 0,
+  "seconds": 126.15837025002111,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/stdout.log",
+    "bytes": 849,
+    "sha256": "36234e8ee78fdfe8fd24455fad4774d2af84d7cced975a2533a403fcfdef469f"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/stderr.log",
+    "bytes": 271,
+    "sha256": "3e6214320c4ee9fe97a72631397668515884be2af4da4ac1ae209d6d43597dda"
+  },
+  "certificates": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/certificates/heterogeneous-payloads-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-1db133a53e61ee710b4cf51c5c2f5e3c01afd810b45f406aa5facb9935d2d9eb.mpcert",
+      "bytes": 319990,
+      "sha256": "9453acd70c7acdd2c41358eee85ebe63840dcea2da457750d6ddd4b141b01495"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/certificates/heterogeneous-payloads-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-9259dd6c4c5c8a37b6299c83a676d1467fee75ce0bc75c27f4639863c1b7dc87.mpcert",
+      "bytes": 319985,
+      "sha256": "25807d9acda02b826e2e03ffdca9e54af9b208b77b197d5f1c4540962b59d643"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/certificates/heterogeneous-payloads-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-bd34a4d3b08bf4b11499dfe8cfaf7b64e5738dffbb353c5982da8430925cdb45.mpcert",
+      "bytes": 319985,
+      "sha256": "010be13751f6d4b481bd0a6ac5bf6d254e4908c7d1a98f02b338d3602087d88a"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/certificates/heterogeneous-payloads-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1-ca80470f01f6150f1e5ac50a0b0f67d0387e9b291eec6de4894522f8af061f7e.mpcert",
+      "bytes": 320568,
+      "sha256": "f872b9b206cc3f0d4b5d3e7fc281816b5f3b9ae0e5f950c52de1bf9a9e86517e"
+    }
+  ],
+  "finished_at_utc": "2026-10-23T01:05:18.194629+00:00"
+}
