@@ -8,52 +8,20 @@ import (
 	"go/types"
 	"os"
 	"path/filepath"
-	"sort"
 	"testing"
 )
 
 func practicalStringOperationInput(t *testing.T, owner *practicalOriginalPackages) map[string]any {
 	t.Helper()
-	owner.mutex.Lock()
-	defer owner.mutex.Unlock()
-	b := practicalTypeKeyBuilder{owner: owner, sources: map[string]practicalSourceBuffer{}, packages: map[string]map[string]any{}, packageIDs: map[string]string{}}
-	roots := []string{}
-	for path, pkg := range owner.packages {
-		if pkg.intrinsic {
-			continue
-		}
-		id, err := b.packageKey(path)
-		if err != nil {
-			t.Fatal(err)
-		}
-		roots = append(roots, id)
+	input, err := owner.sourceInputs()
+	if err != nil {
+		t.Fatal(err)
 	}
-	sort.Strings(roots)
-	objects := []practicalSourceObject{}
-	sources := []map[string]any{}
-	for _, source := range b.sources {
-		objects = append(objects, source.object)
+	sources := make([]map[string]any, 0, len(input.components.sources))
+	for _, source := range input.components.sources {
 		sources = append(sources, map[string]any{"object": source.object, "raw": source.sourceBytes()})
 	}
-	sort.Slice(objects, func(i, j int) bool { return objects[i].ID < objects[j].ID })
-	sort.Slice(sources, func(i, j int) bool {
-		return sources[i]["object"].(practicalSourceObject).ID < sources[j]["object"].(practicalSourceObject).ID
-	})
-	boolKey, err := practicalTypeKeySeal(practicalSourceTypeDomain, map[string]any{"schema": practicalSourceTypeSchema, "kind": "builtin", "name": "bool", "width": nil, "signed": nil})
-	if err != nil {
-		t.Fatal(err)
-	}
-	c := map[string]any{"schema": practicalTypeComponentsSchema, "source_objects": objects, "packages": practicalTypeKeyRows(b.packages), "declarations": []any{}, "types": []any{boolKey}, "underlying": []any{}, "aliases": []any{}, "package_roots": roots, "type_roots": []any{boolKey["id"]}}
-	hash, err := hashTypedCanonicalJSON(practicalTypeComponentsDomain, c)
-	if err != nil {
-		t.Fatal(err)
-	}
-	c["content_sha256"] = hash
-	raw, err := canonicalJSON(c)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return map[string]any{"canonical_components": raw, "sources": sources}
+	return map[string]any{"canonical_components": input.components.canonical, "sources": sources}
 }
 
 func TestPracticalSourceStringOperationOriginalTypes(t *testing.T) {

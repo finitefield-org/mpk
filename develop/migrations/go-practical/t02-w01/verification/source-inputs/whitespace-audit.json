@@ -1,0 +1,66 @@
+{
+  "status": "passed_with_exact_immutable_terminal_output_eof_records",
+  "initial_default_check": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "exit_code": 2,
+    "stdout": "develop/migrations/go-practical/t02-w01/verification/source-inputs/original-comparison/inputs/009.original:14: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-inputs/rust-controls/stdout.log:6: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-inputs/rust/stdout.log:14: new blank line at EOF.\n",
+    "stderr": ""
+  },
+  "preserved_original_terminal_output": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-inputs/original-comparison/inputs/009.original",
+      "bytes": 517,
+      "sha256": "cb7b71e8ca02a4de212a4000ed3bbd75f7f018198fb5947ee60114b6b287a772"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-inputs/rust-controls/stdout.log",
+      "bytes": 196,
+      "sha256": "792535acdccc8095ae78b5fac2f0003ae72b055ae4130f55b9f12f6fc8f34824"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-inputs/rust/stdout.log",
+      "bytes": 517,
+      "sha256": "cb7b71e8ca02a4de212a4000ed3bbd75f7f018198fb5947ee60114b6b287a772"
+    }
+  ],
+  "default_check_all_other_files": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      ".",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-inputs/original-comparison/inputs/009.original",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-inputs/rust-controls/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-inputs/rust/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "raw_output_other_whitespace_check": {
+    "command": [
+      "/usr/bin/git",
+      "-c",
+      "core.whitespace=-blank-at-eof",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      "develop/migrations/go-practical/t02-w01/verification/source-inputs/original-comparison/inputs/009.original",
+      "develop/migrations/go-practical/t02-w01/verification/source-inputs/rust-controls/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-inputs/rust/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "persistent_git_or_scanner_configuration_weakened": false,
+  "scope": "Only exact receipt-bound original compiler/test terminal output EOF blank lines are retained. Every other staged file receives the default whitespace check; all raw logs still receive the trailing-space check. No persistent Git or repository scanner setting changes."
+}

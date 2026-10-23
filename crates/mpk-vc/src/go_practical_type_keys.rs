@@ -15,6 +15,7 @@ mod parse;
 mod source_constants;
 mod source_declarations;
 mod source_dependencies;
+mod source_inputs;
 mod source_overlays;
 mod source_scalar_typing;
 mod source_scopes;
@@ -30,6 +31,7 @@ pub use source_constants::{
     GoConstantError, GoConstantKind, GoConstantScalarType, GoEvaluatedConstant,
 };
 pub use source_declarations::{GoBoundTypeDeclaration, GoSourceTypeDeclarations};
+pub use source_inputs::{import_go_source_inputs, GoSourceInputs};
 pub use source_overlays::{
     bind_go_source_overlay, derive_go_source_contract_module, derive_go_source_overlay_selection,
     derive_go_typed_source_overlays, GoBoundOverlayLoop, GoBoundSourceOverlay,

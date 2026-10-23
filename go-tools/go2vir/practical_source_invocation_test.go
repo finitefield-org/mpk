@@ -34,6 +34,7 @@ func TestPracticalSourceInvocationOriginalSignatures(t *testing.T) {
 			owner, _ := practicalStorageTestOwner(t, map[string][]byte{"go.mod": []byte("module example.com/policy\ngo 1.25.0\n"), "policy.go": policy, "helper/helper.go": []byte("package helper\ntype Remote string\nfunc Text()Remote{return \"abc\"}\n"), "shadow/shadow.go": []byte("package shadow\nfunc len(s string)int{return 1}\nfunc Length(s string)int{return len(s)}\n")})
 			defer owner.Close()
 			retainPracticalSyntaxEvidence(t, "unit-inputs.json", practicalStringOperationInput(t, owner))
+			checkPracticalSourceInputOwnership(t, owner)
 			roots := []practicalClosureRef{}
 			rootRows := []any{}
 			cases := []any{}

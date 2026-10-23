@@ -22,6 +22,10 @@ func TestPracticalStorageRequiresOriginalOwner(t *testing.T) {
 }
 func practicalStorageTestOwner(t *testing.T, files map[string][]byte) (*practicalOriginalPackages, map[string]practicalSourceBuffer) {
 	t.Helper()
+	return practicalStorageTestOwnerForPackage(t, files, "example.com/policy")
+}
+func practicalStorageTestOwnerForPackage(t *testing.T, files map[string][]byte, requested string) (*practicalOriginalPackages, map[string]practicalSourceBuffer) {
+	t.Helper()
 	compiler := practicalPackageTestCompiler(t)
 	roots, _ := practicalTestCaptureRoots(t)
 	roots = append(roots, practicalSourceRoot{Capability: "original-go-sdk", Directory: compiler.selection.GoRoot})
@@ -44,7 +48,7 @@ func practicalStorageTestOwner(t *testing.T, files map[string][]byte) (*practica
 	if err := session.capturePracticalStandardLibrary(compiler, roots[2].Capability); err != nil {
 		t.Fatal(err)
 	}
-	exports, err := session.capturePracticalPackageExports(compiler, discovery, roots[2].Capability, main, "example.com/policy")
+	exports, err := session.capturePracticalPackageExports(compiler, discovery, roots[2].Capability, main, requested)
 	if err != nil {
 		var failure *practicalGoDiscoveryFailure
 		if errors.As(err, &failure) {
