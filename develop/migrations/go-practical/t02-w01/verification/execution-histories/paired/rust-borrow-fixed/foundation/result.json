@@ -1,0 +1,47 @@
+{
+  "inputs": {
+    "certificate": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-borrow-fixed/certificates/foundation.mpcert",
+      "bytes": 30370,
+      "sha256": "ee9be08c6d3b506ec23a3a6a4a56a9fdcc3d1c1b8d6cbbca486c079fe1f86a43",
+      "mode": 420
+    },
+    "rust_report": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-borrow-fixed/certificates/foundation.rust.json",
+      "bytes": 606,
+      "sha256": "451bb1c5af6d7796ebb361bb8c0fc34bc5b6d83572d0f6d14061530aecbd4a74",
+      "mode": 420
+    },
+    "checker": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+      "bytes": 3239410,
+      "sha256": "748cd0db8fb50e491ea27bd233d9f349ecbc3e8f3a2b71e7d29b121cd9666b7d",
+      "mode": 493
+    },
+    "driver": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/check-pair.py",
+      "bytes": 4887,
+      "sha256": "f115d1c800e939bb5bc50bc004798713e018f214c7652a894d29e2336dcc436a",
+      "mode": 420
+    }
+  },
+  "command": [
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+    "verify",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-borrow-fixed/certificates/foundation.mpcert"
+  ],
+  "exit_code": 0,
+  "seconds": 0.07025454100221395,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/paired/rust-borrow-fixed/foundation/stdout.log",
+    "bytes": 352,
+    "sha256": "bc9615f3cd0cb19ae8a864299eb6d86519360c7e5dc60f58528c5ad172f7f12e",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/paired/rust-borrow-fixed/foundation/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  }
+}

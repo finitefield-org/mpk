@@ -1,0 +1,47 @@
+{
+  "inputs": {
+    "certificate": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-fixed/certificates/invalid-edge.mpcert",
+      "bytes": 30644,
+      "sha256": "b6150fa1de0ab5cf7735f0f14be3bc348134e0045f4c8ea8e0769d1c6e4ce50f",
+      "mode": 420
+    },
+    "rust_report": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-fixed/certificates/invalid-edge.rust.json",
+      "bytes": 539,
+      "sha256": "ee6f126af8d9d83360d9fea6bf2cbdd5760c8a7bb83103954784a4ea443da2ec",
+      "mode": 420
+    },
+    "checker": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+      "bytes": 3239410,
+      "sha256": "748cd0db8fb50e491ea27bd233d9f349ecbc3e8f3a2b71e7d29b121cd9666b7d",
+      "mode": 493
+    },
+    "driver": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/check-pair.py",
+      "bytes": 5291,
+      "sha256": "7b7d564c0897e6eecb4f7f5dabe3257f374706684997a4979c12084b808a9a1f",
+      "mode": 420
+    }
+  },
+  "command": [
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+    "verify",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-fixed/certificates/invalid-edge.mpcert"
+  ],
+  "exit_code": 1,
+  "seconds": 0.03251037502195686,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/paired/rust-controls-fixed/invalid-edge/stdout.log",
+    "bytes": 106,
+    "sha256": "43e76c24e77937e0bf7ca2dcb64721de513869f0866b4dd88c1e505c31e72452",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/paired/rust-controls-fixed/invalid-edge/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  }
+}

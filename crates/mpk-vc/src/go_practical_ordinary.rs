@@ -15,6 +15,11 @@ mod composition;
 mod dependencies;
 mod error_layout;
 mod error_value;
+mod execution_history;
+pub use execution_history::{
+    generate_go_practical_execution_history_foundation,
+    import_go_practical_execution_history_foundation, GoExecutionHistoryFoundation,
+};
 mod finite_vector;
 mod integer;
 mod natural;

@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_execution_history",
+    "invalid_edges_initial_safety_and_missing_normal_completion_reject",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_EXECUTION_HISTORY_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-equalities/certificates"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-equalities/inputs.json",
+    "bytes": 237257,
+    "sha256": "50419f85e8e67468d170b0ebb6b0556c2e1126749b86e5b2279d2b922147ea62",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/run.py",
+    "bytes": 6406,
+    "sha256": "a364367dc595bf98348ff31ab0912edd5937b63c430e8bedf590d62f5cceae78",
+    "mode": 420
+  },
+  "started_at_utc": "2026-10-23T07:30:02.341455+00:00",
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "selection_reason": "The new ordinary history component and its direct mathematical consumers use unbounded Nat histories, every actual transition edge, safety on all finite prefixes, same-run state/post observations and a separate normal completion witness. Kernels, original source/capture code, unchanged large proof matrices and other language tests are not changed or rerun.",
+  "whole_T02_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 5.68060424993746,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-equalities/stdout.log",
+    "bytes": 190,
+    "sha256": "c6463ef5df84f4b876e13d448bf14804ca409690e903c14b210c11c39828f4b1",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-equalities/stderr.log",
+    "bytes": 266,
+    "sha256": "f13163d552659c1d578712c5afd3e42ef1d02d12868201debdc9873bb96dabf6",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-23T07:30:08.079109+00:00"
+}

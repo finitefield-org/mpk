@@ -1,0 +1,31 @@
+error: mismatched closing delimiter: `]`
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/execution_history.rs:340:13
+    |
+340 |             ("respects", pi("x", a.clone(), pi("y", a.clone(), pi("edge", edge(r.clone(), var("x"), var("y")),
+    |             ^ unclosed delimiter
+341 |                 edge(s.clone(), app(f.clone(), vec![var("x")]), app(f.clone(), vec![var("y")])))))];
+    |                                                                                                   ^ mismatched closing delimiter
+
+error: mismatched closing delimiter: `}`
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_execution_history.rs:116:8
+    |
+115 | fn preserve() -> E {
+    |                    - closing delimiter possibly meant for this
+116 |     lam("x", boolean(), lam("y", boolean(), lam("edge", eq(boolean(), v("y"), v("x")),
+    |        ^ unclosed delimiter
+117 |         lam("valid", eq(boolean(), v("x"), bit(true)), call("Std.Eq.trans", vec![bo...
+118 | }
+    | ^ mismatched closing delimiter
+
+error: mismatched closing delimiter: `}`
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_execution_history.rs:174:23
+    |
+160 | fn unbounded_invariant_partial_run_and_mapping_use_actual_edges() {
+    |                                                                   - closing delimiter possibly meant for this
+...
+174 |     let respects = lam("x", boolean(), lam("y", boolean(), lam("edge", eq(boolean(), v("y"), v("x")),
+    |                       ^ unclosed delimiter
+...
+179 | }
+    | ^ mismatched closing delimiter
+

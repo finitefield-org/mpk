@@ -8289,3 +8289,40 @@ phase; historical phase identifiers remain historical evidence.
 R01/R06/T02-W01 stay open, the practical Go profile stays inactive, and all
 remaining foundation/context/source-program/native-Linux/T02-T11 work stays due.
 The cumulative T02 gate is deferred to final T02-W04: `./scripts/check-fast.sh`.
+
+
+## 177. T02-W01 ordinary unbounded execution histories
+
+The [history component](../migrations/go-practical/t02-w01/verification/execution-histories/README.md)
+adds ten ordinary definitions and seventeen theorems for arbitrary typed states,
+transition relations and unbounded Nat histories. Every prefix carries every
+actual edge; safety quantifies over all lengths and histories, including entry.
+Actual Nat induction derives invariant preservation. Head/tail/prepend and
+transition-preserving mapping retain full edges. Partial correctness separates
+all-prefix safety from normal postconditions, and a normal run needs its own
+start, path and completion witnesses. Safety/post observations share that exact
+history and endpoint; partial correctness supplies no termination witness.
+
+Both unchanged full checkers agree on all fifteen actual streams: five
+zero-axiom acceptances and ten genuine type rejections. Complete alternating
+true/false/true history witnesses show that a safe endpoint cannot hide an
+unsafe middle state. A checked partial-correctness model also proves no normal
+run exists at any length. Invalid edges, unsafe entry and fabricated normal
+completion reject. The accepted extra theorem remains rejected by exact import.
+Independent inspection reconstructs all ten definition bodies, seventeen full
+theorem types and the exact 27-member export set; 2,370 complete original named
+declaration comparisons preserve every original type/body/proof/constructor and
+recursor identity. Whole-certificate maxima165 declarations/3628 terms/34108 bytes
+fit the unchanged4096/131072/2097152/1024 caps. Complete originals and failed
+candidates remain; only the failed test root reruns after its explicit equality
+proof correction. Strict library/test Clippy and changed-file formatting pass.
+Affected tests follow the new generator and direct consumers; unchanged source,
+capture and other frontend suites and large prior proof matrices are not repeated.
+
+These are generic ordinary library proofs, not closed Go/IR transitions,
+source/IR correspondence, complete storage/frame/callee proofs or application
+acceptance. Full 56-family assembly, all169 program demands, private foundation/
+descriptor/registry/context integration, native Linux gates and remaining
+T02-T11 work remain due. R01/R06/W01 stay open and the practical profile stays
+inactive. The cumulative T02 gate stays final W04: `./scripts/check-fast.sh`.
+Go/Rust only; no other-language implementation, test or release dependency.

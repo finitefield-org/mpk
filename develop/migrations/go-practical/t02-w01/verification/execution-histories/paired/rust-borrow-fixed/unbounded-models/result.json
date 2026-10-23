@@ -1,0 +1,47 @@
+{
+  "inputs": {
+    "certificate": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-borrow-fixed/certificates/unbounded-models.mpcert",
+      "bytes": 34108,
+      "sha256": "40fa7e6b8827b2ee360217ccfa544cb6ea19f0964788b50ef875069879ccc09f",
+      "mode": 420
+    },
+    "rust_report": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-borrow-fixed/certificates/unbounded-models.rust.json",
+      "bytes": 606,
+      "sha256": "f24b9a709763168671decab051a9ccc01cc3fcb05a4ec7f6d290ec7ccf051782",
+      "mode": 420
+    },
+    "checker": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+      "bytes": 3239410,
+      "sha256": "748cd0db8fb50e491ea27bd233d9f349ecbc3e8f3a2b71e7d29b121cd9666b7d",
+      "mode": 493
+    },
+    "driver": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/check-pair.py",
+      "bytes": 5291,
+      "sha256": "7b7d564c0897e6eecb4f7f5dabe3257f374706684997a4979c12084b808a9a1f",
+      "mode": 420
+    }
+  },
+  "command": [
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+    "verify",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-borrow-fixed/certificates/unbounded-models.mpcert"
+  ],
+  "exit_code": 0,
+  "seconds": 0.06586912495549768,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/paired/rust-borrow-fixed/unbounded-models/stdout.log",
+    "bytes": 352,
+    "sha256": "6bbb87b625ea42a0b9f7a35dfa9611a8cb3921889ff469149dc36b907d41ef61",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/paired/rust-borrow-fixed/unbounded-models/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "inputs": {
+    "certificate": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-fixed/certificates/unsafe-path-witness.mpcert",
+      "bytes": 30860,
+      "sha256": "1e0006ea81233c28743658987099007b08469fb8d36e0152f4c579499cd4aa95",
+      "mode": 420
+    },
+    "rust_report": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-fixed/certificates/unsafe-path-witness.rust.json",
+      "bytes": 538,
+      "sha256": "7435b747d2e6ecdb54ede5bd58db6cd6bc02a966305bc6577c047917feceb9ce",
+      "mode": 420
+    },
+    "checker": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+      "bytes": 3239410,
+      "sha256": "748cd0db8fb50e491ea27bd233d9f349ecbc3e8f3a2b71e7d29b121cd9666b7d",
+      "mode": 493
+    },
+    "driver": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/check-pair.py",
+      "bytes": 5291,
+      "sha256": "7b7d564c0897e6eecb4f7f5dabe3257f374706684997a4979c12084b808a9a1f",
+      "mode": 420
+    }
+  },
+  "command": [
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+    "verify",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-fixed/certificates/unsafe-path-witness.mpcert"
+  ],
+  "exit_code": 1,
+  "seconds": 0.0387863329378888,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/paired/rust-controls-fixed/unsafe-path-witness/stdout.log",
+    "bytes": 107,
+    "sha256": "e304931925b5d2bec0a87659e5ebefa2ddaaadca31cde91e48f30c844295b87c",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/paired/rust-controls-fixed/unsafe-path-witness/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  }
+}

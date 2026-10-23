@@ -1,0 +1,18 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0505]: cannot move out of `joined` because it is borrowed
+   --> crates/mpk-vc/src/go_practical_ordinary/execution_history.rs:419:29
+    |
+394 |         let target = |k: Expr| {
+    |                      --------- borrow of `joined` occurs here
+...
+400 |                     at(joined.clone(), k.clone()),
+    |                        ------ borrow occurs due to use in closure
+...
+419 |             path(r.clone(), joined, succ(n.clone())),
+    |                             ^^^^^^ move out of `joined` occurs here
+...
+425 |                     target(var("_k")),
+    |                     ------ borrow later used here
+
+For more information about this error, try `rustc --explain E0505`.
+error: could not compile `mpk-vc` (lib) due to 1 previous error
