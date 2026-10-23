@@ -46,6 +46,7 @@ pub use source_overlays::{
 pub use source_scalar_typing::{
     check_go_assignment, check_go_assignment_statement, check_go_function_body,
     check_go_return_statement, check_go_scalar_assignment, derive_go_source_call_sites,
+    derive_go_source_entry_layout, derive_go_source_entry_layouts,
     derive_go_source_error_selection, derive_go_source_selection,
     derive_go_source_string_operations, derive_go_source_value_domain, execute_go_source,
     infer_go_binding, infer_go_results, infer_go_scalar_binding, infer_go_scalar_results,
@@ -56,6 +57,7 @@ pub use source_scalar_typing::{
     GoResolvedErrorEntryStep, GoReturnTyping, GoScalarCallHeader, GoScalarTyping,
     GoScalarTypingError, GoSliceBuiltinHeader, GoSourceCallArgument, GoSourceCallArgumentValue,
     GoSourceCallSite, GoSourceCallTarget, GoSourceDomainError, GoSourceDomainErrorKind,
+    GoSourceEntryBinding, GoSourceEntryBindingOrigin, GoSourceEntryLayout, GoSourceEntrySlot,
     GoSourceErrorCall, GoSourceErrorDispatch, GoSourceErrorSelection, GoSourceErrorSelectionError,
     GoSourceExecution, GoSourceExecutionError, GoSourceExecutionErrorKind, GoSourceExecutionEvent,
     GoSourceExecutionEventKind, GoSourceExecutionStatus, GoSourceMethod, GoSourceRuntimeData,

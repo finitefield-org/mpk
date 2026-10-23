@@ -1,0 +1,51 @@
+{
+  "status": "running",
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "-B",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/check-pair.py"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/paired-all/inputs.json",
+    "bytes": 461825,
+    "sha256": "debfe6d02d82d42ba94e86c73d616b42a1a6beae75001b0ffd0efc1e7afafe9b",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/run.py",
+    "bytes": 8871,
+    "sha256": "e64e93c6d0a6d935fc696f7d715066974fc6070d16c11c7a99537992b7955056",
+    "mode": 420
+  },
+  "started_at_utc": "2026-10-23T09:28:21.346813+00:00",
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "selection_reason": "Source-owned complete entry layouts now drive the actual original-source interpreter prologue and ordinary initialization of all real entry variables. Complete original zero/70-case units retain65 arguments,16 results and every selected/transitive body and inactive local. A separate entire original Go project covers blank/unnamed arguments/results, zero aggregates/error and lexical shadowing; unselected channel/callback/map/main bodies remain. Recheck direct 127-case source execution and its boundary consumer; unchanged broad kernel and unrelated frontend suites are not repeated.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_ordinary.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_entry.rs",
+    "crates/mpk-vc/src/go_practical_type_keys.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/entry_layouts.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/execution.rs",
+    "crates/mpk-vc/tests/go_practical_source_entries.rs",
+    "crates/mpk-vc/tests/support/go_source_entry_inputs.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/format-original/inputs.json",
+    "bytes": 239805,
+    "sha256": "c486bd27773ffe30f4d8372c1e482691a8a3b0d801e7db8b7469021c30e75edb",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/run.py",
+    "bytes": 8187,
+    "sha256": "96ecccc9fb05dccd2cba4972e219eb3c18cd8029e17bfe65ba46b377fcadd32e",
+    "mode": 420
+  },
+  "started_at_utc": "2026-10-23T08:13:23.817858+00:00",
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "selection_reason": "Source-owned complete entry layouts now drive the actual original-source interpreter prologue and ordinary initialization of all real entry variables. Complete original zero/70-case units retain65 arguments,16 results and every selected/transitive body and inactive local. A separate entire original Go project covers blank/unnamed arguments/results, zero aggregates/error and lexical shadowing; unselected channel/callback/map/main bodies remain. Recheck direct 127-case source execution and its boundary consumer; unchanged broad kernel and unrelated frontend suites are not repeated.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/format-original/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/format-original/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "seconds": 0.2178060410078615,
+  "consumed_inputs_unchanged": false,
+  "expected_formatter_mutation": true,
+  "finished_at_utc": "2026-10-23T08:13:24.088444+00:00"
+}

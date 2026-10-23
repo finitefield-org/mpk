@@ -1529,3 +1529,34 @@ The intact original-package owner now produces source-only analysis inputs in pr
 Actual pinned original Go compilation and immutable original-package reconstruction pass for both unchanged zero/70-error-case units and a real local replacement selected package whose own module differs from the main module. The replacement retains its unselected channel/callback and init-panic bodies; no application initializer executes. The complete production input bytes for both original units equal the prior source-only packets. Independent source analysis derives25/95 actual types, all65 argument positions,16 results and complete zero/70-case universes. All32 entire original proof certificate byte streams replay literally, preserving the previously checked complete named-union proof evidence. The current32 native call/caller/group/signature observations also equal the prior complete observations. All four new Rust roots pass across the original three successful roots and the isolated corrected control rerun. Coherent generic-valid native uint16 data rejects at the source-only boundary; incomplete package roots already reject at the shared Reference boundary, and missing/changed original bytes reject. Closed/incomplete Go owners and mutations of every returned source byte/object reject or remain isolated. Scoped strict Clippy, Go vet and changed-file Rust/Go format checks pass. Unchanged kernels and large prior proof matrices are not repeated.
 
 These are privately owned source-only candidates and provenance identities, not authenticated installed capture contexts, source admission, callee execution/precondition/result/effect/frame proofs, operand-once/order proofs or source/IR/program correspondence. Complete context/descriptor/private registry/capture and foundation assembly, all169 theorem demands, native Linux release gates and remaining T02-T11 work remain due. R01/R06/W01 stay open and the practical profile stays inactive. The cumulative T02 gate remains final W04: ./scripts/check-fast.sh. Go/Rust only; no removed-language implementation/test/release prerequisite is added.
+
+
+## Execution histories and source-owned entry environments
+
+The [ordinary history component](verification/execution-histories/README.md)
+proves all-prefix safety and partial-correctness laws over unbounded Nat
+histories, retaining every transition edge and requiring a separate normal-run
+witness. It remains generic mathematics; closed Go/IR transition binding stays
+due.
+
+The [source entry component](verification/source-entries/README.md) derives all
+168 original function entry layouts and shares them between the actual source
+interpreter and ordinary initialization equations. Actual named inputs receive
+their corresponding argument, named results receive source-derived zero values,
+and locals remain absent until declaration. Blank/unnamed positions create no
+cell, while all argument/result positions and original binding identities remain.
+The complete source/type/zero-or-70-case domains retain65 inputs and16 results.
+All three Rust roots, complete native comparison,127-case interpreter comparison,
+independent row/part reconstruction, scoped Clippy and format checks pass.
+The whole wide mathematical union retains all4,388 declarations in two complete
+parts, each containing the entire original source/type/U foundation. Both
+unchanged full checkers agree on all13 actual streams:8 zero-axiom acceptances
+with identical hashes/counts and5 genuine type rejections. All original failed
+and interrupted attempts remain retained separately from successful checks.
+
+These are entry-value equations, not a complete program certificate, source/IR
+correspondence or storage/frame/callee/entry-validity proofs. Full56-family
+assembly, all169 demands, private context/capture/descriptor/registry integration,
+native Linux gates and remaining T02-T11 remain due. R01/R06/W01 stay open,
+the practical profile stays inactive, and the cumulative T02 gate stays final
+W04: `./scripts/check-fast.sh`. Go and Rust remain the only source languages.

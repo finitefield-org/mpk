@@ -11,7 +11,12 @@ pub use call_sites::{
 };
 mod domains;
 pub(super) use domains::extend_contract_domain;
+mod entry_layouts;
 mod error_boxings;
+pub use entry_layouts::{
+    derive_go_source_entry_layout, derive_go_source_entry_layouts, GoSourceEntryBinding,
+    GoSourceEntryBindingOrigin, GoSourceEntryLayout, GoSourceEntrySlot,
+};
 mod execution;
 pub use execution::{
     execute_go_source, GoSourceExecution, GoSourceExecutionError, GoSourceExecutionErrorKind,

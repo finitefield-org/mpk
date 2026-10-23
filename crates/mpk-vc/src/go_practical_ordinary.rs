@@ -29,6 +29,7 @@ mod product_relation;
 mod range;
 mod sequence;
 mod slice_descriptor;
+mod source_entry;
 mod source_error_boxing;
 mod source_error_cases;
 mod source_error_dispatch;
@@ -36,6 +37,10 @@ mod source_error_layout;
 mod source_error_operations;
 mod source_error_receiver;
 mod source_error_representation;
+pub use source_entry::{
+    generate_go_practical_source_entry_catalogue, GoSourceEntryAssemblies, GoSourceEntryAssembly,
+    GoSourceEntryCatalogue, GoSourceEntryRow,
+};
 mod source_invocation;
 pub use source_invocation::{
     generate_go_practical_source_invocation_catalogue, GoSourceInvocationCatalogue,

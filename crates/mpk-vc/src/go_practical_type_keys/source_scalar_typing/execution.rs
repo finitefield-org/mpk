@@ -128,6 +128,7 @@ struct Machine<'a> {
     invocations: u64,
     at: GoSourceSelectionRef,
     events: Vec<GoSourceExecutionEvent>,
+    entries: BTreeMap<GoSourceSelectionRef, GoSourceEntryLayout>,
 }
 impl Machine<'_> {
     fn tick(&mut self, frame: &Frame, node: usize, kind: GoSourceExecutionEventKind) -> Run<()> {
@@ -170,20 +171,18 @@ impl Machine<'_> {
         if self.domain.selection().checked_body_types(&root).is_none() {
             return Err(source());
         }
-        let signature =
-            derive_go_source_signature(self.engine.scopes, root.source_object_id(), root.node())
-                .map_err(|_| source())?;
+        if !self.entries.contains_key(&root) {
+            let entry = derive_go_source_entry_layout(self.domain, &root).map_err(|_| source())?;
+            self.entries.insert(root.clone(), entry);
+        }
+        let entry = self.entries[&root].clone();
+        let signature = entry.signature();
         for id in signature.types().roots() {
             self.engine
                 .graph_type(signature.types(), id)
                 .map_err(|_| source())?;
         }
-        let slots = signature
-            .slots()
-            .iter()
-            .filter(|s| s.role() != GoSourceSignatureRole::Result)
-            .collect::<Vec<_>>();
-        if slots.len() != args.len() {
+        if entry.inputs().len() != args.len() {
             return Err(Halt::Error(GoSourceExecutionErrorKind::Input));
         }
         let mut frame = Frame {
@@ -194,20 +193,18 @@ impl Machine<'_> {
         };
         self.invocations = self.invocations.checked_add(1).ok_or(Halt::Limit)?;
         self.tick(&frame, root.node(), GoSourceExecutionEventKind::Enter)?;
-        for (slot, arg) in slots.into_iter().zip(args) {
+        for (slot, arg) in entry.inputs().iter().zip(args) {
             if arg.type_id() != slot.type_id() || !self.valid(&arg) {
                 return Err(Halt::Error(GoSourceExecutionErrorKind::Input));
             }
-            if let Some(b) = self.slot_binding(&signature, slot) {
-                frame.fresh(binding(&b), arg);
+            if let Some(index) = slot.binding_index() {
+                frame.fresh(binding(entry.bindings()[index].binding()), arg);
             }
         }
-        for slot in signature
-            .slots()
-            .iter()
-            .filter(|s| s.role() == GoSourceSignatureRole::Result)
-        {
-            let b = self.slot_binding(&signature, slot).map(|b| binding(&b));
+        for slot in entry.results() {
+            let b = slot
+                .binding_index()
+                .map(|index| binding(entry.bindings()[index].binding()));
             if let Some(b) = &b {
                 frame.fresh(b.clone(), self.zero(slot.type_id())?);
             }
@@ -228,24 +225,6 @@ impl Machine<'_> {
         }
         self.tick(&frame, root.node(), GoSourceExecutionEventKind::Return)?;
         Ok(values)
-    }
-    fn slot_binding(
-        &self,
-        signature: &GoSourceSignature,
-        slot: &GoSourceSignatureSlot,
-    ) -> Option<GoSourceNameBinding> {
-        let name = slot.name_node()?;
-        self.engine
-            .scopes
-            .bindings()
-            .iter()
-            .find(|b| {
-                b.source_object_id() == signature.source_object_id()
-                    && b.declaration_node() == signature.function_node()
-                    && b.name_node() == name
-                    && b.name() != "_"
-            })
-            .cloned()
     }
 }
 
@@ -268,6 +247,7 @@ pub fn execute_go_source(
         invocations: 0,
         at: entry.clone(),
         events: vec![],
+        entries: BTreeMap::new(),
     };
     let result = if !domain.selection().roots().contains(entry) {
         Err(Halt::Error(GoSourceExecutionErrorKind::Entry))

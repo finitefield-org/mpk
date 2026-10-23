@@ -1,0 +1,47 @@
+{
+  "inputs": {
+    "certificate": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/rust-factored/certificates/wide-part-000.mpcert",
+      "bytes": 1350988,
+      "sha256": "6a3a914118d9fd2809292451a75113b2e265332c695d2ca393b0f7e38808cc14",
+      "mode": 420
+    },
+    "rust_report": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/rust-factored/certificates/wide-part-000.rust.json",
+      "bytes": 672,
+      "sha256": "7cb0310e119758185ffe9504c918683d12472e00cbe5963959e0f8b9b4c8bb8e",
+      "mode": 420
+    },
+    "checker": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+      "bytes": 3239410,
+      "sha256": "748cd0db8fb50e491ea27bd233d9f349ecbc3e8f3a2b71e7d29b121cd9666b7d",
+      "mode": 493
+    },
+    "driver": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/check-pair.py",
+      "bytes": 6500,
+      "sha256": "9309f4e29e0548c50128af211da1aa7a5a2552af9a7d5400472ca318d711ae8e",
+      "mode": 420
+    }
+  },
+  "command": [
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+    "verify",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/rust-factored/certificates/wide-part-000.mpcert"
+  ],
+  "exit_code": 0,
+  "seconds": 1559.1458897090051,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/paired/rust-factored/wide-part-000-attempt-001/stdout.log",
+    "bytes": 418,
+    "sha256": "bad5ddcb4198e4752d720fd6fc9af777e4ee039c943a533ff13243fcc5bb22bf",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/paired/rust-factored/wide-part-000-attempt-001/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "inputs": {
+    "certificate": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/rust-factored/certificates/extra-mathematics.mpcert",
+      "bytes": 505258,
+      "sha256": "1b866bccbf44800d7c7abc9e2dbf4b132cc9f61df0a4a48f12d3e355b9f12bbe",
+      "mode": 420
+    },
+    "rust_report": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/rust-factored/certificates/extra-mathematics.rust.json",
+      "bytes": 658,
+      "sha256": "6494bb30ea5f4428170f71e5eba18e2da5017309a40cfc645ade2541f72919ec",
+      "mode": 420
+    },
+    "checker": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+      "bytes": 3239410,
+      "sha256": "748cd0db8fb50e491ea27bd233d9f349ecbc3e8f3a2b71e7d29b121cd9666b7d",
+      "mode": 493
+    },
+    "driver": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/check-pair.py",
+      "bytes": 5932,
+      "sha256": "df2157144b510cd4eb4f6c1500caf2f2553585665ec51839270fcd9f1f8d5d4a",
+      "mode": 420
+    }
+  },
+  "command": [
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+    "verify",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/rust-factored/certificates/extra-mathematics.mpcert"
+  ],
+  "exit_code": 0,
+  "seconds": 1.0004707920597866,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/paired/rust-factored/extra-mathematics/stdout.log",
+    "bytes": 404,
+    "sha256": "a0262a8cb601b099cfb5006ce83dfdb8ed4ef86199483391bc009f01b3c25719",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/paired/rust-factored/extra-mathematics/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  }
+}

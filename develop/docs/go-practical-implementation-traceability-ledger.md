@@ -8326,3 +8326,57 @@ descriptor/registry/context integration, native Linux gates and remaining
 T02-T11 work remain due. R01/R06/W01 stay open and the practical profile stays
 inactive. The cumulative T02 gate stays final W04: `./scripts/check-fast.sh`.
 Go/Rust only; no other-language implementation, test or release dependency.
+
+
+## 178. T02-W01 original-source function entry environments
+
+The [entry component](../migrations/go-practical/t02-w01/verification/source-entries/README.md)
+derives every checked original function's complete entry layout and uses it in
+the actual source interpreter prologue and ordinary initialization equations.
+Named inputs receive the corresponding original argument. Nonblank named results
+receive their source type's zero value. Blank/unnamed positions remain in the
+complete argument/result tuple but create no variable cell. Local variables are
+absent until declaration; shadowed names keep distinct original binding nodes.
+
+The three affected Rust roots pass for all 47/117/4 original function bodies,
+retaining complete sources, all 25/95 original types, zero/70-case error
+universes, 65 argument positions and 16 result positions. The supplementary
+entire original Go project executes natively; its values match actual source
+execution. All 127 existing source observations and boundary observations remain
+byte-identical, including full events, steps, values, faults and post-arguments.
+Independent inspection reconstructs all 2,647 entry definitions and laws with
+446,254 named-declaration comparisons. All417,104 declaration-type comparisons
+across available previous complete row certificates remain exact; these counts
+include repeated common foundations. The135 changed projection proofs use a
+checked shared closed abstraction;416,969 previous complete declaration
+comparisons remain identical.
+All 5,009 previous source/type/foundation declarations compare exactly.
+
+The complete wide mathematical union retains all 4,388 named declarations in
+two internally packed parts. Each part keeps the entire source/type/U foundation;
+all original function rows appear exactly once across the parts. No caller
+chooses a subset. Other units each fit one part. Maxima3,830 declarations/
+130,497 terms/1,350,988 bytes fit the unchanged4,096/131,072/2,097,152 caps;
+conversion fuel stays1,024. The actual failed construction state is retained
+as incomplete and untrusted. Premature local presence and a crossed same-typed
+input genuinely reject. Valid extra mathematics still fails exact import.
+Strict affected-library/test Clippy and changed-file format checks pass.
+
+The first Go comparison and full-part inspection capture were interrupted by
+the calling turn. Their missing handles and absence of actual workers are
+recorded. All completed checker executions retain exact input identities;
+the unfinished checker attempt and incomplete capture retain exact bytes and
+are not claimed successful. Resumed same-byte comparison and complete-part
+inspection pass. Both unchanged full checkers agree on all13 actual streams:
+8 zero-axiom acceptances with identical hashes/counts and5 genuine type
+rejections. Complete-part inspection verifies the entire original named union,
+every common declaration in every part and every original function exactly once.
+Five large original containers,653,345,604 bytes, remain physically unchanged
+and are also retained as reversible bounded chunks with exact byte/mode checks.
+
+These are entry-value equations, not complete Go/IR transitions, state/storage/
+frame/callee proofs, source/IR correspondence or a single complete program
+certificate. Full56-family assembly, all169 demands, private descriptor/registry/
+context/capture integration, native Linux release gates and remaining T02-T11
+stay due. R01/R06/W01 stay open; the practical profile stays inactive. The
+cumulative T02 gate remains final W04: `./scripts/check-fast.sh`. Go/Rust only.

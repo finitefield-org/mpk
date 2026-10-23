@@ -366,7 +366,7 @@ or release acceptance condition and does not activate the private profile.
 | --- | --- |
 | T02-W01 | Implement private profile/context contracts and immutable dependency capture. Verify exact module resolution, replacement roots, source/export metadata and compiler identities; reject path escape, missing snapshots, stale checksums, and forbidden network/toolchain fallback. |
 | T02-W02 | Implement original-package loading and the two closure algorithms. Record every declaration's disposition and root-to-rejection path. Prove by tests that unused handlers are allowed while reachable unsupported helpers, globals, callbacks and cycles reject. |
-| T02-W03 | Implement the frozen common artifact migration, nominal cross-package identity, overlay linkage and independent consumer validation. Exercise all affected existing languages and reject mixed versions or caller-supplied adapters. |
+| T02-W03 | Implement the frozen common artifact migration, nominal cross-package identity, overlay linkage and independent consumer validation. Exercise retained Go fixed, practical Go, Rust32 and Rust64 contexts and reject mixed versions or caller-supplied adapters. |
 | T02-W04 | Run a scalar policy end to end inside a captured multi-package application with an unused external dependency. Verify conditional scope at function entry, both-checker proof evidence, deterministic replay, old Go behavior, and the full T gate. |
 
 Exit: dependency support and selection work through real private consumers.
@@ -473,7 +473,8 @@ flag. Any shared migration has a complete existing-consumer preservation plan.
 | T11-W03 | Activate the reviewed v2 release, document the exact map/pointer limits and deferred forms, pass the full T and final release gates, and publish the final traceability ledger and receipts. |
 
 Exit: both practical releases have reproducible proof evidence for their
-advertised functions, and the multi-language serial program can continue.
+advertised functions, and subsequent development stays within the retained
+Go/Rust pipeline.
 
 ## 14. Required decisions before normative publication
 
