@@ -1,0 +1,13 @@
+    Finished `test` profile [optimized + debuginfo] target(s) in 0.20s
+     Running tests/go_practical_source_invocation.rs (target/debug/deps/go_practical_source_invocation-7848ed9502a8e03d)
+
+thread 'source_invocations_controls' (58734717) panicked at crates/mpk-vc/tests/go_practical_source_invocation.rs:92:9:
+Domain(GoSourceDomainError { kind: MissingEntry, source: Some(GoSourceSelectionRef { source: "c09ca9ea440218c9d3cf4aeb6ac5871e84588b36adf1c985bd9f6f4858c0504c", node: 2388 }), input: Some(15), path: [], typ: Some("5a184d54e7bc575ae47064a4ca8316be8c2dc71c1bc030903999cf18f071e177") })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'source_invocations_pure' (58734794) panicked at crates/mpk-vc/tests/go_practical_source_invocation.rs:92:9:
+Domain(GoSourceDomainError { kind: MissingEntry, source: Some(GoSourceSelectionRef { source: "c09ca9ea440218c9d3cf4aeb6ac5871e84588b36adf1c985bd9f6f4858c0504c", node: 2388 }), input: Some(15), path: [], typ: Some("5a184d54e7bc575ae47064a4ca8316be8c2dc71c1bc030903999cf18f071e177") })
+
+thread 'source_invocations_wide' (58735046) panicked at crates/mpk-vc/tests/go_practical_source_invocation.rs:92:9:
+Domain(GoSourceDomainError { kind: MissingEntry, source: Some(GoSourceSelectionRef { source: "c09ca9ea440218c9d3cf4aeb6ac5871e84588b36adf1c985bd9f6f4858c0504c", node: 2388 }), input: Some(15), path: [], typ: Some("5a184d54e7bc575ae47064a4ca8316be8c2dc71c1bc030903999cf18f071e177") })
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_invocation`

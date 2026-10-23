@@ -1,0 +1,111 @@
+{
+  "status": "passed_with_exact_immutable_terminal_output_records",
+  "initial_default_check": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "exit_code": 2,
+    "stdout": "develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation-binary-path-repair/stderr.log:64: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation-interned/compile.stderr.log:64: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation/compile.stderr.log:64: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-invocations/generation-linked/compile.stderr.log:40: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-invocations/linkage/compile.stderr.log:28: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-invocations/rust-entries/stdout.log:5: trailing whitespace.\n+test source_invocations_wide ... \ndevelop/migrations/go-practical/t02-w01/verification/source-invocations/rust/stdout.log:15: new blank line at EOF.\n",
+    "stderr": ""
+  },
+  "preserved_original_terminal_output": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation-binary-path-repair/stderr.log",
+      "bytes": 2377,
+      "sha256": "bc600032dd8a0192fe36e303d9082cf3cf38299599e5396ae8091104b6222c6c"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation-interned/compile.stderr.log",
+      "bytes": 2377,
+      "sha256": "bc600032dd8a0192fe36e303d9082cf3cf38299599e5396ae8091104b6222c6c"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation/compile.stderr.log",
+      "bytes": 2377,
+      "sha256": "bc600032dd8a0192fe36e303d9082cf3cf38299599e5396ae8091104b6222c6c"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-invocations/generation-linked/compile.stderr.log",
+      "bytes": 1509,
+      "sha256": "5fc59ca7ae0a59328183bba3e694496d0a30e988686ccb6510f71444a3f75a99"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-invocations/linkage/compile.stderr.log",
+      "bytes": 1026,
+      "sha256": "57ed87d6ff8627b9be7dbba86e04b3dee8386fd1a3d9e0c740fd243eb24524ad"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-invocations/rust-entries/stdout.log",
+      "bytes": 126,
+      "sha256": "baef002f42d879e285d5602e6062b7796ef927e560df4fdc6c62ef74de5b5574"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-invocations/rust/stdout.log",
+      "bytes": 351,
+      "sha256": "90aae15947473955aa9a44d0cec042885b142ba79df35bca90a07ca5cd3d4561"
+    }
+  ],
+  "default_check_all_other_files": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      ".",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation-binary-path-repair/stderr.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation-interned/compile.stderr.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation/compile.stderr.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-invocations/generation-linked/compile.stderr.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-invocations/linkage/compile.stderr.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-invocations/rust-entries/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-invocations/rust/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "raw_output_other_whitespace_check": {
+    "command": [
+      "/usr/bin/git",
+      "-c",
+      "core.whitespace=-blank-at-eof",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      "develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation-binary-path-repair/stderr.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation-interned/compile.stderr.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation/compile.stderr.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-invocations/generation-linked/compile.stderr.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-invocations/linkage/compile.stderr.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-invocations/rust/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "exact_interrupted_libtest_status_files": [
+    "develop/migrations/go-practical/t02-w01/verification/source-invocations/rust-entries/stdout.log"
+  ],
+  "interrupted_libtest_other_whitespace_check": {
+    "command": [
+      "/usr/bin/git",
+      "-c",
+      "core.whitespace=-blank-at-eof,-blank-at-eol",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      "develop/migrations/go-practical/t02-w01/verification/source-invocations/rust-entries/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "persistent_git_or_scanner_configuration_weakened": false,
+  "scope": "Exact result-bound original compiler/test EOF blank lines and one exact interrupted libtest status line are retained without altering raw bytes. The sole trailing-space exception is byte-for-byte the original rust-entries test status after complete replacement proofs passed. All other original logs still receive the trailing-space check. Every other staged file receives the default whitespace check. No persistent Git or repository scanner setting changes."
+}

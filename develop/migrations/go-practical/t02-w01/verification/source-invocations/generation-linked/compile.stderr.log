@@ -1,0 +1,40 @@
+warning: function `check` is never used
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:158:4
+    |
+158 | fn check(name: &str) {
+    |    ^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `encoded` is never used
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:232:4
+    |
+232 | fn encoded(mut c: mpk_cert::encode::Certificate) -> Vec<u8> {
+    |    ^^^^^^^
+
+warning: function `push` is never used
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:252:4
+    |
+252 | fn push(c: &mut mpk_cert::encode::Certificate, t: mpk_cert::encode::TermNode) -> u32 {
+    |    ^^^^
+
+warning: function `constant` is never used
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:257:4
+    |
+257 | fn constant(c: &mut mpk_cert::encode::Certificate, name: &str) -> u32 {
+    |    ^^^^^^^^
+
+warning: function `fingerprint` is never used
+ --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/support/go_word_division_dependencies.rs:7:4
+  |
+7 | fn fingerprint(value: Value) -> String {
+  |    ^^^^^^^^^^^
+
+warning: function `declarations` is never used
+  --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/support/go_word_division_dependencies.rs:10:15
+   |
+10 | pub(super) fn declarations(c: &Certificate) -> BTreeMap<String, Value> {
+   |               ^^^^^^^^^^^^
+
+warning: 6 warnings emitted
+

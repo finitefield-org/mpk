@@ -31,6 +31,11 @@ mod source_error_layout;
 mod source_error_operations;
 mod source_error_receiver;
 mod source_error_representation;
+mod source_invocation;
+pub use source_invocation::{
+    generate_go_practical_source_invocation_catalogue, GoSourceInvocationCatalogue,
+    GoSourceInvocationRow,
+};
 mod source_string;
 mod source_string_index;
 mod source_string_length;

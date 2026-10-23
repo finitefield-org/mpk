@@ -1,0 +1,130 @@
+"""Independent source-type layouts and complete source-call joint interfaces.
+
+Reconstruct the original source carriers and the complete new joint-completion
+definitions and public theorem statements independently of the Rust producer.
+No source expression execution or context authority is inferred.
+"""
+from pathlib import Path
+import functools,hashlib,importlib.util,json
+ROOT=Path(__file__).resolve().parent
+spec=importlib.util.spec_from_file_location('frozen_source_layout',ROOT.parent/'source-error-layouts/structural-oracle.py')
+m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);f=m.f
+
+def decode(path):
+ raw=path.read_bytes();r=m.Sections(raw);assert raw[:7]==b'MPKCERT';r.at=7
+ assert r.string()=='MPK-CERT-0.1' and r.string()=='MPK-Core-0.1'
+ module=r.string();assert r.number()==0
+ name_table=r.vec(r.string);levels=r.vec(r.level);terms=r.vec(r.term);assert r.number()==0
+ declarations=r.vec(r.declaration);table={name_table[d[0]]:d for d in declarations}
+ @functools.lru_cache(None)
+ def level(i):assert levels[i][0]==0;return ('level',0)
+ @functools.lru_cache(None)
+ def term(i):
+  tag,*a=terms[i]
+  if tag==0:return ('sort',level(a[0]))
+  if tag==1:return ('var',a[0])
+  if tag==2:return ('const',name_table[declarations[a[0]][0]],tuple(level(j) for j in a[1]))
+  if tag==3:return ('app',term(a[0]),tuple(term(j) for j in a[1]))
+  if tag in [4,5]:return ('lam' if tag==4 else 'pi',term(a[0]),term(a[1]))
+  return ('let',*(term(j) for j in a))
+ return raw,module,table,term
+
+
+def pt(types):
+ if not types:return f.boolean()
+ if len(types)==1:return types[0]
+ n=len(types)//2
+ return f.pi('_layout_tag',f.boolean(),f.rec_type(pt(types[:n]),pt(types[n:]),f.var('_layout_tag')))
+def make(types,values):
+ if not types:return f.bit(False)
+ if len(types)==1:return values[0]
+ n=len(types)//2;tag=f.var('_layout_tag')
+ motive=f.lam('_layout_tag',f.boolean(),f.rec_type(pt(types[:n]),pt(types[n:]),tag))
+ return f.lam('_layout_tag',f.boolean(),f.app(f.const('Std.Bool.cases'),motive,make(types[:n],values[:n]),make(types[n:],values[n:]),tag))
+def get(types,value,index):
+ if len(types)==1:return value
+ n=len(types)//2
+ projected=f.app(f.const('Mpk.Go.Practical.Product.Left' if index<n else 'Mpk.Go.Practical.Product.Right'),pt(types[:n]),pt(types[n:]),value)
+ return get(types[:n] if index<n else types[n:],projected,index if index<n else index-n)
+
+def inspect(path,meta=None,require_kernel=True):
+ raw,module,table,term=decode(path);meta=meta or json.loads(path.with_suffix('.sources.json').read_bytes());assert module==meta['module']
+ if require_kernel:
+  report=json.loads(path.with_suffix('.rust.json').read_bytes())
+  assert report['verdict']=='accepted' and report['axiom_count']==0 and report['module']==module
+  assert report['hashes']['certificate']==hashlib.sha256(b'MPK-MODULE-CERT-0.1\0'+raw).hexdigest() and report['declaration_count']==len(table)
+ parent=meta['source_module'];keys={k['id']:k for k in meta['types']};under=dict(meta['underlying']);cases=meta['cases'];checked=set();recipes=0
+ def check(n,ty,body=None,law=False):
+  d=table[n];assert d[1]==(2 if law else 1),(n,'kind');assert term(d[2])==m.frozen_ast(ty),(n,'type')
+  if body is not None:assert term(d[3])==m.frozen_ast(body),(n,'body')
+  checked.add(n)
+ def c(n,*xs):return f.app(f.const(n),*xs)
+ def own(n,*xs):return c(module+'.'+n,*xs)
+ def pair(i):return f.const(parent+'.T'+i+'.Carrier'),f.const(parent+'.T'+i+'.Zero')
+ def product(parts):return f.product(parts,[0])
+ for tid,k in keys.items():
+  kind=k['kind']
+  if kind=='nominal':expected=pair(under[tid])
+  elif kind=='builtin':
+   name=k['name']
+   if name=='bool':expected=f.boolean(),f.bit(False)
+   elif name=='string':expected=product([f.word(64),f.vector(8,*f.word(8))])
+   elif name=='error':expected=product([f.word(64),*[pair(case) for case in cases]])
+   else:expected=f.word(k['width'])
+  elif kind=='array':expected=(f.boolean(),f.bit(False)) if k['length']==0 else f.vector((k['length']-1).bit_length(),*pair(k['element']))
+  elif kind=='slice':expected=product([(f.boolean(),f.bit(True)),(f.nat(),f.const('Std.Nat.zero')),f.vector(4,*product([f.word(8),f.word(64)])),f.word(64),f.word(64),f.word(64)])
+  else:assert kind=='struct';expected=product([pair(field['type_id']) for field in k['fields']])
+  ty,z=expected;check(parent+'.T'+tid+'.Carrier',{'kind':'sort0'},ty);check(parent+'.T'+tid+'.Zero',ty,z);check(parent+'.T'+tid+'.ZeroRecipe',f.eq(ty,pair(tid)[1],z),f.refl(ty,z),True);recipes+=3
+ if not any(k.get('name')=='error' for k in keys.values()):
+  assert not cases and parent.startswith('Mpk.Go.Practical.SourceTypeLayout.') and not any(name.startswith(parent+'.T') and name.endswith('.Carrier') and name.split('.T')[-1].split('.')[0] not in keys for name in table)
+  assert not any(name.startswith(parent+'.Nil') for name in table)
+ site=meta['site'];inputs=[pair(i)[0] for i in site['inputs']];outputs=[pair(i)[0] for i in site['results']]
+ args_type=pt(inputs);result_type=pt(outputs);state=f.var('State');sort={'kind':'sort0'}
+ fields=[f.nat(),args_type,state,result_type,state];joint=pt(fields);completion_fields=[result_type,state];completion=pt(completion_fields)
+ check(module+'.Arguments',sort,args_type);check(module+'.Results',sort,result_type)
+ check(module+'.Completion',f.pi('State',sort,sort),f.lam('State',sort,completion));check(module+'.Joint',f.pi('State',sort,sort),f.lam('State',sort,joint))
+ make_args=[('State',sort),('id',f.nat()),('arguments',args_type),('before',state),('results',result_type),('post',state)]
+ values=[f.var(n) for n in ['id','arguments','before','results','post']];made=own('Make',state,*values)
+ check(module+'.Make',f.bind('pi',make_args,joint),f.bind('lam',make_args,make(fields,values)))
+ names=['Identifier','CapturedArguments','Before','Returned','Post']
+ for i,name in enumerate(names):
+  aa=[('State',sort),('joint',joint)]
+  check(module+'.'+name,f.bind('pi',aa,fields[i]),f.bind('lam',aa,get(fields,f.var('joint'),i)))
+  check(module+'.'+name+'FromMake',f.bind('pi',make_args,f.eq(fields[i],own(name,state,made),values[i])),f.bind('lam',make_args,f.refl(fields[i],values[i])),True)
+ capture_args=[('State',sort),('id',f.nat()),('arguments',args_type),('before',state),('completion',completion)]
+ result=get(completion_fields,f.var('completion'),0);post=get(completion_fields,f.var('completion'),1)
+ capture_body=own('Make',state,f.var('id'),f.var('arguments'),f.var('before'),result,post)
+ check(module+'.CaptureCompletion',f.bind('pi',capture_args,joint),f.bind('lam',capture_args,capture_body))
+ captured=own('CaptureCompletion',state,f.var('id'),f.var('arguments'),f.var('before'),f.var('completion'))
+ expected=[f.var('id'),f.var('arguments'),f.var('before'),result,post]
+ for i,name in enumerate(names):check(module+'.'+name+'FromCompletion',f.bind('pi',capture_args,f.eq(fields[i],own(name,state,captured),expected[i])),f.bind('lam',capture_args,f.refl(fields[i],expected[i])),True)
+ callable_type=f.pi('_arguments',args_type,f.pi('_before',state,completion))
+ call_args=[('State',sort),('invoke',callable_type),('id',f.nat()),('arguments',args_type),('before',state)]
+ actual=f.app(f.var('invoke'),f.var('arguments'),f.var('before'))
+ captured_once=f.app(f.lam('_completion',completion,own('CaptureCompletion',state,f.var('id'),f.var('arguments'),f.var('before'),f.var('_completion'))),actual)
+ check(module+'.CaptureCall',f.bind('pi',call_args,joint),f.bind('lam',call_args,captured_once))
+ call_value=own('CaptureCall',state,f.var('invoke'),f.var('id'),f.var('arguments'),f.var('before'))
+ expected=[f.var('id'),f.var('arguments'),f.var('before'),get(completion_fields,actual,0),get(completion_fields,actual,1)]
+ for i,name in enumerate(names):check(module+'.'+name+'FromCall',f.bind('pi',call_args,f.eq(fields[i],own(name,state,call_value),expected[i])),f.bind('lam',call_args,f.refl(fields[i],expected[i])),True)
+ for i,ty in enumerate(outputs):
+  name='Result'+str(i);aa=[('State',sort),('joint',joint)]
+  check(module+'.'+name,f.bind('pi',aa,ty),f.bind('lam',aa,get(outputs,own('Returned',state,f.var('joint')),i)))
+  check(module+'.'+name+'FromMake',f.bind('pi',make_args,f.eq(ty,own(name,state,made),get(outputs,f.var('results'),i))),f.bind('lam',make_args,f.refl(ty,get(outputs,f.var('results'),i))),True)
+  check(module+'.'+name+'FromCompletion',f.bind('pi',capture_args,f.eq(ty,own(name,state,captured),get(outputs,result,i))),f.bind('lam',capture_args,f.refl(ty,get(outputs,result,i))),True)
+ pack_args=[('_result'+str(i),ty) for i,ty in enumerate(outputs)];pack_values=[f.var(n) for n,_ in pack_args]
+ check(module+'.PackResults',f.bind('pi',pack_args,result_type),f.bind('lam',pack_args,make(outputs,pack_values)))
+ if not outputs:check(module+'.VoidResults',f.eq(f.boolean(),own('PackResults'),f.bit(False)),f.refl(f.boolean(),f.bit(False)),True)
+ for i,ty in enumerate(outputs):check(module+'.PackedResult'+str(i),f.bind('pi',pack_args,f.eq(ty,get(outputs,own('PackResults',*pack_values),i),pack_values[i])),f.bind('lam',pack_args,f.refl(ty,pack_values[i])),True)
+ actual_exports={n for n in table if n.startswith(module+'.')};assert actual_exports=={n for n in checked if n.startswith(module+'.')},'unexpected source-invocation export'
+ # Count only the bound invoke variable in the full emitted CaptureCall body.
+ # Exact full AST matching above also rules out a hidden second application.
+ body=term(table[module+'.CaptureCall'][3])
+ for _ in call_args:assert body[0]=='lam';body=body[2]
+ def count(expr,index,depth=0):
+  if expr[0]=='var':return int(expr[1]==index+depth)
+  if expr[0] in ['lam','pi']:return count(expr[1],index,depth)+count(expr[2],index,depth+1)
+  if expr[0]=='app':return count(expr[1],index,depth)+sum(count(e,index,depth) for e in expr[2])
+  if expr[0]=='let':return count(expr[1],index,depth)+count(expr[2],index,depth)+count(expr[3],index,depth+1)
+  return 0
+ assert count(body,3)==1
+ return {'certificate':str(path),'source_recipe_members':recipes,'invocation_members':len(actual_exports),'original_cases':len(cases),'original_type_count':len(keys),'inputs':len(inputs),'results':len(outputs),'error_dispatch_targets':len(site['targets']) if site['dispatch'] else None,'one_completion_application_occurrence':True,'original_Rust_kernel_report_required':require_kernel,'source_execution_callee_or_context_proof':False}

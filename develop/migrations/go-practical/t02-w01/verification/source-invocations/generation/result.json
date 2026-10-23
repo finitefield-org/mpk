@@ -1,0 +1,13 @@
+{
+  "status": "failed",
+  "phase": "library fingerprint selection before compiler launch",
+  "actual_driver_retained_after_failure": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/source-invocations/generation/driver.py",
+    "bytes": 4157,
+    "sha256": "96ade8890b993fe363bac5cbaaa78efe8dbfcb8f8415c2ca67b8ecbe5881a215"
+  },
+  "observed_tool_diagnostic": "AssertionError: ('serde_json', 1916489591487227188, [])",
+  "diagnostic_source": "actual exec_command output, retained as a diagnostic transcription",
+  "reason": "Cargo fingerprint directory preserves underscore in serde_json; the helper incorrectly replaced it with a hyphen. No compiler, candidate generator or kernel verification was launched.",
+  "candidate_source_mutation": false
+}

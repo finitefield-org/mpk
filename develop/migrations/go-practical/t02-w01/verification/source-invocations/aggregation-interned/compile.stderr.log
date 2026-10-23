@@ -1,0 +1,64 @@
+warning: function `unhex` is never used
+  --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:11:4
+   |
+11 | fn unhex(s: &str) -> Vec<u8> {
+   |    ^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `selection` is never used
+  --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:17:4
+   |
+17 | fn selection(name: &str) -> GoSourceErrorSelection {
+   |    ^^^^^^^^^
+
+warning: function `entry_conditions` is never used
+  --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:86:4
+   |
+86 | fn entry_conditions(
+   |    ^^^^^^^^^^^^^^^^
+
+warning: function `span` is never used
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:146:4
+    |
+146 | fn span(s: &GoSourceErrorSelection, r: &GoSourceSelectionRef) -> Value {
+    |    ^^^^
+
+warning: function `site` is never used
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:150:4
+    |
+150 | fn site(s: &GoSourceErrorSelection, c: &GoSourceCallSite) -> Value {
+    |    ^^^^
+
+warning: function `metadata` is never used
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:154:4
+    |
+154 | fn metadata(name: &str, s: &GoSourceErrorSelection, row: &GoSourceInvocationRow) -> Value {
+    |    ^^^^^^^^
+
+warning: function `check` is never used
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:158:4
+    |
+158 | fn check(name: &str) {
+    |    ^^^^^
+
+warning: function `encoded` is never used
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:232:4
+    |
+232 | fn encoded(mut c: mpk_cert::encode::Certificate) -> Vec<u8> {
+    |    ^^^^^^^
+
+warning: function `push` is never used
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:252:4
+    |
+252 | fn push(c: &mut mpk_cert::encode::Certificate, t: mpk_cert::encode::TermNode) -> u32 {
+    |    ^^^^
+
+warning: function `constant` is never used
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_source_invocation.rs:257:4
+    |
+257 | fn constant(c: &mut mpk_cert::encode::Certificate, name: &str) -> u32 {
+    |    ^^^^^^^^
+
+warning: 10 warnings emitted
+

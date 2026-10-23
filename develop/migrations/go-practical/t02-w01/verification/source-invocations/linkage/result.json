@@ -1,0 +1,113 @@
+{
+  "status": "passed",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/linkage/driver.py",
+    "bytes": 4120,
+    "sha256": "b2f42c2dce01a79103f21b13976a55231d56ec71a86f3999258236ed1c6bb792"
+  },
+  "complete_prelaunch_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/linkage/prelaunch-inputs.json",
+    "bytes": 6753,
+    "sha256": "185d4f5d1642a27bcd64b5bd1956284b3bb59379f5b3a1d849825f870cfac543"
+  },
+  "exact_original_test_fingerprint": {
+    "path": "target/debug/.fingerprint/mpk-vc-7848ed9502a8e03d/test-integration-test-go_practical_source_invocation.json",
+    "bytes": 741,
+    "sha256": "b146f2f0cb25126b3f50342c6f3b35b60f7809b665c3389e8c2af4f91921639c"
+  },
+  "exact_compiled_library_identities": {
+    "mpk_vc": {
+      "path": "target/debug/deps/libmpk_vc-634779c68275c08f.rlib",
+      "bytes": 239338384,
+      "sha256": "82a190b9a8cdc0102de3ec02ea46028e7eb452002590d6b4979822a6b6784979"
+    },
+    "serde_json": {
+      "path": "target/debug/deps/libserde_json-56517fbd9f2b837e.rlib",
+      "bytes": 4156096,
+      "sha256": "1ba2537e5d5cf8d9ced46e0e4bda427bbda47698c8cffd6dd12407165fa654e9"
+    },
+    "mpk_kernel": {
+      "path": "target/debug/deps/libmpk_kernel-0d580f7bf4ab7bf5.rlib",
+      "bytes": 3370480,
+      "sha256": "cd870dff29a2ef4949fd01a357c9dc89d483b67c2e54ac07356f76a824994aba"
+    },
+    "sha2": {
+      "path": "target/debug/deps/libsha2-941dec64bfb98384.rlib",
+      "bytes": 507016,
+      "sha256": "ae5c91dbd6691034deec47651cd1e88ff2a5ae071628d21a73ca242075bcea31"
+    },
+    "serde": {
+      "path": "target/debug/deps/libserde-e5284f53dd900027.rlib",
+      "bytes": 1018128,
+      "sha256": "965f72d6aa53de458acc5f707573af25e23428220b8ea38b42a1879d799b41a3"
+    },
+    "mpk_cert": {
+      "path": "target/debug/deps/libmpk_cert-56581625005ce3b7.rlib",
+      "bytes": 5580824,
+      "sha256": "f893836b5d5a967b721114b86d6d490537d1cfa65dea91b4e65562f940b45b15"
+    }
+  },
+  "compile_command": [
+    "rustc",
+    "--edition=2021",
+    "-C",
+    "opt-level=1",
+    "-C",
+    "debug-assertions=yes",
+    "-C",
+    "overflow-checks=yes",
+    "-L",
+    "dependency=target/debug/deps",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/generate-linkage.rs",
+    "-o",
+    "/private/tmp/mpk-go-source-invocations-generate-linkage-174",
+    "--extern",
+    "mpk_vc=target/debug/deps/libmpk_vc-634779c68275c08f.rlib",
+    "--extern",
+    "serde_json=target/debug/deps/libserde_json-56517fbd9f2b837e.rlib",
+    "--extern",
+    "mpk_kernel=target/debug/deps/libmpk_kernel-0d580f7bf4ab7bf5.rlib",
+    "--extern",
+    "sha2=target/debug/deps/libsha2-941dec64bfb98384.rlib",
+    "--extern",
+    "serde=target/debug/deps/libserde-e5284f53dd900027.rlib",
+    "--extern",
+    "mpk_cert=target/debug/deps/libmpk_cert-56581625005ce3b7.rlib"
+  ],
+  "kernel_proofs_rechecked": false,
+  "complete_final_matrix": false,
+  "started_at_utc": "2026-10-23T05:19:53.558576+00:00",
+  "compile_exit_code": 0,
+  "compile_stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/linkage/compile.stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "compile_stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/linkage/compile.stderr.log",
+    "bytes": 1026,
+    "sha256": "57ed87d6ff8627b9be7dbba86e04b3dee8386fd1a3d9e0c740fd243eb24524ad"
+  },
+  "generated_binary": {
+    "path": "/private/tmp/mpk-go-source-invocations-generate-linkage-174",
+    "bytes": 6349952,
+    "sha256": "41a8dcfe473a8de75250b7b34d2fd52c434a26713f206bacc231e23de7aef75f"
+  },
+  "command": [
+    "/private/tmp/mpk-go-source-invocations-generate-linkage-174"
+  ],
+  "exit_code": 0,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/linkage/stdout.log",
+    "bytes": 2416,
+    "sha256": "f9b8cbff8acccd96d4e883aace01a56efa93e3f224a5eff3f89078175093fa3a"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/linkage/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "whole_inputs_unchanged": true,
+  "complete_generated_candidates": 32,
+  "finished_at_utc": "2026-10-23T05:20:37.074087+00:00"
+}

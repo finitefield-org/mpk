@@ -1,0 +1,30 @@
+{
+  "status": "failed",
+  "phase": "original EOF-only auditor did not handle original interrupted libtest status line",
+  "actual_failed_driver_retained": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/source-invocations/whitespace-initial/driver.py",
+    "bytes": 6404,
+    "sha256": "9f66075ebe401dfff23459661ac16e6f9c9173bc2b08dee2726ac8654427f772"
+  },
+  "observed_original_tool_diagnostic": "AssertionError: develop/migrations/go-practical/t02-w01/verification/source-invocations/rust-entries/stdout.log:5: trailing whitespace.",
+  "diagnostic_source": "transcription of actual tool output; the complete original cached Git diagnostic is independently replayed below with unchanged staged inputs",
+  "actual_default_check_replay": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "exit_code": 2,
+    "stdout_bytes": 942,
+    "stdout_sha256": "58ecad99e2625a54ff814ccb78be0b38dd81fa1d745a1204fb591068abafd961",
+    "complete_hex_snapshot": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-invocations/whitespace-initial/default-check.stdout.hex",
+      "bytes": 1885,
+      "sha256": "612c8ac0bfbb4a76430f509fbc30dff537245fc881a2f0e06772012b1f81d698"
+    },
+    "stderr_hex": ""
+  },
+  "staged_tree": "131e17b0e661af320941616da5d4b931890a7d03",
+  "retained_at_utc": "2026-10-23T05:42:23.339216+00:00"
+}

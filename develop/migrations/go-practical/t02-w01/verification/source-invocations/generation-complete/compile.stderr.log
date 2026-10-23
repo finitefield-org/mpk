@@ -1,0 +1,11 @@
+error[E0432]: unresolved import `sha2`
+ --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/support/go_word_division_dependencies.rs:4:5
+  |
+4 | use sha2::{Digest, Sha256};
+  |     ^^^^ use of unresolved module or unlinked crate `sha2`
+  |
+  = help: you might be missing a crate named `sha2`
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0432`.

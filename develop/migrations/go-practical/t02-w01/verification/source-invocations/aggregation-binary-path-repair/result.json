@@ -1,0 +1,93 @@
+{
+  "status": "passed",
+  "reason": "The auxiliary aggregation compiler reused the same temporary output path after a real term-table-cap failure. Recover the exact original failed tool bytes using its complete original source/command and unchanged compiler/libraries; retain both tools under distinct paths. No kernel process is restarted and no production/test source is edited.",
+  "original_failed_binary_identity": {
+    "path": "/private/tmp/mpk-go-source-invocations-aggregate-all-174",
+    "bytes": 1345144,
+    "sha256": "0bc85eb077413f545a95d7c3da0a33226aafc5e41094f1205f11e3ef29b12208"
+  },
+  "current_binary_before": {
+    "path": "/private/tmp/mpk-go-source-invocations-aggregate-all-174",
+    "bytes": 1369352,
+    "sha256": "1fb665bf6626d57cc0e19a2bf21a42302ea6d30b64e61562ff782f4f391139ae",
+    "mode": 493
+  },
+  "current_source_before": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregate-all.rs",
+    "bytes": 6909,
+    "sha256": "7e0047d1920942b2d41ccfe44a4fbcda2999b1bf9b0606e742fb2817d4a6862f",
+    "mode": 420
+  },
+  "retained_new": {
+    "path": "/private/tmp/mpk-go-source-invocations-aggregate-interned-174-retained",
+    "bytes": 1369352,
+    "sha256": "1fb665bf6626d57cc0e19a2bf21a42302ea6d30b64e61562ff782f4f391139ae",
+    "mode": 493
+  },
+  "original_compile_command": [
+    "rustc",
+    "--edition=2021",
+    "-C",
+    "opt-level=1",
+    "-C",
+    "debug-assertions=yes",
+    "-C",
+    "overflow-checks=yes",
+    "-L",
+    "dependency=target/debug/deps",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregate-all.rs",
+    "-o",
+    "/private/tmp/mpk-go-source-invocations-aggregate-all-174",
+    "--extern",
+    "mpk_vc=target/debug/deps/libmpk_vc-634779c68275c08f.rlib",
+    "--extern",
+    "serde_json=target/debug/deps/libserde_json-56517fbd9f2b837e.rlib",
+    "--extern",
+    "mpk_kernel=target/debug/deps/libmpk_kernel-0d580f7bf4ab7bf5.rlib",
+    "--extern",
+    "sha2=target/debug/deps/libsha2-941dec64bfb98384.rlib",
+    "--extern",
+    "serde=target/debug/deps/libserde-e5284f53dd900027.rlib",
+    "--extern",
+    "mpk_cert=target/debug/deps/libmpk_cert-56581625005ce3b7.rlib"
+  ],
+  "started_at_utc": "2026-10-23T05:19:30.118352+00:00",
+  "actual_repair_driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation-binary-path-repair/driver.py",
+    "bytes": 3651,
+    "sha256": "632afde2c0ef265894c1c2977609a1c46b195bcee34dc6202d47848e507cf7cb",
+    "mode": 420
+  },
+  "recompile_exit_code": 0,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation-binary-path-repair/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregation-binary-path-repair/stderr.log",
+    "bytes": 2377,
+    "sha256": "bc600032dd8a0192fe36e303d9082cf3cf38299599e5396ae8091104b6222c6c",
+    "mode": 420
+  },
+  "exact_recovered_original_retained": {
+    "path": "/private/tmp/mpk-go-source-invocations-aggregate-initial-174-retained",
+    "bytes": 1345144,
+    "sha256": "0bc85eb077413f545a95d7c3da0a33226aafc5e41094f1205f11e3ef29b12208",
+    "mode": 493
+  },
+  "current_source_after": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregate-all.rs",
+    "bytes": 6909,
+    "sha256": "7e0047d1920942b2d41ccfe44a4fbcda2999b1bf9b0606e742fb2817d4a6862f",
+    "mode": 420
+  },
+  "current_binary_after": {
+    "path": "/private/tmp/mpk-go-source-invocations-aggregate-all-174",
+    "bytes": 1369352,
+    "sha256": "1fb665bf6626d57cc0e19a2bf21a42302ea6d30b64e61562ff782f4f391139ae",
+    "mode": 493
+  },
+  "finished_at_utc": "2026-10-23T05:19:35.815509+00:00"
+}

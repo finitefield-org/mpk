@@ -1,0 +1,13 @@
+type Receiver struct{ N int }
+func(r Receiver)Pair(s string)(Text,int){return Text(s),r.N}
+func Method(r Receiver)(Text,int){return r.Pair("x")}
+func MethodExpr(r Receiver)(Text,int){return Receiver.Pair(r,"x")}
+func Wide(a0 bool,a1 bool,a2 bool,a3 bool,a4 bool,a5 bool,a6 bool,a7 bool,a8 bool,a9 bool,a10 bool,a11 bool,a12 bool,a13 bool,a14 bool,a15 bool,a16 bool,a17 bool,a18 bool,a19 bool,a20 bool,a21 bool,a22 bool,a23 bool,a24 bool,a25 bool,a26 bool,a27 bool,a28 bool,a29 bool,a30 bool,a31 bool,a32 bool,a33 bool,a34 bool,a35 bool,a36 bool,a37 bool,a38 bool,a39 bool,a40 bool,a41 bool,a42 bool,a43 bool,a44 bool,a45 bool,a46 bool,a47 bool,a48 bool,a49 bool,a50 bool,a51 bool,a52 bool,a53 bool,a54 bool,a55 bool,a56 bool,a57 bool,a58 bool,a59 bool,a60 bool,a61 bool,a62 bool,a63 bool,a64 bool)(bool,int8,int16,int32,int64,uint8,uint16,uint32,uint64,int,uint,string,Text,[2]int,[]byte,error){return a64,-1,-2,-3,-4,5,6,7,8,9,10,"x",Text("y"),[2]int{11,12},nil,nil}
+func Relay()(bool,int8,int16,int32,int64,uint8,uint16,uint32,uint64,int,uint,string,Text,[2]int,[]byte,error){return Wide(false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false)}
+func Take(x0 bool,x1 int8,x2 int16,x3 int32,x4 int64,x5 uint8,x6 uint16,x7 uint32,x8 uint64,x9 int,x10 uint,x11 string,x12 Text,x13 [2]int,x14 []byte,x15 error)int{return 9}
+func Consume()int{return Take(Relay())}
+func Touch(s []int){s[0]++}
+func Void(s []int){Touch(s)}
+func VoidNil(){Touch(nil)}
+func TwiceCall()int{return Shadow()+Shadow()}
+func ErrorExpr(e error)string{return error.Error(e)}
