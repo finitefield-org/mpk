@@ -8380,3 +8380,43 @@ certificate. Full56-family assembly, all169 demands, private descriptor/registry
 context/capture integration, native Linux release gates and remaining T02-T11
 stay due. R01/R06/W01 stay open; the practical profile stays inactive. The
 cumulative T02 gate remains final W04: `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 179. T02-W01 owned original source/contract handoff
+
+The [contract-input component](../migrations/go-practical/t02-w01/verification/contract-inputs/README.md)
+joins the unchanged complete source-only packet and every raw sidecar from
+the same locked original-package owner. A private envelope binds source and
+overlay identities plus original image/compiler/main/requested-package
+provenance. Saved inventory/list/buffer/path integrity and independently owned
+returned bytes reject omission or damage; closed owners reject and input-reader
+failures stay sticky. The strict independent Rust importer retains all listed
+raw annotations, including unselected functions, and derives contracts from
+that exact stored source/annotation set. No sidecar uses the actual default
+contract without a manufactured raw object.
+
+Four new/four source-input/six contract-module checks give14 affected
+Rust roots;6 actual Go roots, strict Clippy/vet, changed-file formats and a
+Go1.23 zero-test compile pass. Original paths/images/donor buffers retire before
+consumption; whole unselected channel/callback/map bodies stay and initializers
+do not execute. Independent full byte/object/hash/native-membership inspection
+checks10971 original objects and both complete packets. Initial/final source
+and overlay bytes match; all32 preceding call-proof certificates replay
+literally through the existing source-input consumer. The original8MiB input
+boundary passes and one additional byte rejects; later duplicate-annotation
+admission remains separate.
+
+The first native ownership root passed. Two later roots stopped on reused
+no-overwrite evidence paths; that entire failed epoch remains. Separate output
+directories fix collection, and the final complete native suite passes. All
+54856 original failed/final snapshot files,435872068 bytes, remain physically
+unchanged and losslessly retained with exact paths/modes in bounded chunks.
+No scan rule, seal, exclusion, semantic rule, proof premise or checker cap
+changes. The full T02 gate stays final W04: `./scripts/check-fast.sh`.
+
+The envelope is private input linkage; self-hashed provenance is not launcher
+authentication or an authenticated capture claim. Full canonical context/
+capture/descriptor/registry and source/IR/state/storage/frame/callee/program
+proofs, all56 foundation families/all169 demands, native Linux release gates
+and remaining T02-T11 remain due. R01/R06/W01 stay open; the practical profile
+stays inactive. MPK source-language support remains Go/Rust only.

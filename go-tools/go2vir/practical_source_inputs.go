@@ -25,6 +25,11 @@ func (owner *practicalOriginalPackages) sourceInputs() (practicalSourceInputs, e
 	}
 	owner.mutex.Lock()
 	defer owner.mutex.Unlock()
+	return owner.sourceInputsLocked()
+}
+
+// The original owner mutex is held by the source-only or contract handoff.
+func (owner *practicalOriginalPackages) sourceInputsLocked() (practicalSourceInputs, error) {
 	if owner.closed || owner.inputs == nil || owner.loader == nil || owner.loader.syntax == nil {
 		return practicalSourceInputs{}, fmt.Errorf("source input owner is closed or incomplete")
 	}

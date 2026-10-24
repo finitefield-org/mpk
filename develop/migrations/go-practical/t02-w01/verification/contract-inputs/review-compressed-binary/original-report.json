@@ -1,0 +1,3528 @@
+{
+  "status": "failed",
+  "basis_commit": "8ac557f1eb3d13ebf6ef7b41b6679075857b1a0a",
+  "matcher_count": 127,
+  "scopes": 4,
+  "seals": 39,
+  "exclusions": 51,
+  "rules_unchanged": true,
+  "whole_repository_strict_gate": false,
+  "complete_preserved_source_epochs": [
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/build-original/result.json",
+        "bytes": 2961,
+        "sha256": "91b478a2a31da71369e8132d35cc554d3630bcea292be2420b4b1dd049b22b7e",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_contract_inputs",
+        "--test",
+        "go_practical_source_inputs",
+        "--no-run"
+      ],
+      "inputs": 1314
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/contracts/result.json",
+        "bytes": 2940,
+        "sha256": "8c9d26edd1931db78b3c44279644ae629fb2b2e6dbfa2c512bf4afb97808f320",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_contract_modules",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "inputs": 1314
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-check/result.json",
+        "bytes": 3030,
+        "sha256": "ccd9b9168a442ca39520ef687ea97f4637a9213d5419be20624c6a4def449ed5",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition=2021",
+        "--check",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_type_keys/contract_inputs.rs",
+        "crates/mpk-vc/tests/go_practical_contract_inputs.rs",
+        "crates/mpk-vc/src/go_practical_type_keys.rs"
+      ],
+      "inputs": 1317
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-child-first/result.json",
+        "bytes": 3033,
+        "sha256": "da25be69c2bde48dffe908f98feb6b8c5fa531b5c0bcfd47473aeb14388da148",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition=2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_type_keys/contract_inputs.rs",
+        "crates/mpk-vc/tests/go_practical_contract_inputs.rs",
+        "crates/mpk-vc/src/go_practical_type_keys.rs"
+      ],
+      "inputs": 1314
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-final/result.json",
+        "bytes": 3015,
+        "sha256": "6ab666fcefce6665b63d92d9c1b81dbc96cf3fde0f7cffe6dae498fb434d1adf",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition=2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_type_keys/contract_inputs.rs",
+        "crates/mpk-vc/tests/go_practical_contract_inputs.rs",
+        "crates/mpk-vc/src/go_practical_type_keys.rs"
+      ],
+      "inputs": 12295
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-original/result.json",
+        "bytes": 3025,
+        "sha256": "f098a63d23024a049cfe934b7d56c07947e374e79af360e457b88abfd6387be1",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition=2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_type_keys.rs",
+        "crates/mpk-vc/src/go_practical_type_keys/contract_inputs.rs",
+        "crates/mpk-vc/tests/go_practical_contract_inputs.rs"
+      ],
+      "inputs": 1314
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-check/result.json",
+        "bytes": 3637,
+        "sha256": "03f1d6980633045c70de4306927d80bb70f592d1ce48a3d007dd8ea87114202e",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go125-20261025-download/go/bin/gofmt",
+        "-l",
+        "go-tools/go2vir/practical_source_inputs.go",
+        "go-tools/go2vir/practical_contract_inputs.go",
+        "go-tools/go2vir/practical_storage_test.go",
+        "go-tools/go2vir/practical_contract_inputs_test.go"
+      ],
+      "inputs": 1317
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-final/result.json",
+        "bytes": 3637,
+        "sha256": "2af33c71f3d1b3d8d570238e69d176659600bbdb36433a2c2f1c7a3a3ddb6d17",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go125-20261025-download/go/bin/gofmt",
+        "-w",
+        "go-tools/go2vir/practical_source_inputs.go",
+        "go-tools/go2vir/practical_contract_inputs.go",
+        "go-tools/go2vir/practical_storage_test.go",
+        "go-tools/go2vir/practical_contract_inputs_test.go"
+      ],
+      "inputs": 12295
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-original/result.json",
+        "bytes": 3645,
+        "sha256": "c4a60b35aa912100dd7227dd5bf1a285e29710f4fd6e3accd13d38b6107a179b",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go125-20261025-download/go/bin/gofmt",
+        "-w",
+        "go-tools/go2vir/practical_source_inputs.go",
+        "go-tools/go2vir/practical_contract_inputs.go",
+        "go-tools/go2vir/practical_storage_test.go",
+        "go-tools/go2vir/practical_contract_inputs_test.go"
+      ],
+      "inputs": 1314
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-vet/result.json",
+        "bytes": 3405,
+        "sha256": "3d7f6e57c93bc5337d0f20e129033254b9dd688b16905c7477b35f66c3105fe8",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+        "vet",
+        "."
+      ],
+      "inputs": 1317
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/legacy/result.json",
+        "bytes": 3339,
+        "sha256": "2f74fc8de38ff3b56d288829a1752959706caf736ad03a6ea2821cfa6c4677d8",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-run",
+        "^$",
+        "."
+      ],
+      "inputs": 1317
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/lint/result.json",
+        "bytes": 2968,
+        "sha256": "40bd80cafb3e2b6183b7c84707763fe95c397b7ca597e5a73d339ed0a259b1c6",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "clippy",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "go_practical_contract_inputs",
+        "--test",
+        "go_practical_source_inputs",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "inputs": 1317
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/result.json",
+        "bytes": 3772,
+        "sha256": "b03204c00f5782c00bf659080390689a060512ad633896fefdf460f43531f2c0",
+        "mode": 420
+      },
+      "status": "failed",
+      "command": [
+        "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=40m",
+        "-run",
+        "^(TestPracticalContractInputs.*|TestPracticalSourceInputsRequireOriginalOwner|TestPracticalSourceInputsKeepOriginalReplacementPackage)$"
+      ],
+      "inputs": 1314
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/result.json",
+        "bytes": 3794,
+        "sha256": "1287c4b36f2c242ef30c713e229eeca70012865b8364202723152de2201ad2ba",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=40m",
+        "-run",
+        "^(TestPracticalContractInputs.*|TestPracticalSourceInputsRequireOriginalOwner|TestPracticalSourceInputsKeepOriginalReplacementPackage)$"
+      ],
+      "inputs": 1317
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/result.json",
+        "bytes": 3130,
+        "sha256": "36ffe964c8f7132bc00beebcd24842a0d2aba664a19d34f1f05842cbdfc5ee08",
+        "mode": 420
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_contract_inputs",
+        "--test",
+        "go_practical_source_inputs",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "inputs": 1320
+    }
+  ],
+  "complete_prelaunch_members_verified_and_scanned": 41696,
+  "current_inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/.gitignore",
+      "bytes": 2075,
+      "sha256": "3689d1330d28c55e02028b18c8e9009175d9fe3497794a9950bae85817538dbc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys.rs",
+      "bytes": 14301,
+      "sha256": "9a8ca39353ed26380134971cb75741438788fb07e976ca35647c9a585216ce04",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/contract_inputs.rs",
+      "bytes": 6125,
+      "sha256": "bb8b7d2ba2eb1b3d5e8f65968d4d735c3cc3999755ad51cd76f2d0a721059173",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_contract_inputs.rs",
+      "bytes": 11104,
+      "sha256": "c013dc28abceb55d9410a528ff7767b4815c22ddd5119c61e327d7df7a25c91d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/docs/go-practical-implementation-traceability-ledger.md",
+      "bytes": 581662,
+      "sha256": "a7b4913e5f4239514941929aa2bcfa2cfec54d5faa3ae8f2169841008f8b24a6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/README.md",
+      "bytes": 126197,
+      "sha256": "eac20e3c83fb2b13406610ec6196555901dae760729f56de6d1ded0ae8eea226",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/requirements.json",
+      "bytes": 263846,
+      "sha256": "a860cb34999759bbf1c87f6ef51c7c7be95963720dcee1cbfe400dabb72de33f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/README.md",
+      "bytes": 4566,
+      "sha256": "d68088e442222348e5e6823e8a14e9c4229e4fc9982a4983b7801c7358a2b035",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/build-original/inputs.json",
+      "bytes": 316906,
+      "sha256": "0f842b2fc6e633d84e32c6fdf5c78f6c0850b93c0494df2f9e07948ee5f2bb22",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/build-original/inputs.tar.gz",
+      "bytes": 18294840,
+      "sha256": "746de3f1a0164d717243977edaf0e8a1f26210f65ed1260354bd7917ebd44e55",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/build-original/result.json",
+      "bytes": 2961,
+      "sha256": "91b478a2a31da71369e8132d35cc554d3630bcea292be2420b4b1dd049b22b7e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/build-original/stderr.log",
+      "bytes": 376,
+      "sha256": "dcee4b7c285ee5913c4e0d7335d9b715f2881b14041048913cff96293c7ddc9a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/build-original/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/contracts/inputs.json",
+      "bytes": 316901,
+      "sha256": "cc11242d4bb25fdc84ec2305d5e3d74a942f7f6c89781f7aaded501031b3fece",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/contracts/inputs.tar.gz",
+      "bytes": 18294760,
+      "sha256": "0804e1e05eaf6ce8fb4a0ccd252eaf714dbbd35b63c284f1a9d7630a5ef77698",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/contracts/result.json",
+      "bytes": 2940,
+      "sha256": "8c9d26edd1931db78b3c44279644ae629fb2b2e6dbfa2c512bf4afb97808f320",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/contracts/stderr.log",
+      "bytes": 265,
+      "sha256": "1a044439027ba0037e346a4d542e74bfafc45df9e052baee030f2e354b67281a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/contracts/stdout.log",
+      "bytes": 630,
+      "sha256": "f7189f32a4605d9f078321c20ba7958648710fd079611f7e351b1f9f869b2e98",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-check/inputs.json",
+      "bytes": 317755,
+      "sha256": "2c423ba82f720ba556bcb385c4650f5a0af9e96b1dcb3426cad6e762c29cf6c6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-check/inputs.tar.gz",
+      "bytes": 18757899,
+      "sha256": "f6d3ba19fe6417a5ae0992bb5e2381407cf08bf3f28eddf9534619b29f825be6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-check/result.json",
+      "bytes": 3030,
+      "sha256": "ccd9b9168a442ca39520ef687ea97f4637a9213d5419be20624c6a4def449ed5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-check/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-check/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-child-first/inputs.json",
+      "bytes": 316910,
+      "sha256": "837380afd1e04640769831fe37e0d7e70d6d90ea86fac00228461387a498478d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-child-first/inputs.tar.gz",
+      "bytes": 18294840,
+      "sha256": "485cde958ce53fd401e595e7e14cdddef57b3e4314ddc9153b7ee786bdce0ca8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-child-first/result.json",
+      "bytes": 3033,
+      "sha256": "da25be69c2bde48dffe908f98feb6b8c5fa531b5c0bcfd47473aeb14388da148",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-child-first/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-child-first/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-final/inputs.json",
+      "bytes": 4379554,
+      "sha256": "edf9a697aa98c9ce0dbce422fcc6ee0c8b2aec5c391370390062a87353d6cad5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-final/inputs.tar.gz",
+      "bytes": 40443954,
+      "sha256": "e80e761dd501ae302ff40a64c641b65149d42ef602a8057b30d76fb733e76fb7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-final/result.json",
+      "bytes": 3015,
+      "sha256": "6ab666fcefce6665b63d92d9c1b81dbc96cf3fde0f7cffe6dae498fb434d1adf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-final/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-final/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-original/inputs.json",
+      "bytes": 316907,
+      "sha256": "d142596abe04b4c1522dcd309f34a6c59e215c60b83cead482bcd1b5aa72f23f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-original/inputs.tar.gz",
+      "bytes": 18294655,
+      "sha256": "84dee86f9a7a43a5748703dd4b218cd353178c3fcef9a7ab8fbe139e328f1ee5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-original/result.json",
+      "bytes": 3025,
+      "sha256": "f098a63d23024a049cfe934b7d56c07947e374e79af360e457b88abfd6387be1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-original/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-original/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-check/inputs.json",
+      "bytes": 317758,
+      "sha256": "457b9e5a4434832d69d614b6bebd64c324bb261104848c18aa92f6dd32a575fe",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-check/inputs.tar.gz",
+      "bytes": 18757899,
+      "sha256": "f6d3ba19fe6417a5ae0992bb5e2381407cf08bf3f28eddf9534619b29f825be6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-check/result.json",
+      "bytes": 3637,
+      "sha256": "03f1d6980633045c70de4306927d80bb70f592d1ce48a3d007dd8ea87114202e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-check/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-check/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-final/inputs.json",
+      "bytes": 4379557,
+      "sha256": "d13c2f4ac53d24822ed59b1c2c70e5eba1bcb8bba6a18e232258dc756f7ea7f4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-final/inputs.tar.gz",
+      "bytes": 40443954,
+      "sha256": "7d42c91dc623120b45e8aa9c35663497a8acb4f8fe3eb74a140a3823e639b44e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-final/result.json",
+      "bytes": 3637,
+      "sha256": "2af33c71f3d1b3d8d570238e69d176659600bbdb36433a2c2f1c7a3a3ddb6d17",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-final/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-final/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-original/inputs.json",
+      "bytes": 316910,
+      "sha256": "f47aa9cd6d5f8d69bcdff720b4de7b3040e22fa748bf731ee4d227eb8f6cded9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-original/inputs.tar.gz",
+      "bytes": 18294827,
+      "sha256": "d393646043a5d8d299c5fff10dfeef9fbfb7843b5d3459d15f092247ffabe21c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-original/result.json",
+      "bytes": 3645,
+      "sha256": "c4a60b35aa912100dd7227dd5bf1a285e29710f4fd6e3accd13d38b6107a179b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-original/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-original/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-vet/inputs.json",
+      "bytes": 317749,
+      "sha256": "b1eddfaff5964316610633e326c2c4b54cb2016eb082fe541b8cbe3b0b370f25",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-vet/inputs.tar.gz",
+      "bytes": 18757899,
+      "sha256": "f6d3ba19fe6417a5ae0992bb5e2381407cf08bf3f28eddf9534619b29f825be6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-vet/result.json",
+      "bytes": 3405,
+      "sha256": "3d7f6e57c93bc5337d0f20e129033254b9dd688b16905c7477b35f66c3105fe8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-vet/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-vet/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/inspect.py",
+      "bytes": 7867,
+      "sha256": "c0033b96e82e7c0de053847d1244270244ff1090a1dad0355fff4f9c2e646f08",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/inspection/driver.py",
+      "bytes": 7867,
+      "sha256": "c0033b96e82e7c0de053847d1244270244ff1090a1dad0355fff4f9c2e646f08",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/inspection/prelaunch.json",
+      "bytes": 20789425,
+      "sha256": "59b03514066bcb0da5751cced52ed3fb7fd123c236e58a00424ecbb0a8563082",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/inspection/result.json",
+      "bytes": 2578,
+      "sha256": "6d74d069a3ce846f5e62783f35e2191c8420d08466c6cd7cce25392933327e30",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/legacy/inputs.json",
+      "bytes": 317749,
+      "sha256": "bd311abfb58958edf48df060ec27435fd3af7c24844ebf91f3562166ecc78cb9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/legacy/inputs.tar.gz",
+      "bytes": 18757899,
+      "sha256": "615a1dca315fb7842a20a99e4aea8025a0a0073444981c1e442f805e7a29938f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/legacy/result.json",
+      "bytes": 3339,
+      "sha256": "2f74fc8de38ff3b56d288829a1752959706caf736ad03a6ea2821cfa6c4677d8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/legacy/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/legacy/stdout.log",
+      "bytes": 77,
+      "sha256": "efbcb7ab108df5e6b11bd50b38c9863889ebdb36e522acf8a1f9536247ee3b2f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/lint/inputs.json",
+      "bytes": 317747,
+      "sha256": "d9256da66388dcaeb0e74c9ddf0d698611c8e0e0fb502362beb6c11eec742099",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/lint/inputs.tar.gz",
+      "bytes": 18757899,
+      "sha256": "615a1dca315fb7842a20a99e4aea8025a0a0073444981c1e442f805e7a29938f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/lint/result.json",
+      "bytes": 2968,
+      "sha256": "40bd80cafb3e2b6183b7c84707763fe95c397b7ca597e5a73d339ed0a259b1c6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/lint/stderr.log",
+      "bytes": 147,
+      "sha256": "4c4001330c8f87cb7e57a754eee657537d512c6069029e3603e531ba70f89f7d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/lint/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/inputs.json",
+      "bytes": 317755,
+      "sha256": "85ad676c5daceb314d75cdb4de01ea71444addb4e19be08c19178264154fef4c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/inputs.tar.gz",
+      "bytes": 18757899,
+      "sha256": "615a1dca315fb7842a20a99e4aea8025a0a0073444981c1e442f805e7a29938f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/damaged/damaged-contract-input.json",
+      "bytes": 630,
+      "sha256": "8373305e5c44a39085c76aa38e3a32c0a42f8bd7ca9692a60403067fbc79a511",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/damaged/storage-original-exports.json",
+      "bytes": 1529,
+      "sha256": "97423c389ab9133a48fe71157a88ff06dc01ad263a72d4e4cbc2873b8fc967f6",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/damaged/storage-original-inputs.json",
+      "bytes": 792,
+      "sha256": "7514412140acbb88d5c6b12849dd9e3a42bbbeedb2dd9e84e6a3c6a82e9c46dc",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/damaged/storage-original-modules.json",
+      "bytes": 592,
+      "sha256": "ad6e84083d76f9035defe2da083bc1e29051f824c514d202a4af35cdf27a7aa4",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/empty/contract-inputs-empty.json",
+      "bytes": 5127,
+      "sha256": "6c34ad7ee0868695b8ee4ffb3d866d11a168af48b9c13accc049849cddb9d568",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/empty/storage-original-exports.json",
+      "bytes": 1561,
+      "sha256": "287134cdf3b3806d9a7b8d8792017ff036446f2d1cd36d9f714911d1b9674c6c",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/empty/storage-original-inputs.json",
+      "bytes": 913,
+      "sha256": "925ff356269f4a8a286caaecca059b133a777942b3aa69823441df74f04cc0d3",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/empty/storage-original-modules.json",
+      "bytes": 608,
+      "sha256": "6f420bfcb18e8b24a1e79fc0ca168769d66a5524a38609915750fca22a6af560",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/owned/contract-inputs.json",
+      "bytes": 11801,
+      "sha256": "492dc6ac4222852a56b3dd43b934c77b5b4cc5b894bd0e3503ad190e51705d26",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/owned/contract-ownership.json",
+      "bytes": 1949,
+      "sha256": "d7e5f205100e9e63c8295995f130b1311581ad9f51b8a6a6efeca850f24cdecf",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/owned/storage-original-exports.json",
+      "bytes": 3177,
+      "sha256": "aa8605dc83ead9844b879a8396b3a67d67a7495f0781839cf9c8e1f26054a138",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/owned/storage-original-inputs.json",
+      "bytes": 2369,
+      "sha256": "2ad204293455137d6db7037621eb73740fe5b38de9e36fd2e6900494f2031f4d",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/owned/storage-original-modules.json",
+      "bytes": 600,
+      "sha256": "26ab0791cc56c6fa17c7b0448e46302ead0c9ea01f97e7be7e4e07349e6d9ddb",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/replacement-root.json",
+      "bytes": 335,
+      "sha256": "7ec5e48166245c79362ba309698fbac5752cc7c6ad06452c0be98f33ded087d5",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/source-input-provenance.json",
+      "bytes": 464,
+      "sha256": "7360d59714c61e997fbe29a2233f3fdc3e222b0bdc97cce457bde62322e09abf",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/storage-original-exports.json",
+      "bytes": 2153,
+      "sha256": "36a43953cddd324edf215b55d3bbb6960baa8164b4416b834e3d268d74088356",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/storage-original-inputs.json",
+      "bytes": 1264,
+      "sha256": "ca73c8ac7f3cdcddf2b072f7d5d8f21178e96782c09c4fe7fd9867571adbc302",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/storage-original-modules.json",
+      "bytes": 1620,
+      "sha256": "5769ccb46b568e30b3e16efdabc2f45dc537e39cbbb6061343c26e8608284cc6",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/unit-inputs.json",
+      "bytes": 3846,
+      "sha256": "0583e07207976bfcc04a6b8c611233fb5534dfedba853e9772032616b06c7874",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/result.json",
+      "bytes": 3794,
+      "sha256": "1287c4b36f2c242ef30c713e229eeca70012865b8364202723152de2201ad2ba",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/stdout.log",
+      "bytes": 5910,
+      "sha256": "ddc4d041793ffbc0f41b63eefe77a2060965ceab50280b18f394075bb2828214",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/inputs.json",
+      "bytes": 316898,
+      "sha256": "aef145b1baf30badbc0db381027ea69cf4202960ea3988fdbac508041c9ad713",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/inputs.tar.gz",
+      "bytes": 18294760,
+      "sha256": "0804e1e05eaf6ce8fb4a0ccd252eaf714dbbd35b63c284f1a9d7630a5ef77698",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/native-originals/contract-inputs.json",
+      "bytes": 11801,
+      "sha256": "f1dc4f8fb9e84d69d56bf50f3d6dff0ecd623f1524744d18e581904caba51ec5",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/native-originals/contract-ownership.json",
+      "bytes": 1949,
+      "sha256": "d7e5f205100e9e63c8295995f130b1311581ad9f51b8a6a6efeca850f24cdecf",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/native-originals/storage-original-exports.json",
+      "bytes": 3185,
+      "sha256": "b3c11c60a7537712756dd60b2083a986b0a152f3f5454ddcaa63cefa9229dc16",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/native-originals/storage-original-inputs.json",
+      "bytes": 2372,
+      "sha256": "b9671e8200e36604885d08b7b5c6fa9d83a12004a52a30caed9d815f503b197d",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/native-originals/storage-original-modules.json",
+      "bytes": 604,
+      "sha256": "86d6e27513510d157a44882048c631b544b24617fb4c4667958b3bfeaf5dc3a2",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/result.json",
+      "bytes": 3772,
+      "sha256": "b03204c00f5782c00bf659080390689a060512ad633896fefdf460f43531f2c0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/stdout.log",
+      "bytes": 5954,
+      "sha256": "80acda3bad64d8dad5c0b32172d98d07b3dc4c930d81498f6f28e4259511cdf8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/preserve-originals.py",
+      "bytes": 5033,
+      "sha256": "73c26b300c9394b792d24e100da069c0afaec6303e1e378f2f5638859681dd07",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/review-first-attempt/driver.py",
+      "bytes": 8012,
+      "sha256": "27a84da4049ae1610dcaa40b05b962be98a83f465a9cc2bdee378fab40a2d748",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/review-first-attempt/observed-result.json",
+      "bytes": 687,
+      "sha256": "f05a786387857bb7e17ba20d1b2f9d2a895c8c6f549686013f60be8c3dbba3de",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/review-inputs.py",
+      "bytes": 8227,
+      "sha256": "5fadcd68928f1ad7e8b10f94839ac9e768bfb6d84290fd91861fce89d7bf238b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/run.py",
+      "bytes": 6573,
+      "sha256": "4cdae721d7f08013f2c7d43afef79fcf00d647374f63f78da26787239dd29816",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/inputs.json",
+      "bytes": 318638,
+      "sha256": "d5ea086d9fcecab550971459a37351039bfd1f1c8bc913bd05a0c2217a3c593b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/inputs.tar.gz",
+      "bytes": 18766712,
+      "sha256": "651b73bfc84bc57524f0c179b37199327acfb264bbaaf65ff63ec710842bc59b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/observations/actual-original-contracts.json",
+      "bytes": 694,
+      "sha256": "dd1fc222054a5ad58f3812023c55f3b16fa74fa792d584d803b510bc214897f3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/observations/contract-input-byte-boundary.json",
+      "bytes": 119,
+      "sha256": "c1b06bfe3aa414b2db3f2ce69eb2e8735699c5b7255a6dafbcf6dba3e7c8f8fa",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/observations/contract-input-controls.json",
+      "bytes": 1542,
+      "sha256": "32fd92a39205831ff404e6fb86c91c2ce9514da77b27815ee585de5546e6d753",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/observations/default-contract-inputs.json",
+      "bytes": 161,
+      "sha256": "7d08c75ce71bae3502eeba7a8ecdfe0bd255c2edd3ba7179fb8264fde7ff19d2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/result.json",
+      "bytes": 3130,
+      "sha256": "36ffe964c8f7132bc00beebcd24842a0d2aba664a19d34f1f05842cbdfc5ee08",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/stderr.log",
+      "bytes": 375,
+      "sha256": "e43fe38ff16dc5e01e5d8bd0bb77d1add9b2db8d17a761810421e3972edc92fc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/stdout.log",
+      "bytes": 819,
+      "sha256": "01bb823c48001c98477a649783ce471a53d5c41b5b78bdbe8d316bb0379e50e4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/snapshot-storage/manifest.json",
+      "bytes": 28757050,
+      "sha256": "e34adce48fcd4ca3f7e9f3c5b18d27ec4e557d2d7c4efe7f3a7329d4fd3def73",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/snapshot-storage/part-000.hex",
+      "bytes": 8388609,
+      "sha256": "a379fcb67427fdddbb17abe7b6ae9884e674d78214e6d80354b5262e939a01a9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/snapshot-storage/part-001.hex",
+      "bytes": 8388609,
+      "sha256": "4b0c5c8ba0dd5b784a12f0d452d87d36a70b4ae6c6ff52a5409c2b6027bb2276",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/snapshot-storage/part-002.hex",
+      "bytes": 8388609,
+      "sha256": "a0bf8de1c83d0b3de2eba1751be80b21cfab490a0fd92e8953e8b7c516cf4d84",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/snapshot-storage/part-003.hex",
+      "bytes": 8388609,
+      "sha256": "232cdcea67e278d32ff7c97c8793b739083990508b00dfadbe17288381c15025",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/snapshot-storage/part-004.hex",
+      "bytes": 5682849,
+      "sha256": "faba37bac9249f493f86a670b6a6f92fc2aab235ba9a38ad72ecc3d0e2c16b79",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/toolchain/official-selected.json",
+      "bytes": 232,
+      "sha256": "bc889972eeef80a5b099bb8f32f22009169ce1aca1c0bdd80d40e78776b19e43",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/toolchain/official-versions.json",
+      "bytes": 2256879,
+      "sha256": "6b83804b8dd2d6052bb93cc03e4aba2ddee834f82c15f7bf8faacf5f91825950",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/toolchain/receipt.json",
+      "bytes": 1290,
+      "sha256": "b1514d180f9fb75a2ef1cd451f284bb2be300b5b47315e4de3e9fc6f688aa083",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/verification.json",
+      "bytes": 9878,
+      "sha256": "6aac99bce1cb451c6dd9fc03869696b53ca6a1bdee3cd13f2107ac56156d9f27",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_contract_inputs.go",
+      "bytes": 3220,
+      "sha256": "8917ac2ed12fdf629696300a969eb2f2a47ece479828260d82ce79fbb4b64dbc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_contract_inputs_test.go",
+      "bytes": 7601,
+      "sha256": "fc4aaebe1033dac5643f839909255da4682d7ac906f601c7b35d12ce840e8909",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_inputs.go",
+      "bytes": 5224,
+      "sha256": "cfceae93273c0e6d227a248c4df1513e597d492116952f4a4f3f4dedbbd63fdf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_storage_test.go",
+      "bytes": 20250,
+      "sha256": "82e2ec9b26d0d7d11ee7349da609fba0a88eafb2f9e03a42c52dd166ccde4e8f",
+      "mode": 420
+    }
+  ],
+  "new_findings": [
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/build-original/inputs.tar.gz",
+      "line": 60546,
+      "excerpt_hex": "4815232d363046"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/contracts/inputs.tar.gz",
+      "line": 69345,
+      "excerpt_hex": "6a3c43"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/contracts/inputs.tar.gz",
+      "line": 69968,
+      "excerpt_hex": ""
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-check/inputs.tar.gz",
+      "line": 14680,
+      "excerpt_hex": "7e50142856"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-check/inputs.tar.gz",
+      "line": 35638,
+      "excerpt_hex": "2f31101a2e4c61c3aa56084b5a202c69754043686d602351412e16742e7473505e57574a1565debb156a252dc58a55797073"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-check/inputs.tar.gz",
+      "line": 53317,
+      "excerpt_hex": "6e"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-check/inputs.tar.gz",
+      "line": 60503,
+      "excerpt_hex": "7d19514a59073a56c7ac195f31033428d78b685e7f4fdfa86f516f02460f77757a39"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-child-first/inputs.tar.gz",
+      "line": 60546,
+      "excerpt_hex": "4815232d363046"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-final/inputs.tar.gz",
+      "line": 46461,
+      "excerpt_hex": "33663b6c19546b71"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-final/inputs.tar.gz",
+      "line": 88262,
+      "excerpt_hex": "1b03d8be53335c203f"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-final/inputs.tar.gz",
+      "line": 141827,
+      "excerpt_hex": "004361722c2e2462cd95203b132573"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-final/inputs.tar.gz",
+      "line": 149683,
+      "excerpt_hex": "4e3437465a351574005d7e07185a03407805725f7937000603402f543802"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/format-original/inputs.tar.gz",
+      "line": 21005,
+      "excerpt_hex": "004e5e"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-check/inputs.tar.gz",
+      "line": 14680,
+      "excerpt_hex": "7e50142856"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-check/inputs.tar.gz",
+      "line": 35638,
+      "excerpt_hex": "2f31101a2e4c61c3aa56084b5a202c69754043686d602351412e16742e7473505e57574a1565debb156a252dc58a55797073"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-check/inputs.tar.gz",
+      "line": 53317,
+      "excerpt_hex": "6e"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-check/inputs.tar.gz",
+      "line": 60503,
+      "excerpt_hex": "7d19514a59073a56c7ac195f31033428d78b685e7f4fdfa86f516f02460f77757a39"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-final/inputs.tar.gz",
+      "line": 46461,
+      "excerpt_hex": "33663b6c19546b71"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-final/inputs.tar.gz",
+      "line": 88262,
+      "excerpt_hex": "1b03d8be53335c203f"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-final/inputs.tar.gz",
+      "line": 141827,
+      "excerpt_hex": "004361722c2e2462cd95203b132573"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-format-final/inputs.tar.gz",
+      "line": 149683,
+      "excerpt_hex": "4e3437465a351574005d7e07185a03407805725f7937000603402f543802"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-vet/inputs.tar.gz",
+      "line": 14680,
+      "excerpt_hex": "7e50142856"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-vet/inputs.tar.gz",
+      "line": 35638,
+      "excerpt_hex": "2f31101a2e4c61c3aa56084b5a202c69754043686d602351412e16742e7473505e57574a1565debb156a252dc58a55797073"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-vet/inputs.tar.gz",
+      "line": 53317,
+      "excerpt_hex": "6e"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/go-vet/inputs.tar.gz",
+      "line": 60503,
+      "excerpt_hex": "7d19514a59073a56c7ac195f31033428d78b685e7f4fdfa86f516f02460f77757a39"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/legacy/inputs.tar.gz",
+      "line": 14680,
+      "excerpt_hex": "7e50142856"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/legacy/inputs.tar.gz",
+      "line": 35638,
+      "excerpt_hex": "2f31101a2e4c61c3aa56084b5a202c69754043686d602351412e16742e7473505e57574a1565debb156a252dc58a55797073"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/legacy/inputs.tar.gz",
+      "line": 53317,
+      "excerpt_hex": "6e"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/legacy/inputs.tar.gz",
+      "line": 60503,
+      "excerpt_hex": "7d19514a59073a56c7ac195f31033428d78b685e7f4fdfa86f516f02460f77757a39"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/lint/inputs.tar.gz",
+      "line": 14680,
+      "excerpt_hex": "7e50142856"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/lint/inputs.tar.gz",
+      "line": 35638,
+      "excerpt_hex": "2f31101a2e4c61c3aa56084b5a202c69754043686d602351412e16742e7473505e57574a1565debb156a252dc58a55797073"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/lint/inputs.tar.gz",
+      "line": 53317,
+      "excerpt_hex": "6e"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/lint/inputs.tar.gz",
+      "line": 60503,
+      "excerpt_hex": "7d19514a59073a56c7ac195f31033428d78b685e7f4fdfa86f516f02460f77757a39"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/inputs.tar.gz",
+      "line": 14680,
+      "excerpt_hex": "7e50142856"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/inputs.tar.gz",
+      "line": 35638,
+      "excerpt_hex": "2f31101a2e4c61c3aa56084b5a202c69754043686d602351412e16742e7473505e57574a1565debb156a252dc58a55797073"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/inputs.tar.gz",
+      "line": 53317,
+      "excerpt_hex": "6e"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/inputs.tar.gz",
+      "line": 60503,
+      "excerpt_hex": "7d19514a59073a56c7ac195f31033428d78b685e7f4fdfa86f516f02460f77757a39"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/inputs.tar.gz",
+      "line": 69345,
+      "excerpt_hex": "6a3c43"
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/inputs.tar.gz",
+      "line": 69968,
+      "excerpt_hex": ""
+    },
+    {
+      "matcher_id": "token-gir-prose",
+      "owner": "GO-VIR-02-T12",
+      "path": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/inputs.tar.gz",
+      "line": 50416,
+      "excerpt_hex": "6c30c7a6"
+    }
+  ],
+  "unchanged_basis_findings": [],
+  "links": [
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "09_go_practical_subset_design.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "09_go_practical_subset_design-todo.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../specs/LANGUAGE_SUPPORT_SCOPE_V1.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/archive/java-03-t10-native-receipt.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w01/baseline-selection.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w01/entry-audit.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/entry_audit.py",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/test_entry_audit.py",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/host-toolchain.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/provision_host_toolchain.py",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/module_probe.go",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/run_module_probes.py",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/module-cases.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w02/module-probes.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w02/module-matrix.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w02/offline-snapshot-contract.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/check_module_report.py",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/test_module_report.py",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w02/preliminary-findings.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/main.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/run_proof_pilot.py",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/check_proof_report.py",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/test_proof_report.py",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/pilot-corrected/observations.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/natural.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/natural-conservation/observations.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/word-conservation-model.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/word-initial/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/word-initial/observations.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/balanced-words/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/tree-initial/observations.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/tree-initial/projection-attempt/observations.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/fold.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/prefix-sums/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/prefix-initial/observations.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/fold/signed_prefix.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/signed-prefix-sums/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/order.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/order/path.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/order-guards/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/order_reference.go",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/fold/continuation.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/continuation-initial/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/continuing-prefixes/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/quote_reference.go",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/run.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/quote.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/halting-returns/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/byte-tails/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/byte_reference.go",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/byte-initial/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/coverage.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/index-bounds/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/index_reference.go",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/slice-stores/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/slice_reference.go",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/slice-initial/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/local-resource-host.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/embedding.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/slice-access/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/access_reference.go",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/access_differential.py",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/model.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/preservation.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/readable.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/reslicing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/reslice_reference.go",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/reslice_differential.py",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/reslice-initial/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/bulk-copy/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/copy_reference.go",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/copy_differential.py",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/construction/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/stringop/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/affix/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/affix-initial/scope.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/affix-initial/fuel/scope.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/affix-certificates/Cargo.toml",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/aggregate/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../probes/go-practical/aggregate-certificates/src/aggregate.rs",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/aggregate-initial/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/feasibility-exit-audit.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/control-induction/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/feasibility-exit-audit.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/sequential-resources/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/completion-audit.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w03/feasibility-exit-audit.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/type-error-zero-decisions.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/source-vectors.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/scope-observations/observations.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/scope-observations/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/operation-table.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/operation-loop-decisions.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/evaluation-observations/observations.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/evaluation-observations/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/nat-termination/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/nat-type-selection-initial/observations.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/nat-termination/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/variant-termination/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/variant-termination/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/overlay-contracts/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/overlay-contracts/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/storage-views/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/storage-views/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/storage-lifetimes/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/storage-lifetimes/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/source-admission/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/source-admission/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/structural-limits/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/structural-limits/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/identity-dag/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/identity-dag/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/context-protocol/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/context-protocol/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/foundation-limits/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/foundation-limits/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/closed-carriers/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/closed-carriers/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/contract-wire/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/contract-wire/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/operation-signatures/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/operation-signatures/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/vir-body/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/vir-body/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/shared-vir/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/shared-vir/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/capture-artifacts/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/capture-artifacts/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/proof-artifacts/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/proof-artifacts/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/word-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/word-foundation/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/word-numeric-bridge/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/word-numeric-bridge/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/ordinary-arithmetic/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/ordinary-arithmetic/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/word-arithmetic/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/word-arithmetic/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/frontend-envelope/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/frontend-envelope/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/policy-api/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/policy-api/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/api-contracts/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/api-contracts/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/ai-explanation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/ai-explanation/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/release-contracts/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/release-contracts/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/program-binding/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/consumer-review/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w04/completion-audit.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/source-feasibility-review.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/check-fast-result.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/source-kind/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/check-fast-result.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/json-boundary-epochs/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-boundary-repair/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-diagnosis/result.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/structural-boundary-epochs/manifest.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-diagnosis/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/json-numeric-capacity-epochs/manifest.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/aggregate-preservation-epochs/manifest.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/full-gate-live-profile/observation.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-diagnosis/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-option-core-repair/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/archive-git-audit.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/current-proof-inputs/manifest.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-diagnosis/exact-original-failure-diff.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/control-preservation-epochs/refined-manifest.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-repair/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-diagnosis/exact-response-operands-audit.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/decimal-clause-response-echo/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/runtime-normal/result.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-diagnosis/result.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/retained-csharp/fixed-codec-clause-request-echo/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-diagnosis/result.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/failure-analysis.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/binding-origin-analysis.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/go-development-gate/amendment.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/go-development-gate/routing-check.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/go-development-gate/previous-selected-runtime.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/go-development-gate/source320-disposition.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/verification/go-development-gate/run/result.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t01-w05/completion-audit.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/requirements.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../../go-tools/go2vir/practical_source.go",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/rooted-capture/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/rooted-capture/verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/module-inputs/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/ordinary-boolean/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/module-archives/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/module-snapshots/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/module-resolution/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/compiler-image/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/analysis-inputs/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/core-interfaces/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-order/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-division/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-signed-product/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-signed-magnitude/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-signed-bounds/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-zero/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-signed-division/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-signed-refinement/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-signed-division-bounds/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-conversions/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-shifts/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-shift-count-bounds/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/sealed-namespace/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-signed-order/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-signed-equality/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/archive-ownership/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/product-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-analysis/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/product-foundation/foundation-assembly-probe/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/product-relations/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-syntax/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-packages/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/standard-sources/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/replay-image/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/namespace-view/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/image-consumer/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/native-observation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../specs/LANGUAGE_SUPPORT_SCOPE_V1.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-rust-only/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/original-packages/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/sequence-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/finite-vector-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/word-index-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/string-constants/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/string-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/string-validity/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/string-normalization/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/string-equality/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/string-order/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/string-order-bounded/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/string-slice/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/string-concat/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/string-affix/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/array-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/array-equality/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/slice-descriptor/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/storage-lens/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/storage-source/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/type-keys/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/go-lex/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/go-parse/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-declarations/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-scopes/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-constants/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-types/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-signatures/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/scalar-typing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/value-typing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/slice-builtins/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/method-typing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/assignment-typing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/return-typing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/body-typing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/aggregate-constants/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-closure/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-selection/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-directives/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/error-boxings/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-domains/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/error-dispatch/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-overlays/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/contract-expressions/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/contract-modules/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/error-values/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/error-layouts/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-error-layouts/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-error-boxings/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-error-operations/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-error-cases/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-error-selector/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-error-receiver/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-error-representation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-value-relations/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-strings/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-string-indices/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-string-lengths/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-rust-only/current-documentation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-string-operations/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-execution/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-invocations/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-inputs/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-rust-only/remaining-plan-directions/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/execution-histories/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/source-entries/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/docs/go-practical-implementation-traceability-ledger.md",
+      "target": "../migrations/go-practical/t02-w01/verification/contract-inputs/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "../../../specs/LANGUAGE_SUPPORT_SCOPE_V1.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "requirements.json",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/rooted-capture/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/module-inputs/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/ordinary-boolean/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/module-archives/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/module-snapshots/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/module-resolution/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/compiler-image/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/analysis-inputs/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/core-interfaces/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/natural-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/integer-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/range-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-numeric/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-arithmetic/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-order/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-division/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-signed-product/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-signed-magnitude/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-signed-bounds/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-zero/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-signed-division/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-signed-refinement/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-signed-division-bounds/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-conversions/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-shifts/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-shift-count-bounds/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/sealed-namespace/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-signed-order/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-signed-equality/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/archive-ownership/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/product-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/product-foundation/foundation-assembly-analysis/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-syntax/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-packages/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/standard-sources/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/replay-image/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/namespace-view/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/image-consumer/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/native-observation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/original-packages/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/sequence-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/finite-vector-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/word-index-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/string-constants/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/string-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/string-validity/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/string-normalization/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/string-equality/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/string-order/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/string-order-bounded/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/string-slice/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/string-concat/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/string-affix/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/array-foundation/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/array-equality/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/slice-descriptor/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/storage-lens/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/storage-source/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/type-keys/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/go-lex/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/go-parse/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-declarations/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-scopes/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-constants/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-types/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-signatures/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/scalar-typing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/value-typing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/slice-builtins/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/method-typing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/assignment-typing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/return-typing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/body-typing/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/aggregate-constants/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-closure/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-selection/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-directives/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/error-boxings/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-domains/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/error-dispatch/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-overlays/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/contract-expressions/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/contract-modules/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-value-relations/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-strings/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-string-indices/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-string-lengths/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-string-operations/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-execution/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-invocations/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-inputs/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/execution-histories/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/source-entries/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/README.md",
+      "target": "verification/contract-inputs/README.md",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/README.md",
+      "target": "verification.json",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/README.md",
+      "target": "inspection/result.json",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/README.md",
+      "target": "snapshot-storage/manifest.json",
+      "exists": true
+    },
+    {
+      "source": "develop/migrations/go-practical/t02-w01/verification/contract-inputs/README.md",
+      "target": "input-review.json",
+      "exists": true
+    }
+  ],
+  "exact_archive_storage": {
+    "status": "passed",
+    "complete_original_files": 54856,
+    "complete_original_bytes": 435872068,
+    "all_original_paths_bytes_and_modes_exact": true,
+    "regenerated_or_recompiled": false
+  },
+  "archive_storage_manifest": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/snapshot-storage/manifest.json",
+    "bytes": 28757050,
+    "sha256": "e34adce48fcd4ca3f7e9f3c5b18d27ec4e557d2d7c4efe7f3a7329d4fd3def73",
+    "mode": 420
+  },
+  "independent_inspection": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/inspection/result.json",
+    "bytes": 2578,
+    "sha256": "6d74d069a3ce846f5e62783f35e2191c8420d08466c6cd7cce25392933327e30",
+    "mode": 420
+  },
+  "complete_snapshot_members_verified_and_scanned": 54856,
+  "full_gate": "Deferred to final T02-W04. All original failures remain, without a new seal, exclusion or narrowed test/cap."
+}

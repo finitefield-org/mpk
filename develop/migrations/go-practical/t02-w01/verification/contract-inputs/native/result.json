@@ -1,0 +1,90 @@
+{
+  "status": "failed",
+  "command": [
+    "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "test",
+    "-json",
+    "-count=1",
+    "-timeout=40m",
+    "-run",
+    "^(TestPracticalContractInputs.*|TestPracticalSourceInputsRequireOriginalOwner|TestPracticalSourceInputsKeepOriginalReplacementPackage)$"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "GOROOT": "/private/tmp/mpk-go125-20261025-download/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-contract-inputs-179-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-contract-inputs-179-mod",
+    "MPK_GO_PRACTICAL_SYNTAX_EVIDENCE": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/native-originals"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/inputs.json",
+    "bytes": 316898,
+    "sha256": "aef145b1baf30badbc0db381027ea69cf4202960ea3988fdbac508041c9ad713",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/run.py",
+    "bytes": 6409,
+    "sha256": "6474ee99464fd4dc30f432ba9e04d2dd9e95bc573c04e73c1e2fcf0dc970a2f6",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-24T16:19:49.559389+00:00",
+  "selection_reason": "New same-owner complete source/contract handoff, strict independent import and direct contract derivation. Native whole original packages retain unselected bodies and sidecars after original paths/image retirement. Source-only component bytes are unchanged. Recheck its source-input and contract-module consumers; do not repeat unchanged kernels, mathematical proof matrices or unrelated frontends.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "go_tool": {
+    "path": "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "bytes": 14117888,
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "mode": 493
+  },
+  "exit_code": 1,
+  "seconds": 132.75006466699415,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/stdout.log",
+    "bytes": 5954,
+    "sha256": "80acda3bad64d8dad5c0b32172d98d07b3dc4c930d81498f6f28e4259511cdf8",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-24T16:22:02.319969+00:00"
+}

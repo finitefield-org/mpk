@@ -1560,3 +1560,19 @@ assembly, all169 demands, private context/capture/descriptor/registry integratio
 native Linux gates and remaining T02-T11 remain due. R01/R06/W01 stay open,
 the practical profile stays inactive, and the cumulative T02 gate stays final
 W04: `./scripts/check-fast.sh`. Go and Rust remain the only source languages.
+
+
+## Owned source and contract handoff
+
+The [contract-input checkpoint](verification/contract-inputs/README.md) joins
+the original source-only packet and every captured raw sidecar under one owned
+package universe. The strict independent consumer uses that exact source and
+annotation set, retains unselected annotations and derives explicit defaults
+when no raw sidecar exists. Complete saved-inventory integrity, original raw
+identities, copy/lifetime ownership and frozen byte/count bounds are checked.
+All14 affected Rust roots and6 actual Go roots pass, with independent complete
+original-byte/hash/native-membership inspection and scoped lint/vet/formats.
+The original failed collection epoch and all failed/final raw snapshots remain
+losslessly preserved. Self-hashed input provenance does not authenticate a
+launcher or installed context. Full foundation/program/context work and
+R01/R06/W01 remain open; the cumulative T02 gate remains final W04.

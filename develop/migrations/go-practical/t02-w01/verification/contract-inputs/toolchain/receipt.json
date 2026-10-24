@@ -1,0 +1,29 @@
+{
+  "status": "verified",
+  "metadata_url": "https://go.dev/dl/?mode=json&include=all",
+  "metadata_sha256": "6b83804b8dd2d6052bb93cc03e4aba2ddee834f82c15f7bf8faacf5f91825950",
+  "archive_url": "https://go.dev/dl/go1.25.0.darwin-arm64.tar.gz",
+  "archive": {
+    "path": "/private/tmp/mpk-go125-20261025-download/go1.25.0.darwin-arm64.tar.gz",
+    "bytes": 57906112,
+    "sha256": "544932844156d8172f7a28f77f2ac9c15a23046698b6243f633b0a0b00c0749c"
+  },
+  "pinned_version": "go1.25.0",
+  "sdk": "/private/tmp/mpk-go125-20261025-download/go",
+  "distribution_bytes_retained_locally": true,
+  "native_Linux_release_claim": false,
+  "preparation_observations": [
+    {
+      "command": "urllib.request.urlopen official metadata",
+      "status": "failed",
+      "error": "ssl.SSLCertVerificationError: certificate verify failed: unable to get local issuer certificate",
+      "correction": "Use macOS system curl with normal TLS verification; no verification bypass."
+    },
+    {
+      "command": "Check downloaded archive size/hash before curl returned terminal",
+      "status": "failed",
+      "error": "AssertionError",
+      "correction": "Waited for the same curl process to complete; then the exact size and SHA256 matched. No incomplete archive was extracted or executed."
+    }
+  ]
+}

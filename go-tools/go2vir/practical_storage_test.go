@@ -26,6 +26,10 @@ func practicalStorageTestOwner(t *testing.T, files map[string][]byte) (*practica
 }
 func practicalStorageTestOwnerForPackage(t *testing.T, files map[string][]byte, requested string) (*practicalOriginalPackages, map[string]practicalSourceBuffer) {
 	t.Helper()
+	return practicalStorageTestOwnerWithOverlays(t, files, requested, nil)
+}
+func practicalStorageTestOwnerWithOverlays(t *testing.T, files map[string][]byte, requested string, overlays []string) (*practicalOriginalPackages, map[string]practicalSourceBuffer) {
+	t.Helper()
 	compiler := practicalPackageTestCompiler(t)
 	roots, _ := practicalTestCaptureRoots(t)
 	roots = append(roots, practicalSourceRoot{Capability: "original-go-sdk", Directory: compiler.selection.GoRoot})
@@ -35,6 +39,11 @@ func practicalStorageTestOwnerForPackage(t *testing.T, files map[string][]byte, 
 	}
 	retainPracticalSyntaxEvidence(t, "storage-original-inputs.json", map[string]any{"roots": roots, "whole_original_sources": files})
 	session := practicalTestSession(t, roots)
+	for _, name := range overlays {
+		if _, err := session.readSource(roots[0].Capability, name, "overlay"); err != nil {
+			t.Fatal(err)
+		}
+	}
 	discovery, err := session.discoverPracticalModules(main, cache, compiler.selection)
 	if err != nil {
 		var failure *practicalGoDiscoveryFailure
