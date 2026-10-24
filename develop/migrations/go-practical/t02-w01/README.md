@@ -1625,3 +1625,18 @@ zero/70-case original units and all32 call-proof bytes remain unchanged.
 Private input linkage supplies no installed capture/context or program proof.
 R01/R06/W01 stay open; the profile stays inactive and the cumulative T02 gate
 remains final W04. Go/Rust only.
+
+
+## Complete snapshots in another checkout
+
+The [portable snapshot component](verification/portable-snapshots/README.md)
+fixes restoration after checkout relocation while preserving original absolute
+origins as immutable provenance. All77,162 original files and696,793,808 bytes
+restore with exact relative paths and modes. Both actual Rust consumer binaries
+are recompiled in the new directory and all9 roots pass from zero pre-restored
+snapshot files. Both complete original source units,43 roots each, zero/70-error
+universes and all32 proof byte streams remain unchanged. Fifteen focused path,
+corruption and link controls pass. Original failures and every consumed helper
+epoch remain retained. This host check does not establish native Linux release
+execution or canonical capture/context authority. R01/R06/W01 stay open; the
+profile stays inactive and the cumulative T02 gate remains final W04. Go/Rust only.

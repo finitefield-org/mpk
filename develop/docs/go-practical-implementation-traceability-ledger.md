@@ -8550,3 +8550,32 @@ state/storage/frame/callee/program proofs, all56 foundation families/all169
 demands, native Linux gates and remaining T02-T11 remain due. R01/R06/W01 stay
 open; the practical profile stays inactive. The cumulative T02 gate remains
 final W04: `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 183. T02-W01 complete original snapshot restoration after relocation
+
+The [portable snapshot component](../migrations/go-practical/t02-w01/verification/portable-snapshots/README.md)
+fixes the actual original helper's failure when its complete storage is moved
+to another directory. Historical absolute origins remain immutable provenance;
+restore destinations use canonical relative member paths under the current root.
+All archive chunks, original bytes/hashes/modes and member identities stay
+checked. Linked paths and corrupt existing originals reject without replacement.
+The original failed copy and every consumed helper epoch remain preserved.
+
+The actual two direct Rust consumers are recompiled in a complete relocated
+workspace with zero restored snapshot copies before launch. All9 roots pass.
+Automatic restoration and independent full-file inspection agree on all77,162
+original files,696,793,808 bytes, exact relative paths and modes. The complete
+historical manifest and all encoded storage chunks remain byte-identical; both
+source workspaces remain unchanged while running. Both complete original source
+units retain43 roots each, zero/70-error universes and every byte of32 prior proof
+streams. All15 focused controls and changed Python syntax checks pass.
+
+Only Python restoration code changes. Unchanged Go/Rust production/native/core
+checks are retained without repetition. Host compilation/test/full-file inspection
+takes240.95 seconds; no native Linux release resource claim follows. Canonical
+capture/context/descriptor/registry and launcher authority, complete module/build/
+compiler roles, source/IR/state/storage/frame/callee/program proofs, all56
+foundation families/all169 demands, native Linux gates and remaining T02-T11
+remain due. R01/R06/W01 stay open; the practical profile stays inactive. The
+cumulative T02 gate remains final W04: `./scripts/check-fast.sh`. Go/Rust only.

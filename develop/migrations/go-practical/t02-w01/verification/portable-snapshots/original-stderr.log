@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/private/tmp/mpk-portable-snapshot-183-original/preserve-originals.py", line 83, in <module>
+    print(json.dumps(verify(json.loads((OUT/'manifest.json').read_bytes()),sys.argv[1:]==['--restore'])))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mpk-portable-snapshot-183-original/preserve-originals.py", line 31, in verify
+    packed=archive(record);count=0
+           ^^^^^^^^^^^^^^^
+  File "/private/tmp/mpk-portable-snapshot-183-original/preserve-originals.py", line 23, in archive
+    assert seal(path)==item['encoded']
+AssertionError
