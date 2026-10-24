@@ -8462,3 +8462,46 @@ and source/IR/state/storage/frame/callee/program proofs, all56 foundation
 families/all169 demands, native Linux release gates and remaining T02-T11
 stay due. R01/R06/W01 remain open; the practical profile stays inactive. The
 cumulative T02 gate remains final W04: `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 181. T02-W01 owned physical original function selection
+
+The [physical-selection component](../migrations/go-practical/t02-w01/verification/selection-inputs/README.md)
+binds exact original package/source/whole function byte spans to the complete
+owned source/sidecar handoff under one owner lock. Original native function
+membership, count, duplicates and byte boundaries are checked; returned bytes
+remain independent through caller mutation and owner retirement. The strict
+independent parser resolves its own FuncDecl node identities. Contract analysis
+accepts no replacement roots/source/annotations and shares the existing named
+consumer's complete closure/contract construction and file-language guards.
+
+All22 affected Rust roots,8 actual Go roots/2 subtests, strict Clippy, Go vet,
+changed-file formats and Go1.23 zero-test compilation pass. Distinct receiver
+methods with the same name and cross-package calls retain their actual source.
+Both complete prior source units retain every original byte and all43 roots
+each. Existing consumers keep the complete zero/70-error universes and replay
+all32 original proof certificate byte streams. All8192 distinct actual original
+functions derive8192 contract candidates and expression nodes;8193 rejects.
+Nine native/15 independent controls plus missing original source/sidecar cases
+reject. Coherently selecting another real root yields a new untrusted candidate,
+which does not authenticate original intent or capture authority.
+
+Review identified an overbroad init-name guard. The actual pinned compiler
+builds the complete original library with an ordinary init method and a separate
+init-panic source body. The corrected producer and independent reader distinguish
+them, and physical/named method derivations are equal. Original finding/source
+hashes remain. The five new input tests took404.39 seconds together; these are
+host candidate checks and do not establish native release resources or a full
+program certificate. The same worker finished successfully before an optional
+sampling attempt; no restart occurred.
+
+Independent byte/hash/native-membership/function-position inspection checks all
+five complete packets and every boundary root. All76800 original files,
+617338538 bytes, and17 complete input containers,313050954 bytes, remain
+physically unchanged and losslessly retained with exact paths/modes. Review
+rules/seals/exclusions, premises, semantic rules and kernel caps are unchanged.
+Full canonical capture/context/descriptor/registry, source/IR/state/storage/frame/
+callee/program proofs, all56 foundation families/all169 demands, native Linux
+release gates and remaining T02-T11 stay due. R01/R06/W01 remain open; the
+practical profile stays inactive. The cumulative T02 gate remains final W04:
+`./scripts/check-fast.sh`. Go/Rust only.

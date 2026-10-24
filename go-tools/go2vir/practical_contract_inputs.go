@@ -22,6 +22,11 @@ func (owner *practicalOriginalPackages) contractInputs() (practicalContractInput
 	}
 	owner.mutex.Lock()
 	defer owner.mutex.Unlock()
+	return owner.contractInputsLocked()
+}
+
+// Caller holds the original owner lock for the complete handoff.
+func (owner *practicalOriginalPackages) contractInputsLocked() (practicalContractInputs, error) {
 	source, err := owner.sourceInputsLocked()
 	if err != nil {
 		return practicalContractInputs{}, err

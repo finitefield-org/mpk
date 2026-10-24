@@ -5,6 +5,7 @@ use serde_json::Value;
 use std::sync::Arc;
 mod expressions;
 mod module;
+pub(super) use module::derive_go_source_contract_module_at;
 pub use module::{
     derive_go_source_contract_module, GoCapturedFunctionOverlay, GoSourceContractModule,
     GoSourceContractOrigin, GoSourceFunctionContract, GoSourceFunctionLoopContract,

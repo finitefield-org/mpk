@@ -1,0 +1,21 @@
+{
+  "status": "open_at_original_review",
+  "sources": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_selection_inputs.go",
+      "bytes": 4100,
+      "sha256": "33ab954b535f726ee5369b26804610a5065d185de878fda6e142dcd447051155"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/selection_inputs.rs",
+      "bytes": 6654,
+      "sha256": "c2d3c797aef64c014e5350c91fed58bd793e68ebaa1572bf154a7c482e9cb022"
+    }
+  ],
+  "finding": "The new physical-root input boundary currently excludes every function named init. Existing Go/Rust source selection correctly excludes only package initialization functions; receiver methods named init are ordinary source functions.",
+  "primary_native_observation": "method-init-go-validity/result.json",
+  "required_fix": "Reject init only when no receiver exists; keep the full package initializer source unselected and never execute it. Add actual owned method-init input and independent importer/contract checks.",
+  "current_native_worker": "57042",
+  "source_edits_deferred_until_original_worker_terminal": true,
+  "scope_or_cap_reduction_permitted": false
+}

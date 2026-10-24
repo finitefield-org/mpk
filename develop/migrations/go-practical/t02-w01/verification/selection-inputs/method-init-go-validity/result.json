@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "exit_code": 0,
+  "seconds": 0.13396512500185054,
+  "command": [
+    "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "build",
+    "-o",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/selection-inputs/method-init-go-validity/original-package.a",
+    "."
+  ],
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go125-20261025-download/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=readonly",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOOS": "linux",
+    "GOARCH": "amd64",
+    "GOAMD64": "v1",
+    "GOCACHE": "/private/tmp/mpk-go-selection-inputs-181-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-selection-inputs-181-mod"
+  },
+  "consumed_inputs_unchanged": true,
+  "prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/selection-inputs/method-init-go-validity/prelaunch.json",
+    "bytes": 1695,
+    "sha256": "e501cea3a033a038384a157751e606bfc1a7c2cb2d88ae89ed46cfeb5eb37d59",
+    "mode": 420
+  },
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/selection-inputs/method-init-go-validity/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/selection-inputs/method-init-go-validity/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "scope": "Actual pinned Go compiler builds the complete original library package for linux/amd64. A method named init is an ordinary method; the separate package initializer source remains and is not executed. This oracle supplies no source typing or installed capture authority.",
+  "original_archive": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/selection-inputs/method-init-go-validity/original-package.a",
+    "bytes": 12450,
+    "sha256": "c117d7cc30470ebde0cb8492a1597e4a3acbbb725d44a2f845040245317ceacd",
+    "mode": 420
+  }
+}

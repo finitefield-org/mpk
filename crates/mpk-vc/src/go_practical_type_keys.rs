@@ -17,10 +17,15 @@ pub use contract_inputs::{
     GoSourceContractInputs,
 };
 mod parse;
+mod selection_inputs;
 mod source_constants;
 mod source_declarations;
 mod source_dependencies;
 mod source_inputs;
+pub use selection_inputs::{
+    import_go_source_selection_inputs, GoSourcePhysicalRoot, GoSourceSelectionInputError,
+    GoSourceSelectionInputs,
+};
 mod source_languages;
 pub use source_languages::{
     derive_go_source_languages, GoSourceFileLanguage, GoSourceLanguageError,

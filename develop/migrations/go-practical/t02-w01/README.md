@@ -1591,3 +1591,20 @@ Full original data and failed attempts are losslessly retained. Complete
 module/build/context/source-IR/program authority remains due; R01/R06/W01
 stay open and the practical profile stays inactive. The cumulative T02 gate
 remains final W04. Source-language support remains Go/Rust only.
+
+
+## Owned physical function-root inputs
+
+The [physical-selection handoff](verification/selection-inputs/README.md)
+binds original package/source/full function byte intervals to the complete
+owned source/sidecar set. Independent parsing supplies the node identities;
+contract construction accepts no replacement selectors. Same-name receiver
+methods remain distinct; package init functions reject while ordinary methods
+named init are admitted. All22 affected Rust roots,8 actual Go roots/2 subtests,
+strict lint/vet/formats and legacy compilation pass. Both unchanged complete
+zero/70-case source units retain all43 roots each and all32 call-proof bytes.
+The exact8192-function boundary passes without shrinking source or proof scope.
+Full original files, inputs and actual observations remain losslessly retained.
+This is input/contract-candidate linkage; canonical context and program proofs
+remain due. R01/R06/W01 stay open, the practical profile stays inactive and the
+cumulative T02 gate stays final W04. Go/Rust only.

@@ -1,0 +1,30 @@
+{
+  "status": "worker_completed_before_sampling",
+  "process_observation": {
+    "command": "/bin/ps -axo pid,ppid,etime,%cpu,command filtered to the current go_practical_selection_inputs executable",
+    "pid": 58355,
+    "parent_pid": 57126,
+    "elapsed": "06:41",
+    "cpu_percent": 69.3,
+    "executable": "target/debug/deps/go_practical_selection_inputs-1a4e936925997f33",
+    "arguments": [
+      "--nocapture",
+      "--test-threads=1"
+    ]
+  },
+  "sampling_command": [
+    "/usr/bin/sample",
+    "58355",
+    "2",
+    "-file",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/selection-inputs/performance/original-boundary.txt"
+  ],
+  "sampling_exit_code": 255,
+  "sampling_stderr": "sample[62787]: sample cannot examine process 58355 (with name like '58355') because it no longer appears to be running.\n",
+  "original_rust_worker": "rust/result.json",
+  "original_rust_worker_status": "passed",
+  "same_worker_restarted": false,
+  "five_selection_input_roots_seconds": 404.39,
+  "whole_22_root_command_seconds": 597.8110596249971,
+  "native_release_resource_acceptance_claimed": false
+}

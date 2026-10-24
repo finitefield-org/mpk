@@ -158,8 +158,33 @@ pub fn derive_go_source_contract_module(
     roots: &[GoSourceFunctionSelector],
     overlays: &[GoSourceOverlay],
 ) -> std::result::Result<GoSourceContractModule, GoContractTypingError> {
+    derive_contract_module(keys, Roots::Named(roots), overlays)
+}
+
+pub(in super::super) fn derive_go_source_contract_module_at(
+    keys: &GoTypeKeyComponents,
+    roots: &[GoSourceSelectionRef],
+    overlays: &[GoSourceOverlay],
+) -> std::result::Result<GoSourceContractModule, GoContractTypingError> {
+    derive_contract_module(keys, Roots::Physical(roots), overlays)
+}
+
+enum Roots<'a> {
+    Named(&'a [GoSourceFunctionSelector]),
+    Physical(&'a [GoSourceSelectionRef]),
+}
+
+fn derive_contract_module(
+    keys: &GoTypeKeyComponents,
+    roots: Roots<'_>,
+    overlays: &[GoSourceOverlay],
+) -> std::result::Result<GoSourceContractModule, GoContractTypingError> {
+    let root_count = match roots {
+        Roots::Named(r) => r.len(),
+        Roots::Physical(r) => r.len(),
+    };
     // Frozen capture candidate/input count and aggregate contract-byte limits.
-    if roots.len() > 8192
+    if root_count > 8192
         || overlays.len().saturating_add(keys.sources.len()) > 32768
         || overlays
             .iter()
@@ -173,10 +198,13 @@ pub fn derive_go_source_contract_module(
             .map_err(|e| overlay_error(failure(GoSourceOverlayErrorKind::Scope(e))))?,
     );
     let binder = Binder { keys, scopes };
-    let root_refs = roots
-        .iter()
-        .map(|r| binder.resolve(r).map_err(overlay_error))
-        .collect::<std::result::Result<Vec<_>, _>>()?;
+    let root_refs = match roots {
+        Roots::Named(roots) => roots
+            .iter()
+            .map(|r| binder.resolve(r).map_err(overlay_error))
+            .collect::<std::result::Result<Vec<_>, _>>()?,
+        Roots::Physical(roots) => roots.to_vec(),
+    };
     let mut captured = BTreeMap::new();
     let mut paths = BTreeSet::new();
     for overlay in overlays {
