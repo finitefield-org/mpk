@@ -2,7 +2,7 @@
 //! separate. Module patches are checked before language-minor normalization.
 use super::*;
 use std::cmp::Ordering;
-mod constraint;
+pub(super) mod constraint;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum GoSourceLanguageErrorKind {

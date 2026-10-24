@@ -1,0 +1,86 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_source_build",
+    "--test",
+    "go_practical_snapshot_inputs",
+    "--test",
+    "go_practical_source_languages",
+    "--test",
+    "go_practical_source_inputs",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_SNAPSHOT_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/rust/observations/snapshots",
+    "MPK_GO_SOURCE_BUILD_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/rust/observations/build",
+    "MPK_GO_SOURCE_LANGUAGES_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/rust/observations/languages",
+    "MPK_GO_SOURCE_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/rust/observations/sources"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/rust/inputs.json",
+    "bytes": 10352716,
+    "sha256": "1ef3180e4f42fea8f36fb2702aad09f8153c617e3dc6ba33ab8d96c42388e58a",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/run.py",
+    "bytes": 9926,
+    "sha256": "25cc0968fdc08478453377361741900324b8583e4884c23c46ff113a86ba9d06",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-24T19:37:48.882081+00:00",
+  "selection_reason": "Independent pinned-target filename/header eligibility guard for every claimed active original Go source. Compare exact Go1.25.0 MatchFile and binary-marker observations on all known OS/architecture/tag/header boundaries and every Go candidate in the unchanged full three original source snapshots. Exercise coherent complete rebinding controls, all original43-root units, unchanged zero/70-error domains and32 proof streams, and all150 existing file-language observations for the shared expression parser. Only affected direct Rust consumers, the two new Go oracle roots, strict affected Clippy, Go vet and formats. No whole foundation/kernel gate or retired-language tests.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 47.3693482499948,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/rust/stdout.log",
+    "bytes": 1644,
+    "sha256": "8fbedb257ed0b0a5f0e9d042173e05ff61b027c4e2320e6e3eb3ba68ab19bb53",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/rust/stderr.log",
+    "bytes": 531,
+    "sha256": "27c76c0a7d00eb3a3c661a213a434414d91fc73742996b6073d73fc9adda85f1",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-24T19:38:36.253358+00:00"
+}

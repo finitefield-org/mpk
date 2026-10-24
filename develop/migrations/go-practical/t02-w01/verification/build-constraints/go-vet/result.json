@@ -1,0 +1,85 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "vet",
+    "."
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "GOROOT": "/private/tmp/mpk-go125-20261025-download/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-build-constraints-184-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-build-constraints-184-mod"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/go-vet/inputs.json",
+    "bytes": 330011,
+    "sha256": "ed01dc07abd8118fd866e89be4e437d0150435013dce93b0d1da305a09e805d8",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/run.py",
+    "bytes": 9926,
+    "sha256": "25cc0968fdc08478453377361741900324b8583e4884c23c46ff113a86ba9d06",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-24T19:37:34.324852+00:00",
+  "selection_reason": "Independent pinned-target filename/header eligibility guard for every claimed active original Go source. Compare exact Go1.25.0 MatchFile and binary-marker observations on all known OS/architecture/tag/header boundaries and every Go candidate in the unchanged full three original source snapshots. Exercise coherent complete rebinding controls, all original43-root units, unchanged zero/70-error domains and32 proof streams, and all150 existing file-language observations for the shared expression parser. Only affected direct Rust consumers, the two new Go oracle roots, strict affected Clippy, Go vet and formats. No whole foundation/kernel gate or retired-language tests.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "go_tool": {
+    "path": "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "bytes": 14117888,
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "mode": 493
+  },
+  "exit_code": 0,
+  "seconds": 13.5296432920004,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/go-vet/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/go-vet/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-24T19:37:47.933218+00:00"
+}

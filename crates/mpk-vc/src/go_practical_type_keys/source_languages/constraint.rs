@@ -9,12 +9,12 @@ enum Op {
     Or,
     Group(bool),
 }
-fn apply(values: &mut Vec<Pair>, op: Op) -> Result<(), ()> {
+fn apply<T>(values: &mut Vec<T>, op: Op, combine: &impl Fn(T, T, bool) -> T) -> Result<(), ()> {
     let b = values.pop().ok_or(())?;
     let a = values.pop().ok_or(())?;
     values.push(match op {
-        Op::And => (a.0.max(b.0), a.1.min(b.1)),
-        Op::Or => (a.0.min(b.0), a.1.max(b.1)),
+        Op::And => combine(a, b, true),
+        Op::Or => combine(a, b, false),
         Op::Group(_) => return Err(()),
     });
     Ok(())
@@ -56,9 +56,14 @@ impl<'a> Tokens<'a> {
         Ok(&self.text[start..self.at])
     }
 }
-pub(super) fn minimum(text: &str) -> Result<Minimum, ()> {
+fn parse<T>(
+    text: &str,
+    tag: impl Fn(&str) -> T,
+    negate: impl Fn(T) -> T,
+    combine: impl Fn(T, T, bool) -> T,
+) -> Result<T, ()> {
     let mut tokens = Tokens { text, at: 0 };
-    let mut values: Vec<Pair> = vec![];
+    let mut values: Vec<T> = vec![];
     let mut ops = vec![];
     let mut operand = true;
     let mut size = 0;
@@ -80,15 +85,8 @@ pub(super) fn minimum(text: &str) -> Result<Minimum, ()> {
             if matches!(token, "" | "!" | ")" | "&&" | "||") {
                 return Err(());
             }
-            let n = if token == "go1" {
-                Some(0)
-            } else {
-                token
-                    .split_once("go1.")
-                    .and_then(|(_, v)| v.parse::<i64>().ok())
-                    .filter(|n| *n >= 0)
-            };
-            values.push(if negative { (None, n) } else { (n, None) });
+            let value = tag(token);
+            values.push(if negative { negate(value) } else { value });
             operand = false;
             continue;
         }
@@ -98,7 +96,7 @@ pub(super) fn minimum(text: &str) -> Result<Minimum, ()> {
                     break;
                 }
                 ops.pop();
-                apply(&mut values, op)?;
+                apply(&mut values, op, &combine)?;
             }
             ops.push(if token == "&&" { Op::And } else { Op::Or });
             operand = true;
@@ -111,12 +109,12 @@ pub(super) fn minimum(text: &str) -> Result<Minimum, ()> {
                     group = Some(negative);
                     break;
                 }
-                apply(&mut values, op)?;
+                apply(&mut values, op, &combine)?;
             }
             let negative = group.ok_or(())?;
             if negative {
-                let p = values.last_mut().ok_or(())?;
-                *p = (p.1, p.0);
+                let value = values.pop().ok_or(())?;
+                values.push(negate(value));
             }
             continue;
         }
@@ -124,12 +122,47 @@ pub(super) fn minimum(text: &str) -> Result<Minimum, ()> {
             return Err(());
         }
         while let Some(op) = ops.pop() {
-            apply(&mut values, op)?;
+            apply(&mut values, op, &combine)?;
         }
         return if values.len() == 1 {
-            Ok(values[0].0)
+            Ok(values.pop().unwrap())
         } else {
             Err(())
         };
     }
+}
+
+pub(super) fn minimum(text: &str) -> Result<Minimum, ()> {
+    let pair = parse(
+        text,
+        |token| {
+            let n = if token == "go1" {
+                Some(0)
+            } else {
+                token
+                    .split_once("go1.")
+                    .and_then(|(_, v)| v.parse::<i64>().ok())
+                    .filter(|n| *n >= 0)
+            };
+            (n, None)
+        },
+        |p: Pair| (p.1, p.0),
+        |a: Pair, b: Pair, and| {
+            if and {
+                (a.0.max(b.0), a.1.min(b.1))
+            } else {
+                (a.0.min(b.0), a.1.max(b.1))
+            }
+        },
+    )?;
+    Ok(pair.0)
+}
+
+pub(crate) fn evaluate(text: &str, tag: impl Fn(&str) -> bool) -> Result<bool, ()> {
+    parse(
+        text,
+        tag,
+        |value| !value,
+        |a, b, and| if and { a && b } else { a || b },
+    )
 }

@@ -36,6 +36,7 @@ struct Wire {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum GoSourceSnapshotError {
     Input(GoTypeKeyError),
+    Build(GoSourceBuildError),
     Namespace,
 }
 impl std::fmt::Display for GoSourceSnapshotError {
@@ -431,6 +432,13 @@ pub fn import_go_source_capture_inputs(
     }
     let contracts = selection.contract_inputs();
     let keys = contracts.source_inputs().components();
+    for source in keys
+        .sources
+        .values()
+        .filter(|s| s.object().kind == "go_file")
+    {
+        source_build::require_production_source(source).map_err(GoSourceSnapshotError::Build)?;
+    }
     for source in keys
         .sources
         .values()

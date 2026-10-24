@@ -24,7 +24,11 @@ pub use snapshot_inputs::{
     GoSourceSnapshotEntry, GoSourceSnapshotError, GoSourceSnapshotInputs,
     GoSourceSnapshotLookupError,
 };
+mod source_build;
 mod source_constants;
+pub use source_build::{
+    derive_go_source_build_match, GoSourceBuildError, GoSourceBuildErrorKind, GoSourceBuildMatch,
+};
 mod source_declarations;
 mod source_dependencies;
 mod source_inputs;

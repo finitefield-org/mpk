@@ -371,3 +371,206 @@ fn capture_inputs_preserve_both_complete_original_units_and_every_original_root(
         &json!({"status":"passed","units":rows,"original_zero_70_error_universes_preserved_by_original_consumer":true,"default_contracts_substituted_for_original_cases":false}),
     );
 }
+
+#[test]
+fn capture_inputs_reject_coherently_rebound_target_excluded_original_helpers() {
+    let directory = root().join("native-final/native-originals/owned");
+    let p = read("native-final/native-originals/owned/capture-inputs.json");
+    let original_sources = buffers(&p, "sources", None);
+    let original_snapshot_sources = buffers(&p, "snapshot_sources", Some(&directory));
+    let old = original_sources
+        .iter()
+        .find(|s| s.object().path == "helper/helper.go")
+        .unwrap();
+    let mut checked = vec![];
+    for (name, path, prefix) in [
+        ("windows-filename", "helper/helper_windows.go", ""),
+        ("arm64-filename", "helper/helper_arm64.go", ""),
+        ("test-filename", "helper/helper_test.go", ""),
+        (
+            "false-target-header",
+            "helper/helper.go",
+            "//go:build windows\n\n",
+        ),
+    ] {
+        let mut raw = prefix.as_bytes().to_vec();
+        raw.extend_from_slice(old.bytes());
+        let changed =
+            GoTypeSourceBuffer::new(&old.object().capability, path, "go_file", &raw).unwrap();
+        let replace = |sources: &[GoTypeSourceBuffer]| {
+            sources
+                .iter()
+                .map(|s| {
+                    if s.object().id == old.object().id {
+                        changed.clone()
+                    } else {
+                        s.clone()
+                    }
+                })
+                .collect::<Vec<_>>()
+        };
+        let mut components: Value =
+            serde_json::from_slice(&unhex(p["components_hex"].as_str().unwrap())).unwrap();
+        for object in components["source_objects"].as_array_mut().unwrap() {
+            if object["id"] == old.object().id {
+                *object = serde_json::to_value(changed.object()).unwrap();
+            }
+        }
+        components["source_objects"]
+            .as_array_mut()
+            .unwrap()
+            .sort_by(|a, b| a["id"].as_str().cmp(&b["id"].as_str()));
+        let mut package_change = None;
+        for package in components["packages"].as_array_mut().unwrap() {
+            if package["source_objects"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|id| id == &json!(old.object().id))
+            {
+                let previous = package["id"].as_str().unwrap().to_string();
+                for id in package["source_objects"].as_array_mut().unwrap() {
+                    if id == &json!(old.object().id) {
+                        *id = json!(changed.object().id);
+                    }
+                }
+                package["source_objects"]
+                    .as_array_mut()
+                    .unwrap()
+                    .sort_by(|a, b| a.as_str().cmp(&b.as_str()));
+                let mut value = package.take();
+                value.as_object_mut().unwrap().remove("id");
+                let parsed = parse_strict_json(
+                    &serde_json::to_vec(&value).unwrap(),
+                    StrictJsonLimits::new(268435456, 268435456, 64, 16777216),
+                )
+                .unwrap();
+                value["id"] = json!(hash_canonical_json(
+                    HashDomain::new("MPK-GO-TYPE-PACKAGE-2.0"),
+                    &parsed
+                )
+                .unwrap()
+                .to_hex());
+                package_change = Some((previous, value["id"].clone()));
+                *package = value;
+            }
+        }
+        let (previous, next) = package_change.unwrap();
+        for id in components["package_roots"].as_array_mut().unwrap() {
+            if id == &json!(previous) {
+                *id = next.clone();
+            }
+        }
+        components["packages"]
+            .as_array_mut()
+            .unwrap()
+            .sort_by(|a, b| a["id"].as_str().cmp(&b["id"].as_str()));
+        components["package_roots"]
+            .as_array_mut()
+            .unwrap()
+            .sort_by(|a, b| a.as_str().cmp(&b.as_str()));
+        seal(&mut components, "MPK-GO-TYPE-COMPONENTS-2.0");
+        let mut contracts: Value =
+            serde_json::from_slice(&unhex(p["envelope_hex"].as_str().unwrap())).unwrap();
+        contracts["source_components_sha256"] = components["content_sha256"].clone();
+        seal(&mut contracts, "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-1.0");
+        let mut selected: Value =
+            serde_json::from_slice(&unhex(p["selection_hex"].as_str().unwrap())).unwrap();
+        selected["source_contract_inputs_sha256"] = contracts["content_sha256"].clone();
+        for r in selected["roots"].as_array_mut().unwrap() {
+            if r["package_id"] == previous {
+                r["package_id"] = next.clone();
+            }
+        }
+        seal(&mut selected, "MPK-PRIVATE-GO-SOURCE-SELECTION-INPUTS-1.0");
+        let selection = import_go_source_selection_inputs(
+            &serde_json::to_vec(&selected).unwrap(),
+            &serde_json::to_vec(&contracts).unwrap(),
+            &serde_json::to_vec(&components).unwrap(),
+            &replace(&original_sources),
+            &buffers(&p, "overlays", None),
+        )
+        .unwrap();
+        assert_eq!(
+            selection.derive_contracts().unwrap().functions().len(),
+            2,
+            "same complete call/contract candidates"
+        );
+        let mut snapshot = wire(&p);
+        for object in snapshot["objects"].as_array_mut().unwrap() {
+            if object["id"] == old.object().id {
+                *object = serde_json::to_value(changed.object()).unwrap();
+            }
+        }
+        snapshot["objects"]
+            .as_array_mut()
+            .unwrap()
+            .sort_by(|a, b| a["id"].as_str().cmp(&b["id"].as_str()));
+        if path != old.object().path {
+            let dir = old.object().path.rsplit_once('/').unwrap().0;
+            let before = old
+                .object()
+                .path
+                .rsplit('/')
+                .next()
+                .unwrap()
+                .as_bytes()
+                .iter()
+                .map(|b| format!("{b:02x}"))
+                .collect::<String>();
+            let after = path
+                .rsplit('/')
+                .next()
+                .unwrap()
+                .as_bytes()
+                .iter()
+                .map(|b| format!("{b:02x}"))
+                .collect::<String>();
+            let d = snapshot["directories"]
+                .as_array_mut()
+                .unwrap()
+                .iter_mut()
+                .find(|d| d["capability"] == old.object().capability && d["path"] == dir)
+                .unwrap();
+            for e in d["entries"].as_array_mut().unwrap() {
+                if e["name_hex"] == before {
+                    e["name_hex"] = json!(after);
+                }
+            }
+            d["entries"]
+                .as_array_mut()
+                .unwrap()
+                .sort_by(|a, b| a["name_hex"].as_str().cmp(&b["name_hex"].as_str()));
+        }
+        reseal(&mut snapshot);
+        let snapshot = import_go_source_snapshot_inputs(
+            &serde_json::to_vec(&snapshot).unwrap(),
+            &replace(&original_snapshot_sources),
+        )
+        .unwrap();
+        assert_eq!(
+            snapshot.source_objects().len(),
+            original_snapshot_sources.len()
+        );
+        let mut record: Value =
+            serde_json::from_slice(&unhex(p["capture_hex"].as_str().unwrap())).unwrap();
+        record["selection_inputs_sha256"] = selected["content_sha256"].clone();
+        record["snapshot_inputs_sha256"] = json!(snapshot.content_sha256());
+        seal(&mut record, "MPK-PRIVATE-GO-SOURCE-CAPTURE-INPUTS-1.0");
+        let GoSourceSnapshotError::Build(error) = import_go_source_capture_inputs(
+            &serde_json::to_vec(&record).unwrap(),
+            selection,
+            snapshot,
+        )
+        .unwrap_err() else {
+            panic!("actual target exclusion: {name}")
+        };
+        assert_eq!(error.kind(), GoSourceBuildErrorKind::Excluded);
+        assert_eq!(error.source_object_id(), changed.object().id);
+        checked.push(json!({"case":name,"original_objects":original_snapshot_sources.len(),"complete_rebound_contract_functions":2,"error":error.to_string()}));
+    }
+    output(
+        "coherent-target-exclusion-controls.json",
+        &json!({"status":"passed","controls":checked,"complete_original_capture_retained":true,"source_program_proof":false}),
+    );
+}

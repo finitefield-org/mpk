@@ -8579,3 +8579,47 @@ compiler roles, source/IR/state/storage/frame/callee/program proofs, all56
 foundation families/all169 demands, native Linux gates and remaining T02-T11
 remain due. R01/R06/W01 stay open; the practical profile stays inactive. The
 cumulative T02 gate remains final W04: `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 184. T02-W01 independent fixed-target source eligibility
+
+The [build-constraint component](../migrations/go-practical/t02-w01/verification/build-constraints/README.md)
+adds a necessary original-file guard to complete capture input construction.
+Every claimed active Go source must satisfy the exact Go1.25.0 Linux/amd64
+filename, leading modern/legacy constraint, binary-only and test eligibility
+rules. Excluded and unused original bytes stay in the full captured snapshot.
+Fixed compiler/release/tool tags replace no original project source or input
+domain. Shared iterative expression parsing retains native bounds and the
+existing dual-polarity language-minimum semantics.
+
+Both actual Go oracle roots and all15 affected Rust roots pass. Actual Go/Rust
+results agree on182 boundary cases, including seven malformed modern constraint
+rejections, and all13,853 original Go/excluded-source candidates from the three
+complete unchanged snapshots. Independent inspection checks every source kind's
+raw bytes, six complete original Go source witnesses and exact18-OS/24-arch
+coverage against the pinned syslist. Four coherently resealed controls retain
+all5,490 owner objects and both call-contract candidates, then reject Windows,
+arm64, test-file and false-header claims at complete capture construction.
+
+Both unchanged complete source units keep all43 roots each, zero/70-error
+universes and every byte of32 prior proof streams. All150 original language
+observations survive parser sharing. Strict affected Clippy, Go vet and explicit
+changed-file formats pass. Nine exact source epochs retain all consumed inputs
+and raw outputs; formatter mutation is distinguished from frozen verification.
+Review rules, seals, exclusions, premises, math rules and kernel caps stay fixed.
+
+Final review exposes a test-only standalone snapshot-restoration dependency.
+The exact pre-fix reader fails one root and passes one in a complete relocated
+workspace with zero raw snapshot files. Replacing only that reader restores
+all77,162 original files/696,793,808 bytes with exact paths/modes and passes
+both affected roots. Both comparison outputs remain byte-identical. Final
+affected Clippy/format checks pass; the unchanged13 Rust roots and both Go
+oracles are retained. Actual old failure, pre-fix review and all document/driver/
+reader preimages remain preserved. No production or proof recipe changes follow.
+
+Full import/cgo classification and package membership, canonical module/build/
+compiler/export and capture/context/descriptor/registry authority, launcher
+authorization, source/IR/state/storage/frame/callee/program proofs, all56
+foundation families/all169 demands, native Linux gates and remaining T02-T11
+remain due. R01/R06/W01 stay open; the practical profile stays inactive. The
+cumulative T02 gate remains final W04: `./scripts/check-fast.sh`. Go/Rust only.

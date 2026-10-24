@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "seconds": 3.480723458000284,
+  "prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/final-consumer-checks/prelaunch.json",
+    "bytes": 316833,
+    "sha256": "ccdf54c45d19112ab96c609da0d55b9cf0b205a6dc9a66c134ba3bc6d3e09794",
+    "mode": 420
+  },
+  "runs": [
+    {
+      "command": [
+        "rustfmt",
+        "--edition=2021",
+        "--check",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/tests/go_practical_source_build.rs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_source_build",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "consumed_sources_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/final-consumer-checks/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/final-consumer-checks/stderr.log",
+    "bytes": 146,
+    "sha256": "8501ca508bee2db72df59d177e1c32ec091f4e352aaf773a644ed3fb8dc4a4b0",
+    "mode": 420
+  },
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

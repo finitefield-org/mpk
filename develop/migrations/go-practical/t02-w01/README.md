@@ -1640,3 +1640,23 @@ corruption and link controls pass. Original failures and every consumed helper
 epoch remain retained. This host check does not establish native Linux release
 execution or canonical capture/context authority. R01/R06/W01 stay open; the
 profile stays inactive and the cumulative T02 gate remains final W04. Go/Rust only.
+
+
+## Independent fixed-target source eligibility
+
+The [build-constraint component](verification/build-constraints/README.md)
+checks every claimed active Go source against original Go1.25.0 Linux/amd64
+filename and modern/legacy header rules. Complete snapshots retain every excluded
+source. Actual Go/Rust results agree on182 boundary cases and all13,853 Go source
+candidates across the three unchanged full original snapshots. All18 known OS
+and24 architecture names are covered against exact pinned source witnesses.
+All15 affected Rust roots and both actual Go oracle roots pass, with strict
+Clippy/vet/formats. Four coherent complete rebinding controls reject, while both
+43-root original units, zero/70-error universes, all150 language observations
+and every byte of32 proof streams remain. Full import/cgo/package membership,
+canonical module/compiler/export/context authority and program proofs stay due.
+The new test reader also passes both standalone roots after restoring every
+original snapshot from zero files in another checkout. Its actual old missing-
+snapshot failure stays preserved; final affected Clippy/format checks pass.
+R01/R06/W01 remain open; the profile stays inactive and the cumulative T02 gate
+remains final W04. Go/Rust only.
