@@ -1,0 +1,373 @@
+use mpk_vc::go_practical_type_keys::*;
+use mpk_vc::{hash_canonical_json, parse_strict_json, HashDomain, StrictJsonLimits};
+use serde_json::{json, Value};
+use sha2::{Digest, Sha256};
+use std::path::{Path, PathBuf};
+use std::sync::Once;
+
+fn root() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../develop/migrations/go-practical/t02-w01/verification/snapshot-inputs")
+}
+fn read(path: &str) -> Value {
+    serde_json::from_slice(&std::fs::read(root().join(path)).unwrap()).unwrap()
+}
+fn unhex(s: &str) -> Vec<u8> {
+    s.as_bytes()
+        .chunks_exact(2)
+        .map(|b| u8::from_str_radix(std::str::from_utf8(b).unwrap(), 16).unwrap())
+        .collect()
+}
+fn output(name: &str, value: &Value) {
+    if let Some(dir) = std::env::var_os("MPK_GO_SNAPSHOT_INPUTS_OUTPUT") {
+        let dir = PathBuf::from(dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        use std::io::Write;
+        std::fs::OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .open(dir.join(name))
+            .unwrap()
+            .write_all(&serde_json::to_vec_pretty(value).unwrap())
+            .unwrap();
+    }
+}
+fn small() -> Value {
+    read("native/native-originals/namespace/snapshot-inputs.json")
+}
+fn wire(p: &Value) -> Value {
+    serde_json::from_slice(&unhex(p["snapshot_hex"].as_str().unwrap())).unwrap()
+}
+fn buffers(p: &Value, field: &str, directory: Option<&Path>) -> Vec<GoTypeSourceBuffer> {
+    p[field]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|r| {
+            let raw = if let Some(hex) = r["raw_hex"].as_str() {
+                unhex(hex)
+            } else {
+                let path = directory
+                    .unwrap()
+                    .join("original-source-objects")
+                    .join(r["raw_file"].as_str().unwrap());
+                if !path.is_file() {
+                    static RESTORE: Once = Once::new();
+                    RESTORE.call_once(|| {
+                        let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+                        assert!(std::process::Command::new("python3")
+                            .arg("-B")
+                            .arg(root().join("preserve-originals.py"))
+                            .arg("--restore")
+                            .current_dir(repo)
+                            .status()
+                            .unwrap()
+                            .success());
+                    });
+                }
+                std::fs::read(path).unwrap()
+            };
+            GoTypeSourceBuffer::import(&serde_json::to_vec(&r["object"]).unwrap(), &raw).unwrap()
+        })
+        .collect()
+}
+fn import_small(p: &Value, v: &Value) -> Result<GoSourceSnapshotInputs, GoSourceSnapshotError> {
+    import_go_source_snapshot_inputs(
+        &serde_json::to_vec(v).unwrap(),
+        &buffers(p, "snapshot_sources", None),
+    )
+}
+fn seal(v: &mut Value, domain: &'static str) {
+    v.as_object_mut().unwrap().remove("content_sha256");
+    let parsed = parse_strict_json(
+        &serde_json::to_vec(v).unwrap(),
+        StrictJsonLimits::new(268435456, 268435456, 64, 16777216),
+    )
+    .unwrap();
+    v["content_sha256"] = json!(hash_canonical_json(HashDomain::new(domain), &parsed)
+        .unwrap()
+        .to_hex());
+}
+fn native_hash(v: &Value) -> String {
+    let mut h = Sha256::new();
+    h.update(b"MPK-GO-PRIVATE-SOURCE-SNAPSHOT-1.0\0");
+    fn number(h: &mut Sha256, n: u64) {
+        h.update(n.to_le_bytes())
+    }
+    fn text(h: &mut Sha256, b: &[u8]) {
+        number(h, b.len() as u64);
+        h.update(b)
+    }
+    let roots = v["capabilities"].as_array().unwrap();
+    number(&mut h, roots.len() as u64);
+    for c in roots {
+        text(&mut h, c.as_str().unwrap().as_bytes())
+    }
+    let dirs = v["directories"].as_array().unwrap();
+    number(&mut h, dirs.len() as u64);
+    for d in dirs {
+        text(&mut h, d["capability"].as_str().unwrap().as_bytes());
+        text(&mut h, d["path"].as_str().unwrap().as_bytes());
+        let entries = d["entries"].as_array().unwrap();
+        number(&mut h, entries.len() as u64);
+        for e in entries {
+            text(&mut h, &unhex(e["name_hex"].as_str().unwrap()));
+            number(&mut h, e["type_bits"].as_u64().unwrap())
+        }
+    }
+    let objects = v["objects"].as_array().unwrap();
+    number(&mut h, objects.len() as u64);
+    for o in objects {
+        text(&mut h, o["id"].as_str().unwrap().as_bytes())
+    }
+    format!("{:x}", h.finalize())
+}
+fn reseal(v: &mut Value) {
+    v["snapshot_sha256"] = json!(native_hash(v));
+    seal(v, "MPK-PRIVATE-GO-SOURCE-SNAPSHOT-INPUTS-1.0")
+}
+
+#[test]
+fn snapshot_inputs_reproduce_every_actual_native_lookup_and_source_byte() {
+    let p = small();
+    let source = buffers(&p, "snapshot_sources", None);
+    let snapshot =
+        import_go_source_snapshot_inputs(&unhex(p["snapshot_hex"].as_str().unwrap()), &source)
+            .unwrap();
+    assert_eq!(snapshot.source_objects().len(), 9);
+    assert_eq!(
+        snapshot.canonical_bytes(),
+        unhex(p["snapshot_hex"].as_str().unwrap())
+    );
+    assert_eq!(snapshot.snapshot_sha256(), native_hash(&wire(&p)));
+    for s in &source {
+        assert_eq!(
+            snapshot
+                .read_source(&s.object().capability, &s.object().path, &s.object().kind)
+                .unwrap(),
+            s
+        );
+    }
+    drop(source);
+    let native = read("native/native-originals/namespace/namespace-lookups.json");
+    let mut checked = vec![];
+    for q in native["queries"].as_array().unwrap() {
+        let cap = q["capability"].as_str().unwrap();
+        let path = q["path"].as_str().unwrap();
+        let result = if q["directory"].as_bool().unwrap() {
+            snapshot.read_directory(cap, path).map(|_| ())
+        } else {
+            snapshot
+                .read_source(cap, path, q["kind"].as_str().unwrap())
+                .map(|_| ())
+        };
+        let outcome = match result {
+            Ok(()) => "present",
+            Err(GoSourceSnapshotLookupError::NotFound) => "absent",
+            Err(GoSourceSnapshotLookupError::NotCaptured) => "uncaptured",
+            Err(_) => "rejected",
+        };
+        assert_eq!(outcome, q["outcome"].as_str().unwrap(), "{}", q["name"]);
+        checked.push(json!({"name":q["name"],"outcome":outcome}));
+    }
+    assert_eq!(checked.len(), 30);
+    output(
+        "native-lookup-comparison.json",
+        &json!({"status":"passed","all_original_objects":9,"original_native_queries":checked,"no_filesystem_fallback":true}),
+    );
+}
+
+#[test]
+fn snapshot_inputs_preserve_invalid_utf8_names_without_json_replacement() {
+    let p = read("native/native-originals/namespace/raw-native-name-unit.json");
+    let snapshot = import_small(&p, &wire(&p)).unwrap();
+    let names = snapshot
+        .read_directory("root", "")
+        .unwrap()
+        .iter()
+        .map(|e| e.name_bytes().to_vec())
+        .collect::<Vec<_>>();
+    assert_eq!(names, vec![vec![0xef, 0xbf, 0xbd], vec![0xfe], vec![0xff]]);
+    assert_eq!(snapshot.snapshot_sha256(), native_hash(&wire(&p)));
+    output(
+        "native-name-bytes.json",
+        &json!({"status":"passed","three_raw_names_distinct":true,"native_capture_authority_claimed":false}),
+    );
+}
+
+#[test]
+fn snapshot_inputs_reject_noncanonical_incomplete_and_disconnected_data() {
+    let p = small();
+    let original = wire(&p);
+    let mut cases = vec![];
+    let mut v = original.clone();
+    v["directories"][0]["entries"][0]["type_bits"] = json!(1);
+    cases.push(("stale-hash", v));
+    let mut v = original.clone();
+    v["schema"] = json!("unknown");
+    seal(&mut v, "MPK-PRIVATE-GO-SOURCE-SNAPSHOT-INPUTS-1.0");
+    cases.push(("schema", v));
+    let mut v = original.clone();
+    v["extra"] = json!(false);
+    reseal(&mut v);
+    cases.push(("extra", v));
+    let mut v = original.clone();
+    v["capabilities"] = json!([]);
+    reseal(&mut v);
+    cases.push(("empty-capabilities", v));
+    let mut v = original.clone();
+    v["capabilities"][1] = v["capabilities"][0].clone();
+    reseal(&mut v);
+    cases.push(("duplicate-capability", v));
+    let mut v = original.clone();
+    v["directories"].as_array_mut().unwrap().reverse();
+    reseal(&mut v);
+    cases.push(("directory-order", v));
+    for (name, value) in [
+        ("empty-name", ""),
+        ("slash-name", "2f"),
+        ("nul-name", "00"),
+        ("dot-name", "2e"),
+        ("parent-name", "2e2e"),
+        ("uppercase-hex", "FF"),
+        ("odd-hex", "f"),
+    ] {
+        let mut v = original.clone();
+        v["directories"][0]["entries"][0]["name_hex"] = json!(value);
+        if name == "odd-hex" {
+            seal(&mut v, "MPK-PRIVATE-GO-SOURCE-SNAPSHOT-INPUTS-1.0");
+        } else {
+            reseal(&mut v);
+        }
+        cases.push((name, v));
+    }
+    for (name, bits) in [
+        ("permission-bits", 1u64),
+        ("append-mode", 1 << 30),
+        ("type-over-u32", 1u64 << 32),
+    ] {
+        let mut v = original.clone();
+        v["directories"][0]["entries"][0]["type_bits"] = json!(bits);
+        reseal(&mut v);
+        cases.push((name, v));
+    }
+    let mut v = original.clone();
+    v["directories"][0]["entries"][0]["type_bits"] = json!(false);
+    seal(&mut v, "MPK-PRIVATE-GO-SOURCE-SNAPSHOT-INPUTS-1.0");
+    cases.push(("boolean-mode", v));
+    let mut v = original.clone();
+    let dirs = v["directories"].as_array_mut().unwrap();
+    dirs.retain(|d| !(d["capability"] == "workspace/main" && d["path"] == ""));
+    reseal(&mut v);
+    cases.push(("disconnected-directory", v));
+    let mut v = original.clone();
+    v["objects"].as_array_mut().unwrap().pop();
+    reseal(&mut v);
+    cases.push(("omitted-object", v));
+    let mut checked = vec![];
+    for (name, v) in cases {
+        let error = import_small(&p, &v).unwrap_err();
+        checked.push(json!({"name":name,"error":error.to_string()}));
+    }
+    let mut missing = p.clone();
+    missing["snapshot_sources"].as_array_mut().unwrap().pop();
+    assert!(import_small(&missing, &original).is_err());
+    output(
+        "snapshot-controls.json",
+        &json!({"status":"passed","rejected":checked,"missing_raw_source_rejected":true}),
+    );
+}
+
+fn capture(directory: &Path, p: &Value) -> GoSourceCaptureInputs {
+    let selection = import_go_source_selection_inputs(
+        &unhex(p["selection_hex"].as_str().unwrap()),
+        &unhex(p["envelope_hex"].as_str().unwrap()),
+        &unhex(p["components_hex"].as_str().unwrap()),
+        &buffers(p, "sources", None),
+        &buffers(p, "overlays", None),
+    )
+    .unwrap();
+    let snapshot = import_go_source_snapshot_inputs(
+        &unhex(p["snapshot_hex"].as_str().unwrap()),
+        &buffers(p, "snapshot_sources", Some(directory)),
+    )
+    .unwrap();
+    import_go_source_capture_inputs(
+        &unhex(p["capture_hex"].as_str().unwrap()),
+        selection,
+        snapshot,
+    )
+    .unwrap()
+}
+
+#[test]
+fn capture_inputs_bind_the_whole_original_sdk_namespace_and_contract_packet() {
+    let directory = root().join("native-final/native-originals/owned");
+    let p = read("native-final/native-originals/owned/capture-inputs.json");
+    let input = capture(&directory, &p);
+    assert!(input.snapshot_inputs().source_objects().len() > 5000);
+    let contracts = input.selection_inputs().contract_inputs();
+    assert_eq!(
+        input
+            .snapshot_inputs()
+            .source(contracts.main_source_object_id())
+            .unwrap()
+            .object()
+            .kind,
+        "go_mod"
+    );
+    assert!(input
+        .snapshot_inputs()
+        .source_objects()
+        .iter()
+        .any(|o| o.kind == "excluded_source"));
+    let module = input.derive_contracts().unwrap();
+    assert_eq!(module.functions().len(), 2);
+    assert_eq!(
+        input.canonical_bytes(),
+        unhex(p["capture_hex"].as_str().unwrap())
+    );
+    let mut altered: Value = serde_json::from_slice(input.canonical_bytes()).unwrap();
+    altered["snapshot_inputs_sha256"] = json!("0".repeat(64));
+    seal(&mut altered, "MPK-PRIVATE-GO-SOURCE-CAPTURE-INPUTS-1.0");
+    assert!(import_go_source_capture_inputs(
+        &serde_json::to_vec(&altered).unwrap(),
+        input.selection_inputs().clone(),
+        input.snapshot_inputs().clone()
+    )
+    .is_err());
+    output(
+        "actual-owned-capture.json",
+        &json!({"status":"passed","complete_original_objects":input.snapshot_inputs().source_objects().len(),"complete_contract_functions":2,"main_module_retained":true,"crossed_snapshot_rejected":true,"installed_context_or_program_authority":false}),
+    );
+}
+
+#[test]
+fn capture_inputs_preserve_both_complete_original_units_and_every_original_root() {
+    let old: Value = serde_json::from_slice(
+        &std::fs::read(root().parent().unwrap().join("source-inputs/corpus.json")).unwrap(),
+    )
+    .unwrap();
+    let mut rows = vec![];
+    for name in ["pure", "wide"] {
+        let directory = root().join("native/native-originals").join(name);
+        let p = read(&format!(
+            "native/native-originals/{name}/complete-capture-inputs.json"
+        ));
+        let input = capture(&directory, &p);
+        let prior = old["units"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|u| u["name"] == name)
+            .unwrap();
+        assert_eq!(p["components_hex"], prior["input"]["components_hex"]);
+        assert_eq!(p["sources"], prior["input"]["sources"]);
+        assert_eq!(input.selection_inputs().roots().len(), 43);
+        rows.push(json!({"unit":name,"original_roots":43,"complete_original_objects":input.snapshot_inputs().source_objects().len(),"all_source_components_and_bytes_equal":true}));
+    }
+    output(
+        "all-original-capture-units.json",
+        &json!({"status":"passed","units":rows,"original_zero_70_error_universes_preserved_by_original_consumer":true,"default_contracts_substituted_for_original_cases":false}),
+    );
+}

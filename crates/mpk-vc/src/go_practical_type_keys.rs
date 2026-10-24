@@ -18,6 +18,12 @@ pub use contract_inputs::{
 };
 mod parse;
 mod selection_inputs;
+mod snapshot_inputs;
+pub use snapshot_inputs::{
+    import_go_source_capture_inputs, import_go_source_snapshot_inputs, GoSourceCaptureInputs,
+    GoSourceSnapshotEntry, GoSourceSnapshotError, GoSourceSnapshotInputs,
+    GoSourceSnapshotLookupError,
+};
 mod source_constants;
 mod source_declarations;
 mod source_dependencies;

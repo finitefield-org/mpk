@@ -69,6 +69,11 @@ func TestPracticalSourceInvocationOriginalSignatures(t *testing.T) {
 				t.Fatal(err)
 			}
 			retainPracticalSyntaxEvidence(t, "physical-selection-inputs.json", practicalSelectionInputEvidence(t, selection))
+			capture, err := owner.captureInputs(roots)
+			if err != nil {
+				t.Fatal(err)
+			}
+			retainPracticalSyntaxEvidence(t, "complete-capture-inputs.json", practicalCaptureInputEvidence(t, capture))
 			if name == "wide" {
 				for i := 0; i < 70; i++ {
 					n := fmt.Sprintf("Case%02d", i)

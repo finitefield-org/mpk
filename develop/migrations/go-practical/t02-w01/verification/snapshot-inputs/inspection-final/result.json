@@ -1,0 +1,121 @@
+{
+  "status": "passed",
+  "prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/inspection-final/prelaunch.json",
+    "bytes": 29255486,
+    "sha256": "3d16f45452bcf709464e201b5d5f4d70bf50398ece92b73ffdbf2877b6514a20",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/inspection-final/driver.py",
+    "bytes": 12550,
+    "sha256": "bcdacf3521a5c74a2fc5ad75b2bf5582e0886de4216b74f1adc8bf88627bf0d4",
+    "mode": 420
+  },
+  "seconds": 12.387484792001487,
+  "consumed_inputs_unchanged": true,
+  "snapshots": [
+    {
+      "objects": 9,
+      "source_bytes": 297,
+      "capabilities": 3,
+      "directories": 4,
+      "directory_entries": 18,
+      "native_snapshot_sha256": "f03fd6df554a762fc4d5e3876f5dadd03ad8850188d50d6577102d0e6e26fb81"
+    },
+    {
+      "objects": 0,
+      "source_bytes": 0,
+      "capabilities": 1,
+      "directories": 1,
+      "directory_entries": 3,
+      "native_snapshot_sha256": "774f48b58f09ca3ff2d7bedc3dd76cf94b7da45cf9e9131c21c80c6faea28210"
+    },
+    {
+      "objects": 5490,
+      "source_bytes": 85375449,
+      "capabilities": 4,
+      "directories": 820,
+      "directory_entries": 6575,
+      "native_snapshot_sha256": "00992ec5df1b36033173c9d3bac0fa48fcf95ac8b9874be3578925730ef5fe16"
+    },
+    {
+      "objects": 5487,
+      "source_bytes": 85835247,
+      "capabilities": 4,
+      "directories": 820,
+      "directory_entries": 6573,
+      "native_snapshot_sha256": "0028f86db6782021327b0aa6c3cd3e6554deaf732526bc1e464d717156b65545"
+    },
+    {
+      "objects": 5487,
+      "source_bytes": 85835247,
+      "capabilities": 4,
+      "directories": 821,
+      "directory_entries": 6572,
+      "native_snapshot_sha256": "9bb4fc7c8c303fd57876053a8454c78da53ee812583654dcc9c703f3b652b7ab"
+    }
+  ],
+  "native_passed_tests": [
+    "TestPracticalSelectionInputsRequireOriginalOwnerAndRoots",
+    "TestPracticalSelectionInputsMethodInitIsOrdinary",
+    "TestPracticalSelectionInputsOwnCompletePhysicalRoots",
+    "TestPracticalSnapshotInputsRetainWholeNativeNamespace",
+    "TestPracticalSnapshotOwnsBytesAfterCollectorRelease",
+    "TestPracticalSnapshotRetainsVisitedNamespacesAfterOriginalRemoval",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/captured",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/empty-original",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/other-capability",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/known-directory",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/empty-directory",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/absent-leaf",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/absent-ancestor",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/absent-in-known-directory",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/absent-directory",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/present-unread-file",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/present-unvisited-directory",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/present-in-unvisited-directory",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/unknown-below-unvisited-directory",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/unvisited-capability-root",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/unknown-file-in-unvisited-root",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/unbound-capability",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/wrong-kind",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/unknown-kind",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/wrong-case",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/linked-file",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/linked-directory",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/linked-ancestor",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/special-file",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/file-as-directory",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/directory-as-file",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/escape",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/absolute",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/repeated-separator",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/native-unread-backslash",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs/native-unread-newline",
+    "TestPracticalSnapshotLookupSeparatesAbsenceAndUncapturedInputs",
+    "TestPracticalSnapshotReadResultsAreIndependentCopies",
+    "TestPracticalSnapshotIdentityBindsCompleteObservedNamespace/added-entry",
+    "TestPracticalSnapshotIdentityBindsCompleteObservedNamespace/renamed-unread",
+    "TestPracticalSnapshotIdentityBindsCompleteObservedNamespace/changed-native-type",
+    "TestPracticalSnapshotIdentityBindsCompleteObservedNamespace/visited-empty-now-nonempty",
+    "TestPracticalSnapshotIdentityBindsCompleteObservedNamespace/source-bytes",
+    "TestPracticalSnapshotIdentityBindsCompleteObservedNamespace/source-role",
+    "TestPracticalSnapshotIdentityBindsCompleteObservedNamespace/additional-visited-directory",
+    "TestPracticalSnapshotIdentityBindsCompleteObservedNamespace/additional-authorized-root",
+    "TestPracticalSnapshotIdentityBindsCompleteObservedNamespace/unread-content-only",
+    "TestPracticalSnapshotIdentityBindsCompleteObservedNamespace",
+    "TestPracticalSnapshotZeroValueDoesNotInventAbsence",
+    "TestPracticalSourceInvocationOriginalSignatures/pure",
+    "TestPracticalSourceInvocationOriginalSignatures/wide",
+    "TestPracticalSourceInvocationOriginalSignatures"
+  ],
+  "rust_passed_roots": 9,
+  "original_roots": {
+    "owned": 1,
+    "pure": 43,
+    "wide": 43
+  },
+  "whole_original_byte_and_native_digest_inspection": true,
+  "scope": "Independently reconstruct exact framed native snapshot digests from every raw byte/type/object, complete source buffers and selection/capture linkage. Native namespace lookups agree. Capture authorization, installed context and application/source/IR proofs remain separate."
+}

@@ -19,16 +19,18 @@ import (
 // Original command metadata is retained in full. These selected fields do not
 // form a public artifact schema or authorize an opaque source/library proof.
 type practicalGoPackageExport struct {
-	Dir, ImportPath, Name, Export, BuildID      string
-	Standard, Goroot, Incomplete, BinaryOnly    bool
-	ForTest                                     string
-	DepOnly                                     bool
-	Match                                       []string
-	GoFiles, CompiledGoFiles, CgoFiles, Imports []string
-	ImportMap                                   map[string]string
-	Module                                      *practicalGoListedModule
-	Error                                       *struct{ Err string }
-	DepsErrors                                  []json.RawMessage
+	Dir, ImportPath, Name, Export, BuildID                                                                  string
+	Standard, Goroot, Incomplete, BinaryOnly                                                                bool
+	ForTest                                                                                                 string
+	DepOnly                                                                                                 bool
+	Match                                                                                                   []string
+	GoFiles, CompiledGoFiles, CgoFiles, Imports                                                             []string
+	IgnoredGoFiles, TestGoFiles, XTestGoFiles                                                               []string
+	CFiles, CXXFiles, MFiles, HFiles, FFiles, SFiles, SwigFiles, SwigCXXFiles, SysoFiles, IgnoredOtherFiles []string
+	ImportMap                                                                                               map[string]string
+	Module                                                                                                  *practicalGoListedModule
+	Error                                                                                                   *struct{ Err string }
+	DepsErrors                                                                                              []json.RawMessage
 }
 
 type practicalCapturedPackageExport struct {
@@ -238,6 +240,31 @@ func (session *practicalCaptureSession) capturePracticalPackageExports(compiler 
 				return result, err
 			}
 			captured.sources = append(captured.sources, buffer.object)
+		}
+		// Immutable go/build replay consults every original source candidate,
+		// including headers and target/test exclusions. Capture them before
+		// sealing; an active GoFiles-only packet cannot reconstruct selection.
+		seen := map[string]bool{}
+		for _, name := range row.GoFiles {
+			seen[name] = true
+		}
+		for _, list := range []struct {
+			names []string
+			kind  string
+		}{
+			{row.IgnoredGoFiles, "excluded_source"}, {row.TestGoFiles, "excluded_source"}, {row.XTestGoFiles, "excluded_source"},
+			{row.CFiles, "auxiliary"}, {row.CXXFiles, "auxiliary"}, {row.MFiles, "auxiliary"}, {row.HFiles, "auxiliary"}, {row.FFiles, "auxiliary"},
+			{row.SFiles, "auxiliary"}, {row.SwigFiles, "auxiliary"}, {row.SwigCXXFiles, "auxiliary"}, {row.SysoFiles, "auxiliary"}, {row.IgnoredOtherFiles, "auxiliary"},
+		} {
+			for _, name := range list.names {
+				if !validPracticalLogicalPath(name) || strings.Contains(name, "/") || seen[name] {
+					return result, session.reject(fmt.Errorf("native package has an invalid or repeated original build input"))
+				}
+				seen[name] = true
+				if _, err := session.readSource(location.capability, path.Join(location.directory, name), list.kind); err != nil {
+					return result, err
+				}
+			}
 		}
 		if row.ImportPath == "unsafe" {
 			if !row.Standard || row.Export != "" || row.BuildID != "" {

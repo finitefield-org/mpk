@@ -1608,3 +1608,20 @@ Full original files, inputs and actual observations remain losslessly retained.
 This is input/contract-candidate linkage; canonical context and program proofs
 remain due. R01/R06/W01 stay open, the practical profile stays inactive and the
 cumulative T02 gate stays final W04. Go/Rust only.
+
+
+## Complete original snapshot inputs
+
+The [snapshot/capture component](verification/snapshot-inputs/README.md)
+connects all original captured objects and observed native namespace bytes/type
+bits to the owned physical source/sidecar selection. The independent reader
+reconstructs the exact original snapshot digest and distinguishes observed
+absence from uncaptured files/directories. Original Windows/test-excluded Go
+files and auxiliary build inputs are now captured before immutable package
+replay; the original failed fixture remains intact. All9 affected Rust roots,
+15 successful native Go roots/71 subtests, strict lint/vet/formats and legacy
+compilation pass across the retained initial and repair suites. Both complete
+zero/70-case original units and all32 call-proof bytes remain unchanged.
+Private input linkage supplies no installed capture/context or program proof.
+R01/R06/W01 stay open; the profile stays inactive and the cumulative T02 gate
+remains final W04. Go/Rust only.

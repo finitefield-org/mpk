@@ -1,0 +1,18 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0521]: borrowed data escapes outside of function
+  --> crates/mpk-vc/tests/go_practical_snapshot_inputs.rs:87:53
+   |
+80 | fn seal(v: &mut Value, domain: &str) {
+   |                        ------  - let's call the lifetime of this reference `'1`
+   |                        |
+   |                        `domain` is a reference that is only valid in the function body
+...
+87 |     v["content_sha256"] = json!(hash_canonical_json(HashDomain::new(domain), &parsed)
+   |                                                     ^^^^^^^^^^^^^^^^^^^^^^^
+   |                                                     |
+   |                                                     `domain` escapes the function body here
+   |                                                     argument requires that `'1` must outlive `'static`
+
+For more information about this error, try `rustc --explain E0521`.
+error: could not compile `mpk-vc` (test "go_practical_snapshot_inputs") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

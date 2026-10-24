@@ -8505,3 +8505,48 @@ callee/program proofs, all56 foundation families/all169 demands, native Linux
 release gates and remaining T02-T11 stay due. R01/R06/W01 remain open; the
 practical profile stays inactive. The cumulative T02 gate remains final W04:
 `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 182. T02-W01 complete original snapshot and capture inputs
+
+The [snapshot/capture component](../migrations/go-practical/t02-w01/verification/snapshot-inputs/README.md)
+passes every original captured object and observed native directory name/type
+bit alongside the exact owned physical source/sidecar selection. Canonical hex
+preserves raw native filename bytes. The independent Rust reader reconstructs
+the exact framed native snapshot SHA256 and validates connected namespaces,
+source ownership, original buffers, all eight source kinds, order and frozen
+bounds. Observed absence, unread regular files, unvisited directories/roots,
+wrong spelling/role, linked or special paths and escapes retain distinct outcomes.
+
+The first actual owner fixture exposed a real Go capture omission: the active
+GoFiles-only preparation had not captured an original excluded Windows file
+needed by immutable go/build replay. Capture now retains the actual Go command's
+ignored/test Go files and auxiliary build inputs before sealing. The original
+failed source stays, with additional internal/external test and excluded assembly
+inputs. No application rewrite/stub, narrowed source/entry/case scope, new program
+source language or raised limit is used. Initial test-helper lifetime and Clippy
+style failures retain their exact source epochs and outputs.
+
+All9 affected Rust roots pass, including30 native lookup comparisons, all raw
+source bytes, exact framed hashes, complete SDK/source/selection linkage and
+both unchanged full original source units with43 roots each. Existing consumers
+retain zero/70-error universes and every one of32 prior call-proof byte streams.
+The initial native suite passes11 roots/41 subtests and fails the excluded-file
+owner. The repaired owner, both export metadata roots and full original standard
+library source typechecking pass:4 roots/30 subtests. Current strict Clippy/vet,
+changed-file formats and Go1.23 zero-test compilation pass. Failed suites retain
+their failed status; no whole-suite success is inferred from their passing roots.
+
+Independent inspection validates five full snapshots and native lookup/source/
+selection/capture correspondence. All77162 original files,696793808 bytes, and
+19 complete input containers,353598517 bytes, remain physically unchanged and
+losslessly retained with exact paths/modes. Decoded original source members stay
+in unchanged-rule review scope. Raw stdout/stderr remain exact.
+
+This is complete claimed-input reconstruction and private owned linkage, not
+launcher/root authorization or authenticated canonical capture/context. Full
+context/descriptor/registry, module/build/compiler-role validation and source/IR/
+state/storage/frame/callee/program proofs, all56 foundation families/all169
+demands, native Linux gates and remaining T02-T11 remain due. R01/R06/W01 stay
+open; the practical profile stays inactive. The cumulative T02 gate remains
+final W04: `./scripts/check-fast.sh`. Go/Rust only.

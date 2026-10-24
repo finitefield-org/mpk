@@ -1,0 +1,12 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: manual implementation of `.is_multiple_of()`
+   --> crates/mpk-vc/src/go_practical_type_keys/snapshot_inputs.rs:202:8
+    |
+202 |     if s.len() % 2 != 0
+    |        ^^^^^^^^^^^^^^^^ help: replace with: `!s.len().is_multiple_of(2)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#manual_is_multiple_of
+    = note: `-D clippy::manual-is-multiple-of` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::manual_is_multiple_of)]`
+
+error: could not compile `mpk-vc` (lib) due to 1 previous error

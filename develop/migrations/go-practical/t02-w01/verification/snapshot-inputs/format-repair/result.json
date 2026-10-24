@@ -1,0 +1,72 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_type_keys/snapshot_inputs.rs",
+    "crates/mpk-vc/tests/go_practical_snapshot_inputs.rs",
+    "crates/mpk-vc/src/go_practical_type_keys.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/format-repair/inputs.json",
+    "bytes": 325551,
+    "sha256": "86e40294d7d444bbacae24e4a85eeedef83b2618f2155f8638d64a46b63af9db",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/run.py",
+    "bytes": 7996,
+    "sha256": "361362e9b906a862eacb440ea92744c801c270e58170414861a24d3ada5330d8",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-24T18:51:14.446258+00:00",
+  "selection_reason": "Independently reconstruct the complete original captured source set and native directory namespace, including all eight source kinds and exact native byte/type framing. Bind it to the actual owned function/source/sidecar selection. Exercise all native snapshot lookup/identity controls, old Go selection owner behavior, full zero/70-case original units and unchanged32 call-proof byte replay. Run only new Rust snapshot/capture consumers and the direct original-source regression, strict affected Clippy, Go vet and changed-file formats. No unchanged kernels, full foundation matrices or retired-language tests",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 0.47734937500354135,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/format-repair/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/format-repair/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-24T18:51:14.924243+00:00"
+}

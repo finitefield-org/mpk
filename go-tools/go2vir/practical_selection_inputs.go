@@ -42,6 +42,14 @@ func (owner *practicalOriginalPackages) selectionInputs(roots []practicalClosure
 	}
 	owner.mutex.Lock()
 	defer owner.mutex.Unlock()
+	return owner.selectionInputsLocked(roots)
+}
+
+// Caller keeps the original owner lock through a wider capture handoff.
+func (owner *practicalOriginalPackages) selectionInputsLocked(roots []practicalClosureRef) (practicalSelectionInputs, error) {
+	if len(roots) == 0 || len(roots) > 8192 {
+		return practicalSelectionInputs{}, fmt.Errorf("selection inputs require original function roots within the frozen count")
+	}
 	contracts, err := owner.contractInputsLocked()
 	if err != nil {
 		return practicalSelectionInputs{}, err
