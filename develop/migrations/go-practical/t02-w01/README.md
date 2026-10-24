@@ -1576,3 +1576,18 @@ The original failed collection epoch and all failed/final raw snapshots remain
 losslessly preserved. Self-hashed input provenance does not authenticate a
 launcher or installed context. Full foundation/program/context work and
 R01/R06/W01 remain open; the cumulative T02 gate remains final W04.
+
+
+## Original file language versions
+
+The [source-language component](verification/source-languages/README.md)
+derives exact module requirements and per-file effective languages from the
+complete original bytes. Owned contract derivation checks every selected and
+transitive body against Go1.22-Go1.25 while retaining older unused files.
+All150 pinned Go parser/types comparisons,11 affected Rust roots,2 native
+Go roots, strict Clippy/vet and changed-file formats pass. Both complete
+zero/70-error units and all32 original call-proof bytes remain unchanged.
+Full original data and failed attempts are losslessly retained. Complete
+module/build/context/source-IR/program authority remains due; R01/R06/W01
+stay open and the practical profile stays inactive. The cumulative T02 gate
+remains final W04. Source-language support remains Go/Rust only.

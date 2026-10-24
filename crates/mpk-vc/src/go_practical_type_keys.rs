@@ -13,13 +13,19 @@ use std::collections::{BTreeMap, BTreeSet};
 mod contract_inputs;
 mod lex;
 pub use contract_inputs::{
-    import_go_source_contract_inputs, GoSourceContractInputError, GoSourceContractInputs,
+    import_go_source_contract_inputs, GoSourceContractDerivationError, GoSourceContractInputError,
+    GoSourceContractInputs,
 };
 mod parse;
 mod source_constants;
 mod source_declarations;
 mod source_dependencies;
 mod source_inputs;
+mod source_languages;
+pub use source_languages::{
+    derive_go_source_languages, GoSourceFileLanguage, GoSourceLanguageError,
+    GoSourceLanguageErrorKind, GoSourceLanguages,
+};
 mod source_overlays;
 mod source_scalar_typing;
 mod source_scopes;

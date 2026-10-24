@@ -8420,3 +8420,45 @@ capture/descriptor/registry and source/IR/state/storage/frame/callee/program
 proofs, all56 foundation families/all169 demands, native Linux release gates
 and remaining T02-T11 remain due. R01/R06/W01 stay open; the practical profile
 stays inactive. MPK source-language support remains Go/Rust only.
+
+
+## 180. T02-W01 original per-file Go languages
+
+The [source-language component](../migrations/go-practical/t02-w01/verification/source-languages/README.md)
+derives full original module requirements and effective file languages without
+native version hints. Full patch/prerelease requirements are checked before
+minor normalization. Leading modern build constraints follow pinned Go1.25
+structural minima, negation, Boolean branching and the actual parser bound;
+legacy comments do not supply file versions. Exact module spelling survives
+when no versioned constraint overrides it. A versioned file may use an older
+language than its module.
+
+Owned source/contract derivation checks every selected/transitive original
+body against the frozen Go1.22-Go1.25 range. The complete package retains
+unselected older files, channel/callback bodies and initializer source. An
+old selected root or reached callee rejects with its original physical
+function location. All150 original pinned parser/types cases agree (138
+metadata acceptances and12 rejections); both complete zero/70-error source
+units and all32 original call-proof bytes are retained. All11 affected Rust
+roots,2 native Go roots, strict affected Clippy, Go vet and changed-file
+formats pass. Independent original byte/hash/native-membership/reference/
+file-version and rejection-offset inspection passes. Source diff review found
+and fixed a trailing-whitespace prefix-lookalike boundary. All132 predecessor
+cases remain byte-exact within the150-case final corpus;18 additional cases
+match native Go. All11 affected roots, strict lint and formats pass again. The
+initial review and its exact changed preimages remain retained.
+
+The original Clippy style failure, premature inspection of a still-running
+Rust result and transport-collection inventory error remain recorded with
+actual original drivers/inputs. The same Rust worker finished successfully;
+no observation timeout triggered a restart. All10970 original snapshot files,
+87177162 bytes, and19 full input containers,348922973 bytes, remain physically
+unchanged and losslessly retained with exact paths/modes. All decoded members
+remain in unchanged-rule review scope.
+
+These are source-derived language facts and a selected-body guard. Full module
+validation/build selection/roles, canonical capture/context/descriptor/registry
+and source/IR/state/storage/frame/callee/program proofs, all56 foundation
+families/all169 demands, native Linux release gates and remaining T02-T11
+stay due. R01/R06/W01 remain open; the practical profile stays inactive. The
+cumulative T02 gate remains final W04: `./scripts/check-fast.sh`. Go/Rust only.

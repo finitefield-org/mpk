@@ -30,6 +30,18 @@ impl std::fmt::Display for GoSourceContractInputError {
 impl std::error::Error for GoSourceContractInputError {}
 
 #[derive(Clone, Debug, Eq, PartialEq)]
+pub enum GoSourceContractDerivationError {
+    Language(GoSourceLanguageError),
+    Contract(GoContractTypingError),
+}
+impl std::fmt::Display for GoSourceContractDerivationError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Go source contract derivation error: {self:?}")
+    }
+}
+impl std::error::Error for GoSourceContractDerivationError {}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoSourceContractInputs {
     source: GoSourceInputs,
     overlays: Vec<GoSourceOverlay>,
@@ -67,8 +79,18 @@ impl GoSourceContractInputs {
     pub fn derive_contracts(
         &self,
         roots: &[GoSourceFunctionSelector],
-    ) -> std::result::Result<GoSourceContractModule, GoContractTypingError> {
-        derive_go_source_contract_module(self.source.components(), roots, &self.overlays)
+    ) -> std::result::Result<GoSourceContractModule, GoSourceContractDerivationError> {
+        let languages = self
+            .source
+            .languages()
+            .map_err(GoSourceContractDerivationError::Language)?;
+        let module =
+            derive_go_source_contract_module(self.source.components(), roots, &self.overlays)
+                .map_err(GoSourceContractDerivationError::Contract)?;
+        languages
+            .check_selection(module.selection())
+            .map_err(GoSourceContractDerivationError::Language)?;
+        Ok(module)
     }
 }
 

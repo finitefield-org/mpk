@@ -1,0 +1,157 @@
+//go:build go1.25 && (linux || darwin)
+
+package main
+
+import (
+	"encoding/hex"
+	"fmt"
+	"go/ast"
+	"go/build/constraint"
+	"go/parser"
+	"go/scanner"
+	"go/token"
+	"go/types"
+	"go/version"
+	"testing"
+
+	"golang.org/x/mod/modfile"
+)
+
+func practicalLanguagePacket(t *testing.T, manifest, source []byte) map[string]any {
+	t.Helper()
+	m, err := newPracticalSourceBuffer("original", "go.mod", "go_mod", manifest)
+	if err != nil {
+		t.Fatal(err)
+	}
+	s, err := newPracticalSourceBuffer("original", "policy.go", "go_file", source)
+	if err != nil {
+		t.Fatal(err)
+	}
+	p, err := practicalTypeKeySeal(practicalTypePackageDomain, map[string]any{"schema": practicalTypePackageSchema, "module_source_object_id": m.object.ID, "import_path": "example.com/policy", "package_name": "policy", "source_objects": []string{s.object.ID}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	b, err := practicalTypeKeySeal(practicalSourceTypeDomain, map[string]any{"schema": practicalSourceTypeSchema, "kind": "builtin", "name": "bool", "width": nil, "signed": nil})
+	if err != nil {
+		t.Fatal(err)
+	}
+	objects := []practicalSourceObject{m.object, s.object}
+	buffers := []practicalSourceBuffer{m, s}
+	if objects[0].ID > objects[1].ID {
+		objects[0], objects[1] = objects[1], objects[0]
+		buffers[0], buffers[1] = buffers[1], buffers[0]
+	}
+	component := map[string]any{"schema": practicalTypeComponentsSchema, "source_objects": objects, "packages": []any{p}, "package_roots": []any{p["id"]}, "declarations": []any{}, "types": []any{b}, "type_roots": []any{b["id"]}, "underlying": []any{}, "aliases": []any{}}
+	h, err := hashTypedCanonicalJSON(practicalTypeComponentsDomain, component)
+	if err != nil {
+		t.Fatal(err)
+	}
+	component["content_sha256"] = h
+	raw, err := canonicalJSON(component)
+	if err != nil {
+		t.Fatal(err)
+	}
+	rows := []any{}
+	for _, v := range buffers {
+		rows = append(rows, map[string]any{"object": v.object, "raw_hex": hex.EncodeToString(v.data)})
+	}
+	return map[string]any{"components_hex": hex.EncodeToString(raw), "sources": rows, "go_source_object_id": s.object.ID, "module_source_object_id": m.object.ID}
+}
+
+func TestPracticalSourceLanguagesMatchPinnedOriginalParserAndTypes(t *testing.T) {
+	practicalContractTestOutput(t, "probe")
+	modules := []string{"module example.com/policy\ngo 1.22\n", "module example.com/policy\ngo 1.23.0\n", "module example.com/policy\ngo 1.24.0\n", "module example.com/policy\ngo 1.25.0\n", "module example.com/policy\n", "module example.com/policy\ngo 1.20\n"}
+	headers := []string{"", "//go:build go1.22\n\n", "//go:build go1.25\n\n", "//go:build go1.21\n\n", "//go:build go1.13\n\n", "//go:build linux && go1.23\n\n", "//go:build go1.24 || go1.22\n\n", "//go:build linux || go1.25\n\n", "//go:build !go1.22\n\n", "//go:build !(go1.22 || !go1.24)\n\n", "//go:build (linux && !linux && go1.20) || go1.25\n\n", "// +build go1.21\n\n", "/* //go:build go1.21 */\n", "//go:buildsomethingelse go1.21\n", "//go:build go1.022\n\n", "//go:build xgo1.23\n\n", "//go:build go1.9999999999999999999999999 || linux\n\n", "//go:build 名字 || go1.25\n\n", "\ufeff//go:build go1.23\r\n\r\n"}
+	type example struct{ name, mod, head, tail string }
+	cases := []example{}
+	for mi, m := range modules {
+		for hi, h := range headers {
+			cases = append(cases, example{fmt.Sprintf("module-%d-header-%d", mi, hi), m, h, ""})
+		}
+	}
+	for _, v := range []string{"1.25.1", "1.26", "1.9999999999999999999999999", "1.25rc1", "1.25alpha2", "1.025", "1.25.0rc1", "0.25", "\"1.25\""} {
+		cases = append(cases, example{"module-version-" + v, "module example.com/policy\ngo " + v + "\n", "", ""})
+	}
+	cases = append(cases, example{"module-comments-blocks", "// go 1.99\nmodule \"example.com/policy\"\nrequire (\nexample.com/go v1.0.0\n)\nreplace example.com/go => \"./go 1.99\"\ngo 1.25.0 // original\n", "", ""}, example{"late-comment", modules[3], "", "\n//go:build go1.21\n"}, example{"negation-invalid", modules[3], "//go:build !!go1.22\n\n", ""}, example{"constraint-invalid", modules[3], "//go:build go1.22 &&\n\n", ""}, example{"constraint-empty", modules[3], "//go:build\n\n", ""}, example{"duplicate-go", modules[3] + "go 1.24\n", "", ""})
+	for _, depth := range []int{998, 999, 1000} {
+		h := ""
+		for i := 0; i < depth; i++ {
+			h += "("
+		}
+		h += "go1.22"
+		for i := 0; i < depth; i++ {
+			h += ")"
+		}
+		cases = append(cases, example{fmt.Sprintf("constraint-depth-%d", depth), modules[3], "//go:build " + h + "\n\n", ""})
+	}
+	rows := []any{}
+	for _, c := range cases {
+		raw := []byte(c.head + "package policy\nfunc Root(x uint16)uint16{return x+1}\n" + c.tail)
+		input := practicalLanguagePacket(t, []byte(c.mod), raw)
+		manifest, err := modfile.Parse("go.mod", []byte(c.mod), nil)
+		accepted := err == nil
+		config := "go1.16"
+		var requirement any
+		if accepted && manifest.Go != nil {
+			config = "go" + manifest.Go.Version
+			requirement = config
+			accepted = version.IsValid(config) && version.Compare(config, practicalCompilerRelease) <= 0
+		}
+		fset := token.NewFileSet()
+		f, parseErr := parser.ParseFile(fset, "policy.go", raw, parser.ParseComments|parser.AllErrors)
+		if parseErr != nil {
+			t.Fatal(c.name, parseErr)
+		}
+		validBuild := true
+		seen := 0
+		var scan scanner.Scanner
+		scan.Init(fset.AddFile("header.go", -1, len(raw)), raw, nil, scanner.ScanComments)
+		for {
+			_, tok, lit := scan.Scan()
+			if tok != token.COMMENT {
+				break
+			}
+			if constraint.IsGoBuild(lit) {
+				seen++
+				_, e := constraint.Parse(lit)
+				validBuild = validBuild && e == nil
+			}
+		}
+		accepted = accepted && validBuild && seen <= 1
+		info := &types.Info{FileVersions: map[*ast.File]string{}}
+		conf := types.Config{GoVersion: config, Sizes: types.SizesFor("gc", "amd64")}
+		_, typeErr := conf.Check("example.com/policy", fset, []*ast.File{f}, info)
+		input["name"] = c.name
+		input["metadata_accepted"] = accepted
+		input["module_requirement"] = requirement
+		input["build_requirement"] = nil
+		if f.GoVersion != "" {
+			input["build_requirement"] = f.GoVersion
+		}
+		input["effective_version"] = info.FileVersions[f]
+		input["language_version"] = version.Lang(info.FileVersions[f])
+		input["native_typecheck_accepted"] = typeErr == nil
+		rows = append(rows, input)
+	}
+	retainPracticalSyntaxEvidence(t, "language-corpus.json", map[string]any{"cases": rows, "original_compiler": practicalCompilerRelease, "native_type_facts_enter_reader": false, "application_bodies_executed": false})
+}
+
+func TestPracticalSourceLanguagesKeepOlderUnusedOriginalFiles(t *testing.T) {
+	practicalContractTestOutput(t, "owned")
+	owner, _ := practicalStorageTestOwner(t, map[string][]byte{
+		"go.mod":    []byte("module example.com/policy\ngo 1.25.0\n"),
+		"policy.go": []byte("package policy\nfunc Root(x uint16)uint16{return Modern(x)}\nfunc CallsLegacy(x uint16)uint16{return Legacy(x)}\nfunc Unused(c chan int,f func(int)int)int{return f(<-c)}\nfunc init(){panic(\"must not execute\")}\n"),
+		"modern.go": []byte("//go:build go1.22\n\npackage policy\nfunc Modern(x uint16)uint16{return x+1}\n"),
+		"legacy.go": []byte("//go:build go1.21\n\npackage policy\nfunc Legacy(x uint16)uint16{return x+1}\n"),
+	})
+	packet, err := owner.contractInputs()
+	if err != nil {
+		t.Fatal(err)
+	}
+	retainPracticalSyntaxEvidence(t, "language-owned-inputs.json", practicalContractInputEvidence(t, packet))
+	versions := map[string]string{}
+	for id, v := range owner.loader.packages["example.com/policy"].fileVersions {
+		versions[id] = v
+	}
+	retainPracticalSyntaxEvidence(t, "language-owned-versions.json", map[string]any{"files": versions, "original_paths_image_and_donor_buffers_retired": true, "unselected_old_file_retained": true, "application_initializers_executed": false})
+}

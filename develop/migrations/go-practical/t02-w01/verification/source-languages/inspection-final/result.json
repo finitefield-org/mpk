@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-languages/inspection-final/prelaunch.json",
+    "bytes": 4142430,
+    "sha256": "11d628d9db0b96f6dfca819e880c806131d47fda8dbff7ce7ea8fbdc76a1ec4b",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-languages/inspection-final/driver.py",
+    "bytes": 10682,
+    "sha256": "c41ccb8c4104e1ddf9a23750baa385d8b4052c40dd10abea94e4c304fd08e81c",
+    "mode": 420
+  },
+  "seconds": 1.1584791670029517,
+  "consumed_inputs_unchanged": true,
+  "packet": {
+    "packet": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-languages/native/native-originals/owned/language-owned-inputs.json",
+      "bytes": 7695,
+      "sha256": "397a4d25fc44cfd90ec946b70ef615f2530ccb7536ff6d748f5d9bd0fdc7cc02",
+      "mode": 384
+    },
+    "complete_original_objects": 5485,
+    "complete_original_bytes": 85377066,
+    "source_objects": 4,
+    "packages": 1,
+    "complete_captured_overlays": 0,
+    "native_package_membership_exact": true,
+    "raw_source_and_contract_bytes_exact": true
+  },
+  "native_passed_roots": [
+    "TestPracticalSourceLanguagesMatchPinnedOriginalParserAndTypes",
+    "TestPracticalSourceLanguagesKeepOlderUnusedOriginalFiles"
+  ],
+  "pinned_parser_cases": 132,
+  "native_metadata_accepted": 120,
+  "native_metadata_rejected": 12,
+  "rust_passed_roots": 11,
+  "original_source_units": 2,
+  "exact_pinned_go_references": 7,
+  "all_original_scopes_preserved": true,
+  "scope": "Independent original byte/hash/native-membership and effective file-version comparison. Selected/transitive bodies checked; no build selection, full module, installed context, source/IR or program proof authority."
+}

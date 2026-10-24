@@ -9,6 +9,9 @@ pub struct GoSourceInputs {
 }
 
 impl GoSourceInputs {
+    pub fn languages(&self) -> std::result::Result<GoSourceLanguages, GoSourceLanguageError> {
+        derive_go_source_languages(self)
+    }
     pub fn components(&self) -> &GoTypeKeyComponents {
         &self.components
     }

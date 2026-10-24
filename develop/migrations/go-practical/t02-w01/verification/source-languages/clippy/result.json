@@ -1,0 +1,81 @@
+{
+  "status": "failed",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--test",
+    "go_practical_source_languages",
+    "--test",
+    "go_practical_contract_inputs",
+    "--test",
+    "go_practical_source_inputs",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-languages/clippy/inputs.json",
+    "bytes": 320869,
+    "sha256": "2aec73f0c4264617772b7e7db7dd7e7365aa448836b7a385aba28d42d064faf3",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-languages/run.py",
+    "bytes": 6929,
+    "sha256": "71df25c8e8a92265d30eeaff6d2d5dbf8a52fa8b4f83c37ea70505b848cff40f",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-24T17:08:44.245755+00:00",
+  "selection_reason": "Independently derive effective file languages from every original source/module, preserving full patch requirements and exact Go build-constraint minima. The owned contract consumer checks all selected/transitive bodies and retains older unselected originals. Compare pinned parser/types observations and an actual whole original package; recheck direct contract/source-input consumers without repeating unchanged kernels or unrelated frontends.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 101,
+  "seconds": 15.386464208000689,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-languages/clippy/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-languages/clippy/stderr.log",
+    "bytes": 681,
+    "sha256": "3e49807605e5a290035cfdeb437286c6d581f4c78acd84a67255681343d7cbf0",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-24T17:08:59.633163+00:00"
+}
