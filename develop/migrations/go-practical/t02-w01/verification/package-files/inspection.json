@@ -1,0 +1,132 @@
+{
+  "status": "passed",
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/package-files/inspect.py",
+    "bytes": 6768,
+    "sha256": "70711b60cb9585920e3150008ab313eac9aba389dbab3457207232702f6108e7",
+    "mode": 420
+  },
+  "inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/package-files/native-final/native-originals/headers/package-header-corpus.json",
+      "bytes": 135555,
+      "sha256": "a123a3eae4d7d454ed6048a269efd9b816cd7985a8afe1392c1a7081339a7326",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/package-files/native/native-originals/originals/original-package-files.json",
+      "bytes": 1913274,
+      "sha256": "735ec7b21653dabafa4d59bada769213fdf5c02fee30a3221d6e899c9e6be8b1",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/native/native-originals/pure/complete-capture-inputs.json",
+      "bytes": 6901223,
+      "sha256": "5d5a35424553ab1f10e8b532d5f0c2b4bcd1e7c35ae6c4810285d192ee911118",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/native/native-originals/wide/complete-capture-inputs.json",
+      "bytes": 6901037,
+      "sha256": "ea110ed304a965d54a465ac3238fedab678059eda6da6f5109af6481ba7f62f5",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/native-final/native-originals/owned/capture-inputs.json",
+      "bytes": 6870629,
+      "sha256": "fa6b06b467d5ada77fb491884166722f16e4c05d9a3074b2cb6d5a2d5aba3972",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/package-files/rust-original/observations/snapshots/coherent-unselected-file-omission.json",
+      "bytes": 675,
+      "sha256": "e340e251997355f29fbabb501e08823ab4217b4bc15280b558cd7cce52c26fe8",
+      "mode": 420
+    }
+  ],
+  "original_header_cases": 39,
+  "header_native_rejections": 15,
+  "all_original_header_source_bytes": 4394,
+  "original_units": [
+    {
+      "unit": "pure",
+      "complete_original_objects": 5487,
+      "complete_original_bytes": 85835247,
+      "all_original_kinds": {
+        "excluded_source": 1682,
+        "go_file": 2935,
+        "auxiliary": 835,
+        "go_sum": 14,
+        "go_mod": 15,
+        "export_data": 3,
+        "metadata": 3
+      },
+      "package_directories": 668,
+      "native_errors": 0
+    },
+    {
+      "unit": "wide",
+      "complete_original_objects": 5487,
+      "complete_original_bytes": 85835247,
+      "all_original_kinds": {
+        "excluded_source": 1682,
+        "go_file": 2935,
+        "auxiliary": 835,
+        "go_sum": 14,
+        "go_mod": 15,
+        "metadata": 3,
+        "export_data": 3
+      },
+      "package_directories": 668,
+      "native_errors": 0
+    },
+    {
+      "unit": "owned",
+      "complete_original_objects": 5490,
+      "complete_original_bytes": 85375449,
+      "all_original_kinds": {
+        "excluded_source": 1685,
+        "go_file": 2934,
+        "auxiliary": 836,
+        "go_sum": 14,
+        "go_mod": 15,
+        "metadata": 3,
+        "export_data": 2,
+        "overlay": 1
+      },
+      "package_directories": 667,
+      "native_errors": 0
+    }
+  ],
+  "all_original_package_directories": 2003,
+  "exact_graphic_range_count": 711,
+  "rust_roots": 24,
+  "complete_original_lexical_cases": 5853,
+  "complete_original_syntax_cases": 2996,
+  "exact_positive_tokens": 7702601,
+  "exact_positive_syntax_nodes": 5731905,
+  "omitted_original_source_control": {
+    "complete_original_snapshot_objects": 5486,
+    "error": "Go original package files: GoSourcePackageError { kind: Membership, capability: \"workspace/main\", path: \"\" }",
+    "omitted_original_object": {
+      "bytes": 126,
+      "capability": "workspace/main",
+      "id": "a853d2c7ba3668939fae2bf98a0ea095f291da128dc0678418e31f2de5a35d0b",
+      "kind": "go_file",
+      "path": "unselected.go",
+      "raw_sha256": "4f93cf3426f8ed6a88baf7ebc3777acc9f40d906cf0f1c04c1740b506554ac87",
+      "schema": "mpk.go.source_object.v1"
+    },
+    "original_and_rebound_selected_contract_functions": 2,
+    "original_snapshot_unchanged": true,
+    "source_or_context_proof": false,
+    "status": "passed"
+  },
+  "original_proof_streams": 32,
+  "original_error_universes": [
+    0,
+    70
+  ],
+  "remaining": "Go header/file-set membership only. Auxiliary/directive/embed selection, canonical module/compiler/export/context/root authority, full foundation/source/program proofs and native Linux release gates remain due.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

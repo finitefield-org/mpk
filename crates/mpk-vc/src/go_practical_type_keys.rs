@@ -42,6 +42,11 @@ pub use source_languages::{
     GoSourceLanguageErrorKind, GoSourceLanguages,
 };
 mod source_overlays;
+mod source_package;
+pub use source_package::{
+    derive_go_source_package_files, GoSourcePackageError, GoSourcePackageErrorKind,
+    GoSourcePackageFiles,
+};
 mod source_scalar_typing;
 mod source_scopes;
 mod source_signatures;

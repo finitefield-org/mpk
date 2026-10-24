@@ -340,15 +340,7 @@ pub fn parse_go_source(source: &GoTypeSourceBuffer) -> Result<GoParsedSource> {
                     offset: e.offset,
                     kind: GoParseErrorKind::Lexical,
                 })?;
-                let mut parser = Parser {
-                    lexed,
-                    at: 0,
-                    nodes: vec![],
-                    level: 0,
-                    nesting: 0,
-                };
-                let root = parser.file()?;
-                parser.finish(root)
+                parse_lexed(lexed)
             })
             .map_err(|_| GoParseError {
                 offset: 0,
@@ -359,4 +351,27 @@ pub fn parse_go_source(source: &GoTypeSourceBuffer) -> Result<GoParsedSource> {
             kind: GoParseErrorKind::Worker,
         })?
     })
+}
+
+fn parse_lexed(lexed: GoLexedSource) -> Result<GoParsedSource> {
+    let mut parser = Parser {
+        lexed,
+        at: 0,
+        nodes: vec![],
+        level: 0,
+        nesting: 0,
+    };
+    let root = parser.file()?;
+    parser.finish(root)
+}
+
+pub(super) fn parse_go_source_header(
+    source: &GoTypeSourceBuffer,
+    end: usize,
+) -> Result<GoParsedSource> {
+    let lexed = super::lex::lex_go_source_prefix(source, end).map_err(|e| GoParseError {
+        offset: e.offset,
+        kind: GoParseErrorKind::Lexical,
+    })?;
+    parse_lexed(lexed)
 }

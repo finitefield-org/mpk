@@ -524,7 +524,21 @@ pub fn lex_go_source(source: &GoTypeSourceBuffer) -> Result<GoLexedSource> {
     if source.object().kind != "go_file" {
         return fail(0, GoLexErrorKind::Source);
     }
-    let raw = source.bytes();
+    lex_go_source_prefix(source, source.bytes().len())
+}
+
+// The complete owned source object/bytes survive this view. EOF marks the
+// physical end of the inspected import header, never a replacement Go file.
+pub(super) fn lex_go_source_prefix(
+    source: &GoTypeSourceBuffer,
+    end: usize,
+) -> Result<GoLexedSource> {
+    if !matches!(source.object().kind.as_str(), "go_file" | "excluded_source")
+        || end > source.bytes().len()
+    {
+        return fail(0, GoLexErrorKind::Source);
+    }
+    let raw = &source.bytes()[..end];
     let text = std::str::from_utf8(raw).map_err(|e| GoLexError {
         offset: e.valid_up_to(),
         kind: GoLexErrorKind::Utf8,

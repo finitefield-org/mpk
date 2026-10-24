@@ -37,6 +37,7 @@ struct Wire {
 pub enum GoSourceSnapshotError {
     Input(GoTypeKeyError),
     Build(GoSourceBuildError),
+    Package(GoSourcePackageError),
     Namespace,
 }
 impl std::fmt::Display for GoSourceSnapshotError {
@@ -439,6 +440,8 @@ pub fn import_go_source_capture_inputs(
     {
         source_build::require_production_source(source).map_err(GoSourceSnapshotError::Build)?;
     }
+    source_package::check_capture_package_files(&selection, &snapshot)
+        .map_err(GoSourceSnapshotError::Package)?;
     for source in keys
         .sources
         .values()

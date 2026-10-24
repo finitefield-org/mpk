@@ -160,9 +160,57 @@ fn filename(name: &str) -> bool {
         .last()
         .is_none_or(|name| !os(name) && !arch(name) || tag(name))
 }
-fn directive<'a>(line: &'a str, prefix: &str) -> Option<&'a str> {
+fn trim_space(mut raw: &[u8]) -> &[u8] {
+    const SPACE: &[&[u8]] = &[
+        b"\xc2\x85",
+        b"\xc2\xa0",
+        b"\xe1\x9a\x80",
+        b"\xe2\x80\x80",
+        b"\xe2\x80\x81",
+        b"\xe2\x80\x82",
+        b"\xe2\x80\x83",
+        b"\xe2\x80\x84",
+        b"\xe2\x80\x85",
+        b"\xe2\x80\x86",
+        b"\xe2\x80\x87",
+        b"\xe2\x80\x88",
+        b"\xe2\x80\x89",
+        b"\xe2\x80\x8a",
+        b"\xe2\x80\xa8",
+        b"\xe2\x80\xa9",
+        b"\xe2\x80\xaf",
+        b"\xe2\x81\x9f",
+        b"\xe3\x80\x80",
+    ];
+    loop {
+        if raw
+            .first()
+            .is_some_and(|b| matches!(b, b'\t'..=b'\r' | b' '))
+        {
+            raw = &raw[1..];
+        } else if let Some(s) = SPACE.iter().find(|s| raw.starts_with(s)) {
+            raw = &raw[s.len()..];
+        } else {
+            break;
+        }
+    }
+    loop {
+        if raw
+            .last()
+            .is_some_and(|b| matches!(b, b'\t'..=b'\r' | b' '))
+        {
+            raw = &raw[..raw.len() - 1];
+        } else if let Some(s) = SPACE.iter().find(|s| raw.ends_with(s)) {
+            raw = &raw[..raw.len() - s.len()];
+        } else {
+            break;
+        }
+    }
+    raw
+}
+fn directive<'a>(line: &'a [u8], prefix: &[u8]) -> Option<&'a [u8]> {
     let rest = line.strip_prefix(prefix)?;
-    let trim = rest.trim();
+    let trim = trim_space(rest);
     (rest.is_empty() || trim.len() < rest.len()).then_some(trim)
 }
 fn legacy(text: &str) -> Option<bool> {
@@ -227,58 +275,59 @@ pub fn derive_go_source_build_match(
     if !result.filename {
         return Ok(result);
     }
-    let text = std::str::from_utf8(source.bytes())
-        .map_err(|_| error(source, GoSourceBuildErrorKind::Source))?;
-    let text = text.strip_prefix('\u{feff}').unwrap_or(text);
+    let text = source
+        .bytes()
+        .strip_prefix(&[0xef, 0xbb, 0xbf])
+        .unwrap_or(source.bytes());
     let (mut end, mut offset, mut ended, mut block) = (0, 0, false, false);
     let mut modern = None;
-    'lines: for raw in text.split_inclusive('\n') {
+    'lines: for raw in text.split_inclusive(|b| *b == b'\n') {
         offset += raw.len();
-        let mut line = raw.trim();
+        let mut line = trim_space(raw);
         if line.is_empty() && !ended {
             end = offset;
             continue;
         }
-        if !line.starts_with("//") {
+        if !line.starts_with(b"//") {
             ended = true;
         }
         if !block {
-            if let Some(expr) = directive(line, "//go:build") {
+            if let Some(expr) = directive(line, b"//go:build") {
                 if modern.replace(expr).is_some() {
                     return Err(error(source, GoSourceBuildErrorKind::Constraint));
                 }
             }
-            if line == "//go:binary-only-package" {
+            if line == b"//go:binary-only-package" {
                 result.binary_only = true;
             }
         }
         while !line.is_empty() {
             if block {
-                let Some(at) = line.find("*/") else {
+                let Some(at) = line.windows(2).position(|s| s == b"*/") else {
                     continue 'lines;
                 };
                 block = false;
-                line = line[at + 2..].trim();
-            } else if line.starts_with("//") {
+                line = trim_space(&line[at + 2..]);
+            } else if line.starts_with(b"//") {
                 continue 'lines;
-            } else if let Some(rest) = line.strip_prefix("/*") {
+            } else if let Some(rest) = line.strip_prefix(b"/*") {
                 block = true;
-                line = rest.trim();
+                line = trim_space(rest);
             } else {
                 break 'lines;
             }
         }
     }
     if let Some(expr) = modern {
-        result.constraints = constraint::evaluate(expr, tag)
+        result.constraints = constraint::evaluate(&String::from_utf8_lossy(expr), tag)
             .map_err(|_| error(source, GoSourceBuildErrorKind::Constraint))?;
     } else {
-        for line in text[..end].lines().map(str::trim) {
+        for line in text[..end].split(|b| *b == b'\n').map(trim_space) {
             if let Some(expr) = line
-                .strip_prefix("//")
-                .and_then(|s| directive(s.trim(), "+build"))
+                .strip_prefix(b"//")
+                .and_then(|s| directive(trim_space(s), b"+build"))
             {
-                if let Some(value) = legacy(expr) {
+                if let Some(value) = legacy(&String::from_utf8_lossy(expr)) {
                     result.constraints &= value;
                 }
             }

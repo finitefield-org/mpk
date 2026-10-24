@@ -807,7 +807,7 @@ pub fn build_go_source_scopes(keys: &GoTypeKeyComponents) -> Result<GoSourceScop
 
 // The lexer has already validated this literal. Decode exact bytes here rather
 // than JSON-decoding Go escapes or normalizing import path spelling.
-fn unquote(raw: &[u8]) -> Result<Vec<u8>> {
+pub(super) fn unquote(raw: &[u8]) -> Result<Vec<u8>> {
     if raw.len() < 2 {
         return Err(GoSourceScopeError::Syntax);
     }

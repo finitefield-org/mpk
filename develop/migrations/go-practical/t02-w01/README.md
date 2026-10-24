@@ -1660,3 +1660,19 @@ original snapshot from zero files in another checkout. Its actual old missing-
 snapshot failure stays preserved; final affected Clippy/format checks pass.
 R01/R06/W01 remain open; the profile stays inactive and the cumulative T02 gate
 remains final W04. Go/Rust only.
+
+
+## Original package Go files and headers
+
+The [package-file component](verification/package-files/README.md) reconstructs
+original Go-file membership, package names and imports/internal-or-external-test/
+cgo-disabled groups from the complete immutable namespace. Complete capture
+rejects omission of a real unused source even when selected contracts still
+derive. All39 native header cases and all2,003 original package directories
+agree. All24 affected Rust roots pass, including the full5,853 lexer/2,996
+parser corpus, original43-root units, zero/70-error universes and32 exact proof
+streams. Strict Clippy/vet/formats pass. Initial fixture-root and generator
+failures retain their exact original sources/outputs; only affected checks rerun.
+Auxiliary/directive/embed selection and canonical module/compiler/export/context/
+root/program authority remain due. R01/R06/W01 stay open, the profile stays
+inactive and the cumulative T02 gate remains final W04. Go/Rust only.

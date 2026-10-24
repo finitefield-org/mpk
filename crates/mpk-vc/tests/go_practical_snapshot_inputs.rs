@@ -574,3 +574,118 @@ fn capture_inputs_reject_coherently_rebound_target_excluded_original_helpers() {
         &json!({"status":"passed","controls":checked,"complete_original_capture_retained":true,"source_program_proof":false}),
     );
 }
+
+#[test]
+fn capture_inputs_reject_coherent_omission_of_an_actual_unselected_original_file() {
+    let directory = root()
+        .parent()
+        .unwrap()
+        .join("package-files/native/native-originals/owned");
+    let p: Value = serde_json::from_slice(
+        &std::fs::read(directory.join("complete-package-inputs.json")).unwrap(),
+    )
+    .unwrap();
+    let original = capture(&directory, &p);
+    assert_eq!(original.derive_contracts().unwrap().functions().len(), 2);
+    let sources = buffers(&p, "sources", None);
+    let omitted = sources
+        .iter()
+        .find(|s| s.object().path == "unselected.go")
+        .unwrap();
+    let mut components: Value =
+        serde_json::from_slice(&unhex(p["components_hex"].as_str().unwrap())).unwrap();
+    components["source_objects"]
+        .as_array_mut()
+        .unwrap()
+        .retain(|s| s["id"] != omitted.object().id);
+    let package = components["packages"]
+        .as_array_mut()
+        .unwrap()
+        .iter_mut()
+        .find(|p| {
+            p["source_objects"]
+                .as_array()
+                .unwrap()
+                .contains(&json!(omitted.object().id))
+        })
+        .unwrap();
+    let old_package = package["id"].as_str().unwrap().to_string();
+    package["source_objects"]
+        .as_array_mut()
+        .unwrap()
+        .retain(|s| s != &json!(omitted.object().id));
+    package.as_object_mut().unwrap().remove("id");
+    let value = parse_strict_json(
+        &serde_json::to_vec(package).unwrap(),
+        StrictJsonLimits::new(268435456, 268435456, 64, 16777216),
+    )
+    .unwrap();
+    let new_package = hash_canonical_json(HashDomain::new("MPK-GO-TYPE-PACKAGE-2.0"), &value)
+        .unwrap()
+        .to_hex();
+    package["id"] = json!(new_package);
+    for id in components["package_roots"].as_array_mut().unwrap() {
+        if id == &json!(old_package) {
+            *id = json!(new_package);
+        }
+    }
+    components["packages"]
+        .as_array_mut()
+        .unwrap()
+        .sort_by(|a, b| a["id"].as_str().cmp(&b["id"].as_str()));
+    components["package_roots"]
+        .as_array_mut()
+        .unwrap()
+        .sort_by(|a, b| a.as_str().cmp(&b.as_str()));
+    seal(&mut components, "MPK-GO-TYPE-COMPONENTS-2.0");
+    let mut contracts: Value =
+        serde_json::from_slice(&unhex(p["envelope_hex"].as_str().unwrap())).unwrap();
+    contracts["source_components_sha256"] = components["content_sha256"].clone();
+    seal(&mut contracts, "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-1.0");
+    let mut selected: Value =
+        serde_json::from_slice(&unhex(p["selection_hex"].as_str().unwrap())).unwrap();
+    selected["source_contract_inputs_sha256"] = contracts["content_sha256"].clone();
+    for root in selected["roots"].as_array_mut().unwrap() {
+        if root["package_id"] == old_package {
+            root["package_id"] = json!(new_package);
+        }
+    }
+    selected["roots"]
+        .as_array_mut()
+        .unwrap()
+        .sort_by(|a, b| a["package_id"].as_str().cmp(&b["package_id"].as_str()));
+    seal(&mut selected, "MPK-PRIVATE-GO-SOURCE-SELECTION-INPUTS-1.0");
+    let remaining = sources
+        .iter()
+        .filter(|s| s.object().id != omitted.object().id)
+        .cloned()
+        .collect::<Vec<_>>();
+    let selection = import_go_source_selection_inputs(
+        &serde_json::to_vec(&selected).unwrap(),
+        &serde_json::to_vec(&contracts).unwrap(),
+        &serde_json::to_vec(&components).unwrap(),
+        &remaining,
+        &buffers(&p, "overlays", None),
+    )
+    .unwrap();
+    assert_eq!(selection.derive_contracts().unwrap().functions().len(), 2);
+    let complete_snapshot = original.snapshot_inputs().clone();
+    assert!(complete_snapshot.source(&omitted.object().id).is_some());
+    let mut record: Value =
+        serde_json::from_slice(&unhex(p["capture_hex"].as_str().unwrap())).unwrap();
+    record["selection_inputs_sha256"] = selected["content_sha256"].clone();
+    seal(&mut record, "MPK-PRIVATE-GO-SOURCE-CAPTURE-INPUTS-1.0");
+    let GoSourceSnapshotError::Package(error) = import_go_source_capture_inputs(
+        &serde_json::to_vec(&record).unwrap(),
+        selection,
+        complete_snapshot,
+    )
+    .unwrap_err() else {
+        panic!("actual complete Go-file membership guard")
+    };
+    assert_eq!(error.kind(), GoSourcePackageErrorKind::Membership);
+    output(
+        "coherent-unselected-file-omission.json",
+        &json!({"status":"passed","omitted_original_object":omitted.object(),"complete_original_snapshot_objects":original.snapshot_inputs().source_objects().len(),"original_and_rebound_selected_contract_functions":2,"original_snapshot_unchanged":true,"error":error.to_string(),"source_or_context_proof":false}),
+    );
+}

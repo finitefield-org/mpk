@@ -8623,3 +8623,51 @@ authorization, source/IR/state/storage/frame/callee/program proofs, all56
 foundation families/all169 demands, native Linux gates and remaining T02-T11
 remain due. R01/R06/W01 stay open; the practical profile stays inactive. The
 cumulative T02 gate remains final W04: `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 185. T02-W01 independent original package Go-file membership
+
+The [package-file component](../migrations/go-practical/t02-w01/verification/package-files/README.md)
+reconstructs complete original Go-file membership, package names, import paths,
+internal/external tests and cgo-disabled exclusions from the exact immutable
+namespace. Its import-header parser retains the entire owned source object and
+all original bytes/physical offsets. Header EOF is a view boundary, not a new
+or rewritten program file. Existing full-source parsing retains its original
+worker stack, source ownership and syntax domain. Pinned Unicode15 graphic
+ranges preserve valid non-ASCII import paths. Native-byte build-header reading
+also preserves bodies containing invalid bytes beyond the import-header view.
+
+Complete capture compares every claimed package's original name and active
+source IDs with the independently reconstructed directory. A complete real owner
+keeps an actual unused channel/callback/init-panic Go1.21 source. Coherently
+omitting that source from claimed package/component inventories retains both
+selected call-contract candidates but rejects at complete-capture construction;
+the full original snapshot remains unchanged.
+
+All39 actual Go header cases agree, including15 native rejections, malformed/
+unsupported unused bodies, test/cgo/documentation names, exact raw/escaped/
+Unicode imports and physical line directives. All668 pure/668 wide/667 owned
+original package directories agree:2,003 total. All24 affected Rust roots pass.
+Losslessly restored complete original native corpora give5,853 lexical cases
+(5,714 acceptances/139 rejections/7,702,601 exact positive tokens) and2,996 syntax
+cases (2,969 acceptances/27 rejections/5,731,905 exact positive nodes). Deep100,000
+syntax and byte-derived token bounds remain. Earlier182 build cases/all13,853
+original Go candidates, all150 language observations, both43-root units,
+zero/70-error universes and every byte of32 proof streams remain unchanged.
+
+Initial actual native headers fail only because the newly created fixture's
+macOS temporary path traverses a linked parent. Resolving that fixture's own
+physical directory preserves the original guard; only its header root reruns.
+The original failed suite retains its two passed universe/owner roots and its
+failed status. Original failed graphic-generation output and successful pinned
+private-cache command remain. Strict affected Clippy, Go vet and explicit formats
+pass. Independent inspection checks full original source bytes/kinds, package
+coverage and all711 generated graphic ranges. All13 source epochs retain exact
+inputs and raw outputs, distinguishing formatter writes from frozen verification.
+
+Auxiliary/cgo-directive/embed selection, canonical module/build/compiler/export/
+capture/context/descriptor/registry and launcher authority, full foundation/source/
+IR/state/storage/frame/callee/program proofs, all56 families/all169 demands,
+native Linux gates and remaining T02-T11 remain due. R01/R06/W01 stay open; the
+practical profile stays inactive. The cumulative T02 gate remains final W04:
+`./scripts/check-fast.sh`. Go/Rust only.
