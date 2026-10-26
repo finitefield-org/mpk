@@ -9,9 +9,14 @@ pub use manifest::{
     GoSourceModuleManifestError,
 };
 mod data;
+mod graph_inputs;
 pub use data::{
     import_go_module_sums, inspect_go_module_archive, GoModuleArchiveInventory,
     GoModuleArchiveMember, GoModuleSums, GoSourceModuleData, GoSourceModuleDataError,
+};
+pub use graph_inputs::{
+    import_go_source_module_graph_inputs, GoSourceGraphModule, GoSourceModuleGraphError,
+    GoSourceModuleGraphInputs,
 };
 
 const DOMAIN: HashDomain = HashDomain::new("MPK-PRIVATE-GO-SOURCE-MODULE-OBSERVATIONS-1.0");

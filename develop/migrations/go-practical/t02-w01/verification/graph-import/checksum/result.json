@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_graph_inputs",
+    "coherently_changed_unselected_mod_bytes_still_require_original_go_sum",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_GRAPH_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-import/checksum/observations/graphs",
+    "MPK_GO_GRAPH_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-import/checksum/observations/graph-manifests",
+    "MPK_GO_MODULE_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-import/checksum/observations/manifests",
+    "MPK_GO_EXPORT_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-import/checksum/observations/exports"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-import/checksum/inputs.json",
+    "bytes": 46710493,
+    "sha256": "33a96db5b44fc61901956efb3f702652014c64e99510e38614e71048832a44c9",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-import/run.py",
+    "bytes": 8585,
+    "sha256": "b2bc15b1259a5fac8178679f27b0fe586bd7c60cea79364e565007a4b1367ce1",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T15:50:14.253481+00:00",
+  "selection_reason": "Independently import complete private v2 graph inputs with original checksum/archive-verified module data, exact cache and replacement roots, original lax go.mod facts, identity/pruning-state traversal, whole BFS metadata and observed selected maxima. Actual full HTTP local/versioned owners retain old lower/empty unselected manifests, cycles, duplicate/excluded requirements, pruned missing targets, exact replacements and non-UTF8 virtual version labels. Coherently rehashed controls cannot substitute parser/graph claims for source bytes. New graph code plus shared internal helpers affect graph-manifest/module-manifest/export consumers, so run those targeted roots and strict Clippy/vet/explicit changed-file formats. Keep full original source/package/proof scopes. General root expansion/MVS and source/compiler/context/program/native Linux authority remain due. No removed-language tests, whole gate, cap or premise changes.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 99.42166183298104,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-import/checksum/stdout.log",
+    "bytes": 195,
+    "sha256": "3cca5e32c0014182895899ffb6a2a3136484a8ced76c9a79396ecee9479d0e42",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-import/checksum/stderr.log",
+    "bytes": 256,
+    "sha256": "0b68a44a00bc5e5a21255f1f214c84761af47a0ea7a65203767687989108dcc7",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T15:51:53.676926+00:00"
+}

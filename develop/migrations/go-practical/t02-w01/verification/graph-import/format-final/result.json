@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--check",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_type_keys.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations/data.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations/manifest.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations/manifest/versions.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations/graph_inputs.rs",
+    "crates/mpk-vc/tests/go_practical_graph_inputs.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-import/format-final/inputs.json",
+    "bytes": 3144,
+    "sha256": "ff4a393f30c89ce92df1dbb69957db455037eaf649674dac964591e5e567e9c6",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-import/run.py",
+    "bytes": 8585,
+    "sha256": "b2bc15b1259a5fac8178679f27b0fe586bd7c60cea79364e565007a4b1367ce1",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T15:47:02.701182+00:00",
+  "selection_reason": "Independently import complete private v2 graph inputs with original checksum/archive-verified module data, exact cache and replacement roots, original lax go.mod facts, identity/pruning-state traversal, whole BFS metadata and observed selected maxima. Actual full HTTP local/versioned owners retain old lower/empty unselected manifests, cycles, duplicate/excluded requirements, pruned missing targets, exact replacements and non-UTF8 virtual version labels. Coherently rehashed controls cannot substitute parser/graph claims for source bytes. New graph code plus shared internal helpers affect graph-manifest/module-manifest/export consumers, so run those targeted roots and strict Clippy/vet/explicit changed-file formats. Keep full original source/package/proof scopes. General root expansion/MVS and source/compiler/context/program/native Linux authority remain due. No removed-language tests, whole gate, cap or premise changes.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 1.9589988339866977,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-import/format-final/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-import/format-final/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T15:47:04.660942+00:00"
+}

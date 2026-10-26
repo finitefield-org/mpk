@@ -9098,3 +9098,37 @@ Rust graph import/MVS, transient input and compiler/root/context/source/program/
 foundation authority, native Linux gates and T02–T11 remain due. R01/R04/R05/R06/W01
 remain open; the profile stays inactive. Final W04 owns the T02 cumulative gate:
 `./scripts/check-fast.sh`. Go/Rust only; no scope, premise, rule or cap changes.
+
+
+## 197. T02-W01 independent original graph input import
+
+The [graph import component](../migrations/go-practical/t02-w01/verification/graph-import/README.md) independently
+reconstructs initial/final loaded dependency summaries from original main
+requirements, excludes, exact replacements, cache/origin/namespace data and
+h1-checked original .mod files. Identity/pruning-state traversal retains old lower
+and empty versions, cycles, duplicates and unpruning while avoiding invented
+pruned sources. Complete v2 inventories, native breadth-first byte output and
+observed real-module maxima agree with original module metadata. Arbitrary
+virtual version bytes and all original module/source/export/archive data stay
+owned. Final roots remain native observations pending root expansion/MVS.
+
+All15 affected Rust roots, full native versioned capture, current affected Clippy,
+vet and formats pass. The local owner retains181 packages/5667 objects with its
+non-UTF8 toolchain suffix; the new versioned owner retains182 packages/5697
+objects, eight selected modules and13 initial/final loaded nodes. Both keep
+unused HTTP bodies and unexecuted init after root/image retirement. Twenty
+resealed graph controls reject. A separate changed unselected .mod control
+reseals object/snapshot/capture/export/module/graph hashes with the same complete
+source/package/one-Root-contract universe; unchanged original go.sum rejects.
+
+Initial empty-slice type inference and test err/expect Clippy failures retain
+exact inputs/outputs. All12 source epochs, formatter preimages and whole original
+SDK/cache inputs remain. Only the new checksum root/changed test lint rerun after
+14 runtime roots pass. Inspection checks all original owners, controls and32
+unchanged proof byte streams without new kernel replay; earlier43-root/zero-or70-
+error universes keep prior evidence. General root expansion/MVS, transient input/
+transport-resource, compiler/root/context/registry/source/program/foundation
+bindings, native Linux gates and T02–T11 stay due. R01/R04/R05/R06/W01 remain
+open; the practical profile stays inactive. The full T02 gate stays final W04:
+`./scripts/check-fast.sh`. Go/Rust only; no source/type/error/proof scope, premise,
+math rule, review rule/seal/exclusion or kernel cap changes.

@@ -18,11 +18,12 @@ pub use export_inputs::{
 };
 pub use module_observations::{
     derive_go_source_graph_manifest, derive_go_source_module_manifest, import_go_module_sums,
-    import_go_source_module_observations, inspect_go_module_archive, GoModuleArchiveInventory,
-    GoModuleArchiveMember, GoModuleReplacement, GoModuleRequirement, GoModuleRetraction,
-    GoModuleSums, GoSourceGraphManifest, GoSourceModuleData, GoSourceModuleDataError,
-    GoSourceModuleManifest, GoSourceModuleManifestError, GoSourceModuleObservationError,
-    GoSourceModuleObservations,
+    import_go_source_module_graph_inputs, import_go_source_module_observations,
+    inspect_go_module_archive, GoModuleArchiveInventory, GoModuleArchiveMember,
+    GoModuleReplacement, GoModuleRequirement, GoModuleRetraction, GoModuleSums,
+    GoSourceGraphManifest, GoSourceGraphModule, GoSourceModuleData, GoSourceModuleDataError,
+    GoSourceModuleGraphError, GoSourceModuleGraphInputs, GoSourceModuleManifest,
+    GoSourceModuleManifestError, GoSourceModuleObservationError, GoSourceModuleObservations,
 };
 mod lex;
 pub use contract_inputs::{

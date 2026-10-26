@@ -90,9 +90,12 @@ pub fn import_go_module_sums(source: GoTypeSourceBuffer) -> DataResult<GoModuleS
     }
     Ok(GoModuleSums { source, entries })
 }
-fn manifest_sum(source: &GoTypeSourceBuffer) -> String {
+pub(super) fn manifest_sum(source: &GoTypeSourceBuffer) -> String {
     let line = format!("{}  go.mod\n", source.object().raw_sha256);
     format!("h1:{}", BASE64.encode(Sha256::digest(line.as_bytes())))
+}
+pub(super) fn graph_module_identity(path: &str, version: &str) -> bool {
+    identity::valid(path, version)
 }
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoSourceModuleData {

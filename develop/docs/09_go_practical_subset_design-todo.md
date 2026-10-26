@@ -14,6 +14,13 @@ Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The W01 [independent graph input checkpoint](../migrations/go-practical/t02-w01/verification/graph-import/README.md)
+reconstructs original initial/final loaded summaries, exact cache/replacement/
+checksum inputs, native graph bytes and observed selected maxima. All15 affected
+Rust roots and a complete182-package native owner pass;21 coherent claim/content
+controls reject. General root expansion/MVS and remaining W01 authority/proof
+obligations stay open.
+
 The W01 [v2 graph input checkpoint](../migrations/go-practical/t02-w01/verification/graph-inputs/README.md)
 binds the original native cache capability, preserves exact version bytes and
 orders distinct equal-version labels deterministically. All five native graph

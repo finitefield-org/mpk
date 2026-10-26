@@ -1,0 +1,62 @@
+{
+  "status": "scoped_checks_passed",
+  "basis_commit": "b1e77990addce5052bf343baafc6a5318e890b90",
+  "checkpoint": 197,
+  "source_epochs": [
+    "checksum",
+    "clippy-controls",
+    "clippy-final",
+    "clippy-initial",
+    "format-controls",
+    "format-final",
+    "format-initial",
+    "go-format-final",
+    "go-format-initial",
+    "native",
+    "rust-initial",
+    "vet"
+  ],
+  "preserved_failed_epochs": [
+    "clippy-final",
+    "clippy-initial"
+  ],
+  "affected_rust_roots": 15,
+  "new_rust_roots": 4,
+  "native_roots": 1,
+  "original_owners": [
+    {
+      "name": "local",
+      "packages": 181,
+      "objects": 5667
+    },
+    {
+      "name": "versioned",
+      "packages": 182,
+      "objects": 5697,
+      "selected_modules": 8,
+      "initial_loaded_nodes": 13,
+      "final_loaded_nodes": 13
+    }
+  ],
+  "coherent_graph_claim_controls": 20,
+  "coherent_unselected_manifest_content_controls": 1,
+  "completed_component": "Independently reconstruct original initial/final loaded module summaries from main requirements/excludes/replacements, original cache/root namespaces and h1-checked .mod bytes, preserving arbitrary virtual version bytes. Compare complete v2 inventories, native breadth-first output and observed real-module maxima with original selected module metadata. Own all checksum/archive/source/export/module inputs without resolver/filesystem/source adapters.",
+  "selection_reason": "New graph import and shared internal version/hash helpers affect original graph/dependency/strict-manifest and source/export/module consumers: run all14 original/new roots, plus the added full-universe checksum mutation root. The native versioned owner exercises old/empty/unselected/cyclic/pruned modules and exact uppercase replacement with complete HTTP source. Twenty coherently rehashed graph claims reject. The later source-content control reseals every affected hash and retains source/package/one-Root-contract scope; original go.sum still rejects. Preserve initial type-inference and test err/expect lint failures with all source epochs. Only changed test lint/new checksum root rerun after14 runtime roots pass. Native vet and changed-file formats cover the fixture/implementation. No whole gate, workflow, removed-language tests or kernel cap/premise changes.",
+  "checks": {
+    "rust": "15 unique roots passed",
+    "native": "full original versioned graph/source/export owner passed",
+    "clippy": "affected lib/all targets checked; final changed-target lint passed",
+    "vet": "passed",
+    "formats": "changed Rust/Go files passed",
+    "full_T02_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+  },
+  "independent_root_expansion_or_installed_context_authority": false,
+  "public_profile_activated": false,
+  "R01_complete": false,
+  "R04_complete": false,
+  "R05_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "whole_repository_gate_run": false,
+  "remaining": "Independent root expansion/MVS, complete transient native graph input and transport-resource authority; installed compiler/root/capture/context/descriptor/registry/launcher bindings; source/IR/state/storage/frame/callee/program proofs, all56 foundation/all169 demands, native Linux release gates and remaining T02-T11."
+}

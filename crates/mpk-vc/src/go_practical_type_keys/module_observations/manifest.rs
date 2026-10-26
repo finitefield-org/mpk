@@ -4,6 +4,12 @@ use super::*;
 mod lax;
 mod syntax;
 mod versions;
+pub(super) fn graph_version_compare(path: &str, a: &[u8], b: &[u8]) -> std::cmp::Ordering {
+    versions::graph_version_compare(path, a, b)
+}
+pub(super) fn graph_virtual_version_valid(path: &str, v: &[u8]) -> bool {
+    versions::graph_virtual_version_valid(path, v)
+}
 pub use lax::{derive_go_source_graph_manifest, GoSourceGraphManifest};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

@@ -167,6 +167,68 @@ fn accepted(v: &GoVersion) -> bool {
         .then_with(|| decimal(&v.pre, ""))
         != std::cmp::Ordering::Greater
 }
+fn toolchain_version(raw: &[u8], prefix: bool) -> &str {
+    let raw = raw.split(|b| *b == b'-').next().unwrap();
+    let raw = if prefix {
+        raw.strip_prefix(b"go").unwrap_or(b"")
+    } else {
+        raw
+    };
+    std::str::from_utf8(raw).unwrap_or("")
+}
+pub(super) fn graph_virtual_version_valid(path: &str, raw: &[u8]) -> bool {
+    path == "toolchain" && raw == b"default"
+        || go(toolchain_version(raw, path == "toolchain")).is_some()
+}
+pub(super) fn graph_version_compare(path: &str, a: &[u8], b: &[u8]) -> std::cmp::Ordering {
+    if path == "go" || path == "toolchain" {
+        return compare_go(
+            toolchain_version(a, path == "toolchain"),
+            toolchain_version(b, path == "toolchain"),
+        );
+    }
+    // Real identities have already passed the complete canonical-version check.
+    // Compare unbounded decimal strings and ignore +incompatible for precedence.
+    let pieces = |raw: &[u8]| {
+        let raw = std::str::from_utf8(raw).unwrap().strip_prefix('v').unwrap();
+        let plain = raw.split('+').next().unwrap();
+        let (core, pre) = plain
+            .split_once('-')
+            .map_or((plain, None), |(core, pre)| (core, Some(pre.to_string())));
+        (core.split('.').map(str::to_string).collect::<Vec<_>>(), pre)
+    };
+    let (ac, ap) = pieces(a);
+    let (bc, bp) = pieces(b);
+    for (a, b) in ac.iter().zip(bc.iter()) {
+        let order = decimal(a, b);
+        if !order.is_eq() {
+            return order;
+        }
+    }
+    match (ap, bp) {
+        (None, None) => std::cmp::Ordering::Equal,
+        (None, Some(_)) => std::cmp::Ordering::Greater,
+        (Some(_), None) => std::cmp::Ordering::Less,
+        (Some(a), Some(b)) => {
+            let a = a.split('.').collect::<Vec<_>>();
+            let b = b.split('.').collect::<Vec<_>>();
+            for (a, b) in a.iter().zip(b.iter()) {
+                let an = a.bytes().all(|b| b.is_ascii_digit());
+                let bn = b.bytes().all(|b| b.is_ascii_digit());
+                let order = match (an, bn) {
+                    (true, true) => decimal(a, b),
+                    (true, false) => std::cmp::Ordering::Less,
+                    (false, true) => std::cmp::Ordering::Greater,
+                    (false, false) => a.cmp(b),
+                };
+                if !order.is_eq() {
+                    return order;
+                }
+            }
+            a.len().cmp(&b.len())
+        }
+    }
+}
 pub(super) fn compare_go(a: &str, b: &str) -> std::cmp::Ordering {
     match (go(a), go(b)) {
         (None, None) => std::cmp::Ordering::Equal,

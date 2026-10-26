@@ -1,0 +1,16 @@
+    Blocking waiting for file lock on build directory
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: called `.err().expect()` on a `Result` value
+   --> crates/mpk-vc/tests/go_practical_graph_inputs.rs:339:10
+    |
+339 |           .err()
+    |  __________^
+340 | |         .expect(case);
+    | |_______________^ help: try: `expect_err`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#err_expect
+    = note: `-D clippy::err-expect` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::err_expect)]`
+
+error: could not compile `mpk-vc` (test "go_practical_graph_inputs") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
