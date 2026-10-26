@@ -1,0 +1,136 @@
+{
+  "namespace": {
+    "workspace/dep\u0000": [
+      {
+        "Name": "cache",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache": [
+      {
+        "Name": "download",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download": [
+      {
+        "Name": "example.com",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com": [
+      {
+        "Name": "a",
+        "Type": 2147483648
+      },
+      {
+        "Name": "c",
+        "Type": 2147483648
+      },
+      {
+        "Name": "z",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/c": [
+      {
+        "Name": "@v",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/c/@v": [
+      {
+        "Name": "v1.0.0.mod",
+        "Type": 0
+      },
+      {
+        "Name": "v1.1.0.mod",
+        "Type": 0
+      },
+      {
+        "Name": "v1.2.0.mod",
+        "Type": 0
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/z": [
+      {
+        "Name": "@v",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/z/@v": [
+      {
+        "Name": "v1.0.0.mod",
+        "Type": 0
+      },
+      {
+        "Name": "v1.1.0.mod",
+        "Type": 0
+      }
+    ],
+    "workspace/main\u0000": [
+      {
+        "Name": "go.mod",
+        "Type": 0
+      },
+      {
+        "Name": "go.sum",
+        "Type": 0
+      }
+    ]
+  },
+  "objects": [
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "3a277c65df72ddad3075f7f685b5cda83fa37b29e268b6752c0c38230315fa73",
+      "capability": "workspace/dep",
+      "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+      "kind": "go_mod",
+      "raw_sha256": "71cad4ea7cbd094633a1d29bfb8bed337860875bc01e0a8d89e57de19f76344e",
+      "bytes": 29
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "91b174d6adf66021446e53aba3f2e142808445025683310aafb028e2a9923951",
+      "capability": "workspace/main",
+      "path": "go.mod",
+      "kind": "go_mod",
+      "raw_sha256": "598f3f8f6fe8ecc48f406d8e628998ce43fe3327b12394e6b19190a0c108357a",
+      "bytes": 108
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "bbfb98e6ed3df453ceca65471b4009d7fc2be9405c4097b4086d49afd309d2ef",
+      "capability": "workspace/dep",
+      "path": "cache/download/example.com/c/@v/v1.2.0.mod",
+      "kind": "go_mod",
+      "raw_sha256": "663567cf6da2150cc189aa96f75d1481cb59187cb36dbeb0ab68cb08f0a177ed",
+      "bytes": 63
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "ceb71d922c2df4cf7f9ee596ce52cedf4fa7d9f5880fc83b79c9696c78438675",
+      "capability": "workspace/main",
+      "path": "go.sum",
+      "kind": "go_sum",
+      "raw_sha256": "10195b5e50fe3bb2b161d79a3156c1e6aee8e10d23b492e6b813a1588e246189",
+      "bytes": 456
+    }
+  ],
+  "origins": [
+    {
+      "Capability": "workspace/dep",
+      "Directory": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracleduplicate-inconsistent3969872135/001/dep"
+    },
+    {
+      "Capability": "workspace/main",
+      "Directory": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracleduplicate-inconsistent3969872135/001/main"
+    }
+  ],
+  "raw": {
+    "3a277c65df72ddad3075f7f685b5cda83fa37b29e268b6752c0c38230315fa73": "bW9kdWxlIGV4YW1wbGUuY29tL3oKZ28gMS4yMgo=",
+    "91b174d6adf66021446e53aba3f2e142808445025683310aafb028e2a9923951": "bW9kdWxlIGV4YW1wbGUuY29tL2FwcApnbyAxLjI1LjAKcmVxdWlyZSAoCmV4YW1wbGUuY29tL2MgdjEuMC4wCmV4YW1wbGUuY29tL2MgdjEuMi4wCmV4YW1wbGUuY29tL3ogdjEuMC4wCikK",
+    "bbfb98e6ed3df453ceca65471b4009d7fc2be9405c4097b4086d49afd309d2ef": "bW9kdWxlIGV4YW1wbGUuY29tL2MKZ28gMS4yMgpyZXF1aXJlIGV4YW1wbGUuY29tL3VucmVhZCB2MS4wLjAK",
+    "ceb71d922c2df4cf7f9ee596ce52cedf4fa7d9f5880fc83b79c9696c78438675": "ZXhhbXBsZS5jb20vYSB2MS4wLjAvZ28ubW9kIGgxOlNoOFhyU05rY1l5elJMMHlxb3pvamRBSkxyMVl0TFRTamJKcWdhQTdnWHc9CmV4YW1wbGUuY29tL2MgdjEuMC4wL2dvLm1vZCBoMTpONHJvTE1HSXRySjZ5bWV0ZU40NHR3cDFvVmxwbzlNQmorMXRnSWhyOWpRPQpleGFtcGxlLmNvbS9jIHYxLjEuMC9nby5tb2QgaDE6YTUzbjNhK0RlTUhpN3JIZzdWZnlOL2w0azlyeUdIaUNQNm9zcjVWakRxZz0KZXhhbXBsZS5jb20vYyB2MS4yLjAvZ28ubW9kIGgxOjlqQXNuL0pqZllaS2lvSlJ4ZjNnemRiMkphbjVmakMyd1hDdnIxWlVWdXM9CmV4YW1wbGUuY29tL3ogdjEuMC4wL2dvLm1vZCBoMTpVYWF5SkMvTDB6NEpyTFlMUnBHaG95MndhR0lPU21xZW1QS1V4bnVGcFk4PQpleGFtcGxlLmNvbS96IHYxLjEuMC9nby5tb2QgaDE6WmRpMUxDQ2doSkFlUHMreWMwKys1TFVkK1o2OHZ3amxUZjBBUlRlNVhHTT0K"
+  }
+}

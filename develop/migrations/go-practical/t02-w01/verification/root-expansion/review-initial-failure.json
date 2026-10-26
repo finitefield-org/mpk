@@ -1,0 +1,11 @@
+{
+  "status": "failed",
+  "command": [
+    "python3",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/review.py"
+  ],
+  "exit_code": 1,
+  "complete_stderr": "Traceback (most recent call last):\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/review.py\", line 268, in <module>\n    main()\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/review.py\", line 208, in main\n    archive_inputs(receipt, REPO, '')\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/review.py\", line 178, in archive_inputs\n    decode_originals(name, data)\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/review.py\", line 136, in decode_originals\n    data = base64.b64decode(value['raw'][obj['id']], validate=True)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/base64.py\", line 83, in b64decode\n    s = _bytes_from_decode_data(s)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/base64.py\", line 45, in _bytes_from_decode_data\n    raise TypeError(\"argument should be a bytes-like object or ASCII \"\nTypeError: argument should be a bytes-like object or ASCII string, not 'NoneType'\n",
+  "prelaunch": "review-initial-prelaunch.json",
+  "runtime_code_or_test_results_changed": false
+}

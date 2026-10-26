@@ -1,0 +1,108 @@
+{
+  "namespace": {
+    "workspace/dep\u0000": [
+      {
+        "Name": "cache",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache": [
+      {
+        "Name": "download",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download": [
+      {
+        "Name": "example.com",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com": [
+      {
+        "Name": "equal",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/equal": [
+      {
+        "Name": "@v",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/equal/@v": [
+      {
+        "Name": "v1.0.0+incompatible.mod",
+        "Type": 0
+      },
+      {
+        "Name": "v1.0.0.mod",
+        "Type": 0
+      }
+    ],
+    "workspace/main\u0000": [
+      {
+        "Name": "go.mod",
+        "Type": 0
+      },
+      {
+        "Name": "go.sum",
+        "Type": 0
+      }
+    ]
+  },
+  "objects": [
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "a5beb68593f4344303467e04eed0e8d38773e502c45f26ad673350cba8a7bee5",
+      "capability": "workspace/dep",
+      "path": "cache/download/example.com/equal/@v/v1.0.0.mod",
+      "kind": "go_mod",
+      "raw_sha256": "fe4ea7e4a8d2cd9af80a985cd37222f10a6d457ce47765dce87f6ee24918e526",
+      "bytes": 33
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "b54a77d90ba157ca9c38839bfefbfd262c8b9157c51cf9eef1863ca32f21ed61",
+      "capability": "workspace/main",
+      "path": "go.sum",
+      "kind": "go_sum",
+      "raw_sha256": "9ebcc47dbe46969958691f8c89b226eddeef0680e813f968861604de80d2d047",
+      "bytes": 173
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "d2ac432b4058907ee3de03266f299f516034b83d1af56503030ce53eb2ae18bd",
+      "capability": "workspace/dep",
+      "path": "cache/download/example.com/equal/@v/v1.0.0+incompatible.mod",
+      "kind": "go_mod",
+      "raw_sha256": "fe4ea7e4a8d2cd9af80a985cd37222f10a6d457ce47765dce87f6ee24918e526",
+      "bytes": 33
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "f929b5c6fd35d635a45ffce77843e3527da63b35434b719f30c4eb20117e47a3",
+      "capability": "workspace/main",
+      "path": "go.mod",
+      "kind": "go_mod",
+      "raw_sha256": "b82c961a7a79ea45c9cc5fc5846c70aeb67fd0adb49f04f5cbad9567152e1b1e",
+      "bytes": 108
+    }
+  ],
+  "origins": [
+    {
+      "Capability": "workspace/dep",
+      "Directory": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracleequal-real-labels3739911869/001/dep"
+    },
+    {
+      "Capability": "workspace/main",
+      "Directory": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracleequal-real-labels3739911869/001/main"
+    }
+  ],
+  "raw": {
+    "a5beb68593f4344303467e04eed0e8d38773e502c45f26ad673350cba8a7bee5": "bW9kdWxlIGV4YW1wbGUuY29tL2VxdWFsCmdvIDEuMjIK",
+    "b54a77d90ba157ca9c38839bfefbfd262c8b9157c51cf9eef1863ca32f21ed61": "ZXhhbXBsZS5jb20vZXF1YWwgdjEuMC4wK2luY29tcGF0aWJsZS9nby5tb2QgaDE6RlY4QkpnQTM0Rk1YdkN3VmNPR0pEOU5NR2liWElwd0RybG9ORCtmV3l5Zz0KZXhhbXBsZS5jb20vZXF1YWwgdjEuMC4wL2dvLm1vZCBoMTpGVjhCSmdBMzRGTVh2Q3dWY09HSkQ5Tk1HaWJYSXB3RHJsb05EK2ZXeXlnPQo=",
+    "d2ac432b4058907ee3de03266f299f516034b83d1af56503030ce53eb2ae18bd": "bW9kdWxlIGV4YW1wbGUuY29tL2VxdWFsCmdvIDEuMjIK",
+    "f929b5c6fd35d635a45ffce77843e3527da63b35434b719f30c4eb20117e47a3": "bW9kdWxlIGV4YW1wbGUuY29tL2FwcApnbyAxLjI1LjAKcmVxdWlyZSAoCmV4YW1wbGUuY29tL2VxdWFsIHYxLjAuMCtpbmNvbXBhdGlibGUKZXhhbXBsZS5jb20vZXF1YWwgdjEuMC4wCikK"
+  }
+}

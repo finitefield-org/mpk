@@ -14,6 +14,14 @@ Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The W01 [pruned root expansion checkpoint](../migrations/go-practical/t02-w01/verification/root-expansion/README.md)
+now derives final roots from original main/dependency manifests, including native
+bootstrap normalization and transient expansion inputs. All18 native expansion
+cases,225 version comparisons and84 exact sort permutations agree with Rust.
+Eight affected Rust roots and8 native roots pass, including a fresh whole HTTP
+owner roundtrip. General correctness/read/resource and remaining W01 authority/
+proof obligations stay open; the practical profile remains inactive.
+
 The W01 [independent graph input checkpoint](../migrations/go-practical/t02-w01/verification/graph-import/README.md)
 reconstructs original initial/final loaded summaries, exact cache/replacement/
 checksum inputs, native graph bytes and observed selected maxima. All15 affected

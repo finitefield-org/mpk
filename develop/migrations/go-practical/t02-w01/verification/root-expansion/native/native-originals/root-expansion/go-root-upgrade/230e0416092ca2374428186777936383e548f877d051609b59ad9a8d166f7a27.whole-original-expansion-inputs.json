@@ -1,0 +1,94 @@
+{
+  "namespace": {
+    "workspace/dep\u0000": [
+      {
+        "Name": "cache",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache": [
+      {
+        "Name": "download",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download": [
+      {
+        "Name": "example.com",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com": [
+      {
+        "Name": "a",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/a": [
+      {
+        "Name": "@v",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/a/@v": [
+      {
+        "Name": "v1.0.0.mod",
+        "Type": 0
+      }
+    ],
+    "workspace/main\u0000": [
+      {
+        "Name": "go.mod",
+        "Type": 0
+      },
+      {
+        "Name": "go.sum",
+        "Type": 0
+      }
+    ]
+  },
+  "objects": [
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "54800f4d3c2228eb716242ae6411312cad86192163a3bd4c031ae0f12eb40140",
+      "capability": "workspace/dep",
+      "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+      "kind": "go_mod",
+      "raw_sha256": "d6d9e780fb6a7a2c95972bb04d8e87f1f1418656f96c336e79d19a8db0b55738",
+      "bytes": 31
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "83a1afe9235a36ea853e9066b0ac8deb51be52bd9209abbeb0c4773f620a7847",
+      "capability": "workspace/main",
+      "path": "go.sum",
+      "kind": "go_sum",
+      "raw_sha256": "360a96c11863883714da31d84deec6f7fc4bc2656df0bb0b23f8fd6c4e44f2ac",
+      "bytes": 76
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "ccd6f7ca2d0903b151b40b3d5fc051256e36277228df128cf39841a2c5748c24",
+      "capability": "workspace/main",
+      "path": "go.mod",
+      "kind": "go_mod",
+      "raw_sha256": "a6fc2ddcb647a5441a78787759c9892c19b817880172b9f93b2c48a3c66335db",
+      "bytes": 60
+    }
+  ],
+  "origins": [
+    {
+      "Capability": "workspace/dep",
+      "Directory": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOraclego-root-upgrade384555657/001/dep"
+    },
+    {
+      "Capability": "workspace/main",
+      "Directory": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOraclego-root-upgrade384555657/001/main"
+    }
+  ],
+  "raw": {
+    "54800f4d3c2228eb716242ae6411312cad86192163a3bd4c031ae0f12eb40140": "bW9kdWxlIGV4YW1wbGUuY29tL2EKZ28gMS4yNS4wCg==",
+    "83a1afe9235a36ea853e9066b0ac8deb51be52bd9209abbeb0c4773f620a7847": "ZXhhbXBsZS5jb20vYSB2MS4wLjAvZ28ubW9kIGgxOm4yVHdleUx3WU9kWDhPdHZpWm5aMmVGMzRIdG1HOGtqNjBkd2ZGZWtOb0k9Cg==",
+    "ccd6f7ca2d0903b151b40b3d5fc051256e36277228df128cf39841a2c5748c24": "bW9kdWxlIGV4YW1wbGUuY29tL2FwcApnbyAxLjIyCnJlcXVpcmUgZXhhbXBsZS5jb20vYSB2MS4wLjAK"
+  }
+}

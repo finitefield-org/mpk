@@ -15,8 +15,8 @@ type practicalModuleGraphInputs struct {
 }
 
 // Carry all original bytes and both original-root/final summary inventories
-// under the original source/export/module owner. Roots, edges and projections
-// remain native preparation observations pending independent reconstruction.
+// under the original source/export/module owner. These preparation claims
+// require independent reconstruction from the owned original source inputs.
 func (owner *practicalOriginalPackages) moduleGraphInputs(roots []practicalClosureRef) (practicalModuleGraphInputs, error) {
 	if owner == nil {
 		return practicalModuleGraphInputs{}, fmt.Errorf("module graph inputs require the original owner")

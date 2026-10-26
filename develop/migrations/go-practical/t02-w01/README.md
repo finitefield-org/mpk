@@ -1986,3 +1986,18 @@ bindings, native Linux gates and T02–T11 stay due. R01/R04/R05/R06/W01 remain
 open; the practical profile stays inactive. The full T02 gate stays final W04:
 `./scripts/check-fast.sh`. Go/Rust only; no source/type/error/proof scope, premise,
 math rule, review rule/seal/exclusion or kernel cap changes.
+
+
+The [source-derived root checkpoint](verification/root-expansion/README.md)
+implements native bootstrap normalization, iterative pruned root upgrades and
+complete transient original manifest retention in preparation and independent
+Rust import. All18 native cases,225 version comparisons and84 exact sort
+permutations agree with Rust. Eight affected Rust roots and8 native roots pass,
+including the fresh182-package/5697-object HTTP owner roundtrip;22 coherently
+sealed root/graph claims, the original checksum mutation and a missing transient
+manifest reject. Initial duplicate-root and new-test format failures retain all
+inputs and outputs among20 epochs. Production/integration Clippy, vet and formats
+pass. Full algorithm/source/read/resource and remaining W01/proof authority stay
+open; the profile stays inactive. No original source/type/error/proof universe,
+review rule, premise, math rule or kernel cap changes. The full T02 gate remains
+final W04: `./scripts/check-fast.sh`. Go/Rust only.

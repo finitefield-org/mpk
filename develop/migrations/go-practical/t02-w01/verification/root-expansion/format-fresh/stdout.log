@@ -1,0 +1,17 @@
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_graph_inputs.rs:215:
+     assert_eq!(input.derived_roots().len(), 8);
+     assert_eq!(input.expansion_manifests().len(), 9);
+     assert_eq!(input.observed_selected_versions().len(), 8);
+-    assert!(input.expansion_manifests().contains_key(&GoSourceGraphModule {
+-        path: "example.com/leaf".into(),
+-        version: b"v1.0.0".to_vec(),
+-    }));
++    assert!(input
++        .expansion_manifests()
++        .contains_key(&GoSourceGraphModule {
++            path: "example.com/leaf".into(),
++            version: b"v1.0.0".to_vec(),
++        }));
+     output(
+         "fresh-whole-original-root-derivation.json",
+         &json!({"status":"passed","original_objects":5697,"derived_roots":input.derived_roots().iter().map(|m|json!({"path":m.path,"version_hex":hex(&m.version)})).collect::<Vec<_>>(),"consumed_manifests":input.expansion_manifests().iter().map(|(m,f)|json!({"module":{"path":m.path,"version_hex":hex(&m.version)},"source":f.original_source().object()})).collect::<Vec<_>>(),"original_metadata_hex":hex(input.original_metadata()),"source_program_or_installed_authority":false}),

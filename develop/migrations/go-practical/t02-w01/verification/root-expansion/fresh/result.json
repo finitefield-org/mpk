@@ -1,0 +1,83 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_graph_inputs",
+    "freshly_captured_whole_owner_independently_derives_final_roots",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_ROOT_EXPANSION_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/fresh/observations/expansion",
+    "MPK_GO_GRAPH_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/fresh/observations/graphs",
+    "MPK_GO_GRAPH_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/fresh/observations/graph-manifests",
+    "MPK_GO_MODULE_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/fresh/observations/manifests",
+    "MPK_GO_EXPORT_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/fresh/observations/exports"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/fresh/inputs.json",
+    "bytes": 58220618,
+    "sha256": "016d9e3c2bc5e3f4517a85f98bda45f9816a638ad907b9fb7ac83cc412d6bad6",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/run.py",
+    "bytes": 8779,
+    "sha256": "89c28b584b34a787fc98520a14ac8fb5e3414d4d6bc9f7c5475783deb8979b2d",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T16:40:39.380912+00:00",
+  "selection_reason": "Source-derived Go1.25 pruned root expansion and complete transient manifest capture affect only graph preparation/import. Run native expansion/ordering comparisons and affected original graph roots, the full original versioned HTTP owner, Rust expansion unit comparisons and all graph input ownership/checksum/coherent claim controls, plus strict changed lib/test Clippy, Go vet and explicit changed formats. Original source/package/proof/error universes and all kernel caps remain unchanged. No whole gate or removed-language tests.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 29.991626625007484,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/fresh/stdout.log",
+    "bytes": 187,
+    "sha256": "ee37951024db2bb5973f8ab7186745966d608aea033cea76123f7b3db1cd6ca2",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/root-expansion/fresh/stderr.log",
+    "bytes": 256,
+    "sha256": "c3e7a9e8f19659abac2d438b05bde3dfdf6fd05b8ceab6489b44e8e472c916ae",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T16:41:09.374298+00:00"
+}

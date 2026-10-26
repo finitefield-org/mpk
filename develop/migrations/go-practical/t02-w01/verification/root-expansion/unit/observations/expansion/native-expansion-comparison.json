@@ -1,0 +1,619 @@
+{
+  "cases": [
+    {
+      "case": "empty",
+      "consumed_manifests": [],
+      "original_metadata_hex": "6578616d706c652e636f6d2f61707020676f40312e32352e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "language-1.22",
+      "consumed_manifests": [],
+      "original_metadata_hex": "6578616d706c652e636f6d2f61707020676f40312e32320a676f40312e323220746f6f6c636861696e40676f312e32320a",
+      "roots": [
+        {
+          "path": "go",
+          "version_hex": "312e3232"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "language-1.23",
+      "consumed_manifests": [],
+      "original_metadata_hex": "6578616d706c652e636f6d2f61707020676f40312e32330a676f40312e323320746f6f6c636861696e40676f312e32330a",
+      "roots": [
+        {
+          "path": "go",
+          "version_hex": "312e3233"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "language-1.24",
+      "consumed_manifests": [],
+      "original_metadata_hex": "6578616d706c652e636f6d2f61707020676f40312e32340a676f40312e323420746f6f6c636861696e40676f312e32340a",
+      "roots": [
+        {
+          "path": "go",
+          "version_hex": "312e3234"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "self-root-is-discarded",
+      "consumed_manifests": [],
+      "original_metadata_hex": "6578616d706c652e636f6d2f61707020676f40312e32352e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "discarded-lower-root-needs-no-manifest",
+      "consumed_manifests": [
+        {
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e322e30"
+          },
+          "source": {
+            "bytes": 29,
+            "capability": "workspace/dep",
+            "id": "9c174a3559c48de40a20c32f560e47241957dc787f64ea1f7909c222c5de556e",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/c/@v/v1.2.0.mod",
+            "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+            "schema": "mpk.go.source_object.v1"
+          }
+        }
+      ],
+      "original_metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f634076312e322e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f634076312e322e3020676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "example.com/c",
+          "version_hex": "76312e322e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "cascade-transient",
+      "consumed_manifests": [
+        {
+          "module": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 58,
+            "capability": "workspace/dep",
+            "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+            "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+            "schema": "mpk.go.source_object.v1"
+          }
+        },
+        {
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 29,
+            "capability": "workspace/dep",
+            "id": "ed36f6dcdc153bf757bd0ff46e9c805cd825e222cfd7abf10e59a2669a91f3de",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+            "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+            "schema": "mpk.go.source_object.v1"
+          }
+        },
+        {
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e312e30"
+          },
+          "source": {
+            "bytes": 58,
+            "capability": "workspace/dep",
+            "id": "9cb3087d3df2768f2645289febe36bd55ed10701860f032b2e530ffae209ab58",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/c/@v/v1.1.0.mod",
+            "raw_sha256": "4ec4fcab023a118a734b3f059d5404f667711f1d4c852e80244c9deea0439a9c",
+            "schema": "mpk.go.source_object.v1"
+          }
+        },
+        {
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e322e30"
+          },
+          "source": {
+            "bytes": 63,
+            "capability": "workspace/dep",
+            "id": "bbfb98e6ed3df453ceca65471b4009d7fc2be9405c4097b4086d49afd309d2ef",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/c/@v/v1.2.0.mod",
+            "raw_sha256": "663567cf6da2150cc189aa96f75d1481cb59187cb36dbeb0ab68cb08f0a177ed",
+            "schema": "mpk.go.source_object.v1"
+          }
+        },
+        {
+          "module": {
+            "path": "example.com/z",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 29,
+            "capability": "workspace/dep",
+            "id": "3a277c65df72ddad3075f7f685b5cda83fa37b29e268b6752c0c38230315fa73",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+            "raw_sha256": "71cad4ea7cbd094633a1d29bfb8bed337860875bc01e0a8d89e57de19f76344e",
+            "schema": "mpk.go.source_object.v1"
+          }
+        },
+        {
+          "module": {
+            "path": "example.com/z",
+            "version_hex": "76312e312e30"
+          },
+          "source": {
+            "bytes": 58,
+            "capability": "workspace/dep",
+            "id": "22e5b8867e7dfef01e2ee6f8a168b37e2c224202a4fafb72c423869fe75ccd3a",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/z/@v/v1.1.0.mod",
+            "raw_sha256": "005b369200da99521509fbec0e1cf7acfdf54f17e5b6701a6820449e21c662ae",
+            "schema": "mpk.go.source_object.v1"
+          }
+        }
+      ],
+      "original_metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f614076312e302e300a6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f634076312e322e300a6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f7a4076312e312e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f614076312e302e30206578616d706c652e636f6d2f634076312e312e300a6578616d706c652e636f6d2f614076312e302e3020676f40312e32320a6578616d706c652e636f6d2f634076312e322e30206578616d706c652e636f6d2f756e726561644076312e302e300a6578616d706c652e636f6d2f634076312e322e3020676f40312e32320a6578616d706c652e636f6d2f7a4076312e312e30206578616d706c652e636f6d2f634076312e322e300a6578616d706c652e636f6d2f7a4076312e312e3020676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "example.com/a",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "example.com/c",
+          "version_hex": "76312e322e30"
+        },
+        {
+          "path": "example.com/z",
+          "version_hex": "76312e312e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "duplicate-consistent",
+      "consumed_manifests": [
+        {
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 29,
+            "capability": "workspace/dep",
+            "id": "ed36f6dcdc153bf757bd0ff46e9c805cd825e222cfd7abf10e59a2669a91f3de",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+            "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+            "schema": "mpk.go.source_object.v1"
+          }
+        }
+      ],
+      "original_metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f634076312e302e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f634076312e302e3020676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "example.com/c",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "duplicate-inconsistent",
+      "consumed_manifests": [
+        {
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e322e30"
+          },
+          "source": {
+            "bytes": 63,
+            "capability": "workspace/dep",
+            "id": "bbfb98e6ed3df453ceca65471b4009d7fc2be9405c4097b4086d49afd309d2ef",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/c/@v/v1.2.0.mod",
+            "raw_sha256": "663567cf6da2150cc189aa96f75d1481cb59187cb36dbeb0ab68cb08f0a177ed",
+            "schema": "mpk.go.source_object.v1"
+          }
+        },
+        {
+          "module": {
+            "path": "example.com/z",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 29,
+            "capability": "workspace/dep",
+            "id": "3a277c65df72ddad3075f7f685b5cda83fa37b29e268b6752c0c38230315fa73",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+            "raw_sha256": "71cad4ea7cbd094633a1d29bfb8bed337860875bc01e0a8d89e57de19f76344e",
+            "schema": "mpk.go.source_object.v1"
+          }
+        }
+      ],
+      "original_metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f634076312e322e300a6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f7a4076312e302e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f634076312e322e30206578616d706c652e636f6d2f756e726561644076312e302e300a6578616d706c652e636f6d2f634076312e322e3020676f40312e32320a6578616d706c652e636f6d2f7a4076312e302e3020676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "example.com/c",
+          "version_hex": "76312e322e30"
+        },
+        {
+          "path": "example.com/z",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "old-unprunes-modern",
+      "consumed_manifests": [
+        {
+          "module": {
+            "path": "example.com/leaf",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 62,
+            "capability": "workspace/dep",
+            "id": "f70da412c01c318a3561083ee7cc913aaf0b58b676aea529b42be16a8a42d9e2",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/leaf/@v/v1.0.0.mod",
+            "raw_sha256": "faaa972457075c21562531771176e1c42876b8ed64a397ec24969837060d7077",
+            "schema": "mpk.go.source_object.v1"
+          }
+        },
+        {
+          "module": {
+            "path": "example.com/modern",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 66,
+            "capability": "workspace/dep",
+            "id": "9b9794577d1f999c7d80b891b6b0630d6a7c6bcd37d8bfb20ce68d5224e509ff",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/modern/@v/v1.0.0.mod",
+            "raw_sha256": "be8e952771963e768ba35ec7debebaf339afdcfb3cde1dbbea49a9daf479d781",
+            "schema": "mpk.go.source_object.v1"
+          }
+        },
+        {
+          "module": {
+            "path": "example.com/old",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 65,
+            "capability": "workspace/dep",
+            "id": "6cfb8108704850623b698d712aed9626c876122506b89cdd8bff1c0cb6d03ccc",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/old/@v/v1.0.0.mod",
+            "raw_sha256": "1051902243e9a4c9eed6d4f2cb833a2054d9d3a685443bb8adcb87db528a6d38",
+            "schema": "mpk.go.source_object.v1"
+          }
+        }
+      ],
+      "original_metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f6f6c644076312e302e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f6f6c644076312e302e30206578616d706c652e636f6d2f6d6f6465726e4076312e302e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a6578616d706c652e636f6d2f6d6f6465726e4076312e302e30206578616d706c652e636f6d2f6c6561664076312e302e300a6578616d706c652e636f6d2f6d6f6465726e4076312e302e3020676f40312e32320a676f40312e323220746f6f6c636861696e40676f312e32320a",
+      "roots": [
+        {
+          "path": "example.com/old",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "cycle-upgrades",
+      "consumed_manifests": [
+        {
+          "module": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 58,
+            "capability": "workspace/dep",
+            "id": "9f6294baafdb266e43d6838002f8f6d11c7f520c434c7f7c2459bba3b9ab0c96",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+            "raw_sha256": "ff7d3942f60d07cff4e5f5fcb931e3b64ca08451a1530b3e8cc549ff5df287c9",
+            "schema": "mpk.go.source_object.v1"
+          }
+        },
+        {
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 58,
+            "capability": "workspace/dep",
+            "id": "19827aeca02a3f117520db3190c3c78ac3010def5f09902f9bbe5b5f81030117",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+            "raw_sha256": "674fa0d79f40c13ba4414a2fb954c679a0cb89e4cf8d94c4195fa24a5764fadc",
+            "schema": "mpk.go.source_object.v1"
+          }
+        },
+        {
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e312e30"
+          },
+          "source": {
+            "bytes": 58,
+            "capability": "workspace/dep",
+            "id": "540574f55603b2c340896547672682bd1d1a49f67da7c92e41051dd3df69a669",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/c/@v/v1.1.0.mod",
+            "raw_sha256": "674fa0d79f40c13ba4414a2fb954c679a0cb89e4cf8d94c4195fa24a5764fadc",
+            "schema": "mpk.go.source_object.v1"
+          }
+        }
+      ],
+      "original_metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f614076312e302e300a6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f634076312e312e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f614076312e302e30206578616d706c652e636f6d2f634076312e312e300a6578616d706c652e636f6d2f634076312e312e30206578616d706c652e636f6d2f614076312e302e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "example.com/a",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "example.com/c",
+          "version_hex": "76312e312e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "excluded-upgrade",
+      "consumed_manifests": [
+        {
+          "module": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 58,
+            "capability": "workspace/dep",
+            "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+            "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+            "schema": "mpk.go.source_object.v1"
+          }
+        },
+        {
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 29,
+            "capability": "workspace/dep",
+            "id": "ed36f6dcdc153bf757bd0ff46e9c805cd825e222cfd7abf10e59a2669a91f3de",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+            "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+            "schema": "mpk.go.source_object.v1"
+          }
+        }
+      ],
+      "original_metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f614076312e302e300a6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f634076312e302e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f614076312e302e3020676f40312e32320a6578616d706c652e636f6d2f634076312e302e3020676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "example.com/a",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "example.com/c",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "go-root-upgrade",
+      "consumed_manifests": [
+        {
+          "module": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 31,
+            "capability": "workspace/dep",
+            "id": "54800f4d3c2228eb716242ae6411312cad86192163a3bd4c031ae0f12eb40140",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+            "raw_sha256": "d6d9e780fb6a7a2c95972bb04d8e87f1f1418656f96c336e79d19a8db0b55738",
+            "schema": "mpk.go.source_object.v1"
+          }
+        }
+      ],
+      "original_metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f614076312e302e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f614076312e302e3020676f40312e32352e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "example.com/a",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "toolchain-default",
+      "consumed_manifests": [],
+      "original_metadata_hex": "6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f61707020746f6f6c636861696e40676f312e32352e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        },
+        {
+          "path": "toolchain",
+          "version_hex": "676f312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "toolchain-older",
+      "consumed_manifests": [],
+      "original_metadata_hex": "6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f61707020746f6f6c636861696e40676f312e32352e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        },
+        {
+          "path": "toolchain",
+          "version_hex": "676f312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "toolchain-equal-suffix",
+      "consumed_manifests": [],
+      "original_metadata_hex": "6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f61707020746f6f6c636861696e40676f312e32352e302d6f726967696e616c2dff0a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        },
+        {
+          "path": "toolchain",
+          "version_hex": "676f312e32352e302d6f726967696e616c2dff"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "nonroot-is-not-promoted",
+      "consumed_manifests": [
+        {
+          "module": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "source": {
+            "bytes": 58,
+            "capability": "workspace/dep",
+            "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+            "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+            "schema": "mpk.go.source_object.v1"
+          }
+        }
+      ],
+      "original_metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f614076312e302e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f614076312e302e30206578616d706c652e636f6d2f634076312e312e300a6578616d706c652e636f6d2f614076312e302e3020676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "example.com/a",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "case": "equal-real-labels",
+      "consumed_manifests": [
+        {
+          "module": {
+            "path": "example.com/equal",
+            "version_hex": "76312e302e302b696e636f6d70617469626c65"
+          },
+          "source": {
+            "bytes": 33,
+            "capability": "workspace/dep",
+            "id": "d2ac432b4058907ee3de03266f299f516034b83d1af56503030ce53eb2ae18bd",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/equal/@v/v1.0.0+incompatible.mod",
+            "raw_sha256": "fe4ea7e4a8d2cd9af80a985cd37222f10a6d457ce47765dce87f6ee24918e526",
+            "schema": "mpk.go.source_object.v1"
+          }
+        }
+      ],
+      "original_metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f657175616c4076312e302e302b696e636f6d70617469626c650a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f657175616c4076312e302e302b696e636f6d70617469626c6520676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "roots": [
+        {
+          "path": "example.com/equal",
+          "version_hex": "76312e302e302b696e636f6d70617469626c65"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "status": "passed"
+    }
+  ],
+  "source_program_or_installed_authority": false,
+  "status": "passed"
+}

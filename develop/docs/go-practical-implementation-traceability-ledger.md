@@ -9132,3 +9132,39 @@ bindings, native Linux gates and T02–T11 stay due. R01/R04/R05/R06/W01 remain
 open; the practical profile stays inactive. The full T02 gate stays final W04:
 `./scripts/check-fast.sh`. Go/Rust only; no source/type/error/proof scope, premise,
 math rule, review rule/seal/exclusion or kernel cap changes.
+
+
+## 198. T02-W01 source-derived pruned root expansion
+
+The [root expansion component](../migrations/go-practical/t02-w01/verification/root-expansion/README.md)
+derives final roots from original main requirements and original checksum-checked
+lax dependency summaries. Native bootstrap redundant/main-path normalization
+precedes graph reads; discarded lower versions need no .mod. Identity/pruning-
+state loading and serial selected versions drive iterative upgrades of existing
+root paths. Intermediate original manifests remain owned even when absent from
+both endpoint inventories. Go captures them before execution; Rust independently
+resolves them through the original immutable namespace and go.sum. Source-derived
+roots must match the native main edges before complete breadth-first output checks.
+Pinned Go unstable root sorting preserves equal semantic labels independently
+from inventory byte tiebreaks. The Go BSD notice/license is retained in source and
+in the product NOTICE.
+
+All18 native expansion cases,225 unbounded version comparisons and84 exact native
+sort permutations agree with Rust. Eight targeted Rust roots and8 native roots
+pass, including the full182-package/5697-object versioned owner and its fresh
+producer/consumer roundtrip. The original181-package/5667-object non-UTF8 local
+owner also reimports intact. Twenty-two coherently sealed graph claims and the
+original coherent source-content checksum control reject; a missing transient
+manifest rejects. All13 original native cases remain alongside five added cases.
+The initial duplicate-consistent mismatch and later new-test format failure retain
+complete inputs/outputs among20 epochs; neither cases nor original universes are
+narrowed. Production/integration Clippy, vet and changed formats pass.
+
+Original32 proof byte streams retain prior evidence without new kernel replay;
+earlier43-root/zero-or70-error universes remain. General algorithm/source
+correctness, complete native-read/transport-resource, installed compiler/root/
+capture/context/descriptor/registry/launcher/source/program/foundation authority,
+native Linux release gates and T02–T11 stay due. R01/R04/R05/R06/W01 stay open;
+the practical profile remains inactive. Final W04 owns the cumulative T02 gate:
+`./scripts/check-fast.sh`. Go/Rust only; no source/type/error/proof scope, review
+rule/seal/exclusion, premise, math rule or kernel cap changes.

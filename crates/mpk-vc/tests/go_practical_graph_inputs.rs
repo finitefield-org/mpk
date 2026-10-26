@@ -202,6 +202,61 @@ fn whole_original_versioned_graph_keeps_lower_empty_cycles_and_pruning() {
     );
 }
 #[test]
+fn freshly_captured_whole_owner_independently_derives_final_roots() {
+    let dir = root().join("root-expansion/owner/native-originals/versioned-owned");
+    let packet = read(&dir.join("complete-original-module-graph-inputs.json"));
+    let data = import_data(&packet, &dir);
+    let input = import_go_source_module_graph_inputs(
+        &unhex(packet["module_graph_inputs_hex"].as_str().unwrap()),
+        data,
+    )
+    .unwrap();
+    assert_eq!(packet["snapshot_sources"].as_array().unwrap().len(), 5697);
+    assert_eq!(input.derived_roots().len(), 8);
+    assert_eq!(input.expansion_manifests().len(), 9);
+    assert_eq!(input.observed_selected_versions().len(), 8);
+    assert!(input
+        .expansion_manifests()
+        .contains_key(&GoSourceGraphModule {
+            path: "example.com/leaf".into(),
+            version: b"v1.0.0".to_vec(),
+        }));
+    output(
+        "fresh-whole-original-root-derivation.json",
+        &json!({"status":"passed","original_objects":5697,"derived_roots":input.derived_roots().iter().map(|m|json!({"path":m.path,"version_hex":hex(&m.version)})).collect::<Vec<_>>(),"consumed_manifests":input.expansion_manifests().iter().map(|(m,f)|json!({"module":{"path":m.path,"version_hex":hex(&m.version)},"source":f.original_source().object()})).collect::<Vec<_>>(),"original_metadata_hex":hex(input.original_metadata()),"source_program_or_installed_authority":false}),
+    );
+}
+#[test]
+fn coherently_resealed_final_root_claims_require_original_main_requirements() {
+    let (packet, data, original) = original(true);
+    let raw = unhex(original["metadata_hex"].as_str().unwrap());
+    let mut observations = vec![];
+    for extra in [
+        b"example.com/policy example.com/leaf@v1.1.0\n".as_slice(),
+        b"example.com/policy example.com/leaf@v1.0.0\n".as_slice(),
+    ] {
+        let mut candidate = original.clone();
+        let mut metadata = extra.to_vec();
+        metadata.extend_from_slice(&raw);
+        candidate["metadata_hex"] = json!(hex(&metadata));
+        seal(
+            &mut candidate,
+            "MPK-PRIVATE-GO-SOURCE-MODULE-GRAPH-INPUTS-2.0",
+        );
+        let error = import_go_source_module_graph_inputs(
+            &serde_json::to_vec(&candidate).unwrap(),
+            data.clone(),
+        )
+        .expect_err("source-correct summaries cannot authorize an invented main root");
+        assert!(matches!(error, GoSourceModuleGraphError::Selection));
+        observations.push(json!({"complete_changed_graph":candidate,"error":error.to_string(),"original_objects":packet["snapshot_sources"].as_array().unwrap().len(),"same_original_sources_and_Root_contract":true}));
+    }
+    output(
+        "coherent-final-root-controls.json",
+        &json!({"status":"passed","cases":observations}),
+    );
+}
+#[test]
 fn coherently_resealed_graph_claims_cannot_replace_original_dependencies() {
     let (packet, data, original) = original(true);
     let original_count = packet["snapshot_sources"].as_array().unwrap().len();
