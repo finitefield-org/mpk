@@ -9321,3 +9321,41 @@ all169 source/program demands, native Linux gates and remaining T02–T11 stay d
 R01/R03/R04/R05/R06/W01 stay open and the practical profile inactive. Go/Rust only;
 no source/bundle/kernel/certificate cap, scanner rule/seal/exclusion, premise or
 mathematical rule changes. Final T02-W04 owns `./scripts/check-fast.sh`.
+
+## 203. T02-W01 strict original standard-module facts
+
+The [strict standard-module component](../migrations/go-practical/t02-w01/verification/standard-module/README.md)
+now independently derives complete modfile.Parse facts for the owned SDK index,
+replacing its previous dependency ParseLax projection. General parsing and the
+existing native std/explicit-go/compiler-upper-bound check stay separate from
+unchanged application admission and dependency parsing. Exact Go/toolchain fields,
+ordered duplicate require/exclude/replace/retract/debug/tool/ignore rows, arbitrary
+path/string bytes, canonical dependency versions and nil-fixer retract spelling
+are retained. A toolchain suggestion never invokes/selects a compiler. The original
+native SDK predicate is factored into a behavior-preserving helper and its actual
+original standard source/type-check consumer passes with no filesystem fallback.
+
+All1427 complete native facts/binding decisions agree with Rust:656 original cases,
+656 std variants,18 actual SDK manifests and97 additional cases, including40000
+complete duplicate debug directives and the original suffix. All20 selected Rust
+roots and both native roots pass with strict affected Clippy, vet and formats.
+Four actual SDK go.mod mutations coherently rebuild complete source/package/type/
+declaration/root references and all SDK inventory/component/distribution/contract/
+selection/snapshot/capture/export/compiler links. Original export import succeeds;
+3 malformed unknown/tool/debug cases reject StandardModule while valid complete
+additional directives remain accepted. All5577 SDK files/163457770 original bytes
+(with only the controlled manifest delta),182 packages/5697 objects, application
+bodies, unused init and Root contract bytes remain. The original components have
+1033 sources/181 source package keys/zero declarations/one builtin type; all counts
+remain. No richer type/declaration rekey or application theorem is inferred.
+
+All13 consuming epochs retain11 passes and the initial test-ownership/native-driver
+output-directory failures and repairs. Prior compiler/member/content/executable/
+source-role controls stay selected; earlier32 proof streams and43-root/zero-or70-
+error universes keep earlier byte evidence without new kernel replay. Go/Rust only;
+no source/bundle/kernel/certificate cap, scanner rule/seal/exclusion, premise or
+mathematical rule changes. Remaining executable-reader cases, complete installed
+compiler/root/capture/context/descriptor/registry/launcher/native-read bindings,
+all56 foundation/all169 source/program demands, native Linux gates and remaining
+T02–T11 stay due. R01/R03/R04/R05/R06/W01 remain open, the practical profile inactive
+and final T02-W04 owns `./scripts/check-fast.sh`.

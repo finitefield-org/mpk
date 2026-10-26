@@ -30,6 +30,7 @@ pub enum GoSourceCompilerInputError {
     Namespace,
     BuildInfo,
     SourceRole,
+    StandardModule,
 }
 impl std::fmt::Display for GoSourceCompilerInputError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

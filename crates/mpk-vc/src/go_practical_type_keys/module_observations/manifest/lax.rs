@@ -58,7 +58,7 @@ fn component(raw: &[u8]) -> Option<(&[u8], &[u8])> {
 }
 // Modfile's regexp admits patch+prerelease and zero-prefixed prerelease digits
 // even where gover's semantic version parser does not. Keep these layers apart.
-fn go_spelling(raw: &[u8]) -> bool {
+pub(super) fn go_spelling(raw: &[u8]) -> bool {
     let Some((major, rest)) = component(raw) else {
         return false;
     };

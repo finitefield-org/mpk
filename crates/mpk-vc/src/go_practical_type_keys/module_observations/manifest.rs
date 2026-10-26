@@ -2,8 +2,12 @@
 //! neither selects module versions nor authenticates a source capability.
 use super::*;
 mod lax;
+mod strict;
 mod syntax;
 mod versions;
+pub use strict::{
+    derive_go_source_strict_module_manifest, GoModuleDebugSetting, GoSourceStrictModuleManifest,
+};
 pub(super) fn graph_version_compare(path: &str, a: &[u8], b: &[u8]) -> std::cmp::Ordering {
     versions::graph_version_compare(path, a, b)
 }

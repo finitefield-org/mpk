@@ -2057,3 +2057,16 @@ initial visibility compile failures and the repair. Strict standard-module and
 remaining source/program/context/installed/native Linux/T02–T11 work stay due;
 W01 remains open, the practical profile inactive and final W04 owns the full T02
 gate. Every original source/type/error/proof universe, review policy and cap remains.
+
+The [strict standard-module checkpoint](verification/standard-module/README.md)
+replaces the SDK index's dependency ParseLax projection with independent general
+strict Parse facts and the native std/go/compiler-upper-bound condition. All1427
+native observations,20 affected Rust roots and both native roots pass with scoped
+Clippy/vet/formats. Four fully rehashed SDK manifest controls preserve the full
+5577-file compiler/182-package/5697-object application/Root bytes;3 malformed cases
+reject StandardModule and valid complete directives remain accepted after full
+export reimport. The13 source epochs retain both initial setup/construction errors
+and their repairs. No main/dependency policy, source/type/error/proof universe,
+review rule, premise, math rule or limit changes. W01 remains open, the profile
+inactive and final T02-W04 owns the full T gate; installed/context/read/source/
+program/foundation/native Linux and remaining T02–T11 work stay due.

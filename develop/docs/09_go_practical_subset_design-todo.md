@@ -14,6 +14,15 @@ Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The W01 [strict standard-module checkpoint](../migrations/go-practical/t02-w01/verification/standard-module/README.md)
+replaces dependency ParseLax in the owned SDK index with independent general strict
+Parse facts and the separate native std/go/compiler-upper-bound condition. All1427
+complete native cases,20 affected Rust roots and both native roots pass with scoped
+lint/formats. Four fully rehashed actual SDK manifest controls preserve all5577
+compiler files and182-package/5697-object application/Root bytes:3 malformed rows
+reject and valid full directives remain accepted. Main/dependency policies, limits
+and prior proof/error/type/source universes stay unchanged; W01 remains open.
+
 The W01 [whole original SDK source-role checkpoint](../migrations/go-practical/t02-w01/verification/compiler-source-roles/README.md)
 independently classifies all5480 prepared SDK sources and715 source package
 directories inside the complete5577-file compiler owner. Every one of11004 raw

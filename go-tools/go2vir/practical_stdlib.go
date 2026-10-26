@@ -27,6 +27,14 @@ type practicalStdlibSources struct {
 	packages           map[string]struct{}
 }
 
+func parsePracticalStandardModule(name string, raw []byte) (*modfile.File, error) {
+	manifest, err := modfile.Parse(name, raw, nil)
+	if err != nil || manifest.Module == nil || manifest.Module.Mod.Path != "std" || manifest.Go == nil || version.Compare("go"+manifest.Go.Version, practicalCompilerRelease) > 0 {
+		return nil, fmt.Errorf("original standard-library module/language identity is incomplete")
+	}
+	return manifest, nil
+}
+
 func practicalCompilerSourceRole(name string, raw []byte) (string, error) {
 	if !strings.HasSuffix(name, ".go") {
 		switch path.Base(name) {
@@ -151,9 +159,9 @@ func bindPracticalStandardLibrary(snapshot practicalSourceSnapshot, compiler pra
 			}
 		}
 		if relative == "src/go.mod" {
-			manifest, err := modfile.Parse(relative, buffer.data, nil)
-			if err != nil || manifest.Module == nil || manifest.Module.Mod.Path != "std" || manifest.Go == nil || version.Compare("go"+manifest.Go.Version, practicalCompilerRelease) > 0 {
-				return nil, fmt.Errorf("original standard-library module/language identity is incomplete")
+			manifest, err := parsePracticalStandardModule(relative, buffer.data)
+			if err != nil {
+				return nil, err
 			}
 			index.goVersion = "go" + manifest.Go.Version
 			index.moduleSourceID = object.ID

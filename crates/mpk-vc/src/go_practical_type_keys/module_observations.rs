@@ -4,9 +4,10 @@
 use super::*;
 mod manifest;
 pub use manifest::{
-    derive_go_source_graph_manifest, derive_go_source_module_manifest, GoModuleReplacement,
+    derive_go_source_graph_manifest, derive_go_source_module_manifest,
+    derive_go_source_strict_module_manifest, GoModuleDebugSetting, GoModuleReplacement,
     GoModuleRequirement, GoModuleRetraction, GoSourceGraphManifest, GoSourceModuleManifest,
-    GoSourceModuleManifestError,
+    GoSourceModuleManifestError, GoSourceStrictModuleManifest,
 };
 mod data;
 mod graph_inputs;

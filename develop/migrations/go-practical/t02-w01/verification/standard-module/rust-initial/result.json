@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_standard_module",
+    "--test",
+    "go_practical_compiler_inputs",
+    "--test",
+    "go_practical_export_inputs",
+    "--test",
+    "go_practical_module_manifests",
+    "--test",
+    "go_practical_graph_manifests",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_STANDARD_MODULE_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/rust-initial/observations/strict-modules",
+    "MPK_GO_COMPILER_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/rust-initial/observations/compilers",
+    "MPK_GO_GRAPH_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/rust-initial/observations/graphs",
+    "MPK_GO_GRAPH_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/rust-initial/observations/graph-manifests",
+    "MPK_GO_MODULE_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/rust-initial/observations/manifests",
+    "MPK_GO_EXPORT_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/rust-initial/observations/exports"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/rust-initial/inputs.json",
+    "bytes": 81554791,
+    "sha256": "20e98ea32ba2cbe550d9193a9b5c6cffc941d5a91e7e58b57a88b011853a9b96",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/run.py",
+    "bytes": 10239,
+    "sha256": "c12d2ed21acc72898c1d216f3f912337d06ea0d04f6a92e5fc8468406d689fa7",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T20:34:54.350382+00:00",
+  "selection_reason": "Independently parse complete original standard go.mod using the pinned general strict Parse grammar, separate from unchanged application admission and dependency ParseLax. Preserve all original656 manifest cases, std-path variants, full SDK manifests and complete extra directive/version/byte probes, including40000 duplicate debug rows. Run actual original5577-file SDK/5480-source/715-directory and182-package/5697-object source/Root owner; coherently reseal actual SDK go.mod source bytes, full compiler inventories/distribution/component/contract/selection/snapshot/capture/export links, and reject malformed standard manifests at StandardModule while valid complete directives remain accepted. Select strict/module/graph-manifest/compiler/export consumers, exact whole originals and scoped Clippy/vet/formats. No original source/type/error/proof universe, source/bundle/kernel/certificate cap, scanner rule, public profile or whole-gate/removed-language testing changes.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 316.1594171659963,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/rust-initial/stdout.log",
+    "bytes": 2298,
+    "sha256": "aa4e7b45eeacfb3d4757be762e06853ffabf969e3883bc651694491f947a0269",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/rust-initial/stderr.log",
+    "bytes": 783,
+    "sha256": "491fd53963b6e7b1b2440c50f6d271cfa4a894759763bf9ea92d9fe0eb792a99",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T20:40:10.512770+00:00"
+}

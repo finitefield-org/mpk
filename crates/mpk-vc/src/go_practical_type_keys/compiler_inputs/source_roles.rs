@@ -43,7 +43,7 @@ pub fn derive_go_compiler_source_role(source: &GoTypeSourceBuffer) -> CompilerRe
 pub struct GoCompilerSourceIndex {
     roles: BTreeMap<String, String>,
     packages: BTreeSet<String>,
-    module: String,
+    module: GoSourceStrictModuleManifest,
     go_version: String,
 }
 impl GoCompilerSourceIndex {
@@ -56,6 +56,9 @@ impl GoCompilerSourceIndex {
         &self.packages
     }
     pub fn module_source_object_id(&self) -> &str {
+        &self.module.original_source().object().id
+    }
+    pub fn module_manifest(&self) -> &GoSourceStrictModuleManifest {
         &self.module
     }
     pub fn go_version(&self) -> &str {
@@ -80,19 +83,19 @@ impl GoCompilerSourceIndex {
             }
         }
         let std = sources.get("go/src/go.mod").ok_or(C::Source)?;
-        let parsed =
-            derive_go_source_graph_manifest(snapshot.source(&std.id).ok_or(C::Source)?.clone())
-                .map_err(|_| C::Source)?;
-        need(
-            parsed.module_path() == Some(b"std".as_slice()) && !parsed.requires_newer_compiler(),
-            C::Source,
-        )?;
-        let version = parsed.go_requirement().ok_or(C::Source)?;
+        let parsed = derive_go_source_strict_module_manifest(
+            snapshot.source(&std.id).ok_or(C::Source)?.clone(),
+        )
+        .map_err(|_| C::StandardModule)?;
+        let version = parsed
+            .standard_library_go_requirement()
+            .map_err(|_| C::StandardModule)?;
+        let go_version = format!("go{version}");
         Ok(Self {
             roles,
             packages,
-            module: std.id.clone(),
-            go_version: format!("go{version}"),
+            module: parsed,
+            go_version,
         })
     }
 }

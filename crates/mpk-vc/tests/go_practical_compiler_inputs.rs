@@ -45,6 +45,303 @@ fn seal(value: &mut Value, domain: &'static str) {
         .unwrap()
         .to_hex());
 }
+fn keyed_id(value: &mut Value, domain: &'static str) -> String {
+    value.as_object_mut().unwrap().remove("id");
+    let parsed = parse_strict_json(
+        &serde_json::to_vec(value).unwrap(),
+        StrictJsonLimits::new(268435456, 268435456, 64, 16777216),
+    )
+    .unwrap();
+    let id = hash_canonical_json(HashDomain::new(domain), &parsed)
+        .unwrap()
+        .to_hex();
+    value["id"] = json!(id);
+    id
+}
+fn remap_ids(value: &mut Value, ids: &std::collections::BTreeMap<String, String>) {
+    match value {
+        Value::String(id) => {
+            if let Some(new) = ids.get(id) {
+                *id = new.clone();
+            }
+        }
+        Value::Array(rows) => {
+            for row in rows {
+                remap_ids(row, ids);
+            }
+        }
+        Value::Object(row) => {
+            for value in row.values_mut() {
+                remap_ids(value, ids);
+            }
+        }
+        _ => {}
+    }
+}
+// Adversarial metadata is rekeyed through its entire original graph. Keep all
+// packages/declarations/types/sources and body/contract bytes; never shrink the
+// owner to an easier scalar fixture to exercise the standard-module boundary.
+fn rekey_complete_components(
+    packet: &mut Value,
+    old: &Value,
+    changed: &Value,
+    raw: &[u8],
+) -> std::collections::BTreeMap<String, String> {
+    let mut ids = std::collections::BTreeMap::from([(
+        old["id"].as_str().unwrap().to_string(),
+        changed["id"].as_str().unwrap().to_string(),
+    )]);
+    for row in packet["sources"].as_array_mut().unwrap() {
+        if row["object"]["id"] == old["id"] {
+            row["object"] = changed.clone();
+            row["raw_hex"] = json!(hex(raw));
+        }
+    }
+    let mut components: Value =
+        serde_json::from_slice(&unhex(packet["components_hex"].as_str().unwrap())).unwrap();
+    let original_counts = [
+        "source_objects",
+        "packages",
+        "declarations",
+        "types",
+        "underlying",
+        "aliases",
+        "package_roots",
+        "type_roots",
+    ]
+    .map(|key| (key, components[key].as_array().unwrap().len()));
+    for row in components["source_objects"].as_array_mut().unwrap() {
+        if row["id"] == old["id"] {
+            *row = changed.clone();
+        }
+    }
+    for (field, domain) in [
+        ("packages", "MPK-GO-TYPE-PACKAGE-2.0"),
+        ("declarations", "MPK-GO-TYPE-DECLARATION-2.0"),
+    ] {
+        for row in components[field].as_array_mut().unwrap() {
+            let before = row["id"].as_str().unwrap().to_string();
+            row.as_object_mut().unwrap().remove("id");
+            remap_ids(row, &ids);
+            let after = keyed_id(row, domain);
+            ids.insert(before, after);
+        }
+    }
+    let mut pending = components["types"].as_array().unwrap().clone();
+    let mut types = vec![];
+    while !pending.is_empty() {
+        let count = pending.len();
+        let mut next = vec![];
+        for mut row in pending {
+            let deps = match row["kind"].as_str().unwrap() {
+                "array" => vec![row["element"].as_str().unwrap()],
+                "slice" => vec![row["element"].as_str().unwrap()],
+                "struct" => row["fields"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .map(|r| r["type_id"].as_str().unwrap())
+                    .collect(),
+                _ => vec![],
+            };
+            if !deps.iter().all(|id| ids.contains_key(*id)) {
+                next.push(row);
+                continue;
+            }
+            let before = row["id"].as_str().unwrap().to_string();
+            row.as_object_mut().unwrap().remove("id");
+            remap_ids(&mut row, &ids);
+            let after = keyed_id(&mut row, "MPK-GO-SOURCE-TYPE-2.0");
+            ids.insert(before, after);
+            types.push(row);
+        }
+        assert!(
+            next.len() < count,
+            "original type-key graph did not make progress"
+        );
+        pending = next;
+    }
+    components["types"] = json!(types);
+    for field in ["underlying", "aliases", "package_roots", "type_roots"] {
+        remap_ids(&mut components[field], &ids);
+    }
+    for (field, key) in [
+        ("source_objects", "id"),
+        ("packages", "id"),
+        ("declarations", "id"),
+        ("types", "id"),
+        ("underlying", "type_id"),
+        ("aliases", "declaration_id"),
+    ] {
+        components[field]
+            .as_array_mut()
+            .unwrap()
+            .sort_by_key(|r| r[key].as_str().unwrap().to_string());
+    }
+    for field in ["package_roots", "type_roots"] {
+        components[field]
+            .as_array_mut()
+            .unwrap()
+            .sort_by_key(|r| r.as_str().unwrap().to_string());
+    }
+    for (key, count) in original_counts {
+        assert_eq!(components[key].as_array().unwrap().len(), count);
+    }
+    seal(&mut components, "MPK-GO-TYPE-COMPONENTS-2.0");
+    packet["components_hex"] = json!(hex(&serde_json::to_vec(&components).unwrap()));
+    ids
+}
+
+#[test]
+fn full_original_sdk_manifest_changes_require_strict_parse_after_complete_rekeying() {
+    let (original_packet, _, original_wire, original_files) = original();
+    let dir = root().join("compiler-inputs/native/native-originals/versioned-owned");
+    let index = original_files
+        .iter()
+        .position(|f| f.entry().path == "go/src/go.mod")
+        .unwrap();
+    let hash = |value: &Value| {
+        let parsed = parse_strict_json(
+            &serde_json::to_vec(value).unwrap(),
+            StrictJsonLimits::new(268435456, 268435456, 64, 16777216),
+        )
+        .unwrap();
+        hash_canonical_json(HashDomain::new("MPK-BUNDLE-CONTENT-0.1"), &parsed)
+            .unwrap()
+            .to_hex()
+    };
+    for (name, suffix, accepted) in [
+        (
+            "unknown-directive",
+            b"future_ignored_by_lax value\n".as_slice(),
+            false,
+        ),
+        ("malformed-tool", b"tool original extra\n", false),
+        ("malformed-debug", b"godebug missing-equals\n", false),
+        (
+            "complete-extra-directives",
+            b"godebug key=value\ntool example.com/original\nignore original-assets\n",
+            true,
+        ),
+    ] {
+        let mut raw = original_files[index].bytes().to_vec();
+        raw.extend_from_slice(suffix);
+        let mut packet = original_packet.clone();
+        let mut wire = original_wire.clone();
+        let mut files = original_files.clone();
+        let old = packet["snapshot_sources"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| {
+                r["object"]["capability"] == "original-go-sdk"
+                    && r["object"]["path"] == "src/go.mod"
+            })
+            .unwrap()["object"]
+            .clone();
+        let changed =
+            GoTypeSourceBuffer::new("original-go-sdk", "src/go.mod", "go_mod", &raw).unwrap();
+        let object = serde_json::to_value(changed.object()).unwrap();
+        assert!(derive_go_source_graph_manifest(changed.clone()).is_ok());
+        let ids = rekey_complete_components(&mut packet, &old, &object, &raw);
+        for row in packet["snapshot_sources"].as_array_mut().unwrap() {
+            if row["object"]["id"] == old["id"] {
+                row["object"] = object.clone();
+                row["raw_hex"] = json!(hex(&raw));
+            }
+        }
+        files[index] = GoCompilerFileBuffer::import("go/src/go.mod", false, &raw).unwrap();
+        let entry = serde_json::to_value(files[index].entry()).unwrap();
+        wire["inventory"]["files"][index] = entry.clone();
+        let component = wire["components"]
+            .as_array_mut()
+            .unwrap()
+            .iter_mut()
+            .find(|c| c["identity"]["kind"] == "content")
+            .unwrap();
+        *component["inventory"]["files"]
+            .as_array_mut()
+            .unwrap()
+            .iter_mut()
+            .find(|f| f["path"] == "go/src/go.mod")
+            .unwrap() = entry;
+        component["identity"]["content_sha256"] = json!(hash(&component["inventory"]));
+        let identity = component["identity"].clone();
+        let identity_name = identity["name"].clone();
+        *wire["toolchain"]["components"]
+            .as_array_mut()
+            .unwrap()
+            .iter_mut()
+            .find(|c| c["name"] == identity_name)
+            .unwrap() = identity;
+        wire["toolchain"]["distribution_sha256"] = json!(hash(&wire["inventory"]));
+        let mut snapshot: Value =
+            serde_json::from_slice(&unhex(packet["snapshot_hex"].as_str().unwrap())).unwrap();
+        for row in snapshot["objects"].as_array_mut().unwrap() {
+            if row["id"] == old["id"] {
+                *row = object.clone();
+            }
+        }
+        snapshot["objects"]
+            .as_array_mut()
+            .unwrap()
+            .sort_by_key(|o| o["id"].as_str().unwrap().to_string());
+        snapshot["snapshot_sha256"] = json!(native_hash(&snapshot));
+        seal(&mut snapshot, "MPK-PRIVATE-GO-SOURCE-SNAPSHOT-INPUTS-1.0");
+        packet["snapshot_hex"] = json!(hex(&serde_json::to_vec(&snapshot).unwrap()));
+        let components: Value =
+            serde_json::from_slice(&unhex(packet["components_hex"].as_str().unwrap())).unwrap();
+        let mut envelope: Value =
+            serde_json::from_slice(&unhex(packet["envelope_hex"].as_str().unwrap())).unwrap();
+        envelope["source_components_sha256"] = components["content_sha256"].clone();
+        envelope["compiler_sha256"] = wire["toolchain"]["distribution_sha256"].clone();
+        seal(&mut envelope, "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-1.0");
+        packet["envelope_hex"] = json!(hex(&serde_json::to_vec(&envelope).unwrap()));
+        let mut selection: Value =
+            serde_json::from_slice(&unhex(packet["selection_hex"].as_str().unwrap())).unwrap();
+        remap_ids(&mut selection, &ids);
+        selection["source_contract_inputs_sha256"] = envelope["content_sha256"].clone();
+        seal(&mut selection, "MPK-PRIVATE-GO-SOURCE-SELECTION-INPUTS-1.0");
+        packet["selection_hex"] = json!(hex(&serde_json::to_vec(&selection).unwrap()));
+        let mut capture: Value =
+            serde_json::from_slice(&unhex(packet["capture_hex"].as_str().unwrap())).unwrap();
+        capture["selection_inputs_sha256"] = selection["content_sha256"].clone();
+        capture["snapshot_inputs_sha256"] = snapshot["content_sha256"].clone();
+        seal(&mut capture, "MPK-PRIVATE-GO-SOURCE-CAPTURE-INPUTS-1.0");
+        packet["capture_hex"] = json!(hex(&serde_json::to_vec(&capture).unwrap()));
+        let mut export: Value =
+            serde_json::from_slice(&unhex(packet["export_inputs_hex"].as_str().unwrap())).unwrap();
+        remap_ids(&mut export, &ids);
+        export["compiler_sha256"] = wire["toolchain"]["distribution_sha256"].clone();
+        export["source_capture_inputs_sha256"] = capture["content_sha256"].clone();
+        seal(&mut export, "MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-1.0");
+        packet["export_inputs_hex"] = json!(hex(&serde_json::to_vec(&export).unwrap()));
+        wire["source_export_inputs_sha256"] = export["content_sha256"].clone();
+        seal(&mut wire, "MPK-PRIVATE-GO-COMPILER-IMAGE-INPUTS-1.0");
+        assert_eq!(packet["overlays"], original_packet["overlays"]);
+        assert_eq!(packet["snapshot_sources"].as_array().unwrap().len(), 5697);
+        assert_eq!(files.len(), 5577);
+        let exports = import_exports(&packet, &dir);
+        let result =
+            import_go_source_compiler_inputs(&serde_json::to_vec(&wire).unwrap(), exports, files);
+        assert_eq!(
+            result.is_ok(),
+            accepted,
+            "{name}: {:?}",
+            result.as_ref().err()
+        );
+        if !accepted {
+            assert_eq!(
+                result.as_ref().unwrap_err(),
+                &GoSourceCompilerInputError::StandardModule
+            );
+        }
+        output(
+            &format!("coherent-standard-module-{name}.json"),
+            &json!({"accepted":accepted,"error":result.err().map(|e|format!("{e:?}")),"changed_raw_hex":hex(&raw),"original_object":old,"changed_object":object,"components":components,"envelope":envelope,"selection":selection,"snapshot":snapshot,"capture":capture,"exports":export,"compiler_inputs":wire,"rekeyed_ids":ids,"all_original_application_source_and_Root_contract_bytes_unchanged":true,"original_objects":5697,"original_compiler_files":5577,"original_packages":182}),
+        );
+    }
+}
 fn buffers(packet: &Value, field: &str, dir: Option<&Path>) -> Vec<GoTypeSourceBuffer> {
     packet[field]
         .as_array()
