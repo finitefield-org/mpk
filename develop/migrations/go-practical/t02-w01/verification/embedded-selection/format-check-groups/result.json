@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--check",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_type_keys.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_package.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_package/embedded.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_package/embedded/directives.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_package/embedded/glob.rs",
+    "crates/mpk-vc/tests/go_practical_embedded_selection.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/format-check-groups/inputs.json",
+    "bytes": 20298827,
+    "sha256": "bec0717e9a25cc9e8704e8c4b1ac162c23364c788319c6772c2a577c50baaab7",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/run.py",
+    "bytes": 12543,
+    "sha256": "7ebc97ae5b586bc69103eb5ce1f3872f980cdabc178eb705b06ba97ffcc64a5e",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T07:55:07.881077+00:00",
+  "selection_reason": "Independently derive original Go embed pattern bytes and non-test resource selection from the complete immutable snapshot, without caller-supplied patterns or filesystem fallback. Compare all54 unchanged original native cases including all27 rejections; preserve complete candidate namespaces/buffers before resource failure. Compare original pragma/comment/literal/raw-byte cases, the entire pinned path.Match corpus plus raw-byte vectors, and every2003 original package directory. Exercise the full5535-object native owner, exact resources and coherent omission/unknown-directory controls with the identical original Root contract. Compare nonempty internal/external test patterns and verify that invalid/missing test-resource patterns do not contaminate ordinary production resource selection. Run the new native observations and affected Rust capture/package/auxiliary/cgo/source consumers, strict Clippy, vet and changed-file formats; untouched lexer/parser/build/language/kernel/foundation matrices and original Go owner/export/invocation production retain prior full evidence without repeat. Keep both43-root/zero-or70-error units/type domains/all32 proof streams/frozen limits intact. Canonical source/compiler/root/context/program authority remains due.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 20.278492875018856,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "external_originals_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/format-check-groups/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/format-check-groups/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T07:55:28.160648+00:00"
+}

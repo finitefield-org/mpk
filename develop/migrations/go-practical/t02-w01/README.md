@@ -1730,3 +1730,26 @@ Canonical module/compiler/export/capture/context/launcher/root/program authority
 full56 foundation/all169 demands, native Linux gates and remaining T02-T11
 stay due. R01/R06/W01 stay open; the profile stays inactive and the cumulative
 T02 gate remains final W04. Go/Rust only.
+
+
+## Independent original embedded resources
+
+The [independent resource component](verification/embedded-selection/README.md)
+reads original Go source pattern bytes and reconstructs production resource
+identities from the complete immutable namespace. Required missing buffers or
+unobserved directories reject coherently resealed capture with the same original
+Root contract. All54 native resource cases,54 pragma cases,73 native glob cases
+and all2,003 unchanged original package directories agree. Three actual native
+groups keep internal/external test patterns distinct from normal production
+resource selection, including invalid and missing test-only patterns. The entire
+5,535-object original owner/four assets remains intact. Five native Go roots,
+26 affected Rust integrations and one native-glob unit pass, with strict affected
+Clippy/vet/formats. All240 Rust/187 Go production sources and the two complete
+prior test-source prefixes stay unchanged when adding the group tests. Both43-root
+units, zero/70-error universes and32 proof streams remain byte-exact. All22
+consumed source epochs and exact outputs stay complete. Canonical module/compiler/
+export/capture/context/launcher/root authority, missing module-link target/stat
+facts, compiler pragma validation, full56 foundation/all169 source/program proofs,
+native Linux gates and remaining T02-T11 stay due. R01/R06/W01 remain open;
+the profile stays inactive and the cumulative T02 gate remains final W04.
+Go/Rust only.

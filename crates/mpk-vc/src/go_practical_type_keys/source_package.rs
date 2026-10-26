@@ -3,9 +3,11 @@
 use super::*;
 mod auxiliary;
 mod cgo;
+mod embedded;
 mod graphic;
 mod header;
 pub use auxiliary::GoSourceAuxiliaryKind;
+pub use embedded::{derive_go_source_embedded_files, GoSourceEmbeddedFiles};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum GoSourcePackageErrorKind {
@@ -19,6 +21,13 @@ pub enum GoSourcePackageErrorKind {
     CgoTest,
     CgoDirective,
     Membership,
+    EmbedPattern,
+    EmbedNamespace,
+    EmbedSource,
+    EmbedName,
+    EmbedModule,
+    EmbedIrregular,
+    EmbedEmpty,
 }
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoSourcePackageError {
@@ -60,6 +69,9 @@ pub struct GoSourcePackageFiles {
     binary_only: bool,
     auxiliary: BTreeMap<GoSourceAuxiliaryKind, Vec<GoTypeSourceObject>>,
     ignored_auxiliary: Vec<GoTypeSourceObject>,
+    embed_patterns: Vec<Vec<u8>>,
+    test_embed_patterns: Vec<Vec<u8>>,
+    external_test_embed_patterns: Vec<Vec<u8>>,
 }
 impl GoSourcePackageFiles {
     pub fn capability(&self) -> &str {
@@ -104,6 +116,17 @@ impl GoSourcePackageFiles {
     pub fn ignored_auxiliary_sources(&self) -> &[GoTypeSourceObject] {
         &self.ignored_auxiliary
     }
+    /// Exact Go string bytes; an invalid UTF-8 pattern remains visible here and
+    /// is rejected when deriving actual embedded resources.
+    pub fn embed_patterns(&self) -> &[Vec<u8>] {
+        &self.embed_patterns
+    }
+    pub fn test_embed_patterns(&self) -> &[Vec<u8>] {
+        &self.test_embed_patterns
+    }
+    pub fn external_test_embed_patterns(&self) -> &[Vec<u8>] {
+        &self.external_test_embed_patterns
+    }
 }
 
 pub fn derive_go_source_package_files(
@@ -134,11 +157,17 @@ pub fn derive_go_source_package_files(
         binary_only: false,
         auxiliary: BTreeMap::new(),
         ignored_auxiliary: vec![],
+        embed_patterns: vec![],
+        test_embed_patterns: vec![],
+        external_test_embed_patterns: vec![],
     };
     let mut found_name = false;
     let mut imports = BTreeSet::new();
     let mut test_imports = BTreeSet::new();
     let mut external_imports = BTreeSet::new();
+    let mut embed_patterns = BTreeSet::new();
+    let mut test_embed_patterns = BTreeSet::new();
+    let mut external_embed_patterns = BTreeSet::new();
     for entry in entries {
         let bytes = entry.name_bytes();
         if entry.type_bits() & (1 << 31) != 0 || bytes.starts_with(b"_") || bytes.starts_with(b".")
@@ -236,12 +265,21 @@ pub fn derive_go_source_package_files(
             }
         } else if external {
             result.external_tests.push(source.object().clone());
+            if file_imports.iter().any(|p| p == "embed") {
+                external_embed_patterns.extend(embedded::source_patterns(source));
+            }
             external_imports.extend(file_imports);
         } else if test {
             result.tests.push(source.object().clone());
+            if file_imports.iter().any(|p| p == "embed") {
+                test_embed_patterns.extend(embedded::source_patterns(source));
+            }
             test_imports.extend(file_imports);
         } else {
             result.active.push(source.object().clone());
+            if file_imports.iter().any(|p| p == "embed") {
+                embed_patterns.extend(embedded::source_patterns(source));
+            }
             imports.extend(file_imports);
         }
         result.binary_only |= matches.is_binary_only();
@@ -252,6 +290,9 @@ pub fn derive_go_source_package_files(
     result.imports = imports.into_iter().collect();
     result.test_imports = test_imports.into_iter().collect();
     result.external_test_imports = external_imports.into_iter().collect();
+    result.embed_patterns = embed_patterns.into_iter().collect();
+    result.test_embed_patterns = test_embed_patterns.into_iter().collect();
+    result.external_test_embed_patterns = external_embed_patterns.into_iter().collect();
     Ok(result)
 }
 
@@ -277,6 +318,7 @@ pub(super) fn check_capture_package_files(
         let directory = first.object().path.rsplit_once('/').map_or("", |(d, _)| d);
         let files =
             derive_go_source_package_files(snapshot, &first.object().capability, directory)?;
+        embedded::resources(snapshot, &files)?;
         let derived = files
             .active_sources()
             .iter()

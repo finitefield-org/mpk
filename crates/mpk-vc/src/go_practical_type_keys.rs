@@ -44,8 +44,8 @@ pub use source_languages::{
 mod source_overlays;
 mod source_package;
 pub use source_package::{
-    derive_go_source_package_files, GoSourceAuxiliaryKind, GoSourcePackageError,
-    GoSourcePackageErrorKind, GoSourcePackageFiles,
+    derive_go_source_embedded_files, derive_go_source_package_files, GoSourceAuxiliaryKind,
+    GoSourceEmbeddedFiles, GoSourcePackageError, GoSourcePackageErrorKind, GoSourcePackageFiles,
 };
 mod source_scalar_typing;
 mod source_scopes;

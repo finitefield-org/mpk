@@ -8799,3 +8799,61 @@ storage/frame/callee/program proofs, all56 foundation families/all169 demands,
 native Linux gates and remaining T02-T11 stay due. R01/R06/W01 remain open;
 the practical profile stays inactive. The cumulative T02 gate remains final W04:
 `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 189. T02-W01 independent original embedded resources
+
+The [independent resource component](../migrations/go-practical/t02-w01/verification/embedded-selection/README.md)
+derives exact production/internal-test/external-test pattern bytes from whole
+original Go files, then selects production resources from complete immutable
+namespaces and original buffers. The caller cannot supply a replacement source
+or pattern list. Capture requires every selected resource and directory fact;
+missing facts reject without host filesystem fallback. Source/module roles
+remain intact and new resource roles remain auxiliary, without a new source kind.
+
+The byte reader retains native Go build comment/literal/BOM/physical-line/Unicode-
+space and malformed-line dispositions. Literal invalid UTF-8 decodes as native
+Unquote while escaped arbitrary bytes remain unchanged; whole source bytes and
+locations stay exact. Go1.25.0 chunk search and byte-wise star advancement preserve
+native UTF-8 boundary behavior. Filename validation reuses the exact pinned Go
+Unicode15 letter table and native module filename rules. Compiler pragma/variable
+validation and missing module-link target/stat facts remain separate obligations.
+
+All54 unchanged native resource cases agree:27 accepted and27 rejected, preserving
+complete candidate files, names, buffers and links before resource failure.
+Every actual native child stdout/stderr is retained before assertions/decoding.
+All54 pragma cases (six native header rejections),56 complete original pinned
+path.Match cases and17 additional actual byte cases agree. All668 pure/668 wide/
+667 owned original package directories agree:2,003 total/75 production patterns.
+Three complete native groups preserve nonempty internal/external test patterns,
+including invalid/missing test-only resources, without contaminating normal build
+resource selection. Test source bytes and patterns stay retained.
+
+The entire original owner retains all5,535 objects/107,062,681 bytes and four
+original application assets. Rust reconstructs their per-pattern identities
+and exact bytes from source. Two coherent omission controls reject required
+resource buffers or unobserved directories with the same original source selection
+and one Root contract. No original buffer or proof universe is replaced/reduced.
+All five native Go roots,26 affected Rust integration roots and one glob unit
+pass, with strict affected Clippy, Go vet and explicit changed-file formats.
+The original25 integration roots and glob unit keep exact production sources
+and complete prior test-source prefixes while adding the group test. Independent
+correspondence checks every240 Rust/187 Go production source.
+
+Independent inspection verifies whole original inputs/native outputs, resource
+objects, package/pattern sets, complete owner/control transports, primary Go
+sources and all32 original proof streams. The full pinned Go test corpus is
+saved before consumption. Both43-root units and zero/70-error universes remain
+intact. Unchanged full lexer/parser/build/language/kernel/foundation matrices and
+actual original Go owner/export/invocation production retain earlier evidence
+without repetition. All22 consumed source epochs preserve complete original
+paths/bytes/modes and exact outputs, distinguishing formatter mutations. No review
+rule/seal/exclusion, premise, math rule, source/type/error/proof scope or kernel
+budget changes. Host checks do not establish native Linux release resource bounds.
+
+Canonical module/compiler/export/capture/context/descriptor/registry and launcher/
+root authority, required module-link target/stat observations, compiler pragma
+validation, source/IR/state/storage/frame/callee/program proofs, all56 foundation
+families/all169 demands, native Linux gates and remaining T02-T11 stay due.
+R01/R06/W01 remain open; the practical profile stays inactive. The cumulative
+T02 gate remains final W04: `./scripts/check-fast.sh`. Go/Rust only.
