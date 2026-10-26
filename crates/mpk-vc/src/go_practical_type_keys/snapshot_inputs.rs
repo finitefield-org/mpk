@@ -87,6 +87,15 @@ pub struct GoSourceSnapshotInputs {
 }
 type Lookup<T> = std::result::Result<T, GoSourceSnapshotLookupError>;
 impl GoSourceSnapshotInputs {
+    pub(super) fn observed_directories(
+        &self,
+    ) -> impl Iterator<Item = (&str, &str, &[GoSourceSnapshotEntry])> {
+        self.directories
+            .iter()
+            .map(|((capability, path), entries)| {
+                (capability.as_str(), path.as_str(), entries.as_slice())
+            })
+    }
     pub(super) fn directory_entry_count(&self) -> usize {
         self.directories.values().map(Vec::len).sum()
     }

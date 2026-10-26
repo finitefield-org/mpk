@@ -10,7 +10,12 @@ use crate::hash::{hash_canonical_json, sha256_raw_file_bytes, HashDomain};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 
+mod compiler_inputs;
 mod contract_inputs;
+pub use compiler_inputs::{
+    import_go_source_compiler_inputs, GoCompilerFileBuffer, GoSourceCompilerInputError,
+    GoSourceCompilerInputs,
+};
 mod export_inputs;
 mod module_observations;
 mod observation_json;

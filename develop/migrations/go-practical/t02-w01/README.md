@@ -2016,3 +2016,18 @@ no original case or universe is narrowed. Full correctness/other resource/read/
 compiler/root/context/source/program/foundation and remaining W01 authority stay
 open; the profile stays inactive. Final W04 owns `./scripts/check-fast.sh`.
 Go/Rust only; no scanner rule, premise, math rule or kernel cap changes.
+
+
+The [whole compiler input checkpoint](verification/compiler-inputs/README.md)
+owns all5577 actual prepared SDK files/163457770 bytes from the existing verified
+image after source/image retirement. Rust independently binds full inventories,
+component partition/projection, original exports, Go1.25 witnesses and every captured
+SDK source byte, with existing bundle budgets separate from unchanged source caps.
+One actual compiler file exceeds16MiB; the original HTTP owner still retains182
+packages/5697 objects. All10 affected Rust roots and2 native roots, strict Clippy,
+vet/formats pass across9 complete epochs. Thirty coherent claims/raw-file controls
+and a coherently rehashed unused SDK-source comment mutation reject without changing
+application source or its Root contract. Full build-info/source-role and required
+compiler/root/context/native-read/source/program/foundation bindings stay open;
+the profile remains inactive. All prior source/error/proof scopes and review rules
+remain. Final W04 owns the cumulative T02 gate: `./scripts/check-fast.sh`.

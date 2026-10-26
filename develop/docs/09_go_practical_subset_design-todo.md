@@ -14,6 +14,14 @@ Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The W01 [whole original compiler checkpoint](../migrations/go-practical/t02-w01/verification/compiler-inputs/README.md)
+retains every actual prepared SDK byte/mode after image retirement and independently
+binds its complete inventories/components to original export inputs and all captured
+SDK sources. The actual5577-file/163457770-byte compiler includes a file above16MiB
+without changing source budgets. All10 affected Rust roots and2 native roots pass;
+30 coherent claims and a rehashed unused-SDK-source control reject. Independent
+binary build-info/source roles and remaining W01 authority/proof work stay open.
+
 The W01 [original observation byte checkpoint](../migrations/go-practical/t02-w01/verification/observation-json/README.md)
 closes the private root hex-field mismatch against unchanged16MiB stdout/1MiB
 stderr budgets. All30 complete byte/hash witnesses agree across Go/Rust; a full

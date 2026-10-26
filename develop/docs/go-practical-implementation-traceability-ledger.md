@@ -9207,3 +9207,39 @@ foundation authority, native Linux release gates and remaining T02–T11 stay du
 R01/R04/R05/R06/W01 stay open; the profile stays inactive. Final W04 owns the
 cumulative T02 gate: `./scripts/check-fast.sh`. Go/Rust only; no review rule/seal/
 exclusion, source/type/error/proof scope, premise, math rule or kernel cap changes.
+
+
+## 200. T02-W01 whole original prepared compiler inputs
+
+The [compiler input component](../migrations/go-practical/t02-w01/verification/compiler-inputs/README.md)
+retains every actual prepared SDK file and executable class from a live verified
+original replay image, with the actual original-package owner. Rooted regular-file,
+mode, original image/compiler and before/after complete-byte checks stay in force;
+no caller file list/root/source/metadata/process adapter enters this boundary.
+The bundle owns its bytes independently after source/image retirement. Existing
+bundle limits apply separately from unchanged application capture budgets.
+
+Rust derives complete file size/hash from immutable byte buffers and independently
+checks exact full ordered membership, bundle/component scope/hash/partition and
+projection, original export/distribution/Go-binary links, Go1.25 source witnesses,
+all captured SDK source bytes and every available original SDK namespace fact.
+Unvisited namespaces stay unknown and empty directories remain possible. All5577
+compiler files/163457770 bytes remain, including one actual file above16MiB; the
+original HTTP owner retains182 packages/5697 objects, complete cache/archive/source
+inputs, unused bodies and unexecuted init after root/image retirement.
+
+All10 affected Rust roots and2 native roots pass with strict affected Clippy,
+vet/formats across9 complete input/output epochs. Thirty coherently sealed claim/
+raw-member controls reject. A separate unused SDK-source comment mutation reseals
+object/snapshot/capture/export/compiler links, preserves all application source and
+its one Root contract, successfully reimports original export inputs, and still
+rejects against unchanged actual compiler bytes. Earlier32 proof streams and
+43-root/zero-or70-error universes retain prior evidence without new kernel replay.
+
+Independent executable build-info/full SDK source-role reconstruction and required
+installed compiler/root/capture/context/descriptor/registry/launcher/native-read
+bindings, all56 foundation/all169 source/program demands, native Linux release gates
+and remaining T02–T11 stay due. R01/R03/R04/R05/R06/W01 remain open; the practical
+profile remains inactive. Final W04 owns `./scripts/check-fast.sh`. Go/Rust only;
+no source/type/error/proof scope, review rule/seal/exclusion, premise, math rule or
+source/bundle/kernel/certificate cap changes.
