@@ -1,0 +1,10 @@
+{
+  "status": "preservation_corrected_before_commit",
+  "first_stage_check": "Failed before index blob validation at dependency retained-path membership assertion.",
+  "cause": "The original base64-0.22.1/Cargo.lock was ignored by the repository rules. It remained retained in its whole original crate and all consumed source archives.",
+  "action": "Explicitly stage the exact original dependency Cargo.lock with git add -f. Final review includes this file, the previous complete review receipt and the revised review output path. No ignore, matcher, scanner exclusion, production code or test input changes.",
+  "original_file": "dependency-sources/base64-0.22.1/Cargo.lock",
+  "complete_previous_review": "review.json",
+  "complete_previous_driver": "review-before-retained-lock.py.original",
+  "final_review": "review-final.json"
+}

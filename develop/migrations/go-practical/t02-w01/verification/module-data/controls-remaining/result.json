@@ -1,0 +1,97 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_module_data",
+    "--test",
+    "go_practical_snapshot_inputs",
+    "--test",
+    "go_practical_source_inputs",
+    "--",
+    "--nocapture",
+    "--test-threads=1",
+    "--skip",
+    "actual_original_versioned_and_local_module_universes_verify_without_host_inputs",
+    "--skip",
+    "every_original_go_sum_line_matches_the_pinned_native_parser",
+    "--skip",
+    "every_whole_original_zip_matches_native_go_at_full_protocol_boundaries"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_MODULE_DATA_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/observations/data",
+    "MPK_GO_EXPORT_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/observations/exports",
+    "MPK_GO_EMBEDDED_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/observations/embedded",
+    "MPK_GO_SNAPSHOT_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/observations/snapshots",
+    "MPK_GO_SOURCE_BUILD_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/observations/build",
+    "MPK_GO_SOURCE_LANGUAGES_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/observations/languages",
+    "MPK_GO_SOURCE_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/observations/sources",
+    "MPK_GO_PACKAGE_FILES_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/observations/packages",
+    "MPK_GO_AUXILIARY_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/observations/auxiliary",
+    "MPK_GO_CGO_DIRECTIVES_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/observations/cgo"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/inputs.json",
+    "bytes": 58324915,
+    "sha256": "ed8040fd797335d9fa5b62ca059546e284b73d73443e86dccf214d2aaf16e6a8",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/run.py",
+    "bytes": 14136,
+    "sha256": "1a9de52efaf7d56a36f35096f13bd9b1282ab517efdd11bc32740c17b60ff57f",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T10:55:37.197516+00:00",
+  "selection_reason": "Independently verify every original Go sum entry, canonical module identity, full module ZIP namespace/content/CRC/Hash1, cached manifest/info/ziphash and captured expanded sources. Preserve complete original native module/source/export/proof universes. Compare pinned Go over complete original sum/archive cases, all Unicode scalars, full500MiB expansion and131072 namespace boundaries; run affected Rust consumers, strict Clippy and changed-file formats. Keep general MVS, complete context/root/compiler/source/program authority and native Linux release gates open.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 64.69349400000647,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "external_originals_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/stdout.log",
+    "bytes": 1480,
+    "sha256": "cea3c4db4468dd1ed651c9e31fa229806f6cee1aaf1b04a8d539fd39e390d5f4",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-data/controls-remaining/stderr.log",
+    "bytes": 484,
+    "sha256": "c34f5f1e426a46be36e7e77540ba1c41758f0e6d912bb5084d89f5dcbe82d642",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T10:56:41.892362+00:00"
+}

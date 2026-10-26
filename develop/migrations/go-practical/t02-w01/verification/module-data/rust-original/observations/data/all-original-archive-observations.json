@@ -1,0 +1,203 @@
+{
+  "cases": [
+    {
+      "accepted": true,
+      "case": "stored",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "deflated",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "self-extract-prefix",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "trailing-data",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "empty",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "opaque-directories",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "manifest-case",
+      "error": "Go original module data: Namespace"
+    },
+    {
+      "accepted": false,
+      "case": "escape",
+      "error": "Go original module data: Namespace"
+    },
+    {
+      "accepted": false,
+      "case": "dot-segment",
+      "error": "Go original module data: Namespace"
+    },
+    {
+      "accepted": false,
+      "case": "backslash",
+      "error": "Go original module data: Namespace"
+    },
+    {
+      "accepted": false,
+      "case": "simple-fold",
+      "error": "Go original module data: Namespace"
+    },
+    {
+      "accepted": false,
+      "case": "file-directory",
+      "error": "Go original module data: Namespace"
+    },
+    {
+      "accepted": false,
+      "case": "nested-manifest",
+      "error": "Go original module data: Namespace"
+    },
+    {
+      "accepted": false,
+      "case": "wrong-prefix",
+      "error": "Go original module data: Namespace"
+    },
+    {
+      "accepted": false,
+      "case": "absolute",
+      "error": "Go original module data: Namespace"
+    },
+    {
+      "accepted": false,
+      "case": "duplicate-file",
+      "error": "Go original module data: Namespace"
+    },
+    {
+      "accepted": false,
+      "case": "case-file",
+      "error": "Go original module data: Namespace"
+    },
+    {
+      "accepted": false,
+      "case": "case-parent",
+      "error": "Go original module data: Namespace"
+    },
+    {
+      "accepted": false,
+      "case": "body",
+      "error": "Go original module data: Crc"
+    },
+    {
+      "accepted": false,
+      "case": "crc",
+      "error": "Go original module data: Crc"
+    },
+    {
+      "accepted": false,
+      "case": "declared-size",
+      "error": "Go original module data: Length"
+    },
+    {
+      "accepted": false,
+      "case": "protocol-size",
+      "error": "Go original module data: Limit"
+    },
+    {
+      "accepted": false,
+      "case": "truncated",
+      "error": "Go original module data: Archive"
+    },
+    {
+      "accepted": false,
+      "case": "local-header",
+      "error": "Go original module data: Archive"
+    },
+    {
+      "accepted": true,
+      "case": "zip64-end",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "full-expanded-500MiB",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "full-namespace-131072",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "namespace-one-short",
+      "error": "Go original module data: Limit"
+    },
+    {
+      "accepted": true,
+      "case": "no-descriptor-crc-zero",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "no-descriptor-crc-wrong",
+      "error": "Go original module data: Crc"
+    },
+    {
+      "accepted": true,
+      "case": "unix-symlink-attributes",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "descriptor-crc-wrong",
+      "error": "Go original module data: Crc"
+    },
+    {
+      "accepted": false,
+      "case": "unsupported-method",
+      "error": "Go original module data: Archive"
+    },
+    {
+      "accepted": true,
+      "case": "unsigned-descriptor",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "zip64-member",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "zip64-member-short",
+      "error": "Go original module data: Archive"
+    },
+    {
+      "accepted": false,
+      "case": "zip64-negative-compressed-size",
+      "error": "Go original module data: Checksum"
+    },
+    {
+      "accepted": true,
+      "case": "opaque-compressed-directory-metadata",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "directory-uncompressed-data",
+      "error": "Go original module data: Length"
+    }
+  ],
+  "full_expanded_protocol_bytes": 524288000,
+  "full_namespace_bound": 131072,
+  "status": "passed",
+  "whole_original_corpus_retained": true
+}

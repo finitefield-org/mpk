@@ -1,0 +1,6461 @@
+{
+  "cases": [
+    {
+      "accepted": true,
+      "case": "example.com/dep@v0.0.0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v0.0.0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v1.2.3",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v1.2.3/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v2.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v2.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v0.0.0-20161208181325-20d25e280405",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v1.2.3-rc.1",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v1.2.3-rc.1/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v1.2.3-0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v1.2.3-0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v1.2.3-pre-foo+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/dep@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v9999999999999999999999.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/dep@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v0.0.0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v0.0.0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v1.2.3",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v1.2.3/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v2.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v2.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v0.0.0-20161208181325-20d25e280405",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v1.2.3-rc.1",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v1.2.3-rc.1/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v1.2.3-0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v1.2.3-0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v1.2.3-pre-foo+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Foo@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v9999999999999999999999.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/Foo@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v0.0.0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v0.0.0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v1.2.3",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v1.2.3/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v2.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v2.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v0.0.0-20161208181325-20d25e280405",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v1.2.3-rc.1",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v1.2.3-rc.1/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v1.2.3-0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v1.2.3-0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v1.2.3-pre-foo+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a..b@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v9999999999999999999999.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a..b@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v2@v2.0.0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v2@v2.0.0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v2@v2.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v2@v2.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v2@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v10@v10.0.0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v10@v10.0.0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v10@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v0@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v01@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v1.2@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v0.0.0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v0.0.0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v1.2.3",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v1.2.3/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v2.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v2.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v0.0.0-20161208181325-20d25e280405",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v1.2.3-rc.1",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v1.2.3-rc.1/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v1.2.3-0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v1.2.3-0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v1.2.3-pre-foo+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/vx@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v9999999999999999999999.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/vx@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v0.0.0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v0.0.0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v1.2.3",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v1.2.3/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v2.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v2.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v0.0.0-20161208181325-20d25e280405",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v1.2.3-rc.1",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v1.2.3-rc.1/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v1.2.3-0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v1.2.3-0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v1.2.3-pre-foo+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/x/v@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v9999999999999999999999.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/x/v@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/Con@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/com1.txt@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~1.txt@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v0.0.0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v0.0.0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v1.2.3",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v1.2.3/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v2.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v2.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v0.0.0-20161208181325-20d25e280405",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v1.2.3-rc.1",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v1.2.3-rc.1/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v1.2.3-0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v1.2.3-0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v1.2.3-pre-foo+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a~b@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v9999999999999999999999.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "example.com/a~b@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a+b@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/.dot@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a.@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a//b@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/a/@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "Example.com/dep@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "-example.com/dep@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example/dep@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "../dep@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v0@v0.0.0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v0@v0.0.0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v0@v0.0.0-20161208181325-20d25e280405",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v0@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v0-unstable@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v1@v1.2.3",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v1@v1.2.3/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v1@v0.0.0-20161208181325-20d25e280405",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v1@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v1@v1.2.3-rc.1",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v1@v1.2.3-rc.1/go.mod",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v1@v1.2.3-0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v1@v1.2.3-0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v1@v1.2.3-pre-foo+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v1@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v1@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v2@v2.0.0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v2@v2.0.0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v2@v2.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v2@v2.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v2-unstable@v2.0.0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v2-unstable@v2.0.0/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v2-unstable@v2.0.0+incompatible",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "gopkg.in/name.v2-unstable@v2.0.0+incompatible/go.mod",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v2-unstable@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name.v01@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "gopkg.in/name@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v0.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v0.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v2.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v2.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v10.0.0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v10.0.0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v2.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v2.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v0.0.0-20161208181325-20d25e280405",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v0.0.0-20161208181325-20d25e280405/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3-rc.1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3-rc.1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3-0",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3-0/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3-01",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3-01/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3-pre-foo+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3-pre-foo+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3+metadata",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3+metadata/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v01.2.3",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v01.2.3/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.03",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.03/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3-pre..x",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3-pre..x/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3-",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3-/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3+incompatible+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v1.2.3+incompatible+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v9999999999999999999999.0.0+incompatible",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "example.com/σ@v9999999999999999999999.0.0+incompatible/go.mod",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "conflict",
+      "error": "Go original module data: Sums"
+    },
+    {
+      "accepted": false,
+      "case": "extra-field",
+      "error": "Go original module data: Sums"
+    },
+    {
+      "accepted": false,
+      "case": "short",
+      "error": "Go original module data: Sums"
+    },
+    {
+      "accepted": false,
+      "case": "base64",
+      "error": "Go original module data: Sums"
+    },
+    {
+      "accepted": false,
+      "case": "noncanonical-base64",
+      "error": "Go original module data: Sums"
+    },
+    {
+      "accepted": false,
+      "case": "binary",
+      "error": "Go original module data: Sums"
+    },
+    {
+      "accepted": false,
+      "case": "bad-suffix",
+      "error": "Go original module data: Identity"
+    },
+    {
+      "accepted": false,
+      "case": "missing-field",
+      "error": "Go original module data: Sums"
+    },
+    {
+      "accepted": false,
+      "case": "algorithm",
+      "error": "Go original module data: Sums"
+    },
+    {
+      "accepted": true,
+      "case": "empty",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "identical-duplicate",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-9",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "space-a",
+      "error": "Go original module data: Sums"
+    },
+    {
+      "accepted": true,
+      "case": "space-b",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-c",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-d",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-20",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-85",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-a0",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-1680",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-2000",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-2001",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-2002",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-2003",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-2004",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-2005",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-2006",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-2007",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-2008",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-2009",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-200a",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-2028",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-2029",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-202f",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-205f",
+      "error": null
+    },
+    {
+      "accepted": true,
+      "case": "space-3000",
+      "error": null
+    },
+    {
+      "accepted": false,
+      "case": "wrong-role",
+      "error": "Go original module data: Source"
+    }
+  ],
+  "status": "passed",
+  "whole_original_corpus_retained": true
+}

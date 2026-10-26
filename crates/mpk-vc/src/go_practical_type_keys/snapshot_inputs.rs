@@ -87,6 +87,9 @@ pub struct GoSourceSnapshotInputs {
 }
 type Lookup<T> = std::result::Result<T, GoSourceSnapshotLookupError>;
 impl GoSourceSnapshotInputs {
+    pub(super) fn directory_entry_count(&self) -> usize {
+        self.directories.values().map(Vec::len).sum()
+    }
     pub fn canonical_bytes(&self) -> &[u8] {
         &self.canonical
     }

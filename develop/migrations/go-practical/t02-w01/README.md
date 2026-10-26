@@ -1803,3 +1803,40 @@ program proofs, all56 foundation families/all169 demands, native Linux gates and
 T02–T11 remain due. R01/R04/R05/R06/W01 stay open and the practical profile stays
 inactive. The cumulative T02 gate remains final W04: `./scripts/check-fast.sh`.
 Go/Rust only; no premise, source/type/error/proof scope, review rule or budget changes.
+
+
+## Independent original module data
+
+The [module-data component](verification/module-data/README.md) independently
+parses every original main go.sum line and checks canonical module/version/h1
+identity, including unused entries and identical duplicates. Whole original ZIP
+headers/namespace/content retain Go1.25 ZIP64, prefix, descriptor, directory/CRC,
+last-name hashing and Unicode15 folding/filename dispositions. Streaming Hash1,
+unchanged500MiB expansion/16MiB manifest-license/131072 namespace limits, cached
+manifest/info-version/ziphash and every captured expanded source remain bound.
+No member is extracted into a loader filesystem or supplied by a caller adapter.
+
+All14 native Go roots,29 affected Rust integration roots and one whole-scalar
+unit pass. All1291 sum/39 ZIP verdicts and accepted inventories agree; all1112064
+Unicode scalars and both full protocol boundaries remain. Eleven fully resealed
+controls retain the same source selection and one Root contract: eight reject
+changed contents/missing data and three valid duplicate/encoding/comment variants
+accept. The original first-bit failure changed only DEFLATE encoding; its whole
+source/output epoch and independent complete reconstruction remain. A separate
+midpoint case changes real member content. Production validation is unchanged.
+The initial missing u64 counter annotation failure also remains complete.
+
+Both43-root units, zero/70-error universes and32 proof streams stay exact. Complete
+cached dependencies match their whole source archives and Cargo.lock, with no
+network fallback or unrelated upgrades. Independent Python ZIP/DEFLATE Hash1
+inspection, every original raw module buffer/control identity, all24 input epochs,
+strict affected Clippy/vet/formats and exact outputs are retained. No review rule/
+seal/exclusion, premise, math rule, kernel cap or source/type/error/proof scope
+changes. Host checks confer no native Linux release acceptance.
+
+General MVS/full module/native metadata semantics, checksum database and root/
+compiler/capture/context/descriptor/registry/launcher authority, source/IR/state/
+storage/frame/callee/program proofs, all56 foundation/all169 demands, native Linux
+gates and remaining T02–T11 stay due. R01/R04/R05/R06/W01 remain open; the practical
+profile stays inactive. The cumulative T02 gate remains final W04:
+`./scripts/check-fast.sh`. Go/Rust only.

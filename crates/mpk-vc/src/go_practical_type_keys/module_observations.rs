@@ -2,6 +2,11 @@
 //! verification, root authorization and installed compiler/context authority
 //! remain separate obligations; this reader does not confer those authorities.
 use super::*;
+mod data;
+pub use data::{
+    import_go_module_sums, inspect_go_module_archive, GoModuleArchiveInventory,
+    GoModuleArchiveMember, GoModuleSums, GoSourceModuleData, GoSourceModuleDataError,
+};
 
 const DOMAIN: HashDomain = HashDomain::new("MPK-PRIVATE-GO-SOURCE-MODULE-OBSERVATIONS-1.0");
 #[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]

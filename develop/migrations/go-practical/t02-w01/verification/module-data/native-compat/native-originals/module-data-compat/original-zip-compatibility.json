@@ -1,0 +1,281 @@
+{
+  "cases": [
+    {
+      "accepted": true,
+      "case": "no-descriptor-crc-zero",
+      "error": "\u003cnil\u003e",
+      "members": [
+        {
+          "Path": "dep.go",
+          "Bytes": 167,
+          "RawSHA256": "f3285d0a89d57d265ce5808abf19b0c9ba37cbd7a99597bf55cd1031131cb549"
+        },
+        {
+          "Path": "go.mod",
+          "Bytes": 36,
+          "RawSHA256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83"
+        }
+      ],
+      "namespace_entries": 2,
+      "object": {
+        "schema": "mpk.go.source_object.v1",
+        "id": "f29e656901894bdf7e5b4f547f5f28deac26cc6b6e16bdef4eb064501bcd3652",
+        "capability": "archives",
+        "path": "module.zip",
+        "kind": "auxiliary",
+        "raw_sha256": "81b55abe539ed80cd78f41d038c6ef4800f14e5a69e2d454c124ab94aa5898fa",
+        "bytes": 577
+      },
+      "path": "example.com/pracdep",
+      "raw": "UEsDBBQACAAAAIIYIlAAAAAAAAAAAAAAAAAhAAkAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1ebW9kdWxlIGV4YW1wbGUuY29tL3ByYWNkZXAKCmdvIDEuMjIKUEsHCIcsN6YkAAAAJAAAAFBLAwQUAAgAAACCGCJQAAAAAAAAAAAAAAAAIQAJAGV4YW1wbGUuY29tL3ByYWNkZXBAdjEuMC4wL2RlcC5nb1VUBQABpV0NXnBhY2thZ2UgZGVwCnR5cGUgQW1vdW50IGludDY0CmZ1bmMgVHdpY2UoeCBpbnQ2NCkgaW50NjQgeyByZXR1cm4geCt4IH0KdmFyIE11dGFibGUgaW50NjQgPSA3CmZ1bmMgaW5pdCgpIHsgcGFuaWMoImFwcGxpY2F0aW9uIGluaXQgbXVzdCBuZXZlciBleGVjdXRlIGluIHRoZSBwcm9iZSIpIH0KUEsHCOIIIwWnAAAApwAAAFBLAQIUABQAAAAAAIIYIlAAAAAAJAAAACQAAAAhAAkAAAAAAAAAAAAAAAAAAABleGFtcGxlLmNvbS9wcmFjZGVwQHYxLjAuMC9nby5tb2RVVAUAAaVdDV5QSwECFAAUAAgAAACCGCJQ4ggjBacAAACnAAAAIQAJAAAAAAAAAAAAAAB8AAAAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZGVwLmdvVVQFAAGlXQ1eUEsFBgAAAAACAAIAsAAAAHsBAAAAAA==",
+      "remaining": 131072,
+      "sum": "h1:MTsAUxsuzB4cUq0dDw78AH8ovfJ05oBPSyUb+5y8IPA=",
+      "version": "v1.0.0"
+    },
+    {
+      "accepted": false,
+      "case": "no-descriptor-crc-wrong",
+      "error": "module ZIP member bytes or CRC differ from their original headers",
+      "members": [],
+      "namespace_entries": 0,
+      "object": {
+        "schema": "mpk.go.source_object.v1",
+        "id": "3dff797193d0ca92c8f7fe3d7a8768936657c50f8eec65a08aaae0f24f948426",
+        "capability": "archives",
+        "path": "module.zip",
+        "kind": "auxiliary",
+        "raw_sha256": "6b47173657013cd7d3f5cbb3202c3c0734f4a4931b5b4d1d83d8843549d05ad2",
+        "bytes": 577
+      },
+      "path": "example.com/pracdep",
+      "raw": "UEsDBBQACAAAAIIYIlAAAAAAAAAAAAAAAAAhAAkAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1ebW9kdWxlIGV4YW1wbGUuY29tL3ByYWNkZXAKCmdvIDEuMjIKUEsHCIcsN6YkAAAAJAAAAFBLAwQUAAgAAACCGCJQAAAAAAAAAAAAAAAAIQAJAGV4YW1wbGUuY29tL3ByYWNkZXBAdjEuMC4wL2RlcC5nb1VUBQABpV0NXnBhY2thZ2UgZGVwCnR5cGUgQW1vdW50IGludDY0CmZ1bmMgVHdpY2UoeCBpbnQ2NCkgaW50NjQgeyByZXR1cm4geCt4IH0KdmFyIE11dGFibGUgaW50NjQgPSA3CmZ1bmMgaW5pdCgpIHsgcGFuaWMoImFwcGxpY2F0aW9uIGluaXQgbXVzdCBuZXZlciBleGVjdXRlIGluIHRoZSBwcm9iZSIpIH0KUEsHCOIIIwWnAAAApwAAAFBLAQIUABQAAAAAAIIYIlABAAAAJAAAACQAAAAhAAkAAAAAAAAAAAAAAAAAAABleGFtcGxlLmNvbS9wcmFjZGVwQHYxLjAuMC9nby5tb2RVVAUAAaVdDV5QSwECFAAUAAgAAACCGCJQ4ggjBacAAACnAAAAIQAJAAAAAAAAAAAAAAB8AAAAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZGVwLmdvVVQFAAGlXQ1eUEsFBgAAAAACAAIAsAAAAHsBAAAAAA==",
+      "remaining": 131072,
+      "sum": "h1:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+      "version": "v1.0.0"
+    },
+    {
+      "accepted": true,
+      "case": "unix-symlink-attributes",
+      "error": "\u003cnil\u003e",
+      "members": [
+        {
+          "Path": "dep.go",
+          "Bytes": 167,
+          "RawSHA256": "f3285d0a89d57d265ce5808abf19b0c9ba37cbd7a99597bf55cd1031131cb549"
+        },
+        {
+          "Path": "go.mod",
+          "Bytes": 36,
+          "RawSHA256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83"
+        }
+      ],
+      "namespace_entries": 2,
+      "object": {
+        "schema": "mpk.go.source_object.v1",
+        "id": "e87ce162e4ef4f704c778dac81faa84c494eed111aba8140d6d08dd800e6932f",
+        "capability": "archives",
+        "path": "module.zip",
+        "kind": "auxiliary",
+        "raw_sha256": "24ffb4bbe14b0f6b07d488d379478090f788c20eb7c92bcd3078fc4655d15e8a",
+        "bytes": 577
+      },
+      "path": "example.com/pracdep",
+      "raw": "UEsDBBQACAAAAIIYIlAAAAAAAAAAAAAAAAAhAAkAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1ebW9kdWxlIGV4YW1wbGUuY29tL3ByYWNkZXAKCmdvIDEuMjIKUEsHCIcsN6YkAAAAJAAAAFBLAwQUAAgAAACCGCJQAAAAAAAAAAAAAAAAIQAJAGV4YW1wbGUuY29tL3ByYWNkZXBAdjEuMC4wL2RlcC5nb1VUBQABpV0NXnBhY2thZ2UgZGVwCnR5cGUgQW1vdW50IGludDY0CmZ1bmMgVHdpY2UoeCBpbnQ2NCkgaW50NjQgeyByZXR1cm4geCt4IH0KdmFyIE11dGFibGUgaW50NjQgPSA3CmZ1bmMgaW5pdCgpIHsgcGFuaWMoImFwcGxpY2F0aW9uIGluaXQgbXVzdCBuZXZlciBleGVjdXRlIGluIHRoZSBwcm9iZSIpIH0KUEsHCOIIIwWnAAAApwAAAFBLAQIUAxQACAAAAIIYIlCHLDemJAAAACQAAAAhAAkAAAAAAAAAAAD/oQAAAABleGFtcGxlLmNvbS9wcmFjZGVwQHYxLjAuMC9nby5tb2RVVAUAAaVdDV5QSwECFAAUAAgAAACCGCJQ4ggjBacAAACnAAAAIQAJAAAAAAAAAAAAAAB8AAAAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZGVwLmdvVVQFAAGlXQ1eUEsFBgAAAAACAAIAsAAAAHsBAAAAAA==",
+      "remaining": 131072,
+      "sum": "h1:MTsAUxsuzB4cUq0dDw78AH8ovfJ05oBPSyUb+5y8IPA=",
+      "version": "v1.0.0"
+    },
+    {
+      "accepted": false,
+      "case": "descriptor-crc-wrong",
+      "error": "module ZIP member bytes or CRC differ from their original headers",
+      "members": [],
+      "namespace_entries": 0,
+      "object": {
+        "schema": "mpk.go.source_object.v1",
+        "id": "281323d76daa6358eff6317b5579c4a3c7932840f0bb4b6a9fa40ca5fb379a7f",
+        "capability": "archives",
+        "path": "module.zip",
+        "kind": "auxiliary",
+        "raw_sha256": "bd4b051dd8921d55a8285a11e8bd2ac71390e7a910dab404d54e3adcb2044cc1",
+        "bytes": 577
+      },
+      "path": "example.com/pracdep",
+      "raw": "UEsDBBQACAAAAIIYIlAAAAAAAAAAAAAAAAAhAAkAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1ebW9kdWxlIGV4YW1wbGUuY29tL3ByYWNkZXAKCmdvIDEuMjIKUEsHCIYsN6YkAAAAJAAAAFBLAwQUAAgAAACCGCJQAAAAAAAAAAAAAAAAIQAJAGV4YW1wbGUuY29tL3ByYWNkZXBAdjEuMC4wL2RlcC5nb1VUBQABpV0NXnBhY2thZ2UgZGVwCnR5cGUgQW1vdW50IGludDY0CmZ1bmMgVHdpY2UoeCBpbnQ2NCkgaW50NjQgeyByZXR1cm4geCt4IH0KdmFyIE11dGFibGUgaW50NjQgPSA3CmZ1bmMgaW5pdCgpIHsgcGFuaWMoImFwcGxpY2F0aW9uIGluaXQgbXVzdCBuZXZlciBleGVjdXRlIGluIHRoZSBwcm9iZSIpIH0KUEsHCOIIIwWnAAAApwAAAFBLAQIUABQACAAAAIIYIlCHLDemJAAAACQAAAAhAAkAAAAAAAAAAAAAAAAAAABleGFtcGxlLmNvbS9wcmFjZGVwQHYxLjAuMC9nby5tb2RVVAUAAaVdDV5QSwECFAAUAAgAAACCGCJQ4ggjBacAAACnAAAAIQAJAAAAAAAAAAAAAAB8AAAAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZGVwLmdvVVQFAAGlXQ1eUEsFBgAAAAACAAIAsAAAAHsBAAAAAA==",
+      "remaining": 131072,
+      "sum": "h1:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+      "version": "v1.0.0"
+    },
+    {
+      "accepted": false,
+      "case": "unsupported-method",
+      "error": "module ZIP member bytes or CRC differ from their original headers",
+      "members": [],
+      "namespace_entries": 0,
+      "object": {
+        "schema": "mpk.go.source_object.v1",
+        "id": "7b3e86b8960966aa104cb9f9170da1196ae24cbfc9e78b56be7926f7d14e5c96",
+        "capability": "archives",
+        "path": "module.zip",
+        "kind": "auxiliary",
+        "raw_sha256": "ffe85434f636e12a749734d1da1f2a3ffbf91190eff9be1dcaa181e2b60d75bf",
+        "bytes": 577
+      },
+      "path": "example.com/pracdep",
+      "raw": "UEsDBBQACAAAAIIYIlAAAAAAAAAAAAAAAAAhAAkAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1ebW9kdWxlIGV4YW1wbGUuY29tL3ByYWNkZXAKCmdvIDEuMjIKUEsHCIcsN6YkAAAAJAAAAFBLAwQUAAgAAACCGCJQAAAAAAAAAAAAAAAAIQAJAGV4YW1wbGUuY29tL3ByYWNkZXBAdjEuMC4wL2RlcC5nb1VUBQABpV0NXnBhY2thZ2UgZGVwCnR5cGUgQW1vdW50IGludDY0CmZ1bmMgVHdpY2UoeCBpbnQ2NCkgaW50NjQgeyByZXR1cm4geCt4IH0KdmFyIE11dGFibGUgaW50NjQgPSA3CmZ1bmMgaW5pdCgpIHsgcGFuaWMoImFwcGxpY2F0aW9uIGluaXQgbXVzdCBuZXZlciBleGVjdXRlIGluIHRoZSBwcm9iZSIpIH0KUEsHCOIIIwWnAAAApwAAAFBLAQIUABQACABjAIIYIlCHLDemJAAAACQAAAAhAAkAAAAAAAAAAAAAAAAAAABleGFtcGxlLmNvbS9wcmFjZGVwQHYxLjAuMC9nby5tb2RVVAUAAaVdDV5QSwECFAAUAAgAAACCGCJQ4ggjBacAAACnAAAAIQAJAAAAAAAAAAAAAAB8AAAAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZGVwLmdvVVQFAAGlXQ1eUEsFBgAAAAACAAIAsAAAAHsBAAAAAA==",
+      "remaining": 131072,
+      "sum": "h1:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+      "version": "v1.0.0"
+    },
+    {
+      "accepted": true,
+      "case": "unsigned-descriptor",
+      "error": "\u003cnil\u003e",
+      "members": [
+        {
+          "Path": "dep.go",
+          "Bytes": 167,
+          "RawSHA256": "f3285d0a89d57d265ce5808abf19b0c9ba37cbd7a99597bf55cd1031131cb549"
+        },
+        {
+          "Path": "go.mod",
+          "Bytes": 36,
+          "RawSHA256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83"
+        }
+      ],
+      "namespace_entries": 2,
+      "object": {
+        "schema": "mpk.go.source_object.v1",
+        "id": "509b7a0bc388bb4b34f280ac759bf1f6528283adf66c5a65c61d310b80ceda2a",
+        "capability": "archives",
+        "path": "module.zip",
+        "kind": "auxiliary",
+        "raw_sha256": "2ceb2daad74406940e0efdaf5bfd5c2e3763c2c80996d561fce8941c92a3692c",
+        "bytes": 573
+      },
+      "path": "example.com/pracdep",
+      "raw": "UEsDBBQACAAAAIIYIlAAAAAAAAAAAAAAAAAhAAkAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1ebW9kdWxlIGV4YW1wbGUuY29tL3ByYWNkZXAKCmdvIDEuMjIKhyw3piQAAAAkAAAAUEsDBBQACAAAAIIYIlAAAAAAAAAAAAAAAAAhAAkAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZGVwLmdvVVQFAAGlXQ1ecGFja2FnZSBkZXAKdHlwZSBBbW91bnQgaW50NjQKZnVuYyBUd2ljZSh4IGludDY0KSBpbnQ2NCB7IHJldHVybiB4K3ggfQp2YXIgTXV0YWJsZSBpbnQ2NCA9IDcKZnVuYyBpbml0KCkgeyBwYW5pYygiYXBwbGljYXRpb24gaW5pdCBtdXN0IG5ldmVyIGV4ZWN1dGUgaW4gdGhlIHByb2JlIikgfQpQSwcI4ggjBacAAACnAAAAUEsBAhQAFAAIAAAAghgiUIcsN6YkAAAAJAAAACEACQAAAAAAAAAAAAAAAAAAAGV4YW1wbGUuY29tL3ByYWNkZXBAdjEuMC4wL2dvLm1vZFVUBQABpV0NXlBLAQIUABQACAAAAIIYIlDiCCMFpwAAAKcAAAAhAAkAAAAAAAAAAAAAAHgAAABleGFtcGxlLmNvbS9wcmFjZGVwQHYxLjAuMC9kZXAuZ29VVAUAAaVdDV5QSwUGAAAAAAIAAgCwAAAAdwEAAAAA",
+      "remaining": 131072,
+      "sum": "h1:MTsAUxsuzB4cUq0dDw78AH8ovfJ05oBPSyUb+5y8IPA=",
+      "version": "v1.0.0"
+    },
+    {
+      "accepted": true,
+      "case": "zip64-member",
+      "error": "\u003cnil\u003e",
+      "members": [
+        {
+          "Path": "dep.go",
+          "Bytes": 167,
+          "RawSHA256": "f3285d0a89d57d265ce5808abf19b0c9ba37cbd7a99597bf55cd1031131cb549"
+        },
+        {
+          "Path": "go.mod",
+          "Bytes": 36,
+          "RawSHA256": "a093d5cade700e6d6c0c547712306c08bf8ab4abb439b7c6d1d997f791da0c83"
+        }
+      ],
+      "namespace_entries": 2,
+      "object": {
+        "schema": "mpk.go.source_object.v1",
+        "id": "5909e0e7bb6866481d5f1c73d4996cb0853cc643aa00ac3a65091830ebddf391",
+        "capability": "archives",
+        "path": "module.zip",
+        "kind": "auxiliary",
+        "raw_sha256": "75d5ec01d6c2b19f4f34171f956b136a0374666aaee98a7e17db836f67914a13",
+        "bytes": 605
+      },
+      "path": "example.com/pracdep",
+      "raw": "UEsDBBQACAAAAIIYIlAAAAAAAAAAAAAAAAAhAAkAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1ebW9kdWxlIGV4YW1wbGUuY29tL3ByYWNkZXAKCmdvIDEuMjIKUEsHCIcsN6YkAAAAJAAAAFBLAwQUAAgAAACCGCJQAAAAAAAAAAAAAAAAIQAJAGV4YW1wbGUuY29tL3ByYWNkZXBAdjEuMC4wL2RlcC5nb1VUBQABpV0NXnBhY2thZ2UgZGVwCnR5cGUgQW1vdW50IGludDY0CmZ1bmMgVHdpY2UoeCBpbnQ2NCkgaW50NjQgeyByZXR1cm4geCt4IH0KdmFyIE11dGFibGUgaW50NjQgPSA3CmZ1bmMgaW5pdCgpIHsgcGFuaWMoImFwcGxpY2F0aW9uIGluaXQgbXVzdCBuZXZlciBleGVjdXRlIGluIHRoZSBwcm9iZSIpIH0KUEsHCOIIIwWnAAAApwAAAFBLAQIUABQACAAAAIIYIlCHLDem//////////8hACUAAAAAAAAAAAAAAP////9leGFtcGxlLmNvbS9wcmFjZGVwQHYxLjAuMC9nby5tb2RVVAUAAaVdDV4BABgAJAAAAAAAAAAkAAAAAAAAAAAAAAAAAAAAUEsBAhQAFAAIAAAAghgiUOIIIwWnAAAApwAAACEACQAAAAAAAAAAAAAAfAAAAGV4YW1wbGUuY29tL3ByYWNkZXBAdjEuMC4wL2RlcC5nb1VUBQABpV0NXlBLBQYAAAAAAgACAMwAAAB7AQAAAAA=",
+      "remaining": 131072,
+      "sum": "h1:MTsAUxsuzB4cUq0dDw78AH8ovfJ05oBPSyUb+5y8IPA=",
+      "version": "v1.0.0"
+    },
+    {
+      "accepted": false,
+      "case": "zip64-member-short",
+      "error": "zip: not a valid zip file",
+      "members": [],
+      "namespace_entries": 0,
+      "object": {
+        "schema": "mpk.go.source_object.v1",
+        "id": "42328c7dfb91f51ea7ac76ac5efb99f0625799b6f843af018149712a1fa4a4bc",
+        "capability": "archives",
+        "path": "module.zip",
+        "kind": "auxiliary",
+        "raw_sha256": "d7a1752fd205dca0c1409756947520cb1585447c7695c65d83f804ba031dbe76",
+        "bytes": 589
+      },
+      "path": "example.com/pracdep",
+      "raw": "UEsDBBQACAAAAIIYIlAAAAAAAAAAAAAAAAAhAAkAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1ebW9kdWxlIGV4YW1wbGUuY29tL3ByYWNkZXAKCmdvIDEuMjIKUEsHCIcsN6YkAAAAJAAAAFBLAwQUAAgAAACCGCJQAAAAAAAAAAAAAAAAIQAJAGV4YW1wbGUuY29tL3ByYWNkZXBAdjEuMC4wL2RlcC5nb1VUBQABpV0NXnBhY2thZ2UgZGVwCnR5cGUgQW1vdW50IGludDY0CmZ1bmMgVHdpY2UoeCBpbnQ2NCkgaW50NjQgeyByZXR1cm4geCt4IH0KdmFyIE11dGFibGUgaW50NjQgPSA3CmZ1bmMgaW5pdCgpIHsgcGFuaWMoImFwcGxpY2F0aW9uIGluaXQgbXVzdCBuZXZlciBleGVjdXRlIGluIHRoZSBwcm9iZSIpIH0KUEsHCOIIIwWnAAAApwAAAFBLAQIUABQACAAAAIIYIlCHLDem//////////8hABUAAAAAAAAAAAAAAP////9leGFtcGxlLmNvbS9wcmFjZGVwQHYxLjAuMC9nby5tb2RVVAUAAaVdDV4BAAgAJAAAAAAAAABQSwECFAAUAAgAAACCGCJQ4ggjBacAAACnAAAAIQAJAAAAAAAAAAAAAAB8AAAAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZGVwLmdvVVQFAAGlXQ1eUEsFBgAAAAACAAIAvAAAAHsBAAAAAA==",
+      "remaining": 131072,
+      "sum": "h1:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+      "version": "v1.0.0"
+    },
+    {
+      "accepted": false,
+      "case": "zip64-negative-compressed-size",
+      "error": "module ZIP member bytes or CRC differ from their original headers",
+      "members": [],
+      "namespace_entries": 0,
+      "object": {
+        "schema": "mpk.go.source_object.v1",
+        "id": "e0ab5031dcae02f9ea0e0d2b444f5646809424b592b760a817ae7d43bca38182",
+        "capability": "archives",
+        "path": "module.zip",
+        "kind": "auxiliary",
+        "raw_sha256": "1f3a211cda38ad420abba83ac5ba2eb6e913a59e9d4758ad3d78a3602ea245eb",
+        "bytes": 605
+      },
+      "path": "example.com/pracdep",
+      "raw": "UEsDBBQACAAAAIIYIlAAAAAAAAAAAAAAAAAhAAkAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1ebW9kdWxlIGV4YW1wbGUuY29tL3ByYWNkZXAKCmdvIDEuMjIKUEsHCIcsN6YkAAAAJAAAAFBLAwQUAAgAAACCGCJQAAAAAAAAAAAAAAAAIQAJAGV4YW1wbGUuY29tL3ByYWNkZXBAdjEuMC4wL2RlcC5nb1VUBQABpV0NXnBhY2thZ2UgZGVwCnR5cGUgQW1vdW50IGludDY0CmZ1bmMgVHdpY2UoeCBpbnQ2NCkgaW50NjQgeyByZXR1cm4geCt4IH0KdmFyIE11dGFibGUgaW50NjQgPSA3CmZ1bmMgaW5pdCgpIHsgcGFuaWMoImFwcGxpY2F0aW9uIGluaXQgbXVzdCBuZXZlciBleGVjdXRlIGluIHRoZSBwcm9iZSIpIH0KUEsHCOIIIwWnAAAApwAAAFBLAQIUABQAAAAAAIIYIlAAAAAA//////////8hACUAAAAAAAAAAAAAAP////9leGFtcGxlLmNvbS9wcmFjZGVwQHYxLjAuMC9nby5tb2RVVAUAAaVdDV4BABgAAAAAAAAAAAD//////////wAAAAAAAAAAUEsBAhQAFAAIAAAAghgiUOIIIwWnAAAApwAAACEACQAAAAAAAAAAAAAAfAAAAGV4YW1wbGUuY29tL3ByYWNkZXBAdjEuMC4wL2RlcC5nb1VUBQABpV0NXlBLBQYAAAAAAgACAMwAAAB7AQAAAAA=",
+      "remaining": 131072,
+      "sum": "h1:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+      "version": "v1.0.0"
+    },
+    {
+      "accepted": true,
+      "case": "opaque-compressed-directory-metadata",
+      "error": "\u003cnil\u003e",
+      "members": [],
+      "namespace_entries": 1,
+      "object": {
+        "schema": "mpk.go.source_object.v1",
+        "id": "f78204150352605dc703f099fc1df57ffff559c0022054dd1b7bb8d624e9ba29",
+        "capability": "archives",
+        "path": "module.zip",
+        "kind": "auxiliary",
+        "raw_sha256": "2d26204605982d94891a97d22be64ea87f5cdab24cfc8ed9d7229e01e4cd26e3",
+        "bytes": 190
+      },
+      "path": "example.com/pracdep",
+      "raw": "UEsDBBQAAAAAAIIYIlAAAAAAAAAAAAAAAAAlAAkAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZGlyZWN0b3J5L1VUBQABpV0NXlBLAQIUABQAAABjAIIYIlB7AAAABwAAAAAAAAAlAAkAAAAAAAAAAAAAAAAAAABleGFtcGxlLmNvbS9wcmFjZGVwQHYxLjAuMC9kaXJlY3RvcnkvVVQFAAGlXQ1eUEsFBgAAAAABAAEAXAAAAEwAAAAAAA==",
+      "remaining": 131072,
+      "sum": "h1:NM9Gq2+S5zVqGbk9NfsiwE8sFwJRCoLdSNi8vaQDWGU=",
+      "version": "v1.0.0"
+    },
+    {
+      "accepted": false,
+      "case": "directory-uncompressed-data",
+      "error": "module ZIP directory contains uncompressed data",
+      "members": [],
+      "namespace_entries": 0,
+      "object": {
+        "schema": "mpk.go.source_object.v1",
+        "id": "bb5b3c9f98de188d57b021d1235ca76a447c65906d50d12a7909b23aff623730",
+        "capability": "archives",
+        "path": "module.zip",
+        "kind": "auxiliary",
+        "raw_sha256": "9f1dec05d677864880e5315cdd567d7bce59988c221f789efe360316fdf48ad1",
+        "bytes": 190
+      },
+      "path": "example.com/pracdep",
+      "raw": "UEsDBBQAAAAAAIIYIlAAAAAAAAAAAAAAAAAlAAkAZXhhbXBsZS5jb20vcHJhY2RlcEB2MS4wLjAvZGlyZWN0b3J5L1VUBQABpV0NXlBLAQIUABQAAABjAIIYIlB7AAAABwAAAAEAAAAlAAkAAAAAAAAAAAAAAAAAAABleGFtcGxlLmNvbS9wcmFjZGVwQHYxLjAuMC9kaXJlY3RvcnkvVVQFAAGlXQ1eUEsFBgAAAAABAAEAXAAAAEwAAAAAAA==",
+      "remaining": 131072,
+      "sum": "h1:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+      "version": "v1.0.0"
+    }
+  ],
+  "original_scope_not_narrowed_to_stricter_zip_dispositions": true,
+  "whole_original_inputs_retained": true
+}

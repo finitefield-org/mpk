@@ -1,0 +1,12 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 4.02s
+     Running tests/go_practical_embedded_selection.rs (target/debug/deps/go_practical_embedded_selection-0529c45e8f7bed72)
+     Running tests/go_practical_export_inputs.rs (target/debug/deps/go_practical_export_inputs-e68226703a50507a)
+     Running tests/go_practical_module_data.rs (target/debug/deps/go_practical_module_data-eef2c3d437e6abc5)
+
+thread 'coherently_resealed_auxiliary_data_cannot_replace_original_module_contents' (9453099) panicked at crates/mpk-vc/tests/go_practical_module_data.rs:443:9:
+assertion `left == right` failed: archive-body None
+  left: true
+ right: false
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_module_data`
