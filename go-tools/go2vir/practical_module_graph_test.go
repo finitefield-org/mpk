@@ -264,6 +264,21 @@ func TestPracticalModuleGraphPreservesUnselectedOldLeavesCyclesAndPrunedInputs(t
 			}
 		})
 	}
+	t.Run("wrong-original-cache-capability", func(t *testing.T) {
+		inputs, err := view.restoreOriginalInputs()
+		if err != nil {
+			t.Fatal(err)
+		}
+		originalMain, err := inputs.captureModule(main, true)
+		if err != nil {
+			t.Fatal(err)
+		}
+		_, failure := practicalBindGraphOutput(inputs, originalMain, main, rebound, graph.observation)
+		retainPracticalSyntaxEvidence(t, "graph-wrong-original-cache-capability.json", map[string]any{"original_cache": graph.observation.moduleCache, "candidate_capability": main.capability, "error": fmt.Sprint(failure)})
+		if failure == nil || !strings.Contains(failure.Error(), "original cache capability") {
+			t.Fatal("a different saved root became the actual graph cache", failure)
+		}
+	})
 }
 
 func TestPracticalModuleGraphRejectsChangedWholeEdges(t *testing.T) {
@@ -279,8 +294,9 @@ func TestPracticalModuleGraphRejectsChangedWholeEdges(t *testing.T) {
 
 func TestPracticalModuleGraphHandoffSurvivesCompleteOwnerRetirement(t *testing.T) {
 	practicalContractTestOutput(t, "graph-owned")
+	toolchain := append([]byte("go1.25.0-original-"), 255)
 	owner, _ := practicalStorageTestOwnerWithGraph(t, map[string][]byte{
-		"go.mod":          []byte("module example.com/policy\ngo 1.25.0\nrequire (\nexample.com/alias v1.0.0\nexample.com/shared v1.0.0\n)\nreplace (\nexample.com/alias => ./wildcard\nexample.com/alias v1.0.0 => ./local-a\nexample.com/shared => ./local-b\n)\n"),
+		"go.mod":          []byte("module example.com/policy\ngo 1.25.0\ntoolchain " + string(toolchain) + "\nrequire (\nexample.com/alias v1.0.0\nexample.com/shared v1.0.0\n)\nreplace (\nexample.com/alias => ./wildcard\nexample.com/alias v1.0.0 => ./local-a\nexample.com/shared => ./local-b\n)\n"),
 		"policy.go":       []byte("package policy\nimport(a \"example.com/alias\";b \"example.com/shared\";\"net/http\")\nfunc Root(x uint16)uint16{return x+1}\nfunc Unused(r *http.Request)uint16{go func(){select{}}();return a.Value()+b.Value()}\nfunc init(){panic(\"original init must never execute\")}\n"),
 		"local-a/go.mod":  []byte("module example.com/alias\ngo 1.22\n"),
 		"local-a/a.go":    []byte("package a\nfunc Value()uint16{return 1}\n"),
@@ -293,6 +309,34 @@ func TestPracticalModuleGraphHandoffSurvivesCompleteOwnerRetirement(t *testing.T
 	input, err := owner.moduleGraphInputs(roots)
 	if err != nil {
 		t.Fatal(err)
+	}
+	value, err := decodeStrictJSON(input.canonical)
+	if err != nil {
+		t.Fatal(err)
+	}
+	wire := value.(map[string]jsonValue)
+	if wire["schema"] != "mpk.go.practical.source_module_graph_inputs.v2" {
+		t.Fatal("old graph schema retained")
+	}
+	cache := wire["module_cache"].(map[string]jsonValue)
+	if cache["capability"] != owner.moduleGraph.cache.capability || cache["directory"] != owner.moduleGraph.cache.directory || cache["original_path"] != owner.moduleGraph.observation.moduleCache {
+		t.Fatal("graph transport lost its actual cache/root binding")
+	}
+	for _, phase := range []string{"initial_summaries", "final_summaries"} {
+		labels := [][]byte{}
+		for _, entry := range wire[phase].([]jsonValue) {
+			identity := entry.(map[string]jsonValue)["module"].(map[string]jsonValue)
+			if identity["path"] == "toolchain" {
+				raw, err := hex.DecodeString(identity["version_hex"].(string))
+				if err != nil {
+					t.Fatal(err)
+				}
+				labels = append(labels, raw)
+			}
+		}
+		if len(labels) != 2 || !bytes.Equal(labels[0], []byte("go1.25.0")) || !bytes.Equal(labels[1], toolchain) || !bytes.Contains(owner.moduleGraph.output, toolchain) {
+			t.Fatal("native equal-version labels lost original bytes/order", phase, labels)
+		}
 	}
 	packet := practicalCaptureInputEvidence(t, input.modules.exports.capture)
 	packet["export_inputs_hex"] = hex.EncodeToString(input.modules.exports.canonical)

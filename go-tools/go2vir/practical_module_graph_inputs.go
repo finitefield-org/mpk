@@ -7,7 +7,7 @@ import (
 	"golang.org/x/mod/module"
 )
 
-const practicalModuleGraphInputsDomain = "MPK-PRIVATE-GO-SOURCE-MODULE-GRAPH-INPUTS-1.0"
+const practicalModuleGraphInputsDomain = "MPK-PRIVATE-GO-SOURCE-MODULE-GRAPH-INPUTS-2.0"
 
 type practicalModuleGraphInputs struct {
 	modules   practicalModuleObservationInputs
@@ -31,7 +31,15 @@ func (owner *practicalOriginalPackages) moduleGraphInputs(roots []practicalClosu
 	if graph == nil || len(graph.output) == 0 {
 		return practicalModuleGraphInputs{}, fmt.Errorf("module graph inputs have no original native graph observation")
 	}
-	identity := func(m module.Version) map[string]any { return map[string]any{"path": m.Path, "version": m.Version} }
+	cacheDirectory, err := owner.inputs.practicalPhysicalDirectory(graph.cache)
+	if err != nil || graph.observation == nil || cacheDirectory != graph.observation.moduleCache {
+		return practicalModuleGraphInputs{}, fmt.Errorf("module graph inputs lost their original cache capability")
+	}
+	// Native toolchain labels may contain arbitrary original suffix bytes.
+	// JSON strings would replace invalid UTF8 and silently change their identity.
+	identity := func(m module.Version) map[string]any {
+		return map[string]any{"path": m.Path, "version_hex": hex.EncodeToString([]byte(m.Version))}
+	}
 	rows := func(summaries []practicalGraphSummary) ([]any, error) {
 		result := []any{}
 		for _, summary := range summaries {
@@ -65,7 +73,7 @@ func (owner *practicalOriginalPackages) moduleGraphInputs(roots []practicalClosu
 	if err != nil {
 		return practicalModuleGraphInputs{}, err
 	}
-	body := map[string]any{"schema": "mpk.go.practical.source_module_graph_inputs.v1", "source_module_observations_sha256": value.(map[string]jsonValue)["content_sha256"], "metadata_hex": hex.EncodeToString(graph.output), "diagnostics_hex": hex.EncodeToString(graph.diagnostics), "initial_summaries": initial, "final_summaries": final}
+	body := map[string]any{"schema": "mpk.go.practical.source_module_graph_inputs.v2", "source_module_observations_sha256": value.(map[string]jsonValue)["content_sha256"], "module_cache": map[string]any{"capability": graph.cache.capability, "directory": graph.cache.directory, "original_path": cacheDirectory}, "metadata_hex": hex.EncodeToString(graph.output), "diagnostics_hex": hex.EncodeToString(graph.diagnostics), "initial_summaries": initial, "final_summaries": final}
 	digest, err := hashTypedCanonicalJSON(practicalModuleGraphInputsDomain, body)
 	if err != nil {
 		return practicalModuleGraphInputs{}, err

@@ -21,6 +21,7 @@ type practicalModuleGraph struct {
 	output, diagnostics            []byte
 	observation, moduleObservation *practicalGoObservation
 	initial, final                 []practicalGraphSummary
+	cache                          practicalModuleLocation
 }
 
 type practicalGraphSummary struct {
@@ -113,13 +114,16 @@ func practicalSortGraphVersions(modules []module.Version) {
 		if modules[i].Path != modules[j].Path {
 			return modules[i].Path < modules[j].Path
 		}
+		order := semver.Compare(modules[i].Version, modules[j].Version)
 		if modules[i].Path == "go" {
-			return version.Compare("go"+modules[i].Version, "go"+modules[j].Version) < 0
+			order = version.Compare("go"+modules[i].Version, "go"+modules[j].Version)
+		} else if modules[i].Path == "toolchain" {
+			order = version.Compare(modules[i].Version, modules[j].Version)
 		}
-		if modules[i].Path == "toolchain" {
-			return version.Compare(modules[i].Version, modules[j].Version) < 0
-		}
-		return semver.Compare(modules[i].Version, modules[j].Version) < 0
+		// Distinct original labels can have equal semantic versions (custom
+		// toolchain suffixes and +incompatible). A map iteration must not choose
+		// the private inventory's order; native graph output stays untouched.
+		return order < 0 || order == 0 && modules[i].Version < modules[j].Version
 	})
 }
 
@@ -269,6 +273,13 @@ func practicalBindGraphOutput(inputs practicalModuleInputs, main practicalCaptur
 	if observation.directory != previous.directory || observation.moduleCache != previous.moduleCache || observation.compilerRoot != previous.compilerRoot || observation.distributionSHA256 != previous.distributionSHA256 || main.manifest.source.object.ID != discovery.mainSourceID {
 		return nil, inputs.reject(fmt.Errorf("native graph crossed its original module/compiler/root observation"))
 	}
+	cacheDirectory, err := inputs.practicalPhysicalDirectory(cache)
+	if err != nil {
+		return nil, err
+	}
+	if cacheDirectory != observation.moduleCache {
+		return nil, inputs.reject(fmt.Errorf("native graph crossed its original cache capability"))
+	}
 	initial, err := practicalOriginalGraphSummaries(inputs, main, cache, practicalGraphOriginalRoots(main))
 	if err != nil {
 		return nil, err
@@ -319,7 +330,7 @@ func practicalBindGraphOutput(inputs practicalModuleInputs, main practicalCaptur
 			return nil, inputs.reject(fmt.Errorf("original graph maximum differs from original module-list version"))
 		}
 	}
-	return &practicalModuleGraph{output: bytes.Clone(observation.output), diagnostics: bytes.Clone(observation.diagnostics), observation: observation, moduleObservation: discovery.observation, initial: initial, final: final}, nil
+	return &practicalModuleGraph{output: bytes.Clone(observation.output), diagnostics: bytes.Clone(observation.diagnostics), observation: observation, moduleObservation: discovery.observation, initial: initial, final: final, cache: cache}, nil
 }
 
 func observationOutput(observation *practicalGoObservation) []byte {

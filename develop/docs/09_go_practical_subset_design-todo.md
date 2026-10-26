@@ -14,6 +14,12 @@ Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The W01 [v2 graph input checkpoint](../migrations/go-practical/t02-w01/verification/graph-inputs/README.md)
+binds the original native cache capability, preserves exact version bytes and
+orders distinct equal-version labels deterministically. All five native graph
+roots pass, including a full HTTP owner with a non-UTF8 toolchain suffix.
+Independent Rust graph import/MVS and remaining W01 obligations stay open.
+
 The W01 [dependency manifest checkpoint](../migrations/go-practical/t02-w01/verification/graph-manifests/README.md)
 adds an independent original ParseLax reader and exact version/pruning facts.
 All779 native/Rust facts agree, preserving all656 earlier original mode cases;

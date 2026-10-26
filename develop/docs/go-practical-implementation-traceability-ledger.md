@@ -1,6 +1,6 @@
 # Go Practical Implementation Traceability Ledger
 
-Updated: 2026-10-26. Objective: execute
+Updated: 2026-10-27. Objective: execute
 [the Go design](09_go_practical_subset_design.md) and
 [work plan](09_go_practical_subset_design-todo.md), starting at T01-W01.
 This ledger owns implementation status. No practical Go profile is active.
@@ -9076,3 +9076,25 @@ registry/source/program/foundation authority, native Linux gates and remaining
 T02–T11 remain due. R01/R04/R05/R06/W01 stay open; the practical profile stays
 inactive. The cumulative T02 gate remains final W04: `./scripts/check-fast.sh`.
 Go/Rust only; no scope, premise, math rule, scanner policy or kernel cap changes.
+
+
+## 196. T02-W01 original graph cache and byte identities
+
+The [v2 graph input component](../migrations/go-practical/t02-w01/verification/graph-inputs/README.md) binds the
+actual native module cache to its saved capability/directory during collection
+and immutable replay. Its private handoff carries that location and original
+version bytes as hex, preserving non-UTF8 toolchain suggestions. Distinct labels
+with equal semantic versions receive a deterministic raw-byte inventory tiebreak;
+native graph output is not changed. Historical v1 records remain exact.
+
+All five native graph roots, vet/formats and a wrong-original-cache control pass.
+The full181-package/5667-object HTTP owner keeps its unused bodies/init and an
+original toolchain suffix ending in ff through source/image/owner retirement.
+Both implicit/plain and equal-version custom labels remain exact and ordered.
+All four input epochs, generated originals, whole native diagnostics and unchanged
+SDK evidence remain. Inspection checks v2 hash/cache/namespace/byte correspondence
+and unchanged32 proof streams without new proof/Rust replay claims. Independent
+Rust graph import/MVS, transient input and compiler/root/context/source/program/
+foundation authority, native Linux gates and T02–T11 remain due. R01/R04/R05/R06/W01
+remain open; the profile stays inactive. Final W04 owns the T02 cumulative gate:
+`./scripts/check-fast.sh`. Go/Rust only; no scope, premise, rule or cap changes.
