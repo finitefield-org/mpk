@@ -46,17 +46,12 @@ func (owner *practicalOriginalPackages) moduleObservationInputsLocked(roots []pr
 		}
 		rows = append(rows, map[string]any{"path": selected.identity.Path, "version": selected.identity.Version, "replacement_path": selected.replacement.Path, "replacement_version": selected.replacement.Version, "manifest_source_object_id": original.object.ID})
 	}
-	value, err := decodeStrictJSON(exports.canonical)
+	value, err := decodePracticalObservationJSON(exports.canonical)
 	if err != nil {
 		return practicalModuleObservationInputs{}, err
 	}
-	body := map[string]any{"schema": "mpk.go.practical.source_module_observations.v1", "source_export_inputs_sha256": value.(map[string]jsonValue)["content_sha256"], "modules": rows, "metadata_hex": hex.EncodeToString(owner.moduleOutput), "diagnostics_hex": hex.EncodeToString(owner.moduleDiagnostics)}
-	digest, err := hashTypedCanonicalJSON(practicalModuleObservationInputsDomain, body)
-	if err != nil {
-		return practicalModuleObservationInputs{}, err
-	}
-	body["content_sha256"] = digest
-	canonical, err := canonicalJSON(body)
+	body := map[string]any{"schema": "mpk.go.practical.source_module_observations.v1", "source_export_inputs_sha256": value["content_sha256"], "modules": rows, "metadata_hex": hex.EncodeToString(owner.moduleOutput), "diagnostics_hex": hex.EncodeToString(owner.moduleDiagnostics)}
+	canonical, err := sealPracticalObservationJSON(practicalModuleObservationInputsDomain, body)
 	if err != nil {
 		return practicalModuleObservationInputs{}, err
 	}

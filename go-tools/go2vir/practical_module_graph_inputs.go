@@ -69,17 +69,12 @@ func (owner *practicalOriginalPackages) moduleGraphInputs(roots []practicalClosu
 	if err != nil {
 		return practicalModuleGraphInputs{}, err
 	}
-	value, err := decodeStrictJSON(modules.canonical)
+	value, err := decodePracticalObservationJSON(modules.canonical)
 	if err != nil {
 		return practicalModuleGraphInputs{}, err
 	}
-	body := map[string]any{"schema": "mpk.go.practical.source_module_graph_inputs.v2", "source_module_observations_sha256": value.(map[string]jsonValue)["content_sha256"], "module_cache": map[string]any{"capability": graph.cache.capability, "directory": graph.cache.directory, "original_path": cacheDirectory}, "metadata_hex": hex.EncodeToString(graph.output), "diagnostics_hex": hex.EncodeToString(graph.diagnostics), "initial_summaries": initial, "final_summaries": final}
-	digest, err := hashTypedCanonicalJSON(practicalModuleGraphInputsDomain, body)
-	if err != nil {
-		return practicalModuleGraphInputs{}, err
-	}
-	body["content_sha256"] = digest
-	canonical, err := canonicalJSON(body)
+	body := map[string]any{"schema": "mpk.go.practical.source_module_graph_inputs.v2", "source_module_observations_sha256": value["content_sha256"], "module_cache": map[string]any{"capability": graph.cache.capability, "directory": graph.cache.directory, "original_path": cacheDirectory}, "metadata_hex": hex.EncodeToString(graph.output), "diagnostics_hex": hex.EncodeToString(graph.diagnostics), "initial_summaries": initial, "final_summaries": final}
+	canonical, err := sealPracticalObservationJSON(practicalModuleGraphInputsDomain, body)
 	if err != nil {
 		return practicalModuleGraphInputs{}, err
 	}

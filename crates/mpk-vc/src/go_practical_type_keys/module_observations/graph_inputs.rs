@@ -448,17 +448,18 @@ pub fn import_go_source_module_graph_inputs(
     record: &[u8],
     data: GoSourceModuleData,
 ) -> GraphResult<GoSourceModuleGraphInputs> {
-    let wire: GraphWire = decode(record).map_err(G::Input)?;
+    let wire: GraphWire = observation_json::decode(record).map_err(G::Input)?;
     ensure(
         wire.schema == "mpk.go.practical.source_module_graph_inputs.v2",
         G::Input(GoTypeKeyError::Shape),
     )?;
     ensure(
-        identity(&wire, DOMAIN, "content_sha256").map_err(G::Input)? == wire.content_sha256,
+        observation_json::identity(&wire, DOMAIN).map_err(G::Input)? == wire.content_sha256,
         G::Input(GoTypeKeyError::Identity),
     )?;
     let observations = data.module_observations();
-    let observed: Wire = decode(observations.canonical_bytes()).map_err(G::Input)?;
+    let observed: Wire =
+        observation_json::decode(observations.canonical_bytes()).map_err(G::Input)?;
     ensure(
         observed.content_sha256 == wire.source_module_observations_sha256,
         G::Linkage,

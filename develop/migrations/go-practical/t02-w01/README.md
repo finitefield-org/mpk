@@ -2001,3 +2001,18 @@ pass. Full algorithm/source/read/resource and remaining W01/proof authority stay
 open; the profile stays inactive. No original source/type/error/proof universe,
 review rule, premise, math rule or kernel cap changes. The full T02 gate remains
 final W04: `./scripts/check-fast.sh`. Go/Rust only.
+
+
+The [original observation byte checkpoint](verification/observation-json/README.md)
+retains complete native output through private JSON at the existing16MiB stdout/
+1MiB stderr budgets. Only two root hex fields receive derived32MiB/2MiB bounds;
+common Go/Rust codecs, schemas/domains/hashes and all source/kernel/certificate
+limits stay unchanged. All30 original byte/hash witnesses agree. The new actual
+HTTP owner retains182 packages/5697 objects and15000 original duplicate edges,
+with package586034-byte and graph630780-byte native streams above the former
+ceiling. All15 affected Rust roots and7 native roots, Clippy/vet/formats pass.
+All16 source epochs retain three setup/coverage/budget-comparison failures;
+no original case or universe is narrowed. Full correctness/other resource/read/
+compiler/root/context/source/program/foundation and remaining W01 authority stay
+open; the profile stays inactive. Final W04 owns `./scripts/check-fast.sh`.
+Go/Rust only; no scanner rule, premise, math rule or kernel cap changes.

@@ -227,6 +227,35 @@ fn freshly_captured_whole_owner_independently_derives_final_roots() {
     );
 }
 #[test]
+fn large_original_native_graph_and_export_streams_survive_full_handoff() {
+    let dir = root().join("observation-json/owner-large/native-originals/versioned-owned");
+    let packet = read(&dir.join("complete-original-module-graph-inputs.json"));
+    let data = import_data(&packet, &dir);
+    let exports = data.module_observations().export_inputs();
+    assert!(exports.original_metadata().len() * 2 > 1_048_576);
+    let package_bytes = exports.original_metadata().len();
+    let packages: Value = serde_json::from_slice(exports.canonical_bytes()).unwrap();
+    assert_eq!(packages["packages"].as_array().unwrap().len(), 182);
+    let input = import_go_source_module_graph_inputs(
+        &unhex(packet["module_graph_inputs_hex"].as_str().unwrap()),
+        data,
+    )
+    .unwrap();
+    assert!(input.original_metadata().len() * 2 > 1_048_576);
+    assert_eq!(packet["snapshot_sources"].as_array().unwrap().len(), 5697);
+    let a = GoSourceGraphModule {
+        path: "example.com/a".into(),
+        version: b"v1.0.0".to_vec(),
+    };
+    assert_eq!(input.final_manifests()[&a].requirements().len(), 15001);
+    assert_eq!(input.derived_roots().len(), 8);
+    assert_eq!(input.observed_selected_versions().len(), 8);
+    output(
+        "large-original-native-streams.json",
+        &json!({"status":"passed","original_objects":5697,"original_packages":182,"original_export_metadata_bytes":package_bytes,"original_graph_metadata_bytes":input.original_metadata().len(),"original_graph_sha256":format!("{:x}",Sha256::digest(input.original_metadata())),"derived_roots":8,"original_duplicate_requirements":15000,"original_sources_retained":true,"source_or_context_authority":false}),
+    );
+}
+#[test]
 fn coherently_resealed_final_root_claims_require_original_main_requirements() {
     let (packet, data, original) = original(true);
     let raw = unhex(original["metadata_hex"].as_str().unwrap());

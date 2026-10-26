@@ -94,12 +94,7 @@ func (owner *practicalOriginalPackages) exportInputsLocked(roots []practicalClos
 		return practicalExportInputs{}, err
 	}
 	body := map[string]any{"schema": "mpk.go.practical.source_export_inputs.v1", "source_capture_inputs_sha256": selected.(map[string]jsonValue)["content_sha256"], "image_sha256": owner.imageDigest, "compiler_sha256": owner.compilerDigest, "go_binary_sha256": owner.loader.stdlib.compilerSHA256, "sdk_capability": owner.loader.stdlib.location.capability, "requested_package": owner.requestedPackage, "origins": origins, "packages": packages, "metadata_hex": hex.EncodeToString(owner.packageOutput), "diagnostics_hex": hex.EncodeToString(owner.packageDiagnostics)}
-	digest, err := hashTypedCanonicalJSON(practicalExportInputsDomain, body)
-	if err != nil {
-		return practicalExportInputs{}, err
-	}
-	body["content_sha256"] = digest
-	canonical, err := canonicalJSON(body)
+	canonical, err := sealPracticalObservationJSON(practicalExportInputsDomain, body)
 	if err != nil {
 		return practicalExportInputs{}, err
 	}

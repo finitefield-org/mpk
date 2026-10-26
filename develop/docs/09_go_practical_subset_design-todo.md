@@ -14,6 +14,14 @@ Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The W01 [original observation byte checkpoint](../migrations/go-practical/t02-w01/verification/observation-json/README.md)
+closes the private root hex-field mismatch against unchanged16MiB stdout/1MiB
+stderr budgets. All30 complete byte/hash witnesses agree across Go/Rust; a full
+182-package/5697-object native owner crosses the former JSON ceiling in actual
+package/graph outputs. All15 affected Rust roots,7 native roots and targeted lint/
+format checks pass. Other resource/read/correctness and W01 authority/proof work
+remain open; common JSON and all kernel/certificate limits stay unchanged.
+
 The W01 [pruned root expansion checkpoint](../migrations/go-practical/t02-w01/verification/root-expansion/README.md)
 now derives final roots from original main/dependency manifests, including native
 bootstrap normalization and transient expansion inputs. All18 native expansion

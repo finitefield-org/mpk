@@ -9168,3 +9168,42 @@ native Linux release gates and T02–T11 stay due. R01/R04/R05/R06/W01 stay open
 the practical profile remains inactive. Final W04 owns the cumulative T02 gate:
 `./scripts/check-fast.sh`. Go/Rust only; no source/type/error/proof scope, review
 rule/seal/exclusion, premise, math rule or kernel cap changes.
+
+
+## 199. T02-W01 exact original observation-byte transport
+
+The [observation byte component](../migrations/go-practical/t02-w01/verification/observation-json/README.md)
+resolves the private native-output/JSON mismatch. The existing observer admits
+stdout16MiB and stderr1MiB; their root hex fields need32MiB and2MiB, while the
+common Go1MiB string rule previously prevented producer handoff above512KiB raw.
+Only the named root metadata/diagnostics fields gain byte-derived limits in the
+private export/module/graph path. The three schemas/domains and canonical hashes
+stay unchanged. Ordinary nested/other fields retain each predecessor's policy;
+the common Go/Rust codecs and every source/kernel/certificate limit stay fixed.
+Strict shape, duplicate/Unicode/numeric/nullable/domain checks remain in effect.
+
+All30 complete original binary/canonical/hash witnesses agree with Rust, across
+three schemas, both fields and old/exact boundaries. Nineteen malformed or
+programmatic Go cases plus cross-domain rejection remain; Rust compares17
+serialized controls and preserves its two existing ordinary-limit differences.
+A full new182-package/5697-object original HTTP owner keeps unused bodies/init,
+all cache/archive/source objects and15000 duplicate dependency edges through
+root/image retirement. Its actual package586034-byte and graph630780-byte outputs
+cross the old transport ceiling and independently import. All prior owners and
+22 coherently resealed graph controls plus the source-content checksum control
+remain covered. Fifteen affected Rust roots,7 native roots, final affected Clippy,
+vet and formats pass across16 complete consuming source epochs.
+
+Three failed epochs remain: Darwin refused a read-only disposable-root move;
+the first successful move produced package510544 bytes, below the unchanged
+coverage threshold; and the independent Rust diagnostics-over control exposed an
+incorrect8MiB stderr assumption. The fixture reseals moved roots before ordinary
+validation and adds another real path component without narrowing inputs; Rust
+uses the authoritative existing1MiB stderr limit. No case is dropped/reclassified.
+Original32 proof byte streams retain prior evidence without new proof replay;
+earlier43-root/zero-or70-error universes stay intact. General correctness/other
+resource/native-read and installed compiler/root/context/registry/source/program/
+foundation authority, native Linux release gates and remaining T02–T11 stay due.
+R01/R04/R05/R06/W01 stay open; the profile stays inactive. Final W04 owns the
+cumulative T02 gate: `./scripts/check-fast.sh`. Go/Rust only; no review rule/seal/
+exclusion, source/type/error/proof scope, premise, math rule or kernel cap changes.

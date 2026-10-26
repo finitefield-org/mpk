@@ -13,6 +13,7 @@ use std::collections::{BTreeMap, BTreeSet};
 mod contract_inputs;
 mod export_inputs;
 mod module_observations;
+mod observation_json;
 pub use export_inputs::{
     import_go_source_export_inputs, GoSourceExportInputError, GoSourceExportInputs,
 };

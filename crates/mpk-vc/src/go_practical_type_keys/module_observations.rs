@@ -276,13 +276,13 @@ pub fn import_go_source_module_observations(
     record: &[u8],
     exports: GoSourceExportInputs,
 ) -> ModuleResult<GoSourceModuleObservations> {
-    let wire: Wire = decode(record).map_err(E::Input)?;
+    let wire: Wire = observation_json::decode(record).map_err(E::Input)?;
     need(
         wire.schema == "mpk.go.practical.source_module_observations.v1",
         E::Input(GoTypeKeyError::Shape),
     )?;
     need(
-        identity(&wire, DOMAIN, "content_sha256").map_err(E::Input)? == wire.content_sha256,
+        observation_json::identity(&wire, DOMAIN).map_err(E::Input)? == wire.content_sha256,
         E::Input(GoTypeKeyError::Identity),
     )?;
     let export_wire: serde_json::Value =

@@ -1,0 +1,110 @@
+{
+  "cases": [
+    {
+      "bytes": 33554526,
+      "case": "metadata-over",
+      "raw_sha256": "0add9b9a630d81515c73463f73d14924cb9ec7498ad4e51e755fe59bc94b66da",
+      "rejected": true
+    },
+    {
+      "bytes": 2097246,
+      "case": "diagnostics-over",
+      "raw_sha256": "a1822d9aa99b5f3d86aff69115b5e200e0085bee23cf329ef2b7db54aff4013b",
+      "rejected": true
+    },
+    {
+      "bytes": 93,
+      "case": "odd-hex",
+      "raw_sha256": "87f5f033c6afa1df2fbb217c882657d282bee4888c43372dba790130c245be07",
+      "rejected": true
+    },
+    {
+      "bytes": 94,
+      "case": "uppercase-hex",
+      "raw_sha256": "1254847447532dffab33149ec65a372599d49469c0ba89a1f72f2c60739e91b7",
+      "rejected": true
+    },
+    {
+      "bytes": 94,
+      "case": "nonhex",
+      "raw_sha256": "5279d996ef4e16831c4a8ed46b70a8ab0aa2e0a85158f986e4fa1c43a1d1bd86",
+      "rejected": true
+    },
+    {
+      "bytes": 94,
+      "case": "null",
+      "raw_sha256": "f66f77846cfbd39fe1759f8128ded1477b6713ebf24532210b3ec37fa2f42a92",
+      "rejected": true
+    },
+    {
+      "bytes": 92,
+      "case": "array",
+      "raw_sha256": "a18cef3f2789d1fc0ad0ce86afdeb210aa2f015e5d4dc16a89db8e564663e20d",
+      "rejected": true
+    },
+    {
+      "bytes": 71,
+      "case": "missing",
+      "raw_sha256": "846f18a45711655d86715e573833b26ed87da06edf6d392da1f74f0ee0c88d11",
+      "rejected": true
+    },
+    {
+      "bytes": 90,
+      "case": "unknown-schema",
+      "raw_sha256": "d390b35e36a1976548ea47732ce0645c15beb4fb3c04b032b4bb0e2c03bb1b34",
+      "rejected": true
+    },
+    {
+      "bytes": 1048683,
+      "case": "ordinary-over",
+      "raw_sha256": "9a1d86b4d27970024e8e9c52051d6cea07bcc8a3cdd4f9308bd298cbf9b945c3",
+      "rejected": false
+    },
+    {
+      "bytes": 1048698,
+      "case": "nested-metadata-over",
+      "raw_sha256": "f909047334d6c69ce20f0a3e7c5fdfe6077be727d31c8529dc7536c110a34584",
+      "rejected": false
+    },
+    {
+      "bytes": 120,
+      "case": "unsafe-integer",
+      "raw_sha256": "574ef91003a4d28de2d82c245b57d0894aff20616f42d7ef0906d8fd8ec742a0",
+      "rejected": true
+    },
+    {
+      "bytes": 98,
+      "case": "lone-surrogate",
+      "raw_sha256": "3cc300a227d938eb85cb9184f4065f73ec77308f9b1c930c942567d9c270afc1",
+      "rejected": true
+    },
+    {
+      "bytes": 94,
+      "case": "trailing",
+      "raw_sha256": "2a45a1a8c74614ec14025d3785225da5e16dbb352a2217142d6b36ef9915b22a",
+      "rejected": true
+    },
+    {
+      "bytes": 107,
+      "case": "fraction",
+      "raw_sha256": "9ecbfc9981b4ffb036d6d266eadc1038fd9e78a0a04f271db68864d4c3c819db",
+      "rejected": true
+    },
+    {
+      "bytes": 112,
+      "case": "duplicate-root",
+      "raw_sha256": "559fa07eebfa058dddb43382e0b883b6669ddfa3d97fc65273188f8cea71269f",
+      "rejected": true
+    },
+    {
+      "bytes": 115,
+      "case": "duplicate-nested",
+      "raw_sha256": "285b5705f19c1b0fd3da1834c39303c9884762bfd02b77f83cad7450d258a3b2",
+      "rejected": true
+    }
+  ],
+  "nested_root_name_does_not_widen_limit": true,
+  "ordinary_go_limit_unchanged": 1048576,
+  "ordinary_rust_limit_unchanged": 16777216,
+  "status": "passed"
+}
