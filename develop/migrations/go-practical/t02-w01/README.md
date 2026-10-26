@@ -1676,3 +1676,19 @@ failures retain their exact original sources/outputs; only affected checks rerun
 Auxiliary/directive/embed selection and canonical module/compiler/export/context/
 root/program authority remain due. R01/R06/W01 stay open, the profile stays
 inactive and the cumulative T02 gate remains final W04. Go/Rust only.
+
+
+## Original auxiliary build inputs
+
+The [auxiliary component](verification/auxiliary-inputs/README.md) reconstructs
+all nine original Go auxiliary build-input classes and ignored-other files from
+the complete immutable namespace and exact buffers. All178 native cases and
+all2,003 original package directories agree. There are318 selected auxiliary
+files and1,600 ignored-other inputs across the three full original universes.
+Missing/reclassified-buffer controls reject without replacement inputs. All18
+affected Rust roots and both Go oracle roots pass, with strict Clippy/vet/formats,
+unchanged43-root/zero-or70-error universes and32 exact proof streams. This adds
+no other program-language support. Cgo directives/embed and canonical module/
+compiler/export/context/launcher/program authority remain due. R01/R06/W01 stay
+open; the profile stays inactive and the cumulative T02 gate remains final W04.
+Go/Rust only.

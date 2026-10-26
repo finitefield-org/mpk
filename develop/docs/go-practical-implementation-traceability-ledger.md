@@ -8671,3 +8671,45 @@ IR/state/storage/frame/callee/program proofs, all56 families/all169 demands,
 native Linux gates and remaining T02-T11 remain due. R01/R06/W01 stay open; the
 practical profile stays inactive. The cumulative T02 gate remains final W04:
 `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 186. T02-W01 independent original auxiliary build inputs
+
+The [auxiliary component](../migrations/go-practical/t02-w01/verification/auxiliary-inputs/README.md)
+adds all nine Go auxiliary input classes and ignored-other files to immutable
+package reconstruction. Every recognized regular candidate requires its exact
+captured auxiliary buffer. Missing/reclassified buffers reject even with a
+coherently resealed snapshot retaining the original directory name; no external
+filesystem or replacement buffer is used. Unrelated native names and directories
+remain retained without parsing. This adds Go build-input selection, without
+another program-language frontend or semantics.
+
+Fixed Go1.25.0 Linux/amd64/cgo-disabled filename, modern/legacy header and default
+tag rules stay unchanged. Original comment-read failures and malformed build
+constraint errors retain distinct native dispositions. System objects are
+selected without content reads; preprocessed assembly is ignored with cgo
+disabled. All original raw bytes remain intact.
+
+Both actual Go oracle roots and all18 affected Rust roots pass. All178 native
+cases cover19 recognized extensions, target/header/comment/binary behavior and
+all nine classes. Every original package directory agrees:668 pure/668 wide/667
+owned, totaling2,003. Independent inspection checks every original source byte/
+kind, exact directory/class coverage and318 selected auxiliary files (93 C,
+36 headers,186 assembly,3 system objects) plus1,600 ignored-other files. Two
+coherent original-buffer omission/reclassification controls reject.
+
+Earlier39-header and182-build/all13,853-original-Go-source comparisons retain
+their exact scopes. Both complete43-root source units, zero/70-error universes
+and every byte of32 proof streams remain unchanged. Strict affected Clippy,
+Go vet and explicit changed-file formats pass. Unchanged full lexer/parser/
+language/kernel/foundation matrices are retained without repetition. Nine source
+epochs preserve all consumed original paths/bytes/modes and exact raw outputs,
+distinguishing formatter writes. No review rule, seal, source exclusion, premise,
+math definition or kernel budget changes.
+
+Cgo directives/embed selection, canonical module/build/compiler/export/capture/
+context/descriptor/registry and launcher authority, source/IR/state/storage/frame/
+callee/program proofs, all56 foundation families/all169 demands, native Linux
+gates and remaining T02-T11 stay due. R01/R06/W01 remain open; the practical
+profile stays inactive. The cumulative T02 gate remains final W04:
+`./scripts/check-fast.sh`. Go/Rust only.

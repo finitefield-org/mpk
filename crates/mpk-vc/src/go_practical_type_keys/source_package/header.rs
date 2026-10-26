@@ -158,6 +158,19 @@ pub(super) fn boundary(source: &GoTypeSourceBuffer) -> Result<usize, GoSourcePac
     }
 }
 
+// The native comment reader uses this same leading whitespace/comment walk
+// for auxiliary inputs. Its read failures have a distinct native disposition.
+pub(super) fn comment_prefix(raw: &[u8]) -> Option<&[u8]> {
+    let at = if raw.starts_with(&[0xef, 0xbb, 0xbf]) {
+        3
+    } else {
+        0
+    };
+    let mut reader = Reader { raw, at };
+    reader.skip().ok()?;
+    Some(&raw[..reader.at])
+}
+
 pub(super) fn read(
     source: &GoTypeSourceBuffer,
     end: usize,

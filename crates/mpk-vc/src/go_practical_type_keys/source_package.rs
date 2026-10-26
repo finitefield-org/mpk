@@ -1,8 +1,10 @@
 //! Independent Go-file membership from a complete immutable directory view.
-//! Module/compiler/export ownership and auxiliary build selection are separate.
+//! Module/compiler/export ownership and source/program proofs remain separate.
 use super::*;
+mod auxiliary;
 mod graphic;
 mod header;
+pub use auxiliary::GoSourceAuxiliaryKind;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum GoSourcePackageErrorKind {
@@ -54,6 +56,8 @@ pub struct GoSourcePackageFiles {
     test_imports: Vec<String>,
     external_test_imports: Vec<String>,
     binary_only: bool,
+    auxiliary: BTreeMap<GoSourceAuxiliaryKind, Vec<GoTypeSourceObject>>,
+    ignored_auxiliary: Vec<GoTypeSourceObject>,
 }
 impl GoSourcePackageFiles {
     pub fn capability(&self) -> &str {
@@ -92,6 +96,12 @@ impl GoSourcePackageFiles {
     pub fn is_binary_only(&self) -> bool {
         self.binary_only
     }
+    pub fn auxiliary_sources(&self, kind: GoSourceAuxiliaryKind) -> &[GoTypeSourceObject] {
+        self.auxiliary.get(&kind).map_or(&[], Vec::as_slice)
+    }
+    pub fn ignored_auxiliary_sources(&self) -> &[GoTypeSourceObject] {
+        &self.ignored_auxiliary
+    }
 }
 
 pub fn derive_go_source_package_files(
@@ -120,6 +130,8 @@ pub fn derive_go_source_package_files(
         test_imports: vec![],
         external_test_imports: vec![],
         binary_only: false,
+        auxiliary: BTreeMap::new(),
+        ignored_auxiliary: vec![],
     };
     let mut found_name = false;
     let mut imports = BTreeSet::new();
@@ -127,11 +139,12 @@ pub fn derive_go_source_package_files(
     let mut external_imports = BTreeSet::new();
     for entry in entries {
         let bytes = entry.name_bytes();
-        if entry.type_bits() & (1 << 31) != 0
-            || bytes.starts_with(b"_")
-            || bytes.starts_with(b".")
-            || !bytes.ends_with(b".go")
+        if entry.type_bits() & (1 << 31) != 0 || bytes.starts_with(b"_") || bytes.starts_with(b".")
         {
+            continue;
+        }
+        let auxiliary_kind = GoSourceAuxiliaryKind::filename(bytes);
+        if !bytes.ends_with(b".go") && auxiliary_kind.is_none() {
             continue;
         }
         let name = std::str::from_utf8(bytes)
@@ -141,6 +154,23 @@ pub fn derive_go_source_package_files(
         } else {
             format!("{directory}/{name}")
         };
+        if !bytes.ends_with(b".go") {
+            if let Some(kind) = auxiliary_kind {
+                let source = snapshot
+                    .read_source(capability, &path, "auxiliary")
+                    .map_err(|_| failure(GoSourcePackageErrorKind::Read, &path))?;
+                if auxiliary::select(source, kind) {
+                    result
+                        .auxiliary
+                        .entry(kind)
+                        .or_default()
+                        .push(source.object().clone());
+                } else {
+                    result.ignored_auxiliary.push(source.object().clone());
+                }
+            }
+            continue;
+        }
         let source = snapshot
             .read_source(capability, &path, "go_file")
             .or_else(|e| {

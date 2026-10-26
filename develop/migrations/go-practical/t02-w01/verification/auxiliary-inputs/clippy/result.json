@@ -1,0 +1,85 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--test",
+    "go_practical_source_build",
+    "--test",
+    "go_practical_snapshot_inputs",
+    "--test",
+    "go_practical_package_files",
+    "--test",
+    "go_practical_auxiliary_inputs",
+    "--test",
+    "go_practical_source_inputs",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/clippy/inputs.json",
+    "bytes": 16968071,
+    "sha256": "e4acfb9fa6051e34e8ca2f1a777a513eccaf0ba2940f2f57f6ed96f6eec89a08",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/run.py",
+    "bytes": 10485,
+    "sha256": "1375f8a41dcf9220fcb37252d4858655b7189b09898a7ffa51bd6c9b044d1cb9",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-24T20:50:13.262917+00:00",
+  "selection_reason": "Independently select all nine auxiliary Go build input classes and ignored-other files from complete original snapshots under the unchanged fixed target/cgo-disabled context. Compare every extension/suffix/header/read-error/binary case and all2003 original package directories. Exercise missing/reclassified original-buffer rejection, previous Go package/header and182-build-case/13853-original-source regressions, complete43-root/zero-or70-error domains and32 proof streams. Only18 affected Rust roots, two new native Go roots, strict affected Clippy, Go vet and explicit formats. Retain untouched full lexer/parser/language/kernel/foundation corpora without repetition; no retired-language tests or intermediate whole gate.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 55.01139812499605,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/clippy/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/clippy/stderr.log",
+    "bytes": 147,
+    "sha256": "20c65a6787f333206e7136b998fa3b5a1f4c044133cf05db775d72b441344abe",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-24T20:51:08.280241+00:00"
+}

@@ -1,0 +1,182 @@
+{
+  "status": "passed",
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/inspect.py",
+    "bytes": 5915,
+    "sha256": "7c43cd9e400f7c5399613ab5c442c88bc03b916d37485286643ef7095e08f9b8",
+    "mode": 420
+  },
+  "inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/native/native-originals/cases/auxiliary-corpus.json",
+      "bytes": 696086,
+      "sha256": "c8ff7d10939c066945a209de225043dda9fd09a6e0dd0ceff05b733ea44b583e",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/native/native-originals/originals/original-auxiliary-files.json",
+      "bytes": 2535444,
+      "sha256": "ffaf55c5738ab1d7b532c74375b50808caab2ed5408a91f5ba05f08f69bb4e28",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/native/native-originals/pure/complete-capture-inputs.json",
+      "bytes": 6901223,
+      "sha256": "5d5a35424553ab1f10e8b532d5f0c2b4bcd1e7c35ae6c4810285d192ee911118",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/native/native-originals/wide/complete-capture-inputs.json",
+      "bytes": 6901037,
+      "sha256": "ea110ed304a965d54a465ac3238fedab678059eda6da6f5109af6481ba7f62f5",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/native-final/native-originals/owned/capture-inputs.json",
+      "bytes": 6870629,
+      "sha256": "fa6b06b467d5ada77fb491884166722f16e4c05d9a3074b2cb6d5a2d5aba3972",
+      "mode": 384
+    }
+  ],
+  "native_cases": 178,
+  "recognized_extensions": [
+    "F",
+    "S",
+    "c",
+    "cc",
+    "cpp",
+    "cxx",
+    "f",
+    "f90",
+    "for",
+    "h",
+    "hh",
+    "hpp",
+    "hxx",
+    "m",
+    "s",
+    "swig",
+    "swigcxx",
+    "sx",
+    "syso"
+  ],
+  "auxiliary_kinds": [
+    "c",
+    "cxx",
+    "objective_c",
+    "headers",
+    "fortran",
+    "assembly",
+    "swig",
+    "swig_cxx",
+    "system_objects"
+  ],
+  "all_original_case_bytes": 17304,
+  "original_units": [
+    {
+      "unit": "pure",
+      "complete_original_objects": 5487,
+      "complete_original_bytes": 85835247,
+      "all_original_kinds": {
+        "excluded_source": 1682,
+        "go_file": 2935,
+        "auxiliary": 835,
+        "go_sum": 14,
+        "go_mod": 15,
+        "export_data": 3,
+        "metadata": 3
+      },
+      "package_directories": 668
+    },
+    {
+      "unit": "wide",
+      "complete_original_objects": 5487,
+      "complete_original_bytes": 85835247,
+      "all_original_kinds": {
+        "excluded_source": 1682,
+        "go_file": 2935,
+        "auxiliary": 835,
+        "go_sum": 14,
+        "go_mod": 15,
+        "metadata": 3,
+        "export_data": 3
+      },
+      "package_directories": 668
+    },
+    {
+      "unit": "owned",
+      "complete_original_objects": 5490,
+      "complete_original_bytes": 85375449,
+      "all_original_kinds": {
+        "excluded_source": 1685,
+        "go_file": 2934,
+        "auxiliary": 836,
+        "go_sum": 14,
+        "go_mod": 15,
+        "metadata": 3,
+        "export_data": 2,
+        "overlay": 1
+      },
+      "package_directories": 667
+    }
+  ],
+  "original_package_directories": 2003,
+  "all_original_selected_auxiliary_counts": {
+    "c": 93,
+    "cxx": 0,
+    "objective_c": 0,
+    "headers": 36,
+    "fortran": 0,
+    "assembly": 186,
+    "swig": 0,
+    "swig_cxx": 0,
+    "system_objects": 3
+  },
+  "all_original_ignored_auxiliary_count": 1600,
+  "closed_original_buffer_controls": {
+    "all_original_names_preserved": true,
+    "controls": [
+      {
+        "error": "Go original package files: GoSourcePackageError { kind: Read, capability: \"original\", path: \"original.s\" }",
+        "original_auxiliary": {
+          "bytes": 51,
+          "capability": "original",
+          "id": "12f3ced7f208f354d4f0de633c51ae2c96a4f9835e07c8e2aa607031ba542d3d",
+          "kind": "auxiliary",
+          "path": "original.s",
+          "raw_sha256": "094af57729912dafcd9c2d6cc2e03052382ee5fc83a89caf09050593a7f3ca69",
+          "schema": "mpk.go.source_object.v1"
+        },
+        "reclassified": false
+      },
+      {
+        "error": "Go original package files: GoSourcePackageError { kind: Read, capability: \"original\", path: \"original.s\" }",
+        "original_auxiliary": {
+          "bytes": 51,
+          "capability": "original",
+          "id": "12f3ced7f208f354d4f0de633c51ae2c96a4f9835e07c8e2aa607031ba542d3d",
+          "kind": "auxiliary",
+          "path": "original.s",
+          "raw_sha256": "094af57729912dafcd9c2d6cc2e03052382ee5fc83a89caf09050593a7f3ca69",
+          "schema": "mpk.go.source_object.v1"
+        },
+        "reclassified": true
+      }
+    ],
+    "fallback_filesystem_or_source_adapter": false,
+    "status": "passed"
+  },
+  "rust_roots": 18,
+  "native_roots": [
+    "TestPracticalAuxiliaryBuildOriginalCases",
+    "TestPracticalAuxiliaryBuildWholeOriginalUniverses"
+  ],
+  "original_proof_byte_streams": 32,
+  "original_error_universes": [
+    0,
+    70
+  ],
+  "source_or_context_proof": false,
+  "remaining": "Auxiliary input selection is not additional program-language support. Cgo directives/embed selection, canonical module/compiler/export/context/root authority, full foundation/source/program proofs and native Linux gates remain due.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

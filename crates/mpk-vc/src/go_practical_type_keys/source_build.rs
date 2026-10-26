@@ -141,7 +141,10 @@ fn arch(name: &str) -> bool {
     )
 }
 fn filename(name: &str) -> bool {
-    if name.starts_with(['_', '.']) || !name.ends_with(".go") {
+    name.ends_with(".go") && target_filename(name)
+}
+fn target_filename(name: &str) -> bool {
+    if name.starts_with(['_', '.']) {
         return false;
     }
     let stem = name.split('.').next().unwrap();
@@ -263,22 +266,50 @@ pub fn derive_go_source_build_match(
     if !matches!(source.object().kind.as_str(), "go_file" | "excluded_source") {
         return Err(error(source, GoSourceBuildErrorKind::Source));
     }
+    match_source(source, source.bytes(), true)
+}
+
+pub(super) fn auxiliary_match(
+    source: &GoTypeSourceBuffer,
+    header: Option<&[u8]>,
+) -> Result<bool, GoSourceBuildError> {
+    if source.object().kind != "auxiliary" {
+        return Err(error(source, GoSourceBuildErrorKind::Source));
+    }
+    let name = source.object().path.rsplit('/').next().unwrap();
+    if !target_filename(name) {
+        return Ok(false);
+    }
+    // Native matchFile returns a non-nil record on comment-read failure;
+    // ImportDir retains non-Go records while ignoring that read error.
+    let Some(header) = header else {
+        return Ok(true);
+    };
+    Ok(match_source(source, header, false)?.matches_target())
+}
+
+fn match_source(
+    source: &GoTypeSourceBuffer,
+    raw: &[u8],
+    go: bool,
+) -> Result<GoSourceBuildMatch, GoSourceBuildError> {
     let name = source.object().path.rsplit('/').next().unwrap();
     let mut result = GoSourceBuildMatch {
         source: source.object().id.clone(),
-        filename: filename(name),
+        filename: if go {
+            filename(name)
+        } else {
+            target_filename(name)
+        },
         constraints: true,
-        test: name.ends_with("_test.go"),
+        test: go && name.ends_with("_test.go"),
         binary_only: false,
     };
     // Go ignores a filename mismatch before reading its header.
     if !result.filename {
         return Ok(result);
     }
-    let text = source
-        .bytes()
-        .strip_prefix(&[0xef, 0xbb, 0xbf])
-        .unwrap_or(source.bytes());
+    let text = raw.strip_prefix(&[0xef, 0xbb, 0xbf]).unwrap_or(raw);
     let (mut end, mut offset, mut ended, mut block) = (0, 0, false, false);
     let mut modern = None;
     'lines: for raw in text.split_inclusive(|b| *b == b'\n') {
@@ -334,7 +365,7 @@ pub fn derive_go_source_build_match(
         }
     }
     // The Go package loader ignores this marker for test files.
-    if result.test || !result.matches_target() {
+    if !go || result.test || !result.matches_target() {
         result.binary_only = false;
     }
     Ok(result)
