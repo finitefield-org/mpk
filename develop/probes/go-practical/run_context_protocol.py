@@ -13,6 +13,7 @@ from run_identity_dag import inputs as predecessor_inputs
 from run_structural_limits import timed_input
 from run_proof_pilot import ROOT, HERE, json_bytes, sha
 from check_scope_report import strict_json, require, exact
+from frontend_native_build import private_codec_paths
 
 RECORD=ROOT/"develop/migrations/go-practical/t01-w04/context-protocol"
 SCOPE="six private closed registry/entry/context/request/Go-parameters/Go-selection root schemas; retained four profiles use actual unchanged compiled Rust policy; no complete foundation/source/proof/activation"
@@ -24,6 +25,7 @@ def inputs():
     rows={r["path"]:r["sha256"] for r in predecessor_inputs()}
     paths=[HERE/name for name in NEW_SOURCES]+[ROOT/"Cargo.toml",ROOT/"Cargo.lock"]
     paths += [p for p in (HERE/"context-legacy").rglob("*") if p.is_file()]
+    paths += sorted(private_codec_paths())+[HERE/"frontend_native_build.py"]
     # The observer links these real crates. Pin all their sources, not merely the wrapper.
     for crate in ("mpk-vc","mpk-cert","mpk-core"):
         paths.append(ROOT/"crates"/crate/"Cargo.toml")

@@ -2070,3 +2070,22 @@ and their repairs. No main/dependency policy, source/type/error/proof universe,
 review rule, premise, math rule or limit changes. W01 remains open, the profile
 inactive and final T02-W04 owns the full T gate; installed/context/read/source/
 program/foundation/native Linux and remaining T02–T11 work stay due.
+
+The [original ELF section checkpoint](verification/compiler-elf/README.md) adds
+native class/endian/section/name/compression facts and exact ZLIB/Zstandard prefixes.
+All 425 native/Rust observations retain187 prior cases,9 actual SDK tools and3
+complete original SDK Zstandard streams, including both 4,320,033-byte expanded tables.
+All 8 affected Rust roots, both native roots and scoped Clippy/vet/formats pass.
+The 13 source epochs preserve the no_std import compile failure and repair. Original
+5577 SDK files,182 packages/5697 objects, Root contract and all prior compiler/
+executable/source-role/standard-module/content controls remain. No original source/
+type/error/proof universe, scanner rule, premise, math rule or budget changes.
+General reader/codec equivalence and remaining installed/context/read/source/
+program/foundation/native Linux/T02–T11 work stay due. W01 remains open, the profile
+inactive and final T02-W04 owns the full T gate.
+
+Its [build-wiring follow-up](verification/compiler-elf/build-wiring/README.md) fixes
+seven independent observer/fuzz locks and complete codec source receipts/mirroring.
+All seven full offline/locked graphs and actual pinned local Linux/shared-mirror
+observer builds pass with fixed inputs. Original bytes, failures and command outputs
+remain; these build checks add no proof or native Linux release acceptance.

@@ -4,6 +4,8 @@
 //! facts do not certify loadability, relocations, machine code or signatures.
 use super::{need, CompilerResult, C};
 
+mod elf;
+
 pub(super) fn number(b: &[u8], at: usize, width: usize, big: bool) -> CompilerResult<u64> {
     let b = b
         .get(at..at.checked_add(width).ok_or(C::BuildInfo)?)
@@ -126,99 +128,6 @@ impl<'a> Image<'a> {
             _ if matches!(number(raw, 0, 4, true)?, 0x1eb | 0x8a97 | 0x647) => Self::plan9(raw),
             _ => Err(C::BuildInfo),
         }
-    }
-    fn elf(raw: &'a [u8]) -> CompilerResult<Self> {
-        let wide = match raw[4] {
-            1 => false,
-            2 => true,
-            _ => return Err(C::BuildInfo),
-        };
-        let big = match raw[5] {
-            1 => false,
-            2 => true,
-            _ => return Err(C::BuildInfo),
-        };
-        let n = |at, width| number(raw, at, width, big);
-        need(raw[6] == 1 && n(20, 4)? == 1, C::BuildInfo)?;
-        let (word, po, so, psize, pcount, ssize, mut scount, mut names) = if wide {
-            (
-                8,
-                n(32, 8)?,
-                n(40, 8)?,
-                n(54, 2)?,
-                n(56, 2)?,
-                n(58, 2)?,
-                n(60, 2)?,
-                n(62, 2)?,
-            )
-        } else {
-            (
-                4,
-                n(28, 4)?,
-                n(32, 4)?,
-                n(42, 2)?,
-                n(44, 2)?,
-                n(46, 2)?,
-                n(48, 2)?,
-                n(50, 2)?,
-            )
-        };
-        let mut image = Self::new(raw);
-        let mut fallback = None;
-        if pcount != 0 {
-            need(psize >= if wide { 56 } else { 32 }, C::BuildInfo)?;
-            for p in table(raw, po, psize, pcount)?.chunks_exact(psize as usize) {
-                let n = |at, w| number(p, at, w, big);
-                let (flags, offset, addr, filesz, memsz) = if wide {
-                    (n(4, 4)?, n(8, 8)?, n(16, 8)?, n(32, 8)?, n(40, 8)?)
-                } else {
-                    (n(24, 4)?, n(4, 4)?, n(8, 4)?, n(16, 4)?, n(20, 4)?)
-                };
-                image.add(addr, offset, filesz);
-                if fallback.is_none() && n(0, 4)? == 1 && flags & 3 == 2 {
-                    fallback = Some((addr, memsz));
-                }
-            }
-        }
-        if so != 0 {
-            need(ssize >= if wide { 64 } else { 40 }, C::BuildInfo)?;
-            let first = slice(raw, so, ssize)?;
-            if scount == 0 {
-                scount = number(first, if wide { 32 } else { 20 }, word, big)?;
-            }
-            if names == 0xffff {
-                names = number(first, if wide { 40 } else { 24 }, 4, big)?;
-            }
-        }
-        let sections = if scount == 0 {
-            &[][..]
-        } else {
-            need(ssize >= if wide { 64 } else { 40 }, C::BuildInfo)?;
-            table(raw, so, ssize, scount)?
-        };
-        if names != 0 {
-            need(names < scount, C::BuildInfo)?;
-            let section = slice(
-                sections,
-                names.checked_mul(ssize).ok_or(C::BuildInfo)?,
-                ssize,
-            )?;
-            let names = slice(
-                raw,
-                number(section, if wide { 24 } else { 16 }, word, big)?,
-                number(section, if wide { 32 } else { 20 }, word, big)?,
-            )?;
-            for s in sections.chunks_exact(ssize as usize) {
-                let name = number(s, 0, 4, big)? as usize;
-                if cstring(names.get(name..).ok_or(C::BuildInfo)?) == b".go.buildinfo" {
-                    image.start = number(s, if wide { 16 } else { 12 }, word, big)?;
-                    image.size = number(s, if wide { 32 } else { 20 }, word, big)?;
-                    return Ok(image);
-                }
-            }
-        }
-        (image.start, image.size) = fallback.unwrap_or_default();
-        Ok(image)
     }
     fn macho(raw: &'a [u8]) -> CompilerResult<Self> {
         let big = raw[0] == 0xfe;

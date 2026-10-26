@@ -6,6 +6,7 @@ import tomllib
 from pathlib import Path
 from run_proof_pilot import ROOT,HERE,sha
 from check_scope_report import require
+from frontend_native_build import private_codec_paths
 
 WORK=Path('/private/tmp/mpk-go-practical-shared-native-workspace')
 TARGET=Path('/private/tmp/mpk-go-practical-shared-native-target')
@@ -27,6 +28,19 @@ def build():
         shutil.copytree(origin/'src',dest/'src')
         for p in (origin/'src').rglob('*'):
             if p.is_file():require((dest/'src'/p.relative_to(origin/'src')).read_bytes()==p.read_bytes(),'unchanged mirrored source');rows.append({'path':p.relative_to(ROOT).as_posix(),'sha256':sha(p.read_bytes())})
+    codec=ROOT/'third_party/ruzstd-go125';copied=WORK/'third_party/ruzstd-go125'
+    parent=copied.parent
+    require(not parent.is_symlink(),'owned private codec parent')
+    parent.mkdir(exist_ok=True)
+    if copied.exists():
+        require(copied.is_dir() and not copied.is_symlink(),'owned private codec copy')
+        shutil.rmtree(copied)
+    shutil.copytree(codec,copied)
+    originals=private_codec_paths()
+    require({p.relative_to(codec) for p in originals}=={p.relative_to(copied) for p in copied.rglob('*') if p.is_file()},'complete private codec mirror')
+    for p in sorted(originals):
+        require((copied/p.relative_to(codec)).read_bytes()==p.read_bytes(),'unchanged private codec mirror')
+        rows.append({'path':p.relative_to(ROOT).as_posix(),'sha256':sha(p.read_bytes())})
     for name in ('develop','release','proofs','README.md'):
         dest=WORK/name
         if not dest.exists():dest.symlink_to(ROOT/name,target_is_directory=(ROOT/name).is_dir())

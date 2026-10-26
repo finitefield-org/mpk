@@ -3,6 +3,18 @@
 version = 4
 
 [[package]]
+name = "adler2"
+version = "2.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa"
+
+[[package]]
+name = "base64"
+version = "0.22.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
+
+[[package]]
 name = "bitflags"
 version = "2.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -124,6 +136,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "88904434abc2901f197fe8cc55f0445e7ded921dba5911dad2e2b39b48e663c4"
 
 [[package]]
+name = "miniz_oxide"
+version = "0.8.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1fa76a2c86f704bdb222d66965fb3d63269ce38518b83cb0575fca855ebb6316"
+dependencies = [
+ "adler2",
+]
+
+[[package]]
 name = "mpk-api"
 version = "0.1.0"
 dependencies = [
@@ -167,6 +188,10 @@ name = "mpk-core"
 version = "0.1.0"
 
 [[package]]
+name = "mpk-go-zstd-blocks"
+version = "0.1.0"
+
+[[package]]
 name = "mpk-kernel"
 version = "0.1.0"
 dependencies = [
@@ -191,7 +216,10 @@ version = "0.1.0"
 name = "mpk-vc"
 version = "0.1.0"
 dependencies = [
+ "base64",
+ "miniz_oxide",
  "mpk-cert",
+ "mpk-go-zstd-blocks",
  "serde",
  "serde_json",
  "sha2",

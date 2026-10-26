@@ -1,0 +1,70 @@
+   Compiling mpk-go-zstd-blocks v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/third_party/ruzstd-go125)
+error[E0425]: cannot find type `Vec` in this scope
+  --> third_party/ruzstd-go125/src/mpk_go125_blocks.rs:17:58
+   |
+17 |     pub fn next(&mut self, input: &mut &[u8]) -> Result<(Vec<u8>, bool), String> {
+   |                                                          ^^^ not found in this scope
+   |
+help: consider importing one of these structs
+   |
+ 3 + use std::vec::Vec;
+   |
+ 3 + use alloc::vec::Vec;
+   |
+
+error[E0425]: cannot find type `String` in this scope
+  --> third_party/ruzstd-go125/src/mpk_go125_blocks.rs:17:74
+   |
+17 |     pub fn next(&mut self, input: &mut &[u8]) -> Result<(Vec<u8>, bool), String> {
+   |                                                                          ^^^^^^ not found in this scope
+   |
+help: consider importing one of these structs
+   |
+ 3 + use std::string::String;
+   |
+ 3 + use alloc::string::String;
+   |
+
+error[E0599]: no method named `to_string` found for enum `BlockHeaderReadError` in the current scope
+   --> third_party/ruzstd-go125/src/mpk_go125_blocks.rs:21:28
+    |
+ 21 |             .map_err(|e| e.to_string())?;
+    |                            ^^^^^^^^^ method not found in `BlockHeaderReadError`
+    |
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/alloc/src/string.rs:2893:7
+    |
+    = note: the method is available for `BlockHeaderReadError` here
+    |
+   ::: third_party/ruzstd-go125/src/decoding/errors.rs:156:1
+    |
+156 | pub enum BlockHeaderReadError {
+    | ----------------------------- method `to_string` not found for this enum
+    = help: items from traits can only be used if the trait is in scope
+help: trait `ToString` which provides `to_string` is implemented but not in scope; perhaps you want to import it
+    |
+  3 + use crate::std::string::ToString;
+    |
+
+error[E0599]: no method named `to_string` found for enum `DecodeBlockContentError` in the current scope
+   --> third_party/ruzstd-go125/src/mpk_go125_blocks.rs:33:28
+    |
+ 33 |             .map_err(|e| e.to_string())?;
+    |                            ^^^^^^^^^ method not found in `DecodeBlockContentError`
+    |
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/alloc/src/string.rs:2893:7
+    |
+    = note: the method is available for `DecodeBlockContentError` here
+    |
+   ::: third_party/ruzstd-go125/src/decoding/errors.rs:345:1
+    |
+345 | pub enum DecodeBlockContentError {
+    | -------------------------------- method `to_string` not found for this enum
+    = help: items from traits can only be used if the trait is in scope
+help: trait `ToString` which provides `to_string` is implemented but not in scope; perhaps you want to import it
+    |
+  3 + use crate::std::string::ToString;
+    |
+
+Some errors have detailed explanations: E0425, E0599.
+For more information about an error, try `rustc --explain E0425`.
+error: could not compile `mpk-go-zstd-blocks` (lib) due to 4 previous errors

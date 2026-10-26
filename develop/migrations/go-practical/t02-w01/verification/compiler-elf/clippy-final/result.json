@@ -1,0 +1,80 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--test",
+    "go_practical_compiler_elf",
+    "--test",
+    "go_practical_compiler_inputs",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/clippy-final/inputs.json",
+    "bytes": 81765849,
+    "sha256": "f965fe0c9a9ffa80afbda5c0a27a7834ef6456371d2a6e0e2e95b22b898ad7ff",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/run.py",
+    "bytes": 11076,
+    "sha256": "83550a141b3ed4feca73f540c25aedd0b7e5ba47a325147166e5f9e1a499add7",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T21:43:29.980973+00:00",
+  "selection_reason": "Preserve all187 original executable/layout/text cases and9 actual original SDK tools. Compare full ELF class/endian/section/compression/name observations with pinned Go1.25, including entire3 actual SDK Zstandard streams, complete ZLIB/Zstandard prefixes and malformed/extended/unused metadata. No SDK/source/body/Root/type/error/proof scope, native compiler/release condition, source/bundle/kernel/certificate cap or public profile changes. Run the independent ELF reader and full original5577-file/182-package/5697-object compiler owner with all prior coherent claim/content/role/manifest controls. Select only the reader and its affected compiler-input consumers, scoped Clippy/vet/formats. No whole gate or removed-language tests.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 76.01840762500069,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/clippy-final/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/clippy-final/stderr.log",
+    "bytes": 244,
+    "sha256": "86ae55e1f6fc8eb721f08d96b95919913a9465e2326885fe86a0723f6033face",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T21:44:46.001680+00:00"
+}

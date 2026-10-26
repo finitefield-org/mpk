@@ -9359,3 +9359,45 @@ compiler/root/capture/context/descriptor/registry/launcher/native-read bindings,
 all56 foundation/all169 source/program demands, native Linux gates and remaining
 T02–T11 stay due. R01/R03/R04/R05/R06/W01 remain open, the practical profile inactive
 and final T02-W04 owns `./scripts/check-fast.sh`.
+
+## 204. T02-W01 original ELF sections and compressed-name data
+
+The [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
+independently reads exact32/64-bit/both-endian section/name/compression facts,
+extended counts/indices, signed offsets/lengths, later invalid names and all
+compressed headers before selecting build-info. ZLIB/Zstandard retain native
+prefix/EOF/checksum/dictionary/frame/history behavior, including complete large
+advertised windows and unread suffixes without an invented source/resource cap.
+
+All 425 native/Rust observations retain all 187 earlier cases and9 actual original
+SDK tools. The complete3 SDK Zstandard streams preserve compressed/expanded bytes
+and expected hashes through all four class/endian variants; both 4,320,033-byte
+expanded tables pass. The original tools retain their original formats and bytes.
+A private std-only block facade retains the complete upstream 0.9.0 package/archive/
+MIT license; three source integrations/guards differ, with Go-derived BSD notices.
+This establishes reader facts; general reader/codec equivalence remains open.
+
+All 8 selected Rust roots, both native roots and scoped Clippy/vet/formats pass.
+All 13 source epochs preserve12 passes and the no_std import compilation failure
+and correction. The full 5577-file/163457770-byte SDK,182 packages/5697 objects and
+Root contract remain, with all 30 compiler claims,3 executable, 3 source-role,
+4 standard-module and original content controls selected. Component counts remain
+1033 sources/181 package keys/zero declarations/one builtin type; richer source/
+type/declaration/program proof claims do not follow from these observations.
+Earlier 32 proof streams and 43-root/zero-or70-error universes retain earlier evidence.
+
+Go/Rust only; no scanner rule/seal/exclusion, proof premise, math rule, public
+profile or source/bundle/kernel/certificate budget changes. All required installed
+compiler/root/capture/context/descriptor/registry/launcher/read/source/program/
+foundation/native Linux and remaining T02–T11 work stay due. R01/R03/R04/R05/R06/
+W01 remain open, the practical profile inactive and final T02-W04 owns the cumulative
+`./scripts/check-fast.sh`; affected local verification is recorded separately.
+
+The ELF checkpoint also retains its [build-wiring follow-up](../migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/README.md):
+seven original full locked graphs reject before repair; all seven complete offline/
+locked graphs subsequently pass with the actual private path edge and unchanged
+registry pins. The actual pinned local Linux observer and complete owned-mirror
+observer compile with all inputs fixed and all65 codec files present. Original
+locks/collectors, cache/setup failures, actual commands and raw outputs remain.
+The425-case/eight-root reader evidence is unchanged; no proof replay or native
+Linux release acceptance is inferred, and W01/profile status stays open/inactive.

@@ -12,8 +12,15 @@ FLAGS={'CARGO_INCREMENTAL':'0','CARGO_PROFILE_DEV_DEBUG':'0','CARGO_PROFILE_DEV_
 CRATES=('mpk-api','mpk-cli','mpk-cert','mpk-core','mpk-kernel','mpk-theory','mpk-vc')
 
 
+def private_codec_paths():
+    codec=ROOT/'third_party/ruzstd-go125'
+    require(codec.is_dir() and (codec/'Cargo.toml').is_file() and (codec/'src/mpk_go125_blocks.rs').is_file(),'complete private Go codec source package')
+    return {p for p in codec.rglob('*') if p.is_file()}
+
+
 def linked_inputs():
     paths={ROOT/'Cargo.toml',ROOT/'Cargo.lock',ROOT/'release/bundles/bundle-registry.json',ROOT/'release/bundles/semantic-profile-registry.json'}
+    paths.update(private_codec_paths())
     for name in CRATES:
         crate=ROOT/'crates'/name;paths.add(crate/'Cargo.toml')
         if (crate/'build.rs').exists():paths.add(crate/'build.rs')

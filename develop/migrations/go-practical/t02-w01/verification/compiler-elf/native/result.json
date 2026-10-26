@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "test",
+    "-json",
+    "-count=1",
+    "-timeout=40m",
+    "-run",
+    "^TestPracticalCompilerBuildInfoOriginalBytesAndGrammar$"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "GOROOT": "/private/tmp/mpk-go125-20261025-download/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-export-inputs-190-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-module-observations-191-mod",
+    "MPK_GO_BUILD_INFO_FIXTURES": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/fixtures"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/native/inputs.json",
+    "bytes": 196588,
+    "sha256": "645ba45c7204d144c7ad225e8bda158ef6f8bafd761030106312633ce7dee1ba",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/run.py",
+    "bytes": 10421,
+    "sha256": "d8ee7a0f811a1a1c7b94ae7aa0596a7d71b077991834b44dd3a03c8a54b5cd07",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T21:14:51.345571+00:00",
+  "selection_reason": "Preserve all187 original executable/layout/text cases and9 actual original SDK tools. Compare full ELF class/endian/section/compression/name observations with pinned Go1.25, including entire3 actual SDK Zstandard streams, complete ZLIB/Zstandard prefixes and malformed/extended/unused metadata. No SDK/source/body/Root/type/error/proof scope, native compiler/release condition, source/bundle/kernel/certificate cap or public profile changes. Run the independent ELF reader and full original5577-file/182-package/5697-object compiler owner with all prior coherent claim/content/role/manifest controls. Select only the reader and its affected compiler-input consumers, scoped Clippy/vet/formats. No whole gate or removed-language tests.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "go_tool": {
+    "path": "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "bytes": 14117888,
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "mode": 493
+  },
+  "exit_code": 0,
+  "seconds": 4.237460500007728,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/native/stdout.log",
+    "bytes": 439625,
+    "sha256": "64f4967da2f299b54f2041fab5a673600f9e2dc5ed3546ea4ed1f18f431f2668",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/native/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T21:14:55.594421+00:00"
+}

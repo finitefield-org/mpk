@@ -14,6 +14,20 @@ Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
+adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/
+Zstandard data prefixes. All 425 native/Rust cases retain187 prior cases,9 actual
+SDK tools and all 3 complete original SDK Zstandard streams; both 4,320,033-byte
+expanded tables pass. All 8 affected Rust roots and scoped native/lint/formats pass.
+The complete 5577-file/182-package/5697-object SDK/source/Root owner and prior controls
+remain. General reader/codec equivalence and remaining W01 authority/proof work
+stay open; the practical profile remains inactive.
+
+The ELF checkpoint's [independent build wiring](../migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/README.md)
+retains seven complete locked graphs and the complete private codec source package.
+Actual pinned local Linux and owned-mirror observer builds pass with unchanged
+inputs. Emulated observer compilation provides no native Linux release acceptance.
+
 The W01 [strict standard-module checkpoint](../migrations/go-practical/t02-w01/verification/standard-module/README.md)
 replaces dependency ParseLax in the owned SDK index with independent general strict
 Parse facts and the separate native std/go/compiler-upper-bound condition. All1427
