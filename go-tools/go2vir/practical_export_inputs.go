@@ -23,6 +23,10 @@ func (owner *practicalOriginalPackages) exportInputs(roots []practicalClosureRef
 	}
 	owner.mutex.Lock()
 	defer owner.mutex.Unlock()
+	return owner.exportInputsLocked(roots)
+}
+
+func (owner *practicalOriginalPackages) exportInputsLocked(roots []practicalClosureRef) (practicalExportInputs, error) {
 	capture, err := owner.captureInputsLocked(roots)
 	if err != nil {
 		return practicalExportInputs{}, err

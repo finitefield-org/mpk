@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--test",
+    "go_practical_export_inputs",
+    "--test",
+    "go_practical_snapshot_inputs",
+    "--test",
+    "go_practical_embedded_selection",
+    "--test",
+    "go_practical_source_inputs",
+    "--no-run"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/build-original/inputs.json",
+    "bytes": 37167759,
+    "sha256": "ab426f9718c521ac8b40458881e458a004ff793f0c5074d02b9c8b3db2fc9345",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/run.py",
+    "bytes": 11971,
+    "sha256": "00f06c4b9c7ae85a679d6a6116e4100fc3c0f33f655ca5a2be9dcecfcadff11a",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T09:16:20.224809+00:00",
+  "selection_reason": "Bind the complete original resolver observation and every selected manifest under the source/export owner lock. Independently check original exact-before-wildcard replacement directives, local capability paths, versioned cache spelling and every application package module/source identity. Exercise original local and versioned replacement projects, complete HTTP dependency source and unexecuted initialization; retain all original source/export/metadata/proof universes. Run the three native roots, affected export/snapshot/resource/source Rust consumers, strict Clippy/vet and changed-file formats. Independent MVS, complete modfile validation, ZIP/sum, installed root/compiler/context and source/program authority stay due. Unchanged full source/parser/language/foundation matrices retain previous evidence without repeat.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 82.90114579198416,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "external_originals_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/build-original/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/build-original/stderr.log",
+    "bytes": 690,
+    "sha256": "6c49e4a2bf68d2f4a43514b9b6c44ea8f9c6dee3e2a99d88bf8e7d10959e81e5",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T09:17:43.127292+00:00"
+}

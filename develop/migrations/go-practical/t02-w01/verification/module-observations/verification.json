@@ -1,0 +1,135 @@
+{
+  "status": "scoped_checks_passed_private_observation_linkage_only",
+  "basis_commit": "0dba1d19ba287843db29d17546dbae8eec5ece49",
+  "source_epochs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/build-original/result.json",
+      "bytes": 3563,
+      "sha256": "b29444a2a6e011c0d332a5a77a6ab3d0deb324ccd87b9a818f3e9cc5dc474b9e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/clippy/result.json",
+      "bytes": 3562,
+      "sha256": "9a5f79200c65e17627adcfc278360358809ab5d75773268025b896981bdeb71b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/format-check/result.json",
+      "bytes": 3519,
+      "sha256": "53c5718161643c7296f7ee0bb89b169bb5187170fb6a67d5538140f10c0ca39e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/go-format/result.json",
+      "bytes": 4077,
+      "sha256": "2bf5c979e16bfe3be0f6d44f4b2d9f976cec427d4f20e0ec2946832d4f6fa0f9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/go-format-check/result.json",
+      "bytes": 4096,
+      "sha256": "2ff9457e6dd7a5ad9ea800d6ef7b1de95eba1db01c945929e9c061f6588277d4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/go-vet/result.json",
+      "bytes": 3894,
+      "sha256": "bf9017d764d34eb5f39b8a89e7a47e6f3ed7cc505703decf6f62a7192b8d28a0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/native/result.json",
+      "bytes": 4262,
+      "sha256": "29f05fcb53feee31463ae6a8e2ff01ad38f8aa2ca1be103e819ceaf09a6859f7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/rust-format/result.json",
+      "bytes": 4465,
+      "sha256": "c1061e64006eebe60f61ea3aba89141b5d0436129aa6962902f54914336e713b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/rust-format-final/result.json",
+      "bytes": 3519,
+      "sha256": "718c1a493cd12686515a3b4ce18a78324092afc44bf21eac4c2eebe753818f74",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/rust-format-typed-metadata/result.json",
+      "bytes": 3545,
+      "sha256": "4cbd27fd9a4a53e87b4bba77efd14994f8534b0c6f53fc8386be6931dba3da1d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/rust-original/result.json",
+      "bytes": 5172,
+      "sha256": "ce8ae8fdadd85fd201621a98bc3f58789f435bb8e94da8329256c463c9689005",
+      "mode": 420
+    }
+  ],
+  "independent_inspection": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/inspection.json",
+    "bytes": 6719320,
+    "sha256": "f52ae9b4b6822cd8cd4d2d0ec571ddf8a1a1d4ee28c8590169730020744af983",
+    "mode": 420
+  },
+  "native_roots": [
+    "TestPracticalExportInputsKeepWholeOriginalCompilerUniverse",
+    "TestPracticalModuleObservationsKeepOriginalReplacementGraph",
+    "TestPracticalModuleObservationsKeepOriginalVersionedReplacement"
+  ],
+  "affected_rust_roots": 25,
+  "same_original_capture_module_controls": 24,
+  "whole_original_owners": [
+    {
+      "owner": "owned",
+      "objects": 5663,
+      "raw_bytes": 164865655,
+      "packages": 180,
+      "exports": 179
+    },
+    {
+      "owner": "modules-owned",
+      "objects": 5667,
+      "raw_bytes": 164737170,
+      "packages": 181,
+      "exports": 180,
+      "modules": 3
+    },
+    {
+      "owner": "versioned-owned",
+      "objects": 5490,
+      "raw_bytes": 85379438,
+      "packages": 2,
+      "exports": 2,
+      "modules": 2
+    }
+  ],
+  "original_proof_byte_streams": 32,
+  "original_roots_per_unit": 43,
+  "original_error_universes": [
+    0,
+    70
+  ],
+  "complete_inputs_and_exact_outputs_preserved": true,
+  "selection_reason": "The source/export locking implementation changes and a new whole original resolver handoff is consumed by Rust. Test all three original native ownership/replacement paths, all new module consistency controls, existing export corruption controls and affected source/capture/resource consumers. Run strict target Clippy, Go vet and explicit changed-file formats. Unchanged full lexer/parser/build/language/foundation matrices retain their prior complete evidence without repetition. No removed-language test or intermediate full gate runs.",
+  "kernel_limits": {
+    "declarations": 4096,
+    "terms": 131072,
+    "bytes": 2097152,
+    "fuel": 1024
+  },
+  "kernel_rules_budgets_and_all_original_source_type_error_proof_scopes_unchanged": true,
+  "independent_complete_module_resolution_and_checksums": false,
+  "installed_root_compiler_context_or_source_program_authority": false,
+  "public_profile_activated": false,
+  "R01_complete": false,
+  "R04_complete": false,
+  "R05_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "remaining": "Independent MVS, complete modfile and module identity/version validation, ZIP/sum/graph/root/compiler/context authority, full source/export/program semantics, all56 foundation/all169 demands, native Linux gates and T02-T11 remain due.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

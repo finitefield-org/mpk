@@ -8907,3 +8907,32 @@ IR/state/storage/frame/callee/program proofs, all56 foundation families/all169
 demands, native Linux gates and remaining T02-T11 stay due. R01/R06/W01 remain
 open and the practical profile stays inactive. The cumulative T02 gate remains
 final W04: `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 191. T02-W01 original module observation correspondence
+
+The [module observation component](../migrations/go-practical/t02-w01/verification/module-observations/README.md)
+retains whole original resolver output/diagnostics and every selected manifest
+under the same lock as source/export capture. Rust binds those facts to original
+module/Go/replacement tokens, exact-before-wildcard lookup, local longest matching
+capabilities, versioned cache spelling and every application package's original
+module/source/version/replacement identity. Ignored main and duplicate unused
+directives remain intact. Duplicate native fields reject before projection.
+
+The actual local owner retains181 packages/180 exports/5,667 objects/164,737,170
+raw bytes. The versioned owner retains two packages/exports/5,490 objects/
+85,379,438 raw bytes, original go.sum and complete mod/info/ZIP/ziphash buffers.
+The original HTTP/embed owner remains180 packages/179 exports/5,663 objects/
+164,865,655 raw bytes. Unused HTTP bodies and initialization remain unexecuted.
+All three native roots and25 affected Rust roots pass, including24 resealed
+module/package controls over the same original capture and one Root contract.
+Existing21 metadata/four archive controls, both43-root units, zero/70-error
+universes and32 proof streams stay intact. Strict affected Clippy/vet/formats,
+independent inspection and all eleven full source epochs/outputs are retained.
+
+Independent MVS, full modfile/module identity/version/graph/ZIP/sum/root/compiler/
+context/descriptor/registry authority, source/export/IR/state/storage/frame/callee/
+program proofs, all56 foundation families/all169 demands, native Linux gates and
+T02–T11 remain due. R01/R04/R05/R06/W01 stay open and the practical profile stays
+inactive. The cumulative T02 gate remains final W04: `./scripts/check-fast.sh`.
+Go/Rust only; no premise, source/type/error/proof scope, review rule or budget changes.

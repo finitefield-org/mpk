@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_type_keys.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations.rs",
+    "crates/mpk-vc/tests/go_practical_export_inputs.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/rust-format/inputs.json",
+    "bytes": 27145677,
+    "sha256": "ada111e946978c9a02353d2f5869358f851f175a8e5e6ab66635d3b8d4b36cfd",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/run.py",
+    "bytes": 12974,
+    "sha256": "872b7e69f4dc6adca8e7f44c04c51654810ac1aa2d4034158814194814ce0f5a",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T09:10:21.273956+00:00",
+  "selection_reason": "Bind full original module resolver output and selected manifest identities under the same source/export owner lock; independently cross-check original replacement precedence, local capability-relative paths, native source/export module ownership, versioned cache paths and complete source identities. Exercise actual local and versioned replacement projects and preserve every original source, selected module, unused HTTP dependency and unexecuted initializer. Run three original native roots, all affected export/snapshot/resource/source Rust roots, strict Clippy/vet and changed-file formats. Keep independent MVS, ZIP/sum verification and installed root/compiler/context authority explicitly open. Previous unchanged full source/parser/language/foundation matrices and all original proof streams retain exact previous evidence without repeat. ORIGINAL PRIOR CHECKPOINT SCOPE: Bind full original Go command metadata and all actual source/export packages to the immutable original capture. Independently reconstruct complete Go/auxiliary/resource/import/vendor membership, physical-origin relationships, selected command root, build IDs and every byte/bound of original Go archives. Exercise an actual whole source-owned HTTP/embed package with unused unsupported body and unexecuted initializer; preserve the entire native stdout/stderr/snapshot and all source/export bytes. Run new export controls plus affected snapshot/source/resource consumers, original capture ownership, strict Clippy/vet and changed-file formats. Retain both original43-root/zero-or70-error universes/all32 proof bytes and all untouched parser/build/language/foundation/native-source observations without repeat. No original source, type/error domain, frozen limit or installed context is substituted or weakened.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 22.614893500023754,
+  "consumed_inputs_unchanged": false,
+  "expected_formatter_mutation": true,
+  "external_originals_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/rust-format/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-observations/rust-format/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T09:10:43.890069+00:00"
+}

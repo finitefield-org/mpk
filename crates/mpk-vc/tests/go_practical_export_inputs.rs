@@ -145,6 +145,266 @@ fn original() -> (Value, GoSourceCaptureInputs) {
     .unwrap();
     (packet, capture)
 }
+
+fn original_modules() -> (Value, GoSourceExportInputs) {
+    original_modules_at("modules-owned")
+}
+fn original_modules_at(name: &str) -> (Value, GoSourceExportInputs) {
+    let directory = root()
+        .join("module-observations/native/native-originals")
+        .join(name);
+    let packet = read(&directory.join("complete-original-module-observations.json"));
+    let capture = import_go_source_capture_inputs(
+        &unhex(packet["capture_hex"].as_str().unwrap()),
+        selection(&packet),
+        snapshot(&packet, Some(&directory)),
+    )
+    .unwrap();
+    let exports = import_go_source_export_inputs(
+        &unhex(packet["export_inputs_hex"].as_str().unwrap()),
+        capture,
+    )
+    .unwrap();
+    (packet, exports)
+}
+
+#[test]
+fn whole_original_versioned_replacement_keeps_cache_escaping_and_archive_sources() {
+    let (packet, exports) = original_modules_at("versioned-owned");
+    let input = import_go_source_module_observations(
+        &unhex(packet["module_observations_hex"].as_str().unwrap()),
+        exports,
+    )
+    .unwrap();
+    let manifests = input.module_manifest_sources();
+    assert_eq!(manifests.len(), 2);
+    assert_eq!(
+        manifests["example.com/Dep"].path,
+        "cache/download/example.com/!dep/@v/v1.2.0.mod"
+    );
+    assert_eq!(
+        input
+            .export_inputs()
+            .capture_inputs()
+            .derive_contracts()
+            .unwrap()
+            .functions()
+            .len(),
+        1
+    );
+    let snapshot = input.export_inputs().capture_inputs().snapshot_inputs();
+    let original_cache = snapshot
+        .source_objects()
+        .iter()
+        .filter(|o| o.path.starts_with("cache/download/example.com/!dep/@v/"))
+        .collect::<Vec<_>>();
+    assert_eq!(original_cache.len(), 4);
+    assert!(original_cache.iter().any(|o| o.path.ends_with(".zip")));
+    output(
+        "whole-original-versioned-module-linkage.json",
+        &json!({"status":"passed","manifests":manifests,"whole_original_cache_sources":original_cache,"metadata_hex":hex(input.original_metadata()),"diagnostics_hex":hex(input.original_diagnostics()),"independent_archive_checksum_or_MVS_verification":false}),
+    );
+}
+
+#[test]
+fn whole_original_module_graph_binds_replacements_and_every_package_owner() {
+    let (packet, exports) = original_modules();
+    let objects = exports
+        .capture_inputs()
+        .snapshot_inputs()
+        .source_objects()
+        .len();
+    let input = import_go_source_module_observations(
+        &unhex(packet["module_observations_hex"].as_str().unwrap()),
+        exports,
+    )
+    .unwrap();
+    let manifests = input.module_manifest_sources();
+    assert_eq!(manifests.len(), 3);
+    assert_eq!(manifests["example.com/alias"].path, "local-a/go.mod");
+    assert_eq!(manifests["example.com/shared"].path, "local-b/go.mod");
+    assert_eq!(manifests["example.com/policy"].path, "go.mod");
+    assert_eq!(
+        input
+            .export_inputs()
+            .capture_inputs()
+            .derive_contracts()
+            .unwrap()
+            .functions()
+            .len(),
+        1
+    );
+    assert!(input
+        .export_inputs()
+        .export_sources()
+        .contains_key("net/http"));
+    assert!(input
+        .export_inputs()
+        .export_sources()
+        .contains_key("example.com/alias"));
+    assert!(input
+        .export_inputs()
+        .export_sources()
+        .contains_key("example.com/shared"));
+    output(
+        "whole-original-module-linkage.json",
+        &json!({"status":"passed","original_objects":objects,"manifests":manifests,"original_selected_contract_functions":1,"metadata_hex":hex(input.original_metadata()),"diagnostics_hex":hex(input.original_diagnostics()),"independent_MVS_checksum_root_or_context_authority":false}),
+    );
+}
+
+#[test]
+fn resealed_module_and_package_metadata_cannot_cross_original_manifest_owners() {
+    let (packet, exports) = original_modules();
+    let original: Value =
+        serde_json::from_slice(&unhex(packet["module_observations_hex"].as_str().unwrap()))
+            .unwrap();
+    let original_export: Value =
+        serde_json::from_slice(&unhex(packet["export_inputs_hex"].as_str().unwrap())).unwrap();
+    let mut observations = vec![];
+    for name in [
+        "unknown-field",
+        "export-owner",
+        "manifest-owner",
+        "omitted-module",
+        "duplicate-module",
+        "unknown-native-field",
+        "no-main",
+        "main-name",
+        "main-version",
+        "source-directory",
+        "source-manifest",
+        "source-language",
+        "replacement-path",
+        "replacement-version",
+        "replacement-chain",
+        "replacement-wildcard",
+        "package-module-path",
+        "package-module-version",
+        "package-module-directory",
+        "package-module-main-type",
+        "package-replacement-main",
+        "package-replacement-path",
+        "package-replacement-directory",
+    ] {
+        let mut wire = original.clone();
+        let mut export_wire = original_export.clone();
+        let mut rows = native_rows(&wire);
+        let main = rows.iter().position(|r| r["Main"] == true).unwrap();
+        let alias = rows
+            .iter()
+            .position(|r| r["Path"] == "example.com/alias")
+            .unwrap();
+        let selected = wire["modules"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .position(|r| r["path"] == "example.com/alias")
+            .unwrap();
+        match name {
+            "unknown-field" => wire["unexpected"] = json!(true),
+            "export-owner" => wire["source_export_inputs_sha256"] = json!("f".repeat(64)),
+            "manifest-owner" => {
+                wire["modules"][selected]["manifest_source_object_id"] =
+                    wire["modules"][2]["manifest_source_object_id"].clone()
+            }
+            "omitted-module" => {
+                rows.remove(alias);
+                wire["modules"].as_array_mut().unwrap().remove(selected);
+            }
+            "duplicate-module" => rows.push(rows[alias].clone()),
+            "unknown-native-field" => rows[alias]["Unmodeled"] = json!(1),
+            "no-main" => rows[main]["Main"] = json!(false),
+            "main-name" => rows[main]["Path"] = json!("example.com/other"),
+            "main-version" => rows[main]["Version"] = json!("v1.0.0"),
+            "source-directory" => rows[alias]["Dir"] = json!("/another/source"),
+            "source-manifest" => rows[alias]["GoMod"] = rows[main]["GoMod"].clone(),
+            "source-language" => {
+                rows[alias]["GoVersion"] = json!("1.24");
+                rows[alias]["Replace"]["GoVersion"] = json!("1.24");
+            }
+            "replacement-path" | "replacement-wildcard" => {
+                let path = if name == "replacement-wildcard" {
+                    "./wildcard"
+                } else {
+                    "./local-b"
+                };
+                rows[alias]["Replace"]["Path"] = json!(path);
+                wire["modules"][selected]["replacement_path"] = json!(path);
+            }
+            "replacement-version" => {
+                rows[alias]["Replace"]["Version"] = json!("v1.0.0");
+                wire["modules"][selected]["replacement_version"] = json!("v1.0.0");
+            }
+            "replacement-chain" => {
+                rows[alias]["Replace"]["Replace"] = rows[alias]["Replace"].clone()
+            }
+            _ => {
+                let mut packages = native_rows(&export_wire);
+                let package = packages
+                    .iter_mut()
+                    .find(|r| r["ImportPath"] == "example.com/alias")
+                    .unwrap();
+                match name {
+                    "package-module-path" => {
+                        package["Module"]["Path"] = json!("example.com/shared")
+                    }
+                    "package-module-version" => package["Module"]["Version"] = json!("v1.1.0"),
+                    "package-module-main-type" => package["Module"]["Main"] = json!(1),
+                    "package-replacement-main" => {
+                        package["Module"]["Replace"]["Main"] = json!(true)
+                    }
+                    "package-module-directory" => package["Module"]["Dir"] = json!("/another/root"),
+                    "package-replacement-path" => {
+                        package["Module"]["Replace"]["Path"] = json!("./wildcard")
+                    }
+                    "package-replacement-directory" => {
+                        package["Module"]["Replace"]["Dir"] = json!("/another/root")
+                    }
+                    _ => unreachable!(),
+                }
+                set_rows(&mut export_wire, &packages);
+                seal(&mut export_wire, "MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-1.0");
+                wire["source_export_inputs_sha256"] = export_wire["content_sha256"].clone();
+            }
+        }
+        set_rows(&mut wire, &rows);
+        seal(&mut wire, "MPK-PRIVATE-GO-SOURCE-MODULE-OBSERVATIONS-1.0");
+        let changed_exports = if export_wire == original_export {
+            exports.clone()
+        } else {
+            import_go_source_export_inputs(
+                &serde_json::to_vec(&export_wire).unwrap(),
+                exports.capture_inputs().clone(),
+            )
+            .unwrap()
+        };
+        let error = import_go_source_module_observations(
+            &serde_json::to_vec(&wire).unwrap(),
+            changed_exports,
+        )
+        .unwrap_err();
+        observations.push(json!({"case":name,"error":format!("{error:?}"),"complete_changed_module_observations_hex":hex(&serde_json::to_vec(&wire).unwrap()),"complete_export_inputs_hex":hex(&serde_json::to_vec(&export_wire).unwrap()),"original_capture_and_one_Root_contract_unchanged":true}));
+    }
+    // A JSON value decoder would erase this duplicate before projection.
+    let mut wire = original;
+    let raw = unhex(wire["metadata_hex"].as_str().unwrap());
+    let start = raw.iter().position(|b| *b == b'{').unwrap();
+    let mut duplicate = raw[..start + 1].to_vec();
+    duplicate.extend_from_slice(b"\"Path\":\"discarded.module\",");
+    duplicate.extend_from_slice(&raw[start + 1..]);
+    wire["metadata_hex"] = json!(hex(&duplicate));
+    seal(&mut wire, "MPK-PRIVATE-GO-SOURCE-MODULE-OBSERVATIONS-1.0");
+    assert_eq!(
+        import_go_source_module_observations(&serde_json::to_vec(&wire).unwrap(), exports)
+            .unwrap_err(),
+        GoSourceModuleObservationError::Metadata
+    );
+    observations.push(json!({"case":"duplicate-native-field","complete_changed_module_observations_hex":hex(&serde_json::to_vec(&wire).unwrap()),"original_capture_and_one_Root_contract_unchanged":true}));
+    output(
+        "coherent-original-module-controls.json",
+        &json!({"status":"passed","observations":observations}),
+    );
+}
 #[test]
 fn whole_original_compiler_metadata_and_exports_bind_to_every_source_package() {
     let (packet, capture) = original();
