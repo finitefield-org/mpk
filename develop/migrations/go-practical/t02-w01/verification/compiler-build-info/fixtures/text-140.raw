@@ -1,0 +1,7 @@
+path	cmd/compile
+build	GOOS=darwin
+build	GOARCH=amd64
+build	CGO_ENABLED=0
+build	-compiler=gc
+build	-buildmode=exe
+build	GOAMD64=v1

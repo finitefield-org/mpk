@@ -9243,3 +9243,39 @@ and remaining T02–T11 stay due. R01/R03/R04/R05/R06/W01 remain open; the pract
 profile remains inactive. Final W04 owns `./scripts/check-fast.sh`. Go/Rust only;
 no source/type/error/proof scope, review rule/seal/exclusion, premise, math rule or
 source/bundle/kernel/certificate cap changes.
+## 201. T02-W01 independent original executable build-info
+
+The [executable build-info component](../migrations/go-practical/t02-w01/verification/compiler-build-info/README.md)
+now reads each actual immutable executable buffer inside the complete original
+compiler-input owner. It derives version/path/main/dependency/replacement/ordered
+settings bytes through object data mappings and native inline/legacy layouts,
+without executing tools or importing producer build-info assertions. All9 actual
+SDK tools must match Go1.25.0, their exact cmd path and existing host/compiler/
+buildmode/CGO/experiment/tuning settings; every duplicate setting key rejects.
+The complete SDK/source/export/component/namespace correspondence remains in force.
+
+All187 original native facts/binding decisions match Rust, including9 actual tools,
+36 object/search/content probes and142 arbitrary-byte/quoted/module/settings text
+probes. All12 affected Rust roots and the native comparison root pass with strict
+scoped Clippy, vet and formats. Three complete actual gofmt release/tool/CGO changes
+reseal file/component/distribution/contract/selection/capture/export/compiler links,
+successfully reimport the original source/export owner and still reject specifically
+at BuildInfo. Every original application/Root contract remains unchanged; all5577
+SDK files/163457770 bytes and182 packages/5697 objects remain present. Existing30
+coherent compiler claims/member controls and the unused-SDK-source content control
+remain selected. All12 source epochs are retained, including the first Rust failure
+from a negative test changing the runtime moduledata copy rather than the actual
+build-info record. The corrected control selects the actual record; no production
+reader repair was required. Prior32 proof streams and43-root/zero-or70-error
+universes retain prior evidence without new kernel replay.
+
+This establishes actual original executable facts, not full native reader/container
+validation equivalence. Compressed ELF section-name tables and remaining reader
+edge cases stay in scope and due; no accepted-input/source/type/error/proof universe
+is removed from the frozen requirements. Full SDK source-role reconstruction,
+installed compiler/root/capture/context/descriptor/registry/launcher/native-read
+bindings, all56 foundation/all169 source/program demands, native Linux release gates
+and remaining T02–T11 stay due. R01/R03/R04/R05/R06/W01 remain open and the practical
+profile inactive. Go/Rust only; no source/bundle/kernel/certificate cap, scanner
+rule/seal/exclusion, premise or mathematical rule changes. Final W04 owns the
+cumulative T02 gate: `./scripts/check-fast.sh`.

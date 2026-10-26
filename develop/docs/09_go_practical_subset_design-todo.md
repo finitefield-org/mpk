@@ -14,6 +14,15 @@ Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The W01 [original executable build-info checkpoint](../migrations/go-practical/t02-w01/verification/compiler-build-info/README.md)
+independently reads all9 actual owned SDK tools and binds exact Go1.25/tool/host/
+settings facts. All187 native byte/layout/grammar observations agree;12 affected
+Rust roots and scoped Clippy/vet/formats pass. Three fully resealed actual tool
+mutations reject while preserving the whole5577-file SDK and182-package/5697-object
+application/Root contract. Full reader equivalence (including compressed ELF
+section-name tables), SDK source roles and remaining W01 authority/proof work
+stay open; no frozen input scope is removed.
+
 The W01 [whole original compiler checkpoint](../migrations/go-practical/t02-w01/verification/compiler-inputs/README.md)
 retains every actual prepared SDK byte/mode after image retirement and independently
 binds its complete inventories/components to original export inputs and all captured

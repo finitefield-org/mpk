@@ -9,6 +9,11 @@ use crate::release_bundle::{
 };
 use crate::source_manifest::{ComponentIdentity, ToolchainIdentity};
 use std::sync::Arc;
+mod build_info;
+pub use build_info::{
+    parse_go_executable_build_info_text, read_go_executable_build_info, GoExecutableBuildInfo,
+    GoExecutableModule,
+};
 
 const DOMAIN: HashDomain = HashDomain::new("MPK-PRIVATE-GO-COMPILER-IMAGE-INPUTS-1.0");
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -21,6 +26,7 @@ pub enum GoSourceCompilerInputError {
     Version,
     Source,
     Namespace,
+    BuildInfo,
 }
 impl std::fmt::Display for GoSourceCompilerInputError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -282,6 +288,7 @@ pub struct GoSourceCompilerInputs {
     canonical: Vec<u8>,
     files: Vec<GoCompilerFileBuffer>,
     source_files: BTreeMap<String, GoTypeSourceObject>,
+    executable_build_info: BTreeMap<String, GoExecutableBuildInfo>,
 }
 impl GoSourceCompilerInputs {
     pub fn export_inputs(&self) -> &GoSourceExportInputs {
@@ -304,6 +311,9 @@ impl GoSourceCompilerInputs {
     }
     pub fn sdk_source_files(&self) -> &BTreeMap<String, GoTypeSourceObject> {
         &self.source_files
+    }
+    pub fn executable_build_info(&self) -> &BTreeMap<String, GoExecutableBuildInfo> {
+        &self.executable_build_info
     }
 }
 
@@ -355,6 +365,18 @@ pub fn import_go_source_compiler_inputs(
         .collect::<BTreeMap<_, _>>();
     let go = lookup.get("go/bin/go").ok_or(C::Component)?;
     need(export["go_binary_sha256"] == go.entry.sha256, C::Linkage)?;
+    let mut executable_build_info = BTreeMap::new();
+    for file in &files {
+        if file.entry.executable {
+            // The exact complete executable/component partition has already
+            // been checked. Derive identity from bytes, never from a producer
+            // build-info record or from an invocation of this executable.
+            let info = read_go_executable_build_info(file.bytes())?;
+            let tool = file.entry.path.rsplit('/').next().ok_or(C::Component)?;
+            info.validate_compiler_tool(tool, &wire.host)?;
+            executable_build_info.insert(file.entry.path.clone(), info);
+        }
+    }
     for (path, size, hash) in [
         (
             "go/VERSION",
@@ -482,5 +504,6 @@ pub fn import_go_source_compiler_inputs(
         canonical: record.to_vec(),
         files,
         source_files,
+        executable_build_info,
     })
 }

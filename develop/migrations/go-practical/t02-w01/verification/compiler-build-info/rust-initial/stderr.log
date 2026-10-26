@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 2m 53s
+     Running tests/go_practical_compiler_build_info.rs (target/debug/deps/go_practical_compiler_build_info-3c403c753fc92c8d)
+     Running tests/go_practical_compiler_inputs.rs (target/debug/deps/go_practical_compiler_inputs-dc93f88cfab672a0)
+
+thread 'coherent_original_executable_changes_require_actual_build_identity' (11647523) panicked at crates/mpk-vc/tests/go_practical_compiler_inputs.rs:226:9:
+assertion failed: info.validate_compiler_tool("gofmt",
+        original_wire["host"].as_str().unwrap()).is_err()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_compiler_inputs`

@@ -1,0 +1,21 @@
+
+running 1 test
+test exact_original_binary_layout_and_arbitrary_text_facts_match_pinned_go ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s
+
+
+running 5 tests
+test coherent_original_executable_changes_require_actual_build_identity ... FAILED
+test coherently_changed_unused_sdk_source_must_match_original_compiler_bytes ... ok
+test coherently_sealed_compiler_claims_require_whole_actual_bundle_membership ... ok
+test compiler_file_buffers_own_bytes_and_keep_existing_portable_bundle_paths ... ok
+test whole_original_prepared_compiler_bytes_bind_every_sdk_source_and_component ... ok
+
+failures:
+
+failures:
+    coherent_original_executable_changes_require_actual_build_identity
+
+test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 77.87s
+

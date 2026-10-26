@@ -2031,3 +2031,16 @@ application source or its Root contract. Full build-info/source-role and require
 compiler/root/context/native-read/source/program/foundation bindings stay open;
 the profile remains inactive. All prior source/error/proof scopes and review rules
 remain. Final W04 owns the cumulative T02 gate: `./scripts/check-fast.sh`.
+
+The [original executable build-info checkpoint](verification/compiler-build-info/README.md)
+independently binds all9 actual owned SDK tools to exact Go1.25/tool/host/settings
+facts without executing binaries or trusting producer build-info fields. All187
+native observations and12 affected Rust roots pass, with scoped Clippy/vet/formats.
+Three fully resealed actual tool-content controls reject at BuildInfo; every original
+application/Root contract and the full5577-file SDK/182-package/5697-object owner
+remain. All12 epochs retain the initial negative-control selection failure and its
+successful repair. Full reader equivalence (including compressed ELF section-name
+tables), SDK source roles and remaining compiler/root/context/read/source/program/
+foundation/native Linux/T02–T11 work stay due without removing frozen input cases.
+W01 remains open and the profile inactive. Prior proof/error/type/source universes,
+review policies and all budgets remain. Final W04 owns `./scripts/check-fast.sh`.

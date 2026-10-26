@@ -1,0 +1,1337 @@
+{
+  "status": "passed",
+  "affected_rust_roots": 12,
+  "native_roots": 1,
+  "native_cases": 187,
+  "actual_original_tools": 9,
+  "coherent_compiler_claim_controls": 30,
+  "coherent_binary_content_controls": 3,
+  "binary_controls": [
+    {
+      "name": "release",
+      "error": "BuildInfo",
+      "changed_bytes": 2914768
+    },
+    {
+      "name": "tool",
+      "error": "BuildInfo",
+      "changed_bytes": 2914768
+    },
+    {
+      "name": "cgo",
+      "error": "BuildInfo",
+      "changed_bytes": 2914768
+    }
+  ],
+  "whole_original_owners": [
+    {
+      "objects": 5697,
+      "packages": 182,
+      "compiler_files": 5577,
+      "compiler_bytes": 163457770
+    }
+  ],
+  "installed_context_authority": false,
+  "proofs_replayed_in_this_checkpoint": false,
+  "source_epochs": [
+    "clippy-final",
+    "clippy-initial",
+    "format-final",
+    "format-fix",
+    "format-initial",
+    "format-write",
+    "go-format-initial",
+    "go-format-write",
+    "native",
+    "rust-final",
+    "rust-initial",
+    "vet"
+  ],
+  "inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/verification.json",
+      "bytes": 1128,
+      "sha256": "533abf70ccbfd5d7dac1f4492895b7d45d6af6c6cce9bbde0430de5088b0a62b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/vet/result.json",
+      "bytes": 3839,
+      "sha256": "d7ee30c7b8ffe355477ee47c47adfd1d68fa0d70844cb1de8b51c40d40372ad5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-final/result.json",
+      "bytes": 4538,
+      "sha256": "222ae8083fc10249cc47a0b83658e67e0191a46617aaf1ee63298126a8c43a74",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/clippy-initial/result.json",
+      "bytes": 3493,
+      "sha256": "35511d0db29e52e70d03bfb4fa643a17d7987e437d898d525cb663ce99a430bd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/native/result.json",
+      "bytes": 4119,
+      "sha256": "2fb436cf3321fdc1cc46c11f3ac56a6d1aa573f9d2b489484de71dd44f89afe9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/go-format-write/result.json",
+      "bytes": 3928,
+      "sha256": "7991aca3b8c36f839f67ab955241fc08dd57b23aa4e508c1545fe1bae820db51",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/format-initial/result.json",
+      "bytes": 3783,
+      "sha256": "c6dd6fa99bafa4e0634ea6f33492980a30a9cd4048366c03850f22d1023fd3ee",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/format-write/result.json",
+      "bytes": 3761,
+      "sha256": "720ec67e8d18a87eeec1244f3c3fb633b3f5d7af65c51f1e099f231f6e779bf9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-initial/result.json",
+      "bytes": 4556,
+      "sha256": "b301b748549be501edb51a90fb34513c5e668be912b09f418d5b06b5c19c61fc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/format-final/result.json",
+      "bytes": 3777,
+      "sha256": "bb7a35abd6e8da49f1976163cd19211509de056822d45af2844d249fc13af151",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/format-fix/result.json",
+      "bytes": 3755,
+      "sha256": "435f6948d64d0f5905bbc7282f9cde68498aed78352880a9134f0360624f7759",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/go-format-initial/result.json",
+      "bytes": 3934,
+      "sha256": "2d91cec7e366d55eede914949e1108017c8517ecb80a0284c8bcc414541b5d7b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/clippy-final/result.json",
+      "bytes": 3371,
+      "sha256": "2f65263e84cc86f19c654d3507c3ecca48906ad01a09d991fbaf74c24f081144",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/native/stdout.log",
+      "bytes": 182884,
+      "sha256": "2a1b5a4e53d57e1666bbf5701db461c20544b9af7f840b6785318c3c525a2a47",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/native.json",
+      "bytes": 103358,
+      "sha256": "032666d2273a1958e237b8210989d022a769d2aaf317f41125321d38cc6ae114",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-final/observations/build-info/native-comparison.json",
+      "bytes": 71035,
+      "sha256": "8c80d224c77107f9a69aab7c029e5399ca1c710deab665c2e74f1072a0165faf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-final/stdout.log",
+      "bytes": 1362,
+      "sha256": "bdc15e1790cfb77169be4e8b2f7979c8e223eff8bd15ead20ca32332b7c0a83c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-inputs/native/native-originals/versioned-owned/complete-original-module-graph-inputs.json",
+      "bytes": 37324014,
+      "sha256": "bd61c1f379685012e638a3ad05703e452aade6f31792701ba3ff9744f63a33f1",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-final/observations/compilers/whole-original-compiler-import.json",
+      "bytes": 3859594,
+      "sha256": "8f085aaf95d371a4f8337e5762ffd853f8f25b64f15146e1eae9daf4d5ce82cb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/elf-32-le-inline.bin",
+      "bytes": 2048,
+      "sha256": "d9abf32dc34460aaf51e04f84c17ed10326bec03a4d9397f0792104f608f04e3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/elf-32-le-pointer.bin",
+      "bytes": 2048,
+      "sha256": "a333ee963b212957c08ba0530855d7cd243db8a09550ddd31e825e8b342a206b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/elf-32-be-inline.bin",
+      "bytes": 2048,
+      "sha256": "2c190b44349bbdc42f62dddac966389a7ae50f60aec0912151fcf05219e285c1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/elf-32-be-pointer.bin",
+      "bytes": 2048,
+      "sha256": "0f253ff7fc11141ee9975f78b5852bb2ccfad836b5e431df914ddb5b2f465dc6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/elf-64-le-inline.bin",
+      "bytes": 2048,
+      "sha256": "02a4cfcf1f4d927a4e84d4d08c1ea9977639bbd872b71974b0ace5c2367baed5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/elf-64-le-pointer.bin",
+      "bytes": 2048,
+      "sha256": "f164d26637130f22bdfbc1f9ea1c9260f3892d40c078e2c5c4d86bbc0e8e5541",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/elf-64-be-inline.bin",
+      "bytes": 2048,
+      "sha256": "7e20ffefbd928395f5f7e9d1a67470c851c92084128c2a8d1dcff772b96ce232",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/elf-64-be-pointer.bin",
+      "bytes": 2048,
+      "sha256": "914b33dd823d610972f41bb6c5875b3a29b6b1317c4a7e0cbe6a91c12087b985",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/macho-32-le-inline.bin",
+      "bytes": 2048,
+      "sha256": "81268951a8baddf4302e02176931c7269792062d132895b57f19028f86e3c9d0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/macho-32-le-pointer.bin",
+      "bytes": 2048,
+      "sha256": "5fed5774719fd8fac70cc884ad6d5ffcd7dec279fb9c976a7d21f5d398aa06a5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/macho-32-be-inline.bin",
+      "bytes": 2048,
+      "sha256": "e4572354d12dd27a4e32a4fff17517b27ffb840b8e2abb9cbbfc45c0463b53e9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/macho-32-be-pointer.bin",
+      "bytes": 2048,
+      "sha256": "e82b9db85eca272a6a601f4dad909eb91ee26377b74c06eec7d218d8cfbb4927",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/macho-64-le-inline.bin",
+      "bytes": 2048,
+      "sha256": "41de0f1f8cfa66bc50b24e349d34b3917e730ca3a6d5a2836f76fbec5856a30e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/macho-64-le-pointer.bin",
+      "bytes": 2048,
+      "sha256": "8d52472dba58c7332cb2d7eef97d41d606ad6df10186b885a0ee10fcd267402a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/macho-64-be-inline.bin",
+      "bytes": 2048,
+      "sha256": "91dfd0a2d0ae14ebce86420b7ec57797a837e024dd0578ba33f8bb84c72b1ef0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/macho-64-be-pointer.bin",
+      "bytes": 2048,
+      "sha256": "0d44b44803f80ee7c65293c8b2b97ed72c9fd97d255c8999d1c41dd0a1746fe5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/pe-32-le-inline.bin",
+      "bytes": 2048,
+      "sha256": "219949348024cee122360d660247b4d722bc03a715605db0836f81ac97fbc730",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/pe-32-le-pointer.bin",
+      "bytes": 2048,
+      "sha256": "05880dadfd6e1771f79ce4a736b133b4c67ea3b1941445d77dea551c46422f61",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/pe-64-le-inline.bin",
+      "bytes": 2048,
+      "sha256": "7209dab1e5bc2fead5a522018b164c19b23c51c60a0ba8903c67f58e0b96bf80",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/pe-64-le-pointer.bin",
+      "bytes": 2048,
+      "sha256": "7ad85a77c0e4cfcdafc7ca05691dca015a37ec69dd448916da7b0f77a7557fa9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/xcoff-32-be-inline.bin",
+      "bytes": 2070,
+      "sha256": "7515682f7e868a6f50e1fba19afae91debcaec329d7e73e4a129a914e60ea95a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/xcoff-32-be-pointer.bin",
+      "bytes": 2070,
+      "sha256": "252319e83501a72d4a1ca9e42ae0fa9f03db11ff0ca28fb9a2140e1e0cdd0a2d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/xcoff-64-be-inline.bin",
+      "bytes": 2070,
+      "sha256": "1cc46b4db6bd3e24bf1247b5097aa584176741cad5515f93dca48378bfcf09d4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/xcoff-64-be-pointer.bin",
+      "bytes": 2070,
+      "sha256": "953dd6b4c7b859206e8ac7591d6a5b65331ce12592da9267df9be57d4f434c0c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/plan9-32-be-inline.bin",
+      "bytes": 2048,
+      "sha256": "54e9d5220374160077ec244cf3153d554a87b0f12c97db1b3a1b2ee2934e896c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/plan9-64-be-inline.bin",
+      "bytes": 2048,
+      "sha256": "64c4c0fb554aebed47cb93ec81760a3b040409771b4397c8bd6185fe2590d728",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/macho-fallback-False.bin",
+      "bytes": 2048,
+      "sha256": "d0c4f0c344bc055a087410c2d56491673b1e70064026102ea0804b974140d71a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/macho-fallback-True.bin",
+      "bytes": 2048,
+      "sha256": "552ac7cf9b989499a765e72f9daf8536210bc515eac36f6c20ef2c3ae485bdfd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/fat-first.bin",
+      "bytes": 6144,
+      "sha256": "70faf3f95417523f70a14d199775c93499ddae4ec0d749746bdc751523e2205e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/empty-version.bin",
+      "bytes": 2048,
+      "sha256": "8b0e1979f34ef1aa7f5a4c3e5c48a1b8e2ec83b31fe80ea14406b35a9e6c5ba4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/wrong-version.bin",
+      "bytes": 2048,
+      "sha256": "ee490241db4cc0abc91e8c0e2d8c46272e3eacfdfca949006b5384c52004e06e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/wrong-tool.bin",
+      "bytes": 2048,
+      "sha256": "b51d59d7ef419ee038a01944f212a3e8e159770eee750c48996011466a476e75",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/duplicate-unknown.bin",
+      "bytes": 2048,
+      "sha256": "f6d6818b4498e8ba826011b4dba6e583f98302560af4cb4e5db35439fad4654c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/bad-setting.bin",
+      "bytes": 2048,
+      "sha256": "197c34bb491eb72bb6defe5c02e2197471d8f26261f27bb40f58066126c2b4e9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/malformed-text.bin",
+      "bytes": 2048,
+      "sha256": "4105288d5611d3fcc8b92217de060cb0df9511c2714533aceee371c05f1a9d7e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/late-magic.bin",
+      "bytes": 1050640,
+      "sha256": "a3fa68caef58d1ceaba2d4b1a9710c93457ea9ce7430c2c2d827078941049764",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-000.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-001.raw",
+      "bytes": 130,
+      "sha256": "5950beb9e821690c4576ac29fc545c6d499ac583ddff5ff4d2efe3f9a526a204",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-002.raw",
+      "bytes": 143,
+      "sha256": "c4e96be2cfd5bd2274cf8e11c5d0f49e6a33862a05159289f9fabf99c5b8d303",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-003.raw",
+      "bytes": 150,
+      "sha256": "18e43b22911e06899e849dc2ce7a1dfac9fa6ea7206405d4b362fb25edccd39c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-004.raw",
+      "bytes": 158,
+      "sha256": "6124a817971b67091e2bbc14f0b3962abe33a358896e9a3d0b268eb71fd59d11",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-005.raw",
+      "bytes": 23,
+      "sha256": "180af4ae9e6688521e06b886ae05c37a568d60608b42d81ff7fabe1ebfa13455",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-006.raw",
+      "bytes": 21,
+      "sha256": "7d835f28832ba32b82b46542846efabca16767faaf6a9e3b3a49b715e4fcf0d4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-007.raw",
+      "bytes": 31,
+      "sha256": "d49fd0d9ccbd8b25caafa7a55554d6da705b66c7530fa1722888e6a2f3c468b7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-008.raw",
+      "bytes": 36,
+      "sha256": "fa32b5dcd73a9c6cb53070e6893da42d744d9de778fa1f1683f5e5cedf4efc39",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-009.raw",
+      "bytes": 9,
+      "sha256": "433f2987dabc58820258f4be4f3e65bca582a18d61640cbd3d92ee833198a319",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-010.raw",
+      "bytes": 9,
+      "sha256": "354902ad3eb88cee73673b2ab2b66c445d2b2b4560534145980b9b1b77aca9e4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-011.raw",
+      "bytes": 20,
+      "sha256": "3277c6c414e817242e269e7a3b91efc1e97bb366fbd21cef7213f172bad439b7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-012.raw",
+      "bytes": 26,
+      "sha256": "797015dc4f092025dff01d5044b637cef6ac9ced83543b4eec9b9415365b01ce",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-013.raw",
+      "bytes": 16,
+      "sha256": "030406ee05fbd1351dfac0e0b0dad1efc57a8f3d34422c07b9ee10be0edd065b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-014.raw",
+      "bytes": 25,
+      "sha256": "d5f66aee70d84a21973282567182980f5a3979f90b95ea6891b0f9c5d4ccdfbf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-015.raw",
+      "bytes": 15,
+      "sha256": "6ba0f7c8d47e9461d5e7cc333456dd1c65da90fdfc980cf4e819b49fedb5d58b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-016.raw",
+      "bytes": 20,
+      "sha256": "cec34b930f0a159d0b53516491e7e511de7dac5cecd6a76a88af2b02bb5ee448",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-017.raw",
+      "bytes": 20,
+      "sha256": "1614a6970964e9c7a7883511ee391e5e871649d74db013edbbb4ec94363e7e5a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-018.raw",
+      "bytes": 27,
+      "sha256": "434bf2597db53d3427f027ac27c5bb3a1513816c6ecf5141feccb6484d6dc291",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-019.raw",
+      "bytes": 11,
+      "sha256": "51d985b519e756e0d8c36817f4154734e351160416609de1f6eb345e2c13947e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-020.raw",
+      "bytes": 20,
+      "sha256": "e5c78d62be34a31b713316409240505a05a83c73bc84946cd5033fddf1b633bd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-021.raw",
+      "bytes": 10,
+      "sha256": "479eec31833b7e1a5036b269a638f3382c9b046b73731b5bb49c8d9b90e53ae1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-022.raw",
+      "bytes": 15,
+      "sha256": "cf9f52d0475515518f879576532a471f796057aa83c528f5d956c3912ad6fe62",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-023.raw",
+      "bytes": 15,
+      "sha256": "76a20bee087939daba77bb90f2dfc64cbbf339790b73afefbb677ccdc9ee7f22",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-024.raw",
+      "bytes": 22,
+      "sha256": "ce1610f67d73fa0cec6cc47352c0910955c04d5a9c75eabd188e19b53cf5bb32",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-025.raw",
+      "bytes": 14,
+      "sha256": "d778a6fd5b3c509a7ffb16182dc2045f2b2c3eda7aef294abec814b42e67807c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-026.raw",
+      "bytes": 23,
+      "sha256": "1f4f84087bbbea43604f1646d8673f30ea1204af9709d272494a2c5743035054",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-027.raw",
+      "bytes": 13,
+      "sha256": "e789d920b27bf0633abdc62c1ecb7ca264710f6a6d3d33c177c0d1dd071d8014",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-028.raw",
+      "bytes": 18,
+      "sha256": "d0275bf3a279a44464e7809151e326568e2259545690e7699c04f3de3af42895",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-029.raw",
+      "bytes": 18,
+      "sha256": "8d7f6647b99111cbf2a873a36055f1d3424a6aa20caed59b72e121265b7a67b0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-030.raw",
+      "bytes": 25,
+      "sha256": "94b6f3843ef86977df958d6b82f1a0543760d734dc62a7087d005cdda3737341",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-031.raw",
+      "bytes": 16,
+      "sha256": "184337d1a9d1f522d9ebad7a0e0cc55e757df78913742c868fb96e55a070f0f2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-032.raw",
+      "bytes": 25,
+      "sha256": "26804c6cc5c8da896607bb926b0bb5af35a4ce3878662d98d70602df2d24509e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-033.raw",
+      "bytes": 15,
+      "sha256": "be9363689b30ab3b12e7e3c9e620e1eebf6bd0885055a8fef633b08b639ad190",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-034.raw",
+      "bytes": 20,
+      "sha256": "6a2fb394d328e6a8f611c1a0c8574074affb83e7d8fe18fe94dbae0c92403ffa",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-035.raw",
+      "bytes": 20,
+      "sha256": "f082f2f3e219624ebfa9ecc6c6a87822d917d6a3d5a52d16712b3d4cfddc0487",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-036.raw",
+      "bytes": 27,
+      "sha256": "c1c5d0d1b8f5dcb728b6783d14db3d9c27396d7d1ba3858df843ceb7ac1449a6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-037.raw",
+      "bytes": 22,
+      "sha256": "355578134f7bddd7ffedff9dedd0014175ab14bd95c851674b16ef006d8b5ea3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-038.raw",
+      "bytes": 31,
+      "sha256": "b7c0c715a7c68eff7cadeadbc38aedd05f706bd5651c8f6924dfd3096a8d7d11",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-039.raw",
+      "bytes": 21,
+      "sha256": "19259521f959f9c5fff1ed95dbda811fe6780f1ceacc86ae948a6e5762cb714e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-040.raw",
+      "bytes": 26,
+      "sha256": "7b37aea77d93f837ae3ce5c4bcdfcb82ed096e6e748b5014dd11f1c30a536b8b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-041.raw",
+      "bytes": 26,
+      "sha256": "fad8720fd2d8292433edbe0212e13139b83c650f43fde8585fd91c7cb7ae654b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-042.raw",
+      "bytes": 33,
+      "sha256": "0a61bbc76c2df29903c2e53006adee5733aadc91e1ce761408ff0d6703f77187",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-043.raw",
+      "bytes": 25,
+      "sha256": "3d27ad5d4d5f77e71470e778850fe360478c3fc7cfc69281b31a20d420533e4a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-044.raw",
+      "bytes": 34,
+      "sha256": "e6682df65fdc3bc2a34b77ab4e9f9cd02059a85516846c833de564176f3e00b6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-045.raw",
+      "bytes": 24,
+      "sha256": "7120dbd06e234c8aa36b74689acef5700603910cc2f9d4652af1dcdc531b3806",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-046.raw",
+      "bytes": 29,
+      "sha256": "f0c1166d36ef8cff0526d3240edf872a3480c904a818ea856a319c4a58b0e6bf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-047.raw",
+      "bytes": 29,
+      "sha256": "ad0386435c3bb6e402f00e76af3cf8bfb80f7ccd6613ee95a3e281058e2acac9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-048.raw",
+      "bytes": 36,
+      "sha256": "4d0722d3c71c53a5d88c244e7e8bed8c846aea7181a602c3ece6bc5fa0489607",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-049.raw",
+      "bytes": 29,
+      "sha256": "a23a03befb4ed806ae33cecc98f1fc9de1c775ee42bcbb32924dedf6bacab490",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-050.raw",
+      "bytes": 38,
+      "sha256": "73d60b2d84d56344d5549bd0ce845b80945bd7db911ca0faf1595da0b3f50d74",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-051.raw",
+      "bytes": 28,
+      "sha256": "410cf5688763b7fe650fdc42789f4476eddaf1861277aacaa16ecf2395e1e40d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-052.raw",
+      "bytes": 33,
+      "sha256": "8f0e108a48c867f06f86e28941a5ac073587e9da83264dd18437f979aa84b7b0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-053.raw",
+      "bytes": 33,
+      "sha256": "00b96d4b2f0c7aa9284a2fe6390638987025bf3fe4abbf1552d17e95f06c4a3f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-054.raw",
+      "bytes": 40,
+      "sha256": "bca8258594654ffc56db10b383f1cfb61534126443ee0b3a278e072a59b8cb5c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-055.raw",
+      "bytes": 18,
+      "sha256": "0c65bb33f6fd3d46e17489408a856f69fe7ed80709d3c844b7969bfeaf868657",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-056.raw",
+      "bytes": 27,
+      "sha256": "76ea74866872c39b55f0d916b180021dc0db52e3d20e362c6f70a1594d876b80",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-057.raw",
+      "bytes": 17,
+      "sha256": "d1a69a45a6663df91b625a411876820d30019d4baa86a3f1febcd9cd467bf68c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-058.raw",
+      "bytes": 22,
+      "sha256": "8526d8004bf590824602b43cdf67a789e93939fa4537012ae4c0cf5d221da966",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-059.raw",
+      "bytes": 22,
+      "sha256": "1bfca4c6846126f0d3180a0335b0abdcac4e97046940d5d0be0f86dd66ea1970",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-060.raw",
+      "bytes": 29,
+      "sha256": "ca53ab5370bdaf01f9e721ed31b584f925aa0465e3d027c9a790e0fc41ac3068",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-061.raw",
+      "bytes": 17,
+      "sha256": "c97b9cd5f4be11c716adaed58ff4ccbd875222ee17c6ce774d9d915870b50906",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-062.raw",
+      "bytes": 26,
+      "sha256": "bf856eb827ea6d2128c3ba576390c83306151d56ace9e398927f7fff9bfd54de",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-063.raw",
+      "bytes": 16,
+      "sha256": "17564c60f967b113cc4b7cd90598ffa24de40ef45d585e6d9785f9eae46e86b6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-064.raw",
+      "bytes": 21,
+      "sha256": "885ac342738af16d9f31ce74636feebe3bc61cfae7b3ef575725a3f57afc6111",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-065.raw",
+      "bytes": 21,
+      "sha256": "f6bc655b12f256297644a293eaddf20fed2b58a136b21959c8c45ba88228a20f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-066.raw",
+      "bytes": 28,
+      "sha256": "72236f4d1254c978eb4edddd47a01fa7ebc018bab6c24fcd348acc562b404642",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-067.raw",
+      "bytes": 19,
+      "sha256": "6e22f3b8e7562b8633c59169dff360072bbb60f5dc11b7883fd9cd58f523ac1b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-068.raw",
+      "bytes": 28,
+      "sha256": "7d0bbe0a7896ffc9a42cf31f188c2018b348bea772b9c3bd3cbf9b2c0fcfeb06",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-069.raw",
+      "bytes": 18,
+      "sha256": "b1e6751f9cfbacce05805977a2fa34d7c5a6cd0ec4dbf6428705649a77249d5c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-070.raw",
+      "bytes": 23,
+      "sha256": "9d714df734ef71c14034be4ff20fc11fa991a04e7e6fb9a2b4da1aa87c369fdc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-071.raw",
+      "bytes": 23,
+      "sha256": "07bceee7ce7ad03c5e48594c95f12764ecbe8c0e7272b3a458ad76f76ec647a8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-072.raw",
+      "bytes": 30,
+      "sha256": "a248fc00c8866b937a32db0cd9b634cf4ae2ab8842e64e3e4187b5e8d268f02b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-073.raw",
+      "bytes": 23,
+      "sha256": "4e4a614142b8fc6280d58086fcb3e81b784a1c964880ffcf43b9dc885ee7d622",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-074.raw",
+      "bytes": 32,
+      "sha256": "768f7a9bb2d5deb50a402d7546df820e02d67cb7833d18a82217722efb46c61a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-075.raw",
+      "bytes": 22,
+      "sha256": "0081d729e59dc27fedeb93db671eb1eacee763eaf670fdbd57673844d57d6c36",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-076.raw",
+      "bytes": 27,
+      "sha256": "25a196902bef25c9820a500b1b9a8cce4fb61afbbe73fdde35bed9a376f62903",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-077.raw",
+      "bytes": 27,
+      "sha256": "f3053005b092c9d3bfc334c187f5739ae652601b38c2387ff3ec96940e43615b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-078.raw",
+      "bytes": 34,
+      "sha256": "8d7c84bc773114ad19ca30034e53035002f4169fb0fae9dce8b1d84beb2b097b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-079.raw",
+      "bytes": 24,
+      "sha256": "53fac900319ded6591fb0f85f3dbdeb29ae9636fed9d4b0126f22d3d2b6c0c60",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-080.raw",
+      "bytes": 33,
+      "sha256": "a0aada406c00b91bd1408e1647716abdb48b292009346e0b179b98dc69bfa7da",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-081.raw",
+      "bytes": 23,
+      "sha256": "1aa42ea30efdafc7bb5a1cae892218219794f231ec9f37f9767fed415f5b9005",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-082.raw",
+      "bytes": 28,
+      "sha256": "4577487ad9f95613f2a5c2d6df3db3bba913c1d90ea78e893f42617caa788f52",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-083.raw",
+      "bytes": 28,
+      "sha256": "95147c9a4710e508a84b4f20923335ab80b3557b0ea434f405d41e1ed3f2eabe",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-084.raw",
+      "bytes": 35,
+      "sha256": "16a1dc5796594f50ea9df7eec6bec55f144d569f6c094656c9583682c6feb1b3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-085.raw",
+      "bytes": 23,
+      "sha256": "983881c7640271b2652e06ab34b84f595963f64cac4ac5d57a3042ec05793b4b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-086.raw",
+      "bytes": 32,
+      "sha256": "9a3c569dd123bbc52013a0ef5a487760dbd04c53146a184b369ed5251409f879",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-087.raw",
+      "bytes": 22,
+      "sha256": "e2717fb421d80ee2257cc8d720461252b5a432926651f0e089001be0b7f4fefa",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-088.raw",
+      "bytes": 27,
+      "sha256": "59b9700c0793f3269b931e0d8391a6892cd734b12fffcfb6c467602430acbc65",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-089.raw",
+      "bytes": 27,
+      "sha256": "8b5b523dfc557b82e29c9c2851c3688d43884a7e204d8f3ad0761445b2844857",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-090.raw",
+      "bytes": 34,
+      "sha256": "75785f2bb221805f181344ce2b39d3f70127b975650a15e3ce6c2c875ed71ff5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-091.raw",
+      "bytes": 14,
+      "sha256": "ef770c929ea7a7bb3c29cc44a95b30f0d8701994c9127ffcbd243c951697c9cc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-092.raw",
+      "bytes": 23,
+      "sha256": "99d3050607e85216e91ccf88f37cde43894f6fcbeffcf783c8f4bf394e36a39c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-093.raw",
+      "bytes": 13,
+      "sha256": "3a16587967aa5159d3f82864ac9373f31d0040f031b563b0ec39fd3417a6449e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-094.raw",
+      "bytes": 18,
+      "sha256": "568f0213786c8a1387e9f173b1c69b215edab016ff9113ab9c962845218e05f5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-095.raw",
+      "bytes": 18,
+      "sha256": "52bbd611d068fc15f14a74d43de2eee73010dea85db7ee6a41cc5b4b344515f7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-096.raw",
+      "bytes": 25,
+      "sha256": "f5b7acd3f883c04265ee3a2125cb153dfaa1753a64e862db324b069e01193656",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-097.raw",
+      "bytes": 13,
+      "sha256": "d10b77e04961e3a3974170a93202189cfae9302f4dcc88682dc828e4554aaf0e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-098.raw",
+      "bytes": 22,
+      "sha256": "42a003448f72681e7b8f424646f240a7444805efdb0c18ee63be76f9d9ebdfd6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-099.raw",
+      "bytes": 12,
+      "sha256": "9674faa875f268d5eb448c76567f1bda5e8ae3ca8a502410709c49f3efd27d17",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-100.raw",
+      "bytes": 17,
+      "sha256": "8c44cdd2c635c241f502413d97de8332e9d32bac266fb91c107d1426fd64d4b8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-101.raw",
+      "bytes": 17,
+      "sha256": "8bea699038a024925cb121f9bb8522de33dfd7b942398a19701ca78e36f9f1d5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-102.raw",
+      "bytes": 24,
+      "sha256": "c3c388f6b2a0ce290639301f6ddd5f041a05779ec149e69e47a0fa5a3d877243",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-103.raw",
+      "bytes": 13,
+      "sha256": "08823cf920a04bfbd9651dbe4a6c06c855034a6e782094ea6435d29d72efb5d3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-104.raw",
+      "bytes": 22,
+      "sha256": "f7450548983483eac5f0a4b939cb8d1c7fed2b74d26c351893eab73a032b461e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-105.raw",
+      "bytes": 12,
+      "sha256": "911bb6997db67ffd2a80dddce4b31e497376a7a6b1840560b2f543ddba1ea09a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-106.raw",
+      "bytes": 17,
+      "sha256": "5f10f615ad79811da52ce2ac8e318d5e077a55cc3faf8df7c4588041fdf15b2e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-107.raw",
+      "bytes": 17,
+      "sha256": "13e31219a698f13acb2b7e51614b7e886ce238978bd5f1b7287446cc42b9ae1c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-108.raw",
+      "bytes": 24,
+      "sha256": "827a34eeb884d937b7f1e62b501a7e917badb1b5f77b285f05d20b8017e36461",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-109.raw",
+      "bytes": 14,
+      "sha256": "0e81dc0554e0a4a78b22172e64fab8f91a2a2cc356540f9f08d884a0d726775a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-110.raw",
+      "bytes": 23,
+      "sha256": "f1bbd545cfa93a0739c27e1d204353e5eebb4ff92726ae44078d20f0f45438b7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-111.raw",
+      "bytes": 13,
+      "sha256": "afbc6579dc862f027dc3eacffad3d62c259b7d089ec08edd70f7b23f7f9a110c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-112.raw",
+      "bytes": 18,
+      "sha256": "5ab76dbf7d0fbaac571d068eab6f8fdb296105d47fd6f201137675fb0c21e2a9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-113.raw",
+      "bytes": 18,
+      "sha256": "6757d75aa8893a50af6e0b202baab0ce491ec87344f3d28471adc9b5fda9134d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-114.raw",
+      "bytes": 25,
+      "sha256": "899076a7181f9884cc86beb5007fff87dec0d870bbe43be4e0766df8839e1edd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-115.raw",
+      "bytes": 16,
+      "sha256": "18b31c99a3f0a3e5eee5c221d84b1ee068a760fa1fd02c1acf936c0e691d9444",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-116.raw",
+      "bytes": 25,
+      "sha256": "008a7904eead8a4cb10c767d6b33883f9e8bf5c4239e96c88d9a4ccf430a4b66",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-117.raw",
+      "bytes": 15,
+      "sha256": "5891cdd4f881c374b7902e3a7fa21d9bc4faec72c12a286e57f43959a812ea70",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-118.raw",
+      "bytes": 20,
+      "sha256": "dd352280e9a3fc37291d341933d08d138e5d42efd5642d2d15bceebb726398e4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-119.raw",
+      "bytes": 20,
+      "sha256": "8ae331e15b54b54f54fc51832ee990977503c0534f345f14b5d9fd09d64ff63f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-120.raw",
+      "bytes": 27,
+      "sha256": "0f6715735c769b248450b2768ba2bff89e4165ee6f4f494c44dfaef9af2dc2b3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-121.raw",
+      "bytes": 16,
+      "sha256": "d493d58e0dac977ec9fcbe5844152aad1b4b3e541a8fc7887dbd715e26d804cc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-122.raw",
+      "bytes": 25,
+      "sha256": "bf383d07c022ca7d67fb66f153570919f68dd833cc6cc04782631a50d6f278dd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-123.raw",
+      "bytes": 15,
+      "sha256": "74ee4f95873982c709d75303c2151b705282a97930797874f07564d5d6ebc38d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-124.raw",
+      "bytes": 20,
+      "sha256": "1328ca3a8e2ecf0a6fa1a7e32c58e058e0db6f17d4110556563937f10d66915e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-125.raw",
+      "bytes": 20,
+      "sha256": "ce5ca603e826041e6a570c963b8e5e74d5e50d25a113ddc190cf34127edfe955",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-126.raw",
+      "bytes": 27,
+      "sha256": "dafe93812a1956a2eca6c7b8a378e35fbd8111f03a2cd6cfddeb145eb20a1759",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-127.raw",
+      "bytes": 13,
+      "sha256": "37a9ae93d830bd3d279cb116af04fc03026472f938316b4d4ada5034107de6f7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-128.raw",
+      "bytes": 22,
+      "sha256": "d9c6a36ae1075b2154011f415e4dbaaff4ec17ede73b1ff707ab7795bab694d7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-129.raw",
+      "bytes": 12,
+      "sha256": "384c1c032c0724ba5dfa2d6da7bbedb670aa736304d11ff33af66e6c4074c419",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-130.raw",
+      "bytes": 17,
+      "sha256": "e79954886c84cba7abe8a4fa148d5b727fe32e904031f5de949fbef96f43687e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-131.raw",
+      "bytes": 17,
+      "sha256": "7ec561f7b14da5242458bae946f4c87ebe97a6d08a7a37bc215a0493ea67802b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-132.raw",
+      "bytes": 24,
+      "sha256": "fbc1daf1ce682c42f670dd198c69333221de9107b05c2ef46762166cee7d1238",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-133.raw",
+      "bytes": 7,
+      "sha256": "e0c990c840f1539c3b865f4bb4d7343138e75618f0a0d80b6e7e18efe673002c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-134.raw",
+      "bytes": 9,
+      "sha256": "1c6523ab82c1d462f7016f813bc8429b9267af147f8f63e09b9a4414f593fbfa",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-135.raw",
+      "bytes": 10,
+      "sha256": "db4fb4b75c4a835126d3810f6d54661e2bb5c6e24e4086a3c2c95e140a3e09b3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-136.raw",
+      "bytes": 12,
+      "sha256": "3a5d1dd9516d4336815c455f47c260e370ddf7ed2bb93d81dfb71f08c0b07cd2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-137.raw",
+      "bytes": 15,
+      "sha256": "0a360a63c64d8d40561c5de6d480002071462c23d964111c1b113d8c9fe65bf0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-138.raw",
+      "bytes": 17,
+      "sha256": "fdd1c3d0ab1c82900cde5acf0a1cfbca770dbd3d2037696968fa9dfcadcd041c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-139.raw",
+      "bytes": 130,
+      "sha256": "9e902f9bd318d45eeaf0c3827f91fd3f3337ffd01398c70f3767b1d62178ccde",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-140.raw",
+      "bytes": 131,
+      "sha256": "476fd66df6125f54991e2b59be74789d03319f8ff13447e2d7af80254ec5c624",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures/text-141.raw",
+      "bytes": 159,
+      "sha256": "2f17699497923259c444ec51626432c775c57146a57440ff49a0f5eac40ef429",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-inputs/native/native-originals/versioned-owned/original-compiler-files/c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b.raw",
+      "bytes": 14117888,
+      "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-inputs/native/native-originals/versioned-owned/original-compiler-files/f8c812fc7e22867e5970a687898cd62d8c15561ccc6800c84ac9fdc6583e4b03.raw",
+      "bytes": 2914768,
+      "sha256": "f8c812fc7e22867e5970a687898cd62d8c15561ccc6800c84ac9fdc6583e4b03",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-inputs/native/native-originals/versioned-owned/original-compiler-files/34d8e4082af61bf0469739be56b3c7de15a8da855640f15c042c73363eeb0969.raw",
+      "bytes": 4773632,
+      "sha256": "34d8e4082af61bf0469739be56b3c7de15a8da855640f15c042c73363eeb0969",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-inputs/native/native-originals/versioned-owned/original-compiler-files/d90b5cb414ebfc9f7519d170679f06e31d903602ca5d6bf53d6c59a1f8242a78.raw",
+      "bytes": 4194400,
+      "sha256": "d90b5cb414ebfc9f7519d170679f06e31d903602ca5d6bf53d6c59a1f8242a78",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-inputs/native/native-originals/versioned-owned/original-compiler-files/e13c2ff9f991c85a64669d3a32402f1ea0d1729780ba777098b46e97fd49157c.raw",
+      "bytes": 20464784,
+      "sha256": "e13c2ff9f991c85a64669d3a32402f1ea0d1729780ba777098b46e97fd49157c",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-inputs/native/native-originals/versioned-owned/original-compiler-files/f8442b429869a6e14fb99193396e64cfff4ebd62f5e77177d86a64c5ced5cbf3.raw",
+      "bytes": 4828336,
+      "sha256": "f8442b429869a6e14fb99193396e64cfff4ebd62f5e77177d86a64c5ced5cbf3",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-inputs/native/native-originals/versioned-owned/original-compiler-files/f33ef37c14974206b8722ed1cc97bdd3b9a8023e9730e2579b0b6f103681ba5d.raw",
+      "bytes": 6131616,
+      "sha256": "f33ef37c14974206b8722ed1cc97bdd3b9a8023e9730e2579b0b6f103681ba5d",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-inputs/native/native-originals/versioned-owned/original-compiler-files/a271cdfd59ca6d18225480709a4e68fe190f2e5a330d8699cdbfc39393ac215f.raw",
+      "bytes": 2275792,
+      "sha256": "a271cdfd59ca6d18225480709a4e68fe190f2e5a330d8699cdbfc39393ac215f",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-inputs/native/native-originals/versioned-owned/original-compiler-files/47efd9563ba118c2dc0d6f4d6d842eb61ddf0fef6f10ea4020b3ccf87ee52926.raw",
+      "bytes": 7883728,
+      "sha256": "47efd9563ba118c2dc0d6f4d6d842eb61ddf0fef6f10ea4020b3ccf87ee52926",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-final/observations/compilers/coherent-executable-release.json",
+      "bytes": 3650463,
+      "sha256": "959a7ae5dd2c1a4f550afdb4148cddfd27e2ad349d863acec1040a89a18316ec",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-final/observations/compilers/changed-release.raw",
+      "bytes": 2914768,
+      "sha256": "add27e708e247ad71fde11aee7dde83eef54ad63c487d2390f77a039a75a75b6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-final/observations/compilers/coherent-executable-tool.json",
+      "bytes": 3650491,
+      "sha256": "c14f367f1ad4a4055d03950e1c21cd5006535aef1c9d762ef49f72635cd2db07",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-final/observations/compilers/changed-tool.raw",
+      "bytes": 2914768,
+      "sha256": "36b0a5ea269fded68bba84e5c317e94b4577b23929522a1d1e07fd3b46ddc838",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-final/observations/compilers/coherent-executable-cgo.json",
+      "bytes": 3650511,
+      "sha256": "4c6a993cdc9024143aef5567a7010a06bffa617143e77f50c7d08c5439534037",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-final/observations/compilers/changed-cgo.raw",
+      "bytes": 2914768,
+      "sha256": "d8a8369f79460e3a68338ce2d7c4fd434b6cb689234b1d7d11a3c602ef360fde",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-final/observations/compilers/coherent-original-compiler-controls.json",
+      "bytes": 87805140,
+      "sha256": "48fad8d9376bd65c4c26d7f3b2d512eeaa99e2555120e1f1e7d69913e3fa8f48",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/rust-final/observations/compilers/coherent-original-sdk-content-control.json",
+      "bytes": 9170880,
+      "sha256": "f9d35aba29b9303cd3595382a491b41c2c7f7a476b893dc08b89bca2fa9585eb",
+      "mode": 420
+    }
+  ],
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

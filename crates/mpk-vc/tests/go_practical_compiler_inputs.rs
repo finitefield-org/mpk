@@ -172,14 +172,139 @@ fn whole_original_prepared_compiler_bytes_bind_every_sdk_source_and_component() 
     assert!(input.files().iter().any(|f| f.bytes().len() > 16777216));
     assert!(input.sdk_source_files().len() > 5000);
     assert_eq!(packet["snapshot_sources"].as_array().unwrap().len(), 5697);
+    assert_eq!(input.executable_build_info().len(), 9);
+    for (path, info) in input.executable_build_info() {
+        info.validate_compiler_tool(path.rsplit('/').next().unwrap(), input.host())
+            .unwrap();
+    }
     let projection: Value =
         serde_json::from_slice(input.export_inputs().canonical_bytes()).unwrap();
     assert_eq!(projection["packages"].as_array().unwrap().len(), 182);
     let total = input.files().iter().map(|f| f.bytes().len()).sum::<usize>();
     output(
         "whole-original-compiler-import.json",
-        &json!({"status":"passed","compiler_inputs":wire,"files":input.files().len(),"bytes":total,"files_larger_than_application_source_limit":input.files().iter().filter(|f|f.bytes().len()>16777216).count(),"sdk_sources":input.sdk_source_files().len(),"original_objects":5697,"original_packages":182,"host":input.host(),"compiler_file_hashes":input.files().iter().map(|f|f.entry()).collect::<Vec<_>>(),"installed_or_binary_build_info_or_compiler_correctness_authority":false}),
+        &json!({"status":"passed","compiler_inputs":wire,"files":input.files().len(),"bytes":total,"files_larger_than_application_source_limit":input.files().iter().filter(|f|f.bytes().len()>16777216).count(),"sdk_sources":input.sdk_source_files().len(),"original_objects":5697,"original_packages":182,"host":input.host(),"compiler_file_hashes":input.files().iter().map(|f|f.entry()).collect::<Vec<_>>(),"independently_bound_executables":input.executable_build_info().len(),"installed_or_compiler_correctness_authority":false}),
     );
+}
+
+#[test]
+fn coherent_original_executable_changes_require_actual_build_identity() {
+    let (original_packet, _, original_wire, original_files) = original();
+    let dir = root().join("compiler-inputs/native/native-originals/versioned-owned");
+    let index = original_files
+        .iter()
+        .position(|f| f.entry().path == "go/bin/gofmt")
+        .unwrap();
+    let hash = |value: &Value| {
+        let parsed = parse_strict_json(
+            &serde_json::to_vec(value).unwrap(),
+            StrictJsonLimits::new(268435456, 268435456, 64, 16777216),
+        )
+        .unwrap();
+        hash_canonical_json(HashDomain::new("MPK-BUNDLE-CONTENT-0.1"), &parsed)
+            .unwrap()
+            .to_hex()
+    };
+    for (name, before, after) in [
+        ("release", b"go1.25.0".as_slice(), b"go1.24.0".as_slice()),
+        ("tool", b"path\tcmd/gofmt\n", b"path\tcmd/wrong\n"),
+        ("cgo", b"build\tCGO_ENABLED=0\n", b"build\tCGO_ENABLED=1\n"),
+    ] {
+        let mut raw = original_files[index].bytes().to_vec();
+        let build_info = raw
+            .windows(14)
+            .position(|s| s == b"\xff Go buildinf:")
+            .unwrap();
+        let offset = if name == "release" {
+            build_info + 33
+        } else {
+            // Runtime moduledata also embeds a copy in rodata. Mutate the
+            // actual build-info record, keeping the whole original executable.
+            build_info
+                + raw[build_info..]
+                    .windows(before.len())
+                    .position(|s| s == before)
+                    .unwrap()
+        };
+        assert_eq!(&raw[offset..offset + before.len()], before);
+        raw[offset..offset + after.len()].copy_from_slice(after);
+        let changed = GoCompilerFileBuffer::import("go/bin/gofmt", true, &raw).unwrap();
+        let info = read_go_executable_build_info(&raw).unwrap();
+        assert!(info
+            .validate_compiler_tool("gofmt", original_wire["host"].as_str().unwrap())
+            .is_err());
+        let mut files = original_files.clone();
+        files[index] = changed.clone();
+        let mut wire = original_wire.clone();
+        let entry = serde_json::to_value(changed.entry()).unwrap();
+        wire["inventory"]["files"][index] = entry.clone();
+        let component = wire["components"]
+            .as_array_mut()
+            .unwrap()
+            .iter_mut()
+            .find(|c| c["identity"]["name"] == "gofmt")
+            .unwrap();
+        component["inventory"]["files"][0] = entry;
+        component["identity"]["binary_sha256"] = json!(changed.entry().sha256);
+        let identity = component["identity"].clone();
+        *wire["toolchain"]["components"]
+            .as_array_mut()
+            .unwrap()
+            .iter_mut()
+            .find(|c| c["name"] == "gofmt")
+            .unwrap() = identity;
+        wire["toolchain"]["distribution_sha256"] = json!(hash(&wire["inventory"]));
+        let mut packet = original_packet.clone();
+        let mut envelope: Value =
+            serde_json::from_slice(&unhex(packet["envelope_hex"].as_str().unwrap())).unwrap();
+        envelope["compiler_sha256"] = wire["toolchain"]["distribution_sha256"].clone();
+        seal(&mut envelope, "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-1.0");
+        packet["envelope_hex"] = json!(hex(&serde_json::to_vec(&envelope).unwrap()));
+        let mut selection: Value =
+            serde_json::from_slice(&unhex(packet["selection_hex"].as_str().unwrap())).unwrap();
+        selection["source_contract_inputs_sha256"] = envelope["content_sha256"].clone();
+        seal(&mut selection, "MPK-PRIVATE-GO-SOURCE-SELECTION-INPUTS-1.0");
+        packet["selection_hex"] = json!(hex(&serde_json::to_vec(&selection).unwrap()));
+        let mut capture: Value =
+            serde_json::from_slice(&unhex(packet["capture_hex"].as_str().unwrap())).unwrap();
+        capture["selection_inputs_sha256"] = selection["content_sha256"].clone();
+        seal(&mut capture, "MPK-PRIVATE-GO-SOURCE-CAPTURE-INPUTS-1.0");
+        packet["capture_hex"] = json!(hex(&serde_json::to_vec(&capture).unwrap()));
+        let mut export: Value =
+            serde_json::from_slice(&unhex(packet["export_inputs_hex"].as_str().unwrap())).unwrap();
+        export["compiler_sha256"] = wire["toolchain"]["distribution_sha256"].clone();
+        export["source_capture_inputs_sha256"] = capture["content_sha256"].clone();
+        seal(&mut export, "MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-1.0");
+        packet["export_inputs_hex"] = json!(hex(&serde_json::to_vec(&export).unwrap()));
+        wire["source_export_inputs_sha256"] = export["content_sha256"].clone();
+        seal(&mut wire, "MPK-PRIVATE-GO-COMPILER-IMAGE-INPUTS-1.0");
+        // Every original source, dependency, unused body/init and Root contract
+        // remains byte-for-byte present. All metadata links and compiler file/
+        // component/distribution hashes match the actual changed executable.
+        for field in [
+            "sources",
+            "overlays",
+            "components_hex",
+            "snapshot_hex",
+            "snapshot_sources",
+        ] {
+            assert_eq!(packet[field], original_packet[field]);
+        }
+        let exports = import_exports(&packet, &dir);
+        let error =
+            import_go_source_compiler_inputs(&serde_json::to_vec(&wire).unwrap(), exports, files)
+                .unwrap_err();
+        assert_eq!(error, GoSourceCompilerInputError::BuildInfo, "{name}");
+        if let Some(out) = std::env::var_os("MPK_GO_COMPILER_INPUTS_OUTPUT") {
+            let out = PathBuf::from(out);
+            std::fs::create_dir_all(&out).unwrap();
+            std::fs::write(out.join(format!("changed-{name}.raw")), &raw).unwrap();
+        }
+        output(
+            &format!("coherent-executable-{name}.json"),
+            &json!({"status":"rejected","error":format!("{error:?}"),"changed_entry":changed.entry(),"byte_offset":offset,"before_hex":hex(before),"after_hex":hex(after),"original_objects":5697,"original_packages":182,"whole_original_source_and_Root_contract_unchanged":true,"envelope":envelope,"selection":selection,"capture":capture,"exports":export,"compiler_inputs":wire}),
+        );
+    }
 }
 #[test]
 fn coherently_sealed_compiler_claims_require_whole_actual_bundle_membership() {
