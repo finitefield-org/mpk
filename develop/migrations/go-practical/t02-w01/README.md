@@ -1878,3 +1878,30 @@ state/storage/frame/callee/program proofs, all56 foundation families/all169
 demands, native Linux gates and remaining T02–T11 remain due. R01/R04/R05/R06/W01
 stay open; the practical profile stays inactive. The cumulative T02 gate remains
 final W04: `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## Original native module graph inputs
+
+The [graph component](verification/module-graphs/README.md) retains the controlled
+original Go1.25 graph/diagnostics and original .mod inventories for initial and
+final roots. Unselected old/empty leaves, identity/pruning-state traversal,
+cycles, duplicate order, exclusions, exact replacements and source-free virtual
+nodes remain intact. Pruned unread targets do not acquire fabricated originals.
+Immutable source rebinding and a same-lock original module/source/export graph
+handoff preserve the whole181-package/5667-object HTTP owner after retirement.
+Native final roots remain observations; independent Rust ParseLax, root expansion,
+MVS and a complete transient native input trace remain due.
+
+All five new/15 affected existing native roots, final vet/formats and actual-SDK
+Go1.23.2 compile pass. Seventeen complete consumed source epochs and exact outputs,
+full pinned SDK originals, failed filename/root-expectation evidence and corrected
+same-case raw generated trees/child diagnostics remain. The inconsistent root case
+retains Go's readonly rejection; its separate expanded graph grants no owner.
+The initial child diagnostics/generated tree serialization gap and superseded
+legacy SDK receipt are explicit in the component record. Inspection verifies
+raw object/hash linkage and unchanged32 proof streams without replaying those
+proofs or unchanged Rust consumers. All previous source/package/error/foundation
+universes remain. R01/R04/R05/R06/W01, full56 foundation/all169 source/program
+requests, compiler/root/context/registry authority, native Linux gates and T02–T11
+stay open. The practical profile stays inactive. The cumulative T02 gate remains
+final W04: `./scripts/check-fast.sh`. Go/Rust only.

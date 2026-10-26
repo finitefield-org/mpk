@@ -140,7 +140,7 @@ func TestPracticalObservationDoesNotExecuteCallerSelectedCommands(t *testing.T) 
 	for _, test := range []struct {
 		kind      practicalGoCommandKind
 		requested string
-	}{{0, ""}, {255, ""}, {practicalGoModules, "example.com/policy"}, {practicalGoPackages, "-exec=anything"}, {practicalGoPackages, "example.com/..."}} {
+	}{{0, ""}, {255, ""}, {practicalGoModules, "example.com/policy"}, {practicalGoPackages, "-exec=anything"}, {practicalGoPackages, "example.com/..."}, {practicalGoGraph, "example.com/policy"}, {practicalGoGraph, "-go=1.16"}} {
 		result, err := runPracticalGoObservation(selection, filesystem, root, sha256Hex([]byte("original-main")), test.kind, test.requested)
 		var executed *practicalGoDiscoveryFailure
 		if err == nil || result != nil || errors.As(err, &executed) {

@@ -1,0 +1,62 @@
+{
+  "status": "scoped_checks_passed",
+  "basis_commit": "bf96736804ec439c16d124dca14e61e45855d455",
+  "checkpoint": 194,
+  "component": "Original controlled Go graph observation, initial/final original manifest inventories, immutable source rebinding and private whole-owner graph handoff",
+  "source_epochs": [
+    "affected-initial",
+    "edges-final",
+    "format-check",
+    "format-controls",
+    "format-corrected",
+    "format-final",
+    "format-initial",
+    "format-virtual",
+    "format-virtual-check",
+    "legacy-check",
+    "legacy-final",
+    "native-initial",
+    "replacements-final",
+    "toolchains-final",
+    "vet-final",
+    "vet-initial",
+    "vet-virtual"
+  ],
+  "preserved_failed_epochs": [
+    "native-initial"
+  ],
+  "affected_unique_native_test_roots": 20,
+  "new_native_test_roots": 5,
+  "affected_existing_native_test_roots": 15,
+  "checks": {
+    "native_graphs": "passed across targeted final roots and retained unchanged full HTTP owner",
+    "affected_resolution_observation_image_module_owners": "15 roots passed",
+    "go_vet": "passed after final virtual-root change",
+    "changed_file_gofmt": "passed after final change",
+    "legacy_Go1_23_2_compile": "passed with full actual SDK archive",
+    "Rust_tests": "Unchanged; earlier complete evidence retained, not rerun",
+    "full_T02_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+  },
+  "source_preservation": {
+    "Go1_25_SDK_files": 14496,
+    "Go1_25_SDK_bytes": 202722007,
+    "legacy_Go1_23_2_SDK_files": 13260,
+    "legacy_Go1_23_2_SDK_bytes": 236047459,
+    "HTTP_owner_packages": 181,
+    "HTTP_owner_exports": 180,
+    "HTTP_owner_objects": 5667,
+    "initial_failure_limit": "The exact parent stdout/stderr and complete prelaunch source/generator epoch remain. The initial rejected child diagnostic/generated tree was not separately serialized. Corrected same-case epochs retain the complete generated originals before each command and exact child stdout/stderr. No initial failure is relabeled passed.",
+    "earlier_legacy_limit": "legacy-check retained the exact tool identity/repository inputs but its SDK receipt names Go1.25. legacy-final supersedes it with the complete actual Go1.23.2 SDK archive."
+  },
+  "test_selection_reason": "Changed controlled command, original replacement location, module-image rebinding and owner handoff affect original resolver/observation/image/module-owner consumers. New native tests cover graph-only unselected .mod data, empty leaves, cycles, unpruning, pruned missing targets, duplicates, excludes, local/versioned replacement spelling and full owner retirement. Only corrected/new edge, replacement and virtual-toolchain roots rerun after their corresponding test/scope changes. Earlier full HTTP-owner production paths have no explicit toolchain suggestion and remain covered by their passing retained epoch. Vet and explicit changed-file formats run after final edits. No Rust implementation changes, removed-language tests, whole gate or workflows are introduced.",
+  "independent_Rust_ParseLax_or_MVS": false,
+  "native_intermediate_root_expansion_trace_complete": false,
+  "R01_complete": false,
+  "R04_complete": false,
+  "R05_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "public_profile_activated": false,
+  "whole_repository_gate_run": false,
+  "remaining": "Independent graph-only ParseLax/root expansion/MVS and complete transient original graph input authority; installed compiler/root/capture/context/descriptor/registry/launcher authority; source/IR/state/storage/frame/callee/program proofs; all56 foundation families/all169 demands; native Linux release gates and remaining T02-T11."
+}

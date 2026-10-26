@@ -81,11 +81,21 @@ func capturePracticalLocalReplacement(session practicalModuleInputs, owner pract
 	if replacement.Version != "" {
 		return practicalCapturedModule{}, session.reject(fmt.Errorf("replacement requires an offline versioned snapshot"))
 	}
+	location, err := practicalLocalReplacementLocation(session, owner.location, replacement.Path)
+	if err != nil {
+		return practicalCapturedModule{}, err
+	}
+	return session.captureModule(location, false)
+}
+
+// Both strict selected-module capture and lax graph-only summaries resolve
+// the original main directive under the same authorized capability boundary.
+func practicalLocalReplacementLocation(session practicalModuleInputs, owner practicalModuleLocation, replacement string) (practicalModuleLocation, error) {
 	roots := session.originalRoots()
-	ownerRoot := roots[owner.location.capability]
-	target := replacement.Path
+	ownerRoot := roots[owner.capability]
+	target := replacement
 	if !filepath.IsAbs(target) {
-		target = filepath.Join(ownerRoot, filepath.FromSlash(owner.location.directory), target)
+		target = filepath.Join(ownerRoot, filepath.FromSlash(owner.directory), target)
 	}
 	target = filepath.Clean(target)
 	var selected practicalModuleLocation
@@ -111,10 +121,10 @@ func capturePracticalLocalReplacement(session practicalModuleInputs, owner pract
 		ambiguous = false
 	}
 	if longest < 0 {
-		return practicalCapturedModule{}, session.reject(fmt.Errorf("replacement escapes every authorized source capability"))
+		return practicalModuleLocation{}, session.reject(fmt.Errorf("replacement escapes every authorized source capability"))
 	}
 	if ambiguous {
-		return practicalCapturedModule{}, session.reject(fmt.Errorf("replacement root capability is ambiguous"))
+		return practicalModuleLocation{}, session.reject(fmt.Errorf("replacement root capability is ambiguous"))
 	}
-	return session.captureModule(selected, false)
+	return selected, nil
 }

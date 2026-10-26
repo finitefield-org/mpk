@@ -1,6 +1,6 @@
 # Go Practical Implementation Traceability Ledger
 
-Updated: 2026-10-22. Objective: execute
+Updated: 2026-10-26. Objective: execute
 [the Go design](09_go_practical_subset_design.md) and
 [work plan](09_go_practical_subset_design-todo.md), starting at T01-W01.
 This ledger owns implementation status. No practical Go profile is active.
@@ -9011,3 +9011,43 @@ state/storage/frame/callee/program proofs, all56 foundation families/all169
 demands, native Linux gates and remaining T02–T11 remain due. R01/R04/R05/R06/W01
 stay open; the practical profile stays inactive. The cumulative T02 gate remains
 final W04: `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 194. T02-W01 original native graph inputs and immutable ownership
+
+The [graph component](../migrations/go-practical/t02-w01/verification/module-graphs/README.md)
+adds a fixed offline original Go1.25 graph observation, initial/final original
+manifest inventories, complete native edge/order correspondence and a private
+whole-owner graph handoff. Identity plus incoming pruning state preserves
+unselected old and zero-requirement .mod inputs, cycles, unpruning, duplicate
+edges, exclusions, exact replacements and virtual go/toolchain nodes. Pruned
+unread targets require no fabricated .mod/archive/source tree. Immutable image
+consumption re-derives all summaries from original source buffers; final roots
+remain native observations pending independent ParseLax/root expansion/MVS.
+Initial/final inventories do not establish the complete intermediate native
+filesystem-access trace.
+
+All five new and15 affected existing native roots pass, including full181-package/
+5667-object HTTP owner retirement, four coherent edge controls and original
+virtual default/exact/custom suggestions. Final vet/formats and Go1.23.2 compile
+pass. All17 consumed source epochs and exact outputs remain. Complete native SDK
+originals precede consumers; the final legacy compile also archives its actual
+full SDK. Initial filename-collision and incorrect readonly-root expectations
+remain failed evidence. The same root-upgrade case now preserves the exact Go
+rejection/child diagnostics and a separate expanded graph without accepting an
+owner. Its initial failed child diagnostics/generated tree were not separately
+serialized; the prelaunch generator/source epoch and exact parent outputs remain,
+and corrected cases retain every generated original before command execution.
+The earlier legacy compile's SDK receipt is superseded by the complete final
+actual-SDK epoch. No failure is relabeled passed or original case dropped.
+
+Independent inspection checks complete raw objects/hash links/native controls,
+all original owner membership and unchanged32 proof byte streams. Those proofs,
+Rust consumers and earlier43-root/zero-or70-error universes retain previous full
+evidence without new replay claims. General independent graph/MVS and complete
+transient input authority, installed compiler/root/capture/context/descriptor/
+registry/launcher authority, all56 foundation/all169 source/program demands,
+native Linux release gates and remaining T02–T11 remain due. R01/R04/R05/R06/W01
+remain open; the practical profile stays inactive. No source/type/error/proof
+universe, review rule, premise, math rule or kernel cap changes. The cumulative
+T02 gate remains final W04: `./scripts/check-fast.sh`. Go/Rust only.

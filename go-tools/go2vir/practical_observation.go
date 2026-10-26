@@ -16,6 +16,7 @@ type practicalGoCommandKind uint8
 const (
 	practicalGoModules practicalGoCommandKind = iota + 1
 	practicalGoPackages
+	practicalGoGraph
 )
 
 // Produced only by the controlled command below, never by a caller's JSON or
@@ -81,6 +82,13 @@ func runPracticalGoObservation(selection validatedLauncherSelection, filesystem 
 			return nil, fmt.Errorf("native package observation needs one exact original import path")
 		}
 		arguments = append(arguments, "-deps", "-export", "-compiled", "-json", requested)
+	case practicalGoGraph:
+		if requested != "" {
+			return nil, fmt.Errorf("native graph observation cannot take a selector")
+		}
+		// Go1.25's mod graph does not accept -mod. Its fixed offline
+		// environment and original source/checksum capture remain required.
+		arguments = []string{"mod", "graph"}
 	default:
 		return nil, fmt.Errorf("unknown native Go observation command")
 	}

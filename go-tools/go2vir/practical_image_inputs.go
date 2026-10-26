@@ -202,8 +202,14 @@ func (inputs *practicalImageInputs) restoreOriginalDiscovery(mainLocation, cache
 	if err != nil {
 		return practicalModuleDiscovery{}, err
 	}
-	return practicalModuleDiscovery{output: bytes.Clone(original.observation.output), compilerSHA256: original.compilerSHA256,
-		mainSourceID: original.mainSourceID, modules: modules, observation: original.observation}, nil
+	rebound := practicalModuleDiscovery{output: bytes.Clone(original.observation.output), compilerSHA256: original.compilerSHA256,
+		mainSourceID: original.mainSourceID, modules: modules, observation: original.observation, graph: original.graph}
+	graph, err := inputs.restoreOriginalModuleGraph(main, cache, rebound)
+	if err != nil {
+		return practicalModuleDiscovery{}, err
+	}
+	rebound.graph = graph
+	return rebound, nil
 }
 
 // Preserve the exact original capability subset, including unread names. This

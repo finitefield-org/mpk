@@ -17,6 +17,7 @@ type practicalOriginalPackages struct {
 	inputs                                    *practicalImageInputs
 	loader                                    *practicalSourceTypes
 	modules                                   []practicalResolvedModule
+	moduleGraph                               *practicalModuleGraph
 	packages                                  map[string]practicalCapturedPackageExport
 	imageDigest, compilerDigest, mainSourceID string
 	requestedPackage                          string
@@ -102,7 +103,7 @@ func (image *practicalReplayImage) originalPackages(main, cache practicalModuleL
 		return nil, err
 	}
 	result = &practicalOriginalPackages{
-		inputs: inputs, loader: loader, modules: rebound.modules, packages: map[string]practicalCapturedPackageExport{},
+		inputs: inputs, loader: loader, modules: rebound.modules, moduleGraph: rebound.graph, packages: map[string]practicalCapturedPackageExport{},
 		imageDigest: image.contentSHA256, compilerDigest: image.compiler.selection.Toolchain.DistributionSHA256,
 		mainSourceID: rebound.mainSourceID, requestedPackage: exports.requestedPackage,
 		moduleOutput: bytes.Clone(rebound.observation.output), packageOutput: bytes.Clone(exports.observation.output),
@@ -177,5 +178,17 @@ func (packages *practicalOriginalPackages) Close() {
 	clear(packages.packageOutput)
 	clear(packages.moduleDiagnostics)
 	clear(packages.packageDiagnostics)
+	if packages.moduleGraph != nil {
+		clear(packages.moduleGraph.output)
+		clear(packages.moduleGraph.diagnostics)
+		for _, summaries := range [][]practicalGraphSummary{packages.moduleGraph.initial, packages.moduleGraph.final} {
+			for _, summary := range summaries {
+				if summary.source != nil {
+					clear(summary.source.data)
+				}
+			}
+		}
+		packages.moduleGraph = nil
+	}
 	packages.inputs, packages.loader, packages.modules, packages.packages = nil, nil, nil, nil
 }

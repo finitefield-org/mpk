@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "vet",
+    "."
+  ],
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go125-20261025-download/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-export-inputs-190-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-module-observations-191-mod"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/vet-final/inputs.json",
+    "bytes": 320311,
+    "sha256": "3f624cebfc6be242738ad75d689162405877ce3998a1ea5915b203d823239a76",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/run.py",
+    "bytes": 7971,
+    "sha256": "3ebe1c7d4a1c61c87249a778c9ddf06fa461bd966bd2a114308c2f4e87856e59",
+    "mode": 420
+  },
+  "go_tool": {
+    "path": "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "bytes": 14117888,
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "mode": 493
+  },
+  "started_at_utc": "2026-10-26T14:01:51.772114+00:00",
+  "selection_reason": "Changed controlled Go observation, original replacement location, immutable module rebinding and owner graph handoff. Compare actual pruned/unpruned original graphs, unselected/empty old manifests, cycles, duplicates, exclusions, root upgrades, local/versioned replacements, original input retirement, whole native stdout/stderr and detached handoffs. Run new graph roots plus affected original resolution/observation/image/module-owner consumers, vet and explicit changed-file format. Rust consumers are unchanged and retain their original evidence; no removed-language tests or whole gate run.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 4.169046208990039,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/vet-final/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/vet-final/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T14:01:55.941900+00:00"
+}

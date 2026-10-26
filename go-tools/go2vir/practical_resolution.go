@@ -22,6 +22,7 @@ type practicalModuleDiscovery struct {
 	mainSourceID   string
 	modules        []practicalResolvedModule
 	observation    *practicalGoObservation
+	graph          *practicalModuleGraph
 }
 
 // Keep complete bounded child diagnostics available to private capture

@@ -29,6 +29,10 @@ func practicalStorageTestOwnerForPackage(t *testing.T, files map[string][]byte, 
 	return practicalStorageTestOwnerWithOverlays(t, files, requested, nil)
 }
 func practicalStorageTestOwnerWithOverlays(t *testing.T, files map[string][]byte, requested string, overlays []string) (*practicalOriginalPackages, map[string]practicalSourceBuffer) {
+	return practicalStorageTestOwnerWithGraph(t, files, requested, overlays, false)
+}
+
+func practicalStorageTestOwnerWithGraph(t *testing.T, files map[string][]byte, requested string, overlays []string, graph bool) (*practicalOriginalPackages, map[string]practicalSourceBuffer) {
 	t.Helper()
 	compiler := practicalPackageTestCompiler(t)
 	roots, _ := practicalTestCaptureRoots(t)
@@ -54,6 +58,12 @@ func practicalStorageTestOwnerWithOverlays(t *testing.T, files map[string][]byte
 		t.Fatal(err)
 	}
 	retainPracticalSyntaxEvidence(t, "storage-original-modules.json", map[string]any{"stdout": discovery.output, "stderr": discovery.observation.diagnostics, "compiler_sha256": discovery.compilerSHA256})
+	if graph {
+		discovery, err = session.capturePracticalModuleGraph(main, cache, discovery, compiler.selection)
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
 	if err := session.capturePracticalStandardLibrary(compiler, roots[2].Capability); err != nil {
 		t.Fatal(err)
 	}

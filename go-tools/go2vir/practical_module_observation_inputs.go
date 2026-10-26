@@ -22,6 +22,10 @@ func (owner *practicalOriginalPackages) moduleObservationInputs(roots []practica
 	}
 	owner.mutex.Lock()
 	defer owner.mutex.Unlock()
+	return owner.moduleObservationInputsLocked(roots)
+}
+
+func (owner *practicalOriginalPackages) moduleObservationInputsLocked(roots []practicalClosureRef) (practicalModuleObservationInputs, error) {
 	exports, err := owner.exportInputsLocked(roots)
 	if err != nil {
 		return practicalModuleObservationInputs{}, err

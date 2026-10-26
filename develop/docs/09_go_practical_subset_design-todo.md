@@ -14,6 +14,13 @@ Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The W01 [original graph checkpoint](../migrations/go-practical/t02-w01/verification/module-graphs/README.md)
+retains native initial/final graph inputs, old/empty unselected manifests,
+pruning, replacements and whole original owner handoffs. Five new and15 affected
+native roots pass. Independent Rust ParseLax/root expansion/MVS, complete
+transient input authority and all remaining W01 proof/context obligations remain
+open; native final roots remain observations and the practical profile is inactive.
+
 The W01 [ordinary Nat checkpoint](../migrations/go-practical/t02-w01/verification/natural-foundation/README.md)
 adds eight unbounded arithmetic operations and45 ordinary checked laws,
 including general results for arbitrary naturals. Both current checkers agree on15
