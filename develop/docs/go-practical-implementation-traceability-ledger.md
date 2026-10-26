@@ -8754,3 +8754,48 @@ storage/frame/callee/program proofs, all56 foundation families/all169 demands,
 native Linux gates and remaining T02-T11 stay due. R01/R06/W01 remain open;
 the practical profile stays inactive. The cumulative T02 gate remains final W04:
 `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 188. T02-W01 original embedded resource capture
+
+The [original resource component](../migrations/go-practical/t02-w01/verification/embedded-inputs/README.md)
+captures every non-test resource selected by the actual pinned Go package
+command. Original Go build headers supply the patterns; exact selected files
+must agree with native metadata. Each resource retains its original object
+identity and raw bytes in the complete original owner. Immutable replay after
+physical root deletion uses only captured directory names/types and buffers,
+without an external filesystem fallback. Existing source kinds are retained;
+new assets use the existing auxiliary role.
+
+All54 complete native cases agree:27 accepted and27 rejected, covering native
+pattern syntax/globs, hidden names/all-prefix behavior, duplicate/overlapping
+patterns, source/module-file embedding, bad filenames, module boundaries and
+symlinks. All successful and unsuccessful original files, links and native
+outputs remain byte-exact. The full original owner retains all5,535 objects and
+107,062,681 raw bytes, including four hidden/nested/arbitrary-byte application
+assets. Missing buffer, altered original bytes and missing namespace controls
+reject. Returned inventory mutations cannot alter the original resource list.
+
+All seven actual Go roots/28 subtests and13 affected Rust roots pass. Strict
+Clippy, Go vet, explicit changed-file formats and legacy compile-only checks
+pass. Rust independently imports the complete original snapshot and all exact
+resource bytes, keeping its one original Root contract. It does not yet derive
+resource pattern/file selection independently. Both original43-root source
+units, zero/70-error universes and every byte of32 prior proof streams remain
+intact. Unchanged full header/auxiliary/build/cgo and lexer/parser/language/
+kernel/foundation matrices retain previous evidence without repetition.
+
+Independent inspection verifies all original case bytes/native output and52
+resource identities, the entire new owner, three complete pinned Go primary
+source witnesses and original proof streams. Ten source epochs preserve every
+consumed original path/byte/mode and exact output, distinguishing formatter
+writes from frozen verification. No original source, root/type/error/proof
+scope, review rule/seal/exclusion, premise, math rule or kernel budget changes.
+Host checks do not establish native Linux release resource bounds.
+
+Independent Rust resource selection, canonical module/build/compiler/export/
+capture/context/descriptor/registry and launcher/root authority, source/IR/state/
+storage/frame/callee/program proofs, all56 foundation families/all169 demands,
+native Linux gates and remaining T02-T11 stay due. R01/R06/W01 remain open;
+the practical profile stays inactive. The cumulative T02 gate remains final W04:
+`./scripts/check-fast.sh`. Go/Rust only.

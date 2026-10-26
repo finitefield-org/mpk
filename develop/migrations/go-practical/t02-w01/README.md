@@ -1709,3 +1709,24 @@ exact proof streams. No C program/build hook executes. Embed selection and
 canonical module/compiler/export/context/launcher/program authority remain due.
 R01/R06/W01 stay open; the profile stays inactive and the cumulative T02 gate
 remains final W04. Go/Rust only.
+
+
+## Original embedded resource capture
+
+The [original resource component](verification/embedded-inputs/README.md)
+binds original non-test embed patterns and exact resource identities to actual
+pinned Go package metadata. Sealed replay uses only complete captured names and
+buffers after physical roots are removed. All54 native cases agree:27 accepted
+and27 rejected, including hidden/all/glob/name/module/symlink behavior. Every
+successful and failed original input and native output remains complete. A full
+5,535-object native owner retains four application assets, arbitrary binary
+bytes and independent inventory ownership; missing buffer/content/directory
+controls reject. All seven Go roots/28 subtests and13 Rust roots pass, with
+strict Clippy/vet/formats and legacy compile-only checks. Rust independently
+imports every original resource byte; independent Rust pattern/file selection
+remains due. Original43-root/zero-or70-error units and32 proof streams remain
+intact. Ten source epochs preserve all consumed originals and exact outputs.
+Canonical module/compiler/export/capture/context/launcher/root/program authority,
+full56 foundation/all169 demands, native Linux gates and remaining T02-T11
+stay due. R01/R06/W01 stay open; the profile stays inactive and the cumulative
+T02 gate remains final W04. Go/Rust only.

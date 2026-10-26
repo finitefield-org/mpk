@@ -116,6 +116,7 @@ func (image *practicalReplayImage) originalPackages(main, cache practicalModuleL
 
 func copyPracticalOriginalPackage(pkg practicalCapturedPackageExport) practicalCapturedPackageExport {
 	pkg.sources = append([]practicalSourceObject(nil), pkg.sources...)
+	pkg.embedded = append([]practicalSourceObject{}, pkg.embedded...)
 	pkg.imports = append([]string(nil), pkg.imports...)
 	pkg.importMap = maps.Clone(pkg.importMap)
 	if pkg.data != nil {

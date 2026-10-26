@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--check",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/tests/go_practical_snapshot_inputs.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/format-check/inputs.json",
+    "bytes": 13581351,
+    "sha256": "b692f9e54052fb34abc6ec4e7c241274993e7e34999a704b168c2046712b3e1c",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/run.py",
+    "bytes": 10206,
+    "sha256": "8ad995f0b2cecf2205a746767a337f5ba83e81c4dd65390fdbf02c0f0e05a2a1",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T06:03:20.221748+00:00",
+  "selection_reason": "Bind original embedded resource files/identities to the actual pinned Go package command and reconstruct its complete selection over captured immutable namespaces. Compare full original pattern/resource/name/module/link/hidden cases and replay after physical root deletion. Exercise actual embedded owner/raw bytes/inventory ownership/damage controls and affected old whole-package/export/source-invocation consumers. Run only13 affected Rust original capture/source consumers, strict Clippy, Go vet, changed-file formats and legacy compilation. Keep original43-root/zero-or70-error/type domains and32 proof streams intact; untouched foundation/kernel/parser matrices and retired language tests are not repeated. Native capture linkage is not independent Rust resource selection or registered context/program proof.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 4.847152542002732,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/format-check/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/format-check/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T06:03:25.069925+00:00"
+}

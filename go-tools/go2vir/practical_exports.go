@@ -26,6 +26,7 @@ type practicalGoPackageExport struct {
 	Match                                                                                                   []string
 	GoFiles, CompiledGoFiles, CgoFiles, Imports                                                             []string
 	IgnoredGoFiles, TestGoFiles, XTestGoFiles                                                               []string
+	EmbedPatterns, EmbedFiles                                                                               []string
 	CFiles, CXXFiles, MFiles, HFiles, FFiles, SFiles, SwigFiles, SwigCXXFiles, SysoFiles, IgnoredOtherFiles []string
 	ImportMap                                                                                               map[string]string
 	Module                                                                                                  *practicalGoListedModule
@@ -40,6 +41,7 @@ type practicalCapturedPackageExport struct {
 	standard   bool
 	intrinsic  bool
 	sources    []practicalSourceObject
+	embedded   []practicalSourceObject
 	data       *practicalSourceObject
 	imports    []string
 	importMap  map[string]string
@@ -266,6 +268,14 @@ func (session *practicalCaptureSession) capturePracticalPackageExports(compiler 
 				}
 			}
 		}
+		embedded, err := session.captureEmbeddedSources(location, row.EmbedPatterns)
+		if err != nil {
+			return result, session.reject(err)
+		}
+		if strings.Join(embedded.files, "\x00") != strings.Join(row.EmbedFiles, "\x00") {
+			return result, session.reject(fmt.Errorf("native embedded file list differs from original captured pattern selection"))
+		}
+		captured.embedded = embedded.objects
 		if row.ImportPath == "unsafe" {
 			if !row.Standard || row.Export != "" || row.BuildID != "" {
 				return result, session.reject(fmt.Errorf("unsafe compiler intrinsic has fabricated export data"))
@@ -468,6 +478,16 @@ func (exports practicalPackageExports) bindOriginalSourceTypes(loader *practical
 		}
 		if sources.name != row.Name || !reflect.DeepEqual(sources.active, captured.sources) || len(row.GoFiles) != len(sources.active) {
 			return fmt.Errorf("export source list differs from the complete original package")
+		}
+		if strings.Join(sources.embeds, "\x00") != strings.Join(row.EmbedPatterns, "\x00") {
+			return fmt.Errorf("native embedded pattern list differs from original source headers")
+		}
+		embedded, err := loader.syntax.snapshot.replayEmbeddedSources(location, sources.embeds)
+		if err != nil {
+			return err
+		}
+		if strings.Join(embedded.files, "\x00") != strings.Join(row.EmbedFiles, "\x00") || !reflect.DeepEqual(embedded.objects, captured.embedded) {
+			return fmt.Errorf("embedded file identities differ from original source/compiler selection")
 		}
 		for i, source := range sources.active {
 			if path.Base(source.Path) != row.GoFiles[i] {

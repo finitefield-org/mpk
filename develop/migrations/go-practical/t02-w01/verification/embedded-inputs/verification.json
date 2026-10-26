@@ -1,0 +1,114 @@
+{
+  "status": "scoped_checks_passed_work_item_in_progress",
+  "basis_commit": "d60f8ab10e6d7e86c8a75453c0c5fd9df520ccac",
+  "observed_at_utc": "2026-10-26T06:22:34.653455+00:00",
+  "component": "Capture every original non-test embedded resource selected by the actual fixed Go package command, retain exact original identities/bytes, and replay from the sealed namespace after physical root removal. Independently import all original bytes in Rust.",
+  "checks": {
+    "build-original": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/build-original/result.json",
+      "bytes": 3383,
+      "sha256": "dc320f0a22e9aa113bf5efdee7bebfcdd2db7bb88d63d09deab690097caad62f",
+      "mode": 420
+    },
+    "clippy": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/clippy/result.json",
+      "bytes": 3393,
+      "sha256": "18eee765820d43aee4add23c113ea90dfcf8fb34f07ca1d205d0345e03c03483",
+      "mode": 420
+    },
+    "format-check": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/format-check/result.json",
+      "bytes": 3331,
+      "sha256": "160f8d6dbac49185e322077fc4692206cfdf5aaf5f99871be0d650d7d765ee60",
+      "mode": 420
+    },
+    "go-format": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/go-format/result.json",
+      "bytes": 4015,
+      "sha256": "0fcf1a92999af840bd06ad5c3cc872420cf3ac36c7c870d542a169a15fdc694e",
+      "mode": 420
+    },
+    "go-format-check": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/go-format-check/result.json",
+      "bytes": 4035,
+      "sha256": "b47a87933fc86661d96965eaa04e3ef646e84840b1067e82ae691679841fac8f",
+      "mode": 420
+    },
+    "go-vet": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/go-vet/result.json",
+      "bytes": 3826,
+      "sha256": "5cfd5df9ffcd9bb3aa27e43a6becea811cbc4e1e78558278820b37d3ff2cb76b",
+      "mode": 420
+    },
+    "legacy": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/legacy/result.json",
+      "bytes": 3759,
+      "sha256": "d1bd8fdde803932b5a020acec5184a33e996a2dc0d5acaea695676ad1418993d",
+      "mode": 420
+    },
+    "native": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/native/result.json",
+      "bytes": 4153,
+      "sha256": "ca8ae0a237c397c40b17464bbafc03aa1e80d4f7811514d22beba283ac1b5f04",
+      "mode": 420
+    },
+    "rust": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/rust/result.json",
+      "bytes": 4543,
+      "sha256": "26ea95770816eca35f133569ab4609f846b85f7776f8d7ed0cd8ee263ebc1f31",
+      "mode": 420
+    },
+    "rust-format": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/rust-format/result.json",
+      "bytes": 3313,
+      "sha256": "cd615657c2d70cad362879d27b74ce841a6afb7ff852387164d3dbe7078e677c",
+      "mode": 420
+    }
+  },
+  "independent_inspection": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-inputs/inspection.json",
+    "bytes": 325089,
+    "sha256": "4413b3ac201dfcf80ae01b0648e964bbc197d6ad38f4e289a3fc6eebabbd58ea",
+    "mode": 420
+  },
+  "affected_rust_roots": 13,
+  "actual_native_go_roots": 7,
+  "actual_native_go_subtests": 28,
+  "original_native_cases": 54,
+  "native_acceptances": 27,
+  "native_rejections": 27,
+  "original_case_selected_resource_identities": 52,
+  "complete_new_owned_snapshot_objects": 5535,
+  "complete_new_owned_snapshot_bytes": 107062681,
+  "original_application_embedded_resources": 4,
+  "returned_original_inventory_independent": true,
+  "damage_controls": 3,
+  "all_original_roots_removed_before_successful_matrix_replay": true,
+  "original_roots_per_complete_unit": 43,
+  "original_error_case_universes": [
+    0,
+    70
+  ],
+  "original_proof_byte_streams": 32,
+  "all_consumed_original_inputs_and_raw_outputs_preserved": true,
+  "source_epochs": 10,
+  "formatter_epochs_distinguished": true,
+  "legacy_go_compile_only": true,
+  "cgo_enabled": false,
+  "additional_program_language_support": false,
+  "language_scope": [
+    "Go",
+    "Rust"
+  ],
+  "resource_source_kinds_changed": false,
+  "independent_rust_pattern_resource_selection_complete": false,
+  "source_or_context_program_proof": false,
+  "selection_reason": "Compare all54 complete original filesystem cases with actual pinned Go package output. Exercise full original embedded owner and buffer/content/namespace/inventory controls, affected package/export consumers and both complete native source-invocation units. Run only13 affected Rust capture/source consumers, strict Clippy, Go vet, changed-file formats and legacy zero-test compilation. All original43-root/zero-or70-error/type domains and32 proof streams remain intact. Unchanged full lexer/parser/language/kernel/foundation matrices retain earlier evidence without repetition.",
+  "remaining": "Independent Rust resource pattern/file selection, canonical module/build/compiler/export/capture/context/descriptor/registry and launcher/root authority, all56 foundation families/all169 source/program demands, native Linux gates and remaining T02-T11 stay due.",
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "public_profile_activated": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "whole_T_gate_run": false
+}

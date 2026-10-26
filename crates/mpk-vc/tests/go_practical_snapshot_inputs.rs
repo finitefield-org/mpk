@@ -764,3 +764,45 @@ fn capture_inputs_reject_invalid_directives_in_an_original_cgo_disabled_file() {
         &json!({"status":"passed","complete_original_objects":sources.len(),"same_original_source_selection_and_two_contract_candidates":true,"original_excluded_source":old.object(),"changed_excluded_source":changed.object(),"error":error.to_string(),"cgo_enabled":false,"source_or_context_proof":false}),
     );
 }
+
+#[test]
+fn capture_inputs_keep_every_original_native_embedded_resource_byte() {
+    let directory = root()
+        .parent()
+        .unwrap()
+        .join("embedded-inputs/native/native-originals/owned");
+    let p: Value = serde_json::from_slice(
+        &std::fs::read(directory.join("complete-embedded-capture.json")).unwrap(),
+    )
+    .unwrap();
+    let original = capture(&directory, &p);
+    assert_eq!(original.derive_contracts().unwrap().functions().len(), 1);
+    let native: Value = serde_json::from_slice(
+        &std::fs::read(directory.join("original-embedded-resources.json")).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(native["selected"].as_array().unwrap().len(), 4);
+    let mut checked = vec![];
+    for row in native["selected"].as_array().unwrap() {
+        let source = original
+            .snapshot_inputs()
+            .source(row["object"]["id"].as_str().unwrap())
+            .unwrap();
+        assert_eq!(
+            serde_json::to_value(source.object()).unwrap(),
+            row["object"]
+        );
+        assert_eq!(source.bytes(), unhex(row["raw_hex"].as_str().unwrap()));
+        assert_eq!(source.object().kind, "auxiliary");
+        checked.push(json!({"object":source.object(),"raw_hex":row["raw_hex"]}));
+    }
+    let binary = checked
+        .iter()
+        .find(|r| r["object"]["path"] == "assets/binary.dat")
+        .unwrap();
+    assert_eq!(binary["raw_hex"], "000100ff80");
+    output(
+        "whole-native-embedded-resources.json",
+        &json!({"status":"passed","complete_original_objects":original.snapshot_inputs().source_objects().len(),"original_resources":checked,"native_selected_files":native["files"],"native_pattern_files":native["patterns"],"original_selected_contract_functions":1,"independent_resource_pattern_selection_claimed":false,"source_or_context_proof":false}),
+    );
+}
