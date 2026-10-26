@@ -2044,3 +2044,16 @@ tables), SDK source roles and remaining compiler/root/context/read/source/progra
 foundation/native Linux/T02–T11 work stay due without removing frozen input cases.
 W01 remains open and the profile inactive. Prior proof/error/type/source universes,
 review policies and all budgets remain. Final W04 owns `./scripts/check-fast.sh`.
+
+The [whole SDK source-role checkpoint](verification/compiler-source-roles/README.md)
+independently derives all5480 prepared SDK source roles and715 source directories
+from original owned bytes. All11004 raw SDK sources/1017 raw directories and388
+boundary probes agree with pinned Go, including a40000-import header and its
+original body without an AST-node restriction. All23 selected Rust roots and scoped
+native/Clippy/vet/format checks pass;3 coherently rehashed unused role claims reject
+at SourceRole after full export reimport. All5577 compiler files and182-package/
+5697-object application/Root contract remain. All14 source epochs preserve two
+initial visibility compile failures and the repair. Strict standard-module and
+remaining source/program/context/installed/native Linux/T02–T11 work stay due;
+W01 remains open, the practical profile inactive and final W04 owns the full T02
+gate. Every original source/type/error/proof universe, review policy and cap remains.

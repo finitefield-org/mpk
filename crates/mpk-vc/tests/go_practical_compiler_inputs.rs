@@ -173,6 +173,13 @@ fn whole_original_prepared_compiler_bytes_bind_every_sdk_source_and_component() 
     assert!(input.sdk_source_files().len() > 5000);
     assert_eq!(packet["snapshot_sources"].as_array().unwrap().len(), 5697);
     assert_eq!(input.executable_build_info().len(), 9);
+    assert_eq!(input.source_index().source_roles().len(), 5480);
+    assert_eq!(input.source_index().go_version(), "go1.25");
+    assert!(input.source_index().package_paths().contains("runtime"));
+    assert!(input
+        .source_index()
+        .package_paths()
+        .contains("cmd/compile/internal/ssa"));
     for (path, info) in input.executable_build_info() {
         info.validate_compiler_tool(path.rsplit('/').next().unwrap(), input.host())
             .unwrap();
@@ -183,8 +190,94 @@ fn whole_original_prepared_compiler_bytes_bind_every_sdk_source_and_component() 
     let total = input.files().iter().map(|f| f.bytes().len()).sum::<usize>();
     output(
         "whole-original-compiler-import.json",
-        &json!({"status":"passed","compiler_inputs":wire,"files":input.files().len(),"bytes":total,"files_larger_than_application_source_limit":input.files().iter().filter(|f|f.bytes().len()>16777216).count(),"sdk_sources":input.sdk_source_files().len(),"original_objects":5697,"original_packages":182,"host":input.host(),"compiler_file_hashes":input.files().iter().map(|f|f.entry()).collect::<Vec<_>>(),"independently_bound_executables":input.executable_build_info().len(),"installed_or_compiler_correctness_authority":false}),
+        &json!({"status":"passed","compiler_inputs":wire,"files":input.files().len(),"bytes":total,"files_larger_than_application_source_limit":input.files().iter().filter(|f|f.bytes().len()>16777216).count(),"sdk_sources":input.sdk_source_files().len(),"original_objects":5697,"original_packages":182,"host":input.host(),"compiler_file_hashes":input.files().iter().map(|f|f.entry()).collect::<Vec<_>>(),"independently_bound_executables":input.executable_build_info().len(),"sdk_source_roles":input.source_index().source_roles(),"sdk_source_package_paths":input.source_index().package_paths(),"sdk_module_source_object_id":input.source_index().module_source_object_id(),"sdk_go_version":input.source_index().go_version(),"installed_or_compiler_correctness_authority":false}),
     );
+}
+
+#[test]
+fn coherent_unused_sdk_role_claims_require_independent_original_classification() {
+    let (original_packet, _, original_wire, files) = original();
+    let dir = root().join("compiler-inputs/native/native-originals/versioned-owned");
+    for (name, path, kind) in [
+        (
+            "active-as-excluded",
+            "src/cmd/compile/internal/ssa/poset.go",
+            "excluded_source",
+        ),
+        (
+            "excluded-as-active",
+            "src/cmd/go/internal/toolchain/path_none.go",
+            "go_file",
+        ),
+        ("auxiliary-as-metadata", "src/cmd/pprof/README", "metadata"),
+    ] {
+        let mut packet = original_packet.clone();
+        let mut wire = original_wire.clone();
+        let row = packet["snapshot_sources"]
+            .as_array_mut()
+            .unwrap()
+            .iter_mut()
+            .find(|r| r["object"]["capability"] == "original-go-sdk" && r["object"]["path"] == path)
+            .unwrap();
+        let old = row["object"].clone();
+        assert_ne!(old["kind"], kind);
+        let raw = std::fs::read(
+            dir.join("original-source-objects")
+                .join(row["raw_file"].as_str().unwrap()),
+        )
+        .unwrap();
+        let changed = GoTypeSourceBuffer::new("original-go-sdk", path, kind, &raw).unwrap();
+        let object = serde_json::to_value(changed.object()).unwrap();
+        row["object"] = object.clone();
+        let mut snapshot: Value =
+            serde_json::from_slice(&unhex(packet["snapshot_hex"].as_str().unwrap())).unwrap();
+        for current in snapshot["objects"].as_array_mut().unwrap() {
+            if current["id"] == old["id"] {
+                *current = object.clone();
+            }
+        }
+        snapshot["objects"]
+            .as_array_mut()
+            .unwrap()
+            .sort_by_key(|o| o["id"].as_str().unwrap().to_string());
+        snapshot["snapshot_sha256"] = json!(native_hash(&snapshot));
+        seal(&mut snapshot, "MPK-PRIVATE-GO-SOURCE-SNAPSHOT-INPUTS-1.0");
+        packet["snapshot_hex"] = json!(hex(&serde_json::to_vec(&snapshot).unwrap()));
+        let mut capture: Value =
+            serde_json::from_slice(&unhex(packet["capture_hex"].as_str().unwrap())).unwrap();
+        capture["snapshot_inputs_sha256"] = snapshot["content_sha256"].clone();
+        seal(&mut capture, "MPK-PRIVATE-GO-SOURCE-CAPTURE-INPUTS-1.0");
+        packet["capture_hex"] = json!(hex(&serde_json::to_vec(&capture).unwrap()));
+        let mut export: Value =
+            serde_json::from_slice(&unhex(packet["export_inputs_hex"].as_str().unwrap())).unwrap();
+        export["source_capture_inputs_sha256"] = capture["content_sha256"].clone();
+        seal(&mut export, "MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-1.0");
+        packet["export_inputs_hex"] = json!(hex(&serde_json::to_vec(&export).unwrap()));
+        wire["source_export_inputs_sha256"] = export["content_sha256"].clone();
+        seal(&mut wire, "MPK-PRIVATE-GO-COMPILER-IMAGE-INPUTS-1.0");
+        for field in [
+            "sources",
+            "overlays",
+            "components_hex",
+            "envelope_hex",
+            "selection_hex",
+            "compiler_files",
+        ] {
+            assert_eq!(packet[field], original_packet[field]);
+        }
+        let exports = import_exports(&packet, &dir);
+        let error = import_go_source_compiler_inputs(
+            &serde_json::to_vec(&wire).unwrap(),
+            exports,
+            files.clone(),
+        )
+        .unwrap_err();
+        assert_eq!(error, GoSourceCompilerInputError::SourceRole, "{name}");
+        output(
+            &format!("coherent-unused-sdk-role-{name}.json"),
+            &json!({"status":"rejected","error":format!("{error:?}"),"original_object":old,"changed_object":object,"original_bytes_sha256":format!("{:x}",Sha256::digest(&raw)),"whole_original_source_bytes_and_Root_contract_unchanged":true,"original_objects":5697,"original_packages":182,"original_compiler_files":5577,"changed_snapshot_hex":packet["snapshot_hex"],"changed_capture_hex":packet["capture_hex"],"changed_export_hex":packet["export_inputs_hex"],"changed_compiler_record":wire}),
+        );
+    }
 }
 
 #[test]

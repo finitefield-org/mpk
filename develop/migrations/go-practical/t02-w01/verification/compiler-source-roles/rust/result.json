@@ -1,0 +1,95 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_compiler_source_roles",
+    "--test",
+    "go_practical_compiler_inputs",
+    "--test",
+    "go_practical_export_inputs",
+    "--test",
+    "go_practical_lex",
+    "--test",
+    "go_practical_source_build",
+    "--test",
+    "go_practical_package_files",
+    "--test",
+    "go_practical_auxiliary_inputs",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_COMPILER_SOURCE_ROLES_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/rust/observations/source-roles",
+    "MPK_GO_COMPILER_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/rust/observations/compilers",
+    "MPK_GO_GRAPH_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/rust/observations/graphs",
+    "MPK_GO_GRAPH_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/rust/observations/graph-manifests",
+    "MPK_GO_MODULE_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/rust/observations/manifests",
+    "MPK_GO_EXPORT_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/rust/observations/exports"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/rust/inputs.json",
+    "bytes": 83447862,
+    "sha256": "99c11e518a8a4ad3d316971a6182015e4be00d53b067240eee856b92f1fc2741",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/run.py",
+    "bytes": 10607,
+    "sha256": "05a0323f892616c733546818c11c93c3adf42b9518698e1e2a71a48e2f8b977f",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T19:56:42.405368+00:00",
+  "selection_reason": "Independently derive every original SDK source role and all SDK package directories from full owned bytes, including ignored/test/cgo/documentation/auxiliary/manifest inputs and invalid headers. Native observes all11004 raw SDK source files and complete boundary probes; every source byte remains owned while the actual prepared owner retains all5480 SDK sources and5577 total files under the fixed Go1.25.0 linux/amd64/CGO0 context. The native Go-only epoch owns all Go compiler/test/vendor sources and the complete sealed original SDK; unrelated Rust sources are independent and not consumed by that command. Rust epochs retain the whole5577-file SDK and182-package/5697-object application/one-Root-contract, all existing compiler/export controls and affected lexer/build/package/auxiliary roots. Original source/type/error/proof universes remain at their exact committed paths and receipts. No source/body stub, smaller input universe, scanner rule, source/bundle/kernel/certificate limit or full gate/removed-language test is introduced. Full source/program/context/installed/native Linux and remaining T02-T11 obligations remain open.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 370.5274642499862,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/rust/stdout.log",
+    "bytes": 2724,
+    "sha256": "9c8339389303afc4194a777c702720d5b337a4d032ea682c02c5284ca0f2b4d1",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/rust/stderr.log",
+    "bytes": 940,
+    "sha256": "b699d8c0e1286490f4396e1e546c040d181f0bce3b2158966a6d358190ae50a2",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T20:02:52.936021+00:00"
+}

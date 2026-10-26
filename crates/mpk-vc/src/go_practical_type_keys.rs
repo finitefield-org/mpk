@@ -13,9 +13,10 @@ use std::collections::{BTreeMap, BTreeSet};
 mod compiler_inputs;
 mod contract_inputs;
 pub use compiler_inputs::{
-    import_go_source_compiler_inputs, parse_go_executable_build_info_text,
-    read_go_executable_build_info, GoCompilerFileBuffer, GoExecutableBuildInfo, GoExecutableModule,
-    GoSourceCompilerInputError, GoSourceCompilerInputs,
+    derive_go_compiler_source_role, import_go_source_compiler_inputs,
+    parse_go_executable_build_info_text, read_go_executable_build_info, GoCompilerFileBuffer,
+    GoCompilerSourceIndex, GoExecutableBuildInfo, GoExecutableModule, GoSourceCompilerInputError,
+    GoSourceCompilerInputs,
 };
 mod export_inputs;
 mod module_observations;

@@ -9,6 +9,15 @@ mod header;
 pub use auxiliary::GoSourceAuxiliaryKind;
 pub use embedded::{derive_go_source_embedded_files, GoSourceEmbeddedFiles};
 
+pub(super) fn compiler_header_read(
+    source: &GoTypeSourceBuffer,
+) -> std::result::Result<(), GoSourcePackageErrorKind> {
+    header::boundary(source).map(|_| ())
+}
+pub(super) fn compiler_role_header(source: &GoTypeSourceBuffer) -> Option<(bool, bool)> {
+    header::compiler_role_header(source)
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum GoSourcePackageErrorKind {
     Namespace,

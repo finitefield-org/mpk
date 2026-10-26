@@ -9279,3 +9279,45 @@ and remaining T02–T11 stay due. R01/R03/R04/R05/R06/W01 remain open and the pr
 profile inactive. Go/Rust only; no source/bundle/kernel/certificate cap, scanner
 rule/seal/exclusion, premise or mathematical rule changes. Final W04 owns the
 cumulative T02 gate: `./scripts/check-fast.sh`.
+
+## 202. T02-W01 independent whole original SDK source roles
+
+The [SDK source-role component](../migrations/go-practical/t02-w01/verification/compiler-source-roles/README.md)
+now derives every original prepared SDK role and complete .go-containing directory
+set from the same full immutable source buffers already bound to compiler bytes.
+The original module/source-object and declared Go version remain owned. Filename
+exclusion, import-read errors, build/test selection and parser.ImportsOnly syntax/
+documentation/C dispositions follow pinned Go ordering. The role-only grammar
+uses exact token demand plus one lookahead, preserving immediate invalid UTF-8/
+NUL/BOM handling without reading unused later bodies, synthesizing Go sources or
+using the ordinary AST-node cap. Existing lexer consumers leave this new internal
+demand state absent; all existing source/program limits remain unchanged.
+
+All11004 raw SDK source classifications,1017 raw source directories and388 complete
+boundary probes agree with native Go. The prepared SDK still has all5577 files/
+163457770 bytes,5480 sources and715 source directories. Every raw observation is
+retained, reusing exact original prepared bytes or5415 additional unique full raw
+files; the complete14496-file original raw SDK receipt/archive remains unchanged.
+A40000-import header and its original body remain, with no smaller source universe
+or AST-bound workaround. The full182-package/5697-object HTTP application, unused
+bodies, unexecuted init and Root contract remain intact after original image retirement.
+
+All23 selected Rust roots and the native comparison pass with strict affected
+Clippy, vet and formats. Three unused active/excluded/auxiliary role claims reseal
+object/snapshot/capture/export/compiler links, successfully reimport complete
+original exports, retain every source/compiler byte and application/Root contract,
+and still reject specifically at SourceRole. Existing30 compiler claims/member
+controls, unused-SDK-content control and3 executable identity controls remain
+selected. All14 consuming source epochs retain both initial compile failures and
+their successful internal-visibility repair; no original source/proof/error case is
+dropped. Prior32 proof streams and43-root/zero-or70-error universes keep prior
+byte evidence without new kernel replay.
+
+These are source-membership/classification facts, not installed SDK authentication,
+target package/body admission or library-body proofs. Strict standard-module
+semantics, remaining generic executable-reader cases, complete installed compiler/
+root/capture/context/descriptor/registry/launcher/read bindings, all56 foundation/
+all169 source/program demands, native Linux gates and remaining T02–T11 stay due.
+R01/R03/R04/R05/R06/W01 stay open and the practical profile inactive. Go/Rust only;
+no source/bundle/kernel/certificate cap, scanner rule/seal/exclusion, premise or
+mathematical rule changes. Final T02-W04 owns `./scripts/check-fast.sh`.

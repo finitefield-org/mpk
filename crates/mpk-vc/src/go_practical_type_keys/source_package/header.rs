@@ -137,6 +137,73 @@ impl Reader<'_> {
     }
 }
 
+// parser.ImportsOnly differs from go/build's import inventory: the former
+// accepts arbitrary decoded import bytes and inspects one following token.
+// This linear grammar has no AST-node budget and never parses later bodies.
+pub(super) fn compiler_role_header(source: &GoTypeSourceBuffer) -> Option<(bool, bool)> {
+    let lexed = lex::lex_go_compiler_import_header(source).ok()?;
+    let tokens = lexed
+        .tokens()
+        .iter()
+        .filter(|t| t.kind() != "COMMENT")
+        .collect::<Vec<_>>();
+    struct HeaderTokens<'a> {
+        tokens: &'a [&'a GoLexToken],
+        at: usize,
+    }
+    impl<'a> HeaderTokens<'a> {
+        fn kind(&self) -> &'a str {
+            self.tokens.get(self.at).map_or("EOF", |t| t.kind())
+        }
+        fn take(&mut self, kind: &str) -> Option<&'a GoLexToken> {
+            if self.kind() != kind {
+                return None;
+            }
+            let token = *self.tokens.get(self.at)?;
+            self.at += 1;
+            Some(token)
+        }
+        fn semi(&mut self) -> Option<()> {
+            if matches!(self.kind(), ")" | "}") {
+                Some(())
+            } else {
+                self.take(";").map(|_| ())
+            }
+        }
+        fn import(&mut self) -> Option<bool> {
+            if matches!(self.kind(), "IDENT" | ".") {
+                self.at += 1;
+            }
+            let path = self.take("STRING")?;
+            let bytes = source_scopes::unquote(path.literal()).ok()?;
+            self.semi()?;
+            Some(bytes == b"C")
+        }
+    }
+    let mut parser = HeaderTokens {
+        tokens: &tokens,
+        at: 0,
+    };
+    parser.take("package")?;
+    let documentation = parser.take("IDENT")?.literal() == b"documentation";
+    parser.semi()?;
+    let mut cgo = false;
+    while parser.kind() == "import" {
+        parser.at += 1;
+        if parser.kind() == "(" {
+            parser.at += 1;
+            while parser.kind() != ")" {
+                cgo |= parser.import()?;
+            }
+            parser.take(")")?;
+            parser.semi()?;
+        } else {
+            cgo |= parser.import()?;
+        }
+    }
+    Some((documentation, cgo))
+}
+
 pub(super) fn boundary(source: &GoTypeSourceBuffer) -> Result<usize, GoSourcePackageErrorKind> {
     let raw = source.bytes();
     let at = if raw.starts_with(&[0xef, 0xbb, 0xbf]) {

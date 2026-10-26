@@ -2,6 +2,7 @@
 //! Comments and line directives never redirect reads or physical locations.
 //! Lexical success is not Go parsing, typing or program admission.
 use super::{validate::unicode, GoTypeSourceBuffer};
+mod compiler_header;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum GoLexErrorKind {
@@ -125,6 +126,7 @@ struct Lexer<'a> {
     line_start: usize,
     semi: bool,
     tokens: Vec<GoLexToken>,
+    compiler_header: Option<compiler_header::State>,
 }
 impl Lexer<'_> {
     fn ch(&self) -> Option<char> {
@@ -160,6 +162,9 @@ impl Lexer<'_> {
             literal,
             inserted,
         });
+        if let Some(header) = &mut self.compiler_header {
+            header.accept(kind);
+        }
         Ok(())
     }
     fn semi(&mut self, at: usize) -> Result<()> {
@@ -436,6 +441,13 @@ impl Lexer<'_> {
     }
     fn run(&mut self) -> Result<()> {
         loop {
+            if self
+                .compiler_header
+                .as_ref()
+                .is_some_and(compiler_header::State::done)
+            {
+                return Ok(());
+            }
             while let Some(c) = self.ch() {
                 if matches!(c, ' ' | '\t' | '\r') || c == '\n' && !self.semi {
                     self.bump();
@@ -556,8 +568,60 @@ pub(super) fn lex_go_source_prefix(
         line_start: 0,
         semi: false,
         tokens: vec![],
+        compiler_header: None,
     };
     lexer.run()?;
+    Ok(GoLexedSource {
+        source: source.clone(),
+        tokens: lexer.tokens,
+    })
+}
+
+// A physical ImportsOnly view with the native parser's one-token lookahead.
+// Keep the complete owned original source; do not fabricate an EOF Go file or
+// require valid later bodies. Only the bytes actually scanned affect this view.
+pub(super) fn lex_go_compiler_import_header(source: &GoTypeSourceBuffer) -> Result<GoLexedSource> {
+    if !matches!(source.object().kind.as_str(), "go_file" | "excluded_source") {
+        return fail(0, GoLexErrorKind::Source);
+    }
+    let raw = source.bytes();
+    let valid = match std::str::from_utf8(raw) {
+        Ok(text) => text,
+        Err(error) => std::str::from_utf8(&raw[..error.valid_up_to()]).map_err(|_| GoLexError {
+            offset: error.valid_up_to(),
+            kind: GoLexErrorKind::Utf8,
+        })?,
+    };
+    let first = if valid.starts_with('\u{feff}') { 3 } else { 0 };
+    let mut lexer = Lexer {
+        text: valid,
+        at: first,
+        line_start: 0,
+        semi: false,
+        tokens: vec![],
+        compiler_header: Some(compiler_header::State::new()),
+    };
+    lexer.run()?;
+    // Go scanner.next diagnoses these while reading the character immediately
+    // after a token too. Invalid bytes beyond that lookahead remain unvisited.
+    if lexer.at == valid.len() && valid.len() < raw.len() {
+        return fail(lexer.at, GoLexErrorKind::Utf8);
+    }
+    if let Some(offset) = raw[..lexer.at].iter().position(|&b| b == 0) {
+        return fail(offset, GoLexErrorKind::Nul);
+    }
+    if raw.get(lexer.at) == Some(&0) {
+        return fail(lexer.at, GoLexErrorKind::Nul);
+    }
+    if let Some(offset) = raw[first..lexer.at]
+        .windows(3)
+        .position(|s| s == b"\xef\xbb\xbf")
+    {
+        return fail(first + offset, GoLexErrorKind::ByteOrderMark);
+    }
+    if raw[lexer.at..].starts_with(b"\xef\xbb\xbf") {
+        return fail(lexer.at, GoLexErrorKind::ByteOrderMark);
+    }
     Ok(GoLexedSource {
         source: source.clone(),
         tokens: lexer.tokens,

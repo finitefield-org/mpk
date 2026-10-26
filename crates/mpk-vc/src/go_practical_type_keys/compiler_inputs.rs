@@ -10,10 +10,12 @@ use crate::release_bundle::{
 use crate::source_manifest::{ComponentIdentity, ToolchainIdentity};
 use std::sync::Arc;
 mod build_info;
+mod source_roles;
 pub use build_info::{
     parse_go_executable_build_info_text, read_go_executable_build_info, GoExecutableBuildInfo,
     GoExecutableModule,
 };
+pub use source_roles::{derive_go_compiler_source_role, GoCompilerSourceIndex};
 
 const DOMAIN: HashDomain = HashDomain::new("MPK-PRIVATE-GO-COMPILER-IMAGE-INPUTS-1.0");
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -27,6 +29,7 @@ pub enum GoSourceCompilerInputError {
     Source,
     Namespace,
     BuildInfo,
+    SourceRole,
 }
 impl std::fmt::Display for GoSourceCompilerInputError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -289,6 +292,7 @@ pub struct GoSourceCompilerInputs {
     files: Vec<GoCompilerFileBuffer>,
     source_files: BTreeMap<String, GoTypeSourceObject>,
     executable_build_info: BTreeMap<String, GoExecutableBuildInfo>,
+    source_index: GoCompilerSourceIndex,
 }
 impl GoSourceCompilerInputs {
     pub fn export_inputs(&self) -> &GoSourceExportInputs {
@@ -314,6 +318,9 @@ impl GoSourceCompilerInputs {
     }
     pub fn executable_build_info(&self) -> &BTreeMap<String, GoExecutableBuildInfo> {
         &self.executable_build_info
+    }
+    pub fn source_index(&self) -> &GoCompilerSourceIndex {
+        &self.source_index
     }
 }
 
@@ -447,14 +454,7 @@ pub fn import_go_source_compiler_inputs(
         let original = snapshot.source(&object.id).ok_or(C::Source)?;
         need(original.bytes() == file.bytes(), C::Source)?;
     }
-    let std = source_files.get("go/src/go.mod").ok_or(C::Source)?;
-    let parsed =
-        derive_go_source_graph_manifest(snapshot.source(&std.id).ok_or(C::Source)?.clone())
-            .map_err(|_| C::Source)?;
-    need(
-        parsed.module_path() == Some(b"std".as_slice()) && !parsed.requires_newer_compiler(),
-        C::Source,
-    )?;
+    let source_index = GoCompilerSourceIndex::derive(snapshot, &source_files)?;
     // Check each available original parent observation. Unvisited namespaces
     // remain unknown; empty directories are not invented from a file inventory.
     for file in &files {
@@ -505,5 +505,6 @@ pub fn import_go_source_compiler_inputs(
         files,
         source_files,
         executable_build_info,
+        source_index,
     })
 }

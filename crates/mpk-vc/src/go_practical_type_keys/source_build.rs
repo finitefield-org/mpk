@@ -143,6 +143,9 @@ fn arch(name: &str) -> bool {
 fn filename(name: &str) -> bool {
     name.ends_with(".go") && target_filename(name)
 }
+pub(super) fn compiler_filename_matches(source: &GoTypeSourceBuffer) -> bool {
+    filename(source.object().path.rsplit('/').next().unwrap())
+}
 fn target_filename(name: &str) -> bool {
     if name.starts_with(['_', '.']) {
         return false;

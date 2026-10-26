@@ -14,6 +14,16 @@ Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The W01 [whole original SDK source-role checkpoint](../migrations/go-practical/t02-w01/verification/compiler-source-roles/README.md)
+independently classifies all5480 prepared SDK sources and715 source package
+directories inside the complete5577-file compiler owner. Every one of11004 raw
+SDK sources and388 boundary probes agrees with pinned Go, including a complete
+40000-import header/body without an AST-node restriction. All23 affected Rust
+roots and scoped native/lint/format checks pass;3 fully rehashed unused-role claims
+reject while retaining all original bytes,182 packages/5697 objects and the Root
+contract. Strict standard-module semantics and remaining W01 authority/proof work
+stay open; the profile remains inactive.
+
 The W01 [original executable build-info checkpoint](../migrations/go-practical/t02-w01/verification/compiler-build-info/README.md)
 independently reads all9 actual owned SDK tools and binds exact Go1.25/tool/host/
 settings facts. All187 native byte/layout/grammar observations agree;12 affected
