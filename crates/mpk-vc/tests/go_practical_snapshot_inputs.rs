@@ -689,3 +689,78 @@ fn capture_inputs_reject_coherent_omission_of_an_actual_unselected_original_file
         &json!({"status":"passed","omitted_original_object":omitted.object(),"complete_original_snapshot_objects":original.snapshot_inputs().source_objects().len(),"original_and_rebound_selected_contract_functions":2,"original_snapshot_unchanged":true,"error":error.to_string(),"source_or_context_proof":false}),
     );
 }
+
+#[test]
+fn capture_inputs_reject_invalid_directives_in_an_original_cgo_disabled_file() {
+    let directory = root()
+        .parent()
+        .unwrap()
+        .join("cgo-directives/native/native-originals/owned");
+    let p: Value = serde_json::from_slice(
+        &std::fs::read(directory.join("complete-cgo-capture.json")).unwrap(),
+    )
+    .unwrap();
+    let original = capture(&directory, &p);
+    assert_eq!(original.derive_contracts().unwrap().functions().len(), 2);
+    let sources = buffers(&p, "snapshot_sources", Some(&directory));
+    let old = sources
+        .iter()
+        .find(|s| s.object().path == "cgo.go")
+        .unwrap();
+    assert_eq!(old.object().kind, "excluded_source");
+    let raw = std::str::from_utf8(old.bytes())
+        .unwrap()
+        .replace("CFLAGS", "UNKNOWN");
+    let changed = GoTypeSourceBuffer::new(
+        &old.object().capability,
+        &old.object().path,
+        &old.object().kind,
+        raw.as_bytes(),
+    )
+    .unwrap();
+    let mut wire = wire(&p);
+    for object in wire["objects"].as_array_mut().unwrap() {
+        if object["id"] == old.object().id {
+            *object = serde_json::to_value(changed.object()).unwrap();
+        }
+    }
+    wire["objects"]
+        .as_array_mut()
+        .unwrap()
+        .sort_by(|a, b| a["id"].as_str().cmp(&b["id"].as_str()));
+    reseal(&mut wire);
+    let revised = sources
+        .iter()
+        .map(|s| {
+            if s.object().id == old.object().id {
+                changed.clone()
+            } else {
+                s.clone()
+            }
+        })
+        .collect::<Vec<_>>();
+    let snapshot =
+        import_go_source_snapshot_inputs(&serde_json::to_vec(&wire).unwrap(), &revised).unwrap();
+    assert_eq!(
+        snapshot.source_objects().len(),
+        original.snapshot_inputs().source_objects().len()
+    );
+    let mut record: Value =
+        serde_json::from_slice(&unhex(p["capture_hex"].as_str().unwrap())).unwrap();
+    record["snapshot_inputs_sha256"] = json!(snapshot.content_sha256());
+    seal(&mut record, "MPK-PRIVATE-GO-SOURCE-CAPTURE-INPUTS-1.0");
+    let selection = original.selection_inputs().clone();
+    assert_eq!(selection.derive_contracts().unwrap().functions().len(), 2);
+    let GoSourceSnapshotError::Package(error) =
+        import_go_source_capture_inputs(&serde_json::to_vec(&record).unwrap(), selection, snapshot)
+            .unwrap_err()
+    else {
+        panic!("actual cgo directive rejection")
+    };
+    assert_eq!(error.kind(), GoSourcePackageErrorKind::CgoDirective);
+    assert_eq!(error.path(), "cgo.go");
+    output(
+        "coherent-excluded-cgo-directive.json",
+        &json!({"status":"passed","complete_original_objects":sources.len(),"same_original_source_selection_and_two_contract_candidates":true,"original_excluded_source":old.object(),"changed_excluded_source":changed.object(),"error":error.to_string(),"cgo_enabled":false,"source_or_context_proof":false}),
+    );
+}

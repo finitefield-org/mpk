@@ -1692,3 +1692,20 @@ no other program-language support. Cgo directives/embed and canonical module/
 compiler/export/context/launcher/program authority remain due. R01/R06/W01 stay
 open; the profile stays inactive and the cumulative T02 gate remains final W04.
 Go/Rust only.
+
+
+## Original cgo-disabled documentation
+
+The [cgo documentation component](verification/cgo-directives/README.md)
+validates original import-C comment attachment, text, conditions, arguments,
+source-directory safety and native directive forms while cgo stays disabled.
+All88 native cases agree, including31 rejections, and all2,003 original package
+directories/66 cgo-disabled files remain intact. A complete5,486-object native
+owner preserves its excluded cgo source; changing only that source's directive
+rejects coherently resealed capture with the identical source selection and two
+contract candidates. All21 affected Rust roots and three native Go roots pass,
+with strict Clippy/vet/formats, original43-root/zero-or70-error universes and32
+exact proof streams. No C program/build hook executes. Embed selection and
+canonical module/compiler/export/context/launcher/program authority remain due.
+R01/R06/W01 stay open; the profile stays inactive and the cumulative T02 gate
+remains final W04. Go/Rust only.

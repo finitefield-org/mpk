@@ -256,6 +256,14 @@ fn legacy(text: &str) -> Option<bool> {
     Some(result)
 }
 
+pub(super) fn cgo_condition(text: &str) -> bool {
+    if text.contains(['&', '|', '(', ')']) {
+        constraint::evaluate(text, tag).unwrap_or(false)
+    } else {
+        legacy(text).unwrap_or(false)
+    }
+}
+
 /// Reconstruct filename and leading-comment constraints from exact original
 /// Go bytes. No caller tags, host defaults, version facts or filesystem reads.
 /// Import/cgo classification, complete package membership and compiler/context

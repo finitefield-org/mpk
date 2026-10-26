@@ -171,10 +171,16 @@ pub(super) fn comment_prefix(raw: &[u8]) -> Option<&[u8]> {
     Some(&raw[..reader.at])
 }
 
+pub(super) struct Header {
+    pub name: String,
+    pub imports: Vec<String>,
+    pub cgo_docs: Vec<String>,
+}
+
 pub(super) fn read(
     source: &GoTypeSourceBuffer,
     end: usize,
-) -> Result<(String, Vec<String>), GoSourcePackageErrorKind> {
+) -> Result<Header, GoSourcePackageErrorKind> {
     let parsed =
         parse::parse_go_source_header(source, end).map_err(|_| GoSourcePackageErrorKind::Header)?;
     let root = &parsed.nodes()[parsed.root()];
@@ -236,5 +242,10 @@ pub(super) fn read(
         }
         imports.insert(path);
     }
-    Ok((name, imports.into_iter().collect()))
+    let cgo_docs = cgo::import_docs(&parsed);
+    Ok(Header {
+        name,
+        imports: imports.into_iter().collect(),
+        cgo_docs,
+    })
 }

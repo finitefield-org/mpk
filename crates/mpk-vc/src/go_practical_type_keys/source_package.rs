@@ -2,6 +2,7 @@
 //! Module/compiler/export ownership and source/program proofs remain separate.
 use super::*;
 mod auxiliary;
+mod cgo;
 mod graphic;
 mod header;
 pub use auxiliary::GoSourceAuxiliaryKind;
@@ -16,6 +17,7 @@ pub enum GoSourcePackageErrorKind {
     NoGo,
     Role,
     CgoTest,
+    CgoDirective,
     Membership,
 }
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -190,9 +192,9 @@ pub fn derive_go_source_package_files(
         let mut file_imports = vec![];
         if !ignored {
             let end = header::boundary(source).map_err(|kind| failure(kind, &path))?;
-            let (mut package, paths) =
-                header::read(source, end).map_err(|kind| failure(kind, &path))?;
-            file_imports = paths;
+            let header = header::read(source, end).map_err(|kind| failure(kind, &path))?;
+            let mut package = header.name;
+            file_imports = header.imports;
             ignored = package == "documentation";
             if !ignored {
                 test = matches.is_test_file();
@@ -209,6 +211,10 @@ pub fn derive_go_source_package_files(
                 cgo = file_imports.iter().any(|p| p == "C");
                 if cgo && test {
                     return Err(failure(GoSourcePackageErrorKind::CgoTest, &path));
+                }
+                if cgo {
+                    cgo::validate(&header.cgo_docs)
+                        .map_err(|_| failure(GoSourcePackageErrorKind::CgoDirective, &path))?;
                 }
                 ignored = cgo;
             }

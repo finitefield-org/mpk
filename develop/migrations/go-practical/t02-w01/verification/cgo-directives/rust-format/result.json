@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_type_keys/source_build.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_package.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_package/header.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_package/cgo.rs",
+    "crates/mpk-vc/tests/go_practical_cgo_directives.rs",
+    "crates/mpk-vc/tests/go_practical_snapshot_inputs.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/rust-format/inputs.json",
+    "bytes": 6946443,
+    "sha256": "597af76d76db478c1f550ae6dae1b09c74028ad46ad820e8c5f02d6e53677fe3",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/run.py",
+    "bytes": 10721,
+    "sha256": "6e4641aa9a7dc8848c5d1272bf322c29a000e76a66c3aa6baa0cccd7ecb06ca6",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T05:32:28.646835+00:00",
+  "selection_reason": "Independently validate the original import-C documentation even when fixed cgo-disabled selection excludes its file. Compare exact native original comment grouping/text, conditions, quoted arguments, SRCDIR/safe-name rules and every original package universe. Exercise the actual original owned capture and coherent changed excluded directives with identical source selection/contracts. Run only21 affected Rust roots, three new Go roots, strict Clippy, Go vet and changed-file formats. Preserve all43-root/zero-or70-error/type domains and32 proof bytes. Unchanged full lexer/parser/language/kernel/foundation corpora are retained without repetition; no cgo build, new source language, retired-language tests or intermediate whole gate.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 3.7719752909906674,
+  "consumed_inputs_unchanged": false,
+  "expected_formatter_mutation": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/rust-format/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/rust-format/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T05:32:32.420201+00:00"
+}

@@ -8713,3 +8713,44 @@ callee/program proofs, all56 foundation families/all169 demands, native Linux
 gates and remaining T02-T11 stay due. R01/R06/W01 remain open; the practical
 profile stays inactive. The cumulative T02 gate remains final W04:
 `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 187. T02-W01 original cgo-disabled import documentation
+
+The [cgo documentation component](../migrations/go-practical/t02-w01/verification/cgo-directives/README.md)
+validates original import-C preamble syntax even when cgo-disabled selection
+excludes that file. Independent header token gaps reconstruct physical leading
+comment groups, spec-versus-single-declaration attachment and exact native
+comment-text normalization. Fixed-target modern/legacy condition evaluation,
+quote/escape-aware argument splitting, SRCDIR chunk safety, native verbs and
+noescape/nocallback forms retain the pinned Go behavior. No flags, hooks or
+C programs execute; cgo and additional program-language frontends stay inactive.
+
+All88 actual native cases agree, including31 rejections, comment placement/text,
+physical line directives, argument/path safety and exact modern/legacy parser
+bounds. All668 pure/668 wide/667 owned original package directories agree:
+2,003 total with66 cgo-disabled files. A new native owner preserves every one
+of5,486 original objects and its excluded unexecuted cgo body. Changing only
+that source's directive to an invalid verb and coherently resealing snapshot/
+capture rejects at package validation, with the exact same source selection
+and both original call-contract candidates. No original source is rewritten.
+
+All21 affected Rust roots and three actual Go roots pass, with strict affected
+Clippy, Go vet and explicit changed-file formats. Earlier39-header/178-auxiliary/
+182-build/all13,853-original-Go-candidate cases retain their complete scopes.
+Both43-root source units, zero/70-error universes and every byte of32 proof
+streams remain. Independent inspection verifies complete original raw buffers,
+all source kinds/directories, entire new owned capture, five complete pinned Go
+source witnesses and coherent-control identities. Unchanged full lexer/parser/
+language/kernel/foundation checks are retained without repetition.
+
+All nine source epochs preserve complete consumed original inputs and exact
+raw outputs, distinguishing formatter writes from frozen verification. No source,
+root/type/error/proof scope, review rule/seal/exclusion, premise, math rule or
+kernel budget changes. These are host candidate checks, without a native Linux
+release resource claim. Embed selection, canonical module/build/compiler/export/
+capture/context/descriptor/registry and launcher authority, source/IR/state/
+storage/frame/callee/program proofs, all56 foundation families/all169 demands,
+native Linux gates and remaining T02-T11 stay due. R01/R06/W01 remain open;
+the practical profile stays inactive. The cumulative T02 gate remains final W04:
+`./scripts/check-fast.sh`. Go/Rust only.
