@@ -1,0 +1,18 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: matching on `Some` with `ok()` is redundant
+  --> crates/mpk-vc/tests/go_practical_module_manifests.rs:56:9
+   |
+56 |         if let Some(parsed) = input.as_ref().ok() {
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#match_result_ok
+   = note: `-D clippy::match-result-ok` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::match_result_ok)]`
+help: consider matching on `Ok(parsed)` and removing the call to `ok` instead
+   |
+56 -         if let Some(parsed) = input.as_ref().ok() {
+56 +         if let Ok(parsed) = input.as_ref() {
+   |
+
+error: could not compile `mpk-vc` (test "go_practical_module_manifests") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

@@ -1,5 +1,5 @@
 // Exact Go1.25.0 Unicode15.0.0 IsGraphic ranges; generated from the pinned native table.
-pub(super) fn graphic(c: char) -> bool {
+pub(in crate::go_practical_type_keys) fn graphic(c: char) -> bool {
     let n = c as u32;
     RANGES
         .binary_search_by(|&(lo, hi)| {

@@ -2,6 +2,11 @@
 //! verification, root authorization and installed compiler/context authority
 //! remain separate obligations; this reader does not confer those authorities.
 use super::*;
+mod manifest;
+pub use manifest::{
+    derive_go_source_module_manifest, GoModuleReplacement, GoModuleRequirement, GoModuleRetraction,
+    GoSourceModuleManifest, GoSourceModuleManifestError,
+};
 mod data;
 pub use data::{
     import_go_module_sums, inspect_go_module_archive, GoModuleArchiveInventory,
@@ -168,138 +173,30 @@ struct Manifest {
     replacements: Vec<(ModuleVersion, ModuleVersion)>,
 }
 type ModuleVersion = (String, String);
-// Read original tokens/line blocks. This deliberately projects only identity,
-// Go requirement and replacements; it is not a complete modfile validator or
-// MVS implementation. Unknown directive semantics are neither erased from the
-// original buffer nor promoted to proof facts.
-fn manifest(raw: &[u8]) -> ModuleResult<Manifest> {
-    let text = std::str::from_utf8(raw).map_err(|_| E::Manifest)?;
-    let mut at = 0;
-    let mut lines = vec![];
-    let mut line = vec![];
-    while at < text.len() {
-        let b = text.as_bytes()[at];
-        if matches!(b, b' ' | b'\t' | b'\r') {
-            at += 1;
-            continue;
-        }
-        if b == b'\n' {
-            lines.push(std::mem::take(&mut line));
-            at += 1;
-            continue;
-        }
-        if text[at..].starts_with("//") {
-            at += text[at..].find('\n').unwrap_or(text.len() - at);
-            continue;
-        }
-        need(!text[at..].starts_with("/*"), E::Manifest)?;
-        let start = at;
-        if b == b'"' || b == b'`' {
-            at += 1;
-            let mut closed = false;
-            while at < text.len() {
-                let c = text.as_bytes()[at];
-                at += 1;
-                need(c != b'\n', E::Manifest)?;
-                if c == b {
-                    closed = true;
-                    break;
-                }
-                if c == b'\\' && b == b'"' {
-                    need(at < text.len() && text.as_bytes()[at] != b'\n', E::Manifest)?;
-                    at += 1
-                }
-            }
-            need(closed, E::Manifest)?;
-        } else if matches!(b, b'(' | b')' | b'[' | b']' | b'{' | b'}' | b',') {
-            at += 1
-        } else {
-            while at < text.len() {
-                let c = text[at..].chars().next().unwrap();
-                if c.is_whitespace()
-                    || matches!(c, '(' | ')' | '[' | ']' | '{' | '}' | ',')
-                    || text[at..].starts_with("//")
-                    || text[at..].starts_with("/*")
-                {
-                    break;
-                }
-                need(!c.is_control(), E::Manifest)?;
-                at += c.len_utf8();
-            }
-            need(at > start, E::Manifest)?;
-        }
-        line.push(text[start..at].to_string());
-    }
-    lines.push(line);
-    let string = |s: &str| -> ModuleResult<String> {
-        if s.starts_with('"') {
-            String::from_utf8(source_scopes::unquote(s.as_bytes()).map_err(|_| E::Manifest)?)
-                .map_err(|_| E::Manifest)
-        } else {
-            need(!s.contains(['\'', '"', '`']), E::Manifest)?;
-            Ok(s.into())
-        }
-    };
-    let mut result = Manifest::default();
-    let mut block: Option<String> = None;
-    for mut line in lines {
-        if line.is_empty() {
-            continue;
-        }
-        if line == [")"] && block.is_some() {
-            block = None;
-            continue;
-        }
-        if block.is_none() && line.len() == 2 && line[1] == "(" {
-            block = Some(line[0].clone());
-            continue;
-        }
-        if block.is_none() && line.len() == 3 && line[1..] == ["(", ")"] {
-            continue;
-        }
-        let verb = if let Some(block) = &block {
-            block.clone()
-        } else {
-            line.remove(0)
-        };
-        match verb.as_str() {
-            "module" => {
-                need(result.module.is_empty() && line.len() == 1, E::Manifest)?;
-                result.module = string(&line[0])?;
-            }
-            "go" => {
-                need(result.go.is_none() && line.len() == 1, E::Manifest)?;
-                result.go = Some(line[0].clone());
-            }
-            "replace" => {
-                let arrow = line.iter().position(|s| s == "=>").ok_or(E::Manifest)?;
-                need(
-                    matches!(arrow, 1 | 2) && (line.len() == arrow + 2 || line.len() == arrow + 3),
-                    E::Manifest,
-                )?;
-                let old = (
-                    string(&line[0])?,
-                    if arrow == 2 {
-                        string(&line[1])?
-                    } else {
-                        String::new()
-                    },
-                );
-                let new = (
-                    string(&line[arrow + 1])?,
-                    if line.len() == arrow + 3 {
-                        string(&line[arrow + 2])?
-                    } else {
-                        String::new()
-                    },
-                );
-                result.replacements.push((old, new));
-            }
-            _ => {}
-        }
-    }
-    need(block.is_none() && !result.module.is_empty(), E::Manifest)?;
-    Ok(result)
+// The shared strict reader retains every original dependency directive. This
+// adapter supplies only the existing module/path facts to export correspondence.
+fn manifest(source: &GoTypeSourceBuffer, main: bool) -> ModuleResult<Manifest> {
+    let parsed = derive_go_source_module_manifest(source.clone(), main).map_err(|_| E::Manifest)?;
+    Ok(Manifest {
+        module: String::from_utf8(parsed.module_path().to_vec()).map_err(|_| E::Manifest)?,
+        go: parsed.go_requirement().map(str::to_string),
+        replacements: parsed
+            .replacements()
+            .iter()
+            .map(|r| {
+                Ok((
+                    (
+                        String::from_utf8(r.old_path.clone()).map_err(|_| E::Manifest)?,
+                        r.old_version.clone(),
+                    ),
+                    (
+                        String::from_utf8(r.new_path.clone()).map_err(|_| E::Manifest)?,
+                        r.new_version.clone(),
+                    ),
+                ))
+            })
+            .collect::<ModuleResult<Vec<_>>>()?,
+    })
 }
 fn replacement<'a>(
     main: &'a Manifest,
@@ -329,6 +226,30 @@ pub struct GoSourceModuleObservations {
     manifests: BTreeMap<String, GoTypeSourceObject>,
 }
 impl GoSourceModuleObservations {
+    /// Derive dependency directives from every owned selected manifest. This
+    /// exposes original graph inputs; it does not perform version selection.
+    pub fn derive_module_manifests(
+        &self,
+    ) -> std::result::Result<BTreeMap<String, GoSourceModuleManifest>, GoSourceModuleManifestError>
+    {
+        let snapshot = self.exports.capture_inputs().snapshot_inputs();
+        let main = self
+            .exports
+            .capture_inputs()
+            .selection_inputs()
+            .contract_inputs()
+            .main_source_object_id();
+        self.manifests
+            .iter()
+            .map(|(path, object)| {
+                let source = snapshot
+                    .source(&object.id)
+                    .ok_or(GoSourceModuleManifestError::Source)?;
+                let manifest = derive_go_source_module_manifest(source.clone(), object.id == main)?;
+                Ok((path.clone(), manifest))
+            })
+            .collect()
+    }
     pub fn export_inputs(&self) -> &GoSourceExportInputs {
         &self.exports
     }
@@ -383,7 +304,7 @@ pub fn import_go_source_module_observations(
     let main_source = snapshot
         .source(contracts.main_source_object_id())
         .ok_or(E::Manifest)?;
-    let main = manifest(main_source.bytes())?;
+    let main = manifest(main_source, true)?;
     let physical = |o: &GoTypeSourceObject| -> ModuleResult<String> {
         Ok(join(
             origins.get(&o.capability).ok_or(E::Manifest)?,
@@ -433,7 +354,7 @@ pub fn import_go_source_module_observations(
             .source(&module.manifest_source_object_id)
             .ok_or(E::Manifest)?;
         need(source.object().kind == "go_mod", E::Manifest)?;
-        let facts = manifest(source.bytes())?;
+        let facts = manifest(source, row.main)?;
         let target = if let Some(target) = &row.replace {
             need(
                 !row.main && !target.main && target.replace.is_none() && target.error.is_none(),

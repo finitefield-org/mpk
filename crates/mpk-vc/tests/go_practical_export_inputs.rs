@@ -223,6 +223,13 @@ fn whole_original_module_graph_binds_replacements_and_every_package_owner() {
     assert_eq!(manifests.len(), 3);
     assert_eq!(manifests["example.com/alias"].path, "local-a/go.mod");
     assert_eq!(manifests["example.com/shared"].path, "local-b/go.mod");
+    let parsed = input.derive_module_manifests().unwrap();
+    assert_eq!(parsed.len(), 3);
+    assert_eq!(parsed["example.com/policy"].requirements().len(), 2);
+    assert_eq!(
+        parsed["example.com/alias"].original_source().object(),
+        &manifests["example.com/alias"]
+    );
     assert_eq!(manifests["example.com/policy"].path, "go.mod");
     assert_eq!(
         input

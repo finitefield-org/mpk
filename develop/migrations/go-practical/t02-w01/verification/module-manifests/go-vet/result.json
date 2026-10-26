@@ -1,0 +1,86 @@
+{
+  "status": "failed",
+  "command": [
+    "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "vet",
+    "."
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "GOROOT": "/private/tmp/mpk-go125-20261025-download/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-export-inputs-190-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-module-observations-191-mod"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/go-vet/inputs.json",
+    "bytes": 48303037,
+    "sha256": "7b959304decdc31f0f2a8596dbd48d7b45b49ffbaa6d5d07af2d3d5481195b71",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/run.py",
+    "bytes": 15162,
+    "sha256": "a79d8af47e0c73421a0c9845f4b5c0b70f86cc325806d6a75d4d046d26236027",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T12:54:49.996409+00:00",
+  "selection_reason": "Independently read every original strict go.mod directive into owned dependency requirements, exclusions, replacements and retractions, preserving original bytes/order/duplicates and canonical module versions. Connect this reader to original module/source/export correspondence. Compare pinned Go main/dependency dispositions, quoted arbitrary path bytes, invalid source/comments, exact Go/toolchain patch rules, complete semver normalization and large decimal domains. Run the new manifest tests and affected existing module-data/export consumers, strict Clippy/vet and changed-file formats. Preserve all original package/source/proof universes, unchanged previous full resource/source/language/foundation evidence and frozen limits. General MVS and root/compiler/context/source/program/native Linux release authority remain due.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "go_tool": {
+    "path": "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "bytes": 14117888,
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "mode": 493
+  },
+  "exit_code": 1,
+  "seconds": 35.21577320800861,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "external_originals_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/go-vet/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/go-vet/stderr.log",
+    "bytes": 186,
+    "sha256": "27a1b17c92297ffcd5a6068e5b8398dadad6d38336229a20e7cef18188bb9bfb",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T12:55:25.224213+00:00"
+}

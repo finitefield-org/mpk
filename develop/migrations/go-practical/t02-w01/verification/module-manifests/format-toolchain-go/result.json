@@ -1,0 +1,86 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go125-20261025-download/go/bin/gofmt",
+    "-w",
+    "go-tools/go2vir/practical_module_manifest_oracle_test.go"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "GOROOT": "/private/tmp/mpk-go125-20261025-download/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-export-inputs-190-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-module-observations-191-mod"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/format-toolchain-go/inputs.json",
+    "bytes": 1168,
+    "sha256": "2805edd5da16249160af450ef04bb3c1af9aef3896c5e94566808dbc927b88c3",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/run.py",
+    "bytes": 16126,
+    "sha256": "3c446b84a3d2ff964180d910bee689f50b6b7b19d324afadd12500b57ce73e65",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T13:15:21.845145+00:00",
+  "selection_reason": "Independently read every original strict go.mod directive into owned dependency requirements, exclusions, replacements and retractions, preserving original bytes/order/duplicates and canonical module versions. Connect this reader to original module/source/export correspondence. Compare pinned Go main/dependency dispositions, quoted arbitrary path bytes, invalid source/comments, exact Go/toolchain patch rules, complete semver normalization and large decimal domains. Run the new manifest tests and affected existing module-data/export consumers, strict Clippy/vet and changed-file formats. Unchanged standalone sum/ZIP protocol matrices retain their previous complete evidence without repetition; actual original module-data and export consumers still run. Preserve all original package/source/proof universes, unchanged previous full resource/source/language/foundation evidence and frozen limits. General MVS and root/compiler/context/source/program/native Linux release authority remain due.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "go_tool": {
+    "path": "/private/tmp/mpk-go125-20261025-download/go/bin/gofmt",
+    "bytes": 2914768,
+    "sha256": "f8c812fc7e22867e5970a687898cd62d8c15561ccc6800c84ac9fdc6583e4b03",
+    "mode": 493
+  },
+  "exit_code": 0,
+  "seconds": 0.02663720800774172,
+  "consumed_inputs_unchanged": false,
+  "expected_formatter_mutation": true,
+  "external_originals_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/format-toolchain-go/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/format-toolchain-go/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T13:15:21.875393+00:00"
+}

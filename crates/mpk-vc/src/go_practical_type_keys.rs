@@ -17,9 +17,11 @@ pub use export_inputs::{
     import_go_source_export_inputs, GoSourceExportInputError, GoSourceExportInputs,
 };
 pub use module_observations::{
-    import_go_module_sums, import_go_source_module_observations, inspect_go_module_archive,
-    GoModuleArchiveInventory, GoModuleArchiveMember, GoModuleSums, GoSourceModuleData,
-    GoSourceModuleDataError, GoSourceModuleObservationError, GoSourceModuleObservations,
+    derive_go_source_module_manifest, import_go_module_sums, import_go_source_module_observations,
+    inspect_go_module_archive, GoModuleArchiveInventory, GoModuleArchiveMember,
+    GoModuleReplacement, GoModuleRequirement, GoModuleRetraction, GoModuleSums, GoSourceModuleData,
+    GoSourceModuleDataError, GoSourceModuleManifest, GoSourceModuleManifestError,
+    GoSourceModuleObservationError, GoSourceModuleObservations,
 };
 mod lex;
 pub use contract_inputs::{

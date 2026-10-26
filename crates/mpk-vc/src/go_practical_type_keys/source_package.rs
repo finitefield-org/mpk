@@ -4,7 +4,7 @@ use super::*;
 mod auxiliary;
 mod cgo;
 mod embedded;
-mod graphic;
+pub(super) mod graphic;
 mod header;
 pub use auxiliary::GoSourceAuxiliaryKind;
 pub use embedded::{derive_go_source_embedded_files, GoSourceEmbeddedFiles};

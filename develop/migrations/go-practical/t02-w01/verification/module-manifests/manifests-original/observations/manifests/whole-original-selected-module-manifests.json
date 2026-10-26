@@ -1,0 +1,192 @@
+{
+  "observations": [
+    {
+      "modules": [
+        {
+          "facts": {
+            "exclusions": [],
+            "go_requirement": "1.22",
+            "language_version": "go1.22",
+            "module_path_hex": "6578616d706c652e636f6d2f616c696173",
+            "replacements": [],
+            "requirements": [],
+            "retractions": [],
+            "toolchain_suggestion": null
+          },
+          "original_object": {
+            "bytes": 33,
+            "capability": "workspace/main",
+            "id": "8ac2052b22d2248c4b4f8bb3a0737733e3173d7bea42448501f07567c33d0a47",
+            "kind": "go_mod",
+            "path": "local-a/go.mod",
+            "raw_sha256": "31759d5d710ce0b2c22c88d035b802db0fd0d74a6de39c1e9dba97d1813ba49d",
+            "schema": "mpk.go.source_object.v1"
+          },
+          "path": "example.com/alias"
+        },
+        {
+          "facts": {
+            "exclusions": [],
+            "go_requirement": "1.25.0",
+            "language_version": "go1.25",
+            "module_path_hex": "6578616d706c652e636f6d2f706f6c696379",
+            "replacements": [
+              {
+                "new_path_hex": "2e2f77696c6463617264",
+                "new_version": "",
+                "old_path_hex": "6578616d706c652e636f6d2f616c696173",
+                "old_version": ""
+              },
+              {
+                "new_path_hex": "2e2f6c6f63616c2d61",
+                "new_version": "",
+                "old_path_hex": "6578616d706c652e636f6d2f616c696173",
+                "old_version": "v1.0.0"
+              },
+              {
+                "new_path_hex": "2e2f6c6f63616c2d62",
+                "new_version": "",
+                "old_path_hex": "6578616d706c652e636f6d2f736861726564",
+                "old_version": ""
+              },
+              {
+                "new_path_hex": "2e2f77696c6463617264",
+                "new_version": "",
+                "old_path_hex": "6578616d706c652e636f6d2f706f6c696379",
+                "old_version": ""
+              },
+              {
+                "new_path_hex": "2e2f77696c6463617264",
+                "new_version": "",
+                "old_path_hex": "6578616d706c652e636f6d2f756e73656c6563746564",
+                "old_version": ""
+              },
+              {
+                "new_path_hex": "2e2f77696c6463617264",
+                "new_version": "",
+                "old_path_hex": "6578616d706c652e636f6d2f756e73656c6563746564",
+                "old_version": ""
+              }
+            ],
+            "requirements": [
+              {
+                "indirect": false,
+                "path_hex": "6578616d706c652e636f6d2f616c696173",
+                "version": "v1.0.0"
+              },
+              {
+                "indirect": false,
+                "path_hex": "6578616d706c652e636f6d2f736861726564",
+                "version": "v1.0.0"
+              }
+            ],
+            "retractions": [],
+            "toolchain_suggestion": null
+          },
+          "original_object": {
+            "bytes": 349,
+            "capability": "workspace/main",
+            "id": "ac0e7b1d834fc1ab7334027987be405dfd9d3d3e71eba80da91bc3c986ace99c",
+            "kind": "go_mod",
+            "path": "go.mod",
+            "raw_sha256": "47e82a0fcd49dea58beadd30d2a4e4b37fa19b767a9df0dba75adf2aeeadfcda",
+            "schema": "mpk.go.source_object.v1"
+          },
+          "path": "example.com/policy"
+        },
+        {
+          "facts": {
+            "exclusions": [],
+            "go_requirement": "1.23",
+            "language_version": "go1.23",
+            "module_path_hex": "6578616d706c652e636f6d2f736861726564",
+            "replacements": [],
+            "requirements": [],
+            "retractions": [],
+            "toolchain_suggestion": null
+          },
+          "original_object": {
+            "bytes": 34,
+            "capability": "workspace/main",
+            "id": "0f78780facaca122bb5fbeb52d19051fd792a12ee7373e08629c56effa92f131",
+            "kind": "go_mod",
+            "path": "local-b/go.mod",
+            "raw_sha256": "6a40110fad556f79354a4a9358af6afb781bca836357a9cb2f24a8f266466998",
+            "schema": "mpk.go.source_object.v1"
+          },
+          "path": "example.com/shared"
+        }
+      ],
+      "original_packages": 181,
+      "original_snapshot_objects": 5667,
+      "original_source_or_package_universe_reduced": false,
+      "owner": "modules-owned"
+    },
+    {
+      "modules": [
+        {
+          "facts": {
+            "exclusions": [],
+            "go_requirement": "1.22",
+            "language_version": "go1.22",
+            "module_path_hex": "6578616d706c652e636f6d2f446570",
+            "replacements": [],
+            "requirements": [],
+            "retractions": [],
+            "toolchain_suggestion": null
+          },
+          "original_object": {
+            "bytes": 31,
+            "capability": "workspace/dep",
+            "id": "44d155f68b1aa0e8925196ad4a3723b21cf4c081edf21a26967c4ea0a660c2de",
+            "kind": "go_mod",
+            "path": "cache/download/example.com/!dep/@v/v1.2.0.mod",
+            "raw_sha256": "3722967a34231a47df714a38e192482f4f9f0f61635c59149b9755edd6f1d073",
+            "schema": "mpk.go.source_object.v1"
+          },
+          "path": "example.com/Dep"
+        },
+        {
+          "facts": {
+            "exclusions": [],
+            "go_requirement": "1.25.0",
+            "language_version": "go1.25",
+            "module_path_hex": "6578616d706c652e636f6d2f706f6c696379",
+            "replacements": [
+              {
+                "new_path_hex": "6578616d706c652e636f6d2f446570",
+                "new_version": "v1.2.0",
+                "old_path_hex": "6578616d706c652e636f6d2f446570",
+                "old_version": "v1.1.0"
+              }
+            ],
+            "requirements": [
+              {
+                "indirect": false,
+                "path_hex": "6578616d706c652e636f6d2f446570",
+                "version": "v1.1.0"
+              }
+            ],
+            "retractions": [],
+            "toolchain_suggestion": null
+          },
+          "original_object": {
+            "bytes": 124,
+            "capability": "workspace/main",
+            "id": "36fed53216a5cb6c36107c2d925753f7f3a175fd177c03950ce231407fc26e1b",
+            "kind": "go_mod",
+            "path": "go.mod",
+            "raw_sha256": "bbdf13e3748183e998713670172fee8f0a0af6f127db975bf0766075fe770204",
+            "schema": "mpk.go.source_object.v1"
+          },
+          "path": "example.com/policy"
+        }
+      ],
+      "original_packages": 2,
+      "original_snapshot_objects": 5490,
+      "original_source_or_package_universe_reduced": false,
+      "owner": "versioned-owned"
+    }
+  ],
+  "status": "passed"
+}

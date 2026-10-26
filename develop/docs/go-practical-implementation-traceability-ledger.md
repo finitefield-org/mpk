@@ -8973,3 +8973,41 @@ storage/frame/callee/program proofs, all56 foundation/all169 demands, native Lin
 gates and remaining T02–T11 stay due. R01/R04/R05/R06/W01 remain open; the practical
 profile stays inactive. The cumulative T02 gate remains final W04:
 `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 193. T02-W01 independent original module directives
+
+The [manifest component](../migrations/go-practical/t02-w01/verification/module-manifests/README.md) derives all
+ordered require/exclude/replacement/retraction facts, module identity and exact
+Go/language/toolchain policy from owned original bytes. Full decimal version
+normalization, prerelease/build/path-major rules, duplicate/order retention,
+byte syntax, native Unquote behavior and original non-UTF8 compiler-name suffixes
+are independent of caller graphs or source adapters. Original retraction strings
+retain the pinned parser's intentional non-normalization. Existing original
+module/source/export correspondence consumes this reader and exposes all five
+actual selected manifests for subsequent graph reconstruction.
+
+All656 main/dependency native verdicts and facts agree:162 accept/494 reject.
+The first652 full raw sources/verdicts remain exact; four additional raw toolchain
+suffix cases retain both modes. Ten affected Rust roots, three native Go roots
+and an additional updated-oracle execution, current strict Clippy/vet/formats
+pass. Initial unused test import and redundant Result-match failures retain exact
+source/output epochs. Local181-package/5667-object and versioned2-package/5490-
+object universes, every source/export/cache/archive and unused HTTP body remain.
+No original initialization or unsupported application body is executed.
+
+Independent inspection checks all observations and original raw owner buffers,
+prior preimages and unchanged32 proof bytes. Earlier43-root/zero-or70-error/source/
+resource/language/foundation/protocol matrices keep full evidence without new
+replay claims. Complete consumed input/output epochs and formatter preimages
+remain. Explicit-path formatting preserves every actual input; functional
+consumers retain their full source/package universes. No scanner rule/seal/
+exclusion, source/type/error/proof domain, premise, math rule or kernel cap changes.
+Host checks confer no native Linux release acceptance.
+
+General MVS/pruned/unpruned graph reconstruction and complete graph inputs,
+compiler/root/capture/context/descriptor/registry/launcher authority, source/IR/
+state/storage/frame/callee/program proofs, all56 foundation families/all169
+demands, native Linux gates and remaining T02–T11 remain due. R01/R04/R05/R06/W01
+stay open; the practical profile stays inactive. The cumulative T02 gate remains
+final W04: `./scripts/check-fast.sh`. Go/Rust only.
