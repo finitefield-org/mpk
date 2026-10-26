@@ -1753,3 +1753,24 @@ facts, compiler pragma validation, full56 foundation/all169 source/program proof
 native Linux gates and remaining T02-T11 stay due. R01/R06/W01 remain open;
 the profile stays inactive and the cumulative T02 gate remains final W04.
 Go/Rust only.
+
+
+## Whole original compiler/export input linkage
+
+The [original export component](verification/export-inputs/README.md) binds the
+whole actual Go compiler output and every captured archive to original source,
+auxiliary/resource and import membership. Original SDK vendor resolution, exact
+selected-root/physical-origin correspondence and actual archive bounds/target/
+build IDs retain complete bytes. The HTTP/embed owner keeps180 packages/179
+exports/5,663 objects/164,865,655 bytes with unchanged unused unsupported body
+and unexecuted initialization. All22 affected Rust roots,21 metadata and four
+fully resealed archive controls pass. The new native root passes; an output-
+directory collision blocks the next ownership test before execution, then the
+same test passes in a separate evidence directory. Both attempts stay complete;
+the successful export root is not repeated. Strict Clippy/vet/formats pass,
+with both43-root units/zero-or70-error universes/all32 proof streams intact.
+All ten consumed source epochs and exact outputs remain preserved. Compiler-image/
+module/root/context/registry authority, full source/export/program/foundation
+proofs, native Linux gates and remaining T02-T11 stay due. R01/R06/W01 remain
+open; the practical profile stays inactive and T02's full gate stays final W04.
+Go/Rust only.

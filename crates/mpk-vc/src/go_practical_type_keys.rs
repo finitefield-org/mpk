@@ -11,6 +11,10 @@ use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 
 mod contract_inputs;
+mod export_inputs;
+pub use export_inputs::{
+    import_go_source_export_inputs, GoSourceExportInputError, GoSourceExportInputs,
+};
 mod lex;
 pub use contract_inputs::{
     import_go_source_contract_inputs, GoSourceContractDerivationError, GoSourceContractInputError,

@@ -1,0 +1,5 @@
+package policy
+import "example.com/policy/helper"
+func Root(x uint16)uint16{return helper.Work(x)}
+func Unused(c chan int,f func(int)int)int{return f(<-c)}
+func init(){panic("must not execute")}

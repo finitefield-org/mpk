@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--check",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_type_keys.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/export_inputs.rs",
+    "crates/mpk-vc/tests/go_practical_export_inputs.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/export-inputs/format-check/inputs.json",
+    "bytes": 20319144,
+    "sha256": "5a78304c09fc882c428b6cb7bbb6be94a8dca4948b9f5f3ad87fcafb7aae71d6",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/export-inputs/run.py",
+    "bytes": 11751,
+    "sha256": "37b15f652c922431589c574032f281e70cdf7b18008e9179559c80f9500b831d",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T08:34:48.282675+00:00",
+  "selection_reason": "Bind full original Go command metadata and all actual source/export packages to the immutable original capture. Independently reconstruct complete Go/auxiliary/resource/import/vendor membership, physical-origin relationships, selected command root, build IDs and every byte/bound of original Go archives. Exercise an actual whole source-owned HTTP/embed package with unused unsupported body and unexecuted initializer; preserve the entire native stdout/stderr/snapshot and all source/export bytes. Run new export controls plus affected snapshot/source/resource consumers, original capture ownership, strict Clippy/vet and changed-file formats. Retain both original43-root/zero-or70-error universes/all32 proof bytes and all untouched parser/build/language/foundation/native-source observations without repeat. No original source, type/error domain, frozen limit or installed context is substituted or weakened.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 14.392218124994542,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "external_originals_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/export-inputs/format-check/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/export-inputs/format-check/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T08:35:02.675917+00:00"
+}

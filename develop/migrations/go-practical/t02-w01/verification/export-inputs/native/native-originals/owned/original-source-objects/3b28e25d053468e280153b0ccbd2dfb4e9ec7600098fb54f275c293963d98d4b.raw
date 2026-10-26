@@ -1,0 +1,7 @@
+package policy
+import("embed";"net/http")
+//go:embed all:assets
+var Unused embed.FS
+func Root(x uint16)uint16{return x+1}
+func UnusedHandler(r *http.Request){ go func(){select{}}() }
+func init(){panic("never execute original initialization")}

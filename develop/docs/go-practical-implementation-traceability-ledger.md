@@ -8857,3 +8857,53 @@ validation, source/IR/state/storage/frame/callee/program proofs, all56 foundatio
 families/all169 demands, native Linux gates and remaining T02-T11 stay due.
 R01/R06/W01 remain open; the practical profile stays inactive. The cumulative
 T02 gate remains final W04: `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 190. T02-W01 whole original compiler/export input linkage
+
+The [original export component](../migrations/go-practical/t02-w01/verification/export-inputs/README.md)
+hands off the whole original Go compiler output/diagnostics and complete source/
+export locations under the same original owner lock as capture. No caller source,
+metadata, typed package or export callback enters this boundary. Returned buffers
+remain independent after original owner retirement. The unchanged capture API
+uses the same locked implementation.
+
+Rust independently reconstructs source/test/excluded membership, all auxiliary
+classes, production resources and direct SDK-vendor imports from original bytes.
+It binds those facts to the original command's complete package/root/path set
+and every original export object. Physical-origin names and image/compiler hashes
+retain provenance; they do not authorize roots or authenticate an installed image.
+Duplicate native fields reject before typed decoding. Unsafe remains the actual
+source-owned intrinsic, without a fabricated archive. Archive package definitions,
+member bounds, target/version headers, build IDs and padding are checked while
+all member bytes remain owned. No signature/export metadata becomes a source proof.
+
+The actual HTTP/embed owner retains all180 packages/179 exports/5,663 objects/
+164,865,655 raw bytes, including the original unused unsupported HTTP body and
+unexecuted initializer. All22 affected Rust roots pass. Twenty-one coherent
+metadata controls reject crossed roots/source/import/resource/export states;
+four fully resealed archive controls reject changed target, magic, bounds or
+padding/trailer with the same original source selection and one Root contract.
+Every changed whole archive/snapshot/capture/export transport remains preserved.
+Both original43-root units, zero/70-error universes and all32 proof streams stay
+byte-exact. Unchanged unrelated parser/build/language/foundation/native source
+matrices keep their previous full evidence without repetition.
+
+The native export root passes ownership/retirement checks. The first combined
+process then hits an exclusive owned evidence-directory collision before the
+existing capture test executes. The full failed epoch and exact output remain;
+the same unchanged ownership root passes separately with its own directory.
+The already successful export root is retained without repeat. Strict affected
+Clippy, vet and formats pass. Independent inspection checks the entire original
+owner, metadata/export inventory/control transports, complete primary Go sources
+and original proof bytes. All ten consumed source epochs preserve complete
+paths/bytes/modes and exact outputs, distinguishing formatter and harness states.
+No source/root/type/error/proof scope, review rule/seal/exclusion, premise, math
+rule or kernel budget changes; host checks make no native Linux resource claim.
+
+Independent compiler-image/stdlib/analysis inventory and module/root/context/
+descriptor/registry/launcher authority, full source/export semantics and source/
+IR/state/storage/frame/callee/program proofs, all56 foundation families/all169
+demands, native Linux gates and remaining T02-T11 stay due. R01/R06/W01 remain
+open and the practical profile stays inactive. The cumulative T02 gate remains
+final W04: `./scripts/check-fast.sh`. Go/Rust only.

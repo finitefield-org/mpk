@@ -129,6 +129,10 @@ func (owner *practicalOriginalPackages) captureInputs(roots []practicalClosureRe
 	}
 	owner.mutex.Lock()
 	defer owner.mutex.Unlock()
+	return owner.captureInputsLocked(roots)
+}
+
+func (owner *practicalOriginalPackages) captureInputsLocked(roots []practicalClosureRef) (practicalCaptureInputs, error) {
 	selection, err := owner.selectionInputsLocked(roots)
 	if err != nil {
 		return practicalCaptureInputs{}, err
