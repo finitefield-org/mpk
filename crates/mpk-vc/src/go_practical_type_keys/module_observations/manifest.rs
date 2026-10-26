@@ -1,8 +1,10 @@
 //! Original strict go.mod facts for dependency-graph reconstruction. Parsing
 //! neither selects module versions nor authenticates a source capability.
 use super::*;
+mod lax;
 mod syntax;
 mod versions;
+pub use lax::{derive_go_source_graph_manifest, GoSourceGraphManifest};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum GoSourceModuleManifestError {

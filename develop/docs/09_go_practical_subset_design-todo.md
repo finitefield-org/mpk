@@ -14,6 +14,12 @@ Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The W01 [dependency manifest checkpoint](../migrations/go-practical/t02-w01/verification/graph-manifests/README.md)
+adds an independent original ParseLax reader and exact version/pruning facts.
+All779 native/Rust facts agree, preserving all656 earlier original mode cases;
+11 affected Rust roots and the native oracle pass. Full graph transport, root
+expansion/MVS and the remaining source/context/foundation work stay open.
+
 The W01 [original graph checkpoint](../migrations/go-practical/t02-w01/verification/module-graphs/README.md)
 retains native initial/final graph inputs, old/empty unselected manifests,
 pruning, replacements and whole original owner handoffs. Five new and15 affected

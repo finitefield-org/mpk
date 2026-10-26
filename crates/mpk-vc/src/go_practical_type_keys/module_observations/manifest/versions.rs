@@ -167,6 +167,18 @@ fn accepted(v: &GoVersion) -> bool {
         .then_with(|| decimal(&v.pre, ""))
         != std::cmp::Ordering::Greater
 }
+pub(super) fn compare_go(a: &str, b: &str) -> std::cmp::Ordering {
+    match (go(a), go(b)) {
+        (None, None) => std::cmp::Ordering::Equal,
+        (None, Some(_)) => std::cmp::Ordering::Less,
+        (Some(_), None) => std::cmp::Ordering::Greater,
+        (Some(a), Some(b)) => decimal(&a.major, &b.major)
+            .then_with(|| decimal(&a.minor, &b.minor))
+            .then_with(|| decimal(&a.patch, &b.patch))
+            .then_with(|| a.kind.cmp(&b.kind))
+            .then_with(|| decimal(&a.pre, &b.pre)),
+    }
+}
 pub(super) fn language(s: &str, main: bool) -> ManifestResult<String> {
     let v = go(s).ok_or(M::Version)?;
     // modfile's GoVersionRE additionally requires a positive major, explicit

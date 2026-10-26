@@ -9051,3 +9051,28 @@ native Linux release gates and remaining T02–T11 remain due. R01/R04/R05/R06/W
 remain open; the practical profile stays inactive. No source/type/error/proof
 universe, review rule, premise, math rule or kernel cap changes. The cumulative
 T02 gate remains final W04: `./scripts/check-fast.sh`. Go/Rust only.
+
+
+## 195. T02-W01 independent original dependency manifest parsing
+
+The [dependency manifest component](../migrations/go-practical/t02-w01/verification/graph-manifests/README.md)
+adds the independent Rust ParseLax disposition with complete original bytes,
+optional unchecked module paths, ignored main-only/unknown blocks, require/
+retract/ignore facts and exact lax Go-version behavior. Decimal strings retain
+full version widths; syntax and semantic Go-version validity stay separate.
+Pruning/implicit go/compiler-availability facts and ordered requirements agree
+with original initial/final graph buffers, including old/empty unselected inputs.
+The full181-package/5667-object HTTP source/export/module owner remains intact.
+
+All779 native/Rust verdicts and full fact rows agree:376 accept/403 reject,
+including every earlier656 source/mode row and123 new cases. Eight original
+parser-library files match the complete pinned SDK byte for byte. All11 affected
+Rust roots, native oracle, strict Clippy/vet/formats and two strengthened original
+requirement comparisons pass. Eleven complete source epochs and exact outputs
+remain. Original32 proof streams and earlier43-root/zero-or70-error universes
+retain prior evidence without new proof replay. Independent complete graph
+transport, root expansion/MVS, transient native input and compiler/root/context/
+registry/source/program/foundation authority, native Linux gates and remaining
+T02–T11 remain due. R01/R04/R05/R06/W01 stay open; the practical profile stays
+inactive. The cumulative T02 gate remains final W04: `./scripts/check-fast.sh`.
+Go/Rust only; no scope, premise, math rule, scanner policy or kernel cap changes.

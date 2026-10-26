@@ -136,6 +136,12 @@ fn known_block(verb: &[u8]) -> bool {
     )
 }
 pub(super) fn lines(raw: &[u8]) -> ManifestResult<Vec<Line>> {
+    lines_mode(raw, true)
+}
+pub(super) fn lax_lines(raw: &[u8]) -> ManifestResult<Vec<Line>> {
+    lines_mode(raw, false)
+}
+fn lines_mode(raw: &[u8], strict: bool) -> ManifestResult<Vec<Line>> {
     let tokens = tokens(raw)?;
     let mut at = 0;
     let mut out = vec![];
@@ -167,7 +173,8 @@ pub(super) fn lines(raw: &[u8]) -> ManifestResult<Vec<Line>> {
                 && (eol(&tokens[at + 1])
                     || matches!(tokens[at + 1], Token::Punct(b')')) && eol(&tokens[at + 2]))
             {
-                need(prefix.len() == 1 && known_block(&prefix[0]), M::Directive)?;
+                let keep = prefix.len() == 1 && known_block(&prefix[0]);
+                need(!strict || keep, M::Directive)?;
                 let verb = prefix.remove(0);
                 if matches!(tokens[at + 1], Token::Punct(b')')) {
                     at += 2;
@@ -205,11 +212,13 @@ pub(super) fn lines(raw: &[u8]) -> ManifestResult<Vec<Line>> {
                     } else {
                         vec![]
                     };
-                    out.push(Line {
-                        verb: verb.clone(),
-                        arguments,
-                        suffix,
-                    });
+                    if keep {
+                        out.push(Line {
+                            verb: verb.clone(),
+                            arguments,
+                            suffix,
+                        });
+                    }
                     if !matches!(tokens[at], Token::End) {
                         at += 1;
                     }

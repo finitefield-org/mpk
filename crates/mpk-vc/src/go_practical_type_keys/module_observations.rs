@@ -4,8 +4,9 @@
 use super::*;
 mod manifest;
 pub use manifest::{
-    derive_go_source_module_manifest, GoModuleReplacement, GoModuleRequirement, GoModuleRetraction,
-    GoSourceModuleManifest, GoSourceModuleManifestError,
+    derive_go_source_graph_manifest, derive_go_source_module_manifest, GoModuleReplacement,
+    GoModuleRequirement, GoModuleRetraction, GoSourceGraphManifest, GoSourceModuleManifest,
+    GoSourceModuleManifestError,
 };
 mod data;
 pub use data::{
