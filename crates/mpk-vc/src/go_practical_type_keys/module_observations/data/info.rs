@@ -1,6 +1,6 @@
 //! Native Go module-cache metadata shape, without root or VCS authority.
-use super::super::module_observations::folded;
-use super::super::GoTypeSourceBuffer;
+use super::super::super::GoTypeSourceBuffer;
+use super::archive::folded;
 use crate::canonical_json::{parse_strict_json, StrictJsonLimits, StrictJsonValue};
 use serde::de::{MapAccess, Visitor};
 use serde::{Deserialize, Deserializer};
@@ -8,19 +8,19 @@ use serde_json::value::RawValue;
 use std::fmt;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum GoAnalysisModuleInfoError {
+pub enum GoModuleCacheInfoError {
     Source,
     Json,
     Fields,
     Time,
     Version,
 }
-impl fmt::Display for GoAnalysisModuleInfoError {
+impl fmt::Display for GoModuleCacheInfoError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Go analysis module info: {self:?}")
+        write!(f, "Go module cache info: {self:?}")
     }
 }
-impl std::error::Error for GoAnalysisModuleInfoError {}
+impl std::error::Error for GoModuleCacheInfoError {}
 
 // Retain source order and raw values: Go's time.Time.UnmarshalJSON receives the
 // literal string without unescaping, even though ordinary JSON fields decode.
@@ -122,11 +122,11 @@ fn valid_go_time(raw: &[u8]) -> bool {
 
 /// Check the original metadata bytes using Go's strict JSON and struct rules.
 /// Unknown fields are retained, not interpreted as VCS or source authority.
-pub fn validate_go_analysis_module_info(
+pub fn validate_go_module_cache_info(
     source: &GoTypeSourceBuffer,
     expected_version: &str,
-) -> Result<(), GoAnalysisModuleInfoError> {
-    use GoAnalysisModuleInfoError as E;
+) -> Result<(), GoModuleCacheInfoError> {
+    use GoModuleCacheInfoError as E;
     if source.object().kind != "metadata" {
         return Err(E::Source);
     }

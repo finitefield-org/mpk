@@ -37,12 +37,12 @@ pub use module_observations::{
     derive_go_source_graph_manifest, derive_go_source_module_manifest,
     derive_go_source_strict_module_manifest, import_go_module_sums,
     import_go_source_module_graph_inputs, import_go_source_module_observations,
-    inspect_go_module_archive, GoModuleArchiveInventory, GoModuleArchiveMember,
-    GoModuleDebugSetting, GoModuleReplacement, GoModuleRequirement, GoModuleRetraction,
-    GoModuleSums, GoSourceGraphManifest, GoSourceGraphModule, GoSourceModuleData,
-    GoSourceModuleDataError, GoSourceModuleGraphError, GoSourceModuleGraphInputs,
-    GoSourceModuleManifest, GoSourceModuleManifestError, GoSourceModuleObservationError,
-    GoSourceModuleObservations, GoSourceStrictModuleManifest,
+    inspect_go_module_archive, validate_go_module_cache_info, GoModuleArchiveInventory,
+    GoModuleArchiveMember, GoModuleCacheInfoError, GoModuleDebugSetting, GoModuleReplacement,
+    GoModuleRequirement, GoModuleRetraction, GoModuleSums, GoSourceGraphManifest,
+    GoSourceGraphModule, GoSourceModuleData, GoSourceModuleDataError, GoSourceModuleGraphError,
+    GoSourceModuleGraphInputs, GoSourceModuleManifest, GoSourceModuleManifestError,
+    GoSourceModuleObservationError, GoSourceModuleObservations, GoSourceStrictModuleManifest,
 };
 mod lex;
 pub use contract_inputs::{

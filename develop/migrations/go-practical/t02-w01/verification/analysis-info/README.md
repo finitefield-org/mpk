@@ -8,6 +8,8 @@ original time literals and the existing strict JSON limits. Go's time parser
 accepts some spellings beyond strict RFC 3339, including one-digit hours,
 comma fractions and offset boundaries; the original bytes are preserved.
 VCS fields are checked as metadata types only, not trusted as VCS authority.
+The validator is now shared with the [general module-data reader](../module-info/README.md),
+which also checks original application dependency metadata.
 
 The [native observations](native/result.json) retain all 213 original source
 objects, 133 vendor files and three original cache records. Go and Rust agree

@@ -5,8 +5,9 @@ use base64::{engine::general_purpose::STANDARD as BASE64, Engine};
 use sha2::{Digest, Sha256};
 mod archive;
 mod identity;
-pub(in crate::go_practical_type_keys) use archive::folded;
+mod info;
 pub use archive::{inspect_go_module_archive, GoModuleArchiveInventory, GoModuleArchiveMember};
+pub use info::{validate_go_module_cache_info, GoModuleCacheInfoError};
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum GoSourceModuleDataError {
@@ -190,13 +191,7 @@ impl GoSourceModuleObservations {
                     .map_err(|_| D::Missing)
             };
             let info = read(".info", "metadata")?;
-            parse_strict_json(info.bytes(), limits()).map_err(|_| D::Metadata)?;
-            let value: serde_json::Value =
-                serde_json::from_slice(info.bytes()).map_err(|_| D::Metadata)?;
-            need(
-                value["Version"].as_str() == Some(target.version.as_str()),
-                D::Metadata,
-            )?;
+            validate_go_module_cache_info(info, &target.version).map_err(|_| D::Metadata)?;
             let ziphash = read(".ziphash", "metadata")?;
             let expected = sums
                 .checksum(&target.path, &target.version)

@@ -303,7 +303,7 @@ fn member_hash(raw: &[u8], h: &Header) -> DataResult<String> {
     }
     Ok(format!("{:x}", sha.finalize()))
 }
-pub(in crate::go_practical_type_keys) fn folded(s: &str) -> String {
+pub(super) fn folded(s: &str) -> String {
     s.chars()
         .map(|c| {
             fold::PAIRS

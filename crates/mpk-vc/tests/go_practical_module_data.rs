@@ -466,3 +466,132 @@ fn coherently_resealed_auxiliary_data_cannot_replace_original_module_contents() 
         &json!({"status":"passed","cases":rows,"full_original_source_and_proof_universes_preserved":true}),
     );
 }
+
+#[test]
+fn original_application_module_info_matches_native_go_with_complete_capture() {
+    let directory = root().join("module-observations/native/native-originals/versioned-owned");
+    let (packet, original) = original_modules("versioned-owned");
+    let all = buffers(&packet, "snapshot_sources", Some(&directory));
+    let old = all
+        .iter()
+        .find(|source| {
+            source.object().capability == "workspace/dep"
+                && source.object().path == "cache/download/example.com/!dep/@v/v1.2.0.info"
+        })
+        .unwrap();
+    let evidence = root().join("module-info/native");
+    let native = read(&evidence.join("native.json"));
+    assert_eq!(native["original_source_id"], old.object().id);
+    assert_eq!(
+        native["original_source_objects"].as_u64().unwrap() as usize,
+        all.len()
+    );
+    assert_eq!(native["original_root_or_vcs_authority"], false);
+    let cases = native["observations"].as_array().unwrap();
+    assert_eq!(cases.len(), 14);
+    let mut checked = Vec::new();
+    for case in cases {
+        let name = case["name"].as_str().unwrap();
+        let row = &case["source"];
+        let raw = std::fs::read(
+            evidence
+                .join("observed-bytes")
+                .join(row["raw_file"].as_str().unwrap()),
+        )
+        .unwrap();
+        let changed =
+            GoTypeSourceBuffer::import(&serde_json::to_vec(&row["object"]).unwrap(), &raw).unwrap();
+        assert_eq!(
+            (
+                &changed.object().capability,
+                &changed.object().path,
+                &changed.object().kind
+            ),
+            (
+                &old.object().capability,
+                &old.object().path,
+                &old.object().kind
+            )
+        );
+        let accepted = case["accepted"].as_bool().unwrap();
+        assert_eq!(
+            validate_go_module_cache_info(&changed, "v1.2.0").is_ok(),
+            accepted,
+            "direct native metadata {name}"
+        );
+        let sources = all
+            .iter()
+            .map(|source| {
+                if source.object().id == old.object().id {
+                    changed.clone()
+                } else {
+                    source.clone()
+                }
+            })
+            .collect::<Vec<_>>();
+        let mut wire: Value =
+            serde_json::from_slice(&unhex(packet["snapshot_hex"].as_str().unwrap())).unwrap();
+        wire["objects"] = json!(sources
+            .iter()
+            .map(|source| source.object())
+            .collect::<Vec<_>>());
+        wire["objects"]
+            .as_array_mut()
+            .unwrap()
+            .sort_by(|a, b| a["id"].as_str().cmp(&b["id"].as_str()));
+        wire["snapshot_sha256"] = json!(native_hash(&wire));
+        seal(&mut wire, "MPK-PRIVATE-GO-SOURCE-SNAPSHOT-INPUTS-1.0");
+        let snapshot =
+            import_go_source_snapshot_inputs(&serde_json::to_vec(&wire).unwrap(), &sources)
+                .unwrap();
+        let mut capture: Value =
+            serde_json::from_slice(&unhex(packet["capture_hex"].as_str().unwrap())).unwrap();
+        capture["snapshot_inputs_sha256"] = json!(snapshot.content_sha256());
+        seal(&mut capture, "MPK-PRIVATE-GO-SOURCE-CAPTURE-INPUTS-1.0");
+        let captured = import_go_source_capture_inputs(
+            &serde_json::to_vec(&capture).unwrap(),
+            original
+                .export_inputs()
+                .capture_inputs()
+                .selection_inputs()
+                .clone(),
+            snapshot,
+        )
+        .unwrap();
+        assert_eq!(captured.derive_contracts().unwrap().functions().len(), 1);
+        let mut export: Value =
+            serde_json::from_slice(&unhex(packet["export_inputs_hex"].as_str().unwrap())).unwrap();
+        export["source_capture_inputs_sha256"] = capture["content_sha256"].clone();
+        seal(&mut export, "MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-1.0");
+        let exports =
+            import_go_source_export_inputs(&serde_json::to_vec(&export).unwrap(), captured)
+                .unwrap();
+        let mut module: Value =
+            serde_json::from_slice(&unhex(packet["module_observations_hex"].as_str().unwrap()))
+                .unwrap();
+        module["source_export_inputs_sha256"] = export["content_sha256"].clone();
+        seal(&mut module, "MPK-PRIVATE-GO-SOURCE-MODULE-OBSERVATIONS-1.0");
+        let observations =
+            import_go_source_module_observations(&serde_json::to_vec(&module).unwrap(), exports)
+                .unwrap();
+        let result = observations.verify_offline_module_data();
+        assert_eq!(
+            result.is_ok(),
+            accepted,
+            "{name}: {:?}",
+            result.as_ref().err()
+        );
+        if !accepted {
+            assert_eq!(
+                result.unwrap_err(),
+                GoSourceModuleDataError::Metadata,
+                "{name}"
+            );
+        }
+        checked.push(json!({"case":name,"accepted":accepted,"original_info_id":old.object().id,"changed_info":changed.object(),"snapshot_sha256":wire["snapshot_sha256"],"source_capture_sha256":capture["content_sha256"],"export_sha256":export["content_sha256"],"module_sha256":module["content_sha256"],"original_source_objects":all.len(),"original_root_contracts":1}));
+    }
+    output(
+        "original-application-module-info-controls.json",
+        &json!({"status":"passed","cases":checked,"original_application_and_sdk_sources_preserved":true,"root_or_vcs_authority":false}),
+    );
+}

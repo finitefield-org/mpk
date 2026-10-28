@@ -66,6 +66,11 @@ validates the three cached `.info` records against Go JSON and time observations
 within the same snapshot. Original-root/VCS and source-to-binary authority remain
 open; the Go practical profile is inactive.
 
+The W01 [general module info checkpoint](../migrations/go-practical/t02-w01/verification/module-info/README.md)
+extends the same Go-compatible metadata check to captured application
+dependencies. Go and Rust agree on 14 original-application cases; complete
+capture authority and program proofs remain open.
+
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/
 Zstandard data prefixes. All 425 native/Rust cases retain187 prior cases,9 actual

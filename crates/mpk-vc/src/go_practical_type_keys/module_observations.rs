@@ -10,11 +10,12 @@ pub use manifest::{
     GoSourceModuleManifestError, GoSourceStrictModuleManifest,
 };
 mod data;
-pub(super) use data::{folded, manifest_sum};
+pub(super) use data::manifest_sum;
 mod graph_inputs;
 pub use data::{
-    import_go_module_sums, inspect_go_module_archive, GoModuleArchiveInventory,
-    GoModuleArchiveMember, GoModuleSums, GoSourceModuleData, GoSourceModuleDataError,
+    import_go_module_sums, inspect_go_module_archive, validate_go_module_cache_info,
+    GoModuleArchiveInventory, GoModuleArchiveMember, GoModuleCacheInfoError, GoModuleSums,
+    GoSourceModuleData, GoSourceModuleDataError,
 };
 pub use graph_inputs::{
     import_go_source_module_graph_inputs, GoSourceGraphModule, GoSourceModuleGraphError,

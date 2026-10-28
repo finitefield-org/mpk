@@ -76,6 +76,12 @@ same-snapshot `.info` version and metadata validation for all three archives.
 Go and Rust agree on 36 original/adversarial metadata observations and five
 owner controls. Root/VCS authority and source-to-binary proof remain due.
 
+The [general module info checkpoint](verification/module-info/README.md) uses
+the same metadata validator for captured application dependencies. Fourteen
+Go/Rust cases retain the complete original versioned application/SDK owner and
+one Root contract; the existing local and versioned owners and module-data
+controls also pass. Capture authority and program proofs remain due.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

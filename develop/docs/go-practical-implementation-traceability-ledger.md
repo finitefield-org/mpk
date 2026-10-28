@@ -9513,3 +9513,15 @@ comparison pass, along with scoped lint and formats. This is not exhaustive JSON
 time equivalence or root/VCS, source-to-binary, context or program authority.
 W01 and the practical profile remain open/inactive; native Linux release
 acceptance is not claimed and the cumulative T02 gate remains W04.
+
+## 213. T02-W01 general application module info (in progress)
+
+The [general module info checkpoint](../migrations/go-practical/t02-w01/verification/module-info/README.md)
+applies the Go-compatible `.info` validator to original application dependency
+data as well as analysis inputs. Go and Rust agree on 14 cases using the full
+5,490-object original versioned capture and its one Root contract. Both complete
+original local/versioned owners, eleven prior rebound controls, the analysis
+consumers and scoped lint/formats pass. The inspection rehashes all 22,323
+original application/SDK files. Root/VCS or source/program authority is not
+inferred; W01 and the profile remain open/inactive, native Linux release
+acceptance is not claimed and the cumulative T02 gate remains W04.

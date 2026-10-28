@@ -12,8 +12,9 @@ manifest, info, ziphash and entire ZIP. The manifest h1 is independently derived
 from the original go.mod bytes. The ZIP reader checks every original header and namespace, applies Go’s length/CRC
 rules and hashes complete member contents before deriving
 the sorted Hash1 summary. Captured expanded source files must match their
-corresponding original archive members. Original info Version spelling is
-checked; full independent Time/Origin/native-metadata semantics remain due. Legacy ZIPs without go.mod retain the
+corresponding original archive members. At this checkpoint only the original
+info Version spelling was checked. The later [module info checkpoint](../module-info/README.md)
+also checks Time, Origin and native metadata spelling. Legacy ZIPs without go.mod retain the
 separate cached manifest; no manifest is inserted into an archive.
 
 The [ZIP reader](../../../../../../crates/mpk-vc/src/go_practical_type_keys/module_observations/data/archive.rs)

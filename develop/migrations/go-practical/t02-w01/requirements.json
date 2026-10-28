@@ -1126,7 +1126,7 @@
       },
       "analysis_info_checkpoint": {
         "evidence": "verification/analysis-info/README.md",
-        "executor": "crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/info.rs and module.rs",
+        "executor": "crates/mpk-vc/src/go_practical_type_keys/module_observations/data/info.rs and analysis_vendor/module.rs",
         "scope": "Validate and retain all three original cached .info records from the analysis snapshot using Go JSON field ordering, type, Unicode folding, native time spellings and strict input limits. Go/Rust agree on 36 observations and five complete-snapshot controls with all 213 original objects. This does not prove exhaustive JSON/time equivalence or authenticate root, VCS, source-to-binary or context authority.",
         "original_sources": 213,
         "vendor_files": 133,
@@ -1139,7 +1139,8 @@
         "source_to_binary_correspondence_proved": false,
         "requirement_complete": false,
         "public_profile_activated": false,
-        "native_Linux_release_acceptance": false
+        "native_Linux_release_acceptance": false,
+        "original_executor_before_common_module_move": "crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/info.rs and module.rs"
       }
     },
     {
@@ -1254,6 +1255,22 @@
         "W01_complete": false,
         "public_profile_activated": false,
         "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
+      "general_module_info_checkpoint": {
+        "evidence": "verification/module-info/README.md",
+        "executor": "crates/mpk-vc/src/go_practical_type_keys/module_observations/data/info.rs and data.rs",
+        "scope": "Use the Go-compatible info validator for captured application dependencies. Fourteen native Go/Rust comparisons rebind each original application snapshot, capture, export and module record with all 5490 source objects and one Root contract. Both original local/versioned owners and all eleven existing rebound module-data controls pass. Root/VCS and source/program authority remain separate.",
+        "original_application_and_sdk_files": 22323,
+        "original_versioned_source_objects": 5490,
+        "original_root_contracts": 1,
+        "native_go_rust_observations": 14,
+        "accepted": 7,
+        "rejected": 7,
+        "original_root_or_vcs_authenticated": false,
+        "source_to_binary_correspondence_proved": false,
+        "requirement_complete": false,
+        "public_profile_activated": false,
+        "native_Linux_release_acceptance": false
       }
     },
     {
@@ -2265,7 +2282,7 @@
       },
       "analysis_info_checkpoint": {
         "evidence": "verification/analysis-info/README.md",
-        "executor": "crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/info.rs and module.rs",
+        "executor": "crates/mpk-vc/src/go_practical_type_keys/module_observations/data/info.rs and analysis_vendor/module.rs",
         "scope": "Validate and retain all three original cached .info records from the analysis snapshot using Go JSON field ordering, type, Unicode folding, native time spellings and strict input limits. Go/Rust agree on 36 observations and five complete-snapshot controls with all 213 original objects. This does not prove exhaustive JSON/time equivalence or authenticate root, VCS, source-to-binary or context authority.",
         "original_sources": 213,
         "vendor_files": 133,
@@ -2274,6 +2291,23 @@
         "accepted": 15,
         "rejected": 21,
         "snapshot_controls": 5,
+        "original_root_or_vcs_authenticated": false,
+        "source_to_binary_correspondence_proved": false,
+        "requirement_complete": false,
+        "public_profile_activated": false,
+        "native_Linux_release_acceptance": false,
+        "original_executor_before_common_module_move": "crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/info.rs and module.rs"
+      },
+      "general_module_info_checkpoint": {
+        "evidence": "verification/module-info/README.md",
+        "executor": "crates/mpk-vc/src/go_practical_type_keys/module_observations/data/info.rs and data.rs",
+        "scope": "Use the Go-compatible info validator for captured application dependencies. Fourteen native Go/Rust comparisons rebind each original application snapshot, capture, export and module record with all 5490 source objects and one Root contract. Both original local/versioned owners and all eleven existing rebound module-data controls pass. Root/VCS and source/program authority remain separate.",
+        "original_application_and_sdk_files": 22323,
+        "original_versioned_source_objects": 5490,
+        "original_root_contracts": 1,
+        "native_go_rust_observations": 14,
+        "accepted": 7,
+        "rejected": 7,
         "original_root_or_vcs_authenticated": false,
         "source_to_binary_correspondence_proved": false,
         "requirement_complete": false,
@@ -2287,7 +2321,7 @@
       "status": "partial_source_and_rooted_capture_targeted_checks_passed",
       "executor": "go-tools/go2vir/practical_source_test.go and future capture/context tests",
       "full_T02_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
-      "completed_component": "Source object and rooted checks plus12 module/affected-boundary root tests52 subtests, current vet/format and separate7-root40-subtest legacy build. Full scope review and final T02 gate remain due. Archive component adds an initial13-root46-subtest boundary baseline, then all9 affected archive roots25 subtests and6 pure legacy roots17 subtests after review; current vet/format pass. Versioned module metadata adds9 selected roots34 subtests,5 legacy roots20 subtests and current vet/format; old unaffected pure ZIP/native-Go tests are retained without repetition. Module discovery adds an initial11-root31-subtest selection, then4 affected binder roots10 subtests after checksum-owner regression/fix,7 legacy roots21 subtests and current vet/format. Unchanged earlier checks are retained. Prepared-image validation adds the complete native root/six controls, an11-case metadata matrix on both development compiler builds, five unaffected initial roots11 subtests and independent all5,577-file original-SDK observation. Exact initial fixture-mode failure/input bytes remain. Current vet/format pass; context/complete W01 and final T02 gate remain open. Analysis capture/build adds ten affected roots67 subtests and seven legacy roots41 subtests; the original temporary-output-alias failure is retained. After the test-only selection fix, the complete two-fresh-cache reproduction root passes, an independent third build agrees byte-for-byte, and current vet/format pass. No unaffected earlier suites or intermediate full gate rerun. Frozen core integration adds142 core tests plus one focused new guard,33 current Go roots37 subtests plus two new roots3 subtests,9 legacy roots plus two new roots3 subtests, four ordinary integration roots and18 same-byte paired current-checker cases. Strict core/kernel/ordinary Clippy, current Go vet and final format pass. All255 frozen design members remain unchanged; original paired-observer failure and raw libtest formatter bytes remain. Full T02 gate stays deferred. Actual Nat arithmetic adds five isolated integration roots, strict Clippy and format; all15 same-byte paired checks pass. Eight wrong-definition/unrelated-proof controls and an unproved false clause reject as core type mismatches. The separately classified direct-reflexivity failure is an insufficient recipe, not a semantic/source counterexample. Initial compiler and proof-recipe failures retain exact inputs and diagnostics. Unchanged core/Go/legacy suites are not repeated; full T02 gate stays deferred. Actual integer foundation adds four isolated Rust integration roots, strict Clippy and format; both current checkers agree on15 cases. Initial automatic-conversion reliance in embedding injection is corrected with explicit checked projection/additive rewrites; original sources/candidate/diagnostics remain. Initial negative passes are not counted because the baseline failed; all eleven final controls rerun after corrected full acceptance. No unaffected core/Go/legacy suites or intermediate full gate are repeated. Actual range foundation adds five corrected Rust integration roots plus a focused stronger typed-control root. Both current checkers agree on17 full original candidates, including a well-typed wrong value distinguished from its failing step law. Strict Clippy/format pass. Original insufficient observation recipes, formatter outputs, two restrictive observer failures and weaker extra-carrier-binder control remain. Only the affected Rust control root reruns after fixture strengthening; unchanged core/Go/legacy matrices and passing positive proof bytes are retained. Full T02 gate stays deferred. Word foundation passes complete two-root smoke and four unaffected expanded roots; one false-claim root initially stops at a noncanonical helper name. After canonical naming correction, only the affected12-claim root reruns and passes with actual type rejections. All20 final current-checker candidates agree. Actual decoded-certificate evaluation for1640 inputs agrees with independent finite integer arithmetic and two identical fresh Go1.25.0 outputs from an exact prepared5577-file image. Original naming/native preparation failures and all raw inputs/diagnostics remain. Strict Clippy and complete changed-file format pass, no unaffected checker/legacy units or intermediate gate repeats. Analysis namespace adds two Rust boundary tests, two existing archive tests and three direct snapshot tests, plus the six full-original Go observations and scoped lint/format. The test selection covers the changed owner and both immediate consumers; the T02-wide gate remains deferred to W04. Analysis budget adds the Go/Rust exact shared-limit and one-over comparisons, retaining all original inputs, plus both prior namespace and both archive test roots and scoped lint/format. The selection covers the changed owner and its immediate consumers; the full T02 gate remains at W04. Analysis module adds 20 original/adversarial Go/Rust comparisons, the two prior namespace and two archive test roots, direct manifest and sum parser observations, plus scoped lint/format. The selection covers the changed owner and its immediate consumers; the T02-wide gate remains deferred to W04. Analysis info adds 36 Go/Rust metadata comparisons, five complete-snapshot controls, all direct module/namespace/archive regression roots and the pinned full Unicode fold observation, plus scoped lint/format. Full T02 gate remains deferred to W04.",
+      "completed_component": "Source object and rooted checks plus12 module/affected-boundary root tests52 subtests, current vet/format and separate7-root40-subtest legacy build. Full scope review and final T02 gate remain due. Archive component adds an initial13-root46-subtest boundary baseline, then all9 affected archive roots25 subtests and6 pure legacy roots17 subtests after review; current vet/format pass. Versioned module metadata adds9 selected roots34 subtests,5 legacy roots20 subtests and current vet/format; old unaffected pure ZIP/native-Go tests are retained without repetition. Module discovery adds an initial11-root31-subtest selection, then4 affected binder roots10 subtests after checksum-owner regression/fix,7 legacy roots21 subtests and current vet/format. Unchanged earlier checks are retained. Prepared-image validation adds the complete native root/six controls, an11-case metadata matrix on both development compiler builds, five unaffected initial roots11 subtests and independent all5,577-file original-SDK observation. Exact initial fixture-mode failure/input bytes remain. Current vet/format pass; context/complete W01 and final T02 gate remain open. Analysis capture/build adds ten affected roots67 subtests and seven legacy roots41 subtests; the original temporary-output-alias failure is retained. After the test-only selection fix, the complete two-fresh-cache reproduction root passes, an independent third build agrees byte-for-byte, and current vet/format pass. No unaffected earlier suites or intermediate full gate rerun. Frozen core integration adds142 core tests plus one focused new guard,33 current Go roots37 subtests plus two new roots3 subtests,9 legacy roots plus two new roots3 subtests, four ordinary integration roots and18 same-byte paired current-checker cases. Strict core/kernel/ordinary Clippy, current Go vet and final format pass. All255 frozen design members remain unchanged; original paired-observer failure and raw libtest formatter bytes remain. Full T02 gate stays deferred. Actual Nat arithmetic adds five isolated integration roots, strict Clippy and format; all15 same-byte paired checks pass. Eight wrong-definition/unrelated-proof controls and an unproved false clause reject as core type mismatches. The separately classified direct-reflexivity failure is an insufficient recipe, not a semantic/source counterexample. Initial compiler and proof-recipe failures retain exact inputs and diagnostics. Unchanged core/Go/legacy suites are not repeated; full T02 gate stays deferred. Actual integer foundation adds four isolated Rust integration roots, strict Clippy and format; both current checkers agree on15 cases. Initial automatic-conversion reliance in embedding injection is corrected with explicit checked projection/additive rewrites; original sources/candidate/diagnostics remain. Initial negative passes are not counted because the baseline failed; all eleven final controls rerun after corrected full acceptance. No unaffected core/Go/legacy suites or intermediate full gate are repeated. Actual range foundation adds five corrected Rust integration roots plus a focused stronger typed-control root. Both current checkers agree on17 full original candidates, including a well-typed wrong value distinguished from its failing step law. Strict Clippy/format pass. Original insufficient observation recipes, formatter outputs, two restrictive observer failures and weaker extra-carrier-binder control remain. Only the affected Rust control root reruns after fixture strengthening; unchanged core/Go/legacy matrices and passing positive proof bytes are retained. Full T02 gate stays deferred. Word foundation passes complete two-root smoke and four unaffected expanded roots; one false-claim root initially stops at a noncanonical helper name. After canonical naming correction, only the affected12-claim root reruns and passes with actual type rejections. All20 final current-checker candidates agree. Actual decoded-certificate evaluation for1640 inputs agrees with independent finite integer arithmetic and two identical fresh Go1.25.0 outputs from an exact prepared5577-file image. Original naming/native preparation failures and all raw inputs/diagnostics remain. Strict Clippy and complete changed-file format pass, no unaffected checker/legacy units or intermediate gate repeats. Analysis namespace adds two Rust boundary tests, two existing archive tests and three direct snapshot tests, plus the six full-original Go observations and scoped lint/format. The test selection covers the changed owner and both immediate consumers; the T02-wide gate remains deferred to W04. Analysis budget adds the Go/Rust exact shared-limit and one-over comparisons, retaining all original inputs, plus both prior namespace and both archive test roots and scoped lint/format. The selection covers the changed owner and its immediate consumers; the full T02 gate remains at W04. Analysis module adds 20 original/adversarial Go/Rust comparisons, the two prior namespace and two archive test roots, direct manifest and sum parser observations, plus scoped lint/format. The selection covers the changed owner and its immediate consumers; the T02-wide gate remains deferred to W04. Analysis info adds 36 Go/Rust metadata comparisons, five complete-snapshot controls, all direct module/namespace/archive regression roots and the pinned full Unicode fold observation, plus scoped lint/format. Full T02 gate remains deferred to W04. General module info adds 14 Go/Rust original-application cases across the complete snapshot/capture/export/module chain, both complete local/versioned owners, eleven prior rebound controls, analysis consumers and scoped lint/format. The unchanged complete original input files were independently rehashed; full T02 gate remains deferred to W04.",
       "latest_scoped_checks": {
         "evidence": "verification/source-value-relations/verification.json",
         "language_scope": [
