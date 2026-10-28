@@ -1,0 +1,8 @@
+   Compiling mpk-cli v0.1.0 (/workspace/crates/mpk-cli)
+    Finished `test` profile [unoptimized] target(s) in 8.07s
+     Running tests/go_practical_live_export_projection.rs (/target/debug/deps/go_practical_live_export_projection-60fdff508b2829bf)
+
+thread 'go_practical_source_roots::tests::native_names_and_types_are_compared_without_utf8_conversion' (81) panicked at crates/mpk-cli/tests/../src/go_practical_source_roots.rs:377:64:
+called `Result::unwrap()` on an `Err` value: Os { code: 17, kind: AlreadyExists, message: "File exists" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-cli --test go_practical_live_export_projection`

@@ -213,6 +213,7 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 	packet["compiler_files"] = files
 	retainPracticalSyntaxEvidence(t, "compiler-original-ownership.json", map[string]any{"files": len(files), "bytes": totalBytes, "files_larger_than_source_limit": large, "whole_compiler_survives_original_and_image_retirement": true, "source_file_limit_unchanged": maximumCandidateBytes, "source_aggregate_limit_unchanged": maximumCapturedBytes, "installed_or_compiler_correctness_authority": false})
 	retainPracticalSyntaxEvidence(t, "complete-original-module-graph-inputs.json", packet)
+	practicalLiveCombinedOwnerFinish(t, exports.buildCacheDirectory, len(sealed.snapshot.ids), len(exports.snapshot.ids), len(owner.inputs.snapshot.ids))
 	if _, ok := owner.packages["net/http"]; !ok || len(owner.packages) < 181 {
 		t.Fatal("original HTTP/package universe was reduced")
 	}

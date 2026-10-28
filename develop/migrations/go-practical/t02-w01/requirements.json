@@ -1484,6 +1484,13 @@
       "requirement": "Original source/export metadata and complete compiler identity; immutable original packages without rewritten/stub source; closed capture for the later verification-closure algorithm",
       "status": "pending",
       "executor": "go-tools/go2vir/practical_capture.go, snapshot.go, loader.go",
+      "preparatory_combined_live_roots_checkpoint": {
+        "evidence": "verification/combined-root-live/README.md",
+        "scope": "Both original source and generated export root sets are independently matched during capture and retained together while binding the same complete original 5697-object, 182-package owner and independently importing all 5577 registered SDK files. Exact directory entries and source bytes are preserved; coherent missing, crossed and changed observations reject. The final live capture verifies the exact export-cache path is absent before binding, with original failures and full evidence retained. This is a capture-time input consistency observation, not launcher or installed-release authority.",
+        "R06_completed": false,
+        "installed_launcher_or_source_program_authority_proved": false,
+        "public_profile_activated": false
+      },
       "preparatory_original_syntax_checkpoint": {
         "evidence": "verification/source-syntax/verification.json",
         "scope": "Private sealed go_file syntax image retains all original bytes/AST nodes and physical source-ID/byte spans without filesystem fallback or stub rewriting. Exact original raw-string/comment CR ends, inherited declaration ends, Unicode identifiers, forged //line positions, foreign/mutated nodes and capability/path ambiguity are checked. Independent reflection confirms2090 complete materialized nodes across all80 syntax-valid cases from the81-source frozen catalog; original syntax error and three Go type errors remain distinct. All1710 original native function-node obligations and253 complete source-object preimages agree. Complete package build/file selection, module/compiler/effective-language/source/export binding, original package type checking and authoritative immutable package/selected-closure replay remain due. These private compiler locators provide no nominal or source-proof authority. Actual returned parsed-source/cache byte alias is reproduced and fixed by separately owned first/cache source views; original failure and previous11-root receipt remain intact. AST remains shared untrusted compiler data.",

@@ -1,0 +1,505 @@
+{
+  "roots": [
+    {
+      "Capability": "workspace/main",
+      "Directory": "/tmp/TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPac3207457684/002/main"
+    },
+    {
+      "Capability": "workspace/dep",
+      "Directory": "/tmp/TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPac3207457684/002/dep"
+    }
+  ],
+  "whole_original_entries": [
+    {
+      "capability": "workspace/main",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "."
+    },
+    {
+      "capability": "workspace/main",
+      "mode": 384,
+      "path": "go.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL3BvbGljeQpnbyAxLjI1LjAKcmVxdWlyZSAoCmV4YW1wbGUuY29tL2EgdjEuMC4wCmV4YW1wbGUuY29tL2IgdjEuMC4wIC8vIGluZGlyZWN0CmV4YW1wbGUuY29tL2MgdjEuMS4wCmV4YW1wbGUuY29tL2xlYWYgdjEuMS4wIC8vIGluZGlyZWN0CmV4YW1wbGUuY29tL3EgdjEuMS4wIC8vIGluZGlyZWN0CmV4YW1wbGUuY29tL3ogdjEuMC4wIC8vIGluZGlyZWN0CmV4YW1wbGUuY29tL2FsaWFzIHYxLjAuMAopCmV4Y2x1ZGUgZXhhbXBsZS5jb20vbmV2ZXIgdjEuMC4wCnJlcGxhY2UgZXhhbXBsZS5jb20vYWxpYXMgdjEuMC4wID0+IGV4YW1wbGUuY29tL0FjdHVhbCB2MS4xLjAK",
+      "sha256": "2a39099e973ad7570e45b0678c28e331432ce46c9300bb36049ba294e2a2c449"
+    },
+    {
+      "capability": "workspace/main",
+      "mode": 384,
+      "path": "go.sum",
+      "raw": "ZXhhbXBsZS5jb20vYSB2MS4wLjAgaDE6MjUrT1NDN2piSGtDSjFVMXR4Q2xWQmxBcktIUFk5VTRPc0JKcTZ6VWRJaz0KZXhhbXBsZS5jb20vYSB2MS4wLjAvZ28ubW9kIGgxOkNzV3FIeGIyR3lDV3BjU0V0UGNGdFhzdHNhenZvOE5Za1N5UEFZKzZPcjg9CmV4YW1wbGUuY29tL2IgdjEuMC4wIGgxOmVpMmNLVkVqb0lNWkZFeGxqVTFUZDlOSU1VZXJpQzFxQytHeEg1WWJkMk09CmV4YW1wbGUuY29tL2IgdjEuMC4wL2dvLm1vZCBoMTpNam8wMThkaWZ0TEhBWnYrbFM1bUV1N1k3V1hCQlh3Q3N6YU5seXp1VWlFPQpleGFtcGxlLmNvbS9jIHYxLjEuMCBoMTppUlJ4ZWh3TTI2UjJIZk5kb1VHUVdIeU5pRmd6YkdUaFVmTDZZeTlQVVZVPQpleGFtcGxlLmNvbS9jIHYxLjEuMC9nby5tb2QgaDE6TjRyb0xNR0l0cko2eW1ldGVONDR0d3Axb1ZscG85TUJqKzF0Z0locjlqUT0KZXhhbXBsZS5jb20vbGVhZiB2MS4xLjAgaDE6bUwwZWorVGcwcEVPNmRjWUVlSnhlQk9Lb2FTK1FPQlpoVnMxcUxsajNlYz0KZXhhbXBsZS5jb20vbGVhZiB2MS4xLjAvZ28ubW9kIGgxOkxwdm5UNnl6b1kyWW9ZVURvd1J3TmhtMEtMZ2dNMWtUM2xZSFlwM080U1k9CmV4YW1wbGUuY29tL3EgdjEuMS4wIGgxOlo4eDlnNG9MdGFmcFQxUWFKS0wyTC9Vd1AzYmplbFpjQk0rTUYwRmRwSTg9CmV4YW1wbGUuY29tL3EgdjEuMS4wL2dvLm1vZCBoMTpJc3B3eUtNcFpJKzJZcXV5U0RwS1JLbmNFU1pLUmtYYy95ZkFDRHlVbjNnPQpleGFtcGxlLmNvbS96IHYxLjAuMCBoMTo0U1BBOWh5U2FsWVRLRmFhcXRVWXdFMDRiYkZRR3RpYXdFVllhNDhOQ09vPQpleGFtcGxlLmNvbS96IHYxLjAuMC9nby5tb2QgaDE6UW1UNzlSRXhaTmJITlNBb0ZDQmFXV1c5NWpndGoyRUVMUk45TjFZNFpRUT0KZXhhbXBsZS5jb20vQWN0dWFsIHYxLjEuMCBoMTorMG9wTzlwVE45c1ZzaXhUYjNNazNuNTMzZElZalMrZEllZHJrTG9EYVE0PQpleGFtcGxlLmNvbS9BY3R1YWwgdjEuMS4wL2dvLm1vZCBoMTpzMXNCSG9CRkI0V09nNFkvUThwb1AxaE4rZFdmTkkyQzVwdEdqVlgxTWpRPQpleGFtcGxlLmNvbS9jIHYxLjAuMC9nby5tb2QgaDE6YTM2RFY2enkrU2hJMWZZYVVtR3F2YXkzWXRhQU1uYUZYYnpoTUpoWVNwdz0KZXhhbXBsZS5jb20vbGVhZiB2MS4wLjAvZ28ubW9kIGgxOjdBbHVxbnFPbDloZFoyaEZFaFpoRlVjYnM1Tktoc1ZUN3g4QjNiVHBacDg9Cg==",
+      "sha256": "5d66eb645f2428932c41ef46ecdab0374c6ef2ad9bdce377484773877c2c6ab2"
+    },
+    {
+      "capability": "workspace/main",
+      "mode": 384,
+      "path": "policy.go",
+      "raw": "cGFja2FnZSBwb2xpY3kKaW1wb3J0KGEgImV4YW1wbGUuY29tL2EiO2MgImV4YW1wbGUuY29tL2MiO2FsaWFzICJleGFtcGxlLmNvbS9hbGlhcyI7Im5ldC9odHRwIikKZnVuYyBSb290KHggdWludDE2KXVpbnQxNntyZXR1cm4geCsxfQpmdW5jIFVudXNlZChyICpodHRwLlJlcXVlc3QseCBpbnQ2NClpbnQ2NHtnbyBmdW5jKCl7c2VsZWN0e319KCk7cmV0dXJuIGEuSWRlbnRpdHkoYy5JZGVudGl0eShhbGlhcy5JZGVudGl0eSh4KSkpfQpmdW5jIGluaXQoKXtwYW5pYygib3JpZ2luYWwgaW5pdCBtdXN0IG5ldmVyIGV4ZWN1dGUiKX0K",
+      "sha256": "8227039a991dede1027e9d065986230cfa1be971fd1b29d671d0976e5b9c4708"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "."
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/!actual"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/!actual/@v"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/!actual/@v/v1.1.0.info",
+      "raw": "eyJWZXJzaW9uIjoidjEuMS4wIiwiVGltZSI6IjIwMjAtMDEtMDJUMDM6MDQ6MDVaIn0=",
+      "sha256": "8e3a3152e0006e0eebd9aa63a94057141bce45086048f412d28b3763b12e8eb9"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/!actual/@v/v1.1.0.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL0FjdHVhbApnbyAxLjIyCg==",
+      "sha256": "08ff18d0495ae0b88926521ff33e29e4d79b25e526345de09770eac279863273"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/!actual/@v/v1.1.0.zip",
+      "raw": "UEsDBBQACAAIAIIYIlAAAAAAAAAAAAAAAAAgAAkAZXhhbXBsZS5jb20vQWN0dWFsQHYxLjEuMC9nby5tb2RVVAUAAaVdDV7KzU8pzUlVSK1IzC3ISdVLzs/Vd0wuKU3M4UrPVzDUMzLiAgQAAP//UEsHCM2iaqcoAAAAIgAAAFBLAwQUAAgACACCGCJQAAAAAAAAAAAAAAAAIAAJAGV4YW1wbGUuY29tL0FjdHVhbEB2MS4xLjAvZGVwLmdvVVQFAAGlXQ1eKkhMzk5MT1VISS3gSivNS1bwTEnNK8ksqdSoUMjMKzEz0YRQCtUKRaklpUV5ChUKtRCVoXmlxakpGrkKuYkF0Zl5JbGZeSVg1Qi1Oal5GrmaCrVcgAAAAP//UEsHCBrm3f1aAAAAZwAAAFBLAQIUABQACAAIAIIYIlDNomqnKAAAACIAAAAgAAkAAAAAAAAAAAAAAAAAAABleGFtcGxlLmNvbS9BY3R1YWxAdjEuMS4wL2dvLm1vZFVUBQABpV0NXlBLAQIUABQACAAIAIIYIlAa5t39WgAAAGcAAAAgAAkAAAAAAAAAAAAAAH8AAABleGFtcGxlLmNvbS9BY3R1YWxAdjEuMS4wL2RlcC5nb1VUBQABpV0NXlBLBQYAAAAAAgACAK4AAAAwAQAAAAA=",
+      "sha256": "f1b14bfc951af65e0b8fd0774a811b8df645f71b2e2a941aeac78d15c68cffe2"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/!actual/@v/v1.1.0.ziphash",
+      "raw": "aDE6KzBvcE85cFROOXNWc2l4VGIzTWszbjUzM2RJWWpTK2RJZWRya0xvRGFRND0=",
+      "sha256": "f922110162bd8b92ef429ff7d5e36ba05cd7e5cf22eb336bbc8bbadd68a8f5ad"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/a"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/a/@v"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/a/@v/v1.0.0.info",
+      "raw": "eyJWZXJzaW9uIjoidjEuMC4wIiwiVGltZSI6IjIwMjAtMDEtMDJUMDM6MDQ6MDVaIn0=",
+      "sha256": "909dbcf831dd46a26fb291e4d8032e6a578548ebe0c2578bda345dab9063611c"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2EKZ28gMS4xNgpyZXF1aXJlICgKZXhhbXBsZS5jb20vYyB2MS4wLjAKZXhhbXBsZS5jb20vYyB2MS4wLjAKZXhhbXBsZS5jb20vbmV2ZXIgdjEuMC4wCikK",
+      "sha256": "366deaeeebcc65f46808eca6cdd8429b3802b03ed1bf9f437ac42f719c22dd63"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/a/@v/v1.0.0.zip",
+      "raw": "UEsDBBQACAAIAIIYIlAAAAAAAAAAAAAAAAAbAAkAZXhhbXBsZS5jb20vYUB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1eys1PKc1JVUitSMwtyEnVS87P1U/kSs9XMNQzNOMqSi0szSxKVdDgQpZPVigz1DPQMyAsmJdalloEk9DkAgQAAP//UEsHCH3KePFCAAAAbAAAAFBLAwQUAAgACACCGCJQAAAAAAAAAAAAAAAAGwAJAGV4YW1wbGUuY29tL2FAdjEuMC4wL2RlcC5nb1VUBQABpV0NXipITM5OTE9VSEkt4EorzUtW8ExJzSvJLKnUqFDIzCsxM9GEUArVCkWpJaVFeQoVCrUQlaF5pcWpKRq5CrmJBdGZeSWxmXklYNUItTmpeRq5mgq1XIAAAAD//1BLBwga5t39WgAAAGcAAABQSwECFAAUAAgACACCGCJQfcp48UIAAABsAAAAGwAJAAAAAAAAAAAAAAAAAAAAZXhhbXBsZS5jb20vYUB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1eUEsBAhQAFAAIAAgAghgiUBrm3f1aAAAAZwAAABsACQAAAAAAAAAAAAAAlAAAAGV4YW1wbGUuY29tL2FAdjEuMC4wL2RlcC5nb1VUBQABpV0NXlBLBQYAAAAAAgACAKQAAABAAQAAAAA=",
+      "sha256": "ead39544e76d1044a73ab452e1fde57c6a56c01906f87ccd5ab4ef7e8a543f31"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/a/@v/v1.0.0.ziphash",
+      "raw": "aDE6MjUrT1NDN2piSGtDSjFVMXR4Q2xWQmxBcktIUFk5VTRPc0JKcTZ6VWRJaz0=",
+      "sha256": "8d1b1aefdcde076939fbebbf8fda5f7377e59b3a84950f179e4ca46427d76eda"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/b"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/b/@v"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/b/@v/v1.0.0.info",
+      "raw": "eyJWZXJzaW9uIjoidjEuMC4wIiwiVGltZSI6IjIwMjAtMDEtMDJUMDM6MDQ6MDVaIn0=",
+      "sha256": "909dbcf831dd46a26fb291e4d8032e6a578548ebe0c2578bda345dab9063611c"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/b/@v/v1.0.0.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2IKZ28gMS4xNgpyZXF1aXJlICgKZXhhbXBsZS5jb20vYyB2MS4xLjAKZXhhbXBsZS5jb20vbGVhZiB2MS4xLjAKZXhhbXBsZS5jb20vcSB2MS4xLjAKKQo=",
+      "sha256": "1dd119727a20042d284224c00f642972833f776e8b93ee406f413538712d66b9"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/b/@v/v1.0.0.zip",
+      "raw": "UEsDBBQACAAIAIIYIlAAAAAAAAAAAAAAAAAbAAkAZXhhbXBsZS5jb20vYkB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1eys1PKc1JVUitSMwtyEnVS87P1U/iSs9XMNQzNOMqSi0szSxKVdDgQpZPVigz1DPUM0ARzElNTMMmXggT1OQCBAAA//9QSwcIhU8PGUQAAABrAAAAUEsDBBQACAAIAIIYIlAAAAAAAAAAAAAAAAAbAAkAZXhhbXBsZS5jb20vYkB2MS4wLjAvZGVwLmdvVVQFAAGlXQ1eKkhMzk5MT1VISS3gSivNS1bwTEnNK8ksqdSoUMjMKzEz0YRQCtUKRaklpUV5ChUKtRCVoXmlxakpGrkKuYkF0Zl5JbGZeSVg1Qi1Oal5GrmaCrVcgAAAAP//UEsHCBrm3f1aAAAAZwAAAFBLAQIUABQACAAIAIIYIlCFTw8ZRAAAAGsAAAAbAAkAAAAAAAAAAAAAAAAAAABleGFtcGxlLmNvbS9iQHYxLjAuMC9nby5tb2RVVAUAAaVdDV5QSwECFAAUAAgACACCGCJQGubd/VoAAABnAAAAGwAJAAAAAAAAAAAAAACWAAAAZXhhbXBsZS5jb20vYkB2MS4wLjAvZGVwLmdvVVQFAAGlXQ1eUEsFBgAAAAACAAIApAAAAEIBAAAAAA==",
+      "sha256": "982f2164dd0bb244e0438c98505de33b8b86fe19156bfa5c624355c2c20a4e5a"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/b/@v/v1.0.0.ziphash",
+      "raw": "aDE6ZWkyY0tWRWpvSU1aRkV4bGpVMVRkOU5JTVVlcmlDMXFDK0d4SDVZYmQyTT0=",
+      "sha256": "652fc7db0658a16281d05e1d5536ad5824eedb3c7d7cf3deedc8bf9119ca3755"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/c"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/c/@v"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2MKZ28gMS4xNgpmdXR1cmVfZGlyZWN0aXZlIGlnbm9yZWQKcmVxdWlyZSAoCmV4YW1wbGUuY29tL2xlYWYgdjEuMC4wCmV4YW1wbGUuY29tL2EgdjEuMC4wCikK",
+      "sha256": "fef0e0c8fda82616d6f7bd0f8d48074ebaf17820929b24db231215e3ac2f791c"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/c/@v/v1.1.0.info",
+      "raw": "eyJWZXJzaW9uIjoidjEuMS4wIiwiVGltZSI6IjIwMjAtMDEtMDJUMDM6MDQ6MDVaIn0=",
+      "sha256": "8e3a3152e0006e0eebd9aa63a94057141bce45086048f412d28b3763b12e8eb9"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/c/@v/v1.1.0.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2MKZ28gMS4yMgo=",
+      "sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/c/@v/v1.1.0.zip",
+      "raw": "UEsDBBQACAAIAIIYIlAAAAAAAAAAAAAAAAAbAAkAZXhhbXBsZS5jb20vY0B2MS4xLjAvZ28ubW9kVVQFAAGlXQ1eys1PKc1JVUitSMwtyEnVS87P1U/mSs9XMNQzMuICBAAA//9QSwcIWkkqRiMAAAAdAAAAUEsDBBQACAAIAIIYIlAAAAAAAAAAAAAAAAAbAAkAZXhhbXBsZS5jb20vY0B2MS4xLjAvZGVwLmdvVVQFAAGlXQ1eKkhMzk5MT1VISS3gSivNS1bwTEnNK8ksqdSoUMjMKzEz0YRQCtUKRaklpUV5ChUKtRCVoXmlxakpGrkKuYkF0Zl5JbGZeSVg1Qi1Oal5GrmaCrVcgAAAAP//UEsHCBrm3f1aAAAAZwAAAFBLAQIUABQACAAIAIIYIlBaSSpGIwAAAB0AAAAbAAkAAAAAAAAAAAAAAAAAAABleGFtcGxlLmNvbS9jQHYxLjEuMC9nby5tb2RVVAUAAaVdDV5QSwECFAAUAAgACACCGCJQGubd/VoAAABnAAAAGwAJAAAAAAAAAAAAAAB1AAAAZXhhbXBsZS5jb20vY0B2MS4xLjAvZGVwLmdvVVQFAAGlXQ1eUEsFBgAAAAACAAIApAAAACEBAAAAAA==",
+      "sha256": "89847619bce251862ff416551968c9072d4fca0bf9da33f9828b9e2e8a686622"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/c/@v/v1.1.0.ziphash",
+      "raw": "aDE6aVJSeGVod00yNlIySGZOZG9VR1FXSHlOaUZnemJHVGhVZkw2WXk5UFVWVT0=",
+      "sha256": "7ff02f960a80fa8aaaa951ccde74e684f0091e5e5069026119d9384f231e33fd"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/leaf"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/leaf/@v"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/leaf/@v/v1.0.0.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2xlYWYKLy8gb3JpZ2luYWwgdW5zZWxlY3RlZCB6ZXJvLXJlcXVpcmVtZW50IGxlYWYK",
+      "sha256": "35c4fff7f72b7a3428f37290ec07eeada0523bdd884b65975064d757ff4241c2"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/leaf/@v/v1.1.0.info",
+      "raw": "eyJWZXJzaW9uIjoidjEuMS4wIiwiVGltZSI6IjIwMjAtMDEtMDJUMDM6MDQ6MDVaIn0=",
+      "sha256": "8e3a3152e0006e0eebd9aa63a94057141bce45086048f412d28b3763b12e8eb9"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/leaf/@v/v1.1.0.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2xlYWYKZ28gMS4yMgo=",
+      "sha256": "55cdec646b58864fbd3ae5922b586b0c0690c49c198188512f933d0b51100832"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/leaf/@v/v1.1.0.zip",
+      "raw": "UEsDBBQACAAIAIIYIlAAAAAAAAAAAAAAAAAeAAkAZXhhbXBsZS5jb20vbGVhZkB2MS4xLjAvZ28ubW9kVVQFAAGlXQ1eys1PKc1JVUitSMwtyEnVS87P1c9JTUzjSs9XMNQzMuICBAAA//9QSwcIZGkyZyYAAAAgAAAAUEsDBBQACAAIAIIYIlAAAAAAAAAAAAAAAAAeAAkAZXhhbXBsZS5jb20vbGVhZkB2MS4xLjAvZGVwLmdvVVQFAAGlXQ1eKkhMzk5MT1VISS3gSivNS1bwTEnNK8ksqdSoUMjMKzEz0YRQCtUKRaklpUV5ChUKtRCVoXmlxakpGrkKuYkF0Zl5JbGZeSVg1Qi1Oal5GrmaCrVcgAAAAP//UEsHCBrm3f1aAAAAZwAAAFBLAQIUABQACAAIAIIYIlBkaTJnJgAAACAAAAAeAAkAAAAAAAAAAAAAAAAAAABleGFtcGxlLmNvbS9sZWFmQHYxLjEuMC9nby5tb2RVVAUAAaVdDV5QSwECFAAUAAgACACCGCJQGubd/VoAAABnAAAAHgAJAAAAAAAAAAAAAAB7AAAAZXhhbXBsZS5jb20vbGVhZkB2MS4xLjAvZGVwLmdvVVQFAAGlXQ1eUEsFBgAAAAACAAIAqgAAACoBAAAAAA==",
+      "sha256": "01005bfb27cafb07a61ba4f34b6656e6b52630042a8dd1e491a261715a06bd3a"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/leaf/@v/v1.1.0.ziphash",
+      "raw": "aDE6bUwwZWorVGcwcEVPNmRjWUVlSnhlQk9Lb2FTK1FPQlpoVnMxcUxsajNlYz0=",
+      "sha256": "d47259d29f1aca27e3e5193246ae36ee2182e34c7bf3805b4ba1a31f61b5e2d6"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/q"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/q/@v"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/q/@v/v1.1.0.info",
+      "raw": "eyJWZXJzaW9uIjoidjEuMS4wIiwiVGltZSI6IjIwMjAtMDEtMDJUMDM6MDQ6MDVaIn0=",
+      "sha256": "8e3a3152e0006e0eebd9aa63a94057141bce45086048f412d28b3763b12e8eb9"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/q/@v/v1.1.0.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL3EKZ28gMS4yMgo=",
+      "sha256": "1b475e9131b20f5e8efe77de346f3a7f695fbbb2d20bbb63434d743cd578af7f"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/q/@v/v1.1.0.zip",
+      "raw": "UEsDBBQACAAIAIIYIlAAAAAAAAAAAAAAAAAbAAkAZXhhbXBsZS5jb20vcUB2MS4xLjAvZ28ubW9kVVQFAAGlXQ1eys1PKc1JVUitSMwtyEnVS87P1S/kSs9XMNQzMuICBAAA//9QSwcIjxhxZSMAAAAdAAAAUEsDBBQACAAIAIIYIlAAAAAAAAAAAAAAAAAbAAkAZXhhbXBsZS5jb20vcUB2MS4xLjAvZGVwLmdvVVQFAAGlXQ1eKkhMzk5MT1VISS3gSivNS1bwTEnNK8ksqdSoUMjMKzEz0YRQCtUKRaklpUV5ChUKtRCVoXmlxakpGrkKuYkF0Zl5JbGZeSVg1Qi1Oal5GrmaCrVcgAAAAP//UEsHCBrm3f1aAAAAZwAAAFBLAQIUABQACAAIAIIYIlCPGHFlIwAAAB0AAAAbAAkAAAAAAAAAAAAAAAAAAABleGFtcGxlLmNvbS9xQHYxLjEuMC9nby5tb2RVVAUAAaVdDV5QSwECFAAUAAgACACCGCJQGubd/VoAAABnAAAAGwAJAAAAAAAAAAAAAAB1AAAAZXhhbXBsZS5jb20vcUB2MS4xLjAvZGVwLmdvVVQFAAGlXQ1eUEsFBgAAAAACAAIApAAAACEBAAAAAA==",
+      "sha256": "d283c55f2f834d7230ba1de1b4c40691a28835023f46587b51b0ce272f25a5d2"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/q/@v/v1.1.0.ziphash",
+      "raw": "aDE6Wjh4OWc0b0x0YWZwVDFRYUpLTDJML1V3UDNiamVsWmNCTStNRjBGZHBJOD0=",
+      "sha256": "4f1d46654d4ab0aecb632263cd308ff5c136a2815021a2462fdd8589f2501dbc"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/z"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "cache/download/example.com/z/@v"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/z/@v/v1.0.0.info",
+      "raw": "eyJWZXJzaW9uIjoidjEuMC4wIiwiVGltZSI6IjIwMjAtMDEtMDJUMDM6MDQ6MDVaIn0=",
+      "sha256": "909dbcf831dd46a26fb291e4d8032e6a578548ebe0c2578bda345dab9063611c"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL3oKZ28gMS4yMgpyZXF1aXJlIGV4YW1wbGUuY29tL3EgdjEuMC4wCg==",
+      "sha256": "62398ac3a4ea71d3ee2bfdd0ddaf43093a81c220711df12a2a72768344479e88"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/z/@v/v1.0.0.zip",
+      "raw": "UEsDBBQACAAIAIIYIlAAAAAAAAAAAAAAAAAbAAkAZXhhbXBsZS5jb20vekB2MS4wLjAvZ28ubW9kVVQFAAGlXQ1eys1PKc1JVUitSMwtyEnVS87P1a/iSs9XMNQzMuIqSi0szSxClS1UKDPUM9Az4AIEAAD//1BLBwh2ptMQNAAAADoAAABQSwMEFAAIAAgAghgiUAAAAAAAAAAAAAAAABsACQBleGFtcGxlLmNvbS96QHYxLjAuMC9kZXAuZ29VVAUAAaVdDV4qSEzOTkxPVUhJLeBKK81LVvBMSc0rySyp1KhQyMwrMTPRhFAK1QpFqSWlRXkKFQq1EJWheaXFqSkauQq5iQXRmXklsZl5JWDVCLU5qXkauZoKtVyAAAAA//9QSwcIGubd/VoAAABnAAAAUEsBAhQAFAAIAAgAghgiUHam0xA0AAAAOgAAABsACQAAAAAAAAAAAAAAAAAAAGV4YW1wbGUuY29tL3pAdjEuMC4wL2dvLm1vZFVUBQABpV0NXlBLAQIUABQACAAIAIIYIlAa5t39WgAAAGcAAAAbAAkAAAAAAAAAAAAAAIYAAABleGFtcGxlLmNvbS96QHYxLjAuMC9kZXAuZ29VVAUAAaVdDV5QSwUGAAAAAAIAAgCkAAAAMgEAAAAA",
+      "sha256": "3bc6779c8c26cd58ffe8e1f02f65d49448d74609deea2966b3a28bc7f7653891"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "cache/download/example.com/z/@v/v1.0.0.ziphash",
+      "raw": "aDE6NFNQQTloeVNhbFlUS0ZhYXF0VVl3RTA0YmJGUUd0aWF3RVZZYTQ4TkNPbz0=",
+      "sha256": "9a7864200128df03e3225a3d2098edf25e58908d5a0612f4903bd0e4b08c1b0a"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "example.com"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "example.com/!actual@v1.1.0"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/!actual@v1.1.0/dep.go",
+      "raw": "cGFja2FnZSBkZXAKZnVuYyBJZGVudGl0eSh4IGludDY0KSBpbnQ2NCB7IHJldHVybiB4IH0KZnVuYyBVbnVzZWQobSBtYXBbaW50XWludCkgaW50IHsgcmV0dXJuIGxlbihtKSB9Cg==",
+      "sha256": "7e898fa9cdc319af9bda139c4a128d46aef13c3df014d5c4d176f463a5fc39c7"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/!actual@v1.1.0/go.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL0FjdHVhbApnbyAxLjIyCg==",
+      "sha256": "08ff18d0495ae0b88926521ff33e29e4d79b25e526345de09770eac279863273"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "example.com/a@v1.0.0"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/a@v1.0.0/dep.go",
+      "raw": "cGFja2FnZSBkZXAKZnVuYyBJZGVudGl0eSh4IGludDY0KSBpbnQ2NCB7IHJldHVybiB4IH0KZnVuYyBVbnVzZWQobSBtYXBbaW50XWludCkgaW50IHsgcmV0dXJuIGxlbihtKSB9Cg==",
+      "sha256": "7e898fa9cdc319af9bda139c4a128d46aef13c3df014d5c4d176f463a5fc39c7"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/a@v1.0.0/go.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2EKZ28gMS4xNgpyZXF1aXJlICgKZXhhbXBsZS5jb20vYyB2MS4wLjAKZXhhbXBsZS5jb20vYyB2MS4wLjAKZXhhbXBsZS5jb20vbmV2ZXIgdjEuMC4wCikK",
+      "sha256": "366deaeeebcc65f46808eca6cdd8429b3802b03ed1bf9f437ac42f719c22dd63"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "example.com/b@v1.0.0"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/b@v1.0.0/dep.go",
+      "raw": "cGFja2FnZSBkZXAKZnVuYyBJZGVudGl0eSh4IGludDY0KSBpbnQ2NCB7IHJldHVybiB4IH0KZnVuYyBVbnVzZWQobSBtYXBbaW50XWludCkgaW50IHsgcmV0dXJuIGxlbihtKSB9Cg==",
+      "sha256": "7e898fa9cdc319af9bda139c4a128d46aef13c3df014d5c4d176f463a5fc39c7"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/b@v1.0.0/go.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2IKZ28gMS4xNgpyZXF1aXJlICgKZXhhbXBsZS5jb20vYyB2MS4xLjAKZXhhbXBsZS5jb20vbGVhZiB2MS4xLjAKZXhhbXBsZS5jb20vcSB2MS4xLjAKKQo=",
+      "sha256": "1dd119727a20042d284224c00f642972833f776e8b93ee406f413538712d66b9"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "example.com/c@v1.1.0"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/c@v1.1.0/dep.go",
+      "raw": "cGFja2FnZSBkZXAKZnVuYyBJZGVudGl0eSh4IGludDY0KSBpbnQ2NCB7IHJldHVybiB4IH0KZnVuYyBVbnVzZWQobSBtYXBbaW50XWludCkgaW50IHsgcmV0dXJuIGxlbihtKSB9Cg==",
+      "sha256": "7e898fa9cdc319af9bda139c4a128d46aef13c3df014d5c4d176f463a5fc39c7"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/c@v1.1.0/go.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2MKZ28gMS4yMgo=",
+      "sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "example.com/leaf@v1.1.0"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/leaf@v1.1.0/dep.go",
+      "raw": "cGFja2FnZSBkZXAKZnVuYyBJZGVudGl0eSh4IGludDY0KSBpbnQ2NCB7IHJldHVybiB4IH0KZnVuYyBVbnVzZWQobSBtYXBbaW50XWludCkgaW50IHsgcmV0dXJuIGxlbihtKSB9Cg==",
+      "sha256": "7e898fa9cdc319af9bda139c4a128d46aef13c3df014d5c4d176f463a5fc39c7"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/leaf@v1.1.0/go.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2xlYWYKZ28gMS4yMgo=",
+      "sha256": "55cdec646b58864fbd3ae5922b586b0c0690c49c198188512f933d0b51100832"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "example.com/q@v1.1.0"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/q@v1.1.0/dep.go",
+      "raw": "cGFja2FnZSBkZXAKZnVuYyBJZGVudGl0eSh4IGludDY0KSBpbnQ2NCB7IHJldHVybiB4IH0KZnVuYyBVbnVzZWQobSBtYXBbaW50XWludCkgaW50IHsgcmV0dXJuIGxlbihtKSB9Cg==",
+      "sha256": "7e898fa9cdc319af9bda139c4a128d46aef13c3df014d5c4d176f463a5fc39c7"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/q@v1.1.0/go.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL3EKZ28gMS4yMgo=",
+      "sha256": "1b475e9131b20f5e8efe77de346f3a7f695fbbb2d20bbb63434d743cd578af7f"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": true,
+      "mode": 2147484096,
+      "path": "example.com/z@v1.0.0"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/z@v1.0.0/dep.go",
+      "raw": "cGFja2FnZSBkZXAKZnVuYyBJZGVudGl0eSh4IGludDY0KSBpbnQ2NCB7IHJldHVybiB4IH0KZnVuYyBVbnVzZWQobSBtYXBbaW50XWludCkgaW50IHsgcmV0dXJuIGxlbihtKSB9Cg==",
+      "sha256": "7e898fa9cdc319af9bda139c4a128d46aef13c3df014d5c4d176f463a5fc39c7"
+    },
+    {
+      "capability": "workspace/dep",
+      "mode": 384,
+      "path": "example.com/z@v1.0.0/go.mod",
+      "raw": "bW9kdWxlIGV4YW1wbGUuY29tL3oKZ28gMS4yMgpyZXF1aXJlIGV4YW1wbGUuY29tL3EgdjEuMC4wCg==",
+      "sha256": "62398ac3a4ea71d3ee2bfdd0ddaf43093a81c220711df12a2a72768344479e88"
+    }
+  ]
+}

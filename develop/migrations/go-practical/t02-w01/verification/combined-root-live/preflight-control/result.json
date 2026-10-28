@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "seconds": 114.55541775000165,
+  "original_inputs_unchanged": true,
+  "previous_go_checks_passed": true,
+  "previous_native_name_test_passed": true,
+  "checks": {
+    "rust-clippy": {
+      "status": "passed",
+      "exit_code": 0,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/rust-clippy.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": 420
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/rust-clippy.stderr",
+        "bytes": 136,
+        "sha256": "dbf6d776d29f376bee27d685840a40682df3bd5622cc327af2597f4b7c821ed9",
+        "mode": 420
+      }
+    },
+    "rust-format": {
+      "status": "passed",
+      "exit_code": 0,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/rust-format.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": 420
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/rust-format.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": 420
+      }
+    },
+    "rust-complete-owner": {
+      "status": "passed",
+      "exit_code": 0,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/rust-complete-owner.stdout",
+        "bytes": 981,
+        "sha256": "2b8c910193a6d155c8bf379bb1b77663c14cd8074032c2cd1afca28eea97f405",
+        "mode": 420
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/rust-complete-owner.stderr",
+        "bytes": 249,
+        "sha256": "32ddecaf371389da9877ab4cb50fbdd2bef27d49b7fba81ab28749d8fb87df39",
+        "mode": 420
+      }
+    }
+  },
+  "negative_inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/changed-export.json",
+      "bytes": 520806,
+      "sha256": "7e26f1f4779c652c0d0df046cfe1d3d8cef2f6f4a024984872e5e4e9da683e73",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/changed-namespace.json",
+      "bytes": 491871,
+      "sha256": "884c9af4097304bd261b63cc7c5305d42e9aa1e38e851d77c4f07fd23e08d8ae",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/source-missing-sdk.json",
+      "bytes": 49927,
+      "sha256": "b99c5d6624b65b8b466a978b21663b3f2bfa03228b1f6168b5242417aeaa8bbd",
+      "mode": 420
+    }
+  ]
+}

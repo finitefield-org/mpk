@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 21.588873500000773,
+  "original_inputs_unchanged": true,
+  "worker": {
+    "status": "passed",
+    "selection_reason": "Compare two Linux-container temporary filesystems using every actual registered SDK file with verified bytes, original paths and modes; both complete copies are retained.",
+    "results": [
+      {
+        "target": "/host/sdk-original",
+        "original_files": 5577,
+        "original_bytes": 166354960,
+        "original_file_contents_and_modes_match": true,
+        "elapsed_seconds": 8.415310363998287
+      },
+      {
+        "target": "/volume/sdk-original",
+        "original_files": 5577,
+        "original_bytes": 166354960,
+        "original_file_contents_and_modes_match": true,
+        "elapsed_seconds": 1.3657706230005715
+      }
+    ],
+    "native_Linux_release_acceptance": false
+  },
+  "volume": "mpk-combined-sdk-storage-2cf7860deb664d9c9bc4f85f563ccc80",
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/combined-root-live/storage-benchmark-original/worker.stdout",
+    "bytes": 347,
+    "sha256": "ea501111c4d2746eb901b748cb118516ae126aa09e7374c6e7a16d2459db08cb",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/combined-root-live/storage-benchmark-original/worker.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  }
+}

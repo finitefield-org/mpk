@@ -2229,3 +2229,14 @@ files are losslessly retained and restoration is verified. Scoped Go/Rust tests,
 vet, Clippy and formats pass. The observation does not yet bind both held source
 and export roots into one owner or authorize a launcher. W01 and the Go profile
 remain open/inactive; the full T02 gate stays deferred to final W04.
+
+The [combined live-root checkpoint](verification/combined-root-live/README.md)
+retains both independently matched source and generated-export roots in one
+private owner and checks their complete disjoint coverage of the original
+5,697-object export snapshot. Two actual live captures retain 182 packages and
+all 5,577 registered SDK files; the final one checks the exact export cache is
+gone before binding. Coherent missing, crossed and changed observations reject.
+The original failed timeout, full inputs, scoped checks and both live epochs are
+retained. These observations do not establish installed or launcher authority,
+an application theorem or native Linux release acceptance. W01 remains open and
+the cumulative T02 gate remains due at final W04.

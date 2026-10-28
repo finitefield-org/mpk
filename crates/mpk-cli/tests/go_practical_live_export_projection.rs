@@ -3,9 +3,16 @@
 #[path = "../src/frontend_registry.rs"]
 #[allow(unused_imports)]
 mod frontend_registry;
+#[path = "../src/go_practical_capture_binding.rs"]
+#[allow(dead_code)]
+mod go_practical_capture_binding;
 #[path = "../src/go_practical_installed_compiler.rs"]
 #[allow(dead_code)]
 mod go_practical_installed_compiler;
+#[path = "../src/go_practical_source_roots.rs"]
+#[allow(dead_code)]
+mod go_practical_source_roots;
+use go_practical_capture_binding::complete_capabilities_match;
 use go_practical_installed_compiler::InstalledGoCompiler;
 use mpk_vc::go_practical_type_keys::*;
 use mpk_vc::release_bundle_v1::{validate_successor_release_registry, GO_TOOLCHAIN_BUNDLE_ID};
@@ -206,6 +213,60 @@ fn live_export_projection_matches_complete_original_compiler_owner() {
     let full = original_exports.capture_inputs().snapshot_inputs();
     assert_eq!(full.source_objects().len(), 5697);
     assert!(full.contains_exact_capabilities(&observed));
+    // This earlier live observation is an independent capture with the same
+    // complete source namespace and bytes. Its original handles have closed;
+    // this comparison does not claim a simultaneous held-root owner.
+    let source_packet: Value = serde_json::from_slice(
+        &std::fs::read(repo.join("develop/migrations/go-practical/t02-w01/verification/source-root-live/live-original/coord/snapshot-ready.json")).unwrap(),
+    )
+    .unwrap();
+    let source_observed = snapshot(&source_packet, &directory);
+    assert_eq!(source_observed.source_objects().len(), 5516);
+    assert!(complete_capabilities_match(
+        full,
+        &source_observed,
+        &observed
+    ));
+    assert!(!complete_capabilities_match(
+        full,
+        &observed,
+        &source_observed
+    ));
+    assert!(!complete_capabilities_match(full, full, &observed));
+    assert!(!complete_capabilities_match(
+        full,
+        &source_observed,
+        &source_observed
+    ));
+    // Retain the complete original owner above. A separate coherent partial
+    // observation must not become an owner when the SDK root is missing.
+    let mut missing_sdk = source_packet.clone();
+    let mut partial_wire: Value =
+        serde_json::from_slice(&unhex(source_packet["snapshot_hex"].as_str().unwrap())).unwrap();
+    partial_wire["capabilities"]
+        .as_array_mut()
+        .unwrap()
+        .retain(|capability| capability != "original-go-sdk");
+    partial_wire["directories"]
+        .as_array_mut()
+        .unwrap()
+        .retain(|directory| directory["capability"] != "original-go-sdk");
+    partial_wire["objects"]
+        .as_array_mut()
+        .unwrap()
+        .retain(|object| object["capability"] != "original-go-sdk");
+    missing_sdk["snapshot_sources"]
+        .as_array_mut()
+        .unwrap()
+        .retain(|row| row["object"]["capability"] != "original-go-sdk");
+    finish_snapshot(&mut missing_sdk, &mut partial_wire);
+    let partial_source = snapshot(&missing_sdk, &directory);
+    assert!(!partial_source.source_objects().is_empty());
+    assert!(!complete_capabilities_match(
+        full,
+        &partial_source,
+        &observed
+    ));
     assert_eq!(
         serde_json::from_slice::<Value>(original_exports.canonical_bytes()).unwrap()["packages"]
             .as_array()
@@ -294,6 +355,15 @@ fn live_export_projection_matches_complete_original_compiler_owner() {
     finish_snapshot(&mut changed, &mut wire);
     let altered_snapshot = snapshot(&changed, &directory);
     assert_eq!(altered_snapshot.source_objects().len(), 181);
+    assert!(!complete_capabilities_match(
+        owner
+            .compiler_inputs()
+            .export_inputs()
+            .capture_inputs()
+            .snapshot_inputs(),
+        &source_observed,
+        &altered_snapshot
+    ));
     assert!(!owner
         .compiler_inputs()
         .export_inputs()
@@ -324,6 +394,15 @@ fn live_export_projection_matches_complete_original_compiler_owner() {
     finish_snapshot(&mut namespace, &mut wire);
     let changed_namespace = snapshot(&namespace, &directory);
     assert_eq!(changed_namespace.source_objects().len(), 181);
+    assert!(!complete_capabilities_match(
+        owner
+            .compiler_inputs()
+            .export_inputs()
+            .capture_inputs()
+            .snapshot_inputs(),
+        &source_observed,
+        &changed_namespace
+    ));
     assert!(!owner
         .compiler_inputs()
         .export_inputs()
@@ -342,9 +421,14 @@ fn live_export_projection_matches_complete_original_compiler_owner() {
             serde_json::to_vec_pretty(&namespace).unwrap(),
         )
         .unwrap();
+        std::fs::write(
+            root.join("source-missing-sdk.json"),
+            serde_json::to_vec_pretty(&missing_sdk).unwrap(),
+        )
+        .unwrap();
     }
     println!(
         "{}",
-        json!({"status":"passed","live_export_objects":181,"complete_original_objects":5697,"compiler_files":5577,"compiler_bytes":166354960,"original_packages":182,"coherent_changed_export_rejected":true,"coherent_changed_namespace_rejected":true,"launcher_authority_claimed":false,"application_proof_claimed":false,"native_Linux_release_acceptance":false})
+        json!({"status":"passed","live_export_objects":181,"complete_original_objects":5697,"compiler_files":5577,"compiler_bytes":166354960,"original_packages":182,"coherent_changed_export_rejected":true,"coherent_changed_namespace_rejected":true,"coherent_missing_source_rejected":true,"launcher_authority_claimed":false,"application_proof_claimed":false,"native_Linux_release_acceptance":false})
     );
 }

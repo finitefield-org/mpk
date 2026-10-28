@@ -70,3 +70,105 @@ pub(crate) fn source_capabilities_match(
             }))
         && full.contains_exact_capabilities(matched)
 }
+
+/// Owns both independently matched root sets and the exact original export
+/// inputs they cover. Matching records observation at capture time; it does
+/// not authorize launcher paths or establish a compiler/source theorem.
+pub(crate) struct GoCompleteRootMatchedExportInputs {
+    exports: GoSourceExportInputs,
+    source_roots: GoSourceRootsMatch,
+    export_roots: GoSourceRootsMatch,
+}
+
+impl GoCompleteRootMatchedExportInputs {
+    pub(crate) fn export_inputs(&self) -> &GoSourceExportInputs {
+        &self.exports
+    }
+
+    pub(crate) fn source_snapshot(&self) -> &GoSourceSnapshotInputs {
+        self.source_roots.snapshot()
+    }
+
+    pub(crate) fn export_snapshot(&self) -> &GoSourceSnapshotInputs {
+        self.export_roots.snapshot()
+    }
+}
+
+/// Require the two disjoint root sets to cover every original capability,
+/// including every captured object and each observed directory entry.
+pub(crate) fn complete_capabilities_match(
+    full: &GoSourceSnapshotInputs,
+    source: &GoSourceSnapshotInputs,
+    export: &GoSourceSnapshotInputs,
+) -> bool {
+    export.capabilities().len() == 1
+        && export.capabilities()[0] == EXPORT_CAPABILITY
+        && !source.capabilities().iter().any(|c| c == EXPORT_CAPABILITY)
+        && full.capabilities().len() == source.capabilities().len() + 1
+        && full.contains_exact_capabilities(source)
+        && full.contains_exact_capabilities(export)
+}
+
+pub(crate) fn bind_complete_go_root_matched_exports(
+    exports: GoSourceExportInputs,
+    source_roots: GoSourceRootsMatch,
+    export_roots: GoSourceRootsMatch,
+) -> Result<GoCompleteRootMatchedExportInputs, InstalledGoCompilerError> {
+    if !complete_capabilities_match(
+        exports.capture_inputs().snapshot_inputs(),
+        source_roots.snapshot(),
+        export_roots.snapshot(),
+    ) {
+        return Err(InstalledGoCompilerError::Inputs);
+    }
+    Ok(GoCompleteRootMatchedExportInputs {
+        exports,
+        source_roots,
+        export_roots,
+    })
+}
+
+/// Retain the independently verified installed compiler and both matched root
+/// sets with the same complete export owner. This remains a private input
+/// owner, not a registered context or application verification result.
+pub(crate) struct InstalledGoCompleteRootMatchedCompilerInputs {
+    compiler: InstalledGoSourceCompilerInputs,
+    source_roots: GoSourceRootsMatch,
+    export_roots: GoSourceRootsMatch,
+}
+
+impl InstalledGoCompleteRootMatchedCompilerInputs {
+    pub(crate) fn compiler_inputs(&self) -> &GoSourceCompilerInputs {
+        self.compiler.compiler_inputs()
+    }
+
+    pub(crate) fn release_registry(&self) -> &ReleaseRegistryIdentity {
+        self.compiler.release_registry()
+    }
+
+    pub(crate) fn source_snapshot(&self) -> &GoSourceSnapshotInputs {
+        self.source_roots.snapshot()
+    }
+
+    pub(crate) fn export_snapshot(&self) -> &GoSourceSnapshotInputs {
+        self.export_roots.snapshot()
+    }
+}
+
+pub(crate) fn bind_installed_go_complete_root_matched_inputs(
+    compiler: InstalledGoCompiler,
+    record: &[u8],
+    matched: GoCompleteRootMatchedExportInputs,
+) -> Result<InstalledGoCompleteRootMatchedCompilerInputs, InstalledGoCompilerError> {
+    let GoCompleteRootMatchedExportInputs {
+        exports,
+        source_roots,
+        export_roots,
+    } = matched;
+    let compiler = compiler.bind_original_inputs(record, exports)?;
+    Ok(InstalledGoCompleteRootMatchedCompilerInputs {
+        compiler,
+        source_roots,
+        export_roots,
+    })
+}
