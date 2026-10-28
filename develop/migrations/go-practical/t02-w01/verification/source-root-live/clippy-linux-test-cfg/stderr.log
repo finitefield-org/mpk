@@ -1,0 +1,763 @@
+   Compiling mpk-core v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-core)
+    Checking mpk-theory v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-theory)
+    Checking mpk-linux-sandbox v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-linux-sandbox)
+error: unused imports: `getpgid` and `getpid`
+    --> crates/mpk-linux-sandbox/src/lib.rs:1186:27
+     |
+1186 |     use rustix::process::{getpgid, getpid, getrlimit, Resource, Rlimit};
+     |                           ^^^^^^^  ^^^^^^
+     |
+help: if this is a test module, consider adding a `#[cfg(test)]` to the containing module
+    --> crates/mpk-linux-sandbox/src/lib.rs:1184:1
+     |
+1184 | mod tests {
+     | ^^^^^^^^^
+     = note: `-D unused-imports` implied by `-D warnings`
+     = help: to override `-D warnings` add `#[allow(unused_imports)]`
+
+error: unused import: `PathBuf`
+    --> crates/mpk-linux-sandbox/src/lib.rs:1187:27
+     |
+1187 |     use std::path::{Path, PathBuf};
+     |                           ^^^^^^^
+     |
+help: if this is a test module, consider adding a `#[cfg(test)]` to the containing module
+    --> crates/mpk-linux-sandbox/src/lib.rs:1184:1
+     |
+1184 | mod tests {
+     | ^^^^^^^^^
+
+error: unused import: `std::time::Duration`
+    --> crates/mpk-linux-sandbox/src/lib.rs:1189:9
+     |
+1189 |     use std::time::Duration;
+     |         ^^^^^^^^^^^^^^^^^^^
+     |
+help: if this is a test module, consider adding a `#[cfg(test)]` to the containing module
+    --> crates/mpk-linux-sandbox/src/lib.rs:1184:1
+     |
+1184 | mod tests {
+     | ^^^^^^^^^
+
+error: unused imports: `LocalContext`, `definitionally_equal`, `generate_bool_cases_declaration`, and `infer`
+   --> crates/mpk-core/src/bool_cases.rs:167:9
+    |
+167 |         definitionally_equal, generate_bool_cases_declaration, generate_mvp_inductive_declarations,
+    |         ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+168 |         infer, InductiveGenerationInput, LevelArena, LocalContext, MvpInductiveShape,
+    |         ^^^^^                                        ^^^^^^^^^^^^
+    |
+    = note: `-D unused-imports` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(unused_imports)]`
+
+error: unused imports: `LocalContext`, `definitionally_equal`, `infer`, and `reduce_generated_recursor_iota_with_fuel`
+   --> crates/mpk-core/src/bool_rec_type.rs:170:9
+    |
+170 |         definitionally_equal, generate_mvp_inductive_declarations, infer,
+    |         ^^^^^^^^^^^^^^^^^^^^                                       ^^^^^
+171 |         reduce_generated_recursor_iota_with_fuel, InductiveGenerationInput, LevelArena,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+172 |         LocalContext, MvpInductiveShape,
+    |         ^^^^^^^^^^^^
+
+error: unused imports: `LocalContext`, `LocalDecl`, and `LocalDefinition`
+  --> crates/mpk-core/src/context.rs:95:29
+   |
+95 |     use crate::{LevelArena, LocalContext, LocalDecl, LocalDefinition, TermArena};
+   |                             ^^^^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^
+
+error: unused imports: `check_theorem` and `register_checked_theorem`
+  --> crates/mpk-core/src/decl_check.rs:69:17
+   |
+69 |     use super::{check_theorem, register_checked_theorem};
+   |                 ^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: unused imports: `CoreErrorCode`, `DeclarationKind`, `Environment`, and `definitionally_equal`
+  --> crates/mpk-core/src/decl_check.rs:72:9
+   |
+72 |         definitionally_equal, CoreErrorCode, DeclarationKind, Environment, LevelArena, TermArena,
+   |         ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^  ^^^^^^^^^^^
+
+error: unused import: `definitionally_equal_with_fuel`
+   --> crates/mpk-core/src/defeq.rs:251:39
+    |
+251 |     use super::{definitionally_equal, definitionally_equal_with_fuel};
+    |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: unused import: `std::collections::BTreeSet`
+   --> crates/mpk-core/src/defeq.rs:253:9
+    |
+253 |     use std::collections::BTreeSet;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: unused import: `DefinitionReducibility`
+   --> crates/mpk-core/src/defeq.rs:258:46
+    |
+258 |         register_checked_theorem, CoreError, DefinitionReducibility, Environment, LevelArena,
+    |                                              ^^^^^^^^^^^^^^^^^^^^^^
+
+error: unused imports: `DeclarationKind`, `DefinitionReducibility`, and `Environment`
+   --> crates/mpk-core/src/env.rs:456:9
+    |
+456 |         DeclarationKind, DefinitionReducibility, Environment, LevelArena, TermArena, TermId,
+    |         ^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^
+
+error: unused imports: `CoreErrorCode`, `CoreError`, `CoreLocationPart`, `CoreLocation`, `ReduceError`, and `SubstError`
+   --> crates/mpk-core/src/error.rs:248:9
+    |
+248 |         CoreError, CoreErrorCode, CoreLocation, CoreLocationPart, ReduceError, SubstError,
+    |         ^^^^^^^^^  ^^^^^^^^^^^^^  ^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^  ^^^^^^^^^^
+
+error: unused imports: `CoreErrorCode`, `DeclarationKind`, `Environment`, and `register_mvp_inductive`
+   --> crates/mpk-core/src/inductive.rs:496:9
+    |
+496 |         register_mvp_inductive, ConstructorSignature, CoreErrorCode, DeclarationKind, Environment,
+    |         ^^^^^^^^^^^^^^^^^^^^^^                        ^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^  ^^^^^^^^^^^
+
+error: unused import: `GeneratedArtifactKind`
+   --> crates/mpk-core/src/inductive_gen.rs:519:46
+    |
+519 |         generate_mvp_inductive_declarations, GeneratedArtifactKind, InductiveGenerationInput,
+    |                                              ^^^^^^^^^^^^^^^^^^^^^
+
+error: unused imports: `DeclarationKind` and `TermNode`
+   --> crates/mpk-core/src/inductive_gen.rs:523:9
+    |
+523 |         DeclarationKind, Environment, LevelArena, MvpInductiveShape, TermArena, TermId, TermNode,
+    |         ^^^^^^^^^^^^^^^                                                                 ^^^^^^^^
+
+error: unused imports: `DefinitionReducibility`, `Environment`, `LevelArena`, `LevelNode`, `LocalContext`, `TermNode`, `check`, `infer_sort`, and `infer`
+   --> crates/mpk-core/src/infer.rs:469:9
+    |
+469 |         check, infer, infer_sort, DefinitionReducibility, Environment, LevelArena, LevelNode,
+    |         ^^^^^  ^^^^^  ^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^
+470 |         LocalContext, TermArena, TermId, TermNode,
+    |         ^^^^^^^^^^^^                     ^^^^^^^^
+
+error: unused import: `LevelNode`
+   --> crates/mpk-core/src/level.rs:223:29
+    |
+223 |     use super::{LevelArena, LevelNode};
+    |                             ^^^^^^^^^
+
+error: unused imports: `NameError`, `NameResolver`, and `Name`
+   --> crates/mpk-core/src/name.rs:195:17
+    |
+195 |     use crate::{Name, NameError, NameResolver};
+    |                 ^^^^  ^^^^^^^^^  ^^^^^^^^^^^^
+
+error: unused imports: `LocalContext`, `definitionally_equal`, and `infer`
+   --> crates/mpk-core/src/nat_induct.rs:188:9
+    |
+188 |         definitionally_equal, generate_mvp_inductive_declarations, infer, InductiveGenerationInput,
+    |         ^^^^^^^^^^^^^^^^^^^^                                       ^^^^^
+189 |         LevelArena, LocalContext, MvpInductiveShape,
+    |                     ^^^^^^^^^^^^
+
+error: unused import: `PositivityErrorKind`
+   --> crates/mpk-core/src/positivity.rs:496:39
+    |
+496 |     use super::{check_mvp_positivity, PositivityErrorKind};
+    |                                       ^^^^^^^^^^^^^^^^^^^
+
+error: unused imports: `ReduceError`, `whnf_with_fuel`, and `whnf`
+   --> crates/mpk-core/src/reduce.rs:115:17
+    |
+115 |     use crate::{whnf, whnf_with_fuel, LevelArena, ReduceError, TermArena, TermId, TermNode};
+    |                 ^^^^  ^^^^^^^^^^^^^^              ^^^^^^^^^^^
+
+error: unused imports: `IotaReductionErrorKind` and `reduce_generated_recursor_iota_with_fuel`
+   --> crates/mpk-core/src/reduce_inductive.rs:528:41
+    |
+528 |         reduce_generated_recursor_iota, reduce_generated_recursor_iota_with_fuel,
+    |                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+529 |         IotaReductionErrorKind,
+    |         ^^^^^^^^^^^^^^^^^^^^^^
+
+error: unused imports: `CoreErrorCode` and `definitionally_equal`
+   --> crates/mpk-core/src/reduce_inductive.rs:536:9
+    |
+536 |         definitionally_equal, generate_mvp_inductive_declarations, CoreError, CoreErrorCode,
+    |         ^^^^^^^^^^^^^^^^^^^^                                                  ^^^^^^^^^^^^^
+
+error: unused imports: `beta_substitute`, `lift_from`, `lift`, `substitute_top`, and `substitute`
+   --> crates/mpk-core/src/subst.rs:245:9
+    |
+245 |         beta_substitute, lift, lift_from, substitute, substitute_top, LevelArena, TermArena,
+    |         ^^^^^^^^^^^^^^^  ^^^^  ^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^^^^^^
+
+error: unused imports: `NameResolver`, `TermArena`, and `TermNode`
+   --> crates/mpk-core/src/term.rs:250:29
+    |
+250 |     use crate::{LevelArena, NameResolver, TermArena, TermNode};
+    |                             ^^^^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^
+
+error: method `spawn_without_cgroup_for_test` is never used
+   --> crates/mpk-linux-sandbox/src/lib.rs:309:8
+    |
+123 | impl PreparedLaunch {
+    | ------------------- method in this implementation
+...
+309 |     fn spawn_without_cgroup_for_test(self) -> Result<ResourceChild, LaunchError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `-D dead-code` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[expect(dead_code)]` or `#[allow(dead_code)]`
+
+error: function `current_hard_limit` is never used
+   --> crates/mpk-linux-sandbox/src/lib.rs:811:4
+    |
+811 | fn current_hard_limit(resource: u32) -> io::Result<u64> {
+    |    ^^^^^^^^^^^^^^^^^^
+
+error: function `evaluate` is never used
+  --> crates/mpk-linux-sandbox/src/go_policy.rs:68:8
+   |
+68 |     fn evaluate(arch: u32, syscall: u32, flags: u64) -> u32 {
+   |        ^^^^^^^^
+
+error: constant `CHILD_MARKER_KEY` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1191:11
+     |
+1191 |     const CHILD_MARKER_KEY: &str = "MPK_LINUX_SANDBOX_TEST_CHILD";
+     |           ^^^^^^^^^^^^^^^^
+
+error: constant `CHILD_CWD_KEY` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1192:11
+     |
+1192 |     const CHILD_CWD_KEY: &str = "MPK_LINUX_SANDBOX_TEST_CWD";
+     |           ^^^^^^^^^^^^^
+
+error: static `LIVE_TEST_LOCK` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1193:12
+     |
+1193 |     static LIVE_TEST_LOCK: Mutex<()> = Mutex::new(());
+     |            ^^^^^^^^^^^^^^
+
+error: function `live_test_child` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1457:8
+     |
+1457 |     fn live_test_child(launch: PreparedLaunch) -> Option<ResourceChild> {
+     |        ^^^^^^^^^^^^^^^
+
+error: function `live_test_guard` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1471:8
+     |
+1471 |     fn live_test_guard() -> std::sync::MutexGuard<'static, ()> {
+     |        ^^^^^^^^^^^^^^^
+
+error: function `clone_unavailable` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1477:8
+     |
+1477 |     fn clone_unavailable(error: &LaunchError) -> bool {
+     |        ^^^^^^^^^^^^^^^^^
+
+error: function `live_limits_supported` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1485:8
+     |
+1485 |     fn live_limits_supported() -> bool {
+     |        ^^^^^^^^^^^^^^^^^^^^^
+
+error: function `test_launch` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1502:8
+     |
+1502 |     fn test_launch(directory: &Path, mode: &str) -> PreparedLaunch {
+     |        ^^^^^^^^^^^
+
+error: function `test_files` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1531:8
+     |
+1531 |     fn test_files() -> io::Result<LaunchFiles> {
+     |        ^^^^^^^^^^
+
+error: function `test_controls` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1541:8
+     |
+1541 |     fn test_controls() -> ProcessControls {
+     |        ^^^^^^^^^^^^^
+
+error: function `exact_limit` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1548:8
+     |
+1548 |     fn exact_limit(value: u64) -> Rlimit {
+     |        ^^^^^^^^^^^
+
+error: function `assert_limit_is_exact_at_hard_maximum` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1555:8
+     |
+1555 |     fn assert_limit_is_exact_at_hard_maximum(limit: Rlimit) {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `verify_only_standard_descriptors` is never used
+    --> crates/mpk-linux-sandbox/src/lib.rs:1559:8
+     |
+1559 |     fn verify_only_standard_descriptors() {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: could not compile `mpk-linux-sandbox` (lib) due to 19 previous errors
+warning: build failed, waiting for other jobs to finish...
+error: function `cert` is never used
+   --> crates/mpk-theory/src/array_cert.rs:458:8
+    |
+458 |     fn cert(claims: Vec<ArrayClaim>) -> ArrayCertificate {
+    |        ^^^^
+    |
+    = note: `-D dead-code` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[expect(dead_code)]` or `#[allow(dead_code)]`
+
+error: function `base` is never used
+   --> crates/mpk-theory/src/array_cert.rs:465:8
+    |
+465 |     fn base() -> ArrayExpr {
+    |        ^^^^
+
+error: function `write` is never used
+   --> crates/mpk-theory/src/array_cert.rs:469:8
+    |
+469 |     fn write(index: u32, value: u32) -> ArrayExpr {
+    |        ^^^^^
+
+error: function `read` is never used
+   --> crates/mpk-theory/src/array_cert.rs:473:8
+    |
+473 |     fn read(array: ArrayExpr, index: u32, expected: ArrayElement) -> ArrayClaim {
+    |        ^^^^
+
+error: function `length` is never used
+   --> crates/mpk-theory/src/array_cert.rs:480:8
+    |
+480 |     fn length(array: ArrayExpr, expected: u32) -> ArrayClaim {
+    |        ^^^^^^
+
+error: function `lit` is never used
+   --> crates/mpk-theory/src/bitvec_eval.rs:437:8
+    |
+437 |     fn lit(width: u32, bits: u64) -> BitVecExpr {
+    |        ^^^
+
+error: function `bv` is never used
+   --> crates/mpk-theory/src/bitvec_eval.rs:441:8
+    |
+441 |     fn bv(width: u32, bits: u64) -> BitVecEvalResult {
+    |        ^^
+
+error: function `eval` is never used
+   --> crates/mpk-theory/src/bitvec_eval.rs:445:8
+    |
+445 |     fn eval(input: &BitVecExpr) -> BitVecEvalResult {
+    |        ^^^^
+
+error: function `tautology_expr` is never used
+   --> crates/mpk-theory/src/bool_cert.rs:505:8
+    |
+505 |     fn tautology_expr() -> BoolExpr {
+    |        ^^^^^^^^^^^^^^
+
+error: function `rows_for` is never used
+   --> crates/mpk-theory/src/bool_cert.rs:515:8
+    |
+515 |     fn rows_for(variable_count: u8, root: &BoolExpr) -> Vec<BoolCertificateRow> {
+    |        ^^^^^^^^
+
+error: function `encode_payload` is never used
+   --> crates/mpk-theory/src/bool_cert.rs:529:8
+    |
+529 |     fn encode_payload(variable_count: u8, expr: &[u8], rows: &[(u8, bool)]) -> Vec<u8> {
+    |        ^^^^^^^^^^^^^^
+
+error: function `term` is never used
+   --> crates/mpk-theory/src/linarith_cert.rs:420:8
+    |
+420 |     fn term(variable: u32, coefficient: i128) -> LinearTerm {
+    |        ^^^^
+
+error: function `ineq` is never used
+   --> crates/mpk-theory/src/linarith_cert.rs:424:8
+    |
+424 |     fn ineq(terms: Vec<LinearTerm>, constant: i128) -> LinearInequality {
+    |        ^^^^
+
+error: function `row` is never used
+   --> crates/mpk-theory/src/linarith_cert.rs:428:8
+    |
+428 |     fn row(premise_index: usize, multiplier: u64) -> FarkasMultiplier {
+    |        ^^^
+
+error: could not compile `mpk-theory` (lib) due to 14 previous errors
+error: function `setup` is never used
+   --> crates/mpk-core/src/bool_cases.rs:171:8
+    |
+171 |     fn setup() -> (LevelArena, TermArena, Environment, GlobalId, [GlobalId; 2]) {
+    |        ^^^^^
+    |
+    = note: `-D dead-code` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[expect(dead_code)]` or `#[allow(dead_code)]`
+
+error: function `setup` is never used
+   --> crates/mpk-core/src/bool_rec_type.rs:175:8
+    |
+175 |     fn setup() -> (LevelArena, TermArena, Environment, GlobalId, [GlobalId; 2]) {
+    |        ^^^^^
+
+error: function `install` is never used
+   --> crates/mpk-core/src/bool_rec_type.rs:199:8
+    |
+199 |     fn install(terms: &mut TermArena, env: &mut Environment, family: GlobalId) -> GlobalId {
+    |        ^^^^^^^
+
+error: function `sort` is never used
+  --> crates/mpk-core/src/context.rs:97:8
+   |
+97 |     fn sort(terms: &mut TermArena, levels: &mut LevelArena, name: &str) -> crate::TermId {
+   |        ^^^^
+
+error: function `theorem_type_and_proof` is never used
+  --> crates/mpk-core/src/decl_check.rs:76:8
+   |
+76 |     fn theorem_type_and_proof(levels: &mut LevelArena, terms: &mut TermArena) -> (TermId, TermId) {
+   |        ^^^^^^^^^^^^^^^^^^^^^^
+
+error: constant `CORE_NEGATIVE_FIXTURE_DIR` is never used
+   --> crates/mpk-core/src/defeq.rs:262:11
+    |
+262 |     const CORE_NEGATIVE_FIXTURE_DIR: &str =
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: struct `NegativeDefeqFixture` is never constructed
+   --> crates/mpk-core/src/defeq.rs:266:12
+    |
+266 |     struct NegativeDefeqFixture {
+    |            ^^^^^^^^^^^^^^^^^^^^
+
+error: function `sort` is never used
+   --> crates/mpk-core/src/defeq.rs:272:8
+    |
+272 |     fn sort(terms: &mut TermArena, levels: &mut LevelArena, name: &str) -> TermId {
+    |        ^^^^
+
+error: function `read_core_negative_fixtures` is never used
+   --> crates/mpk-core/src/defeq.rs:277:8
+    |
+277 |     fn read_core_negative_fixtures() -> Vec<NegativeDefeqFixture> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `parse_core_negative_fixture` is never used
+   --> crates/mpk-core/src/defeq.rs:294:8
+    |
+294 |     fn parse_core_negative_fixture(path: &Path) -> NegativeDefeqFixture {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_core_negative_fixture` is never used
+   --> crates/mpk-core/src/defeq.rs:328:8
+    |
+328 |     fn run_core_negative_fixture(fixture: &NegativeDefeqFixture) -> Result<bool, CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_eta_rejection_fixture` is never used
+   --> crates/mpk-core/src/defeq.rs:337:8
+    |
+337 |     fn run_eta_rejection_fixture() -> Result<bool, CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_proof_irrelevance_rejection_fixture` is never used
+   --> crates/mpk-core/src/defeq.rs:351:8
+    |
+351 |     fn run_proof_irrelevance_rejection_fixture() -> Result<bool, CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_theorem_unfolding_rejection_fixture` is never used
+   --> crates/mpk-core/src/defeq.rs:370:8
+    |
+370 |     fn run_theorem_unfolding_rejection_fixture() -> Result<bool, CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `sort` is never used
+   --> crates/mpk-core/src/env.rs:459:8
+    |
+459 |     fn sort(terms: &mut TermArena, levels: &mut LevelArena, name: &str) -> TermId {
+    |        ^^^^
+
+error: function `sort` is never used
+   --> crates/mpk-core/src/inductive.rs:500:8
+    |
+500 |     fn sort(terms: &mut TermArena, levels: &mut LevelArena, name: &str) -> TermId {
+    |        ^^^^
+
+error: function `basic_spec` is never used
+   --> crates/mpk-core/src/inductive.rs:505:8
+    |
+505 |     fn basic_spec(
+    |        ^^^^^^^^^^
+
+error: function `sort` is never used
+   --> crates/mpk-core/src/inductive_gen.rs:526:8
+    |
+526 |     fn sort(terms: &mut TermArena, levels: &mut LevelArena, name: &str) -> TermId {
+    |        ^^^^
+
+error: function `generate_fresh_bool` is never used
+   --> crates/mpk-core/src/inductive_gen.rs:531:8
+    |
+531 |     fn generate_fresh_bool() -> super::GeneratedInductiveDeclarations {
+    |        ^^^^^^^^^^^^^^^^^^^
+
+error: function `check_type_mismatch_json` is never used
+   --> crates/mpk-core/src/infer.rs:473:8
+    |
+473 |     fn check_type_mismatch_json(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `lambda_domain_mismatch_json` is never used
+   --> crates/mpk-core/src/infer.rs:489:8
+    |
+489 |     fn lambda_domain_mismatch_json(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `infer_component_not_sort_json` is never used
+   --> crates/mpk-core/src/infer.rs:505:8
+    |
+505 |     fn infer_component_not_sort_json(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `app_not_function_json` is never used
+   --> crates/mpk-core/src/infer.rs:525:8
+    |
+525 |     fn app_not_function_json(
+    |        ^^^^^^^^^^^^^^^^^^^^^
+
+error: function `param` is never used
+   --> crates/mpk-core/src/level.rs:225:8
+    |
+225 |     fn param(arena: &mut LevelArena, name: &str) -> super::LevelId {
+    |        ^^^^^
+
+error: function `setup` is never used
+   --> crates/mpk-core/src/nat_induct.rs:191:8
+    |
+191 |     fn setup() -> (LevelArena, TermArena, Environment, GlobalId, [GlobalId; 2]) {
+    |        ^^^^^
+
+error: function `install` is never used
+   --> crates/mpk-core/src/nat_induct.rs:211:8
+    |
+211 |     fn install(terms: &mut TermArena, env: &mut Environment, family: GlobalId) -> GlobalId {
+    |        ^^^^^^^
+
+error: constant `CORE_INDUCTIVE_FIXTURE_DIR` is never used
+   --> crates/mpk-core/src/positivity.rs:506:11
+    |
+506 |     const CORE_INDUCTIVE_FIXTURE_DIR: &str =
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: struct `PositivityFixture` is never constructed
+   --> crates/mpk-core/src/positivity.rs:510:12
+    |
+510 |     struct PositivityFixture {
+    |            ^^^^^^^^^^^^^^^^^
+
+error: function `read_core_inductive_fixtures` is never used
+   --> crates/mpk-core/src/positivity.rs:516:8
+    |
+516 |     fn read_core_inductive_fixtures() -> Vec<PositivityFixture> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `parse_core_inductive_fixture` is never used
+   --> crates/mpk-core/src/positivity.rs:533:8
+    |
+533 |     fn parse_core_inductive_fixture(path: &Path) -> PositivityFixture {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_core_inductive_fixture` is never used
+   --> crates/mpk-core/src/positivity.rs:565:8
+    |
+565 |     fn run_core_inductive_fixture(fixture: &PositivityFixture) -> Result<(), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `sort` is never used
+   --> crates/mpk-core/src/positivity.rs:578:8
+    |
+578 |     fn sort(terms: &mut TermArena, levels: &mut LevelArena, name: &str) -> TermId {
+    |        ^^^^
+
+error: function `register_family` is never used
+   --> crates/mpk-core/src/positivity.rs:583:8
+    |
+583 |     fn register_family(
+    |        ^^^^^^^^^^^^^^^
+
+error: function `register_constructor` is never used
+   --> crates/mpk-core/src/positivity.rs:595:8
+    |
+595 |     fn register_constructor(
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+error: function `register_recursor` is never used
+   --> crates/mpk-core/src/positivity.rs:605:8
+    |
+605 |     fn register_recursor(
+    |        ^^^^^^^^^^^^^^^^^
+
+error: function `run_bool_positive_fixture` is never used
+   --> crates/mpk-core/src/positivity.rs:615:8
+    |
+615 |     fn run_bool_positive_fixture() -> Result<(), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_nat_positive_fixture` is never used
+   --> crates/mpk-core/src/positivity.rs:635:8
+    |
+635 |     fn run_nat_positive_fixture() -> Result<(), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_eq_positive_fixture` is never used
+   --> crates/mpk-core/src/positivity.rs:656:8
+    |
+656 |     fn run_eq_positive_fixture() -> Result<(), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_bool_recursive_argument_fixture` is never used
+   --> crates/mpk-core/src/positivity.rs:676:8
+    |
+676 |     fn run_bool_recursive_argument_fixture() -> Result<(), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_nat_negative_function_fixture` is never used
+   --> crates/mpk-core/src/positivity.rs:697:8
+    |
+697 |     fn run_nat_negative_function_fixture() -> Result<(), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_nat_nested_unknown_functor_fixture` is never used
+   --> crates/mpk-core/src/positivity.rs:720:8
+    |
+720 |     fn run_nat_nested_unknown_functor_fixture() -> Result<(), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_nat_bad_result_fixture` is never used
+   --> crates/mpk-core/src/positivity.rs:746:8
+    |
+746 |     fn run_nat_bad_result_fixture() -> Result<(), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `sort` is never used
+   --> crates/mpk-core/src/reduce.rs:117:8
+    |
+117 |     fn sort(terms: &mut TermArena, levels: &mut LevelArena, name: &str) -> TermId {
+    |        ^^^^
+
+error: function `assert_var` is never used
+   --> crates/mpk-core/src/reduce.rs:122:8
+    |
+122 |     fn assert_var(terms: &TermArena, term: TermId, expected: u32) {
+    |        ^^^^^^^^^^
+
+error: constant `CORE_RECURSOR_FIXTURE_DIR` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:540:11
+    |
+540 |     const CORE_RECURSOR_FIXTURE_DIR: &str =
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: struct `RecursorFixture` is never constructed
+   --> crates/mpk-core/src/reduce_inductive.rs:544:12
+    |
+544 |     struct RecursorFixture {
+    |            ^^^^^^^^^^^^^^^
+
+error: struct `GeneratedFixtureContext` is never constructed
+   --> crates/mpk-core/src/reduce_inductive.rs:550:12
+    |
+550 |     struct GeneratedFixtureContext {
+    |            ^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `sort` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:559:8
+    |
+559 |     fn sort(terms: &mut TermArena, levels: &mut LevelArena, name: &str) -> TermId {
+    |        ^^^^
+
+error: function `generated_context` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:564:8
+    |
+564 |     fn generated_context(shape: MvpInductiveShape, family_name: &str) -> GeneratedFixtureContext {
+    |        ^^^^^^^^^^^^^^^^^
+
+error: function `run_bool_false_fixture` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:591:8
+    |
+591 |     fn run_bool_false_fixture() -> Result<(TermId, TermId), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_bool_true_fixture` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:605:8
+    |
+605 |     fn run_bool_true_fixture() -> Result<(TermId, TermId), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_nat_zero_fixture` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:619:8
+    |
+619 |     fn run_nat_zero_fixture() -> Result<(TermId, TermId), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_nat_succ_fixture` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:633:8
+    |
+633 |     fn run_nat_succ_fixture() -> Result<(TermId, TermId), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_eq_refl_fixture` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:655:8
+    |
+655 |     fn run_eq_refl_fixture() -> Result<(TermId, TermId), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^
+
+error: function `run_unknown_recursor_fixture` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:666:8
+    |
+666 |     fn run_unknown_recursor_fixture() -> Result<TermId, CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_unknown_constructor_equation_fixture` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:693:8
+    |
+693 |     fn run_unknown_constructor_equation_fixture() -> Result<TermId, CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `read_core_recursor_fixtures` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:710:8
+    |
+710 |     fn read_core_recursor_fixtures() -> Vec<RecursorFixture> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `parse_core_recursor_fixture` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:727:8
+    |
+727 |     fn parse_core_recursor_fixture(path: &Path) -> RecursorFixture {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `run_core_recursor_fixture` is never used
+   --> crates/mpk-core/src/reduce_inductive.rs:759:8
+    |
+759 |     fn run_core_recursor_fixture(fixture: &RecursorFixture) -> Result<(), CoreError> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function `sort` is never used
+   --> crates/mpk-core/src/subst.rs:249:8
+    |
+249 |     fn sort(terms: &mut TermArena, levels: &mut LevelArena, name: &str) -> crate::TermId {
+    |        ^^^^
+
+error: function `assert_var` is never used
+   --> crates/mpk-core/src/subst.rs:254:8
+    |
+254 |     fn assert_var(terms: &TermArena, term: crate::TermId, expected: u32) {
+    |        ^^^^^^^^^^
+
+error: function `param` is never used
+   --> crates/mpk-core/src/term.rs:252:8
+    |
+252 |     fn param(levels: &mut LevelArena, name: &str) -> crate::LevelId {
+    |        ^^^^^
+
+error: could not compile `mpk-core` (lib) due to 85 previous errors
+error: could not compile `mpk-core` (lib) due to 85 previous errors

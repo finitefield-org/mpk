@@ -93,6 +93,7 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "policy.go"), policy, 0o600)
 	practicalGraphTestOriginals(t, roots)
 	roots = append(roots, practicalSourceRoot{Capability: "original-go-sdk", Directory: compiler.selection.GoRoot})
+	practicalLiveRootComparisonStart(t, roots)
 	session := practicalTestSession(t, roots)
 	fail := func(err error) {
 		var native *practicalGoDiscoveryFailure
@@ -126,6 +127,7 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 	}
 	retainPracticalStandardSnapshot(t, sealed.snapshot)
 	retainPracticalStandardSnapshot(t, exports.snapshot)
+	practicalLiveRootComparisonFinish(t, sealed.snapshot)
 	image, err := materializePracticalReplaySources(t.TempDir(), []practicalReplaySources{sealed, exports.replay}, &compiler, roots[2].Capability)
 	if err != nil {
 		fail(err)

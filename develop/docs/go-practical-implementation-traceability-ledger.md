@@ -9584,3 +9584,32 @@ successful exact restoration and unchanged scanner rules/exclusions.
 Launcher/capture authority, source/binary binding, application proofs, native
 Linux release acceptance and T02-W01 completion remain due. The cumulative T02
 fast gate remains deferred to T02-W04.
+
+## 218. T02-W01 live original application root comparison (in progress)
+
+The [live application checkpoint](../migrations/go-practical/t02-w01/verification/source-root-live/README.md)
+opens the original application, dependency and SDK handles before the Go capture.
+All 5,516 captured source objects, 836 directories and 6,370 native entries
+match those handles. The existing complete multi-module test then retires those
+roots and reconstructs its original package/export/compiler owner. Independent
+inspection verifies that these three full capabilities are unchanged within
+its 5,697 objects; the additional 181 export objects have a separate root that
+this comparison does not authenticate.
+All 5,577 registered SDK files, 182 original packages and one Root selection
+are preserved, with zero contract overlays. Every one of 16,880 original
+native evidence files is losslessly stored and independently restored.
+
+Go compile/vet/format, the full affected original Go owner test, the Linux
+observer check/Clippy and Rust format pass. The first Go preflight lacked its
+temporary cache mount and the retained Go-only retry passes. Two exploratory
+forced test-configuration commands failed because they applied test flags to
+normal dependency libraries; the real example target has no test harness and
+the standard targeted Clippy passes. The first preflight archive and its one
+incidental compressed-byte scan finding are retained and exactly restored
+without scanner rule changes. An initial review scanned all original files but
+failed during report aggregation; the corrected full review passes and the
+original failure is retained. No failure is relabeled. Trusted launcher
+roots, the separate export root, registered frontend/source correspondence and
+application proofs remain due. This local emulation/arm64 observation is not
+native Linux release acceptance; W01/profile stay open/inactive and the full
+T02 gate remains at W04.

@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "selection_reason": "Restore every original file and directory from the complete encoded archive; compare each byte hash, size and mode and the full reconstructed archive digest.",
+  "command": [
+    "python3",
+    "-B",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-root-live/restore_evidence.py",
+    "live-original",
+    "/private/tmp/mpk-go-live-evidence-restored-live-original"
+  ],
+  "exit_code": 0,
+  "seconds": 11.51349270799983,
+  "restored_files": 16880,
+  "restored_bytes": 367714473,
+  "restored_directories": 3,
+  "all_original_files_and_modes_match": true,
+  "destination": "/private/tmp/mpk-go-live-evidence-restored-live-original",
+  "stdout_sha256": "0697db579255b76cfad6f0c50c1ca8148ae01de61a00edcefada97ca9aea40c5",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

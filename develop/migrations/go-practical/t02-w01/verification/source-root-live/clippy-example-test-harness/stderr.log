@@ -1,0 +1,54 @@
+   Compiling mpk-core v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-core)
+    Checking mpk-theory v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-theory)
+    Checking mpk-linux-sandbox v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-linux-sandbox)
+error[E0433]: cannot find module or crate `tempfile` in this scope
+    --> crates/mpk-linux-sandbox/src/lib.rs:1283:25
+     |
+1283 |         let temporary = tempfile::tempdir().expect("temporary directory");
+     |                         ^^^^^^^^ use of unresolved module or unlinked crate `tempfile`
+     |
+     = help: if you wanted to use a crate named `tempfile`, use `cargo add tempfile` to add it to your `Cargo.toml`
+
+error[E0433]: cannot find module or crate `tempfile` in this scope
+    --> crates/mpk-linux-sandbox/src/lib.rs:1330:25
+     |
+1330 |         let temporary = tempfile::tempdir().expect("temporary cwd");
+     |                         ^^^^^^^^ use of unresolved module or unlinked crate `tempfile`
+     |
+     = help: if you wanted to use a crate named `tempfile`, use `cargo add tempfile` to add it to your `Cargo.toml`
+
+error[E0433]: cannot find module or crate `tempfile` in this scope
+    --> crates/mpk-linux-sandbox/src/lib.rs:1374:25
+     |
+1374 |         let temporary = tempfile::tempdir().expect("temporary cwd");
+     |                         ^^^^^^^^ use of unresolved module or unlinked crate `tempfile`
+     |
+     = help: if you wanted to use a crate named `tempfile`, use `cargo add tempfile` to add it to your `Cargo.toml`
+
+error[E0433]: cannot find module or crate `tempfile` in this scope
+    --> crates/mpk-linux-sandbox/src/lib.rs:1396:25
+     |
+1396 |         let temporary = tempfile::tempdir().expect("temporary cwd");
+     |                         ^^^^^^^^ use of unresolved module or unlinked crate `tempfile`
+     |
+     = help: if you wanted to use a crate named `tempfile`, use `cargo add tempfile` to add it to your `Cargo.toml`
+
+error[E0433]: cannot find module or crate `tempfile` in this scope
+    --> crates/mpk-linux-sandbox/src/lib.rs:1414:25
+     |
+1414 |         let temporary = tempfile::tempdir().expect("temporary cwd");
+     |                         ^^^^^^^^ use of unresolved module or unlinked crate `tempfile`
+     |
+     = help: if you wanted to use a crate named `tempfile`, use `cargo add tempfile` to add it to your `Cargo.toml`
+
+error[E0433]: cannot find module or crate `tempfile` in this scope
+    --> crates/mpk-linux-sandbox/src/lib.rs:1442:25
+     |
+1442 |         let temporary = tempfile::tempdir().expect("temporary cwd");
+     |                         ^^^^^^^^ use of unresolved module or unlinked crate `tempfile`
+     |
+     = help: if you wanted to use a crate named `tempfile`, use `cargo add tempfile` to add it to your `Cargo.toml`
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `mpk-linux-sandbox` (lib) due to 6 previous errors
+warning: build failed, waiting for other jobs to finish...

@@ -42,3 +42,6 @@ T02-W04; the supported source languages remain Go and Rust only.
 The later [source-root replay correction](../source-root-replay/README.md)
 restores and verifies the original full frontend archive in a detached temporary
 repository, so future checkout changes do not invalidate this historical test.
+The [live application comparison](../source-root-live/README.md) also keeps
+the three actual test roots open from before the Go capture through comparison;
+launcher authorization and the separate export root remain unproved.
