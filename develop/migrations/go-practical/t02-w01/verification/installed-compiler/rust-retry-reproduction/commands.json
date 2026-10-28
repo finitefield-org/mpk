@@ -1,0 +1,161 @@
+[
+  {
+    "command": [
+      "/usr/local/bin/docker",
+      "image",
+      "inspect",
+      "docker.io/library/buildpack-deps@sha256:816cb0d4a26fd8584b27d190bdd57ba7048be4fc20c259e60a985bec812887dc"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-retry-reproduction/command-00-stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-retry-reproduction/command-00-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  },
+  {
+    "command": [
+      "/usr/local/bin/docker",
+      "rm",
+      "-f",
+      "aec890ff2edde740854fe23c7ca4c4c40836963143b6035d71ee72dd1d4c5c14"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-retry-reproduction/command-01-stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-retry-reproduction/command-01-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  },
+  {
+    "command": [
+      "/usr/local/bin/docker",
+      "run",
+      "--rm",
+      "--pull=never",
+      "--platform=linux/amd64",
+      "--network=none",
+      "--read-only",
+      "--cap-drop=ALL",
+      "--security-opt=no-new-privileges",
+      "--user=501:20",
+      "--mount=type=bind,src=/private/tmp/mpk-go-installed-205-fs/retry/original-build-inputs/toolchain,dst=/mpk/toolchain,readonly",
+      "--mount=type=bind,src=/private/tmp/mpk-go-installed-205-fs/retry/original-build-inputs/native-sysroot,dst=/mpk/native-sysroot,readonly",
+      "--mount=type=bind,src=/private/tmp/mpk-go-installed-205-fs/retry/original-build-inputs/vendor,dst=/mpk/vendor,readonly",
+      "--mount=type=bind,src=/private/tmp/mpk-go-installed-205-fs/retry/original-frontend,dst=/mpk/frontend,readonly",
+      "--mount=type=bind,src=/private/tmp/mpk-go-installed-205-fs/retry/writable/home,dst=/mpk/home",
+      "--mount=type=bind,src=/private/tmp/mpk-go-installed-205-fs/retry/writable/cargo-home,dst=/mpk/cargo-home",
+      "--mount=type=bind,src=/private/tmp/mpk-go-installed-205-fs/retry/writable/tmp,dst=/mpk/tmp",
+      "--mount=type=bind,src=/private/tmp/mpk-go-installed-205-fs/retry/writable/target,dst=/mpk/target",
+      "--mount=type=bind,src=/private/tmp/mpk-go-installed-205-fs/retry/writable/work,dst=/mpk/work",
+      "--workdir=/mpk/frontend",
+      "docker.io/library/ubuntu@sha256:dca176c9663a7ba4c1f0e710986f5a25e672842963d95b960191e2d9f7185ebe",
+      "/usr/bin/env",
+      "-i",
+      "AR=/mpk/toolchain/bin/llvm-ar",
+      "CARGO_BUILD_JOBS=1",
+      "CARGO_ENCODED_RUSTFLAGS=-Clinker=/mpk/toolchain/bin/clang\u001f-Clink-arg=--sysroot=/mpk/native-sysroot\u001f-Clink-arg=-fuse-ld=lld\u001f--remap-path-prefix=/mpk/frontend=.",
+      "CARGO_HOME=/mpk/cargo-home",
+      "CARGO_INCREMENTAL=0",
+      "CARGO_NET_OFFLINE=true",
+      "CARGO_TARGET_DIR=/mpk/target",
+      "CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=/mpk/toolchain/bin/clang",
+      "CARGO_TERM_COLOR=never",
+      "CC=/mpk/toolchain/bin/clang",
+      "CFLAGS=--sysroot=/mpk/native-sysroot -fdebug-prefix-map=/mpk/frontend=.",
+      "CXX=/mpk/toolchain/bin/clang++",
+      "CXXFLAGS=--sysroot=/mpk/native-sysroot -fdebug-prefix-map=/mpk/frontend=.",
+      "HOME=/mpk/home",
+      "LANG=C",
+      "LC_ALL=C",
+      "LD_LIBRARY_PATH=/mpk/toolchain/lib",
+      "PATH=/mpk/toolchain/bin",
+      "RANLIB=/mpk/toolchain/bin/llvm-ranlib",
+      "RUSTC=/mpk/toolchain/bin/rustc",
+      "RUST_BACKTRACE=0",
+      "SOURCE_DATE_EPOCH=1748736000",
+      "TERM=dumb",
+      "TMPDIR=/mpk/tmp",
+      "TZ=UTC",
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--release",
+      "--bins",
+      "--target",
+      "x86_64-unknown-linux-gnu",
+      "--jobs",
+      "1"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-retry-reproduction/command-02-stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-retry-reproduction/command-02-stderr.log",
+      "bytes": 108,
+      "sha256": "f91dd081a7b524e49b2dcc48e4230ade464bb1b239c8aa5165e7f5445c7e9a7d",
+      "mode": 420
+    }
+  },
+  {
+    "command": [
+      "/usr/local/bin/docker",
+      "image",
+      "inspect",
+      "docker.io/library/ubuntu@sha256:dca176c9663a7ba4c1f0e710986f5a25e672842963d95b960191e2d9f7185ebe"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-retry-reproduction/command-03-stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-retry-reproduction/command-03-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  },
+  {
+    "command": [
+      "/usr/local/bin/docker",
+      "rm",
+      "-f",
+      "921de9d98c2f040f6ecb3c76364bda5bf4079e35c6179b4fa73f2248878bb65c"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-retry-reproduction/command-04-stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-retry-reproduction/command-04-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  }
+]

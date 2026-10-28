@@ -286,5 +286,45 @@
     "R06_completed": false,
     "W01_complete": false,
     "CSharp_tests_executed": false
+  },
+  "installed_compiler_qemu_checkpoint": {
+    "status": "scoped_checks_passed",
+    "inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-qemu-inspection.json",
+      "sha256": "c79ab9506767c55546fa7afecfd285580b6832a15555ea7647c0b21de237368a",
+      "bytes": 1778
+    },
+    "installed_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-qemu-binding/result.json",
+      "sha256": "c92216725a42050f460ce69e6fa6e2f107c3f0ec7fb6eaddd4a55e05f115ae78",
+      "bytes": 23758
+    },
+    "test_only_snapshot": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-compiler/whole-snapshot-diagnostic/result.json",
+      "sha256": "e139f115e3521061812196512072aecc0a59e0ff7ec051f78c5573817e77fb04",
+      "bytes": 2232
+    },
+    "diagnostic_format_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-probe-check/result.json",
+      "sha256": "ab128792f7159ebaa9e870901dd2c60b8f758c494b5f47ff2009bc583769aa36",
+      "bytes": 1518
+    },
+    "selection_reason": "Check the changed private installed-SDK owner and its complete original Go/Rust bundle integration, source/export binding, host and namespace/registry controls; vet and format only the added diagnostic. No unrelated test roots or cumulative T02 gate are run.",
+    "go_toolchain_files": 5577,
+    "go_toolchain_bytes": 166354960,
+    "rust_toolchain_files": 360,
+    "rust_toolchain_bytes": 1467509632,
+    "original_packages": 182,
+    "original_source_objects": 5697,
+    "root_selections": 1,
+    "contract_overlays": 0,
+    "installed_checks": 9,
+    "actual_installed_root_exercised": true,
+    "native_Linux_release_acceptance": false,
+    "public_profile_activated": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
   }
 }

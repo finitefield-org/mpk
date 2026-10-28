@@ -17,25 +17,48 @@ selection and **zero contract overlays**. Earlier receipts that describe a Root
 contract for this particular owner should be read as a Root selection; they do
 not establish that a contract overlay was present.
 
-The [whole-snapshot binding](whole-snapshot-default/result.json) passes using
+The [whole-snapshot binding](whole-snapshot-diagnostic/result.json) passes using
 a test-only sealer over all registered Linux SDK bytes and the complete original
 source/export owner. A coherently rehashed wrong-host claim and the complete
-original Darwin owner crossed with the Linux SDK both reject. The full check is
+original Darwin owner crossed with the Linux SDK both reject. Both owners retain
+the same original Root selection and source, and zero overlays. The full check is
 also part of the default test target. This check does not exercise an installed
-root. An independently [validated alternate registry](alternate-registry-validation/result.json)
-retains all Go/Rust entries while changing one executable and rehashing its
-complete identity; it will be used as an installed-registry pin control. The scoped host compilation, uninstalled-root
-rejection, strict Clippy and changed-source format checks have separate receipts.
+root. The scoped host compilation, strict Clippy and changed-source format checks
+have separate receipts.
 The first emulated Go owner run hit the existing 120-second child observation
 limit; the subsequent serial run passed without changing that limit. The first
 Clippy run identified an MSRV issue and was corrected; both failures are retained.
 
 The initial complete Rust input provisioning returned publication unavailable.
 An independent byte-reproduction attempt then failed because the default macOS
-filesystem conflated filenames that differ only in case. A new attempt is using
-a separate case-sensitive local volume and the same fixed original inputs. The
-actual four-bundle installed-root test is pending that reconstruction. Emulated
-Linux observations do not replace the required native Linux release gate.
+filesystem conflated filenames that differ only in case. On a separate
+case-sensitive volume the original Rust build completed, with the fixed LLVM
+archive recovered by verified byte ranges after a network timeout. The first
+finalization used an incomplete runtime-library search; the [corrected finalization](rust-finalized-bundles/result.json)
+uses the original ordered `/lib` and `/usr/lib` search and validates all 360 Rust
+toolchain files (1,467,509,632 bytes) and both frontend binaries against the
+registered inventories. Earlier failures and their inputs remain recorded.
+
+The [installed-root checks](installed-qemu-binding/result.json) place the actual
+test executable at `bin/mpk` beside both registry transports and all four complete
+registered Go/Rust bundles. The existing descriptor-relative loader enumerates
+the full four-bundle namespace and snapshots the selected Go frontend and SDK.
+The original SDK and complete source/export owner bind. An uninstalled executable,
+rehashed wrong-host claim, complete crossed Darwin owner, changed installed SDK
+byte and missing Rust namespace member reject. A separately valid alternate
+registry with a matching changed Go executable and recomputed identities also
+rejects the build pin. The [independent inspection](installed-qemu-inspection.json)
+checks all nine observations, identities and restored inputs.
+
+The first actual installed-root attempt [failed](installed-root-binding/result.json)
+because the local x86-64 translation returned `ENOSYS` for `openat2`, even with
+Docker seccomp unconfined. The retained [diagnostic](openat2-environment-diagnostic/result.json)
+and the older [QEMU 7 probe](qemu-bookworm-openat2/result.json) show the failure;
+[QEMU 10](qemu-backports-openat2/result.json) supports the required syscall and
+executable path. The passing installed-root checks use QEMU 10 user-mode
+emulation on Linux arm64, with the x86-64 runtime extracted from the pinned local
+Linux image and networking disabled. This is scoped integration evidence, not
+native Linux release acceptance; the production boundary was not weakened.
 
 T02-W01 remains open; the practical Go profile is inactive. Remaining private
 context, foundation, capture/read authority, source/program proofs and later

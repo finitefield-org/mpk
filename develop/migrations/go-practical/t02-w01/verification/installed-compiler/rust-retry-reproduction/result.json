@@ -1,0 +1,16 @@
+{
+  "status": "failed",
+  "started_at_utc": "2026-10-28T12:13:21.019123+00:00",
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-retry-reproduction/inputs.json",
+    "bytes": 71781,
+    "sha256": "56887690204904f2d4186baa09e76ed72fde4b23043810f0d8abd80d73ab5e76",
+    "mode": 420
+  },
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "error": "RustBuildFailure('BUNDLE_BUILD_INPUTS_INVALID')",
+  "traceback": "FileNotFoundError: archive link target missing: lib/x86_64-linux-gnu/libstdc++.so.6 -> lib/x86_64-linux-gnu/libstdc++.so.6\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/restore_rust_retry.py\", line 140, in main\n    runtime_view.copy_file(relative, runtime / relative, executable=entry['executable'])\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 1342, in copy_file\n    mode, source = self.resolve(source_name)\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 1298, in resolve\n    raise RustBuildFailure() from FileNotFoundError(\nrust_build_inputs.RustBuildFailure: BUNDLE_BUILD_INPUTS_INVALID\n",
+  "seconds": 411.132523833,
+  "consumed_inputs_unchanged": true
+}

@@ -31,7 +31,7 @@ def main():
     out.mkdir(exist_ok=False)
     linux = ROOT / 'linux-owner-serial/native-originals/versioned-owned'
     darwin = ROOT.parent / 'compiler-inputs/native/native-originals/versioned-owned'
-    build = json.loads((ROOT / 'linux-test-bound-final/result.json').read_bytes())
+    build = json.loads((ROOT / 'linux-test-bound-root-check/result.json').read_bytes())
     assert build['status'] == 'passed' and build['consumed_inputs_unchanged']
     binary = Path(build['executable']['path'])
     assert seal(binary) == build['executable']
@@ -46,7 +46,7 @@ def main():
     assert set(roots) == set(bundles)
     for identifier, root in roots.items():
         release.validate_root(root, bundles[identifier])
-    inputs = {Path(__file__).resolve(), ROOT / 'run_scoped.py', REPO / 'scripts/successor_release_bundles.py', REPO / 'scripts/release_bundles.py', REPO / 'scripts/rust_build_inputs.py', ROOT / 'linux-test-bound-final/result.json', binary}
+    inputs = {Path(__file__).resolve(), ROOT / 'run_scoped.py', REPO / 'scripts/successor_release_bundles.py', REPO / 'scripts/release_bundles.py', REPO / 'scripts/rust_build_inputs.py', ROOT / 'linux-test-bound-root-check/result.json', binary}
     inputs.update(p for root in roots.values() for p in root.rglob('*') if p.is_file())
     inputs.update(p for root in [linux, darwin] for p in root.rglob('*') if p.is_file())
     inputs.update(p for p in (REPO / 'release/bundles').rglob('*.json'))
@@ -57,8 +57,11 @@ def main():
     start = time.monotonic()
     calls = []
 
-    def execute(name, arguments, expected):
-        command = ['/usr/local/bin/docker', 'run', '--pull=never', '--rm', '--platform', 'linux/amd64', '--network', 'none', '--read-only', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--user', f'{os.getuid()}:{os.getgid()}', '--tmpfs', '/tmp:rw,nosuid,nodev,size=128m,mode=1777', '--mount', f'type=bind,src={INSTALLED},dst=/installed,readonly', '--mount', f'type=bind,src={linux},dst=/linux-owner,readonly', '--mount', f'type=bind,src={darwin},dst=/darwin-owner,readonly', '--mount', f'type=bind,src={out},dst=/controls,readonly', IMAGE, '/installed/bin/mpk', *arguments]
+    def execute(name, arguments, expected, *, installed=True):
+        command = ['/usr/local/bin/docker', 'run', '--pull=never', '--rm', '--platform', 'linux/amd64', '--network', 'none', '--read-only', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--user', f'{os.getuid()}:{os.getgid()}', '--tmpfs', '/tmp:rw,nosuid,nodev,size=128m,mode=1777', '--mount', f'type=bind,src={INSTALLED},dst=/installed,readonly', '--mount', f'type=bind,src={linux},dst=/linux-owner,readonly', '--mount', f'type=bind,src={darwin},dst=/darwin-owner,readonly', '--mount', f'type=bind,src={out},dst=/controls,readonly']
+        if not installed:
+            command.extend(['--mount', f'type=bind,src={binary},dst=/observer,readonly'])
+        command.extend([IMAGE, '/installed/bin/mpk' if installed else '/observer', *arguments])
         result = subprocess.run(command, cwd=REPO, capture_output=True, check=False)
         stdout, stderr = out / f'{name}.stdout', out / f'{name}.stderr'
         stdout.write_bytes(result.stdout)
@@ -90,6 +93,7 @@ def main():
         release.normalize_directories(INSTALLED)
         for identifier, bundle in bundles.items():
             release.validate_root(destination / identifier, bundle)
+        execute('uninstalled-executable', ['--snapshot'], {'status': 'rejected', 'phase': 'installed', 'error': 'Release'}, installed=False)
         snapshot = execute('original-snapshot', ['--snapshot'], {'status': 'accepted', 'phase': 'installed'})
         go_descriptor = bundles[candidates['go']['toolchain_bundles'][0]['bundle_id']]
         assert snapshot['inventory'] == go_descriptor['inventory']
@@ -114,6 +118,23 @@ def main():
             target.chmod(0o644)
             target.write_bytes(original)
             target.chmod(0o444)
+
+        # The complete Rust namespace is part of this installed release even
+        # though the Go selection snapshots only the Go pair.
+        rust_frontend = candidates['rust']['frontend_bundles'][0]['bundle_id']
+        target = destination / rust_frontend / 'bin/rust2vir'
+        held = VOLUME / 'held-rust2vir-original'
+        assert not held.exists()
+        try:
+            target.parent.chmod(0o755)
+            target.rename(held)
+            target.parent.chmod(0o555)
+            execute('missing-rust-namespace-member', ['--snapshot'], {'status': 'rejected', 'phase': 'installed', 'error': 'Release'})
+        finally:
+            target.parent.chmod(0o755)
+            if held.exists():
+                held.rename(target)
+            target.parent.chmod(0o555)
 
         # Construct a fully rehashed, independently valid alternate registry,
         # together with the matching changed Go executable, while retaining all

@@ -1,0 +1,154 @@
+[
+  {
+    "name": "ldd",
+    "command": [
+      "/usr/local/bin/docker",
+      "run",
+      "--pull=never",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "--read-only",
+      "--cap-drop",
+      "ALL",
+      "--security-opt",
+      "no-new-privileges",
+      "--mount",
+      "type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/linux-test-diagnostic/test-executable.elf,dst=/probe,readonly",
+      "sha256:d617f1b5c2a18778ba357ba0528e973bd24992b0dd18000dfbca059f4a15ebda",
+      "/usr/bin/ldd",
+      "/probe"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-amd64-runtime/ldd.stdout",
+      "bytes": 192,
+      "sha256": "d7f5e049c77d42e670e0b153a7aa61bc0617e3f266875424444347e25581caf0",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-amd64-runtime/ldd.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  },
+  {
+    "name": "create",
+    "command": [
+      "/usr/local/bin/docker",
+      "create",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "sha256:d617f1b5c2a18778ba357ba0528e973bd24992b0dd18000dfbca059f4a15ebda",
+      "/bin/true"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-amd64-runtime/create.stdout",
+      "bytes": 65,
+      "sha256": "5274c99ae88b4e5e514634051ec5457e3dcf0aa3e169c790f0daa134fdfb8c04",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-amd64-runtime/create.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  },
+  {
+    "name": "copy-0",
+    "command": [
+      "/usr/local/bin/docker",
+      "cp",
+      "-L",
+      "0632cff435c1517be49106e815b77ac71b8c3655a6277042b166401619c14193:/lib64/ld-linux-x86-64.so.2",
+      "/private/tmp/mpk-go-installed-205-fs/qemu-amd64-runtime/lib64/ld-linux-x86-64.so.2"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-amd64-runtime/copy-0.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-amd64-runtime/copy-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  },
+  {
+    "name": "copy-1",
+    "command": [
+      "/usr/local/bin/docker",
+      "cp",
+      "-L",
+      "0632cff435c1517be49106e815b77ac71b8c3655a6277042b166401619c14193:/lib/x86_64-linux-gnu/libc.so.6",
+      "/private/tmp/mpk-go-installed-205-fs/qemu-amd64-runtime/lib/x86_64-linux-gnu/libc.so.6"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-amd64-runtime/copy-1.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-amd64-runtime/copy-1.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  },
+  {
+    "name": "copy-2",
+    "command": [
+      "/usr/local/bin/docker",
+      "cp",
+      "-L",
+      "0632cff435c1517be49106e815b77ac71b8c3655a6277042b166401619c14193:/lib/x86_64-linux-gnu/libgcc_s.so.1",
+      "/private/tmp/mpk-go-installed-205-fs/qemu-amd64-runtime/lib/x86_64-linux-gnu/libgcc_s.so.1"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-amd64-runtime/copy-2.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-amd64-runtime/copy-2.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  },
+  {
+    "name": "remove",
+    "command": [
+      "/usr/local/bin/docker",
+      "rm",
+      "0632cff435c1517be49106e815b77ac71b8c3655a6277042b166401619c14193"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-amd64-runtime/remove.stdout",
+      "bytes": 65,
+      "sha256": "5274c99ae88b4e5e514634051ec5457e3dcf0aa3e169c790f0daa134fdfb8c04",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-amd64-runtime/remove.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  }
+]

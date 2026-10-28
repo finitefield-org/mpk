@@ -13,6 +13,7 @@ use mpk_vc::release_bundle_v1::{validate_successor_release_registry, GO_TOOLCHAI
 use mpk_vc::semantic_profile_registry::{validate_semantic_profile_registry, RegistryRevision};
 use mpk_vc::{hash_canonical_json, parse_strict_json, HashDomain, StrictJsonLimits};
 use serde_json::{json, Value};
+use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
 
@@ -98,6 +99,17 @@ fn whole_snapshot_binding(linux: &Path, darwin: &Path) {
         &std::fs::read(linux.join("complete-original-module-graph-inputs.json")).unwrap(),
     )
     .unwrap();
+    let selection: Value =
+        serde_json::from_slice(&unhex(packet["selection_hex"].as_str().unwrap())).unwrap();
+    let roots = selection["roots"].as_array().unwrap();
+    assert_eq!(roots.len(), 1);
+    assert_eq!(packet["overlays"].as_array().unwrap().len(), 0);
+    let selected_source = packet["sources"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|row| row["object"]["id"] == roots[0]["source_object_id"])
+        .unwrap();
     let rows = packet["compiler_files"].as_array().unwrap();
     assert_eq!(rows.len(), inventory.files.len());
     let objects = rows
@@ -178,6 +190,17 @@ fn whole_snapshot_binding(linux: &Path, darwin: &Path) {
     )
     .unwrap();
     assert_eq!(other["snapshot_sources"].as_array().unwrap().len(), 5697);
+    let other_selection: Value =
+        serde_json::from_slice(&unhex(other["selection_hex"].as_str().unwrap())).unwrap();
+    assert_eq!(other_selection["roots"], selection["roots"]);
+    assert_eq!(other["overlays"], packet["overlays"]);
+    let other_source = other["sources"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|row| row["object"]["id"] == roots[0]["source_object_id"])
+        .unwrap();
+    assert_eq!(other_source, selected_source);
     let other_record = unhex(other["compiler_inputs_hex"].as_str().unwrap());
     let other_wire: Value = serde_json::from_slice(&other_record).unwrap();
     assert_eq!(other_wire["host"], "darwin_arm64");
@@ -188,7 +211,7 @@ fn whole_snapshot_binding(linux: &Path, darwin: &Path) {
     assert!(matches!(crossed, Err(InstalledGoCompilerError::Inputs)));
     println!(
         "{}",
-        json!({"status":"passed", "method":"test-only-sealed-snapshot", "installed_root_exercised":false, "registered_sdk_files":5577, "registered_sdk_bytes":166354960, "sdk_sources":5480, "sdk_source_directories":source_directories, "original_objects":5697, "original_packages":182, "root_selections":1, "contract_overlays":0, "coherently_rehashed_host_rejected":true, "complete_darwin_owner_crossed_with_linux_snapshot_rejected":true})
+        json!({"status":"passed", "method":"test-only-sealed-snapshot", "installed_root_exercised":false, "registered_sdk_files":5577, "registered_sdk_bytes":166354960, "sdk_sources":5480, "sdk_source_directories":source_directories, "original_objects":packet["snapshot_sources"].as_array().unwrap().len(), "original_packages":182, "root_selections":roots.len(), "contract_overlays":packet["overlays"].as_array().unwrap().len(), "same_selected_original_source_and_root":true, "coherently_rehashed_host_rejected":true, "complete_darwin_owner_crossed_with_linux_snapshot_rejected":true})
     );
 }
 
@@ -199,6 +222,57 @@ fn run_whole_snapshot() {
         &evidence.join("installed-compiler/linux-owner-serial/native-originals/versioned-owned"),
         &evidence.join("compiler-inputs/native/native-originals/versioned-owned"),
     );
+}
+
+// Test-only diagnostic: expose the existing loader's rejection detail without
+// adding a production path override or changing its error mapping.
+fn diagnose_installed() {
+    let installed = match frontend_registry::InstalledSuccessorRelease::open() {
+        Ok(value) => value,
+        Err(error) => {
+            println!(
+                "{}",
+                json!({"phase":"descriptors", "error":error.to_string()})
+            );
+            return;
+        }
+    };
+    let semantic = validate_semantic_profile_registry(
+        &installed.semantic_registry_bytes,
+        RegistryRevision::Revision4,
+    )
+    .unwrap();
+    let registry = validate_successor_release_registry(&installed.registry_bytes, &semantic)
+        .expect("installed registry validates");
+    assert_eq!(
+        semantic.identity().registry_sha256(),
+        frontend_registry::EXPECTED_SEMANTIC_REGISTRY_SHA256
+    );
+    assert_eq!(
+        registry.registry_sha256(),
+        frontend_registry::EXPECTED_REGISTRY_SHA256_HEX
+    );
+    let expected = registry
+        .registry()
+        .frontend_bundles
+        .iter()
+        .map(|bundle| (bundle.bundle_id.clone(), &bundle.inventory))
+        .chain(
+            registry
+                .registry()
+                .toolchain_bundles
+                .iter()
+                .map(|bundle| (bundle.bundle_id.clone(), &bundle.inventory)),
+        )
+        .collect::<BTreeMap<_, _>>();
+    match installed.snapshot_selected_bundles(
+        &expected,
+        mpk_vc::release_bundle_v1::GO_FRONTEND_BUNDLE_ID,
+        GO_TOOLCHAIN_BUNDLE_ID,
+    ) {
+        Ok(_) => println!("{}", json!({"phase":"snapshot", "status":"accepted"})),
+        Err(error) => println!("{}", json!({"phase":"snapshot", "error":error.to_string()})),
+    }
 }
 
 fn main() {
@@ -216,6 +290,10 @@ fn main() {
     }
     if args.as_slice() == ["--whole-snapshot"] {
         run_whole_snapshot();
+        return;
+    }
+    if args.as_slice() == ["--diagnose-installed"] {
+        diagnose_installed();
         return;
     }
     if let [mode, path] = args.as_slice() {

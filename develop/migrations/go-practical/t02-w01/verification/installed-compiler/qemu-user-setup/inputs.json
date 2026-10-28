@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--pull=never",
+    "--rm",
+    "--platform",
+    "linux/arm64",
+    "--user",
+    "0:0",
+    "--mount",
+    "type=bind,src=/private/tmp/mpk-go-installed-205-fs/qemu-user,dst=/out",
+    "rust:1.95-bookworm-arm64-mpk",
+    "/bin/sh",
+    "-ceu",
+    "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends qemu-user-static && cp /usr/bin/qemu-x86_64-static /out/qemu-x86_64-static && dpkg-query -W qemu-user-static"
+  ],
+  "scope": "Install the distribution-signed emulator only inside a disposable local container to test an alternative x86-64 execution path; no host packages or product configuration are changed."
+}

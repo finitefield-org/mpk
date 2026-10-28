@@ -1,0 +1,50 @@
+{
+  "status": "diagnosed",
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-root-diagnostic/inputs.json",
+    "bytes": 1870383,
+    "sha256": "cffd009e76826f0882b7947f75e489b137efb110fbf32c443f172421896e0514",
+    "mode": 420
+  },
+  "native_Linux_release_acceptance": false,
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--pull=never",
+    "--rm",
+    "--platform",
+    "linux/amd64",
+    "--network",
+    "none",
+    "--read-only",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--user",
+    "501:20",
+    "--mount",
+    "type=bind,src=/private/tmp/mpk-go-installed-205-fs/installed-diagnostic,dst=/installed,readonly",
+    "sha256:d617f1b5c2a18778ba357ba0528e973bd24992b0dd18000dfbca059f4a15ebda",
+    "/installed/bin/mpk",
+    "--diagnose-installed"
+  ],
+  "observation": {
+    "error": "FRONTEND_SANDBOX_UNAVAILABLE: the installed release root cannot be retained without links",
+    "phase": "descriptors"
+  },
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-root-diagnostic/stdout.log",
+    "bytes": 124,
+    "sha256": "29d8d47adbd78ffa1e5de7f0322a60b53fd67b8747f1e60d0837cdd98fb6e008",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-root-diagnostic/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "seconds": 11.44729479200032,
+  "original_inputs_unchanged": true
+}

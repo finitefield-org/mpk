@@ -9410,7 +9410,12 @@ registries and descriptor-relative installed loader. A complete test-only sealed
 snapshot of the registered Linux SDK binds all 5577 files/166354960 bytes to the
 original 182-package/5697-object source/export owner. Rehashed wrong-host and
 complete Darwin-owner crossing controls reject. This original owner has one Root
-selection and zero contract overlays. The actual four-bundle installed-root test
-is still pending; the host check is not native Linux release acceptance. W01 and
-the practical profile remain open/inactive, and the cumulative T02 gate stays at
-W04.
+selection and zero contract overlays. A follow-up reconstructs the full registered
+Rust frontend/toolchain and passes nine checks through an actual four-bundle
+installed root under local Linux user-mode emulation. The original 5577-file Go
+SDK and source/export owner bind; wrong-host/crossed-owner, changed-SDK, missing
+Rust member and independently valid alternate-registry controls reject. Earlier
+provisioning, case-sensitive filesystem, runtime search and emulated `openat2`
+failures remain recorded. The check is not native Linux release acceptance. W01
+and the practical profile remain open/inactive, and the cumulative T02 gate stays
+at W04.

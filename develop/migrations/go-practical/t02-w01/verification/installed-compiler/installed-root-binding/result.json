@@ -1,0 +1,116 @@
+{
+  "status": "failed",
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-root-binding/inputs.json",
+    "bytes": 14857711,
+    "sha256": "a901f371c7aaaaf7d4078752a05d55ff1cf2e3c2d6657f9ab46e3a145af8ca10",
+    "mode": 420
+  },
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "error": "AssertionError(('original-snapshot', {'error': 'Release', 'phase': 'installed', 'status': 'rejected'}))",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/run_installed.py\", line 97, in main\n    snapshot = execute('original-snapshot', ['--snapshot'], {'status': 'accepted', 'phase': 'installed'})\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/run_installed.py\", line 74, in execute\n    assert all(observed.get(key) == value for key, value in expected.items()), (name, observed)\nAssertionError: ('original-snapshot', {'error': 'Release', 'phase': 'installed', 'status': 'rejected'})\n",
+  "seconds": 14.283036583001376,
+  "original_inputs_unchanged": true,
+  "commands": [
+    {
+      "name": "uninstalled-executable",
+      "command": [
+        "/usr/local/bin/docker",
+        "run",
+        "--pull=never",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--read-only",
+        "--cap-drop",
+        "ALL",
+        "--security-opt",
+        "no-new-privileges",
+        "--user",
+        "501:20",
+        "--tmpfs",
+        "/tmp:rw,nosuid,nodev,size=128m,mode=1777",
+        "--mount",
+        "type=bind,src=/private/tmp/mpk-go-installed-205-fs/installed-test,dst=/installed,readonly",
+        "--mount",
+        "type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/linux-owner-serial/native-originals/versioned-owned,dst=/linux-owner,readonly",
+        "--mount",
+        "type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-inputs/native/native-originals/versioned-owned,dst=/darwin-owner,readonly",
+        "--mount",
+        "type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-root-binding,dst=/controls,readonly",
+        "--mount",
+        "type=bind,src=/private/tmp/mpk-go-practical-policy-linux-target/debug/deps/go_practical_installed_compiler-32f9679e1752973a,dst=/observer,readonly",
+        "sha256:d617f1b5c2a18778ba357ba0528e973bd24992b0dd18000dfbca059f4a15ebda",
+        "/observer",
+        "--snapshot"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-root-binding/uninstalled-executable.stdout",
+        "bytes": 60,
+        "sha256": "54bfc9a0757c67b31e0cc986c2023779ad426207450bb7852e8ed9e7f4c6b979",
+        "mode": 420
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-root-binding/uninstalled-executable.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": 420
+      },
+      "observation": {
+        "status": "rejected",
+        "phase": "installed",
+        "error": "Release"
+      }
+    },
+    {
+      "name": "original-snapshot",
+      "command": [
+        "/usr/local/bin/docker",
+        "run",
+        "--pull=never",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--read-only",
+        "--cap-drop",
+        "ALL",
+        "--security-opt",
+        "no-new-privileges",
+        "--user",
+        "501:20",
+        "--tmpfs",
+        "/tmp:rw,nosuid,nodev,size=128m,mode=1777",
+        "--mount",
+        "type=bind,src=/private/tmp/mpk-go-installed-205-fs/installed-test,dst=/installed,readonly",
+        "--mount",
+        "type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/linux-owner-serial/native-originals/versioned-owned,dst=/linux-owner,readonly",
+        "--mount",
+        "type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-inputs/native/native-originals/versioned-owned,dst=/darwin-owner,readonly",
+        "--mount",
+        "type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-root-binding,dst=/controls,readonly",
+        "sha256:d617f1b5c2a18778ba357ba0528e973bd24992b0dd18000dfbca059f4a15ebda",
+        "/installed/bin/mpk",
+        "--snapshot"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-root-binding/original-snapshot.stdout",
+        "bytes": 60,
+        "sha256": "54bfc9a0757c67b31e0cc986c2023779ad426207450bb7852e8ed9e7f4c6b979",
+        "mode": 420
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-root-binding/original-snapshot.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": 420
+      }
+    }
+  ]
+}

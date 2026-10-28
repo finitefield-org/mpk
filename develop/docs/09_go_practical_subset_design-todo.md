@@ -18,8 +18,10 @@ The W01 [installed compiler checkpoint](../migrations/go-practical/t02-w01/verif
 is in progress. A private SDK owner uses the build-pinned registries and the
 existing installed-root loader. A test-only sealed copy of the complete registered
 Linux SDK binds the original 182-package/5697-object owner; a rehashed wrong-host
-claim and a crossed complete Darwin owner reject. The actual four-bundle installed
-root still awaits scoped verification, and no practical profile is active.
+claim and a crossed complete Darwin owner reject. The same complete owner now
+binds through an actual four-bundle installed root under local Linux user-mode
+emulation, with modified SDK, missing namespace and alternate-registry controls.
+This is not native Linux release acceptance, and no practical profile is active.
 
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/

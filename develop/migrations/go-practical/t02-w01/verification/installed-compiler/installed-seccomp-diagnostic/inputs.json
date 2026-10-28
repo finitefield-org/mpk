@@ -1,0 +1,27 @@
+{
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--pull=never",
+    "--rm",
+    "--platform",
+    "linux/amd64",
+    "--network",
+    "none",
+    "--read-only",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--security-opt",
+    "seccomp=unconfined",
+    "--user",
+    "501:20",
+    "--mount",
+    "type=bind,src=/private/tmp/mpk-go-installed-205-fs/installed-diagnostic,dst=/installed,readonly",
+    "sha256:d617f1b5c2a18778ba357ba0528e973bd24992b0dd18000dfbca059f4a15ebda",
+    "/installed/bin/mpk",
+    "--diagnose-installed"
+  ],
+  "scope": "Identify whether local Docker seccomp blocks the existing openat2 call; no product policy or Linux release-gate claim is changed."
+}
