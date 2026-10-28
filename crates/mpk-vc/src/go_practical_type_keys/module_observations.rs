@@ -10,7 +10,7 @@ pub use manifest::{
     GoSourceModuleManifestError, GoSourceStrictModuleManifest,
 };
 mod data;
-pub(super) use data::manifest_sum;
+pub(super) use data::{folded, manifest_sum};
 mod graph_inputs;
 pub use data::{
     import_go_module_sums, inspect_go_module_archive, GoModuleArchiveInventory,

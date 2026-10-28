@@ -58,7 +58,13 @@ Other capture archives and original-root authority remain open.
 The W01 [analysis module checkpoint](../migrations/go-practical/t02-w01/verification/analysis-module/README.md)
 binds the original frontend manifest and sums to all three cached module
 manifests, ZIP hashes and archives. Go and Rust agree on 20 observations.
-Cached `.info`, original-root and source-to-binary authority remain open.
+At that checkpoint, cached `.info`, original-root and source-to-binary authority
+were still open.
+
+The W01 [analysis info checkpoint](../migrations/go-practical/t02-w01/verification/analysis-info/README.md)
+validates the three cached `.info` records against Go JSON and time observations
+within the same snapshot. Original-root/VCS and source-to-binary authority remain
+open; the Go practical profile is inactive.
 
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/

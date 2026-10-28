@@ -9497,7 +9497,19 @@ source objects, 133 vendor files and all checksum lines remain. Go and Rust
 agree on 20 observations; direct manifest/sum, vendor namespace and archive
 tests plus scoped lint and formats pass. After interruption, the temporary SDK
 was restored from the pinned local image and all 5,577 registered files were
-checked; the initial missing-file attempt remains recorded. Cached `.info`,
-original-root and source-to-binary authority, context and W01 stay open; the
-profile remains inactive, native Linux release acceptance is not claimed and
+checked; the initial missing-file attempt remains recorded. At that checkpoint,
+cached `.info`, original-root and source-to-binary authority, context and W01
+were open; the profile remained inactive, native Linux release acceptance was not claimed and
 the cumulative T02 gate remains W04.
+
+## 212. T02-W01 analysis cache info metadata (in progress)
+
+The [analysis info checkpoint](../migrations/go-practical/t02-w01/verification/analysis-info/README.md)
+validates and retains all three original `.info` records in the analysis module
+owner. Go and Rust agree on 36 metadata observations and five same-snapshot
+controls, retaining 213 original source objects and 133 vendor files. The
+previous module, namespace and archive roots and the full pinned Unicode fold
+comparison pass, along with scoped lint and formats. This is not exhaustive JSON/
+time equivalence or root/VCS, source-to-binary, context or program authority.
+W01 and the practical profile remain open/inactive; native Linux release
+acceptance is not claimed and the cumulative T02 gate remains W04.

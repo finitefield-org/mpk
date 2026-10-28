@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/inspect_info.py",
+    "bytes": 5829,
+    "sha256": "be92a439f8cc38c96ae9b7a28e6c31c366dba5df3ef058bb8388531a97654c9f"
+  },
+  "native": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/native.json",
+    "bytes": 1043441,
+    "sha256": "2487e6b9f8159d8e59ea8cb661da3371b32f211591cf2624f46fbc05af3cb8cd"
+  },
+  "go_result": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/result.json",
+    "bytes": 13382,
+    "sha256": "9635514f24a2f5ad0b964c6c5f9c2eeadb6006002015e096b52c5755c333d8c8"
+  },
+  "rust_result": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-tests/result.json",
+    "bytes": 2369,
+    "sha256": "36da1cef80ae5fb5487918cb4024556107745262bfddcd2a8480349eb4afb1b8"
+  },
+  "original_sources": 213,
+  "vendor_files": 133,
+  "observations": {
+    "original-golang.org/x/mod": true,
+    "original-golang.org/x/sync": true,
+    "original-golang.org/x/tools": true,
+    "wrong-version": false,
+    "version-before-exact": true,
+    "version-after-exact": false,
+    "version-null-after": true,
+    "version-bad-type-before": false,
+    "unicode-fold-version": true,
+    "duplicate-version": false,
+    "time-null": true,
+    "time-type": false,
+    "time-single-hour": true,
+    "time-comma-fraction": true,
+    "time-zone-24-60": true,
+    "time-zone-25": false,
+    "time-zone-61": false,
+    "time-leap-day": true,
+    "time-non-leap-day": false,
+    "time-leap-second": false,
+    "time-escaped-z": false,
+    "time-lowercase-z": false,
+    "time-missing-zone": false,
+    "time-fraction-no-digits": false,
+    "origin-field-null": true,
+    "origin-field-type": false,
+    "unicode-fold-origin-field": false,
+    "origin-type": false,
+    "unknown-object": true,
+    "unknown-floating-number": false,
+    "unknown-duplicate-key": false,
+    "unknown-invalid-utf8": false,
+    "string-at-limit": true,
+    "string-one-over": false,
+    "depth-at-limit": true,
+    "depth-one-over": false
+  },
+  "observations_count": 36,
+  "accepted": 15,
+  "rejected": 21,
+  "snapshot_controls": {
+    "original-owner": true,
+    "valid-rewrite": true,
+    "wrong-version": false,
+    "escaped-time": false,
+    "unread-info": false
+  },
+  "all_snapshot_and_metadata_identities_recomputed": true,
+  "original_info_bytes_match_previous_capture": true,
+  "unchanged_snapshot_members_preserved": true,
+  "original_root_or_vcs_authentication": false,
+  "source_to_binary_proof_claimed": false,
+  "native_Linux_release_acceptance": false,
+  "whole_repository_gate_run": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

@@ -68,8 +68,13 @@ account for other archives in a larger capture.
 The [analysis module checkpoint](verification/analysis-module/README.md) binds
 the frontend manifest and sums, cached `.mod` files and ZIP hashes to the same
 observed snapshot and three original ZIPs. Go and Rust agree on 20 cases while
-retaining the full original source set. Cached `.info`, original-root and
-source-to-binary authority remain due; W01 and the profile remain open/inactive.
+retaining the full original source set. At this checkpoint, cached `.info`,
+original-root and source-to-binary authority were still due.
+
+The [analysis info checkpoint](verification/analysis-info/README.md) adds
+same-snapshot `.info` version and metadata validation for all three archives.
+Go and Rust agree on 36 original/adversarial metadata observations and five
+owner controls. Root/VCS authority and source-to-binary proof remain due.
 
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final

@@ -98,6 +98,7 @@ fn frontend_module_and_original_cached_checksums_match_native_go() {
             assert_eq!(owner.manifest().requirements().len(), 3);
             assert_eq!(owner.sums().entries().len(), 8);
             assert_eq!(owner.cached_manifests().len(), 3);
+            assert_eq!(owner.cached_infos().len(), 3);
             assert_eq!(owner.zip_hashes().len(), 3);
             assert_eq!(owner.vendor().snapshot().source_objects().len(), 213);
         }

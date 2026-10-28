@@ -663,5 +663,60 @@
     "W01_complete": false,
     "public_profile_activated": false,
     "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "analysis_info_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare the original and adversarial Go/Rust module-info records and five snapshot controls, and rerun direct module/namespace/archive and Unicode fold consumers; defer the T02-wide gate.",
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/inspection.json",
+      "sha256": "0492829d8a5f999bd8781a6d5b42e29a7fd592e8d97830154adb7f2616a47065",
+      "bytes": 2897
+    },
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/native/result.json",
+      "sha256": "9635514f24a2f5ad0b964c6c5f9c2eeadb6006002015e096b52c5755c333d8c8",
+      "bytes": 13382
+    },
+    "rust_affected_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/info-tests/result.json",
+      "sha256": "36da1cef80ae5fb5487918cb4024556107745262bfddcd2a8480349eb4afb1b8",
+      "bytes": 2369
+    },
+    "rust_unicode_fold": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/fold-tests/result.json",
+      "sha256": "ee18a210fae43acb8b91dd302c17e46bd9aecff7a119a86aac41665828f1be47",
+      "bytes": 2239
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/go-checks/result.json",
+      "sha256": "54dd5d8720d54aad631817d335f21943ee6ffa825a07dcd7719b1242510791d7",
+      "bytes": 1511
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/info-clippy/result.json",
+      "sha256": "5fb87b7bb5611c9f8b320ea4bdb0ca8b0606affdc764e1b5509aea1e86ff345a",
+      "bytes": 2213
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/rust-format/result.json",
+      "sha256": "5d19d6795f4144b21bcc3f97a34e786229d95a0bc018a2d29e2d08ca1bbf6581",
+      "bytes": 2577
+    },
+    "original_sources": 213,
+    "vendor_files": 133,
+    "cached_info_records": 3,
+    "native_go_rust_observations": 36,
+    "accepted": 15,
+    "rejected": 21,
+    "snapshot_controls": 5,
+    "exhaustive_json_time_equivalence_proved": false,
+    "original_root_or_vcs_authenticated": false,
+    "source_to_binary_correspondence_proved": false,
+    "native_Linux_release_acceptance": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
   }
 }

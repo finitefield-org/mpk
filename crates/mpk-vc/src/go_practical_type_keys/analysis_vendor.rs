@@ -3,12 +3,14 @@
 use super::GoTypeSourceBuffer;
 use std::collections::BTreeSet;
 mod archives;
+mod info;
 mod module;
 mod snapshot;
 pub use archives::{
     check_go_analysis_vendor_archive_bytes, GoAnalysisVendorArchiveError,
     GoAnalysisVendorArchiveInputs, GoAnalysisVendorAssetDifference,
 };
+pub use info::{validate_go_analysis_module_info, GoAnalysisModuleInfoError};
 pub use module::{check_go_analysis_module_inputs, GoAnalysisModuleError, GoAnalysisModuleInputs};
 pub use snapshot::{
     check_go_analysis_vendor_snapshot, GoAnalysisVendorSnapshotError,

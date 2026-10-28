@@ -1,12 +1,15 @@
 //! Module and checksum facts relative to the same untrusted analysis snapshot.
-//! Cached .info metadata, source syntax and root/build authority remain separate.
+//! Source syntax and root/build authority remain separate.
 use super::super::{
     derive_go_source_module_manifest, import_go_module_sums, module_observations::manifest_sum,
     GoModuleSums, GoSourceModuleDataError, GoSourceModuleManifest, GoSourceModuleManifestError,
     GoSourceSnapshotLookupError, GoTypeSourceBuffer,
 };
 use super::archives::root_before;
-use super::{go_space, GoAnalysisVendorSnapshotInputs};
+use super::{
+    go_space, validate_go_analysis_module_info, GoAnalysisModuleInfoError,
+    GoAnalysisVendorSnapshotInputs,
+};
 use std::collections::{BTreeMap, BTreeSet};
 
 const FRONTEND: &[u8] = b"github.com/finitefield-org/mpk/go-tools/go2vir";
@@ -36,6 +39,7 @@ pub enum GoAnalysisModuleError {
     Snapshot(GoSourceSnapshotLookupError),
     Manifest(GoSourceModuleManifestError),
     Sums(GoSourceModuleDataError),
+    Info(GoAnalysisModuleInfoError),
     Ownership,
     Pins,
     Checksum,
@@ -54,6 +58,7 @@ pub struct GoAnalysisModuleInputs {
     manifest: GoSourceModuleManifest,
     sums: GoModuleSums,
     cached_manifests: BTreeMap<String, GoSourceModuleManifest>,
+    cached_infos: BTreeMap<String, GoTypeSourceBuffer>,
     zip_hashes: BTreeMap<String, GoTypeSourceBuffer>,
 }
 impl GoAnalysisModuleInputs {
@@ -72,12 +77,15 @@ impl GoAnalysisModuleInputs {
     pub fn zip_hashes(&self) -> &BTreeMap<String, GoTypeSourceBuffer> {
         &self.zip_hashes
     }
+    pub fn cached_infos(&self) -> &BTreeMap<String, GoTypeSourceBuffer> {
+        &self.cached_infos
+    }
 }
 
 /// Bind the original frontend go.mod/go.sum and cached .mod/.ziphash files to
 /// the already checked vendor snapshot and original ZIPs. This establishes
-/// consistency only: it does not authenticate the original filesystem, cached
-/// .info records, source syntax, executable build or semantic context.
+/// consistency only: it does not authenticate the original filesystem, VCS
+/// claims, source syntax, executable build or semantic context.
 pub fn check_go_analysis_module_inputs(
     vendor: GoAnalysisVendorSnapshotInputs,
 ) -> Result<GoAnalysisModuleInputs, GoAnalysisModuleError> {
@@ -134,6 +142,7 @@ pub fn check_go_analysis_module_inputs(
         }
     }
     let mut cached_manifests = BTreeMap::new();
+    let mut cached_infos = BTreeMap::new();
     let mut zip_hashes = BTreeMap::new();
     for (name, version, _, pinned_mod_sum) in PINS {
         let archive = vendor
@@ -171,6 +180,15 @@ pub fn check_go_analysis_module_inputs(
             }
         }
         let cached = derive_go_source_module_manifest(cached, false).map_err(E::Manifest)?;
+        let info = snapshot
+            .read_source(
+                &source.object().capability,
+                &format!("{prefix}.info"),
+                "metadata",
+            )
+            .map_err(E::Snapshot)?
+            .clone();
+        validate_go_analysis_module_info(&info, version).map_err(E::Info)?;
         let zip_hash = snapshot
             .read_source(
                 &source.object().capability,
@@ -184,6 +202,7 @@ pub fn check_go_analysis_module_inputs(
             return Err(E::Checksum);
         }
         cached_manifests.insert(name.to_owned(), cached);
+        cached_infos.insert(name.to_owned(), info);
         zip_hashes.insert(name.to_owned(), zip_hash);
     }
     Ok(GoAnalysisModuleInputs {
@@ -191,6 +210,7 @@ pub fn check_go_analysis_module_inputs(
         manifest,
         sums,
         cached_manifests,
+        cached_infos,
         zip_hashes,
     })
 }

@@ -11,9 +11,11 @@ For each of the three original module archives it reads the matching cached
 `.mod` and `.ziphash` from that snapshot. The `.mod` is parsed and compared to
 its pinned `go.sum` checksum and, when present, the ZIP's `go.mod` member. The
 `.ziphash`, archive checksum and frontend `go.sum` must agree. These facts are
-relative to the supplied snapshot: the owner does not yet validate cached
-`.info` metadata, authenticate the original root, prove source syntax or bind
-the source generation to a registered executable or semantic context.
+relative to the supplied snapshot. At this checkpoint, cached `.info` metadata,
+original-root authentication, source syntax and the binding of the source
+generation to a registered executable or semantic context were still due.
+The later [analysis info checkpoint](../analysis-info/README.md) adds cached
+`.info` shape and version validation; the remaining authority limits still apply.
 
 The [Go observations](native/result.json) retain all 213 original source
 objects, 133 vendor files and three complete archives. Go and Rust agree on 20

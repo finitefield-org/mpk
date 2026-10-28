@@ -5,6 +5,7 @@ use base64::{engine::general_purpose::STANDARD as BASE64, Engine};
 use sha2::{Digest, Sha256};
 mod archive;
 mod identity;
+pub(in crate::go_practical_type_keys) use archive::folded;
 pub use archive::{inspect_go_module_archive, GoModuleArchiveInventory, GoModuleArchiveMember};
 
 #[derive(Clone, Debug, Eq, PartialEq)]
