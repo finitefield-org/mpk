@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/inspect_build_list.py",
+    "bytes": 5409,
+    "sha256": "67d69837b4bb39b222e89a33551638c1189ba115c60b6dd40408d08d6a4e57dd"
+  },
+  "native": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/native/native.json",
+    "bytes": 277827,
+    "sha256": "4e88057e6600c9f26d883a9820ba9365612d2b3b424db4067d44544f80ad70a5"
+  },
+  "rust": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/list-tests/build-list.json",
+    "bytes": 74242,
+    "sha256": "b22964dd7a4168e6d0c08970e38cfacc2fc41410f4a32541bc9e93ff7b5107ff"
+  },
+  "go_build_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/native/build/reproduced-builds.json",
+    "bytes": 4753,
+    "sha256": "3988fc6f54bc365c78c19d325cf4a6c86a176bd273f672126a464eb7b6d31571"
+  },
+  "binary_storage": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/binary-storage.json",
+    "bytes": 2218,
+    "sha256": "f0cccbc489252785b7746d9899fe8fbd06398e8cf28f0dceb6df440fcdf78f4a"
+  },
+  "encoded_build_binaries": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/native/build/frontend-0.elf.hex",
+      "bytes": 18009356,
+      "sha256": "48b2029a6015c1d9c6c1178de0809e9e4f88a0df10babbe613d8d31341bfcf4c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/native/build/frontend-1.elf.hex",
+      "bytes": 18009356,
+      "sha256": "48b2029a6015c1d9c6c1178de0809e9e4f88a0df10babbe613d8d31341bfcf4c"
+    }
+  ],
+  "recovered_build_binary": {
+    "bytes": 9004678,
+    "sha256": "e24e92e2aec2dd70e5fdcc698ee868561566a13b73dc74f07e48d399c6ce58f0"
+  },
+  "registered_frontend": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/registered-go2vir.elf",
+    "bytes": 9004378,
+    "sha256": "ccc4a984d41b5da7b3a6838cbfaeee3eb23f675a2e4d7fb5d4f9fcd7e597d538"
+  },
+  "original_sources": 213,
+  "frontend_go_files": 65,
+  "vendor_files": 133,
+  "build_inputs": 201,
+  "all_build_source_ids_and_bytes_recomputed": true,
+  "go_rust_and_actual_build_source_lists_equal": true,
+  "both_original_binaries_exactly_recoverable": true,
+  "independent_full_binaries_identical": true,
+  "built_binary_equals_registered_frontend": false,
+  "registered_source_to_binary_authority_proved": false,
+  "original_root_authenticated": false,
+  "native_Linux_release_acceptance": false,
+  "whole_repository_gate_run": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

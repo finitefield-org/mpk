@@ -27,3 +27,6 @@ equivalence, original-root or source-to-binary authority, a registered context
 or an application proof. The Go observations used local Linux emulation, not
 native Linux release acceptance. T02-W01 stays open and the practical Go profile
 remains inactive.
+The later [build-list checkpoint](../analysis-build-list/README.md) derives the
+complete available build input list and compares two offline reproductions; it
+does not establish registered binary or original-root authority.

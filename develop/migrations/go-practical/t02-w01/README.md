@@ -88,6 +88,12 @@ observed snapshot and checks unmodeled native inputs and embed comments. Go
 and Rust agree on 20 original/adversarial cases. Root authentication,
 source-to-binary binding and application proofs remain due.
 
+The [analysis build-list checkpoint](verification/analysis-build-list/README.md)
+derives all 201 original build inputs, with Go, Rust and the actual builds in
+agreement. Two independent offline builds yield identical binaries, but they
+differ from the existing registered frontend. Root and registered binary
+authority, context and program proofs remain due.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

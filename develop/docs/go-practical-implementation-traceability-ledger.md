@@ -9537,3 +9537,18 @@ strings. The new source test, direct parser/token-span roots and scoped lint/
 formats pass. Exhaustive parser equivalence, root/binary/context and program
 authority remain due; W01 and the profile stay open/inactive, native Linux
 release acceptance is not claimed and the cumulative T02 gate remains W04.
+
+## 215. T02-W01 analysis build input list and reproduction (in progress)
+
+The [analysis build-list checkpoint](../migrations/go-practical/t02-w01/verification/analysis-build-list/README.md)
+derives all 201 original frontend/vendor/module build inputs from the checked
+213-object snapshot. Go, Rust and the actual builds agree on the input list;
+two independent empty-cache offline builds retain byte-identical complete
+9,004,678-byte binaries in two exactly recoverable hex files. An initial scan
+finding in machine code is retained; scanner rules and exclusions are unchanged.
+The result differs from the registered frontend, whose
+source generation and build procedure are distinct. The source owner regression,
+scoped lint and formats pass. Original-root and registered source/binary,
+context and program authority remain due; W01 and the profile stay open/inactive,
+native Linux release acceptance is not claimed and the cumulative T02 gate
+remains W04.

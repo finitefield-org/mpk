@@ -165,6 +165,15 @@ func TestPracticalAnalysisCapturedInputsRebuildTheSameActualFrontend(t *testing.
 		if err != nil {
 			t.Fatal(err)
 		}
+		if directory := os.Getenv("MPK_GO_PRACTICAL_ANALYSIS_BINARY_OUTPUT"); directory != "" {
+			file := filepath.Join(directory, fmt.Sprintf("frontend-%d.elf", iteration))
+			if _, err := os.Lstat(file); !os.IsNotExist(err) {
+				t.Fatal("analysis build evidence path already exists")
+			}
+			if err := os.WriteFile(file, raw, 0o600); err != nil {
+				t.Fatal(err)
+			}
+		}
 		if iteration == 0 {
 			first = raw
 		} else if !bytes.Equal(first, raw) {

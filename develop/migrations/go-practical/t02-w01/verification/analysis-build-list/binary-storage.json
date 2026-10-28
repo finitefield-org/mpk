@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "selection_reason": "Retain both exact original binary byte streams losslessly as reversible hex data. The repository scanner reads tracked files as text; the initial review reported incidental obsolete-token matches in ELF machine bytes. No scanner rule, seal or exclusion is changed.",
+  "files": [
+    {
+      "original": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/native/build/frontend-0.elf",
+        "bytes": 9004678,
+        "sha256": "e24e92e2aec2dd70e5fdcc698ee868561566a13b73dc74f07e48d399c6ce58f0",
+        "mode": 384
+      },
+      "encoded": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/native/build/frontend-0.elf.hex",
+        "bytes": 18009356,
+        "sha256": "48b2029a6015c1d9c6c1178de0809e9e4f88a0df10babbe613d8d31341bfcf4c"
+      },
+      "recovery_sha256": "e24e92e2aec2dd70e5fdcc698ee868561566a13b73dc74f07e48d399c6ce58f0",
+      "exact_recovery": true,
+      "local_original_copy": "/private/tmp/mpk-analysis-build-list-original-binaries/frontend-0.elf"
+    },
+    {
+      "original": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/native/build/frontend-1.elf",
+        "bytes": 9004678,
+        "sha256": "e24e92e2aec2dd70e5fdcc698ee868561566a13b73dc74f07e48d399c6ce58f0",
+        "mode": 384
+      },
+      "encoded": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/native/build/frontend-1.elf.hex",
+        "bytes": 18009356,
+        "sha256": "48b2029a6015c1d9c6c1178de0809e9e4f88a0df10babbe613d8d31341bfcf4c"
+      },
+      "recovery_sha256": "e24e92e2aec2dd70e5fdcc698ee868561566a13b73dc74f07e48d399c6ce58f0",
+      "exact_recovery": true,
+      "local_original_copy": "/private/tmp/mpk-analysis-build-list-original-binaries/frontend-1.elf"
+    }
+  ],
+  "two_complete_original_binaries_equal": true,
+  "all_exactly_recoverable": true,
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

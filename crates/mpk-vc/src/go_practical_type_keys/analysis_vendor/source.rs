@@ -52,6 +52,31 @@ impl GoAnalysisSourceInputs {
     pub fn frontend_sources(&self) -> &BTreeMap<String, GoTypeSourceBuffer> {
         &self.frontend_sources
     }
+
+    /// Original files supplied to Go's vendor-mode frontend build. A stable
+    /// list of input bytes is not a claim that Go compiled every file, that a
+    /// caller-supplied snapshot is authentic, or that any binary is registered.
+    pub fn build_sources(&self) -> Vec<&GoTypeSourceBuffer> {
+        let mut files = vec![
+            self.module.manifest().original_source(),
+            self.module.sums().original_source(),
+            self.module
+                .vendor()
+                .correspondence()
+                .manifest()
+                .original_source(),
+        ];
+        files.extend(self.frontend_sources.values());
+        files.extend(
+            self.module
+                .vendor()
+                .correspondence()
+                .supplied_files()
+                .values(),
+        );
+        files.sort_by(|a, b| a.object().path.cmp(&b.object().path));
+        files
+    }
 }
 
 // Tokens cover string, rune, raw-string and operator spellings. Comments occur

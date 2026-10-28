@@ -76,6 +76,11 @@ checks all 191 original frontend/vendor Go sources and Go's embed-comment
 restriction against 20 native observations. Original-root, binary and program
 authority remain open.
 
+The W01 [analysis build-list checkpoint](../migrations/go-practical/t02-w01/verification/analysis-build-list/README.md)
+compares all 201 original build inputs and two byte-identical offline builds.
+The result differs from the registered frontend; registered source/binary and
+original-root authority remain open.
+
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/
 Zstandard data prefixes. All 425 native/Rust cases retain187 prior cases,9 actual
