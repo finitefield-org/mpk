@@ -9691,3 +9691,24 @@ covers 8,820 archived files and 42,024 ZIP members with no findings.
 The restored test roots do not authorize production launcher paths or prove a
 registered source/binary relation. Capture authority, application proof, native
 Linux release acceptance and W01 completion remain due; the T02 gate stays W04.
+
+## 222. T02-W01 same-recipe analysis generation comparison (in progress)
+
+The [same-recipe comparison](../migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/README.md)
+retains both complete historical analysis captures and all 184/201 build
+inputs: 178 byte-identical, six changed, 17 added and zero removed. It restores
+all 328 frontend files of the later epoch and builds them twice with the same
+registered SDK and release command used for the earlier source epoch. Each
+epoch's complete outputs match internally, while the cross-epoch binaries
+differ. Both observed source roots lack `default.pgo`; no specific causal
+source change, current live checkout identity or program proof is inferred.
+
+The scoped review covers all 409 captured objects and both decoded later
+binaries, with no active findings and two retained incidental machine-byte
+findings. Its first attempt failed before scanning because a local script
+shadowed a Python standard module; the unchanged script and diagnostic remain.
+An extra inspection stopped at its immutable existing-output assertion; its
+original diagnostic and the successful separate follow-up are retained.
+Unchanged Go/Rust source and root tests are not repeated. This local emulation
+is not native Linux release acceptance, the practical profile remains inactive,
+W01 remains open and the T02 fast gate stays at W04.

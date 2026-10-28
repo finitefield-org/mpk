@@ -1,0 +1,26 @@
+{
+  "status": "failed",
+  "selection_reason": "The first scoped review imported a local inspection driver instead of Python standard-library inspect. No scan result was produced. Rename that exact driver without changing its bytes, then rerun the review.",
+  "command": [
+    "python3",
+    "-B",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/review.py"
+  ],
+  "exit_code": 1,
+  "error": "AttributeError: module inspect has no attribute get_annotations",
+  "review_driver": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/review-import-failure.py",
+    "sha256": "4321d7f9c1131047d25667c549b86df4a202305e059c7512b98bf44e98d7ba9d"
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/review-import-failure.stderr",
+    "bytes": 1498,
+    "sha256": "5972bb4b92de2a0d3fd51988c8ec9c92012c5250a604d385c4de94f5b11c4a00"
+  },
+  "renamed_exact_inspection_driver": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/inspect-original.py",
+    "bytes": 5602,
+    "sha256": "2597a4fd4d81b6e8e52751d6e9fc20aac3a07ea63f30c9da778629287468bf47"
+  },
+  "scanner_rules_changed": false
+}

@@ -126,6 +126,12 @@ root snapshot. The full historical and later source generations, plus coherent
 source and namespace changes, are tested without authorizing launcher roots or
 claiming source/binary proof.
 
+The [same-recipe source generation comparison](verification/analysis-generation-rebuild/README.md)
+compares every captured input in the registered and later analysis generations.
+Two full builds of each epoch use the same SDK and release flags; their
+cross-epoch binaries differ. This does not attribute a specific source change
+or authorize a practical profile.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

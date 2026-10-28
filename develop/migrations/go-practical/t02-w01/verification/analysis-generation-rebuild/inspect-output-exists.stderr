@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/inspect.py", line 68, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/inspect.py", line 65, in main
+    out=ROOT/'inspection.json';assert not out.exists();out.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'status':result['status'],'same':len(same),'changed':len(changed),'added':len(added),'removed':len(removed),'normalized_commands_equal':True,'cross_epoch_binaries_equal':cross_equal,'later_binary':result['later_binary']}),flush=True)
+                               ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
