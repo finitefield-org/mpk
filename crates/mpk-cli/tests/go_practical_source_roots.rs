@@ -8,10 +8,12 @@ use mpk_vc::go_practical_type_keys::{
     import_go_source_snapshot_inputs, GoSourceSnapshotInputs, GoTypeSourceBuffer,
 };
 use serde_json::Value;
-use std::collections::BTreeMap;
+use sha2::{Digest, Sha256};
+use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::os::unix::fs::{symlink, PermissionsExt};
 use std::path::{Path, PathBuf};
+use std::process::Command;
 
 fn unhex(text: &str) -> Vec<u8> {
     assert_eq!(text.len() % 2, 0);
@@ -71,18 +73,85 @@ fn original_snapshot(repo: &Path) -> GoSourceSnapshotInputs {
     snapshot
 }
 
-fn copy_tree(source: &Path, target: &Path) {
-    fs::create_dir(target).unwrap();
-    for entry in fs::read_dir(source).unwrap() {
-        let entry = entry.unwrap();
-        let kind = entry.file_type().unwrap();
-        if kind.is_dir() {
-            copy_tree(&entry.path(), &target.join(entry.file_name()));
-        } else {
-            assert!(kind.is_file());
-            fs::copy(entry.path(), target.join(entry.file_name())).unwrap();
+fn restore_original_frontend(repo: &Path, destination: &Path) -> PathBuf {
+    let evidence = repo
+        .join("develop/migrations/go-practical/t02-w01/verification/analysis-build-list/native");
+    let receipt: Value =
+        serde_json::from_slice(&fs::read(evidence.join("inputs.json")).unwrap()).unwrap();
+    let archive = evidence.join("inputs.tar.gz");
+    let bytes = fs::read(&archive).unwrap();
+    assert_eq!(
+        bytes.len() as u64,
+        receipt["source_archive"]["bytes"].as_u64().unwrap()
+    );
+    assert_eq!(
+        format!("{:x}", Sha256::digest(&bytes)),
+        receipt["source_archive"]["sha256"].as_str().unwrap()
+    );
+    assert!(Command::new("tar")
+        .arg("-xpzf")
+        .arg(&archive)
+        .arg("-C")
+        .arg(destination)
+        .arg("go-tools/go2vir")
+        .status()
+        .unwrap()
+        .success());
+    assert_eq!(fs::read(&archive).unwrap(), bytes);
+    let root = destination.join("go-tools/go2vir");
+    let mut expected = BTreeSet::new();
+    for entry in receipt["inputs"].as_array().unwrap() {
+        let Some((_, relative)) = entry["path"]
+            .as_str()
+            .unwrap()
+            .split_once("/go-tools/go2vir/")
+        else {
+            continue;
+        };
+        assert!(expected.insert(relative.to_owned()));
+        let path = root.join(relative);
+        let data = fs::read(&path).unwrap();
+        assert_eq!(
+            data.len() as u64,
+            entry["bytes"].as_u64().unwrap(),
+            "{relative}"
+        );
+        assert_eq!(
+            format!("{:x}", Sha256::digest(&data)),
+            entry["sha256"].as_str().unwrap(),
+            "{relative}"
+        );
+        assert_eq!(
+            fs::metadata(&path).unwrap().permissions().mode() & 0o777,
+            entry["mode"].as_u64().unwrap() as u32,
+            "{relative}"
+        );
+    }
+    fn visit(root: &Path, directory: &Path, files: &mut BTreeSet<String>) {
+        for entry in fs::read_dir(directory).unwrap() {
+            let entry = entry.unwrap();
+            let kind = entry.file_type().unwrap();
+            if kind.is_dir() {
+                visit(root, &entry.path(), files);
+            } else {
+                assert!(kind.is_file());
+                assert!(files.insert(
+                    entry
+                        .path()
+                        .strip_prefix(root)
+                        .unwrap()
+                        .to_str()
+                        .unwrap()
+                        .to_owned()
+                ));
+            }
         }
     }
+    let mut actual = BTreeSet::new();
+    visit(&root, &root, &mut actual);
+    assert_eq!(expected.len(), 328);
+    assert_eq!(actual, expected);
+    root
 }
 
 fn bindings(root: &Path) -> Vec<(String, PathBuf)> {
@@ -100,8 +169,20 @@ fn complete_original_analysis_snapshot_matches_opened_roots_and_rejects_changes(
     let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let snapshot = original_snapshot(&repo);
     let temp = tempfile::tempdir().unwrap();
-    let root = temp.path().join("original-frontend");
-    copy_tree(&repo.join("go-tools/go2vir"), &root);
+    // The historical tree must be recoverable even when no current Go
+    // checkout exists beside the retained archive and its receipt.
+    let detached_repo = temp.path().join("detached-repository");
+    let native = "develop/migrations/go-practical/t02-w01/verification/analysis-build-list/native";
+    fs::create_dir_all(detached_repo.join(native)).unwrap();
+    for name in ["inputs.json", "inputs.tar.gz"] {
+        fs::copy(
+            repo.join(native).join(name),
+            detached_repo.join(native).join(name),
+        )
+        .unwrap();
+    }
+    assert!(!detached_repo.join("go-tools/go2vir").exists());
+    let root = restore_original_frontend(&detached_repo, temp.path());
 
     let owner = GoSourceRoots::open(bindings(&root))
         .unwrap()

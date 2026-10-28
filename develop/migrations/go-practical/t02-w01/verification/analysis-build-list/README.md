@@ -22,6 +22,11 @@ bytes as prose without changing scanner rules or exclusions. The original Go
 receipt names the raw output paths before storage, while both raw local copies
 and both repository hex files preserve the original bytes.
 
+Two historical compressed input archives are also retained losslessly as
+hexadecimal data after incidental matches in compressed bytes. Their original
+receipts retain the paths at the time of capture; the [storage and restore record](../source-root-replay/archive-storage.json)
+preserves both complete original streams and the scanner findings.
+
 The reproduced binary differs from the existing registered frontend
 (`ccc4a984d41b5da7b3a6838cbfaeee3eb23f675a2e4d7fb5d4f9fcd7e597d538`).
 The earlier registered source generation and the current source tree differ,

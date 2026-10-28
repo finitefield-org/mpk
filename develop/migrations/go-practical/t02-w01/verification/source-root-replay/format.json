@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "selection_reason": "Format-check the changed root replay test only.",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "--check",
+    "crates/mpk-cli/tests/go_practical_source_roots.rs"
+  ],
+  "input_sha256": "c064cf7fad41403e50add97bf2b1f120b272fb04de267c7627b0353ca5997c9e",
+  "input_bytes": 9258,
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

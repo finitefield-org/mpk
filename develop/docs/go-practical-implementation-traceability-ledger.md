@@ -9568,3 +9568,19 @@ epoch remains recorded. Launcher-selected capability authority, capture-time
 binding, nested-mount authorization, source/binary correspondence and program
 proofs remain due. The Linux arm64 run is not native Linux release acceptance;
 W01/profile remain open/inactive and the full T02 gate remains final W04.
+
+## 217. T02-W01 original source-root fixture replay (in progress)
+
+The [source-root replay correction](../migrations/go-practical/t02-w01/verification/source-root-replay/README.md)
+removes the held-root test's accidental dependence on the evolving checkout.
+The exact retained archive restores all 328 original frontend files, with every
+byte, mode and path checked; a detached repository with no Go checkout runs the
+same complete 213-object and 52-directory comparison and all prior controls.
+Affected Linux tests, Linux-target Clippy and changed-test format pass. The
+unchanged direct snapshot importer regression is retained rather than rerun.
+Two earlier compressed archives had three incidental text-scanner matches;
+both original streams and the initial findings are preserved reversibly, with
+successful exact restoration and unchanged scanner rules/exclusions.
+Launcher/capture authority, source/binary binding, application proofs, native
+Linux release acceptance and T02-W01 completion remain due. The cumulative T02
+fast gate remains deferred to T02-W04.

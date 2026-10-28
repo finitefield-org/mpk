@@ -98,6 +98,8 @@ The [held-root comparison](verification/source-root-matching/README.md)
 independently checks all original analysis snapshot bytes and native directory
 entries against retained Linux directory handles in two passes. It does not yet
 authorize launcher-selected roots or bind them to the earlier capture epoch.
+The [fixture replay](verification/source-root-replay/README.md) verifies the
+complete retained original frontend without depending on the evolving checkout.
 
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final

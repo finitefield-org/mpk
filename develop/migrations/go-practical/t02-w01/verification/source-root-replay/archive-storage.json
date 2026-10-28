@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "selection_reason": "Preserve both exact original compressed input archives and the complete scanner findings losslessly; compressed machine bytes happen to contain text-token matches. No scanner rule, seal or exclusion changes.",
+  "files": [
+    {
+      "historical_receipt": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/go-checks/inputs.tar.gz",
+        "bytes": 4869426,
+        "sha256": "f55ede84ca138187c344327c05554c6563bb9f00cba54234137242e6fb55c686",
+        "mode": 420
+      },
+      "encoded": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/go-checks/inputs.tar.gz.hex",
+        "bytes": 9738852,
+        "sha256": "357f0cb60fb9e0e6ba312f83ed1b0da0457c922a6ab36d19fbee58aac7d808fb"
+      },
+      "local_original_copy": "/private/tmp/mpk-analysis-build-list-archive-originals/go-checks/inputs.tar.gz",
+      "exact_recovery": true,
+      "scan_finding_count": 2
+    },
+    {
+      "historical_receipt": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/prelaunch/inputs.tar.gz",
+        "bytes": 28430086,
+        "sha256": "be789115fe909136af9392ae9aac95c7e7b71867fda83ecf213745fc6e4fc966",
+        "mode": 420
+      },
+      "encoded": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-list/prelaunch/inputs.tar.gz.hex",
+        "bytes": 56860172,
+        "sha256": "961f42c0731616409cf45710d7ee9e89aba618b452cc3a28aa02fee445a909ed"
+      },
+      "local_original_copy": "/private/tmp/mpk-analysis-build-list-archive-originals/prelaunch/inputs.tar.gz",
+      "exact_recovery": true,
+      "scan_finding_count": 1
+    }
+  ],
+  "findings": {
+    "count": 3,
+    "raw_bytes": 747,
+    "raw_sha256": "dc226f0dd51d1434a59b381df3660959618dd4f41d83d7201bf32804ca50dbf4",
+    "encoded": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-root-replay/archive-scan-findings.json.hex",
+      "bytes": 1494,
+      "sha256": "d7bfe3ab686adda67b87424ce646d13176a1354793b87bc3b28c4e375f19e50b"
+    },
+    "exact_recovery": true
+  },
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

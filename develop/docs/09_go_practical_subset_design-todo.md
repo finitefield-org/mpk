@@ -85,6 +85,8 @@ The W01 [held-root comparison](../migrations/go-practical/t02-w01/verification/s
 checks every captured source byte and observed native directory entry against
 retained Linux directory handles. Launcher authorization and binding to the
 earlier capture transaction remain open.
+Its [fixture replay](../migrations/go-practical/t02-w01/verification/source-root-replay/README.md)
+restores all original source files independently of the current checkout.
 
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/

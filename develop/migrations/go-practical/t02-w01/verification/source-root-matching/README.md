@@ -38,3 +38,7 @@ snapshot is owned data; further trusted launcher/context and complete original
 capture integration remain required. T02-W01 and the practical Go profile stay
 open/inactive. The cumulative T02 gate `./scripts/check-fast.sh` remains due at
 T02-W04; the supported source languages remain Go and Rust only.
+
+The later [source-root replay correction](../source-root-replay/README.md)
+restores and verifies the original full frontend archive in a detached temporary
+repository, so future checkout changes do not invalidate this historical test.

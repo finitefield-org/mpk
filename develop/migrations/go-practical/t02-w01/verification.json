@@ -955,5 +955,53 @@
     "public_profile_activated": false,
     "native_Linux_release_acceptance": false,
     "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "source_root_replay_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "A test-only correction restores all historical root inputs from their retained archive. Rerun the affected Linux root tests, cross-target Clippy and test format; the unchanged snapshot-importer regression is retained.",
+    "initial": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-replay/original/result.json",
+      "sha256": "bf3730e8738acf2270f77a65a97424e41069e62cef2724820957464e15b18281",
+      "bytes": 773
+    },
+    "detached_original_tree": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-replay/detached/result.json",
+      "sha256": "84602ab9b2c99c31d7d3ddc085205e53bd85729acef85b667f6a2e1ab25ce5c6",
+      "bytes": 774
+    },
+    "linux_target_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-replay/clippy-linux-target/result.json",
+      "sha256": "c3b37114c7b6a1af76ff95e6d228916cce0eb1f720126c0401867edf0c0d13fd",
+      "bytes": 793
+    },
+    "format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-replay/format.json",
+      "sha256": "40e5abe8dc5841a1c678d47878a2d658fadc38230f1a0a4107cd2c5d4668fc25",
+      "bytes": 498
+    },
+    "original_frontend_files": 328,
+    "snapshot_objects": 213,
+    "observed_directories": 52,
+    "observed_entries": 373,
+    "checkout_required": false,
+    "launcher_or_original_capture_authority_proved": false,
+    "registered_source_binary_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "historical_archive_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-replay/archive-storage.json",
+      "sha256": "e6f9be6be883d2fd28b3090eca689cfb4f5a90457df750cbd5a09ad67eedffab",
+      "bytes": 2383
+    },
+    "historical_archive_restore": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-replay/restore-check.json",
+      "sha256": "a43909f941198c4c603c3ffdaea2387bf83ef13f6306d444075e8c43e7ce642d",
+      "bytes": 622
+    },
+    "compressed_byte_scan_findings": 3,
+    "scanner_rules_changed": false,
+    "historical_archives_exactly_restorable": true
   }
 }
