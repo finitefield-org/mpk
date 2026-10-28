@@ -9461,3 +9461,17 @@ source-to-binary identity or context authority. The new/affected module-data and
 controls and scoped lint/formats pass. W01 and the practical profile remain
 open/inactive, native Linux release acceptance is not claimed and the cumulative
 T02 gate remains W04.
+
+## 209. T02-W01 observed analysis vendor namespace (in progress)
+
+The [analysis namespace checkpoint](../migrations/go-practical/t02-w01/verification/analysis-namespace/README.md)
+derives the vendor list from every observed directory entry and binds the
+manifest and three archives to source objects in that snapshot. The original
+213 captured objects and 133 vendor files remain unchanged. Go and Rust agree
+on six observations: unread entries and a symbolic link reject, while a
+coherently pruned snapshot passes with 132 files. This establishes only
+snapshot-relative completeness; authenticating the original root and capture
+remains due. The two new tests, two archive tests, three direct snapshot tests,
+scoped lint and formats pass. W01 and the practical profile remain open/inactive,
+native Linux release acceptance is not claimed, and the cumulative T02 gate
+remains W04.

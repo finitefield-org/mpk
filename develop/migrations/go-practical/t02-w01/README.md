@@ -51,6 +51,14 @@ files from a package can still pass, so this is not namespace completeness or
 source/binary authority. Affected module-data and vendor tests, scoped lint and
 formats pass; W01 and the practical profile remain open/inactive.
 
+The [analysis namespace checkpoint](verification/analysis-namespace/README.md)
+derives vendor files from every recorded entry in the source snapshot and binds
+the manifest and archives to that same snapshot. Go and Rust agree on six
+observations, including rejection of unread files/directories and acceptance
+of a coherently pruned snapshot. Completeness is relative to the supplied
+snapshot; the original root still requires independent authentication. Affected
+tests, scoped lint and formats pass, with W01 and the profile still open/inactive.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

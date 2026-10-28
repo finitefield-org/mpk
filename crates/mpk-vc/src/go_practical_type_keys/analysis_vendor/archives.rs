@@ -77,7 +77,7 @@ impl GoAnalysisVendorArchiveInputs {
 }
 
 // Roots are logical captured paths and may have a nonempty original directory.
-fn root_before<'a>(path: &'a str, suffix: &str) -> Option<&'a str> {
+pub(super) fn root_before<'a>(path: &'a str, suffix: &str) -> Option<&'a str> {
     if path == suffix {
         Some("")
     } else {

@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/inspect_snapshot.py",
+    "bytes": 7892,
+    "sha256": "2a649507018ed5e1313d8587cb5a45c0af43960350e04a9870c2e713be1a8ff1"
+  },
+  "native": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/native/native.json",
+    "bytes": 1318976,
+    "sha256": "1acb53c73494ca2dbbd099cf8403bb42c65222ea45d837c046144d69dd8f1909"
+  },
+  "native_result": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/native/result.json",
+    "bytes": 73666,
+    "sha256": "f20f23c3ef7d10c59808fd17a29faf36c62586bfae2f4663608851bdd469e663"
+  },
+  "rust_result": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/namespace-tests/result.json",
+    "bytes": 2233,
+    "sha256": "331949e5e450ea91dfe6fab312d843e323763834dd438f1cf847728b3083a1a5"
+  },
+  "original_sources": 213,
+  "distinct_original_raw_files": 209,
+  "vendor_files": 133,
+  "archives": 3,
+  "archive_members_verified_by_rust": 1751,
+  "native_go_rust_observations": 6,
+  "controls": {
+    "original-complete-snapshot": {
+      "accepted": true,
+      "files": 133
+    },
+    "unread-file": {
+      "accepted": false,
+      "files": 0
+    },
+    "unread-directory": {
+      "accepted": false,
+      "files": 0
+    },
+    "unknown-unread-file": {
+      "accepted": false,
+      "files": 0
+    },
+    "symbolic-link": {
+      "accepted": false,
+      "files": 0
+    },
+    "coherently-pruned-snapshot": {
+      "accepted": true,
+      "files": 132
+    }
+  },
+  "all_snapshot_and_source_digests_independently_recomputed": true,
+  "all_original_bytes_match_prelaunch_and_previous_capture": true,
+  "coherent_pruning_authenticates_original_root": false,
+  "source_syntax_or_binary_proof_claimed": false,
+  "registered_context_claimed": false,
+  "native_Linux_release_acceptance": false,
+  "whole_repository_gate_run": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T14:19:45.040107+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_analysis_namespace",
+    "--test",
+    "go_practical_analysis_archives"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/namespace-tests/inputs.json",
+    "bytes": 339517,
+    "sha256": "00b775ab33ec79e1bcf72a54551a14d016a9f30d3b3da0b635297dbb0aefc3bc",
+    "mode": 420
+  },
+  "selection_reason": "Check the changed analysis snapshot-to-vendor boundary and its archive and snapshot consumers. A caller-supplied snapshot is not authenticated as an original filesystem; source syntax and binary/context authority remain separate. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 72.73558270800277,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/namespace-tests/stdout.log",
+    "bytes": 543,
+    "sha256": "5d1788c5af7fcccd9bbbaaa09aef912dd8dba47a08a8c16b77e746a529e4c9ae",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/namespace-tests/stderr.log",
+    "bytes": 378,
+    "sha256": "36ea4dd00a87e5253d56b7be7b5149dce578e37d54d20c6e3aa37722af1f6e25",
+    "mode": 420
+  }
+}

@@ -44,6 +44,12 @@ vendor files, preserving the original TODO difference and 213 captured sources.
 Go/Rust controls agree. The supplied list does not establish namespace
 completeness, source syntax or source-to-binary authority; W01 remains open.
 
+The W01 [analysis namespace checkpoint](../migrations/go-practical/t02-w01/verification/analysis-namespace/README.md)
+derives the vendor list from recorded directory entries and requires the
+manifest and archives from the same snapshot. Go/Rust agree on six observations;
+unread entries reject, while a coherently pruned snapshot still passes relative
+to itself. Authentication of the original root and W01 remain open.
+
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/
 Zstandard data prefixes. All 425 native/Rust cases retain187 prior cases,9 actual

@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T14:17:38.853049+00:00",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--test",
+    "go_practical_analysis_namespace",
+    "--test",
+    "go_practical_analysis_archives",
+    "--test",
+    "go_practical_snapshot_inputs",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/namespace-clippy/inputs.json",
+    "bytes": 191092,
+    "sha256": "8ee625720368df5c6af0114efb2b2225f5704008d4cb79aaa03de584ccb442f4",
+    "mode": 420
+  },
+  "selection_reason": "Check the changed analysis snapshot-to-vendor boundary and its archive and snapshot consumers. A caller-supplied snapshot is not authenticated as an original filesystem; source syntax and binary/context authority remain separate. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 15.78963754200231,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/namespace-clippy/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/namespace-clippy/stderr.log",
+    "bytes": 135,
+    "sha256": "a64e018cca5d0472a233405f5bf7c743f85a7973abee8d16a64704213a144c77",
+    "mode": 420
+  }
+}
