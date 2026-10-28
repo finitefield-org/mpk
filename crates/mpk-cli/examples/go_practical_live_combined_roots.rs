@@ -14,6 +14,7 @@ mod go_practical_installed_compiler;
 #[cfg(target_os = "linux")]
 #[path = "../src/go_practical_source_roots.rs"]
 #[allow(dead_code)]
+#[cfg_attr(test, allow(unused_imports))]
 mod go_practical_source_roots;
 
 #[cfg(target_os = "linux")]
@@ -196,6 +197,64 @@ fn main() {
         }
         Ok(owner)
     }
+    // This constructor is compiled only for the local test observer. Its
+    // complete SDK bytes come from the independently imported original image;
+    // it does not open or authorize a production installed release.
+    #[cfg(test)]
+    fn test_installed_owner(
+        compiler_inputs: &GoSourceCompilerInputs,
+        matched: go_practical_capture_binding::GoCompleteRootMatchedExportInputs,
+    ) -> Result<go_practical_capture_binding::InstalledGoCompleteRootMatchedCompilerInputs> {
+        use go_practical_capture_binding::bind_installed_go_complete_root_matched_inputs;
+        use go_practical_installed_compiler::InstalledGoCompiler;
+        use std::sync::Arc;
+
+        let semantic = validate_semantic_profile_registry(
+            include_bytes!("../../../release/bundles/semantic-profile-registry.json"),
+            RegistryRevision::Revision4,
+        )?;
+        let registry = validate_successor_release_registry(
+            include_bytes!("../../../release/bundles/bundle-registry.json"),
+            &semantic,
+        )?;
+        let inventory = &registry
+            .registry()
+            .toolchain_bundles
+            .iter()
+            .find(|bundle| bundle.bundle_id == GO_TOOLCHAIN_BUNDLE_ID)
+            .ok_or_else(|| fail("registered Go SDK is missing"))?
+            .inventory;
+        if compiler_inputs.inventory() != inventory {
+            return Err(fail("test SDK inventory differs from registered inputs").into());
+        }
+        let files = compiler_inputs
+            .files()
+            .iter()
+            .map(|file| {
+                (
+                    file.entry().path.clone(),
+                    file.bytes().to_vec(),
+                    file.entry().executable,
+                )
+            })
+            .collect();
+        let snapshot = frontend_registry::test_snapshot(inventory, files)
+            .map_err(|error| fail(format!("test SDK snapshot: {error:?}")))?;
+        let compiler = InstalledGoCompiler::test_original_snapshot(&registry, Arc::new(snapshot))
+            .map_err(|error| fail(format!("test compiler owner: {error:?}")))?;
+        let owner = bind_installed_go_complete_root_matched_inputs(
+            compiler,
+            compiler_inputs.canonical_bytes(),
+            matched,
+        )
+        .map_err(|error| fail(format!("test installed-root binding: {error:?}")))?;
+        if owner.compiler_inputs().canonical_bytes() != compiler_inputs.canonical_bytes()
+            || owner.release_registry() != &registry.release_identity()
+        {
+            return Err(fail("test installed owner differs from original compiler inputs").into());
+        }
+        Ok(owner)
+    }
     fn open_roots(dir: &Path, export: bool) -> Result<GoSourceRoots> {
         let initial = wait(&dir.join("roots-ready.json"))?;
         if initial["capture_started"] != false
@@ -348,11 +407,24 @@ fn main() {
         {
             return Err(fail("complete original owner lost source objects").into());
         }
+        #[cfg(test)]
+        let held_owner = {
+            let owner = test_installed_owner(&compiler, matched)?;
+            if owner.source_snapshot().source_objects().len() != source_count
+                || owner.export_snapshot().source_objects().len() != export_count
+            {
+                return Err(fail("test installed owner lost original roots").into());
+            }
+            owner
+        };
+        #[cfg(not(test))]
+        let held_owner = matched;
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"test_only_installed_owner_bound":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
+        std::hint::black_box(&held_owner);
         Ok(())
     }
 

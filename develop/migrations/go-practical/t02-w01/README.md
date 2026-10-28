@@ -2240,3 +2240,12 @@ The original failed timeout, full inputs, scoped checks and both live epochs are
 retained. These observations do not establish installed or launcher authority,
 an application theorem or native Linux release acceptance. W01 remains open and
 the cumulative T02 gate remains due at final W04.
+
+The [test-only combined compiler checkpoint](verification/installed-combined/README.md)
+also binds both held root sets to the private compiler owner using a complete
+independently checked SDK snapshot. The real 182-package capture retains all
+5,697 source/export objects and 5,577 SDK files; the test binary and original
+outputs are restorable. Scoped normal and target-only test-configuration lint,
+format and live checks pass. The test snapshot does not establish installed or
+launcher authority, source/program proof or native Linux release acceptance;
+W01 remains open and the cumulative T02 gate remains due at final W04.

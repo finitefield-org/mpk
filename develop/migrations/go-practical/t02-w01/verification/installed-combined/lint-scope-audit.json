@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "selection_reason": "Check that the real Clippy driver rejected a separate deliberate lint error and was applied with test cfg only to the exact original example target.",
+  "target_invocations": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-combined/scoped-final/lint-control.target.jsonl",
+      "bytes": 1080,
+      "sha256": "e6563dae63a631cf39b4a2f5daa2e76531644829ac1310f5687fce670c927566",
+      "target_source": "examples/go_practical_live_combined_roots.rs"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-combined/scoped-final/lint-original.target.jsonl",
+      "bytes": 3184,
+      "sha256": "d57454a29f89580c708162acef32bfa39e8bdc96a23202df22c4a568de3d6782",
+      "target_source": "crates/mpk-cli/examples/go_practical_live_combined_roots.rs"
+    }
+  ],
+  "original_target_sha256": "7d9dc68270029cfafe2aa6d96fed8521ebd9623d43bf15a7aeb2d30a1c24a2b8",
+  "control_rejected_by_clippy": true,
+  "normal_clippy_passed": true,
+  "test_binary_build_passed": true,
+  "dependency_sources_replaced": false,
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

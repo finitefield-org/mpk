@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "selection_reason": "Check all staged changes while preserving every original linker diagnostic byte, including its trailing spaces.",
+  "full_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "full_exit_code": 2,
+  "full_stdout": "develop/migrations/go-practical/t02-w01/verification/installed-combined/scope-original/cargo-rustc-clippy-wrapper.stderr:51: trailing whitespace.\n+          ld: unknown options: --as-needed -Bstatic -Bdynamic --eh-frame-hdr -z --gc-sections -z -z --strip-debug \ndevelop/migrations/go-practical/t02-w01/verification/installed-combined/scope-original/cargo-rustc-clippy-wrapper.stderr:53: trailing whitespace.\n+          \n",
+  "preserved_original_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/scope-original/cargo-rustc-clippy-wrapper.stderr",
+    "bytes": 4299,
+    "sha256": "e785d4857754c3ae24ff7bd6f6558e751c1d93b81feb1a8c536a6f136c2db815",
+    "mode": 420
+  },
+  "staged_original_bytes_match": true,
+  "selected_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check",
+    "--",
+    ".",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/installed-combined/scope-original/cargo-rustc-clippy-wrapper.stderr"
+  ],
+  "selected_exit_code": 0,
+  "selected_stdout": "",
+  "selected_stderr": "",
+  "original_evidence_bytes_modified": false
+}
