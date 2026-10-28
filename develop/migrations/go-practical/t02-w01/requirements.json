@@ -1053,6 +1053,23 @@
         "requirement_complete": false,
         "public_profile_activated": false,
         "native_Linux_release_acceptance": false
+      },
+      "analysis_archive_vendor_bytes_checkpoint": {
+        "evidence": "verification/analysis-archive/README.md",
+        "executor": "crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/archives.rs",
+        "scope": "Independently inspect all three pinned module ZIPs and match 133 supplied original vendor files against all 1751 original archive members, retaining 213 Go-captured sources and the original TODO difference. Five full-tree Go controls and one changed-ZIP control agree. A missing file can pass when its package has other files; namespace completeness, shared capture budgets, Go syntax, module manifest/checksum linkage, source-to-binary and context authority remain due.",
+        "original_sources": 213,
+        "archives": 3,
+        "archive_members": 1751,
+        "vendor_files": 133,
+        "vendor_go_files": 126,
+        "vendor_auxiliary_files": 7,
+        "original_asset_differences": 1,
+        "native_go_rust_controls": 6,
+        "supplied_files_prove_complete_namespace": false,
+        "requirement_complete": false,
+        "public_profile_activated": false,
+        "native_Linux_release_acceptance": false
       }
     },
     {
@@ -2102,6 +2119,23 @@
         "maximum_packages": 32768,
         "complete_original_manifest_in_boundary_control": true,
         "source_to_binary_correspondence_proved": false,
+        "requirement_complete": false,
+        "public_profile_activated": false,
+        "native_Linux_release_acceptance": false
+      },
+      "analysis_archive_vendor_bytes_checkpoint": {
+        "evidence": "verification/analysis-archive/README.md",
+        "executor": "crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/archives.rs",
+        "scope": "Independently inspect all three pinned module ZIPs and match 133 supplied original vendor files against all 1751 original archive members, retaining 213 Go-captured sources and the original TODO difference. Five full-tree Go controls and one changed-ZIP control agree. A missing file can pass when its package has other files; namespace completeness, shared capture budgets, Go syntax, module manifest/checksum linkage, source-to-binary and context authority remain due.",
+        "original_sources": 213,
+        "archives": 3,
+        "archive_members": 1751,
+        "vendor_files": 133,
+        "vendor_go_files": 126,
+        "vendor_auxiliary_files": 7,
+        "original_asset_differences": 1,
+        "native_go_rust_controls": 6,
+        "supplied_files_prove_complete_namespace": false,
         "requirement_complete": false,
         "public_profile_activated": false,
         "native_Linux_release_acceptance": false

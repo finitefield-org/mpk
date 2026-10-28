@@ -2,6 +2,11 @@
 //! These facts provide no source-to-binary, installed-root or context authority.
 use super::GoTypeSourceBuffer;
 use std::collections::BTreeSet;
+mod archives;
+pub use archives::{
+    check_go_analysis_vendor_archive_bytes, GoAnalysisVendorArchiveError,
+    GoAnalysisVendorArchiveInputs, GoAnalysisVendorAssetDifference,
+};
 
 const MAXIMUM_MANIFEST_INPUTS: usize = 32_768;
 const PINS: [(&str, &str); 3] = [

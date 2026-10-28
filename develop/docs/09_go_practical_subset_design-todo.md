@@ -38,6 +38,12 @@ Rust agree on 36 cases, including all 29 original packages and the unchanged
 32,768-package boundary. Source/archive and source-to-binary authority remain
 open; the practical profile is inactive.
 
+The W01 [analysis archive checkpoint](../migrations/go-practical/t02-w01/verification/analysis-archive/README.md)
+checks all 1,751 members in three original analysis ZIPs against 133 supplied
+vendor files, preserving the original TODO difference and 213 captured sources.
+Go/Rust controls agree. The supplied list does not establish namespace
+completeness, source syntax or source-to-binary authority; W01 remains open.
+
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/
 Zstandard data prefixes. All 425 native/Rust cases retain187 prior cases,9 actual

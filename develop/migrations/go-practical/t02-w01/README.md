@@ -42,6 +42,15 @@ manifest remains in the maximum-size control. The new Rust test, eight affected
 source/type-key tests, scoped lint and formats pass. Actual analysis archive/
 source-to-binary authority, context and source/program proofs remain due.
 
+The [analysis archive checkpoint](verification/analysis-archive/README.md)
+checks all 1,751 original ZIP members and their correspondence with 133 supplied
+vendor files, retaining all 213 original captured sources and the original TODO
+difference. Go/Rust agree on five full-tree controls and a separate changed-ZIP
+control. Omitting one of several
+files from a package can still pass, so this is not namespace completeness or
+source/binary authority. Affected module-data and vendor tests, scoped lint and
+formats pass; W01 and the practical profile remain open/inactive.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

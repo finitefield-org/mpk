@@ -9448,3 +9448,16 @@ not authenticate the analysis source archives or prove source-to-binary, context
 or source/program correspondence. W01 and the practical profile remain open/
 inactive; native Linux release acceptance is not claimed and the cumulative T02
 gate remains W04.
+
+## 208. T02-W01 original Go analysis archive/vendor bytes (in progress)
+
+The [analysis archive checkpoint](../migrations/go-practical/t02-w01/verification/analysis-archive/README.md)
+checks three full pinned module ZIPs, all 1,751 members and 133 supplied vendor
+files against the 29-package original manifest. All 213 captured original source
+objects and the pre-existing TODO difference remain exact. Five full-tree Go/Rust
+controls and a separate changed-ZIP control agree. Omitting one of several package
+files can still pass; the result does not prove namespace completeness, Go syntax,
+source-to-binary identity or context authority. The new/affected module-data and vendor tests, final error
+controls and scoped lint/formats pass. W01 and the practical profile remain
+open/inactive, native Linux release acceptance is not claimed and the cumulative
+T02 gate remains W04.

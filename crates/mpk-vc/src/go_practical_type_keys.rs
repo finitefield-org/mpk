@@ -12,7 +12,9 @@ use std::collections::{BTreeMap, BTreeSet};
 
 mod analysis_vendor;
 pub use analysis_vendor::{
-    parse_go_analysis_vendor_manifest, GoAnalysisVendorError, GoAnalysisVendorManifest,
+    check_go_analysis_vendor_archive_bytes, parse_go_analysis_vendor_manifest,
+    GoAnalysisVendorArchiveError, GoAnalysisVendorArchiveInputs, GoAnalysisVendorAssetDifference,
+    GoAnalysisVendorError, GoAnalysisVendorManifest,
 };
 mod compiler_inputs;
 mod contract_inputs;

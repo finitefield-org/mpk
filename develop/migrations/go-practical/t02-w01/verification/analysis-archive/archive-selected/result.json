@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T13:57:43.753994+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_analysis_archives",
+    "--test",
+    "go_practical_analysis_vendor",
+    "--test",
+    "go_practical_module_data"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-archive/archive-selected/inputs.json",
+    "bytes": 13267333,
+    "sha256": "da5a4c53ccf30042ed66db9dce4c7f95510ea67be6d5fe6b239641b73283057f",
+    "mode": 420
+  },
+  "selection_reason": "Check original analysis archive/vendor byte correspondence and affected consumers, without claiming a complete namespace, source syntax or binary/context authority. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 114.97585595800047,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-archive/archive-selected/stdout.log",
+    "bytes": 899,
+    "sha256": "e89769106b73d0b9982ba959ab3fea28220e4bac00e927b8c05cf7f6b903ba8b",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-archive/archive-selected/stderr.log",
+    "bytes": 481,
+    "sha256": "5df72d6996724a2e8f1b5cc291ea63781966a3e4070ff98d5bef1ffe932edd01",
+    "mode": 420
+  }
+}
