@@ -9639,3 +9639,33 @@ The test-only SDK seal and restored roots are not installed/launcher authority.
 Original capture epoch, export root, registered source/binary correspondence,
 context and application proofs remain due. No native Linux release acceptance
 or W01 completion is claimed; the cumulative T02 gate remains T02-W04.
+
+## 220. T02-W01 registered Go analysis source reproduction (in progress)
+
+The [registered source checkpoint](../migrations/go-practical/t02-w01/verification/registered-analysis/README.md)
+restores all 269 files of the registered Go source epoch, including 242
+frontend files. Go captures 196 source objects and 287 native entries across
+52 directories; Rust independently derives the same 184 build inputs. Held
+Linux roots match the complete capture, with source and namespace controls.
+Both independent empty-cache builds of the full source epoch using the pinned
+SDK and original release flags exactly reproduce all 9,004,378 bytes of the
+registered frontend. The complete binaries and archive bytes remain recoverable.
+
+The first Go test rejected the real Git archive PAX header; the failure remains
+and the corrected test validates its commit metadata. A subsequent macOS
+temporary-path fix reproduces the full Go capture and all 192 unique raw
+files byte-for-byte, so unchanged Rust/root tests are not repeated. Rust tests,
+targeted Clippy, Go vet and formats pass. The host Go tar probe failed because
+its standard library was unavailable and is retained without an observation.
+
+The initial scoped review found two incidental compressed-byte text matches;
+both full archives and the exact failed review are losslessly stored and
+independently restored without changing scanner rules or exclusions.
+The corrected review covers all 5,492 archived files, 26,265 ZIP members and
+both decoded binaries with no findings.
+
+The archive header and extracted receipt record different file modes; both
+original records are preserved. This result concerns the historical registered
+epoch, not the newer source generation or production launcher authority. No
+application proof, native Linux release acceptance or W01 completion is
+claimed, and the T02 fast gate remains deferred to W04.

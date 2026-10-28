@@ -1203,5 +1203,125 @@
       "prior_original_evidence_chunks_unchanged": 24,
       "scanner_rules_changed": false
     }
+  },
+  "registered_analysis_source_epoch_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Restore the entire registered Go source epoch, capture its complete actual namespace, compare original objects independently in Rust and against held roots, reproduce two full original binaries with pinned SDK/flags, and run only affected local tests, vet, lint and format.",
+    "description": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/README.md",
+      "sha256": "96465a4ebdc109ec98ae0bfe798f4685d7fe5b02ef5745fa4fd45a3479eb9a9c",
+      "bytes": 3935
+    },
+    "initial_pax_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/native-original/result.json",
+      "sha256": "d343fbfe59c2840e3bfbc8fdcacdeabe544156a929ff1a5504312ca8b342afd2",
+      "bytes": 834
+    },
+    "corrected_empty_cache_go_capture": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/native-fixed/result.json",
+      "sha256": "dacd06156e97e96c7c740b7781418d42a3cdf2587a9510306bab8824ce1e546f",
+      "bytes": 1125
+    },
+    "platform_path_rerun": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/native-after-path/result.json",
+      "sha256": "d954f2996b9614c062258e30b6cf961f8aecf63a5707b478ae7534054d209884",
+      "bytes": 1140
+    },
+    "exact_epoch_comparison": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/native-epochs-equal.json",
+      "sha256": "d9f31e7b30f2703ac1df58440f4891b69d8281b6f5c958115c1ebaf616be43ec",
+      "bytes": 39605
+    },
+    "independent_rust_owner": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/rust-original/result.json",
+      "sha256": "1a295eeeef505f292657d6dc5b62d47e6f8cf8af05c5e9052fabf9beb30ae348",
+      "bytes": 786
+    },
+    "independent_held_roots": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/roots-original/result.json",
+      "sha256": "639304f848fa90f103ae0497ac0812762901faaf0c995d589eae1e566f2f0afd",
+      "bytes": 787
+    },
+    "registered_binary_rebuild": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/rebuild-original/result.json",
+      "sha256": "54c95afa486438b5fd719e8eec8d1a9309df799414188e44f1f4b22efc1afcce",
+      "bytes": 1802
+    },
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/inspection.json",
+      "sha256": "f8b48287ca08217d8727feb92486e4aa0fd9325a2b7ba39ae627a897896336f4",
+      "bytes": 1107
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/rust-clippy-original/result.json",
+      "sha256": "957987ca8506b7761cce7005414ebdf592737205025999f0d9b8a361ba7114ad",
+      "bytes": 797
+    },
+    "linux_root_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/cli-clippy-original/result.json",
+      "sha256": "6599db9dff5ce4804974ba7416725c7c22ef950ede70501ec542dace11775be6",
+      "bytes": 796
+    },
+    "go_vet_final": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/go-vet-after-path/result.json",
+      "sha256": "c55a0e96526afff3fbf33a0c5c5ca3cee0bda7dd18be94816e9b263a652baeea",
+      "bytes": 789
+    },
+    "final_formats": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/formats-after-path.json",
+      "sha256": "099ee86e42f16ba7df59b59024d2614dfe3c608f86fe02db0c4209cd59a1c4e0",
+      "bytes": 2330
+    },
+    "exploratory_host_go_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/host-tar-probe.json",
+      "sha256": "43a95cc08de556c0a892bdb72dc5b305995506e180afd4a55d7d2d9181dd78b0",
+      "bytes": 880
+    },
+    "registered_source_epoch": "ed67a4c388defe8babdbc55f29851552562121d9",
+    "original_full_source_files": 269,
+    "frontend_tree_files": 242,
+    "captured_objects": 196,
+    "captured_directories": 52,
+    "captured_entries": 287,
+    "frontend_go_files": 48,
+    "vendor_files": 133,
+    "build_objects": 184,
+    "registered_sdk_files": 5577,
+    "registered_frontend_bytes": 9004378,
+    "registered_frontend_sha256": "ccc4a984d41b5da7b3a6838cbfaeee3eb23f675a2e4d7fb5d4f9fcd7e597d538",
+    "two_empty_cache_binaries_byte_equal_registered": true,
+    "all_capture_epoch_packets_and_raw_bytes_equal": true,
+    "archive_modes_distinct_from_extracted_receipt": 269,
+    "newer_source_generation_attributed_to_registered_binary": false,
+    "trusted_launcher_authority_proved": false,
+    "application_proof_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "initial_review_archive_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/archive-storage.json",
+      "sha256": "8f5d1fa87aa9de34494dda49e8f93447cf29398ff95793fca254ff3fcedb2b7f",
+      "bytes": 3023
+    },
+    "original_archives_restore": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/restore-check.json",
+      "sha256": "7cab598cbbc423a6cf8c4b23f3d44884579d43e132397e48f919b9722e322ce4",
+      "bytes": 831
+    },
+    "initial_compressed_byte_findings": 2,
+    "scanner_rules_changed": false,
+    "scoped_review": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/review.json",
+      "sha256": "e47560dd8576528de3239875f050c8e8c54730812032ab61714383996aed80a6",
+      "bytes": 164380,
+      "archive_members": 5492,
+      "zip_members": 26265,
+      "decoded_complete_binaries": 2,
+      "recovered_archives": 2,
+      "active_findings": 0,
+      "archived_findings": 0,
+      "scanner_rules_changed": false
+    }
   }
 }

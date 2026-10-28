@@ -113,6 +113,13 @@ root and an unmatched export object reclassified as source. The restored test
 roots do not authorize launcher paths or authenticate the separate export root;
 W01 and the practical profile remain open/inactive.
 
+The [registered analysis source checkpoint](verification/registered-analysis/README.md)
+restores the full earlier registered source epoch and derives all 184 build
+inputs independently in Go and Rust. Both complete offline release-flag builds
+match the existing registered frontend byte-for-byte. This historical epoch
+is distinct from the newer analysis source tree; production launcher authority
+and practical source/program proofs remain due.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`
