@@ -17,6 +17,9 @@ mod frontend_registry;
 #[allow(dead_code)]
 mod frontend_runner;
 mod frontend_sandbox;
+#[cfg(target_os = "linux")]
+#[allow(dead_code)]
+mod go_practical_capture_binding;
 #[allow(dead_code)]
 mod go_practical_installed_compiler;
 #[cfg(target_os = "linux")]

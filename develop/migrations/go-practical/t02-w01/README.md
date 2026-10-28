@@ -105,6 +105,14 @@ opens the original application, dependency and SDK roots before capture and
 compares 5,516 captured objects. The later export root and launcher authority
 are still separate obligations.
 
+The [capture/compiler binding checkpoint](verification/capture-binding/README.md)
+connects the independently matched application, dependency and SDK roots to
+the same complete compiler/export owner. It retains all 5,697 original objects
+and rejects coherently resealed source or namespace changes, a missing required
+root and an unmatched export object reclassified as source. The restored test
+roots do not authorize launcher paths or authenticate the separate export root;
+W01 and the practical profile remain open/inactive.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

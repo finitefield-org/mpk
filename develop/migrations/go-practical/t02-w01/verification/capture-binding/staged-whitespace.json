@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "selection_reason": "Check all staged code and records while preserving the exact original test stdout streams; separately record the full check and its three final blank-line observations.",
+  "full_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "full_exit_code": 2,
+  "full_stdout": "develop/migrations/go-practical/t02-w01/verification/capture-binding/binding-after-attribute/stdout.log:8: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/capture-binding/binding-original/stdout.log:8: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/capture-binding/roots-original/stdout.log:7: new blank line at EOF.\n",
+  "selected_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check",
+    "--",
+    ".",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/capture-binding/**/stdout.log"
+  ],
+  "selected_exit_code": 0,
+  "selected_stdout": "",
+  "selected_stderr": "",
+  "original_stdout_bytes_modified": false
+}

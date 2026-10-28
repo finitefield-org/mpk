@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "selection_reason": "Restore the complete retained original application/dependency entries, every registered SDK byte and the entire original evidence set for the changed binding tests.",
+  "command": [
+    "python3",
+    "-B",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/capture-binding/restore_fixture.py",
+    "/private/tmp/mpk-go-capture-binding-fixture-original"
+  ],
+  "exit_code": 0,
+  "seconds": 37.359273750000284,
+  "destination": "/private/tmp/mpk-go-capture-binding-fixture-original",
+  "fixture": {
+    "status": "passed",
+    "selection_reason": "Restore every original evidence file, all 74 application/dependency entries and all 5577 registered SDK files; recreate the original observed SDK directory namespace without substituting source files.",
+    "roots": {
+      "workspace/main": "/private/tmp/mpk-go-capture-binding-fixture-original/roots/main",
+      "workspace/dep": "/private/tmp/mpk-go-capture-binding-fixture-original/roots/dep",
+      "original-go-sdk": "/private/tmp/mpk-go-capture-binding-fixture-original/roots/sdk"
+    },
+    "evidence": "/private/tmp/mpk-go-capture-binding-fixture-original/saved/originals/versioned-owned",
+    "original_application_entries": 74,
+    "registered_sdk_files": 5577,
+    "registered_sdk_bytes": 166354960,
+    "all_original_evidence_files": 16880,
+    "all_original_evidence_bytes": 367714473,
+    "native_Linux_release_acceptance": false
+  },
+  "stdout_sha256": "0459b8f4e30ccf34051ca3990b35f2cc7fe6715f341bf23cd24507c0203b1435",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false
+}

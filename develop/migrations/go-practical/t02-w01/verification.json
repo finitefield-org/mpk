@@ -1104,5 +1104,104 @@
     "reviewed_zip_members": 837,
     "active_review_findings": 0,
     "archived_review_findings": 0
+  },
+  "root_compiler_capture_binding_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Run the new full-original compiler/root integration test and the directly affected source-root test, Linux-target compiler check/Clippy and changed-file format; independently recheck the prior original-root test fixture. Preserve all original data and failed diagnostics.",
+    "description": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/README.md",
+      "sha256": "218df60a06a8cf01efebff2f359447e56a8dc5da5aca76d94d8bd3a2d44a936e",
+      "bytes": 3160
+    },
+    "initial_linux_compilation": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/linux-check/result.json",
+      "sha256": "e886adad0438dc37755735bc22f4c7c2895b7dbfa342756550319d356f271a3a",
+      "bytes": 771
+    },
+    "full_fixture_restoration": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/fixture-original/result.json",
+      "sha256": "cb1a4a4672937895e36b0518b4f36b790668008e305f586bd84df5bfd46e4173",
+      "bytes": 1772
+    },
+    "test_compilation": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/test-compile-original/result.json",
+      "sha256": "fd88d87ef972720d9be947dcfd165ff95434afde84a2e2c4813dde30e7239b3d",
+      "bytes": 792
+    },
+    "affected_existing_root_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/roots-original/result.json",
+      "sha256": "8fb28b1f8bebc1c871c28638bf1839e1d8a3fd8c6bd3946976e3b8e0bb58e42b",
+      "bytes": 779
+    },
+    "initial_binding_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/binding-original/result.json",
+      "sha256": "2af78b57d5e5c9324d1a754df183aed84c100daa9af755f03b8960b5271f7dc3",
+      "bytes": 784
+    },
+    "initial_clippy_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/clippy-original/result.json",
+      "sha256": "8d5c348a8e3a619ec594857db3d2e34aa4631758085653d61b2bff2a43d98352",
+      "bytes": 783
+    },
+    "final_binding_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/binding-after-attribute/result.json",
+      "sha256": "0effbe287d6981668a05fd1b3e378c01bfcfaa1073d4ec5c60b2df45e570e53b",
+      "bytes": 798
+    },
+    "final_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/clippy-after-attribute/result.json",
+      "sha256": "1fb9e1d98a2b1e1af6939ab9205224fa9bdb105b7823c20f963080edd32b3ffd",
+      "bytes": 794
+    },
+    "initial_root_fixture_audit_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/root-fixture-initial.json",
+      "sha256": "3831c261c38220c8fc5722ad29ba5b3c193a0facdfe32cf52a5ae2e66c200f5a",
+      "bytes": 846
+    },
+    "corrected_root_fixture_audit": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/root-fixture-audit.json",
+      "sha256": "daa45df501afb987c1ab5d6183441eb1495c20a4df76a7961458a0c859c4ff8f",
+      "bytes": 74284
+    },
+    "final_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/format-after-clippy.json",
+      "sha256": "55a64344480fce13fd0a6dd8b34480160a972f5a3f9a8814810ddeffec60139b",
+      "bytes": 1665
+    },
+    "original_evidence_files": 16880,
+    "original_evidence_bytes": 367714473,
+    "original_application_entries": 74,
+    "registered_sdk_files": 5577,
+    "registered_sdk_bytes": 166354960,
+    "matched_objects": 5516,
+    "full_objects": 5697,
+    "additional_export_objects": 181,
+    "packages": 182,
+    "root_function_selections": 1,
+    "contract_overlays": 0,
+    "coherent_source_change_rejected": true,
+    "coherent_namespace_change_rejected": true,
+    "missing_required_capability_rejected": true,
+    "reclassified_unmatched_export_rejected": true,
+    "launcher_authority_proved": false,
+    "original_capture_epoch_authenticated": false,
+    "export_root_authenticated": false,
+    "registered_source_binary_proved": false,
+    "application_proof_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "scoped_review": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/review.json",
+      "sha256": "9ba6b536e392a18f9f97188ec99200c832d081a66298f2f2a9f26679858f1506",
+      "bytes": 18875,
+      "archive_members": 5239,
+      "zip_members": 10506,
+      "active_findings": 0,
+      "archived_findings": 0,
+      "prior_original_evidence_chunks_unchanged": 24,
+      "scanner_rules_changed": false
+    }
   }
 }

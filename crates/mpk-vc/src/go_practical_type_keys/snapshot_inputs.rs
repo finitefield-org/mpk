@@ -119,6 +119,38 @@ impl GoSourceSnapshotInputs {
     pub fn source(&self, id: &str) -> Option<&GoTypeSourceBuffer> {
         self.sources.get(id)
     }
+
+    /// Compare every directory, source identity and original byte buffer in
+    /// `observed` with the same capabilities in this complete snapshot. Any
+    /// other capabilities in `self` remain present and are not authenticated by
+    /// this comparison. This does not authorize roots or a semantic context.
+    pub fn contains_exact_capabilities(&self, observed: &Self) -> bool {
+        let capabilities = observed
+            .capabilities()
+            .iter()
+            .map(String::as_str)
+            .collect::<BTreeSet<_>>();
+        capabilities.iter().all(|capability| {
+            self.wire
+                .capabilities
+                .binary_search_by(|c| c.as_str().cmp(capability))
+                .is_ok()
+        }) && self
+            .directories
+            .iter()
+            .filter(|((capability, _), _)| capabilities.contains(capability.as_str()))
+            .eq(observed.directories.iter())
+            && self
+                .wire
+                .objects
+                .iter()
+                .filter(|object| capabilities.contains(object.capability.as_str()))
+                .eq(observed.wire.objects.iter())
+            && observed
+                .sources
+                .iter()
+                .all(|(id, source)| self.sources.get(id) == Some(source))
+    }
     fn check_path(&self, capability: &str, path: &str, empty: bool) -> Lookup<()> {
         if !validate::logical_path(capability)
             || self

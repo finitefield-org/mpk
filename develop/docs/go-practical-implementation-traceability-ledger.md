@@ -9613,3 +9613,29 @@ roots, the separate export root, registered frontend/source correspondence and
 application proofs remain due. This local emulation/arm64 observation is not
 native Linux release acceptance; W01/profile stay open/inactive and the full
 T02 gate remains at W04.
+
+## 219. T02-W01 matched roots and complete compiler owner (in progress)
+
+The [capture/compiler binding](../migrations/go-practical/t02-w01/verification/capture-binding/README.md)
+compares all directories, source identities and bytes of each matched source
+capability with the full original compiler/export capture. Non-export roots
+are required; the unmatched export root stays present and is exempt only for
+export-data objects. The complete 5,697-object, 182-package owner and 5,577
+registered SDK files are retained. A restored 5,516-object application,
+dependency and SDK capture binds to that owner; the separate 181 export
+objects remain unverified as a filesystem root.
+
+Coherently resealed changed source/namespace, missing required root and
+reclassified export-object controls reject. The changed integration test and
+direct root consumer pass, with Linux-target compilation, Clippy and format.
+The first Clippy run found a duplicate test-only attribute; the corrected run
+and integration test pass. An independently preserved fixture-audit attempt
+miscounted 213 objects as 213 distinct raw files; the corrected audit checks
+all 209 unique raw files and the four original records.
+Scoped review of the changed inputs and retained archives passes with no
+findings and unchanged scanner rules; all 24 earlier evidence chunks match.
+
+The test-only SDK seal and restored roots are not installed/launcher authority.
+Original capture epoch, export root, registered source/binary correspondence,
+context and application proofs remain due. No native Linux release acceptance
+or W01 completion is claimed; the cumulative T02 gate remains T02-W04.
