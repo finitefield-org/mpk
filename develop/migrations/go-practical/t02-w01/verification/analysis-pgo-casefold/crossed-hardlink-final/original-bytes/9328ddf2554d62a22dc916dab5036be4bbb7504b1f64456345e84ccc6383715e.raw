@@ -1,0 +1,449 @@
+package main
+
+import (
+	"fmt"
+	"io"
+	"os"
+	"path"
+	"path/filepath"
+	"sort"
+	"strings"
+)
+
+// Root authorization comes from the launcher, not source objects or JSON hashes.
+// A session captures only paths requested by the original-package loader. It
+// does not recursively reject unrelated application directories or assets.
+type practicalSourceRoot struct {
+	Capability string
+	Directory  string
+}
+
+type practicalRootReader interface {
+	Open(string) (*os.File, error)
+	Lstat(string) (os.FileInfo, error)
+	Close() error
+}
+
+type practicalBoundRoot struct {
+	physical string
+	info     os.FileInfo
+}
+
+type practicalDirectoryEntry struct {
+	Name string
+	Type os.FileMode
+}
+
+type practicalDirectoryState struct {
+	info    os.FileInfo
+	entries []practicalDirectoryEntry
+}
+
+type practicalFileState struct {
+	capability string
+	path       string
+	kind       string
+	info       os.FileInfo
+	buffer     practicalSourceBuffer
+}
+
+// Single-owner transaction. An ignored read/limit error still prevents sealing.
+// Root handles are scoped to one operation, avoiding one open FD per module.
+type practicalCaptureSession struct {
+	roots       map[string]practicalBoundRoot
+	directories map[string]practicalDirectoryState
+	files       map[string]practicalFileState
+	archives    map[string]practicalModuleArchive
+	archiveSums map[string]practicalModuleSums
+	foldedPaths map[string]string
+	counters    captureCounters
+	failed      error
+	sealed      bool
+	openRoot    func(string) (practicalRootReader, error)
+}
+
+func newPracticalCaptureSession(roots []practicalSourceRoot) (*practicalCaptureSession, error) {
+	if len(roots) == 0 || len(roots) > maximumVisitedDirectories {
+		return nil, fmt.Errorf("practical source root set is empty or exceeds the directory bound")
+	}
+	session := &practicalCaptureSession{
+		roots: make(map[string]practicalBoundRoot), directories: make(map[string]practicalDirectoryState),
+		files: make(map[string]practicalFileState), foldedPaths: make(map[string]string),
+		openRoot: openPracticalSourceRoot,
+	}
+	folded := make(map[string]bool)
+	for _, root := range roots {
+		key := foldPracticalASCII(root.Capability)
+		if !validPracticalLogicalPath(root.Capability) || folded[key] {
+			return nil, fmt.Errorf("invalid or duplicate practical source capability")
+		}
+		info, err := inspectPracticalPhysicalRoot(root.Directory)
+		if err != nil {
+			return nil, err
+		}
+		folded[key] = true
+		session.roots[root.Capability] = practicalBoundRoot{physical: root.Directory, info: info}
+	}
+	return session, nil
+}
+
+func inspectPracticalPhysicalRoot(directory string) (os.FileInfo, error) {
+	if !filepath.IsAbs(directory) || filepath.Clean(directory) != directory || filepath.Dir(directory) == directory {
+		return nil, fmt.Errorf("practical root must be an explicit normalized directory capability")
+	}
+	current := string(filepath.Separator)
+	var info os.FileInfo
+	for _, part := range strings.Split(strings.TrimPrefix(directory, current), current) {
+		current = filepath.Join(current, part)
+		var err error
+		info, err = os.Lstat(current)
+		if err != nil || !info.IsDir() || info.Mode()&os.ModeSymlink != 0 {
+			return nil, fmt.Errorf("practical root has a missing, linked or non-directory component")
+		}
+	}
+	return info, nil
+}
+
+func foldPracticalASCII(value string) string {
+	return strings.Map(func(character rune) rune {
+		if character >= 'A' && character <= 'Z' {
+			return character + ('a' - 'A')
+		}
+		return character
+	}, value)
+}
+
+func practicalCaptureKey(capability, relative string) string {
+	return capability + "\x00" + relative
+}
+
+func (session *practicalCaptureSession) reject(err error) error {
+	if session.failed == nil {
+		session.failed = err
+	}
+	return session.failed
+}
+
+func (session *practicalCaptureSession) withRoot(capability string, use func(practicalRootReader) error) (err error) {
+	if session.failed != nil {
+		return session.failed
+	}
+	if session.sealed {
+		return fmt.Errorf("practical capture is already sealed")
+	}
+	bound, exists := session.roots[capability]
+	if !exists {
+		return session.reject(fmt.Errorf("unbound practical source capability"))
+	}
+	before, err := inspectPracticalPhysicalRoot(bound.physical)
+	if err != nil || !sameFileState(bound.info, before) {
+		return session.reject(fmt.Errorf("practical source root identity changed"))
+	}
+	root, err := session.openRoot(bound.physical)
+	if err != nil {
+		return session.reject(err)
+	}
+	defer func() {
+		if closeErr := root.Close(); err == nil {
+			err = closeErr
+		}
+		if err != nil {
+			err = session.reject(err)
+		}
+	}()
+	opened, err := root.Lstat(".")
+	if err != nil || !sameFileState(before, opened) {
+		return fmt.Errorf("practical source root changed while opening")
+	}
+	return use(root)
+}
+
+func practicalDirectoryName(relative string) string {
+	if relative == "" {
+		return "."
+	}
+	return relative
+}
+
+func practicalNamespaceHas(entries []practicalDirectoryEntry, name string) bool {
+	index := sort.Search(len(entries), func(i int) bool { return entries[i].Name >= name })
+	return index < len(entries) && entries[index].Name == name
+}
+
+func readPracticalDirectory(root practicalRootReader, relative string, maximum int) (entries []practicalDirectoryEntry, info os.FileInfo, err error) {
+	name := practicalDirectoryName(relative)
+	info, err = root.Lstat(name)
+	if err != nil || !info.IsDir() || info.Mode()&os.ModeSymlink != 0 {
+		return nil, nil, fmt.Errorf("practical source directory is missing or linked")
+	}
+	directory, err := root.Open(name)
+	if err != nil {
+		return nil, nil, err
+	}
+	defer func() {
+		if closeErr := directory.Close(); err == nil {
+			err = closeErr
+		}
+	}()
+	opened, err := directory.Stat()
+	if err != nil || !sameFileState(info, opened) {
+		return nil, nil, fmt.Errorf("practical directory identity changed while opening")
+	}
+	entries = make([]practicalDirectoryEntry, 0)
+	for {
+		batch, readErr := directory.ReadDir(min(256, maximum-len(entries)+1))
+		if len(batch) > maximum-len(entries) {
+			return nil, nil, fmt.Errorf("practical directory namespace exceeds its entry bound")
+		}
+		for _, entry := range batch {
+			// These are private native namespace observations. Unrelated assets
+			// need not be valid logical source paths; candidate reads validate them.
+			entries = append(entries, practicalDirectoryEntry{Name: entry.Name(), Type: entry.Type()})
+		}
+		if readErr == io.EOF {
+			break
+		}
+		if readErr != nil {
+			return nil, nil, readErr
+		}
+		if len(batch) == 0 {
+			return nil, nil, fmt.Errorf("practical directory enumeration made no progress")
+		}
+	}
+	after, err := directory.Stat()
+	named, nameErr := root.Lstat(name)
+	if err != nil || nameErr != nil || !sameFileState(info, after) || !sameFileState(info, named) {
+		return nil, nil, fmt.Errorf("practical directory changed during enumeration")
+	}
+	sort.Slice(entries, func(i, j int) bool { return entries[i].Name < entries[j].Name })
+	return entries, info, nil
+}
+
+func (session *practicalCaptureSession) visitParents(root practicalRootReader, capability, relative string) error {
+	parents := []string{""}
+	current := ""
+	if relative != "" {
+		for _, part := range strings.Split(relative, "/") {
+			current = path.Join(current, part)
+			parents = append(parents, current)
+		}
+	}
+	for _, parent := range parents {
+		if parent != "" {
+			ancestor := path.Dir(parent)
+			if ancestor == "." {
+				ancestor = ""
+			}
+			entries := session.directories[practicalCaptureKey(capability, ancestor)].entries
+			if !practicalNamespaceHas(entries, path.Base(parent)) {
+				return fmt.Errorf("practical directory spelling differs from its original namespace")
+			}
+		}
+		key := practicalCaptureKey(capability, parent)
+		if old, exists := session.directories[key]; exists {
+			info, err := root.Lstat(practicalDirectoryName(parent))
+			if err != nil || !sameFileState(old.info, info) {
+				return fmt.Errorf("practical source namespace changed")
+			}
+			continue
+		}
+		if session.counters.directories >= maximumVisitedDirectories {
+			return fmt.Errorf("practical directory count exceeded")
+		}
+		remaining := maximumDirectoryEntries - int(session.counters.directoryEntries)
+		entries, info, err := readPracticalDirectory(root, parent, remaining)
+		if err != nil {
+			return err
+		}
+		if err := session.counters.addDirectory(len(entries)); err != nil {
+			return err
+		}
+		session.directories[key] = practicalDirectoryState{info: info, entries: entries}
+	}
+	return nil
+}
+
+func (session *practicalCaptureSession) readDirectory(capability, relative string) (entries []practicalDirectoryEntry, err error) {
+	if relative != "" && !validPracticalLogicalPath(relative) {
+		return nil, session.reject(fmt.Errorf("invalid practical directory path"))
+	}
+	err = session.withRoot(capability, func(root practicalRootReader) error {
+		if err := session.visitParents(root, capability, relative); err != nil {
+			return err
+		}
+		entries = append([]practicalDirectoryEntry(nil), session.directories[practicalCaptureKey(capability, relative)].entries...)
+		return nil
+	})
+	return entries, err
+}
+
+func practicalSourceFileLimit(kind string) int {
+	if kind == "overlay" {
+		return maximumContractBytes
+	}
+	return maximumCandidateBytes
+}
+
+func readPracticalRegularFile(root practicalRootReader, relative string, before os.FileInfo, limit int) (data []byte, err error) {
+	if !before.Mode().IsRegular() || before.Size() < 0 || before.Size() > int64(limit) {
+		return nil, fmt.Errorf("practical input is not a bounded regular file")
+	}
+	file, err := root.Open(relative)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		if closeErr := file.Close(); err == nil {
+			err = closeErr
+		}
+	}()
+	opened, err := file.Stat()
+	if err != nil || !sameFileState(before, opened) || !opened.Mode().IsRegular() {
+		return nil, fmt.Errorf("practical file identity changed while opening")
+	}
+	data, err = io.ReadAll(io.LimitReader(file, int64(limit)+1))
+	if err != nil || len(data) > limit || int64(len(data)) != before.Size() {
+		return nil, fmt.Errorf("practical file changed or exceeded its byte bound")
+	}
+	after, err := file.Stat()
+	named, nameErr := root.Lstat(relative)
+	if err != nil || nameErr != nil || !sameFileState(before, after) || !sameFileState(before, named) {
+		return nil, fmt.Errorf("practical file changed during capture")
+	}
+	return data, nil
+}
+
+func (session *practicalCaptureSession) readSource(capability, relative, kind string) (buffer practicalSourceBuffer, err error) {
+	return session.readSourceClassified(capability, relative, kind, nil)
+}
+
+// A compiler-owned source inventory may derive a final non-overlay role from
+// the same complete original bytes that are captured. No speculative source
+// object is relabeled and no second read can race the classification.
+func (session *practicalCaptureSession) readSourceClassified(capability, relative, kind string, classify func([]byte) (string, error)) (buffer practicalSourceBuffer, err error) {
+	if !validPracticalLogicalPath(relative) || !validPracticalSourceKind(kind) {
+		return buffer, session.reject(fmt.Errorf("invalid practical source path or role"))
+	}
+	key := practicalCaptureKey(capability, relative)
+	folded := foldPracticalASCII(key)
+	if previous, exists := session.foldedPaths[folded]; exists && previous != key {
+		return buffer, session.reject(fmt.Errorf("practical source paths collide under ASCII case folding"))
+	}
+	err = session.withRoot(capability, func(root practicalRootReader) error {
+		parent := path.Dir(relative)
+		if parent == "." {
+			parent = ""
+		}
+		if err := session.visitParents(root, capability, parent); err != nil {
+			return err
+		}
+		if !practicalNamespaceHas(session.directories[practicalCaptureKey(capability, parent)].entries, path.Base(relative)) {
+			return fmt.Errorf("practical source spelling differs from its original namespace")
+		}
+		if old, exists := session.files[key]; exists {
+			expected := kind
+			if classify != nil {
+				var classifyErr error
+				expected, classifyErr = classify(old.buffer.sourceBytes())
+				if classifyErr != nil {
+					return classifyErr
+				}
+			}
+			if old.kind != expected {
+				return fmt.Errorf("practical source path was assigned different roles")
+			}
+			buffer = old.buffer
+			return nil
+		}
+		before, err := root.Lstat(relative)
+		if err != nil || !before.Mode().IsRegular() {
+			return fmt.Errorf("practical source is missing, linked or not regular")
+		}
+		if err := session.counters.admitCandidate(before.Size(), kind == "overlay", true); err != nil {
+			return err
+		}
+		data, err := readPracticalRegularFile(root, relative, before, practicalSourceFileLimit(kind))
+		if err != nil {
+			return err
+		}
+		if classify != nil {
+			kind, err = classify(data)
+			if err != nil {
+				return err
+			}
+			if !validPracticalSourceKind(kind) || kind == "overlay" {
+				return fmt.Errorf("compiler source classifier returned an unknown or overlay role")
+			}
+		}
+		buffer, err = newPracticalSourceBuffer(capability, relative, kind, data)
+		if err != nil {
+			return err
+		}
+		session.files[key] = practicalFileState{capability: capability, path: relative, kind: kind, info: before, buffer: buffer}
+		session.foldedPaths[folded] = key
+		return nil
+	})
+	return buffer, err
+}
+
+func (session *practicalCaptureSession) seal() (practicalSourceSnapshot, error) {
+	if len(session.files) == 0 {
+		return practicalSourceSnapshot{}, session.reject(fmt.Errorf("cannot seal an empty practical capture"))
+	}
+	capabilities := make([]string, 0, len(session.roots))
+	directories := make(map[string][]string)
+	files := make(map[string][]practicalFileState)
+	for key := range session.directories {
+		capability, relative, _ := strings.Cut(key, "\x00")
+		directories[capability] = append(directories[capability], relative)
+	}
+	for _, file := range session.files {
+		files[file.capability] = append(files[file.capability], file)
+	}
+	for name := range session.roots {
+		capabilities = append(capabilities, name)
+		sort.Strings(directories[name])
+		sort.Slice(files[name], func(i, j int) bool { return files[name][i].path < files[name][j].path })
+	}
+	sort.Strings(capabilities)
+	for _, capability := range capabilities {
+		err := session.withRoot(capability, func(root practicalRootReader) error {
+			for _, relative := range directories[capability] {
+				old := session.directories[practicalCaptureKey(capability, relative)]
+				entries, info, err := readPracticalDirectory(root, relative, len(old.entries))
+				if err != nil || !sameFileState(old.info, info) || len(entries) != len(old.entries) {
+					return fmt.Errorf("practical directory namespace changed before sealing")
+				}
+				for i := range entries {
+					if entries[i] != old.entries[i] {
+						return fmt.Errorf("practical directory entries changed before sealing")
+					}
+				}
+			}
+			for _, old := range files[capability] {
+				owned, err := practicalSourceObjectFor(capability, old.path, old.kind, old.buffer.data)
+				if err != nil || owned != old.buffer.sourceObject() {
+					return fmt.Errorf("practical owned buffer changed before sealing")
+				}
+				data, err := readPracticalRegularFile(root, old.path, old.info, practicalSourceFileLimit(old.kind))
+				if err != nil {
+					return err
+				}
+				expected, err := practicalSourceObjectFor(capability, old.path, old.kind, data)
+				if err != nil || expected != old.buffer.sourceObject() {
+					return fmt.Errorf("practical original bytes changed before sealing")
+				}
+			}
+			return nil
+		})
+		if err != nil {
+			return practicalSourceSnapshot{}, err
+		}
+	}
+	snapshot, err := copyPracticalSourceSnapshot(session)
+	if err != nil {
+		return practicalSourceSnapshot{}, session.reject(err)
+	}
+	session.sealed = true
+	return snapshot, nil
+}

@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 433.9102409999996,
+  "original_inputs_unchanged": true,
+  "selected_tests_passed": [
+    "TestPracticalAnalysisActualBuildInfoPGO",
+    "TestPracticalAnalysisBuildListDifferential",
+    "TestPracticalAnalysisCapturedInputsRebuildTheSameActualFrontend",
+    "TestPracticalAnalysisSourceDifferential",
+    "TestPracticalRegisteredAnalysisOriginalCapture"
+  ],
+  "original_sources": 213,
+  "build_objects": 201,
+  "two_complete_binaries_equal": true,
+  "binaries": [
+    {
+      "original": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-regression-casefold/build/frontend-0.elf",
+        "bytes": 9004654,
+        "sha256": "3787cdda5f7d978fe571c23cbefac8ca907f39d8e0edba81ad70afc11c80225d",
+        "mode": 384
+      },
+      "encoded": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-regression-casefold/build/frontend-0.elf.hex",
+        "bytes": 18009308,
+        "sha256": "6e0a0ccf7be1dcca05997d9b662b17fae87bb603d794e2f140b0425c6b8e1982",
+        "mode": 420
+      },
+      "exact_recovery": true
+    },
+    {
+      "original": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-regression-casefold/build/frontend-1.elf",
+        "bytes": 9004654,
+        "sha256": "3787cdda5f7d978fe571c23cbefac8ca907f39d8e0edba81ad70afc11c80225d",
+        "mode": 384
+      },
+      "encoded": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-regression-casefold/build/frontend-1.elf.hex",
+        "bytes": 18009308,
+        "sha256": "6e0a0ccf7be1dcca05997d9b662b17fae87bb603d794e2f140b0425c6b8e1982",
+        "mode": 420
+      },
+      "exact_recovery": true
+    }
+  ],
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-regression-casefold/stdout.log",
+    "bytes": 5699,
+    "sha256": "7a164018702d97bd0c2e3cb0ffea2f5bf6e4deff7d1e128a81990b7e0e3280ee",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-regression-casefold/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "native_observation": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-regression-casefold/native.json",
+    "bytes": 278415,
+    "sha256": "c58b5f7d9dceb798dab692f6b4428f35deb2738e26213316495d6c452fe8736e",
+    "mode": 384
+  },
+  "build_observation": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-regression-casefold/build/reproduced-builds.json",
+    "bytes": 4753,
+    "sha256": "ce18b1b34b6c655a4d5263c42e0a97f1c96ae178913154c01012d7a64c4732f0",
+    "mode": 384
+  }
+}

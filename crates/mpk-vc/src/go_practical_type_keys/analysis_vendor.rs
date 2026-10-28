@@ -19,7 +19,11 @@ pub use snapshot::{
     check_go_analysis_vendor_snapshot, GoAnalysisVendorSnapshotError,
     GoAnalysisVendorSnapshotInputs,
 };
-pub use source::{check_go_analysis_source_inputs, GoAnalysisSourceError, GoAnalysisSourceInputs};
+pub use source::{
+    check_go_analysis_source_inputs, check_go_analysis_source_inputs_for_pgo,
+    check_go_analysis_source_inputs_for_pgo_resolution, GoAnalysisPgoMode, GoAnalysisSourceError,
+    GoAnalysisSourceInputs,
+};
 
 const MAXIMUM_MANIFEST_INPUTS: usize = 32_768;
 const PINS: [(&str, &str); 3] = [

@@ -1,0 +1,97 @@
+{
+  "status": "passed",
+  "selection_reason": "Compare every original buffer, source identity, complete namespace and build input after fixing native spelling preference; preserve the unchanged actual inputs independently consumed by Rust.",
+  "comparisons": [
+    {
+      "before": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/sensitive-final",
+      "after": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/sensitive-hardlink-final",
+      "complete_original_objects": 196,
+      "build_inputs": 184,
+      "all_objects_bytes_and_namespace_equal": true
+    },
+    {
+      "before": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/folded-final",
+      "after": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/folded-hardlink-final",
+      "complete_original_objects": 197,
+      "build_inputs": 185,
+      "all_objects_bytes_and_namespace_equal": true
+    },
+    {
+      "before": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/crossed-final",
+      "after": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/crossed-hardlink-final",
+      "complete_original_objects": 198,
+      "build_inputs": 185,
+      "all_objects_bytes_and_namespace_equal": true
+    },
+    {
+      "before": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-casefold-final",
+      "after": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-hardlink-final",
+      "complete_original_objects": 197,
+      "build_inputs": 185,
+      "all_objects_bytes_and_namespace_equal": true
+    },
+    {
+      "before": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-casefold-final/controls/regular",
+      "after": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-hardlink-final/controls/regular",
+      "complete_original_objects": 196,
+      "build_inputs": 184,
+      "all_objects_bytes_and_namespace_equal": true
+    },
+    {
+      "before": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-casefold-final/controls/directory",
+      "after": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-hardlink-final/controls/directory",
+      "complete_original_objects": 196,
+      "build_inputs": 184,
+      "all_objects_bytes_and_namespace_equal": true
+    },
+    {
+      "before": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-casefold-final/controls/symlink",
+      "after": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-hardlink-final/controls/symlink",
+      "complete_original_objects": 196,
+      "build_inputs": 184,
+      "all_objects_bytes_and_namespace_equal": true
+    },
+    {
+      "before": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-casefold-final/controls/oversized",
+      "after": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-hardlink-final/controls/oversized",
+      "complete_original_objects": 196,
+      "build_inputs": 184,
+      "all_objects_bytes_and_namespace_equal": true
+    },
+    {
+      "before": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-casefold-final/controls/absent",
+      "after": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-hardlink-final/controls/absent",
+      "complete_original_objects": 196,
+      "build_inputs": 184,
+      "all_objects_bytes_and_namespace_equal": true
+    }
+  ],
+  "hardlink_before": {
+    "actual_native_profile_name": "DEFAULT.PGO",
+    "additional_hard_link_name": "AAA.PGO",
+    "build_objects": 185,
+    "captured_native_profile_name": "AAA.PGO",
+    "go_requested": "default.pgo",
+    "hard_link_same_file": true,
+    "profile_bytes": 293923,
+    "profile_sha256": "d7355ec9e3c8bf05e214b202174ede4205092f852124e6f7f7287e22f6b5d980",
+    "source_objects": 197,
+    "source_to_binary_proof": false
+  },
+  "hardlink_after": {
+    "actual_native_profile_name": "DEFAULT.PGO",
+    "additional_hard_link_name": "AAA.PGO",
+    "build_objects": 185,
+    "captured_native_profile_name": "DEFAULT.PGO",
+    "go_requested": "default.pgo",
+    "hard_link_same_file": true,
+    "profile_bytes": 293923,
+    "profile_sha256": "d7355ec9e3c8bf05e214b202174ede4205092f852124e6f7f7287e22f6b5d980",
+    "source_objects": 197,
+    "source_to_binary_proof": false
+  },
+  "unrelated_inputs_narrowed": false,
+  "rust_consumers_can_reuse_exact_unchanged_inputs": true,
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

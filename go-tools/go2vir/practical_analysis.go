@@ -38,6 +38,14 @@ type practicalAnalysisAssetDifference struct {
 	actualBytes   uint64
 }
 
+// The selected build mode determines whether Go consults default.pgo.
+type practicalAnalysisPGOMode uint8
+
+const (
+	practicalAnalysisPGOOff practicalAnalysisPGOMode = iota
+	practicalAnalysisPGOAuto
+)
+
 // Complete owned frontend/vendor build inputs and original dependency
 // provenance. A registered context and a source-correlated build observation
 // must still bind these inputs to an accepted executable.
@@ -47,6 +55,8 @@ type practicalAnalysisInputs struct {
 	modules        []practicalVersionedModule
 	sources        []practicalSourceBuffer
 	vendor         []practicalSourceBuffer
+	pgoMode        practicalAnalysisPGOMode
+	defaultPGO     *practicalSourceBuffer
 	differences    []practicalAnalysisAssetDifference
 }
 
@@ -136,7 +146,86 @@ func validatePracticalAnalysisGoSource(source practicalSourceBuffer) error {
 	return nil
 }
 
+// Resolve the exact Go lookup through the captured root, then preserve the
+// native directory spelling. A differently spelled unrelated file is ignored
+// on a case-sensitive filesystem, just as Go ignores it.
+func (session *practicalCaptureSession) capturePracticalDefaultPGO(location practicalModuleLocation, entries []practicalDirectoryEntry) (*practicalSourceBuffer, error) {
+	var resolved string
+	var observed os.FileInfo
+	selectedRank := 0
+	err := session.withRoot(location.capability, func(root practicalRootReader) error {
+		requested := practicalModuleFile(location, "default.pgo")
+		actual, err := root.Lstat(requested)
+		if os.IsNotExist(err) {
+			return nil
+		}
+		if err != nil {
+			return err
+		}
+		// Prefer the exact or case-folded requested spelling, including when
+		// another hard link happens to name the same underlying file.
+		for _, entry := range entries {
+			name := practicalModuleFile(location, entry.Name)
+			info, err := root.Lstat(name)
+			if err != nil {
+				// An unrelated unreadable entry is not a Go PGO input.
+				// The resolved entry must still be found and revalidated.
+				continue
+			}
+			rank := 1
+			if strings.EqualFold(entry.Name, "default.pgo") {
+				rank = 2
+			}
+			if entry.Name == "default.pgo" {
+				rank = 3
+			}
+			if os.SameFile(actual, info) && rank > selectedRank {
+				resolved = name
+				selectedRank = rank
+			}
+		}
+		if resolved == "" {
+			return fmt.Errorf("resolved Go PGO profile is absent from the original namespace")
+		}
+		observed = actual
+		again, err := root.Lstat(requested)
+		if err != nil || !sameFileState(actual, again) {
+			return fmt.Errorf("Go PGO lookup changed during original namespace capture")
+		}
+		return nil
+	})
+	if err != nil || resolved == "" {
+		return nil, err
+	}
+	source, err := session.readSource(location.capability, resolved, "auxiliary")
+	if err != nil {
+		return nil, err
+	}
+	captured, exists := session.files[practicalCaptureKey(location.capability, resolved)]
+	if !exists || !sameFileState(observed, captured.info) {
+		return nil, session.reject(fmt.Errorf("resolved Go PGO file changed before capture"))
+	}
+	err = session.withRoot(location.capability, func(root practicalRootReader) error {
+		again, err := root.Lstat(practicalModuleFile(location, "default.pgo"))
+		if err != nil || !sameFileState(observed, again) {
+			return fmt.Errorf("resolved Go PGO file changed after capture")
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &source, nil
+}
+
 func (session *practicalCaptureSession) capturePracticalAnalysis(location, downloadRoot practicalModuleLocation) (practicalAnalysisInputs, error) {
+	return session.capturePracticalAnalysisForPGO(location, downloadRoot, practicalAnalysisPGOOff)
+}
+
+func (session *practicalCaptureSession) capturePracticalAnalysisForPGO(location, downloadRoot practicalModuleLocation, pgoMode practicalAnalysisPGOMode) (practicalAnalysisInputs, error) {
+	if pgoMode != practicalAnalysisPGOOff && pgoMode != practicalAnalysisPGOAuto {
+		return practicalAnalysisInputs{}, session.reject(fmt.Errorf("unknown analysis PGO mode"))
+	}
 	owner, err := session.captureModule(location, false)
 	if err != nil {
 		return practicalAnalysisInputs{}, err
@@ -147,7 +236,7 @@ func (session *practicalCaptureSession) capturePracticalAnalysis(location, downl
 	if err := validatePracticalAnalysisManifest(owner.manifest, *owner.sums); err != nil {
 		return practicalAnalysisInputs{}, session.reject(err)
 	}
-	result := practicalAnalysisInputs{owner: owner}
+	result := practicalAnalysisInputs{owner: owner, pgoMode: pgoMode}
 	archives := map[string]practicalModuleArchive{}
 	for _, pin := range practicalAnalysisPins {
 		captured, err := session.captureVersionedModule(downloadRoot, pin.identity, *owner.sums)
@@ -241,6 +330,12 @@ func (session *practicalCaptureSession) capturePracticalAnalysis(location, downl
 	if err != nil {
 		return practicalAnalysisInputs{}, err
 	}
+	if pgoMode == practicalAnalysisPGOAuto {
+		result.defaultPGO, err = session.capturePracticalDefaultPGO(location, entries)
+		if err != nil {
+			return practicalAnalysisInputs{}, err
+		}
+	}
 	for _, entry := range entries {
 		for _, suffix := range []string{".s", ".S", ".h", ".c", ".cc", ".cpp", ".cxx", ".m", ".f", ".F", ".for", ".f90", ".syso", ".swig", ".swigcxx"} {
 			if strings.HasSuffix(entry.Name, suffix) {
@@ -266,6 +361,9 @@ func (session *practicalCaptureSession) capturePracticalAnalysis(location, downl
 
 func (inputs practicalAnalysisInputs) buildSources() []practicalSourceBuffer {
 	sources := []practicalSourceBuffer{inputs.owner.manifest.source, inputs.owner.sums.source, inputs.vendorManifest}
+	if inputs.defaultPGO != nil {
+		sources = append(sources, *inputs.defaultPGO)
+	}
 	sources = append(sources, inputs.sources...)
 	sources = append(sources, inputs.vendor...)
 	sort.Slice(sources, func(i, j int) bool { return sources[i].object.Path < sources[j].object.Path })

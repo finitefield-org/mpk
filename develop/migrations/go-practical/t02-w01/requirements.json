@@ -814,6 +814,24 @@
         "trusted_launcher_authority": false,
         "application_proof": false,
         "native_Linux_release_acceptance": false
+      },
+      "analysis_pgo_mode_checkpoint": {
+        "evidence": "verification/analysis-pgo/README.md",
+        "executor": "go-tools/go2vir/practical_analysis.go and crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/source.rs",
+        "scope": "Preserve the existing PGO-off source universe and independently capture the exact default profile in explicit auto mode. All 196 original objects and 184 build inputs remain; auto adds one actual profile. Original ignored-entry controls and real full builds retain exact bytes.",
+        "status": "scoped_checks_passed_work_item_in_progress",
+        "trusted_build_mode_and_launcher_authority": false,
+        "application_proof": false,
+        "native_Linux_release_acceptance": false
+      },
+      "analysis_pgo_filesystem_lookup_checkpoint": {
+        "evidence": "verification/analysis-pgo-casefold/README.md",
+        "executor": "go-tools/go2vir/practical_analysis.go and crates/mpk-cli/src/go_practical_source_roots.rs",
+        "scope": "Preserve complete original inputs while matching Go's actual case-sensitive or case-folded PGO lookup and native entry spelling. Held roots reject false absence and different same-byte files; nine complete capture pairs remain identical after hard-link spelling repair.",
+        "status": "scoped_checks_passed_work_item_in_progress",
+        "trusted_build_mode_and_launcher_authority": false,
+        "application_proof": false,
+        "native_Linux_release_acceptance": false
       }
     },
     {
@@ -1277,6 +1295,24 @@
         "scope": "Restore both complete historical frontend source epochs; compare all original object bytes and rebuild each twice with the same registered SDK and release command. The binary streams differ; no particular causal file, launcher or source proof is claimed.",
         "status": "scoped_checks_passed_work_item_in_progress",
         "trusted_launcher_authority": false,
+        "application_proof": false,
+        "native_Linux_release_acceptance": false
+      },
+      "analysis_pgo_mode_checkpoint": {
+        "evidence": "verification/analysis-pgo/README.md",
+        "executor": "go-tools/go2vir/practical_analysis.go and crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/source.rs",
+        "scope": "Preserve the existing PGO-off source universe and independently capture the exact default profile in explicit auto mode. All 196 original objects and 184 build inputs remain; auto adds one actual profile. Original ignored-entry controls and real full builds retain exact bytes.",
+        "status": "scoped_checks_passed_work_item_in_progress",
+        "trusted_build_mode_and_launcher_authority": false,
+        "application_proof": false,
+        "native_Linux_release_acceptance": false
+      },
+      "analysis_pgo_filesystem_lookup_checkpoint": {
+        "evidence": "verification/analysis-pgo-casefold/README.md",
+        "executor": "go-tools/go2vir/practical_analysis.go and crates/mpk-cli/src/go_practical_source_roots.rs",
+        "scope": "Preserve complete original inputs while matching Go's actual case-sensitive or case-folded PGO lookup and native entry spelling. Held roots reject false absence and different same-byte files; nine complete capture pairs remain identical after hard-link spelling repair.",
+        "status": "scoped_checks_passed_work_item_in_progress",
+        "trusted_build_mode_and_launcher_authority": false,
         "application_proof": false,
         "native_Linux_release_acceptance": false
       }
@@ -2546,6 +2582,24 @@
         "trusted_launcher_authority": false,
         "application_proof": false,
         "native_Linux_release_acceptance": false
+      },
+      "analysis_pgo_mode_checkpoint": {
+        "evidence": "verification/analysis-pgo/README.md",
+        "executor": "go-tools/go2vir/practical_analysis.go and crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/source.rs",
+        "scope": "Preserve the existing PGO-off source universe and independently capture the exact default profile in explicit auto mode. All 196 original objects and 184 build inputs remain; auto adds one actual profile. Original ignored-entry controls and real full builds retain exact bytes.",
+        "status": "scoped_checks_passed_work_item_in_progress",
+        "trusted_build_mode_and_launcher_authority": false,
+        "application_proof": false,
+        "native_Linux_release_acceptance": false
+      },
+      "analysis_pgo_filesystem_lookup_checkpoint": {
+        "evidence": "verification/analysis-pgo-casefold/README.md",
+        "executor": "go-tools/go2vir/practical_analysis.go and crates/mpk-cli/src/go_practical_source_roots.rs",
+        "scope": "Preserve complete original inputs while matching Go's actual case-sensitive or case-folded PGO lookup and native entry spelling. Held roots reject false absence and different same-byte files; nine complete capture pairs remain identical after hard-link spelling repair.",
+        "status": "scoped_checks_passed_work_item_in_progress",
+        "trusted_build_mode_and_launcher_authority": false,
+        "application_proof": false,
+        "native_Linux_release_acceptance": false
       }
     },
     {
@@ -3238,6 +3292,24 @@
         "scope": "Restore both complete historical frontend source epochs; compare all original object bytes and rebuild each twice with the same registered SDK and release command. The binary streams differ; no particular causal file, launcher or source proof is claimed.",
         "status": "scoped_checks_passed_work_item_in_progress",
         "trusted_launcher_authority": false,
+        "application_proof": false,
+        "native_Linux_release_acceptance": false
+      },
+      "analysis_pgo_mode_checkpoint": {
+        "evidence": "verification/analysis-pgo/README.md",
+        "executor": "go-tools/go2vir/practical_analysis.go and crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/source.rs",
+        "scope": "Preserve the existing PGO-off source universe and independently capture the exact default profile in explicit auto mode. All 196 original objects and 184 build inputs remain; auto adds one actual profile. Original ignored-entry controls and real full builds retain exact bytes.",
+        "status": "scoped_checks_passed_work_item_in_progress",
+        "trusted_build_mode_and_launcher_authority": false,
+        "application_proof": false,
+        "native_Linux_release_acceptance": false
+      },
+      "analysis_pgo_filesystem_lookup_checkpoint": {
+        "evidence": "verification/analysis-pgo-casefold/README.md",
+        "executor": "go-tools/go2vir/practical_analysis.go and crates/mpk-cli/src/go_practical_source_roots.rs",
+        "scope": "Preserve complete original inputs while matching Go's actual case-sensitive or case-folded PGO lookup and native entry spelling. Held roots reject false absence and different same-byte files; nine complete capture pairs remain identical after hard-link spelling repair.",
+        "status": "scoped_checks_passed_work_item_in_progress",
+        "trusted_build_mode_and_launcher_authority": false,
         "application_proof": false,
         "native_Linux_release_acceptance": false
       }

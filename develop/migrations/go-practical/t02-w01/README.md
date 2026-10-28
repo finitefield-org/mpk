@@ -132,6 +132,17 @@ Two full builds of each epoch use the same SDK and release flags; their
 cross-epoch binaries differ. This does not attribute a specific source change
 or authorize a practical profile.
 
+The [mode-aware PGO input checkpoint](verification/analysis-pgo/README.md)
+preserves the existing PGO-off input universe and captures the exact profile
+only for automatic selection. All 196 original objects and 184 build inputs
+remain, while auto adds the actual 293,923-byte SDK profile. Separate ignored
+entry controls preserve original inputs, and actual auto/off builds demonstrate
+the differing PGO metadata. Trusted build-mode/launcher binding and W01 remain
+open; the practical profile remains inactive and the final W04 gate is due. The
+[filesystem lookup follow-up](verification/analysis-pgo-casefold/README.md)
+retains both case-sensitive and case-folded observations and independently
+checks the actual resolved profile against held roots.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

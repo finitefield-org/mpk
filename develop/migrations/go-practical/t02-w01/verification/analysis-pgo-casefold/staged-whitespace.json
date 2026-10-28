@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "selection_reason": "Check all staged changes and preserve exact original native logs and raw inputs without normalizing their bytes.",
+  "full_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "full_exit_code": 2,
+  "full_stdout": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/cli-after-assertions/stdout.log:35: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/cli-crossed/stdout.log:37: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/cli-final/stdout.log:35: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/rust-final/stdout.log:41: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/version-auto.stdout:3: trailing whitespace.\n+\tmod\tgithub.com/finitefield-org/mpk/go-tools/go2vir\t(devel)\t\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/version-auto.stdout:4: trailing whitespace.\n+\tdep\tgolang.org/x/mod\tv0.27.0\t\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/version-auto.stdout:5: trailing whitespace.\n+\tdep\tgolang.org/x/sync\tv0.16.0\t\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/version-auto.stdout:6: trailing whitespace.\n+\tdep\tgolang.org/x/tools\tv0.36.0\t\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/version-off.stdout:3: trailing whitespace.\n+\tmod\tgithub.com/finitefield-org/mpk/go-tools/go2vir\t(devel)\t\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/version-off.stdout:4: trailing whitespace.\n+\tdep\tgolang.org/x/mod\tv0.27.0\t\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/version-off.stdout:5: trailing whitespace.\n+\tdep\tgolang.org/x/sync\tv0.16.0\t\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/version-off.stdout:6: trailing whitespace.\n+\tdep\tgolang.org/x/tools\tv0.36.0\t\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-baseline-mode/stdout.log:8: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-pgo-mode/stdout.log:8: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-pgo-original/stdout.log:8: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-before-fix/stdout.log:18: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-mode-aware/stdout.log:34: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-negative-after-fix/stdout.log:6: new blank line at EOF.\n",
+  "preserved_original_evidence_paths": [
+    "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/cli-after-assertions/stdout.log",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/cli-crossed/stdout.log",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/cli-final/stdout.log",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/rust-final/stdout.log",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/version-auto.stdout",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/version-off.stdout",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-baseline-mode/stdout.log",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-pgo-mode/stdout.log",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-pgo-original/stdout.log",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-before-fix/stdout.log",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-mode-aware/stdout.log",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-negative-after-fix/stdout.log"
+  ],
+  "selected_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check",
+    "--",
+    ".",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/cli-after-assertions/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/cli-crossed/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/cli-final/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/rust-final/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/version-auto.stdout",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/version-off.stdout",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-baseline-mode/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-pgo-mode/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-pgo-original/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-before-fix/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-mode-aware/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-negative-after-fix/stdout.log"
+  ],
+  "selected_exit_code": 0,
+  "selected_stdout": "",
+  "selected_stderr": "",
+  "original_evidence_bytes_modified": false
+}

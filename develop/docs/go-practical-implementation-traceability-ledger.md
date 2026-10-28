@@ -9712,3 +9712,55 @@ original diagnostic and the successful separate follow-up are retained.
 Unchanged Go/Rust source and root tests are not repeated. This local emulation
 is not native Linux release acceptance, the practical profile remains inactive,
 W01 remains open and the T02 fast gate stays at W04.
+
+## 223. T02-W01 mode-aware Go analysis PGO input (in progress)
+
+The [mode-aware PGO checkpoint](../migrations/go-practical/t02-w01/verification/analysis-pgo/README.md)
+retains the existing PGO-off behavior and adds a separately selected auto mode
+that owns the exact observed default profile. The Go producer and independent
+Rust importer preserve all 196 original objects and 184 build inputs; the
+registered SDK profile adds one of each. Regular, directory, symlink,
+oversized and absent ignored-entry controls retain every original source byte.
+Actual full auto and off builds expose different PGO metadata; off reproduces
+the registered frontend exactly. The existing Go and Rust build-info validators
+reject auto and accept off.
+
+The original Go and Rust omissions and the intermediate unconditional capture
+are retained alongside their exact inputs and outputs. Nine affected Rust tests,
+seven Go PGO root/subcases, five Go source/build/rebuild tests, two Linux root
+consumers and changed-file formats pass. Separate lint and review receipts are
+recorded with the checkpoint; scoped Go vet and Rust Clippy pass. The first
+requirements-record edit removed a closing brace; its complete invalid bytes
+and JSON diagnostic are retained,
+and the corrected record validates. The chosen PGO mode still requires binding to a
+trusted build and launcher; no application proof, native Linux release
+acceptance, practical profile activation or W01 completion is claimed. The T02
+full gate remains deferred to final W04.
+
+## 224. T02-W01 filesystem-resolved analysis PGO (in progress)
+
+The [filesystem lookup checkpoint](../migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/README.md)
+reproduced a real omission on a case-insensitive filesystem mounted inside
+Linux: Go resolves `DEFAULT.PGO` for its `default.pgo` lookup but the initial
+capture omitted the profile. Go now captures the resolved file under an
+original entry name. The Rust held-root binding independently checks that
+lookup and rejects both a false absence and a different file containing the
+same bytes. A same-inode hard-link control exposed a second native-spelling
+error; the original failure remains, and the repaired capture prefers Go's
+requested spelling. All nine complete native input, directory and build-list
+comparisons remain exactly unchanged across that repair.
+
+The original 269-file source epoch, all 196 captured inputs and 184 build
+inputs remain; the actual profile adds one input only when Go resolves it. All
+five Go PGO-off controls, case-sensitive/case-folded cases, the unrelated
+unreadable-entry control, Rust verifier tests and Linux held-root consumers
+pass. Scoped Go vet, both Rust Clippy checks and changed-file formats pass.
+The initial CLI Clippy warning and the complete first review's incidental
+compressed-byte matches are retained with their exact input epochs; the
+corrected CLI Clippy check and both final full-source Go rebuilds pass. The
+incremental review checks 4,169 new or changed files, 24,749 archive members
+and 178,602 ZIP members with no active findings; it rechecks 1,674 unchanged
+prior inputs and retains eight incidental historical machine-byte matches.
+Neither test roots nor historical builds
+establish launcher or build-command authority, native Linux release acceptance, an application proof,
+W01 completion or profile activation. The cumulative T02 gate remains at W04.

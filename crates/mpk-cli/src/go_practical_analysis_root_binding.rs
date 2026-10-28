@@ -8,6 +8,7 @@ use mpk_vc::go_practical_type_keys::{GoAnalysisSourceInputs, GoSourceSnapshotInp
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum GoAnalysisRootBindingError {
     Snapshot,
+    PgoLookup,
 }
 
 /// Retains both the independently parsed source owner and the matched root
@@ -37,5 +38,8 @@ pub(crate) fn bind_go_analysis_root_inputs(
     if inputs.module().vendor().snapshot() != roots.snapshot() {
         return Err(GoAnalysisRootBindingError::Snapshot);
     }
+    roots
+        .verify_analysis_pgo(&inputs)
+        .map_err(|_| GoAnalysisRootBindingError::PgoLookup)?;
     Ok(GoRootMatchedAnalysisInputs { inputs, roots })
 }

@@ -2,7 +2,9 @@
 //!
 //! This private observation does not authenticate which roots a launcher should
 //! authorize, a prior capture epoch, a compiler, or any program theorem.
-use mpk_vc::go_practical_type_keys::GoSourceSnapshotInputs;
+use mpk_vc::go_practical_type_keys::{
+    GoAnalysisPgoMode, GoAnalysisSourceInputs, GoSourceSnapshotInputs,
+};
 use rustix::fs::{openat2, statat, AtFlags, FileType, Mode, OFlags, RawDir, ResolveFlags, CWD};
 use std::collections::BTreeMap;
 use std::fs::{File, Metadata};
@@ -71,6 +73,70 @@ pub(crate) struct GoSourceRootsMatch {
 impl GoSourceRootsMatch {
     pub(crate) fn snapshot(&self) -> &GoSourceSnapshotInputs {
         &self.snapshot
+    }
+
+    /// Corroborate Go's actual default.pgo lookup on this filesystem. The
+    /// producer's selected native spelling alone is not an authority.
+    #[allow(dead_code)] // This shared root module is also used without an analysis owner.
+    pub(crate) fn verify_analysis_pgo(
+        &self,
+        inputs: &GoAnalysisSourceInputs,
+    ) -> Result<(), GoSourceRootError> {
+        use GoSourceRootError as E;
+        if inputs.pgo_mode() == GoAnalysisPgoMode::Off {
+            return Ok(());
+        }
+        let (capability, lookup) = inputs.pgo_lookup();
+        let root = self._roots.roots.get(capability).ok_or(E::Capabilities)?;
+        let before = self._roots.observe(&self.snapshot)?;
+        let flags = OFlags::RDONLY | OFlags::CLOEXEC | OFlags::NOFOLLOW | OFlags::NONBLOCK;
+        let descriptor = openat2(
+            &root.directory,
+            &lookup,
+            flags,
+            Mode::empty(),
+            ResolveFlags::BENEATH | ResolveFlags::NO_MAGICLINKS | ResolveFlags::NO_SYMLINKS,
+        );
+        match (descriptor, inputs.default_pgo()) {
+            (Err(rustix::io::Errno::NOENT), None) => {}
+            (Ok(descriptor), Some(source)) => {
+                if source.object().capability != capability {
+                    return Err(E::Source);
+                }
+                let mut actual = File::from(descriptor);
+                let metadata = actual.metadata().map_err(|_| E::Filesystem)?;
+                if !metadata.is_file() || metadata.len() != source.bytes().len() as u64 {
+                    return Err(E::Source);
+                }
+                let selected = open_relative(&root.directory, &source.object().path, false)?;
+                if StableMetadata::of(&metadata)
+                    != StableMetadata::of(&selected.metadata().map_err(|_| E::Filesystem)?)
+                {
+                    return Err(E::Source);
+                }
+                let mut buffer = [0u8; 65536];
+                for expected in source.bytes().chunks(buffer.len()) {
+                    actual
+                        .read_exact(&mut buffer[..expected.len()])
+                        .map_err(|_| E::Filesystem)?;
+                    if &buffer[..expected.len()] != expected {
+                        return Err(E::Source);
+                    }
+                }
+                if actual.read(&mut buffer[..1]).map_err(|_| E::Filesystem)? != 0
+                    || StableMetadata::of(&metadata)
+                        != StableMetadata::of(&actual.metadata().map_err(|_| E::Filesystem)?)
+                {
+                    return Err(E::Changed);
+                }
+            }
+            _ => return Err(E::Source),
+        }
+        let after = self._roots.observe(&self.snapshot)?;
+        if before != after {
+            return Err(E::Changed);
+        }
+        Ok(())
     }
 }
 

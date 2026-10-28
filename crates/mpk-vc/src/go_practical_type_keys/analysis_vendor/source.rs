@@ -40,10 +40,19 @@ impl std::fmt::Display for GoAnalysisSourceError {
 }
 impl std::error::Error for GoAnalysisSourceError {}
 
+/// The PGO selection used by the corresponding Go frontend build.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum GoAnalysisPgoMode {
+    Off,
+    Auto,
+}
+
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoAnalysisSourceInputs {
     module: GoAnalysisModuleInputs,
     frontend_sources: BTreeMap<String, GoTypeSourceBuffer>,
+    pgo_mode: GoAnalysisPgoMode,
+    default_pgo: Option<GoTypeSourceBuffer>,
 }
 impl GoAnalysisSourceInputs {
     pub fn module(&self) -> &GoAnalysisModuleInputs {
@@ -52,10 +61,34 @@ impl GoAnalysisSourceInputs {
     pub fn frontend_sources(&self) -> &BTreeMap<String, GoTypeSourceBuffer> {
         &self.frontend_sources
     }
+    pub fn pgo_mode(&self) -> GoAnalysisPgoMode {
+        self.pgo_mode
+    }
+    /// Original capability and path queried by Go. This untrusted fact still
+    /// requires a comparison against the held root and the chosen source.
+    pub fn pgo_lookup(&self) -> (&str, String) {
+        let original = self
+            .module
+            .vendor()
+            .correspondence()
+            .manifest()
+            .original_source();
+        let root = root_before(&original.object().path, "vendor/modules.txt")
+            .expect("the analysis root was checked when constructing this owner");
+        let path = if root.is_empty() {
+            "default.pgo".to_owned()
+        } else {
+            format!("{root}/default.pgo")
+        };
+        (&original.object().capability, path)
+    }
+    pub fn default_pgo(&self) -> Option<&GoTypeSourceBuffer> {
+        self.default_pgo.as_ref()
+    }
 
-    /// Original files supplied to Go's vendor-mode frontend build. A stable
-    /// list of input bytes is not a claim that Go compiled every file, that a
-    /// caller-supplied snapshot is authentic, or that any binary is registered.
+    /// Candidate files for the selected vendor-mode build. The chosen PGO
+    /// resolution still requires held-root and build-command corroboration; a
+    /// snapshot or byte list does not authenticate a root or register a binary.
     pub fn build_sources(&self) -> Vec<&GoTypeSourceBuffer> {
         let mut files = vec![
             self.module.manifest().original_source(),
@@ -66,6 +99,7 @@ impl GoAnalysisSourceInputs {
                 .manifest()
                 .original_source(),
         ];
+        files.extend(self.default_pgo.iter());
         files.extend(self.frontend_sources.values());
         files.extend(
             self.module
@@ -135,13 +169,36 @@ fn check(source: &GoTypeSourceBuffer) -> Result<(), GoAnalysisSourceError> {
     Ok(())
 }
 
-/// Read every observed non-test frontend Go file and every retained vendor Go
-/// file, rejecting unmodeled native inputs and embed comments. No filesystem,
-/// source-to-binary or semantic-context authority is conferred.
+/// Check inputs for the existing explicitly PGO-disabled build.
 pub fn check_go_analysis_source_inputs(
     module: GoAnalysisModuleInputs,
 ) -> Result<GoAnalysisSourceInputs, GoAnalysisSourceError> {
+    check_go_analysis_source_inputs_for_pgo(module, GoAnalysisPgoMode::Off)
+}
+
+/// Read every observed non-test frontend Go file and every retained vendor Go
+/// file, rejecting unmodeled native inputs and embed comments. Automatic PGO
+/// also requires the bytes of an observed default profile. No filesystem,
+/// source-to-binary or semantic-context authority is conferred.
+pub fn check_go_analysis_source_inputs_for_pgo(
+    module: GoAnalysisModuleInputs,
+    pgo_mode: GoAnalysisPgoMode,
+) -> Result<GoAnalysisSourceInputs, GoAnalysisSourceError> {
+    check_go_analysis_source_inputs_for_pgo_resolution(module, pgo_mode, None)
+}
+
+/// An optional native entry spelling selects a profile resolved through the
+/// actual filesystem. The choice is untrusted until checked against held roots.
+/// The default entry point handles the usual exact spelling without a hint.
+pub fn check_go_analysis_source_inputs_for_pgo_resolution(
+    module: GoAnalysisModuleInputs,
+    pgo_mode: GoAnalysisPgoMode,
+    resolved_name: Option<&str>,
+) -> Result<GoAnalysisSourceInputs, GoAnalysisSourceError> {
     use GoAnalysisSourceError as E;
+    if pgo_mode == GoAnalysisPgoMode::Off && resolved_name.is_some() {
+        return Err(E::Namespace);
+    }
     let snapshot = module.vendor().snapshot();
     let original = module
         .vendor()
@@ -154,8 +211,28 @@ pub fn check_go_analysis_source_inputs(
         .read_directory(capability, root)
         .map_err(E::Snapshot)?;
     let mut frontend_sources = BTreeMap::new();
+    let mut default_pgo = None;
+    let mut resolved_seen = false;
     for entry in entries {
         let name = entry.name_bytes();
+        let selected = resolved_name.map_or(name == b"default.pgo", |selected| {
+            name == selected.as_bytes()
+        });
+        if pgo_mode == GoAnalysisPgoMode::Auto && selected {
+            let name = std::str::from_utf8(name).map_err(|_| E::Namespace)?;
+            let path = if root.is_empty() {
+                name.to_owned()
+            } else {
+                format!("{root}/{name}")
+            };
+            resolved_seen = true;
+            default_pgo = Some(
+                snapshot
+                    .read_source(capability, &path, "auxiliary")
+                    .map_err(E::Snapshot)?
+                    .clone(),
+            );
+        }
         if NON_GO_INPUTS.iter().any(|suffix| name.ends_with(suffix)) {
             return Err(E::NonGoInput);
         }
@@ -174,6 +251,9 @@ pub fn check_go_analysis_source_inputs(
             frontend_sources.insert(path, source);
         }
     }
+    if resolved_name.is_some() && !resolved_seen {
+        return Err(E::Namespace);
+    }
     if frontend_sources.is_empty() {
         return Err(E::MissingFrontend);
     }
@@ -189,5 +269,7 @@ pub fn check_go_analysis_source_inputs(
     Ok(GoAnalysisSourceInputs {
         module,
         frontend_sources,
+        pgo_mode,
+        default_pgo,
     })
 }

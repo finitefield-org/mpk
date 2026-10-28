@@ -1,0 +1,29 @@
+   Compiling mpk-vc v0.1.0 (/workspace/crates/mpk-vc)
+   Compiling mpk-api v0.1.0 (/workspace/crates/mpk-api)
+   Compiling mpk-cli v0.1.0 (/workspace/crates/mpk-cli)
+warning: field `roots` is never read
+  --> crates/mpk-cli/tests/../src/go_practical_analysis_root_binding.rs:18:5
+   |
+16 | pub(crate) struct GoRootMatchedAnalysisInputs {
+   |                   --------------------------- field in this struct
+17 |     inputs: GoAnalysisSourceInputs,
+18 |     roots: GoSourceRootsMatch,
+   |     ^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `matched_snapshot` is never used
+  --> crates/mpk-cli/tests/../src/go_practical_analysis_root_binding.rs:26:19
+   |
+21 | impl GoRootMatchedAnalysisInputs {
+   | -------------------------------- method in this implementation
+...
+26 |     pub(crate) fn matched_snapshot(&self) -> &GoSourceSnapshotInputs {
+   |                   ^^^^^^^^^^^^^^^^
+
+warning: `mpk-cli` (test "go_practical_analysis_casefold") generated 2 warnings
+    Finished `test` profile [optimized] target(s) in 1m 20s
+     Running tests/go_practical_analysis_casefold.rs (/target/debug/deps/go_practical_analysis_casefold-daae26815afb3d11)
+     Running tests/go_practical_analysis_root_binding.rs (/target/debug/deps/go_practical_analysis_root_binding-2aa458d5d8fb2ba2)
+     Running tests/go_practical_analysis_root_pgo.rs (/target/debug/deps/go_practical_analysis_root_pgo-1cc1b42218ca0301)
+     Running tests/go_practical_source_roots.rs (/target/debug/deps/go_practical_source_roots-de652b6d314fcaed)

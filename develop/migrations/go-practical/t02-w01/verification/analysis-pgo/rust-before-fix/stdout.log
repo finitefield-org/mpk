@@ -1,0 +1,18 @@
+
+running 1 test
+test observed_but_uncaptured_default_profile_rejects ... FAILED
+
+failures:
+
+---- observed_but_uncaptured_default_profile_rejects stdout ----
+
+thread 'observed_but_uncaptured_default_profile_rejects' (1260644) panicked at crates/mpk-vc/tests/go_practical_analysis_pgo.rs:79:5:
+an observed default profile without captured bytes must reject
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    observed_but_uncaptured_default_profile_rejects
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 1 filtered out; finished in 1.26s
+

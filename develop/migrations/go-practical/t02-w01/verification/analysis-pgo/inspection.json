@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "selection_reason": "Independently compare every original captured object and build input across the original, PGO modes and all ignored-entry controls; verify exact registered SDK profile and both real binary bytes.",
+  "registered_original_objects": 196,
+  "registered_original_build_inputs": 184,
+  "auto_objects": 197,
+  "auto_build_inputs": 185,
+  "every_original_object_and_byte_equal": true,
+  "every_original_build_input_equal": true,
+  "profile_bytes": 293923,
+  "profile_sha256": "d7355ec9e3c8bf05e214b202174ede4205092f852124e6f7f7287e22f6b5d980",
+  "controls": [
+    {
+      "name": "regular",
+      "root_entry_type_bits": 0,
+      "source_objects": 196,
+      "build_objects": 184,
+      "all_original_bytes_equal": true
+    },
+    {
+      "name": "directory",
+      "root_entry_type_bits": 2147483648,
+      "source_objects": 196,
+      "build_objects": 184,
+      "all_original_bytes_equal": true
+    },
+    {
+      "name": "symlink",
+      "root_entry_type_bits": 134217728,
+      "source_objects": 196,
+      "build_objects": 184,
+      "all_original_bytes_equal": true
+    },
+    {
+      "name": "oversized",
+      "root_entry_type_bits": 0,
+      "source_objects": 196,
+      "build_objects": 184,
+      "all_original_bytes_equal": true
+    },
+    {
+      "name": "absent",
+      "root_entry_type_bits": null,
+      "source_objects": 196,
+      "build_objects": 184,
+      "all_original_bytes_equal": true
+    }
+  ],
+  "oversized_supplemental_bytes": 16777217,
+  "oversized_supplemental_sha256": "1003b1b5dc078189799a1216ce0f9fbcebb94e8b6b83c58c4b03345f07f94ced",
+  "actual_binaries": {
+    "auto": {
+      "bytes": 9181672,
+      "sha256": "0797b83254db807ece284fa3d726f2af7329401738403154a20693bcb21a8f0b",
+      "pgo_lines": [
+        "build\t-pgo=default.pgo"
+      ],
+      "byte_equal_registered": false
+    },
+    "off": {
+      "bytes": 9004378,
+      "sha256": "ccc4a984d41b5da7b3a6838cbfaeee3eb23f675a2e4d7fb5d4f9fcd7e597d538",
+      "pgo_lines": [],
+      "byte_equal_registered": true
+    }
+  },
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}
