@@ -82,6 +82,12 @@ Go/Rust cases retain the complete original versioned application/SDK owner and
 one Root contract; the existing local and versioned owners and module-data
 controls also pass. Capture authority and program proofs remain due.
 
+The [analysis source checkpoint](verification/analysis-source/README.md)
+independently parses all 65 frontend and 126 vendor Go sources from the
+observed snapshot and checks unmodeled native inputs and embed comments. Go
+and Rust agree on 20 original/adversarial cases. Root authentication,
+source-to-binary binding and application proofs remain due.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

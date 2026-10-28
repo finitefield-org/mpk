@@ -9525,3 +9525,15 @@ consumers and scoped lint/formats pass. The inspection rehashes all 22,323
 original application/SDK files. Root/VCS or source/program authority is not
 inferred; W01 and the profile remain open/inactive, native Linux release
 acceptance is not claimed and the cumulative T02 gate remains W04.
+
+## 214. T02-W01 analysis source syntax and embed comments (in progress)
+
+The [analysis source checkpoint](../migrations/go-practical/t02-w01/verification/analysis-source/README.md)
+independently parses all 65 frontend and 126 vendor Go files in the complete
+213-object analysis snapshot and checks unmodeled native inputs and Go-scanner
+embed comment text. Go and Rust agree on 20 observations, including original
+files, unread entries, malformed syntax, non-UTF-8 names and comments versus
+strings. The new source test, direct parser/token-span roots and scoped lint/
+formats pass. Exhaustive parser equivalence, root/binary/context and program
+authority remain due; W01 and the profile stay open/inactive, native Linux
+release acceptance is not claimed and the cumulative T02 gate remains W04.

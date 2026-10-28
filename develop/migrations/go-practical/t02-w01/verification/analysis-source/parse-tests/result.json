@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T15:33:53.539615+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_parse",
+    "independent_original_go_syntax"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-source/parse-tests/inputs.json",
+    "bytes": 341977,
+    "sha256": "e97808ebbdd63823ca455aa537c0de4d894eb3b259ad6e9d9db0614e70fd7016",
+    "mode": 420
+  },
+  "selection_reason": "Check complete observed analysis source syntax and embed comments against native Go and test the directly consumed parser and lexer without narrowing original inputs. A caller-supplied snapshot is not authenticated as an original filesystem; source syntax and binary/context authority remain separate. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 361.6646956659997,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-source/parse-tests/stdout.log",
+    "bytes": 155,
+    "sha256": "eaaf3c4beecac59e6e2d8129662164f50ad934214b3319fe91ee6944d0b3a57b",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-source/parse-tests/stderr.log",
+    "bytes": 285,
+    "sha256": "dba21a5147527d3d6626decc8f504aa34401b716ae825981cabbcc003f802f0c",
+    "mode": 420
+  }
+}

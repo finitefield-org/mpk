@@ -5,6 +5,7 @@ use std::collections::BTreeSet;
 mod archives;
 mod module;
 mod snapshot;
+mod source;
 pub use super::module_observations::{
     validate_go_module_cache_info as validate_go_analysis_module_info,
     GoModuleCacheInfoError as GoAnalysisModuleInfoError,
@@ -18,6 +19,7 @@ pub use snapshot::{
     check_go_analysis_vendor_snapshot, GoAnalysisVendorSnapshotError,
     GoAnalysisVendorSnapshotInputs,
 };
+pub use source::{check_go_analysis_source_inputs, GoAnalysisSourceError, GoAnalysisSourceInputs};
 
 const MAXIMUM_MANIFEST_INPUTS: usize = 32_768;
 const PINS: [(&str, &str); 3] = [
