@@ -9419,3 +9419,18 @@ provisioning, case-sensitive filesystem, runtime search and emulated `openat2`
 failures remain recorded. The check is not native Linux release acceptance. W01
 and the practical profile remain open/inactive, and the cumulative T02 gate stays
 at W04.
+
+## 206. T02-W01 independent Go frontend build information (in progress)
+
+The [analysis build-info checkpoint](../migrations/go-practical/t02-w01/verification/analysis-build-info/README.md)
+independently validates actual Go frontend compiler, host, main module, three
+analysis dependencies and settings before the private installed SDK binding.
+The exact registered executable and all 38 native Go observations agree with
+Rust; the existing compiler/ELF and full original SDK tests, CLI default test,
+scoped Clippy, Go vet and changed-file formats pass. The complete registered
+source epoch and current prelaunch source tree have 23 changed or added non-test
+Go files. The check establishes no current source-to-binary correspondence.
+The updated four-bundle installed-root controls pass under local Linux user-mode
+emulation. W01, full context/capture/foundation and source/program proof remain
+open; native Linux release acceptance is not claimed and the cumulative T02 gate
+remains W04.

@@ -28,13 +28,17 @@ pub struct GoExecutableBuildInfo {
 }
 impl GoExecutableBuildInfo {
     pub fn validate_compiler_tool(&self, tool: &str, host: &str) -> CompilerResult<()> {
+        self.validate_go_build_identity(format!("cmd/{tool}").as_bytes(), host)
+    }
+
+    fn validate_go_build_identity(&self, path: &[u8], host: &str) -> CompilerResult<()> {
         let (os, arch) = match host {
             "linux_amd64" => (b"linux".as_slice(), b"amd64".as_slice()),
             "darwin_arm64" => (b"darwin".as_slice(), b"arm64".as_slice()),
             _ => return Err(C::BuildInfo),
         };
         need(
-            self.go_version == b"go1.25.0" && self.path == format!("cmd/{tool}").as_bytes(),
+            self.go_version == b"go1.25.0" && self.path == path,
             C::BuildInfo,
         )?;
         let mut seen = BTreeSet::new();
@@ -58,6 +62,79 @@ impl GoExecutableBuildInfo {
             need(value(key) == expected, C::BuildInfo)?;
         }
         need(arch != b"amd64" || value(b"GOAMD64") == b"v1", C::BuildInfo)
+    }
+
+    /// Check the actual Go frontend's build metadata independently of the Go
+    /// producer. These facts do not prove that any particular source tree built
+    /// the executable, or authorize a practical semantic context.
+    pub fn validate_analysis_frontend(&self, host: &str) -> CompilerResult<()> {
+        const FRONTEND: &[u8] = b"github.com/finitefield-org/mpk/go-tools/go2vir";
+        const PINS: [(&[u8], &[u8], &[u8]); 3] = [
+            (
+                b"golang.org/x/mod",
+                b"v0.27.0",
+                b"h1:kb+q2PyFnEADO2IEF935ehFUXlWiNjJWtRNgBLSfbxQ=",
+            ),
+            (
+                b"golang.org/x/sync",
+                b"v0.16.0",
+                b"h1:ycBJEhp9p4vXvUZNszeOq0kGTPghopOL8q0fq3vstxw=",
+            ),
+            (
+                b"golang.org/x/tools",
+                b"v0.36.0",
+                b"h1:kWS0uv/zsvHEle1LbV5LE8QujrxB3wfQyxHfhOk0Qkg=",
+            ),
+        ];
+        self.validate_go_build_identity(FRONTEND, host)?;
+        need(
+            self.main.path == FRONTEND
+                && self.main.version == b"(devel)"
+                && self.main.sum.is_empty()
+                && self.main.replacement.is_none()
+                && self.dependencies.len() == PINS.len(),
+            C::BuildInfo,
+        )?;
+        let mut seen = BTreeSet::new();
+        for dependency in &self.dependencies {
+            let (index, (_, version, sum)) = PINS
+                .iter()
+                .enumerate()
+                .find(|(_, (path, _, _))| dependency.path == *path)
+                .ok_or(C::BuildInfo)?;
+            need(
+                seen.insert(index)
+                    && dependency.version == *version
+                    && (dependency.sum.is_empty() || dependency.sum == *sum)
+                    && dependency.replacement.is_none(),
+                C::BuildInfo,
+            )?;
+        }
+        let mut trimmed = false;
+        for (key, value) in &self.settings {
+            if key == b"-trimpath" {
+                trimmed = value == b"true";
+            }
+            if [
+                b"-asan".as_slice(),
+                b"-msan",
+                b"-race",
+                b"-cover",
+                b"-tags",
+                b"-gcflags",
+                b"-asmflags",
+                b"-gccgoflags",
+                b"-ldflags",
+                b"-pgo",
+                b"GOFIPS140",
+            ]
+            .contains(&key.as_slice())
+                && !value.is_empty()
+            {
+                return Err(C::BuildInfo);
+            }
+        }
+        need(trimmed, C::BuildInfo)
     }
 }
 

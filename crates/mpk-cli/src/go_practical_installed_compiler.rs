@@ -5,8 +5,8 @@ use crate::frontend_registry::{
     EXPECTED_SEMANTIC_REGISTRY_SHA256,
 };
 use mpk_vc::go_practical_type_keys::{
-    import_go_source_compiler_inputs, GoCompilerFileBuffer, GoSourceCompilerInputs,
-    GoSourceExportInputs,
+    import_go_source_compiler_inputs, read_go_executable_build_info, GoCompilerFileBuffer,
+    GoSourceCompilerInputs, GoSourceExportInputs,
 };
 use mpk_vc::release_bundle_v1::{
     validate_successor_release_registry, ValidatedSuccessorReleaseRegistry, GO_FRONTEND_BUNDLE_ID,
@@ -83,6 +83,21 @@ impl InstalledGoCompiler {
         let snapshots = installed
             .snapshot_selected_bundles(&expected, GO_FRONTEND_BUNDLE_ID, GO_TOOLCHAIN_BUNDLE_ID)
             .map_err(|_| InstalledGoCompilerError::Release)?;
+        let frontend = registry
+            .registry()
+            .frontend_bundles
+            .iter()
+            .find(|bundle| bundle.bundle_id == GO_FRONTEND_BUNDLE_ID)
+            .ok_or(InstalledGoCompilerError::Release)?;
+        let executable = snapshots
+            .get(GO_FRONTEND_BUNDLE_ID)
+            .and_then(|snapshot| snapshot.file(&frontend.main.path))
+            .ok_or(InstalledGoCompilerError::Identity)?;
+        // Build metadata identifies compiler and linked analysis modules only;
+        // it does not establish which source generation produced these bytes.
+        read_go_executable_build_info(&executable.bytes)
+            .and_then(|info| info.validate_analysis_frontend("linux_amd64"))
+            .map_err(|_| InstalledGoCompilerError::Identity)?;
         let snapshot = snapshots
             .get(GO_TOOLCHAIN_BUNDLE_ID)
             .cloned()

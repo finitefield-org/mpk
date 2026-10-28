@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T13:10:18.424185+00:00",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--test",
+    "go_practical_analysis_build_info",
+    "--test",
+    "go_practical_compiler_build_info",
+    "--test",
+    "go_practical_compiler_elf",
+    "--test",
+    "go_practical_compiler_inputs",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/vc-clippy-check/inputs.json",
+    "bytes": 191109,
+    "sha256": "f910f55ce4b7c471b561715ce33bbcc9dcab28a2f440199ec25969f89203c616",
+    "mode": 420
+  },
+  "selection_reason": "Check the independently validated Go frontend build-info reader and its installed-SDK consumer. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 280.6192240419987,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/vc-clippy-check/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/vc-clippy-check/stderr.log",
+    "bytes": 349,
+    "sha256": "cca1510cb57b904d6ac33a14a711ce8de50f55e2a89283dbd8c9d1b2ea21b0fd",
+    "mode": 420
+  }
+}

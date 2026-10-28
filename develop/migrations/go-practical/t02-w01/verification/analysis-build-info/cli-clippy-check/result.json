@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T13:10:16.306318+00:00",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-cli",
+    "--lib",
+    "--test",
+    "go_practical_installed_compiler",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/cli-clippy-check/inputs.json",
+    "bytes": 189840,
+    "sha256": "406a1f80db383ea78051d9801e213cdfe188183f5be2244c74d72eaca76699a2",
+    "mode": 420
+  },
+  "selection_reason": "Check the independently validated Go frontend build-info reader and its installed-SDK consumer. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 189.28120716699777,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/cli-clippy-check/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/cli-clippy-check/stderr.log",
+    "bytes": 341,
+    "sha256": "2b11888d7f11d78c7d48af7c0f52f9e4536be373ec5ee63cce76dd9a37011be5",
+    "mode": 420
+  }
+}

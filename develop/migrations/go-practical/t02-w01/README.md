@@ -24,6 +24,16 @@ crossed-Darwin, missing-namespace, changed-SDK and alternate-registry controls
 reject. This does not establish native Linux release acceptance, private context,
 source/program proofs or W01 completion.
 
+The [analysis build-info checkpoint](verification/analysis-build-info/README.md)
+adds independent Rust validation of the actual registered Go frontend's host,
+compiler, module dependencies and settings before installed SDK binding. Go and
+Rust agree on all 38 native cases, including the exact registered executable;
+affected compiler/ELF/SDK and CLI tests, lint and formats pass. The registered
+source epoch and the complete current prelaunch source tree differ, so this does
+not prove that the binary was built from current sources. Updated four-bundle
+installed-root checks pass under local Linux user-mode emulation; native Linux
+release acceptance, context and source/program proof remain due.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

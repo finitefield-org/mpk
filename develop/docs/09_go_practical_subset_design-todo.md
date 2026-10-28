@@ -23,6 +23,15 @@ binds through an actual four-bundle installed root under local Linux user-mode
 emulation, with modified SDK, missing namespace and alternate-registry controls.
 This is not native Linux release acceptance, and no practical profile is active.
 
+The W01 [analysis build-info checkpoint](../migrations/go-practical/t02-w01/verification/analysis-build-info/README.md)
+independently checks the registered Go frontend's compiler, host, main module,
+analysis dependencies and build settings. Native Go and Rust agree on 38 cases,
+and the affected SDK/ELF/CLI checks, lint and formats pass. The registered source
+epoch differs from the current source tree; build-info agreement does not prove
+source-to-binary correspondence. Updated actual four-bundle installed-root checks
+pass under local Linux user-mode emulation, with no practical context or profile
+activation and no native Linux release acceptance.
+
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/
 Zstandard data prefixes. All 425 native/Rust cases retain187 prior cases,9 actual

@@ -326,5 +326,65 @@
     "R06_complete": false,
     "W01_complete": false,
     "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "analysis_frontend_build_info_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare the changed Rust frontend metadata validator with complete native Go controls and the exact registered binary; run affected compiler/ELF/SDK and CLI tests plus targeted lint and formats. Preserve the complete original owners and defer the whole T02 gate.",
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/native/result.json",
+      "sha256": "ffc0741ccc3ea776c26656dcd6af680ab18d2f7cd49d271a887cfc5dbf1ab36e",
+      "bytes": 1082
+    },
+    "rust_affected_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/vc-selected/result.json",
+      "sha256": "ede6a4f6833e23989d68b70aa0eea683b6eaaa2ace7fd9766b540811c7e3f7f9",
+      "bytes": 2192
+    },
+    "cli_default_full_snapshot": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/whole-snapshot-host/result.json",
+      "sha256": "ca13487e3e1f89940b06af0857108c9c684456319cfc2a20b16eac160ada94d1",
+      "bytes": 2216
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/go-checks/result.json",
+      "sha256": "fef5e696b3cc4fe496b4b7b853fa86cdb324aba14a74b494837b558c96d5f47a",
+      "bytes": 1536
+    },
+    "vc_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/vc-clippy-check/result.json",
+      "sha256": "d80386b9b961d6b7cc8bb8600979e23c4aec08aa363b8d8b57cb6745c30b66ca",
+      "bytes": 2042
+    },
+    "cli_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/cli-clippy-check/result.json",
+      "sha256": "406065c56c31697c46a64cf24481e29ff7fd22bd364f6e692aa4f22810e669ab",
+      "bytes": 1895
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/rust-format-tests-check/result.json",
+      "sha256": "8973f26df37f5fb698c5cf7573ac9f0eaa78e0c694550efdd605b9d1739e6d1e",
+      "bytes": 2118
+    },
+    "source_generations": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/generation-diff.json",
+      "sha256": "fe93acc5b4afcf4a451a021f60a052dbd3a6a443f50f02a375852b34a2c49b7e",
+      "bytes": 135040
+    },
+    "native_go_rust_observations": 38,
+    "accepted": 4,
+    "rejected": 34,
+    "actual_installed_root_recheck": "passed_under_local_linux_user_mode_emulation",
+    "native_Linux_release_acceptance": false,
+    "source_to_binary_correspondence_proved": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "installed_root_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-qemu-analysis-inspection.json",
+      "sha256": "c4d5f844b999944ecca7f9c147dd7b6a2a65c2935089f8d08db909c7009511cd",
+      "bytes": 1799
+    }
   }
 }
