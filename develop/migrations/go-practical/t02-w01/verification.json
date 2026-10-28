@@ -541,5 +541,53 @@
     "W01_complete": false,
     "public_profile_activated": false,
     "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "analysis_budget_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare original, exact-limit and one-over Go/Rust analysis namespace budgets and rerun the affected namespace/archive tests; defer the T02-wide gate.",
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-budget/inspection.json",
+      "sha256": "4999a3b1ea70c44275a691eb5cef18b3362eeb022e4292b8314b8cc40c75315e",
+      "bytes": 1899
+    },
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-budget/native/result.json",
+      "sha256": "3b7ff5d48455ff4c1775cf6936a30097454f47276200819cf6c855cd636d5542",
+      "bytes": 1978
+    },
+    "rust_affected_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-budget/budget-tests/result.json",
+      "sha256": "ec30098b784c3d8fdd7635f7a33d9a6e5e9ce4d4c24d57add1901d2f9af3cfe8",
+      "bytes": 2278
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-budget/go-checks/result.json",
+      "sha256": "de874105c2a829e906f8945665422e7cc0ef5c46a571291ab007d12f9adef8a1",
+      "bytes": 1520
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-budget/budget-clippy/result.json",
+      "sha256": "08548884020b87d7b28d2eb5d75ab506bbb7d9c5200575f54d7871a6bc75586e",
+      "bytes": 2123
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-budget/rust-format/result.json",
+      "sha256": "afbc1d9deebaa1fd2698a3274245895cbc59f16bfdc2ff436132188fa0330acf",
+      "bytes": 2131
+    },
+    "original_sources": 213,
+    "vendor_files": 133,
+    "archives": 3,
+    "archive_namespace_entries": 2403,
+    "entry_limit": 131072,
+    "native_go_rust_observations": 3,
+    "all_other_capture_archive_budgets_proved": false,
+    "snapshot_authenticates_original_root": false,
+    "native_Linux_release_acceptance": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
   }
 }

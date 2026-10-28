@@ -1,7 +1,7 @@
 //! Analysis vendor enumeration relative to one complete observed snapshot.
 //! A caller-supplied snapshot is not proof of an authenticated original root.
 use super::super::{GoSourceSnapshotInputs, GoSourceSnapshotLookupError, GoTypeSourceBuffer};
-use super::archives::root_before;
+use super::archives::{root_before, DIRECTORY_ENTRIES_MAX};
 use super::{
     check_go_analysis_vendor_archive_bytes, GoAnalysisVendorArchiveError,
     GoAnalysisVendorArchiveInputs, GoAnalysisVendorManifest,
@@ -114,6 +114,16 @@ pub fn check_go_analysis_vendor_snapshot(
     }
     let correspondence =
         check_go_analysis_vendor_archive_bytes(manifest, archives, files).map_err(E::Archive)?;
+    // The capture/replay counter shares one entry budget across observed
+    // directories and each distinct original archive namespace.
+    let mut remaining = DIRECTORY_ENTRIES_MAX
+        .checked_sub(snapshot.directory_entry_count())
+        .ok_or(E::Archive(GoAnalysisVendorArchiveError::Limit))?;
+    for archive in correspondence.archives().values() {
+        remaining = remaining
+            .checked_sub(archive.namespace_entries())
+            .ok_or(E::Archive(GoAnalysisVendorArchiveError::Limit))?;
+    }
     Ok(GoAnalysisVendorSnapshotInputs {
         snapshot,
         correspondence,

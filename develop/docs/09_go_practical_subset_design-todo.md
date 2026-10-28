@@ -50,6 +50,11 @@ manifest and archives from the same snapshot. Go/Rust agree on six observations;
 unread entries reject, while a coherently pruned snapshot still passes relative
 to itself. Authentication of the original root and W01 remain open.
 
+The W01 [analysis budget checkpoint](../migrations/go-practical/t02-w01/verification/analysis-budget/README.md)
+uses the unchanged shared 131,072-entry bound for recorded directories and all
+three analysis ZIP namespaces. Go and Rust agree at the limit and one over.
+Other capture archives and original-root authority remain open.
+
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/
 Zstandard data prefixes. All 425 native/Rust cases retain187 prior cases,9 actual

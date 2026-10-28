@@ -9475,3 +9475,15 @@ remains due. The two new tests, two archive tests, three direct snapshot tests,
 scoped lint and formats pass. W01 and the practical profile remain open/inactive,
 native Linux release acceptance is not claimed, and the cumulative T02 gate
 remains W04.
+
+## 210. T02-W01 shared analysis namespace budget (in progress)
+
+The [analysis budget checkpoint](../migrations/go-practical/t02-w01/verification/analysis-budget/README.md)
+counts recorded directory entries and the three original analysis ZIP namespaces
+against the same unchanged 131,072-entry bound as Go capture/replay. The full
+213-source, 133-vendor-file owner and all ZIP bytes remain. Go and Rust accept
+131,072 and reject 131,073; two prior namespace and two archive tests also pass,
+alongside scoped lint and formats. Other capture archives and original-root
+authentication remain due. W01 and the practical profile remain open/inactive,
+native Linux release acceptance is not claimed, and the cumulative T02 gate
+remains W04.

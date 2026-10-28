@@ -5,7 +5,7 @@ use super::super::{inspect_go_module_archive, GoModuleArchiveInventory, GoTypeSo
 use super::GoAnalysisVendorManifest;
 use std::collections::{BTreeMap, BTreeSet};
 
-const DIRECTORY_ENTRIES_MAX: usize = 131_072;
+pub(super) const DIRECTORY_ENTRIES_MAX: usize = 131_072;
 const CAPTURE_FILES_MAX: usize = 32_768;
 const PINS: [(&str, &str, &str); 3] = [
     (

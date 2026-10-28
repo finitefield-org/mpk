@@ -59,6 +59,12 @@ of a coherently pruned snapshot. Completeness is relative to the supplied
 snapshot; the original root still requires independent authentication. Affected
 tests, scoped lint and formats pass, with W01 and the profile still open/inactive.
 
+The [analysis budget checkpoint](verification/analysis-budget/README.md) shares
+the existing 131,072-entry limit between recorded directories and the three
+analysis ZIP namespaces. Go and Rust accept the exact limit and reject one over;
+all original source objects remain. This does not authenticate the root or
+account for other archives in a larger capture.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`
