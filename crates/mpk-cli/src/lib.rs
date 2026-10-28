@@ -19,6 +19,9 @@ mod frontend_runner;
 mod frontend_sandbox;
 #[allow(dead_code)]
 mod go_practical_installed_compiler;
+#[cfg(target_os = "linux")]
+#[allow(dead_code)]
+mod go_practical_source_roots;
 pub mod successor_ai_explain;
 pub mod successor_cli;
 pub mod successor_frontend_protocol;

@@ -87,7 +87,9 @@ pub struct GoSourceSnapshotInputs {
 }
 type Lookup<T> = std::result::Result<T, GoSourceSnapshotLookupError>;
 impl GoSourceSnapshotInputs {
-    pub(super) fn observed_directories(
+    /// The exact directories recorded by the untrusted capture, including
+    /// native entry-name bytes. This view does not authenticate their roots.
+    pub fn observed_directories(
         &self,
     ) -> impl Iterator<Item = (&str, &str, &[GoSourceSnapshotEntry])> {
         self.directories

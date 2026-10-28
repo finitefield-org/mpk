@@ -907,5 +907,53 @@
     },
     "both_complete_binaries_recoverable": true,
     "review_note": "The initial scan detected incidental text matches in ELF machine bytes. Both full outputs are preserved in separate, exactly reversible hex files; scanner rules and exclusions are unchanged."
+  },
+  "source_root_matching_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Exercise complete original analysis roots, source bytes and namespace, including mutation and native type controls; rerun directly affected snapshot importer, Linux-target Clippy and changed-file format.",
+    "original_snapshot_objects": 213,
+    "original_capabilities": 2,
+    "observed_directories": 52,
+    "observed_entries": 373,
+    "initial_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-matching/initial/result.json",
+      "sha256": "34ebd6909cfb7a72ad64daa7c9d5984385e0530a2736ef2e77a5334aa421abd1",
+      "bytes": 777
+    },
+    "expanded_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-matching/expanded/result.json",
+      "sha256": "e88fc083900961e8319629ea0e34703a2473631f2515f075db1189e92260a322",
+      "bytes": 777
+    },
+    "direct_snapshot_importer": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-matching/snapshot-regression/result.json",
+      "sha256": "3a9f469d65e0a4c203e8b3088a361170be0df80d47ed8ac60d68e11079c81c4a",
+      "bytes": 799
+    },
+    "linux_target_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-matching/clippy-linux-target-expanded/result.json",
+      "sha256": "813f6117c3078fae445f1a5ccce7ef82f47ea578f088335ed8689fc51a87e0eb",
+      "bytes": 810
+    },
+    "format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-matching/format.json",
+      "sha256": "a86d9d2f5996c040b601fea4418ccbc3294647bdb7d5d8bda2c0a1495153f17b",
+      "bytes": 1322
+    },
+    "clippy_availability": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-matching/clippy-availability.json",
+      "sha256": "e5b8b82fe70474872eef1b41af826203d067c03f5c567c07804670c52e635c33",
+      "bytes": 987
+    },
+    "initial_input_inventory_omitted_codec": true,
+    "expanded_input_inventory_includes_codec": true,
+    "launcher_authority": false,
+    "original_capture_epoch_bound": false,
+    "nested_mount_authority_proved": false,
+    "registered_source_binary_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
   }
 }

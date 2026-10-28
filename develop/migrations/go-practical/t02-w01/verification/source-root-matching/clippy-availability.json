@@ -1,0 +1,28 @@
+{
+  "selection_reason": "Record why strict Linux-target Clippy used the installed host cross target rather than these read-only local images. These were availability probes, not failed source tests.",
+  "probes": [
+    {
+      "image": "rust:1.95-bookworm-arm64-mpk",
+      "command": [
+        "cargo",
+        "clippy",
+        "--version"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "error: 'cargo-clippy' is not installed for the toolchain '1.95.0-aarch64-unknown-linux-gnu'.\nhelp: run `rustup component add clippy` to install it\n"
+    },
+    {
+      "image": "rust:1.97-bookworm",
+      "command": [
+        "cargo",
+        "clippy",
+        "--version"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "error: 'cargo-clippy' is not installed for the toolchain '1.97.1-aarch64-unknown-linux-gnu'.\nhelp: run `rustup component add clippy` to install it\n"
+    }
+  ],
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

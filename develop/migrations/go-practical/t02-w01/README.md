@@ -94,6 +94,11 @@ agreement. Two independent offline builds yield identical binaries, but they
 differ from the existing registered frontend. Root and registered binary
 authority, context and program proofs remain due.
 
+The [held-root comparison](verification/source-root-matching/README.md)
+independently checks all original analysis snapshot bytes and native directory
+entries against retained Linux directory handles in two passes. It does not yet
+authorize launcher-selected roots or bind them to the earlier capture epoch.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

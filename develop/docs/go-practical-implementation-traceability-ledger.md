@@ -9552,3 +9552,19 @@ scoped lint and formats pass. Original-root and registered source/binary,
 context and program authority remain due; W01 and the profile stay open/inactive,
 native Linux release acceptance is not claimed and the cumulative T02 gate
 remains W04.
+
+## 216. T02-W01 held-root source snapshot comparison (in progress)
+
+The [held-root checkpoint](../migrations/go-practical/t02-w01/verification/source-root-matching/README.md)
+opens explicit Linux directory handles and independently compares all 213
+original analysis source buffers and 373 native entries across 52 directories.
+Two-pass metadata checks reject changes, and original-content, namespace,
+link, raw-name, FIFO and socket controls pass. Direct snapshot importer tests,
+Linux-target Clippy and changed-file formatting pass; the selected tests cover
+the new owner and the directly affected snapshot view. The earlier input epoch
+omitted the private codec from its archive, so the expanded epoch retains the
+complete linked input set and reruns the affected root tests. The original
+epoch remains recorded. Launcher-selected capability authority, capture-time
+binding, nested-mount authorization, source/binary correspondence and program
+proofs remain due. The Linux arm64 run is not native Linux release acceptance;
+W01/profile remain open/inactive and the full T02 gate remains final W04.

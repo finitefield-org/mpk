@@ -81,6 +81,11 @@ compares all 201 original build inputs and two byte-identical offline builds.
 The result differs from the registered frontend; registered source/binary and
 original-root authority remain open.
 
+The W01 [held-root comparison](../migrations/go-practical/t02-w01/verification/source-root-matching/README.md)
+checks every captured source byte and observed native directory entry against
+retained Linux directory handles. Launcher authorization and binding to the
+earlier capture transaction remain open.
+
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/
 Zstandard data prefixes. All 425 native/Rust cases retain187 prior cases,9 actual
