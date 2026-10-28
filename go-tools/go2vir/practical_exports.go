@@ -60,6 +60,14 @@ type practicalPackageExports struct {
 	observation         *practicalGoObservation
 }
 
+// A private observer may hold the generated cache root before export capture
+// and independently compare its sealed snapshot while the root is still live.
+// This is not launcher authorization or a compiler-correctness assertion.
+type practicalExportCaptureObserver struct {
+	before func(practicalSourceRoot) error
+	after  func(practicalSnapshotInputs) error
+}
+
 func decodePracticalPackageExports(raw []byte) ([]practicalGoPackageExport, error) {
 	if len(raw) > maximumCandidateBytes {
 		return nil, fmt.Errorf("native package/export metadata exceeds its input byte bound")
@@ -140,7 +148,14 @@ func practicalExportSourceLocation(compiler practicalCompilerImage, discovery pr
 }
 
 func (session *practicalCaptureSession) capturePracticalPackageExports(compiler practicalCompilerImage, discovery practicalModuleDiscovery, sdkCapability string, mainLocation practicalModuleLocation, selectedPackage string) (practicalPackageExports, error) {
+	return session.capturePracticalPackageExportsObserved(compiler, discovery, sdkCapability, mainLocation, selectedPackage, nil)
+}
+
+func (session *practicalCaptureSession) capturePracticalPackageExportsObserved(compiler practicalCompilerImage, discovery practicalModuleDiscovery, sdkCapability string, mainLocation practicalModuleLocation, selectedPackage string, observer *practicalExportCaptureObserver) (practicalPackageExports, error) {
 	result := practicalPackageExports{compilerSHA256: discovery.compilerSHA256, distributionSHA256: compiler.selection.Toolchain.DistributionSHA256, mainSourceID: discovery.mainSourceID, requestedPackage: selectedPackage}
+	if observer != nil && (observer.before == nil || observer.after == nil) {
+		return result, session.reject(fmt.Errorf("export root observer is incomplete"))
+	}
 	if err := discovery.requireOriginalObservation(); err != nil {
 		return result, session.reject(err)
 	}
@@ -204,6 +219,11 @@ func (session *practicalCaptureSession) capturePracticalPackageExports(compiler 
 	}
 	if err := validatePracticalExportRoot(rows, selectedPackage); err != nil {
 		return result, session.reject(err)
+	}
+	if observer != nil {
+		if err := observer.before(practicalSourceRoot{Capability: "original-go-package-exports", Directory: filesystem.goBuild}); err != nil {
+			return result, session.reject(err)
+		}
 	}
 	// Only the command's private fresh cache is authorized for derived export
 	// buffers. It is opened after generation, then sealed with normal rooted
@@ -317,6 +337,15 @@ func (session *practicalCaptureSession) capturePracticalPackageExports(compiler 
 		return result, session.reject(err)
 	}
 	result.snapshot = result.replay.snapshot
+	if observer != nil {
+		inputs, err := result.snapshot.snapshotInputs()
+		if err != nil {
+			return result, session.reject(err)
+		}
+		if err := observer.after(inputs); err != nil {
+			return result, session.reject(err)
+		}
+	}
 	sort.Slice(result.packages, func(i, j int) bool { return result.packages[i].importPath < result.packages[j].importPath })
 	return result, nil
 }

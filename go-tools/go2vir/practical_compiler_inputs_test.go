@@ -116,7 +116,7 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 	if err := session.capturePracticalStandardLibrary(compiler, roots[2].Capability); err != nil {
 		fail(err)
 	}
-	exports, err := session.capturePracticalPackageExports(compiler, discovery, roots[2].Capability, main, "example.com/policy")
+	exports, err := session.capturePracticalPackageExportsObserved(compiler, discovery, roots[2].Capability, main, "example.com/policy", practicalLiveExportRootObserver(t))
 	if err != nil {
 		fail(err)
 	}

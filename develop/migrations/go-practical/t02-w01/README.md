@@ -2218,3 +2218,14 @@ seven independent observer/fuzz locks and complete codec source receipts/mirrori
 All seven full offline/locked graphs and actual pinned local Linux/shared-mirror
 observer builds pass with fixed inputs. Original bytes, failures and command outputs
 remain; these build checks add no proof or native Linux release acceptance.
+
+The [live export-cache checkpoint](verification/export-root-live/README.md)
+opens the actual Go-generated cache before export capture and independently
+matches 181 original export objects and their complete observed namespace while
+that cache is live. Its exact projection into the complete 5,697-object,
+182-package owner and all 5,577 SDK files is independently verified; coherent
+export-byte and unread-namespace changes reject. All 16,880 original evidence
+files are losslessly retained and restoration is verified. Scoped Go/Rust tests,
+vet, Clippy and formats pass. The observation does not yet bind both held source
+and export roots into one owner or authorize a launcher. W01 and the Go profile
+remain open/inactive; the full T02 gate stays deferred to final W04.

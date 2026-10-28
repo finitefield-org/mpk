@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "selection_reason": "Check every staged change while preserving the exact original test output, whose final blank line is part of the recorded bytes.",
+  "full_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "full_exit_code": 2,
+  "full_stdout": "develop/migrations/go-practical/t02-w01/verification/export-root-live/projection-original/test.stdout:11: new blank line at EOF.\n",
+  "preserved_original_evidence_path": "develop/migrations/go-practical/t02-w01/verification/export-root-live/projection-original/test.stdout",
+  "original_stdout_bytes": 1125,
+  "original_stdout_sha256": "8a801af5ccbde0f3ecf0a692cfcd0f11ccbc24f51bde4d73d31fd63f22177bea",
+  "staged_original_bytes_match": true,
+  "selected_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check",
+    "--",
+    ".",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/export-root-live/projection-original/test.stdout"
+  ],
+  "selected_exit_code": 0,
+  "selected_stdout": "",
+  "selected_stderr": "",
+  "original_evidence_bytes_modified": false
+}
