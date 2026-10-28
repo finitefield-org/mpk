@@ -120,6 +120,12 @@ match the existing registered frontend byte-for-byte. This historical epoch
 is distinct from the newer analysis source tree; production launcher authority
 and practical source/program proofs remain due.
 
+The [matched analysis-root owner](verification/analysis-root-binding/README.md)
+retains the independently parsed analysis source owner with the exact matched
+root snapshot. The full historical and later source generations, plus coherent
+source and namespace changes, are tested without authorizing launcher roots or
+claiming source/binary proof.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

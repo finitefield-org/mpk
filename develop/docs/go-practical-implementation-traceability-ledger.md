@@ -9669,3 +9669,25 @@ original records are preserved. This result concerns the historical registered
 epoch, not the newer source generation or production launcher authority. No
 application proof, native Linux release acceptance or W01 completion is
 claimed, and the T02 fast gate remains deferred to W04.
+
+## 221. T02-W01 independently matched analysis source owner (in progress)
+
+The [matched analysis-root owner](../migrations/go-practical/t02-w01/verification/analysis-root-binding/README.md)
+retains the independently validated analysis inputs and held root descriptors
+only when the entire source snapshot, observed namespace and original buffers
+agree. The test preserves the complete 196-object registered generation and
+the complete 213-object later generation; crossed source generations and
+coherently resealed source or unread-namespace changes reject even when their
+modified test roots match.
+
+The affected Linux integration test, Linux-target Clippy and changed-file
+format pass. The first Clippy attempt found an unused test import and is
+retained; the test, lint and format reruns pass after its removal. Unchanged
+Go producers and earlier source/root consumers are not needlessly repeated.
+The first scoped review found six incidental compressed-byte text matches;
+all six archives and the exact failed review are stored and independently
+restored without changing scanner rules or exclusions. The corrected review
+covers 8,820 archived files and 42,024 ZIP members with no findings.
+The restored test roots do not authorize production launcher paths or prove a
+registered source/binary relation. Capture authority, application proof, native
+Linux release acceptance and W01 completion remain due; the T02 gate stays W04.

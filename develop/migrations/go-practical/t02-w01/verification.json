@@ -1323,5 +1323,78 @@
       "archived_findings": 0,
       "scanner_rules_changed": false
     }
+  },
+  "matched_analysis_root_owner_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Bind the independently parsed Go analysis source owner to independently held source roots; exercise both complete original source epochs and coherently resealed changes, with targeted Linux tests, lint and format.",
+    "description": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/README.md",
+      "sha256": "b4bb26fce293879f85fc0a038027e6f3529314077cba9dc1d90b6bd5843cf74e",
+      "bytes": 2566
+    },
+    "initial_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/test-original/result.json",
+      "sha256": "715b521efad3e7c69eb22c4e6251904a5519a6eaa982c082a94594d2da9fa9c2",
+      "bytes": 790
+    },
+    "initial_clippy_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/clippy-original/result.json",
+      "sha256": "a53b2049984ab5954834c49fea2ef63b5b581435854754704e80d68aa1425a85",
+      "bytes": 794
+    },
+    "final_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/test-after-import/result.json",
+      "sha256": "185cef03b8c4d444d3c5073b3c3657e3c0843b51900ade4eb92f9ee70213b5bc",
+      "bytes": 798
+    },
+    "final_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/clippy-after-import/result.json",
+      "sha256": "610bb95f4c3b4fa9c2cf778abca26c519531d1ede5756529c37bc3ac438e5156",
+      "bytes": 800
+    },
+    "final_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/format-after-import/result.json",
+      "sha256": "f47c1a3d538ee29e80caa124010895d30cee38268e0f444d325b4f979cec6896",
+      "bytes": 798
+    },
+    "registered_source_objects": 196,
+    "registered_build_inputs": 184,
+    "current_source_objects": 213,
+    "current_build_inputs": 201,
+    "cross_generation_rejected": true,
+    "coherent_source_change_rejected": true,
+    "coherent_namespace_change_rejected": true,
+    "test_only_restored_roots": true,
+    "trusted_launcher_authority_proved": false,
+    "capture_epoch_authority_proved": false,
+    "registered_source_binary_proved": false,
+    "application_proof_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "initial_review_archive_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/archive-storage.json",
+      "sha256": "fe18ac271c42a95a2a8648d11128db582e64138ffbc1e3e7425aa008e0eb0dc4",
+      "bytes": 6284
+    },
+    "original_archives_restore": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/restore-check.json",
+      "sha256": "7cac5e5c9e2947e9ebf60cfaf001bd7b91811bf22b9aa1e2f13fe48fc4359911",
+      "bytes": 1811
+    },
+    "initial_compressed_byte_findings": 6,
+    "scanner_rules_changed": false,
+    "scoped_review": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/review.json",
+      "sha256": "c9294381fd5fcf18cd14d0f52677b8aea342f7b32c88b18a05f80f6a9be8f5bb",
+      "bytes": 14128,
+      "archive_members": 8820,
+      "zip_members": 42024,
+      "recovered_archives": 6,
+      "active_findings": 0,
+      "archived_findings": 0,
+      "scanner_rules_changed": false
+    }
   }
 }

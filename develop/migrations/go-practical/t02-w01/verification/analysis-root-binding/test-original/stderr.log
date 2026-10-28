@@ -1,0 +1,12 @@
+   Compiling mpk-cli v0.1.0 (/workspace/crates/mpk-cli)
+warning: unused import: `PathBuf`
+  --> crates/mpk-cli/tests/go_practical_analysis_root_binding.rs:23:23
+   |
+23 | use std::path::{Path, PathBuf};
+   |                       ^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mpk-cli` (test "go_practical_analysis_root_binding") generated 1 warning (run `cargo fix --test "go_practical_analysis_root_binding" -p mpk-cli` to apply 1 suggestion)
+    Finished `test` profile [optimized] target(s) in 10.78s
+     Running tests/go_practical_analysis_root_binding.rs (/target/debug/deps/go_practical_analysis_root_binding-2aa458d5d8fb2ba2)
