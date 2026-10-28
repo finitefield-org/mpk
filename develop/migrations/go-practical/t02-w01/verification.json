@@ -386,5 +386,51 @@
       "sha256": "c4d5f844b999944ecca7f9c147dd7b6a2a65c2935089f8d08db909c7009511cd",
       "bytes": 1799
     }
+  },
+  "analysis_vendor_manifest_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare the new Rust vendor manifest reader with the exact Go producer, preserve the full original manifest and byte-level boundary controls, run the affected source/type-key tests and scoped format/lint; defer the whole T02 gate.",
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-vendor/inspection.json",
+      "sha256": "82ee59d3a46b1379bb91978c48639bb3649e71ce671cb1222d30476dc7c9ffd8",
+      "bytes": 1917
+    },
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-vendor/native/result.json",
+      "sha256": "15c9b8d52cad3d352f7c2754e53a8c3734948c2da5ccd2a509ba78f1fcb52a84",
+      "bytes": 1071
+    },
+    "rust_affected_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-vendor/vendor-selected/result.json",
+      "sha256": "4d15c13186a9ff92de4494dbd027598c9f9712142b56d9ce00cccceccfcb7535",
+      "bytes": 2086
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-vendor/go-checks/result.json",
+      "sha256": "cab70f9adf1018b2c17bfa98a3b780d012ca5a21af3bb2dc91042639f3c62aa3",
+      "bytes": 1520
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-vendor/vendor-clippy-check/result.json",
+      "sha256": "6ded896f9e2e2dbc3450ad96cdb73cb6332a1146388ae520c5bf2602ce17b0ff",
+      "bytes": 1939
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-vendor/rust-format-check/result.json",
+      "sha256": "b34ba48a16dcdedab9408988e5ffdfec2df2e0d73f5ea017b0ab9a064a2fba68",
+      "bytes": 2272
+    },
+    "native_go_rust_observations": 36,
+    "accepted": 10,
+    "rejected": 26,
+    "original_packages": 29,
+    "maximum_packages": 32768,
+    "source_to_binary_correspondence_proved": false,
+    "native_Linux_release_acceptance": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
   }
 }

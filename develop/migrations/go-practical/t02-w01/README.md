@@ -34,6 +34,14 @@ not prove that the binary was built from current sources. Updated four-bundle
 installed-root checks pass under local Linux user-mode emulation; native Linux
 release acceptance, context and source/program proof remain due.
 
+The [analysis vendor checkpoint](verification/analysis-vendor/README.md)
+independently derives the complete original 29-package set from the owned
+manifest. Go and Rust agree on all 36 cases, including exact module ownership,
+import-path edges and the unchanged 32,768-package limit; the complete original
+manifest remains in the maximum-size control. The new Rust test, eight affected
+source/type-key tests, scoped lint and formats pass. Actual analysis archive/
+source-to-binary authority, context and source/program proofs remain due.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

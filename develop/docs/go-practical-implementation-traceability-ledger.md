@@ -9434,3 +9434,17 @@ The updated four-bundle installed-root controls pass under local Linux user-mode
 emulation. W01, full context/capture/foundation and source/program proof remain
 open; native Linux release acceptance is not claimed and the cumulative T02 gate
 remains W04.
+
+## 207. T02-W01 independent Go analysis vendor manifest (in progress)
+
+The [analysis vendor checkpoint](../migrations/go-practical/t02-w01/verification/analysis-vendor/README.md)
+derives the exact 29 original analysis packages from owned metadata, checking the
+three pinned module versions, section structure, package ownership, native Go
+import-path rules and unchanged 32,768-package limit. Go and Rust agree on all
+36 original and adversarial observations, including the maximum and one-over
+controls; the maximum retains the complete original manifest. The new Rust test,
+eight affected source/type-key tests and scoped lint/formats pass. These facts do
+not authenticate the analysis source archives or prove source-to-binary, context
+or source/program correspondence. W01 and the practical profile remain open/
+inactive; native Linux release acceptance is not claimed and the cumulative T02
+gate remains W04.

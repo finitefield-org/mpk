@@ -1038,6 +1038,21 @@
         "requirement_complete": false,
         "public_profile_activated": false,
         "installed_root_evidence": "verification/installed-compiler/installed-qemu-analysis-inspection.json"
+      },
+      "analysis_vendor_manifest_checkpoint": {
+        "evidence": "verification/analysis-vendor/README.md",
+        "executor": "crates/mpk-vc/src/go_practical_type_keys/analysis_vendor.rs",
+        "scope": "Independently parse the complete original analysis vendor manifest from owned metadata, with exact module versions, sections, package ownership and pinned Go import-path behavior. Go and Rust agree on 36 cases, including all 29 original packages and the existing 32768 boundary. This does not authenticate module archives, a source-to-binary build or a registered context.",
+        "native_go_rust_observations": 36,
+        "accepted": 10,
+        "rejected": 26,
+        "original_packages": 29,
+        "maximum_packages": 32768,
+        "complete_original_manifest_in_boundary_control": true,
+        "source_to_binary_correspondence_proved": false,
+        "requirement_complete": false,
+        "public_profile_activated": false,
+        "native_Linux_release_acceptance": false
       }
     },
     {
@@ -2075,6 +2090,21 @@
         "requirement_complete": false,
         "public_profile_activated": false,
         "installed_root_evidence": "verification/installed-compiler/installed-qemu-analysis-inspection.json"
+      },
+      "analysis_vendor_manifest_checkpoint": {
+        "evidence": "verification/analysis-vendor/README.md",
+        "executor": "crates/mpk-vc/src/go_practical_type_keys/analysis_vendor.rs",
+        "scope": "Independently parse the complete original analysis vendor manifest from owned metadata, with exact module versions, sections, package ownership and pinned Go import-path behavior. Go and Rust agree on 36 cases, including all 29 original packages and the existing 32768 boundary. This does not authenticate module archives, a source-to-binary build or a registered context.",
+        "native_go_rust_observations": 36,
+        "accepted": 10,
+        "rejected": 26,
+        "original_packages": 29,
+        "maximum_packages": 32768,
+        "complete_original_manifest_in_boundary_control": true,
+        "source_to_binary_correspondence_proved": false,
+        "requirement_complete": false,
+        "public_profile_activated": false,
+        "native_Linux_release_acceptance": false
       }
     },
     {

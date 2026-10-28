@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T13:36:24.791318+00:00",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-cli/src/lib.rs",
+    "crates/mpk-cli/src/go_practical_installed_compiler.rs",
+    "crates/mpk-cli/tests/go_practical_installed_compiler.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/compiler_inputs/build_info.rs",
+    "crates/mpk-vc/tests/go_practical_analysis_build_info.rs",
+    "crates/mpk-vc/src/go_practical_type_keys.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/analysis_vendor.rs",
+    "crates/mpk-vc/tests/go_practical_analysis_vendor.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-vendor/rust-format-write/inputs.json",
+    "bytes": 2999,
+    "sha256": "7388b05951c32142d6e190c25b3e2a6411efa3a517e8c42ab68377f4e69f0252",
+    "mode": 420
+  },
+  "selection_reason": "Check independent parsing of the complete original Go analysis-vendor manifest and affected consumers. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 0.1832459579964052,
+  "consumed_inputs_unchanged": false,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": true,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-vendor/rust-format-write/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-vendor/rust-format-write/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  }
+}

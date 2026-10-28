@@ -32,6 +32,12 @@ source-to-binary correspondence. Updated actual four-bundle installed-root check
 pass under local Linux user-mode emulation, with no practical context or profile
 activation and no native Linux release acceptance.
 
+The W01 [analysis vendor checkpoint](../migrations/go-practical/t02-w01/verification/analysis-vendor/README.md)
+independently parses the complete original analysis dependency manifest. Go and
+Rust agree on 36 cases, including all 29 original packages and the unchanged
+32,768-package boundary. Source/archive and source-to-binary authority remain
+open; the practical profile is inactive.
+
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/
 Zstandard data prefixes. All 425 native/Rust cases retain187 prior cases,9 actual

@@ -10,6 +10,10 @@ use crate::hash::{hash_canonical_json, sha256_raw_file_bytes, HashDomain};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 
+mod analysis_vendor;
+pub use analysis_vendor::{
+    parse_go_analysis_vendor_manifest, GoAnalysisVendorError, GoAnalysisVendorManifest,
+};
 mod compiler_inputs;
 mod contract_inputs;
 pub use compiler_inputs::{
