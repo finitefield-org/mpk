@@ -5,10 +5,13 @@ package main
 import (
 	"bytes"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
+	"reflect"
+	"runtime"
 	"testing"
 
 	"golang.org/x/mod/module"
@@ -26,8 +29,47 @@ func TestPracticalCompilerInputsRequireOriginalImageOwner(t *testing.T) {
 }
 
 func TestPracticalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T) {
+	practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t, practicalPackageTestCompiler(t))
+}
+
+// This retains the very same whole application, dependency cache, SDK and Root
+// selection as the original-owner test. The actual Linux SDK must also match the
+// registered bundle, rather than being relabelled after producing its records.
+func TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPackages(t *testing.T) {
+	if runtime.GOOS != "linux" || runtime.GOARCH != "amd64" {
+		t.Skip("the registered SDK executes on Linux amd64")
+	}
+	prepared := practicalTestCompleteCompiler(t)
+	candidate := practicalTestCompilerCandidateForBundle(t, prepared.ToolchainGoRootPath, "toolchain.go.go1.25.0.linux-amd64.candidate.v1")
+	raw, err := os.ReadFile("../../release/bundles/candidates/go.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var registered struct {
+		Toolchains []struct {
+			BundleID           string              `json:"bundle_id"`
+			DistributionSHA256 string              `json:"distribution_sha256"`
+			Components         []componentIdentity `json:"components"`
+			Inventory          bundleInventory     `json:"inventory"`
+		} `json:"toolchain_bundles"`
+	}
+	if err := json.Unmarshal(raw, &registered); err != nil || len(registered.Toolchains) != 1 {
+		t.Fatal("registered Go toolchain", err)
+	}
+	want := registered.Toolchains[0]
+	if !reflect.DeepEqual(candidate.Toolchain, toolchainIdentity{BundleID: want.BundleID, DistributionSHA256: want.DistributionSHA256, Components: want.Components}) || !reflect.DeepEqual(candidate.ToolchainInventory, want.Inventory) {
+		t.Fatal("the complete original SDK differs from the registered bundle")
+	}
+	compiler, err := validatePracticalCompilerImage(candidate)
+	if err != nil {
+		t.Fatal(err)
+	}
+	practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t, compiler)
+}
+
+func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T, compiler practicalCompilerImage) {
+	t.Helper()
 	practicalContractTestOutput(t, "versioned-owned")
-	compiler := practicalPackageTestCompiler(t)
 	roots, _ := practicalTestCaptureRoots(t)
 	main, cache := practicalModuleLocation{capability: roots[0].Capability}, practicalModuleLocation{capability: roots[1].Capability}
 	manifest := []byte("module example.com/policy\ngo 1.25.0\nrequire (\nexample.com/a v1.0.0\nexample.com/b v1.0.0 // indirect\nexample.com/c v1.1.0\nexample.com/leaf v1.1.0 // indirect\nexample.com/q v1.1.0 // indirect\nexample.com/z v1.0.0 // indirect\nexample.com/alias v1.0.0\n)\nexclude example.com/never v1.0.0\nreplace example.com/alias v1.0.0 => example.com/Actual v1.1.0\n")

@@ -14,6 +14,14 @@ contexts, compiler/stdlib/analysis identity, immutable multi-capability capture,
 exact module/replacement resolution, archive/Go sums, export metadata and
 rejection of escape, stale inputs, network/VCS/generation/toolchain fallback.
 
+The [installed compiler checkpoint](verification/installed-compiler/README.md)
+is in progress. Its private owner derives the registered Go SDK from the
+build-pinned installed successor release and binds original compiler/export
+inputs to the selected bytes. The complete Linux SDK and 182-package source
+owner pass a test-only sealed-snapshot check with wrong-host and crossed-Darwin
+controls. This does not yet establish the actual installed-root integration,
+private context, source/program proofs or W01 completion.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

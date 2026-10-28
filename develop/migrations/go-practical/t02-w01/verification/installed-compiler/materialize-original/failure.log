@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/materialize.py", line 10, in <module>
+    roots=release.build_roots(work,candidates)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/successor_release_bundles.py", line 299, in build_roots
+    generated = builder(language_work, candidates[language])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/successor_release_bundles.py", line 246, in build_go
+    validate_root(output / "frontend", candidate["frontend_bundles"][0])
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/successor_release_bundles.py", line 236, in validate_root
+    raise SuccessorReleaseFailure()
+successor_release_bundles.SuccessorReleaseFailure: BUNDLE_REPRODUCIBILITY_MISMATCH

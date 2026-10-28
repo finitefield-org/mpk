@@ -17,6 +17,8 @@ mod frontend_registry;
 #[allow(dead_code)]
 mod frontend_runner;
 mod frontend_sandbox;
+#[allow(dead_code)]
+mod go_practical_installed_compiler;
 pub mod successor_ai_explain;
 pub mod successor_cli;
 pub mod successor_frontend_protocol;

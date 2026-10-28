@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-26T23:04:42.441482+00:00",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-cli/src/lib.rs",
+    "crates/mpk-cli/src/go_practical_installed_compiler.rs",
+    "crates/mpk-cli/tests/go_practical_installed_compiler.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-format-write/inputs.json",
+    "bytes": 1985,
+    "sha256": "a2a07dd7eff0ca0eb582ad369659a0a7fd54105d6d219acb8c7ab6e4f3d56f52",
+    "mode": 420
+  },
+  "selection_reason": "Compile and lint the new private installed-SDK owner and its real CLI consumers. The new native root retains the existing complete HTTP application, all dependencies, unused bodies, original init and Root contract; it creates original inputs with the actual registered Linux SDK identity. No narrowed fixtures, removed-language tests, practical profile activation, source/program proof or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 0.23257662501418963,
+  "consumed_inputs_unchanged": false,
+  "expected_formatter_mutation": true,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-format-write/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-format-write/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  }
+}

@@ -14,12 +14,15 @@ import (
 )
 
 func practicalTestCompilerCandidate(t *testing.T, root string) launcherSelection {
+	return practicalTestCompilerCandidateForBundle(t, root, "toolchain.go.practical.prepared.test.v1")
+}
+
+func practicalTestCompilerCandidateForBundle(t *testing.T, root, id string) launcherSelection {
 	t.Helper()
 	files, err := inventoryFilesFromRoot(root, "go")
 	if err != nil {
 		t.Fatal(err)
 	}
-	id := "toolchain.go.practical.prepared.test.v1"
 	inventory := bundleInventory{Schema: bundleInventorySchema, Scope: inventoryScope{Kind: "toolchain_bundle", BundleID: id}, Files: files}
 	digest, err := hashTypedCanonicalJSON(bundleContentDomain, inventory)
 	if err != nil {

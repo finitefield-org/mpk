@@ -9401,3 +9401,16 @@ observer compile with all inputs fixed and all65 codec files present. Original
 locks/collectors, cache/setup failures, actual commands and raw outputs remain.
 The425-case/eight-root reader evidence is unchanged; no proof replay or native
 Linux release acceptance is inferred, and W01/profile status stays open/inactive.
+
+## 205. T02-W01 installed Go compiler boundary (in progress)
+
+The [installed compiler checkpoint](../migrations/go-practical/t02-w01/verification/installed-compiler/README.md)
+adds a private owner for the Go SDK selected by the build-pinned successor
+registries and descriptor-relative installed loader. A complete test-only sealed
+snapshot of the registered Linux SDK binds all 5577 files/166354960 bytes to the
+original 182-package/5697-object source/export owner. Rehashed wrong-host and
+complete Darwin-owner crossing controls reject. This original owner has one Root
+selection and zero contract overlays. The actual four-bundle installed-root test
+is still pending; the host check is not native Linux release acceptance. W01 and
+the practical profile remain open/inactive, and the cumulative T02 gate stays at
+W04.

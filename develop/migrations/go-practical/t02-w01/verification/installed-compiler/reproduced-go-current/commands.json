@@ -1,0 +1,33 @@
+[
+  {
+    "command": [
+      "/usr/local/bin/docker",
+      "run",
+      "--rm",
+      "--pull=never",
+      "--network=none",
+      "--platform=linux/amd64",
+      "--read-only",
+      "--tmpfs=/tmp:rw,nosuid,nodev,noexec,mode=1777",
+      "--mount=type=bind,src=/private/tmp/mpk-installed-compiler-205-go-source,dst=/src,readonly",
+      "--mount=type=bind,src=/private/tmp/mpk-installed-compiler-205-original-go-output,dst=/out",
+      "docker.io/library/golang@sha256:ebd54034f076819b3054f155db53660ded951612bb4dfd277f933e62059e5d5a",
+      "/bin/sh",
+      "-ceu",
+      "\numask 077\ntest \"$(sed -n '1p' /usr/local/go/VERSION)\" = \"go1.25.0\"\nmkdir -p /out/frontend/bin /out/reference-checker /out/toolchain/go /tmp/mpk-home /tmp/mpk-cache\ncd /src/go-tools/go2vir\nenv -i \\\n  PATH=/usr/local/go/bin:/usr/bin:/bin \\\n  HOME=/tmp/mpk-home \\\n  GOCACHE=/tmp/mpk-cache \\\n  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOAMD64=v1 \\\n  GOENV=off GOFLAGS= GOWORK=off GOPROXY=off GOSUMDB=off GOTOOLCHAIN=local \\\n  TZ=UTC LANG=C LC_ALL=C SOURCE_DATE_EPOCH=0 \\\n  /usr/local/go/bin/go build -mod=vendor -trimpath -buildvcs=false \\\n    -ldflags=-buildid= -o /out/frontend/bin/go2vir .\ncd /src/go-tools/mpk-checker-ref\nenv -i \\\n  PATH=/usr/local/go/bin:/usr/bin:/bin \\\n  HOME=/tmp/mpk-home \\\n  GOCACHE=/tmp/mpk-cache \\\n  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOAMD64=v1 \\\n  GOENV=off GOFLAGS= GOWORK=off GOPROXY=off GOSUMDB=off GOTOOLCHAIN=local \\\n  TZ=UTC LANG=C LC_ALL=C SOURCE_DATE_EPOCH=0 \\\n  /usr/local/go/bin/go build -trimpath -buildvcs=false \\\n    -ldflags='-s -w -buildid=' \\\n    -o /out/reference-checker/mpk-checker-ref ./cmd/mpk-checker-ref\ncp -a /usr/local/go/. /out/toolchain/go/\n"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/reproduced-go-current/00-stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/reproduced-go-current/00-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  }
+]

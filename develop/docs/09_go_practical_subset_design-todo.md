@@ -14,6 +14,13 @@ Go/Rust only; T02-W01 remains in progress. The
 [completion audit](../migrations/go-practical/t01-w05/completion-audit.json)
 and implementation ledger own the current status.
 
+The W01 [installed compiler checkpoint](../migrations/go-practical/t02-w01/verification/installed-compiler/README.md)
+is in progress. A private SDK owner uses the build-pinned registries and the
+existing installed-root loader. A test-only sealed copy of the complete registered
+Linux SDK binds the original 182-package/5697-object owner; a rehashed wrong-host
+claim and a crossed complete Darwin owner reject. The actual four-bundle installed
+root still awaits scoped verification, and no practical profile is active.
+
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/
 Zstandard data prefixes. All 425 native/Rust cases retain187 prior cases,9 actual

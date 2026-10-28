@@ -1,0 +1,71 @@
+{
+  "inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/registry_control.py",
+      "bytes": 4440,
+      "sha256": "3735f47edc56d71c284a76f87583cbbbaacfb07bf3219e3c15eaba9d24e2705b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/run_scoped.py",
+      "bytes": 7491,
+      "sha256": "1241cd1f3783ad10e04b4cb6c869def38df8dabaf5667bbe1aab0c159e9a1a89",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/scripts/successor_release_bundles.py",
+      "bytes": 25031,
+      "sha256": "625aa56335195704749493ff1933eb6cd028d12e4329a06c483dde53549421c3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/scripts/release_bundles.py",
+      "bytes": 58413,
+      "sha256": "05877c8c796d0e80d36f8133a8fe3e051526d16d5e87411c172399a3ba9200e3",
+      "mode": 493
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py",
+      "bytes": 271631,
+      "sha256": "8d6dfa5bdc2d43a560da8edcf290d62ff70fe4fe0847b240bfb52fa6eefb2c4e",
+      "mode": 493
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/release/bundles/bundle-registry.json",
+      "bytes": 1992254,
+      "sha256": "75ddf100d5ab9b14934aebf1a23ca849045e50623cbfc25c78e2086d03414165",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/release/bundles/semantic-profile-registry.json",
+      "bytes": 1633,
+      "sha256": "6b7d64f4d7cdd0579bd6f858bdb3a18ad32a141811b38f77ca4ade04e3275903",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/release/bundles/candidates/go.json",
+      "bytes": 1835325,
+      "sha256": "10228952b1fac7cd7d45da288ae35013b0cde26185d953906db55d89a358bc83",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/release/bundles/candidates/rust.json",
+      "bytes": 157180,
+      "sha256": "b04b7d405fb92b8dbec1725b2cb74ef3031cb7fb6f5e011ddd138a8ca30a5e12",
+      "mode": 420
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-policy-linux-target/debug/deps/go_practical_installed_compiler-32f9679e1752973a",
+      "bytes": 7438976,
+      "sha256": "d166f8e18ba5a20c9cd3e990627c4dbf7fe0c010c99cf2b3ae7850f8007b0229",
+      "mode": 493
+    },
+    {
+      "path": "/private/tmp/mpk-installed-compiler-205-original-go-output/toolchain/go/bin/go",
+      "bytes": 14939693,
+      "sha256": "b93cdfdbc72f1afc3f21498c80bf3d155a44a9b95e2d690c940511051574bc25",
+      "mode": 365
+    }
+  ],
+  "scope": "Starting from the full fixed Go/Rust registry and actual registered Go executable, coherently change one executable byte, its inventory and component digest, the full Go distribution digest and the complete registry digest. Check that the resulting full registry validates independently, without invoking installed authority."
+}

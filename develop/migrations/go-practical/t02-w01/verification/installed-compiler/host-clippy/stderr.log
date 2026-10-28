@@ -1,0 +1,25 @@
+    Checking mpk-core v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-core)
+    Checking memchr v2.8.2
+    Checking mpk-theory v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-theory)
+    Checking unicode-width v0.2.2
+    Checking unicase v2.9.0
+    Checking pulldown-cmark-escape v0.11.0
+    Checking getopts v0.2.24
+    Checking serde_json v1.0.150
+    Checking pulldown-cmark v0.13.4
+    Checking mpk-cert v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cert)
+    Checking mpk-kernel v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-kernel)
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Checking mpk-api v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-api)
+   Compiling mpk-cli v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli)
+error: current MSRV (Minimum Supported Rust Version) is `1.85.0` but this item is stable since `1.87.0`
+  --> crates/mpk-cli/tests/go_practical_installed_compiler.rs:16:25
+   |
+16 |     assert!(value.len().is_multiple_of(2));
+   |                         ^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#incompatible_msrv
+   = note: `-D clippy::incompatible-msrv` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::incompatible_msrv)]`
+
+error: could not compile `mpk-cli` (test "go_practical_installed_compiler") due to 1 previous error
