@@ -9487,3 +9487,17 @@ alongside scoped lint and formats. Other capture archives and original-root
 authentication remain due. W01 and the practical profile remain open/inactive,
 native Linux release acceptance is not claimed, and the cumulative T02 gate
 remains W04.
+
+## 211. T02-W01 analysis module and checksum binding (in progress)
+
+The [analysis module checkpoint](../migrations/go-practical/t02-w01/verification/analysis-module/README.md)
+binds frontend `go.mod` and `go.sum`, all three cached `.mod` and `.ziphash`
+records and all original ZIPs within one observed snapshot. The original 213
+source objects, 133 vendor files and all checksum lines remain. Go and Rust
+agree on 20 observations; direct manifest/sum, vendor namespace and archive
+tests plus scoped lint and formats pass. After interruption, the temporary SDK
+was restored from the pinned local image and all 5,577 registered files were
+checked; the initial missing-file attempt remains recorded. Cached `.info`,
+original-root and source-to-binary authority, context and W01 stay open; the
+profile remains inactive, native Linux release acceptance is not claimed and
+the cumulative T02 gate remains W04.

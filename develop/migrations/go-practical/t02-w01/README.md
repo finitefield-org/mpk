@@ -65,6 +65,12 @@ analysis ZIP namespaces. Go and Rust accept the exact limit and reject one over;
 all original source objects remain. This does not authenticate the root or
 account for other archives in a larger capture.
 
+The [analysis module checkpoint](verification/analysis-module/README.md) binds
+the frontend manifest and sums, cached `.mod` files and ZIP hashes to the same
+observed snapshot and three original ZIPs. Go and Rust agree on 20 cases while
+retaining the full original source set. Cached `.info`, original-root and
+source-to-binary authority remain due; W01 and the profile remain open/inactive.
+
 The first implementation component is
 `go-tools/go2vir/practical_source.go`. It constructs the final
 `mpk.go.source_object.v1` complete domain-separated identity using `go_file`

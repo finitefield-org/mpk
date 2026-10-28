@@ -90,7 +90,7 @@ pub fn import_go_module_sums(source: GoTypeSourceBuffer) -> DataResult<GoModuleS
     }
     Ok(GoModuleSums { source, entries })
 }
-pub(super) fn manifest_sum(source: &GoTypeSourceBuffer) -> String {
+pub(in crate::go_practical_type_keys) fn manifest_sum(source: &GoTypeSourceBuffer) -> String {
     let line = format!("{}  go.mod\n", source.object().raw_sha256);
     format!("h1:{}", BASE64.encode(Sha256::digest(line.as_bytes())))
 }

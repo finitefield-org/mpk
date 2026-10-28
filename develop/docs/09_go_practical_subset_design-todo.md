@@ -55,6 +55,11 @@ uses the unchanged shared 131,072-entry bound for recorded directories and all
 three analysis ZIP namespaces. Go and Rust agree at the limit and one over.
 Other capture archives and original-root authority remain open.
 
+The W01 [analysis module checkpoint](../migrations/go-practical/t02-w01/verification/analysis-module/README.md)
+binds the original frontend manifest and sums to all three cached module
+manifests, ZIP hashes and archives. Go and Rust agree on 20 observations.
+Cached `.info`, original-root and source-to-binary authority remain open.
+
 The W01 [original ELF section checkpoint](../migrations/go-practical/t02-w01/verification/compiler-elf/README.md)
 adds native 32/64-bit/both-endian section/name/compression handling and exact ZLIB/
 Zstandard data prefixes. All 425 native/Rust cases retain187 prior cases,9 actual

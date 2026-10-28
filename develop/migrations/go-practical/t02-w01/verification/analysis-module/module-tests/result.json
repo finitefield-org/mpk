@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T14:51:56.157121+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_analysis_module",
+    "--test",
+    "go_practical_analysis_namespace",
+    "--test",
+    "go_practical_analysis_archives"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-module/module-tests/inputs.json",
+    "bytes": 347114,
+    "sha256": "713f7f03126fc972e149f01ab82d31d18ea7842c2e078e78e5336f8893ca35c5",
+    "mode": 420
+  },
+  "selection_reason": "Check the original analysis module/checksum snapshot binding and the directly consumed manifest, checksum, namespace and archive components. A caller-supplied snapshot is not authenticated as an original filesystem; source syntax and binary/context authority remain separate. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 100.8243185,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-module/module-tests/stdout.log",
+    "bytes": 729,
+    "sha256": "345a8e18533475591ee58fe25c9fc3bb9a38ef4ff27d92c71af308ad9b63e0e7",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-module/module-tests/stderr.log",
+    "bytes": 549,
+    "sha256": "368fbc437371107fb67633400a19b4a24ecb98141458e1ff6ad25a559a3113e6",
+    "mode": 420
+  }
+}

@@ -12,8 +12,9 @@ use std::collections::{BTreeMap, BTreeSet};
 
 mod analysis_vendor;
 pub use analysis_vendor::{
-    check_go_analysis_vendor_archive_bytes, check_go_analysis_vendor_snapshot,
-    parse_go_analysis_vendor_manifest, GoAnalysisVendorArchiveError, GoAnalysisVendorArchiveInputs,
+    check_go_analysis_module_inputs, check_go_analysis_vendor_archive_bytes,
+    check_go_analysis_vendor_snapshot, parse_go_analysis_vendor_manifest, GoAnalysisModuleError,
+    GoAnalysisModuleInputs, GoAnalysisVendorArchiveError, GoAnalysisVendorArchiveInputs,
     GoAnalysisVendorAssetDifference, GoAnalysisVendorError, GoAnalysisVendorManifest,
     GoAnalysisVendorSnapshotError, GoAnalysisVendorSnapshotInputs,
 };
