@@ -19,7 +19,12 @@ source or program theorem.
 The first small test incorrectly expected one concrete case from the entry
 annotation and failed before checking that case: the complete source closure
 also contains two boxed types. The corrected test retains and checks all three.
-The separate full 70-case-and-nil run remains in progress. A full live capture
+The first full 70-case-and-nil run passed all 71 Rust kernel checks in 2,362
+seconds. Go also accepted the same nil and last concrete certificates, with
+zero axioms and matching hashes. Review then strengthened the check to compare
+the source error type, generated module identities and verified certificate
+identity on every row. The strengthened small-domain and crossed-catalogue
+controls pass; its full 70-case rerun remains in progress. A full live capture
 adds an error argument, a non-pointer error type and an actual contract listing
 that type to the existing 182-package application. It retains all 5,577 SDK
 files, 5,517 non-export objects and 181 exports. Independent byte comparison

@@ -32,6 +32,9 @@ mod go_practical_checked_entries;
 mod go_practical_checked_error_value_relations;
 #[allow(dead_code)]
 mod go_practical_checked_invocations;
+#[cfg(target_os = "linux")]
+#[allow(dead_code)]
+mod go_practical_checked_root_values;
 #[allow(dead_code)]
 mod go_practical_checked_value_relations;
 #[allow(dead_code)]

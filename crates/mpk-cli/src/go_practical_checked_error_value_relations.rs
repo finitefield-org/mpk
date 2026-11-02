@@ -8,7 +8,7 @@ use mpk_vc::go_practical_ordinary::{
     GoOrdinaryError, GoPracticalGraphErrorValueRelationBinding, GoSourceValueRelationCatalogue,
     GoSourceValueRelationRow,
 };
-use mpk_vc::go_practical_type_keys::GoSourceValueDomain;
+use mpk_vc::go_practical_type_keys::{GoSourceTypeKey, GoSourceValueDomain};
 
 #[derive(Debug)]
 pub(crate) enum GoCheckedErrorValueRelationError {
@@ -101,6 +101,12 @@ impl GoCheckedErrorValueRows {
             })?;
         if row.boxed_source_type_id() != receipt.boxed.as_deref()
             || row.module_name() != receipt.module
+            || row.source_error_type_id() != catalogue.source_error_type_id()
+            || row.source_layout_module_name() != catalogue.source_layout_module_name()
+            || row.boxing_module_name() != catalogue.boxing_module_name()
+            || row.operations_module_name() != catalogue.operations_module_name()
+            || row.relation_module_name() != catalogue.relation_module_name()
+            || row.case_tags() != catalogue.case_tags()
             || mpk_cert::certificate_hash(row.certificate_bytes()) != receipt.certificate_hash
         {
             return Err(GoCheckedErrorValueRelationError::Coverage { row: index });
@@ -116,7 +122,16 @@ pub(crate) fn check_go_error_value_catalogue(
     domain: &GoSourceValueDomain,
 ) -> Result<GoCheckedErrorValueRows, GoCheckedErrorValueRelationError> {
     let types = domain.types().collect::<Vec<_>>();
+    let mut errors = types
+        .iter()
+        .filter(|key| matches!(key, GoSourceTypeKey::Builtin { name, .. } if name == "error"));
+    let error_id = errors
+        .next()
+        .ok_or(GoCheckedErrorValueRelationError::Coverage { row: 0 })?
+        .id();
     if catalogue.source_types().iter().collect::<Vec<_>>() != types
+        || errors.next().is_some()
+        || catalogue.source_error_type_id() != error_id
         || types
             .iter()
             .any(|key| catalogue.underlying_type_id(key.id()) != domain.underlying(key.id()))
@@ -148,7 +163,10 @@ pub(crate) fn check_go_error_value_catalogue(
         })?;
         if row.boxed_source_type_id() != boxed
             || row.source_layout_module_name() != catalogue.source_layout_module_name()
+            || row.boxing_module_name() != catalogue.boxing_module_name()
+            || row.operations_module_name() != catalogue.operations_module_name()
             || row.relation_module_name() != catalogue.relation_module_name()
+            || row.source_error_type_id() != error_id
             || row.case_tags() != catalogue.case_tags()
         {
             return Err(GoCheckedErrorValueRelationError::Coverage { row: index });
@@ -160,6 +178,11 @@ pub(crate) fn check_go_error_value_catalogue(
                 row: index,
                 count: report.axiom_count,
             });
+        }
+        if report.module != row.module_name()
+            || report.certificate_hash != mpk_cert::certificate_hash(row.certificate_bytes())
+        {
+            return Err(GoCheckedErrorValueRelationError::Coverage { row: index });
         }
         receipts.push(GoCheckedErrorValueReceipt {
             boxed: boxed.map(String::from),

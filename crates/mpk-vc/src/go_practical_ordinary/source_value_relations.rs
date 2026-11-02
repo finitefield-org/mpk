@@ -630,6 +630,15 @@ impl GoSourceValueRelationCatalogue {
     pub fn source_layout_module_name(&self) -> &str {
         &self.source
     }
+    pub fn boxing_module_name(&self) -> &str {
+        &self.boxing
+    }
+    pub fn operations_module_name(&self) -> &str {
+        &self.operations
+    }
+    pub fn source_error_type_id(&self) -> &str {
+        &self.error
+    }
     pub fn relation_module_name(&self) -> &str {
         &self.module
     }

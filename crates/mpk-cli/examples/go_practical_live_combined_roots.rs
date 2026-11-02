@@ -24,6 +24,14 @@ mod go_practical_checked_error_value_relations;
 #[allow(dead_code)]
 mod go_practical_checked_invocations;
 #[cfg(target_os = "linux")]
+#[path = "../src/go_practical_checked_root_values.rs"]
+#[allow(dead_code)]
+mod go_practical_checked_root_values;
+#[cfg(target_os = "linux")]
+#[path = "../src/go_practical_checked_value_relations.rs"]
+#[allow(dead_code)]
+mod go_practical_checked_value_relations;
+#[cfg(target_os = "linux")]
 #[path = "../src/go_practical_installed_compiler.rs"]
 #[allow(dead_code)]
 mod go_practical_installed_compiler;
@@ -494,9 +502,10 @@ fn main() {
             .map_err(|error| fail(format!("complete root binding: {error:?}")))?;
         let graph = module_graph(&packet, matched.export_inputs().clone())?;
         {
-            let components = go_practical_checked_components::check_go_root_components(
+            let root_values = go_practical_checked_root_values::check_go_root_value_components(
                 &matched, &candidate, &graph,
             )?;
+            let components = root_values.components();
             let invocations = components.invocations();
             if invocations.invocations().catalogue().sites().len() != expected_calls
                 || invocations.checked().receipts().len() != expected_calls
@@ -591,20 +600,13 @@ fn main() {
                     return Err(fail("original closed error contract changed").into());
                 }
                 let case_id = domain.error_cases()[0].value_type_id().to_string();
-                let graph_contracts = matched
-                    .bind_candidate_graph(&candidate, &graph)
-                    .map_err(|error| fail(format!("error candidate binding: {error:?}")))?
-                    .derive_contracts()?;
-                if graph_contracts.contracts().module() != module {
+                let checked = match root_values.values() {
+                    go_practical_checked_root_values::GoCheckedRootValues::Error(value) => value,
+                    _ => return Err(fail("original error domain used the wrong value path").into()),
+                };
+                if checked.binding().contracts().contracts().module() != module {
                     return Err(fail("error relations crossed original contracts").into());
                 }
-                let relations = graph_contracts
-                    .derive_error_value_relations()
-                    .map_err(|error| fail(format!("error value catalogue: {error:?}")))?;
-                let checked =
-                    go_practical_checked_error_value_relations::check_go_graph_error_value_relations(
-                        relations,
-                    )?;
                 let receipts = checked.checked().receipts();
                 if receipts.len() != 2
                     || receipts[0].boxed_source_type_id().is_some()
@@ -626,6 +628,35 @@ fn main() {
                         &json!({"verdict":"accepted","module":receipt.module(),"declaration_count":receipt.declarations(),"axiom_count":0,"hashes":{"export":mpk_cert::hash_hex(receipt.export_hash()),"axiom_report":mpk_cert::hash_hex(receipt.axiom_report_hash()),"certificate":mpk_cert::hash_hex(receipt.certificate_hash())}}),
                     )?;
                 }
+            } else {
+                let checked = match root_values.values() {
+                    go_practical_checked_root_values::GoCheckedRootValues::ErrorFree(value) => {
+                        value
+                    }
+                    _ => {
+                        return Err(
+                            fail("original error-free domain used the wrong value path").into()
+                        )
+                    }
+                };
+                if checked.binding().contracts().contracts().module() != module
+                    || checked.report().axiom_count != 0
+                {
+                    return Err(fail("error-free relations crossed original contracts").into());
+                }
+                let mut certificate = OpenOptions::new()
+                    .write(true)
+                    .create_new(true)
+                    .open(combined_dir.join("root-value-relations.mpcert"))?;
+                certificate.write_all(checked.binding().relations().certificate_bytes())?;
+                let report: Value = serde_json::from_str(
+                    &mpk_kernel::render_verification_report_json(checked.report()),
+                )?;
+                publish(
+                    combined_dir,
+                    "root-value-relations-rust.json",
+                    &json!({"verdict":report["verdict"],"module":report["module"],"declaration_count":report["declaration_count"],"axiom_count":report["axiom_count"],"hashes":report["hashes"]}),
+                )?;
             }
             if expect_call {
                 let site = &invocations.invocations().catalogue().sites()[0];
@@ -703,34 +734,35 @@ fn main() {
         // fixture only in the local test observer; production gets no path or
         // replacement-graph adapter from it.
         #[cfg(test)]
-        let crossed_graph_rejected =
-            if let Some(directory) = std::env::var_os("MPK_GO_TEST_CROSSED_GRAPH") {
-                let directory = PathBuf::from(directory);
-                let other_packet: Value = serde_json::from_slice(&fs::read(
-                    directory.join("complete-original-module-graph-inputs.json"),
-                )?)?;
-                let other_graph = module_graph(&other_packet, exports(&other_packet, &directory)?)?;
-                let other_export = other_graph
-                    .module_data()
-                    .module_observations()
-                    .export_inputs();
-                if other_export
-                    .capture_inputs()
-                    .snapshot_inputs()
-                    .source_objects()
-                    .len()
-                    != 5667
-                {
-                    return Err(
-                        fail("crossed original graph lost its complete source universe").into(),
-                    );
-                }
-                let baseline = candidate_request(&packet, "baseline_candidate_request_hex")?;
-                let other_source = bind_go_practical_source_selection(
-                    &baseline,
-                    other_export.capture_inputs().selection_inputs(),
-                )?;
-                if other_source.source_inputs().roots().len() != 1
+        let crossed_graph_rejected = if let Some(directory) =
+            std::env::var_os("MPK_GO_TEST_CROSSED_GRAPH")
+        {
+            let directory = PathBuf::from(directory);
+            let other_packet: Value = serde_json::from_slice(&fs::read(
+                directory.join("complete-original-module-graph-inputs.json"),
+            )?)?;
+            let other_graph = module_graph(&other_packet, exports(&other_packet, &directory)?)?;
+            let other_export = other_graph
+                .module_data()
+                .module_observations()
+                .export_inputs();
+            if other_export
+                .capture_inputs()
+                .snapshot_inputs()
+                .source_objects()
+                .len()
+                != 5667
+            {
+                return Err(
+                    fail("crossed original graph lost its complete source universe").into(),
+                );
+            }
+            let baseline = candidate_request(&packet, "baseline_candidate_request_hex")?;
+            let other_source = bind_go_practical_source_selection(
+                &baseline,
+                other_export.capture_inputs().selection_inputs(),
+            )?;
+            if other_source.source_inputs().roots().len() != 1
                     || !matches!(
                         matched.bind_candidate_graph(&candidate, &other_graph),
                         Err(go_practical_capture_binding::GoCandidateRootGraphBindingError::Export)
@@ -745,13 +777,25 @@ fn main() {
                             go_practical_capture_binding::GoCandidateRootGraphBindingError::Export
                         ))
                     )
+                    || !matches!(
+                        go_practical_checked_root_values::check_go_root_value_components(
+                            &matched,
+                            &candidate,
+                            &other_graph
+                        ),
+                        Err(go_practical_checked_root_values::GoCheckedRootValueError::Components(
+                            go_practical_checked_components::GoCheckedComponentsError::Binding(
+                                go_practical_capture_binding::GoCandidateRootGraphBindingError::Export
+                            )
+                        ))
+                    )
                 {
                     return Err(fail("crossed original graph was not rejected").into());
                 }
-                true
-            } else {
-                false
-            };
+            true
+        } else {
+            false
+        };
         #[cfg(not(test))]
         let crossed_graph_rejected = false;
         let source_count = matched.source_snapshot().source_objects().len();
@@ -788,10 +832,11 @@ fn main() {
                 return Err(fail("test installed owner lost original roots").into());
             }
             {
-                let components =
-                    go_practical_checked_components::check_installed_go_root_components(
+                let installed_values =
+                    go_practical_checked_root_values::check_installed_go_root_value_components(
                         &owner, &candidate, &graph,
                     )?;
+                let components = installed_values.components();
                 if components.entries().checked().assemblies().parts().len() != 1
                     || components.entries().checked().assemblies().parts()[0]
                         .function_modules()
@@ -800,6 +845,17 @@ fn main() {
                     || components.invocations().checked().receipts().len() != expected_calls
                 {
                     return Err(fail("test installed components lost the original root").into());
+                }
+                match (expect_error, installed_values.values()) {
+                    (
+                        true,
+                        go_practical_checked_root_values::GoCheckedRootValues::Error(values),
+                    ) if values.checked().receipts().len() == 2 => {}
+                    (
+                        false,
+                        go_practical_checked_root_values::GoCheckedRootValues::ErrorFree(values),
+                    ) if values.report().axiom_count == 0 => {}
+                    _ => return Err(fail("test installed owner lost the value relations").into()),
                 }
                 let binding = owner
                     .bind_candidate_graph(&candidate, &graph)
@@ -826,6 +882,19 @@ fn main() {
                             )
                         )
                     )
+                ) || !matches!(
+                    go_practical_checked_root_values::check_installed_go_root_value_components(
+                        &owner, &other, &graph
+                    ),
+                    Err(
+                        go_practical_checked_root_values::GoCheckedRootValueError::Components(
+                            go_practical_checked_components::GoCheckedComponentsError::Binding(
+                                go_practical_capture_binding::GoCandidateRootGraphBindingError::Source(
+                                    GoPracticalSourceBindingError::Mismatch { root: Some(0) }
+                                )
+                            )
+                        )
+                    )
                 ) {
                     return Err(fail(
                         "test installed owner accepted a different original function",
@@ -841,7 +910,7 @@ fn main() {
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"candidate_function_bodies":expected_functions,"candidate_call_sites":expected_calls,"test_overlay_bound":expect_overlay,"test_error_contract_bound":expect_error,"same_root_components_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_components_checked":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"candidate_function_bodies":expected_functions,"candidate_call_sites":expected_calls,"test_overlay_bound":expect_overlay,"test_error_contract_bound":expect_error,"same_root_components_checked":true,"same_root_value_components_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_components_checked":cfg!(test),"test_only_installed_values_checked":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
         std::hint::black_box((&held_owner, &graph));
         Ok(())

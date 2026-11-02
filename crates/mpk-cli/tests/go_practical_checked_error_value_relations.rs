@@ -179,8 +179,15 @@ fn checks_original_nil_and_small_error_domains() {
     let first = dispatch("nil-only");
     let other = dispatch("entry");
     let catalogue = generate_go_practical_source_value_relation_catalogue(first.domain()).unwrap();
+    let checked = checked::check_go_error_value_catalogue(&catalogue, first.domain()).unwrap();
+    let other_catalogue =
+        generate_go_practical_source_value_relation_catalogue(other.domain()).unwrap();
     assert!(matches!(
         checked::check_go_error_value_catalogue(&catalogue, other.domain()),
+        Err(checked::GoCheckedErrorValueRelationError::Coverage { .. })
+    ));
+    assert!(matches!(
+        checked.reconstruct(&other_catalogue, 0),
         Err(checked::GoCheckedErrorValueRelationError::Coverage { .. })
     ));
 }
