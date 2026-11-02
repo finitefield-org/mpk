@@ -1,0 +1,35 @@
+{
+  "status": "failed",
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "error": "SuccessorReleaseFailure('BUNDLE_REPRODUCIBILITY_MISMATCH')",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/rebuild_rust.py\", line 139, in main\n    release.copy_described(target / Path(item['path']).name, OUTPUT / 'frontend' / item['path'], item)\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/successor_release_bundles.py\", line 192, in copy_described\n    raise SuccessorReleaseFailure()\nsuccessor_release_bundles.SuccessorReleaseFailure: BUNDLE_REPRODUCIBILITY_MISMATCH\n",
+  "seconds": 570.0968175,
+  "source_inputs_unchanged": true,
+  "phases": [
+    {
+      "name": "complete-frozen-rust-distribution",
+      "status": "passed"
+    },
+    {
+      "name": "frozen-llvm-linker-and-support",
+      "status": "passed"
+    },
+    {
+      "name": "complete-native-development-sysroot",
+      "status": "passed"
+    },
+    {
+      "name": "complete-frozen-original-sources-and-vendor",
+      "status": "passed"
+    },
+    {
+      "name": "original-frozen-rust-frontend-build",
+      "status": "passed"
+    },
+    {
+      "name": "complete-original-runtime-image",
+      "status": "passed"
+    }
+  ]
+}
