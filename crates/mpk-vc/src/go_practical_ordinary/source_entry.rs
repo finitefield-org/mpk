@@ -4,8 +4,8 @@
 use super::syntax::*;
 use super::{error_layout, source_error_layout, Builder, GoOrdinaryError, Result, MAX_BYTES};
 use crate::go_practical_type_keys::{
-    derive_go_source_entry_layouts, GoSourceEntryBindingOrigin, GoSourceEntryLayout,
-    GoSourceSelectionRef, GoSourceValueDomain,
+    derive_go_source_entry_layouts, GoPracticalGraphContractBinding, GoSourceEntryBindingOrigin,
+    GoSourceEntryLayout, GoSourceSelectionRef, GoSourceValueDomain,
 };
 use serde_json::{json, Value};
 use sha2::{Digest, Sha256};
@@ -17,6 +17,34 @@ pub struct GoSourceEntryCatalogue {
     cases: Vec<String>,
     prior: Vec<u8>,
     scope: Value,
+}
+
+/// Untrusted entry-equation candidates retained with the exact source,
+/// request, contracts and module graph used to derive them. This does not
+/// establish entry validity, source execution or an installed context.
+pub struct GoPracticalGraphEntryBinding<'a> {
+    contracts: GoPracticalGraphContractBinding<'a>,
+    catalogue: GoSourceEntryCatalogue,
+}
+impl<'a> GoPracticalGraphContractBinding<'a> {
+    /// Derive entry candidates from this bound contract module's own complete
+    /// value domain; callers cannot substitute another domain in this handoff.
+    pub fn derive_entry_catalogue(self) -> Result<GoPracticalGraphEntryBinding<'a>> {
+        let catalogue =
+            generate_go_practical_source_entry_catalogue(self.contracts().module().value_domain())?;
+        Ok(GoPracticalGraphEntryBinding {
+            contracts: self,
+            catalogue,
+        })
+    }
+}
+impl GoPracticalGraphEntryBinding<'_> {
+    pub fn contracts(&self) -> &GoPracticalGraphContractBinding<'_> {
+        &self.contracts
+    }
+    pub fn catalogue(&self) -> &GoSourceEntryCatalogue {
+        &self.catalogue
+    }
 }
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoSourceEntryRow {

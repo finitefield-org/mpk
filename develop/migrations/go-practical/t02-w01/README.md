@@ -42,6 +42,11 @@ now retains the same Go package owner and independently reconstructs its offline
 module data and graph in Rust while the candidate and both root sets are held.
 Launcher authority and source/program proofs remain open.
 
+The [candidate-bound entry equations](verification/candidate-entries/README.md)
+retain the original graph and contract owner while deriving the entry catalogue.
+Both checkers accept the same live entry-equation bytes; source execution and
+application proof remain separate obligations.
+
 The [candidate-bound contracts](verification/candidate-contract-language/README.md)
 retain the original candidate and graph while deriving source contracts and
 checking selected and transitive Go language versions. This constructs

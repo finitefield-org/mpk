@@ -473,7 +473,47 @@ fn main() {
             {
                 return Err(fail("original zero-overlay default contract changed").into());
             }
-            std::hint::black_box(&contracts);
+            let entries = contracts
+                .derive_entry_catalogue()
+                .map_err(|error| fail(format!("candidate entry catalogue: {error:?}")))?;
+            let module = entries.contracts().contracts().module();
+            let layouts = entries.catalogue().layouts();
+            if layouts.len() != 1
+                || layouts[0].function() != &module.selected_roots()[0]
+                || layouts[0].inputs().len() != 1
+                || layouts[0].results().len() != 1
+            {
+                return Err(fail("candidate entry layout lost the original function").into());
+            }
+            let assembly = entries
+                .catalogue()
+                .generate_assembly()
+                .map_err(|error| fail(format!("candidate entry equations: {error:?}")))?;
+            if assembly.function_modules().len() != 1
+                || assembly.function_modules()[0].0 != module.selected_roots()[0]
+            {
+                return Err(fail("candidate entry assembly lost the original function").into());
+            }
+            let checked =
+                mpk_kernel::verify_certificate_bytes_json_output(assembly.certificate_bytes());
+            if !checked.accepted {
+                return Err(fail(format!("entry equation check: {}", checked.json)).into());
+            }
+            let report: Value = serde_json::from_str(&checked.json)?;
+            if report["axiom_count"] != 0 {
+                return Err(fail("candidate entry equations contain axioms").into());
+            }
+            let mut certificate = OpenOptions::new()
+                .write(true)
+                .create_new(true)
+                .open(combined_dir.join("candidate-entry.mpcert"))?;
+            certificate.write_all(assembly.certificate_bytes())?;
+            publish(
+                combined_dir,
+                "candidate-entry-rust.json",
+                &json!({"verdict":report["verdict"],"module":report["module"],"declaration_count":report["declaration_count"],"axiom_count":report["axiom_count"],"hashes":report["hashes"]}),
+            )?;
+            std::hint::black_box(&entries);
         }
         // This optional negative control imports another complete original
         // fixture only in the local test observer; production gets no path or
@@ -582,7 +622,7 @@ fn main() {
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
         std::hint::black_box((&held_owner, &graph));
         Ok(())

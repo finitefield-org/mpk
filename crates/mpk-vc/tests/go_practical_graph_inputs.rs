@@ -302,6 +302,39 @@ fn candidate_graph_binding_rejects_crossed_complete_original_owners() {
         contracts.graph().canonical_bytes(),
         versioned.canonical_bytes()
     );
+    let entries = contracts.derive_entry_catalogue().unwrap();
+    assert_eq!(
+        entries.contracts().graph().canonical_bytes(),
+        versioned.canonical_bytes()
+    );
+    let module = entries.contracts().contracts().module();
+    let layouts = entries.catalogue().layouts();
+    assert_eq!(layouts.len(), 1);
+    assert_eq!(layouts[0].function(), &module.selected_roots()[0]);
+    assert_eq!(layouts[0].inputs().len(), 1);
+    assert_eq!(layouts[0].results().len(), 1);
+    let assembly = entries.catalogue().generate_assembly().unwrap();
+    assert_eq!(assembly.function_modules().len(), 1);
+    assert_eq!(assembly.function_modules()[0].0, module.selected_roots()[0]);
+    let checked = mpk_kernel::verify_certificate_bytes_json_output(assembly.certificate_bytes());
+    assert!(checked.accepted, "{}", checked.json);
+    let report: Value = serde_json::from_str(&checked.json).unwrap();
+    assert_eq!(report["axiom_count"], 0);
+    let decoded = mpk_cert::decode_canonical_certificate(assembly.certificate_bytes()).unwrap();
+    assert_eq!(report["module"], decoded.module);
+    if let Some(dir) = std::env::var_os("MPK_GO_GRAPH_INPUTS_OUTPUT") {
+        use std::io::Write;
+        let dir = PathBuf::from(dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        std::fs::OpenOptions::new()
+            .create_new(true)
+            .write(true)
+            .open(dir.join("candidate-graph-entry.mpcert"))
+            .unwrap()
+            .write_all(assembly.certificate_bytes())
+            .unwrap();
+        output("candidate-graph-entry.rust.json", &report);
+    }
     let local_source =
         bind_go_practical_source_selection(&request, graph_selection(&local)).unwrap();
     assert!(bind_go_practical_module_graph(local_source, &local).is_ok());
