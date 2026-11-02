@@ -26,6 +26,8 @@ mod go_practical_capture_binding;
 #[allow(dead_code)]
 mod go_practical_checked_entries;
 #[allow(dead_code)]
+mod go_practical_checked_invocations;
+#[allow(dead_code)]
 mod go_practical_installed_compiler;
 #[cfg(target_os = "linux")]
 #[allow(dead_code)]

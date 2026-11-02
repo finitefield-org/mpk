@@ -12,6 +12,10 @@ mod go_practical_capture_binding;
 #[allow(dead_code)]
 mod go_practical_checked_entries;
 #[cfg(target_os = "linux")]
+#[path = "../src/go_practical_checked_invocations.rs"]
+#[allow(dead_code)]
+mod go_practical_checked_invocations;
+#[cfg(target_os = "linux")]
 #[path = "../src/go_practical_installed_compiler.rs"]
 #[allow(dead_code)]
 mod go_practical_installed_compiler;
@@ -453,6 +457,23 @@ fn main() {
             .map_err(|error| fail(format!("complete root binding: {error:?}")))?;
         let graph = module_graph(&packet, matched.export_inputs().clone())?;
         {
+            let invocations = matched
+                .bind_candidate_graph(&candidate, &graph)
+                .map_err(|error| fail(format!("candidate/source/graph binding: {error:?}")))?
+                .derive_contracts()
+                .map_err(|error| fail(format!("candidate source contracts: {error:?}")))?
+                .derive_invocation_catalogue()
+                .map_err(|error| fail(format!("candidate call catalogue: {error:?}")))?;
+            let checked =
+                go_practical_checked_invocations::check_go_graph_invocations(invocations)?;
+            if !checked.invocations().catalogue().sites().is_empty()
+                || !checked.checked().receipts().is_empty()
+            {
+                return Err(fail("original call-free root gained a call site").into());
+            }
+            std::hint::black_box(&checked);
+        }
+        {
             let binding = matched
                 .bind_candidate_graph(&candidate, &graph)
                 .map_err(|error| fail(format!("candidate/source/graph binding: {error:?}")))?;
@@ -621,7 +642,7 @@ fn main() {
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
         std::hint::black_box((&held_owner, &graph));
         Ok(())
