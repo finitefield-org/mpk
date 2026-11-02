@@ -50,4 +50,9 @@ func TestPracticalCandidateSourceRequiresCompleteRequestAndOwner(t *testing.T) {
 	if inputs, err := image.candidateCompilerInputs(nil, request); err == nil || inputs != nil {
 		t.Fatal("candidate compiler accepted without its original image", err)
 	}
+	for _, inputs := range []*practicalCandidateCompilerInputs{nil, {}} {
+		if graph, err := inputs.moduleGraphInputs(); err == nil || graph.canonical != nil {
+			t.Fatal("candidate graph accepted without its original compiler owner", err)
+		}
+	}
 }

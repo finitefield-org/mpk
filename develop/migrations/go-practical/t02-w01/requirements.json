@@ -1346,6 +1346,15 @@
       "requirement": "Exact module graph/versions, go.mod/go.sum/metadata, versioned and capability-bound local replacements, selected-root mapping",
       "status": "partial_actual_offline_module_discovery_and_original_binding",
       "executor": "go-tools/go2vir/practical_resolution.go, practical_module_capture.go and practical_module_snapshot.go",
+      "candidate_bound_graph_checkpoint": {
+        "evidence": "verification/candidate-module-graph/README.md",
+        "scope": "The inactive Go request and compiler owner derive the module graph from the same original package owner and require the complete export record to match. The Rust live observer independently checks offline module data and reconstructs the graph against the same candidate selection and held roots: 5697 original objects, 182 packages, 8 graph roots, 9 expansion manifests and 8 selected versions. Rehashed root and dependency controls reject. Launcher/read authority, checked foundation and source/program proofs remain due.",
+        "R04_completed": false,
+        "R05_completed": false,
+        "R06_completed": false,
+        "public_profile_activated": false,
+        "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
       "completed_component": "Actual pinned offline Go selects module versions and replacements; preparation observations bind original main/versioned/local metadata, exact directives and main checksum ownership. All consulted versions/metadata, authoritative immutable replay and selected-root mapping remain due.",
       "preparatory_immutable_module_binding_checkpoint": {
         "evidence": "verification/image-consumer/verification.json",

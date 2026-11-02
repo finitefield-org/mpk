@@ -30,6 +30,7 @@ func (selection practicalCandidateSourceSelection) requestBytes() []byte {
 type practicalCandidateCompilerInputs struct {
 	selection practicalCandidateSourceSelection
 	compiler  *practicalCompilerInputs
+	owner     *practicalOriginalPackages
 }
 
 func (inputs *practicalCandidateCompilerInputs) Close() {
@@ -40,8 +41,26 @@ func (inputs *practicalCandidateCompilerInputs) Close() {
 		inputs.compiler.Close()
 		inputs.compiler = nil
 	}
+	inputs.owner = nil
 	clear(inputs.selection.request)
 	inputs.selection.request = nil
+}
+
+// Derive module observations and the complete graph from the same original
+// package owner and candidate roots. The full export owner must also be the
+// one already bound to the compiler; no caller graph or roots are accepted.
+func (inputs *practicalCandidateCompilerInputs) moduleGraphInputs() (practicalModuleGraphInputs, error) {
+	if inputs == nil || inputs.compiler == nil || inputs.owner == nil || len(inputs.selection.request) == 0 {
+		return practicalModuleGraphInputs{}, fmt.Errorf("candidate module graph requires its live compiler and package owner")
+	}
+	graph, err := inputs.owner.moduleGraphInputs(inputs.selection.rootRefs())
+	if err != nil {
+		return practicalModuleGraphInputs{}, err
+	}
+	if !bytes.Equal(graph.modules.exports.canonical, inputs.compiler.exports.canonical) {
+		return practicalModuleGraphInputs{}, fmt.Errorf("candidate module graph crossed its original export owner")
+	}
+	return graph, nil
 }
 
 func (image *practicalReplayImage) candidateCompilerInputs(owner *practicalOriginalPackages, request *practicalCandidateRequest) (*practicalCandidateCompilerInputs, error) {
@@ -60,7 +79,7 @@ func (image *practicalReplayImage) candidateCompilerInputs(owner *practicalOrigi
 		compiler.Close()
 		return nil, fmt.Errorf("candidate compiler inputs crossed their original source selection")
 	}
-	return &practicalCandidateCompilerInputs{selection: selection, compiler: compiler}, nil
+	return &practicalCandidateCompilerInputs{selection: selection, compiler: compiler, owner: owner}, nil
 }
 
 // Recover only the producer's own canonical request. Reconstructing all four

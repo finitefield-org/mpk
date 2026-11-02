@@ -173,7 +173,7 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 			t.Fatal("original root survived", err)
 		}
 	}
-	input, err := owner.moduleGraphInputs(selection.rootRefs())
+	input, err := candidateInputs.moduleGraphInputs()
 	if err != nil {
 		fail(err)
 	}

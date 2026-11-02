@@ -37,6 +37,11 @@ derives those physical roots from the Go candidate request and retains the
 matching original compiler inputs. Its complete live capture also passes the
 independent Rust check; this remains a private candidate path.
 
+The [candidate-bound module graph](verification/candidate-module-graph/README.md)
+now retains the same Go package owner and independently reconstructs its offline
+module data and graph in Rust while the candidate and both root sets are held.
+Launcher authority and source/program proofs remain open.
+
 Status: In progress. Entry is T01 completion commit
 `fe1b85cb70c7ea390c02469706d09cdc913f973f`. The
 [requirements](requirements.json) retain the complete W01 scope: private
