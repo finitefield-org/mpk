@@ -1,0 +1,42 @@
+# Source value relations without an error type
+
+The existing whole-carrier relation generator required a source `error` type,
+even when the selected Go functions did not use one. A separate private path
+now derives relations from the complete original value domain without adding
+an error key, nil interface or payload case. It preserves every original type
+and nominal underlying relation and derives the same full-encoding view,
+reflexivity, symmetry, transitivity, equality lift and zero law used by the
+existing relation library. It can retain the selected candidate, original
+contracts and complete module graph alongside the generated certificate.
+
+The original three-root selection retains all 8,192 other source declarations
+and three captured sidecars. Its four selected/transitive functions yield three
+source types; both Rust and Go checkers accepted the same 57-declaration,
+11,944-byte certificate with zero axioms. Its certificate hash is
+`2f865a0014cd61994af577a2ff55c926cdebb03ca5b85a87c1f4bf3f84830ec3`.
+The separate original loop-contract input includes a slice; both checkers
+also accepted its four-type, 75-declaration, 30,577-byte certificate with
+zero axioms and certificate hash
+`11e8564c061cfe52e29d75b239ec5636d1df0f5ca054e2a31c55ddab3f2ba75f`.
+The exact importer rejects altered certificate bytes. Two complete original
+domains that do contain `error` reject this specialized path, including one
+with no concrete error cases and the original 70-case domain.
+
+The first test used the existing zero-case `pure` source as an error-free
+fixture and correctly failed its precondition: that complete selection still
+contains `error` parameters and results. The corrected positive test uses the
+separate complete original source selection rather than altering either input.
+The complete original versioned graph-bound consumer also passed, including
+rejection of a crossed complete graph. Both checkers accepted its exact
+35-declaration, 6,200-byte certificate with zero axioms and certificate hash
+`f28ba2b601165cd02bb09d70ddeb671232331b6dbaf5fdc56cc99ee257c9ec34`.
+The targeted tests were selected to exercise the new constructor, exact
+import, source-domain boundary and graph retention. No new validation archive
+is committed. Strict affected Clippy and changed-file Rust formatting passed.
+
+These are relations on the complete encoded values, including padding and
+ghost fields. They do not establish Go `==`, runtime input validity, source
+execution or an application property. The complete foundation, checked
+context, launcher authority and R01/T02-W01 remain open; the practical
+profile stays inactive. The cumulative `./scripts/check-fast.sh` gate remains
+deferred to final T02-W04.

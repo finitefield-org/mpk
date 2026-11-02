@@ -348,6 +348,45 @@ fn candidate_graph_binding_rejects_crossed_complete_original_owners() {
         versioned.canonical_bytes()
     );
     assert!(invocations.catalogue().sites().is_empty());
+    let relation_source =
+        bind_go_practical_source_selection(&request, graph_selection(&versioned)).unwrap();
+    let relations = bind_go_practical_module_graph(relation_source, &versioned)
+        .unwrap()
+        .derive_contracts()
+        .unwrap()
+        .derive_error_free_value_relations()
+        .unwrap();
+    assert_eq!(
+        relations.contracts().graph().canonical_bytes(),
+        versioned.canonical_bytes()
+    );
+    let domain = relations.contracts().contracts().module().value_domain();
+    assert_eq!(
+        relations
+            .relations()
+            .source_types()
+            .iter()
+            .collect::<Vec<_>>(),
+        domain.types().collect::<Vec<_>>()
+    );
+    let checked =
+        mpk_kernel::verify_certificate_bytes(relations.relations().certificate_bytes()).unwrap();
+    assert_eq!(checked.axiom_count, 0);
+    if let Some(dir) = std::env::var_os("MPK_GO_GRAPH_INPUTS_OUTPUT") {
+        use std::io::Write;
+        let dir = PathBuf::from(dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        std::fs::OpenOptions::new()
+            .create_new(true)
+            .write(true)
+            .open(dir.join("candidate-graph-error-free-relations.mpcert"))
+            .unwrap()
+            .write_all(relations.relations().certificate_bytes())
+            .unwrap();
+        let report: Value =
+            serde_json::from_str(&mpk_kernel::render_verification_report_json(&checked)).unwrap();
+        output("candidate-graph-error-free-relations.rust.json", &report);
+    }
     let local_source =
         bind_go_practical_source_selection(&request, graph_selection(&local)).unwrap();
     assert!(bind_go_practical_module_graph(local_source, &local).is_ok());

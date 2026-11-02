@@ -3,9 +3,12 @@
 //! They are neither Go's comparison operator nor source/runtime validity.
 use super::syntax::*;
 use super::{
-    composition, error_layout, source_error_operations, Builder, GoOrdinaryError, Result, MAX_BYTES,
+    composition, error_layout, source_error_layout, source_error_operations, Builder,
+    GoOrdinaryError, Result, MAX_BYTES,
 };
-use crate::go_practical_type_keys::{GoSourceTypeKey, GoSourceValueDomain};
+use crate::go_practical_type_keys::{
+    GoPracticalGraphContractBinding, GoSourceTypeKey, GoSourceValueDomain,
+};
 use std::collections::{BTreeMap, BTreeSet};
 
 #[derive(Clone)]
@@ -683,6 +686,145 @@ impl GoSourceValueRelationCatalogue {
         Ok(expected)
     }
 }
+
+/// Complete whole-carrier relations for an original domain without Go error
+/// values. No error type, nil interface or payload case is invented for it.
+/// These are mathematical relations, not Go equality or a source proof.
+pub struct GoErrorFreeSourceValueRelations {
+    source: String,
+    module: String,
+    types: Vec<GoSourceTypeKey>,
+    underlying: BTreeMap<String, String>,
+    certificate: Vec<u8>,
+}
+impl GoErrorFreeSourceValueRelations {
+    pub fn source_layout_module_name(&self) -> &str {
+        &self.source
+    }
+    pub fn module_name(&self) -> &str {
+        &self.module
+    }
+    pub fn source_types(&self) -> &[GoSourceTypeKey] {
+        &self.types
+    }
+    pub fn underlying_type_id(&self, id: &str) -> Option<&str> {
+        self.underlying.get(id).map(String::as_str)
+    }
+    pub fn certificate_bytes(&self) -> &[u8] {
+        &self.certificate
+    }
+}
+
+/// Preserve the candidate, contracts and complete graph with the generated
+/// error-free relations; the candidate remains untrusted until kernel checked.
+pub struct GoPracticalGraphValueRelationBinding<'a> {
+    contracts: GoPracticalGraphContractBinding<'a>,
+    relations: GoErrorFreeSourceValueRelations,
+}
+impl<'a> GoPracticalGraphContractBinding<'a> {
+    pub fn derive_error_free_value_relations(
+        self,
+    ) -> Result<GoPracticalGraphValueRelationBinding<'a>> {
+        let relations = generate_go_practical_error_free_source_value_relations(
+            self.contracts().module().value_domain(),
+        )?;
+        Ok(GoPracticalGraphValueRelationBinding {
+            contracts: self,
+            relations,
+        })
+    }
+}
+impl GoPracticalGraphValueRelationBinding<'_> {
+    pub fn contracts(&self) -> &GoPracticalGraphContractBinding<'_> {
+        &self.contracts
+    }
+    pub fn relations(&self) -> &GoErrorFreeSourceValueRelations {
+        &self.relations
+    }
+}
+
+pub fn generate_go_practical_error_free_source_value_relations(
+    domain: &GoSourceValueDomain,
+) -> Result<GoErrorFreeSourceValueRelations> {
+    if !domain.error_cases().is_empty()
+        || domain
+            .types()
+            .any(|key| matches!(key, GoSourceTypeKey::Builtin { name, .. } if name == "error"))
+    {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    let (builder, source, cases) = source_error_layout::source_type_builder(domain)?;
+    if !cases.is_empty() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    let mut roots = builder
+        .certificate
+        .declarations
+        .iter()
+        .filter_map(|declaration| {
+            let name = &builder.certificate.name_table[declaration.name as usize];
+            name.starts_with(&(source.clone() + "."))
+                .then(|| name.clone())
+        })
+        .collect::<Vec<_>>();
+    roots.extend(
+        [
+            "Std.Eq.rewrite",
+            "Std.Eq.symm",
+            "Std.Eq.trans",
+            "Mpk.Go.Practical.Product.Left",
+            "Mpk.Go.Practical.Product.Right",
+        ]
+        .into_iter()
+        .map(String::from),
+    );
+    let mut builder = composition::retain_declarations(builder, &roots)?;
+    let module = format!("{source}.ValueRelations");
+    let keys = domain
+        .types()
+        .map(|key| (key.id().to_string(), key.clone()))
+        .collect::<BTreeMap<_, _>>();
+    let underlying = keys
+        .keys()
+        .filter_map(|id| {
+            domain
+                .underlying(id)
+                .map(|value| (id.clone(), value.to_string()))
+        })
+        .collect::<BTreeMap<_, _>>();
+    for id in type_order(&keys, &underlying, &[])? {
+        append_type(
+            &mut builder,
+            &source,
+            &module,
+            &id,
+            &shape(&source, &keys[&id], &underlying, &[])?,
+        )?;
+    }
+    builder.certificate.module = module.clone();
+    Ok(GoErrorFreeSourceValueRelations {
+        source,
+        module,
+        types: keys.into_values().collect(),
+        underlying,
+        certificate: builder.finish()?,
+    })
+}
+
+pub fn import_go_practical_error_free_source_value_relations(
+    candidate: &[u8],
+    domain: &GoSourceValueDomain,
+) -> Result<GoErrorFreeSourceValueRelations> {
+    if candidate.len() > MAX_BYTES {
+        return Err(GoOrdinaryError::Limit);
+    }
+    let expected = generate_go_practical_error_free_source_value_relations(domain)?;
+    if candidate != expected.certificate_bytes() {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    Ok(expected)
+}
+
 pub fn generate_go_practical_source_value_relation_catalogue(
     domain: &GoSourceValueDomain,
 ) -> Result<GoSourceValueRelationCatalogue> {

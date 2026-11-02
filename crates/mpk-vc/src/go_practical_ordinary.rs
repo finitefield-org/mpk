@@ -96,8 +96,10 @@ pub use source_string_operation::{
     GoSourceStringOperationRow,
 };
 pub use source_value_relations::{
-    generate_go_practical_source_value_relation_catalogue, GoSourceValueRelationCatalogue,
-    GoSourceValueRelationRow,
+    generate_go_practical_error_free_source_value_relations,
+    generate_go_practical_source_value_relation_catalogue,
+    import_go_practical_error_free_source_value_relations, GoErrorFreeSourceValueRelations,
+    GoPracticalGraphValueRelationBinding, GoSourceValueRelationCatalogue, GoSourceValueRelationRow,
 };
 
 const BOOL: &str = "Std.Bool";
