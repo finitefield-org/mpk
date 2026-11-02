@@ -1346,6 +1346,14 @@
       "requirement": "Exact module graph/versions, go.mod/go.sum/metadata, versioned and capability-bound local replacements, selected-root mapping",
       "status": "partial_actual_offline_module_discovery_and_original_binding",
       "executor": "go-tools/go2vir/practical_resolution.go, practical_module_capture.go and practical_module_snapshot.go",
+      "rooted_candidate_graph_checkpoint": {
+        "evidence": "verification/rooted-candidate-graph/README.md",
+        "scope": "The Rust candidate/source binding and independently verified graph borrow the complete same selection owner. Both matched-root consumers also require the graph's full export owner to match. Complete 5697- and 5667-object original graphs with the same Root name bind separately and reject when crossed, including the live held-root and test-only SDK owner. Launcher/read authority, checked foundation and source/program proofs remain due.",
+        "R04_completed": false,
+        "R06_completed": false,
+        "public_profile_activated": false,
+        "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
       "candidate_bound_graph_checkpoint": {
         "evidence": "verification/candidate-module-graph/README.md",
         "scope": "The inactive Go request and compiler owner derive the module graph from the same original package owner and require the complete export record to match. The Rust live observer independently checks offline module data and reconstructs the graph against the same candidate selection and held roots: 5697 original objects, 182 packages, 8 graph roots, 9 expansion manifests and 8 selected versions. Rehashed root and dependency controls reject. Launcher/read authority, checked foundation and source/program proofs remain due.",

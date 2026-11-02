@@ -448,23 +448,59 @@ fn main() {
             .bind(original)
             .map_err(|error| fail(format!("complete root binding: {error:?}")))?;
         let graph = module_graph(&packet, matched.export_inputs().clone())?;
-        let graph_selection = graph
-            .module_data()
-            .module_observations()
-            .export_inputs()
-            .capture_inputs()
-            .selection_inputs();
         {
             let binding = matched
-                .bind_candidate_request(&candidate)
-                .map_err(|error| fail(format!("candidate/source binding: {error:?}")))?;
-            if binding.source_inputs().roots().len() != 1
-                || binding.source_inputs().canonical_bytes() != graph_selection.canonical_bytes()
-            {
+                .bind_candidate_graph(&candidate, &graph)
+                .map_err(|error| fail(format!("candidate/source/graph binding: {error:?}")))?;
+            if binding.source().source_inputs().roots().len() != 1 {
                 return Err(fail("original Go request lost its selected root").into());
             }
             std::hint::black_box(&binding);
         }
+        // This optional negative control imports another complete original
+        // fixture only in the local test observer; production gets no path or
+        // replacement-graph adapter from it.
+        #[cfg(test)]
+        let crossed_graph_rejected =
+            if let Some(directory) = std::env::var_os("MPK_GO_TEST_CROSSED_GRAPH") {
+                let directory = PathBuf::from(directory);
+                let other_packet: Value = serde_json::from_slice(&fs::read(
+                    directory.join("complete-original-module-graph-inputs.json"),
+                )?)?;
+                let other_graph = module_graph(&other_packet, exports(&other_packet, &directory)?)?;
+                let other_export = other_graph
+                    .module_data()
+                    .module_observations()
+                    .export_inputs();
+                if other_export
+                    .capture_inputs()
+                    .snapshot_inputs()
+                    .source_objects()
+                    .len()
+                    != 5667
+                {
+                    return Err(
+                        fail("crossed original graph lost its complete source universe").into(),
+                    );
+                }
+                let other_source = bind_go_practical_source_selection(
+                    &candidate,
+                    other_export.capture_inputs().selection_inputs(),
+                )?;
+                if other_source.source_inputs().roots().len() != 1
+                    || !matches!(
+                        matched.bind_candidate_graph(&candidate, &other_graph),
+                        Err(go_practical_capture_binding::GoCandidateRootGraphBindingError::Export)
+                    )
+                {
+                    return Err(fail("crossed original graph was not rejected").into());
+                }
+                true
+            } else {
+                false
+            };
+        #[cfg(not(test))]
+        let crossed_graph_rejected = false;
         let source_count = matched.source_snapshot().source_objects().len();
         let export_count = matched.export_snapshot().source_objects().len();
         let total = matched
@@ -499,15 +535,14 @@ fn main() {
                 return Err(fail("test installed owner lost original roots").into());
             }
             {
-                let binding = owner.bind_candidate_request(&candidate).map_err(|error| {
-                    fail(format!(
-                        "test installed candidate/source binding: {error:?}"
-                    ))
-                })?;
-                if binding.source_inputs().roots().len() != 1
-                    || binding.source_inputs().canonical_bytes()
-                        != graph_selection.canonical_bytes()
-                {
+                let binding = owner
+                    .bind_candidate_graph(&candidate, &graph)
+                    .map_err(|error| {
+                        fail(format!(
+                            "test installed candidate/source/graph binding: {error:?}"
+                        ))
+                    })?;
+                if binding.source().source_inputs().roots().len() != 1 {
                     return Err(fail("test installed candidate lost its original root").into());
                 }
                 let other = candidate_request(&packet, "unselected_candidate_request_hex")?;
@@ -529,7 +564,7 @@ fn main() {
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_installed_owner_bound":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
         std::hint::black_box((&held_owner, &graph));
         Ok(())

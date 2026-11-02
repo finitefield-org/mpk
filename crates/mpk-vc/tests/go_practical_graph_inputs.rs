@@ -1,3 +1,4 @@
+use mpk_vc::go_practical_context::GoPrivateCandidateRegistry;
 use mpk_vc::go_practical_type_keys::*;
 use mpk_vc::{hash_canonical_json, parse_strict_json, HashDomain, StrictJsonLimits};
 use serde_json::{json, Value};
@@ -224,6 +225,91 @@ fn freshly_captured_whole_owner_independently_derives_final_roots() {
     output(
         "fresh-whole-original-root-derivation.json",
         &json!({"status":"passed","original_objects":5697,"derived_roots":input.derived_roots().iter().map(|m|json!({"path":m.path,"version_hex":hex(&m.version)})).collect::<Vec<_>>(),"consumed_manifests":input.expansion_manifests().iter().map(|(m,f)|json!({"module":{"path":m.path,"version_hex":hex(&m.version)},"source":f.original_source().object()})).collect::<Vec<_>>(),"original_metadata_hex":hex(input.original_metadata()),"source_program_or_installed_authority":false}),
+    );
+}
+
+fn graph_selection(graph: &GoSourceModuleGraphInputs) -> &GoSourceSelectionInputs {
+    graph
+        .module_data()
+        .module_observations()
+        .export_inputs()
+        .capture_inputs()
+        .selection_inputs()
+}
+
+#[test]
+fn candidate_graph_binding_rejects_crossed_complete_original_owners() {
+    let mut wire: Value = serde_json::from_slice(include_bytes!(
+        "fixtures/go-practical-candidate-request.json"
+    ))
+    .unwrap();
+    wire["selection"]["value"]["roots"] =
+        json!([{"package":"example.com/policy", "function":"Root", "receiver":null}]);
+    wire.as_object_mut().unwrap().remove("request_sha256");
+    let strict = parse_strict_json(
+        &serde_json::to_vec(&wire).unwrap(),
+        StrictJsonLimits::new(268435456, 268435456, 64, 16777216),
+    )
+    .unwrap();
+    wire["request_sha256"] = json!(hash_canonical_json(
+        HashDomain::new("MPK-VALIDATED-SEMANTIC-REQUEST-3.0"),
+        &strict
+    )
+    .unwrap()
+    .to_hex());
+    let request = GoPrivateCandidateRegistry::new()
+        .unwrap()
+        .import_request(
+            &parse_strict_json(
+                &serde_json::to_vec(&wire).unwrap(),
+                StrictJsonLimits::new(268435456, 268435456, 64, 16777216),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+    let (versioned_packet, versioned_data, _) = original(true);
+    let versioned = import_go_source_module_graph_inputs(
+        &unhex(
+            versioned_packet["module_graph_inputs_hex"]
+                .as_str()
+                .unwrap(),
+        ),
+        versioned_data,
+    )
+    .unwrap();
+    let (local_packet, local_data, _) = original(false);
+    let local = import_go_source_module_graph_inputs(
+        &unhex(local_packet["module_graph_inputs_hex"].as_str().unwrap()),
+        local_data,
+    )
+    .unwrap();
+    let versioned_source =
+        bind_go_practical_source_selection(&request, graph_selection(&versioned)).unwrap();
+    let binding = bind_go_practical_module_graph(versioned_source, &versioned).unwrap();
+    assert_eq!(
+        binding.graph().canonical_bytes(),
+        versioned.canonical_bytes()
+    );
+    assert_eq!(binding.source().source_inputs().roots().len(), 1);
+    let local_source =
+        bind_go_practical_source_selection(&request, graph_selection(&local)).unwrap();
+    assert!(bind_go_practical_module_graph(local_source, &local).is_ok());
+    let crossed =
+        bind_go_practical_source_selection(&request, graph_selection(&versioned)).unwrap();
+    assert!(matches!(
+        bind_go_practical_module_graph(crossed, &local),
+        Err(GoPracticalModuleGraphBindingError::SourceSelection)
+    ));
+    assert_eq!(
+        versioned_packet["snapshot_sources"]
+            .as_array()
+            .unwrap()
+            .len(),
+        5697
+    );
+    assert_eq!(
+        local_packet["snapshot_sources"].as_array().unwrap().len(),
+        5667
     );
 }
 #[test]

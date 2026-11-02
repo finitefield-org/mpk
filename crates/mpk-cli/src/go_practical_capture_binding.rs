@@ -8,14 +8,47 @@ use crate::go_practical_installed_compiler::{
 use crate::go_practical_source_roots::{GoSourceRootError, GoSourceRoots, GoSourceRootsMatch};
 use mpk_vc::go_practical_context::GoPrivateCandidateRequest;
 use mpk_vc::go_practical_type_keys::{
-    bind_go_practical_source_selection, GoPracticalSourceBinding, GoPracticalSourceBindingError,
-    GoSourceCompilerInputs, GoSourceExportInputs, GoSourceSnapshotInputs,
+    bind_go_practical_module_graph, bind_go_practical_source_selection,
+    GoPracticalModuleGraphBinding, GoPracticalModuleGraphBindingError, GoPracticalSourceBinding,
+    GoPracticalSourceBindingError, GoSourceCompilerInputs, GoSourceExportInputs,
+    GoSourceModuleGraphInputs, GoSourceSnapshotInputs,
 };
 use mpk_vc::ReleaseRegistryIdentity;
 use std::collections::BTreeSet;
 use std::path::PathBuf;
 
 const EXPORT_CAPABILITY: &str = "original-go-package-exports";
+
+#[derive(Debug)]
+pub(crate) enum GoCandidateRootGraphBindingError {
+    Export,
+    Source(GoPracticalSourceBindingError),
+    Graph(GoPracticalModuleGraphBindingError),
+}
+impl std::fmt::Display for GoCandidateRootGraphBindingError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Export => write!(f, "candidate graph crossed its held export owner"),
+            Self::Source(error) => write!(f, "{error}"),
+            Self::Graph(error) => write!(f, "{error}"),
+        }
+    }
+}
+impl std::error::Error for GoCandidateRootGraphBindingError {}
+
+fn bind_candidate_root_graph<'a>(
+    exports: &'a GoSourceExportInputs,
+    request: &'a GoPrivateCandidateRequest,
+    graph: &'a GoSourceModuleGraphInputs,
+) -> Result<GoPracticalModuleGraphBinding<'a>, GoCandidateRootGraphBindingError> {
+    if graph.module_data().module_observations().export_inputs() != exports {
+        return Err(GoCandidateRootGraphBindingError::Export);
+    }
+    let source =
+        bind_go_practical_source_selection(request, exports.capture_inputs().selection_inputs())
+            .map_err(GoCandidateRootGraphBindingError::Source)?;
+    bind_go_practical_module_graph(source, graph).map_err(GoCandidateRootGraphBindingError::Graph)
+}
 
 /// Capture-time root ownership, before the generated export cache exists.
 /// This enforces observation order, but does not authorize caller-selected
@@ -194,6 +227,15 @@ impl GoCompleteRootMatchedExportInputs {
             self.exports.capture_inputs().selection_inputs(),
         )
     }
+
+    /// Retain both matched roots with the exact complete request/graph owner.
+    pub(crate) fn bind_candidate_graph<'a>(
+        &'a self,
+        request: &'a GoPrivateCandidateRequest,
+        graph: &'a GoSourceModuleGraphInputs,
+    ) -> Result<GoPracticalModuleGraphBinding<'a>, GoCandidateRootGraphBindingError> {
+        bind_candidate_root_graph(&self.exports, request, graph)
+    }
 }
 
 /// Require the two disjoint root sets to cover every original capability,
@@ -269,6 +311,15 @@ impl InstalledGoCompleteRootMatchedCompilerInputs {
                 .capture_inputs()
                 .selection_inputs(),
         )
+    }
+
+    /// Retain installed compiler and both matched roots with the same graph.
+    pub(crate) fn bind_candidate_graph<'a>(
+        &'a self,
+        request: &'a GoPrivateCandidateRequest,
+        graph: &'a GoSourceModuleGraphInputs,
+    ) -> Result<GoPracticalModuleGraphBinding<'a>, GoCandidateRootGraphBindingError> {
+        bind_candidate_root_graph(self.compiler_inputs().export_inputs(), request, graph)
     }
 }
 

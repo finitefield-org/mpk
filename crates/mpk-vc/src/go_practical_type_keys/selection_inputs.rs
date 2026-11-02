@@ -127,6 +127,50 @@ pub fn bind_go_practical_source_selection<'a>(
     }
     Ok(GoPracticalSourceBinding { request, inputs })
 }
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum GoPracticalModuleGraphBindingError {
+    SourceSelection,
+}
+impl std::fmt::Display for GoPracticalModuleGraphBindingError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Go candidate request/module graph binding: {self:?}")
+    }
+}
+impl std::error::Error for GoPracticalModuleGraphBindingError {}
+
+/// The request, original source selection and independently imported module
+/// graph stay borrowed together. This carries no held-root or launcher claim.
+pub struct GoPracticalModuleGraphBinding<'a> {
+    source: GoPracticalSourceBinding<'a>,
+    graph: &'a GoSourceModuleGraphInputs,
+}
+impl GoPracticalModuleGraphBinding<'_> {
+    pub fn source(&self) -> &GoPracticalSourceBinding<'_> {
+        &self.source
+    }
+    pub fn graph(&self) -> &GoSourceModuleGraphInputs {
+        self.graph
+    }
+}
+
+/// Compare the complete imported selection owner, not a caller-provided digest
+/// or its projection. Both owners retain their original bytes and metadata.
+pub fn bind_go_practical_module_graph<'a>(
+    source: GoPracticalSourceBinding<'a>,
+    graph: &'a GoSourceModuleGraphInputs,
+) -> std::result::Result<GoPracticalModuleGraphBinding<'a>, GoPracticalModuleGraphBindingError> {
+    let graph_selection = graph
+        .module_data()
+        .module_observations()
+        .export_inputs()
+        .capture_inputs()
+        .selection_inputs();
+    if source.source_inputs() != graph_selection {
+        return Err(GoPracticalModuleGraphBindingError::SourceSelection);
+    }
+    Ok(GoPracticalModuleGraphBinding { source, graph })
+}
 impl GoSourceSelectionInputs {
     pub fn contract_inputs(&self) -> &GoSourceContractInputs {
         &self.contracts

@@ -68,9 +68,10 @@ mod source_declarations;
 mod source_dependencies;
 mod source_inputs;
 pub use selection_inputs::{
-    bind_go_practical_source_selection, import_go_source_selection_inputs,
-    GoPracticalSourceBinding, GoPracticalSourceBindingError, GoSourcePhysicalRoot,
-    GoSourceSelectionInputError, GoSourceSelectionInputs,
+    bind_go_practical_module_graph, bind_go_practical_source_selection,
+    import_go_source_selection_inputs, GoPracticalModuleGraphBinding,
+    GoPracticalModuleGraphBindingError, GoPracticalSourceBinding, GoPracticalSourceBindingError,
+    GoSourcePhysicalRoot, GoSourceSelectionInputError, GoSourceSelectionInputs,
 };
 mod source_languages;
 pub use source_languages::{
