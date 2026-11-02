@@ -16,6 +16,10 @@ mod go_practical_checked_components;
 #[allow(dead_code)]
 mod go_practical_checked_entries;
 #[cfg(target_os = "linux")]
+#[path = "../src/go_practical_checked_error_value_relations.rs"]
+#[allow(dead_code)]
+mod go_practical_checked_error_value_relations;
+#[cfg(target_os = "linux")]
 #[path = "../src/go_practical_checked_invocations.rs"]
 #[allow(dead_code)]
 mod go_practical_checked_invocations;
@@ -471,8 +475,16 @@ fn main() {
         };
         #[cfg(not(test))]
         let expect_overlay = false;
-        if expect_overlay && !expect_call {
-            return Err(fail("overlay fixture requires the original call").into());
+        #[cfg(test)]
+        let expect_error = match std::env::var("MPK_GO_TEST_EXPECT_ERROR") {
+            Ok(value) if value == "1" => true,
+            Err(std::env::VarError::NotPresent) => false,
+            _ => return Err(fail("invalid test error expectation").into()),
+        };
+        #[cfg(not(test))]
+        let expect_error = false;
+        if (expect_overlay && (!expect_call || expect_error)) || (expect_error && expect_call) {
+            return Err(fail("invalid source-overlay test combination").into());
         }
         let expected_functions = if expect_call { 2 } else { 1 };
         let expected_calls = usize::from(expect_call);
@@ -510,14 +522,19 @@ fn main() {
                     function.termination() != "partial"
                         || !function.requires().is_empty()
                         || function.ensures().len() != 1
-                        || if expect_overlay && function.is_selected_root() {
+                        || if (expect_overlay || expect_error) && function.is_selected_root() {
                             !matches!(
                                 function.origin(),
                                 GoSourceContractOrigin::SourceOverlay { .. }
-                            ) || function.ensures()[0].operator() != "eq"
-                                || function.ensures()[0].children().len() != 2
-                                || function.ensures()[0].children()[0].operator() != "result"
-                                || function.ensures()[0].children()[1].operator() != "input"
+                            ) || if expect_error {
+                                function.ensures()[0].operator() != "bool.literal"
+                                    || function.ensures()[0].literal() != Some(&Value::Bool(true))
+                            } else {
+                                function.ensures()[0].operator() != "eq"
+                                    || function.ensures()[0].children().len() != 2
+                                    || function.ensures()[0].children()[0].operator() != "result"
+                                    || function.ensures()[0].children()[1].operator() != "input"
+                            }
                         } else {
                             function.origin() != &GoSourceContractOrigin::Default
                                 || function.ensures()[0].operator() != "bool.literal"
@@ -527,7 +544,7 @@ fn main() {
             {
                 return Err(fail("original source contracts changed").into());
             }
-            if expect_overlay {
+            if expect_overlay || expect_error {
                 let captured = module.captured_overlays();
                 if captured.len() != 1
                     || !captured[0].in_body_closure()
@@ -537,10 +554,14 @@ fn main() {
                     return Err(fail("original selected overlay was lost").into());
                 }
                 let raw = captured[0].overlay().source_buffer();
+                let expected_overlay = if expect_error {
+                    json!({"schema":"mpk.go.practical.source_overlay.v1","source":"policy.go","function":{"package":"example.com/policy","function":"RootWithError","receiver":null},"termination":"partial","requires":[],"ensures":[{"op":"bool.literal","value":true}],"error_inputs":[{"input":0,"path":[],"cases":["example.com/policy.Refusal"]}],"loops":[],"modifies":[]})
+                } else {
+                    json!({"schema":"mpk.go.practical.source_overlay.v1","source":"policy.go","function":{"package":"example.com/policy","function":"RootWithCall","receiver":null},"termination":"partial","requires":[],"ensures":[{"op":"eq","args":[{"op":"result","position":0},{"op":"input","position":0}]}],"error_inputs":[],"loops":[],"modifies":[]})
+                };
                 if raw.object().capability != "workspace/main"
                     || raw.object().path != "contracts/root.json"
-                    || serde_json::from_slice::<Value>(raw.bytes())?
-                        != json!({"schema":"mpk.go.practical.source_overlay.v1","source":"policy.go","function":{"package":"example.com/policy","function":"RootWithCall","receiver":null},"termination":"partial","requires":[],"ensures":[{"op":"eq","args":[{"op":"result","position":0},{"op":"input","position":0}]}],"error_inputs":[],"loops":[],"modifies":[]})
+                    || serde_json::from_slice::<Value>(raw.bytes())? != expected_overlay
                     || module
                         .functions()
                         .iter()
@@ -552,6 +573,59 @@ fn main() {
                 }
             } else if !module.captured_overlays().is_empty() {
                 return Err(fail("unexpected original overlay").into());
+            }
+            if expect_error {
+                let original = module
+                    .functions()
+                    .iter()
+                    .find(|function| function.is_selected_root())
+                    .ok_or_else(|| fail("missing original error entry"))?;
+                let domain = module.value_domain();
+                if domain.error_cases().len() != 1
+                    || original.error_inputs().len() != 1
+                    || original.error_inputs()[0].input_position() != 0
+                    || !original.error_inputs()[0].path().is_empty()
+                    || original.error_inputs()[0].case_type_ids()
+                        != [domain.error_cases()[0].value_type_id()]
+                {
+                    return Err(fail("original closed error contract changed").into());
+                }
+                let case_id = domain.error_cases()[0].value_type_id().to_string();
+                let graph_contracts = matched
+                    .bind_candidate_graph(&candidate, &graph)
+                    .map_err(|error| fail(format!("error candidate binding: {error:?}")))?
+                    .derive_contracts()?;
+                if graph_contracts.contracts().module() != module {
+                    return Err(fail("error relations crossed original contracts").into());
+                }
+                let relations = graph_contracts
+                    .derive_error_value_relations()
+                    .map_err(|error| fail(format!("error value catalogue: {error:?}")))?;
+                let checked =
+                    go_practical_checked_error_value_relations::check_go_graph_error_value_relations(
+                        relations,
+                    )?;
+                let receipts = checked.checked().receipts();
+                if receipts.len() != 2
+                    || receipts[0].boxed_source_type_id().is_some()
+                    || receipts[1].boxed_source_type_id() != Some(case_id.as_str())
+                {
+                    return Err(fail("original error value rows were not all checked").into());
+                }
+                for (index, label) in ["nil", "case"].into_iter().enumerate() {
+                    let row = checked.reconstruct(index)?;
+                    let receipt = &receipts[index];
+                    let mut certificate = OpenOptions::new()
+                        .write(true)
+                        .create_new(true)
+                        .open(combined_dir.join(format!("error-value-{label}.mpcert")))?;
+                    certificate.write_all(row.certificate_bytes())?;
+                    publish(
+                        combined_dir,
+                        &format!("error-value-{label}-rust.json"),
+                        &json!({"verdict":"accepted","module":receipt.module(),"declaration_count":receipt.declarations(),"axiom_count":0,"hashes":{"export":mpk_cert::hash_hex(receipt.export_hash()),"axiom_report":mpk_cert::hash_hex(receipt.axiom_report_hash()),"certificate":mpk_cert::hash_hex(receipt.certificate_hash())}}),
+                    )?;
+                }
             }
             if expect_call {
                 let site = &invocations.invocations().catalogue().sites()[0];
@@ -767,7 +841,7 @@ fn main() {
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"candidate_function_bodies":expected_functions,"candidate_call_sites":expected_calls,"test_overlay_bound":expect_overlay,"same_root_components_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_components_checked":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"candidate_function_bodies":expected_functions,"candidate_call_sites":expected_calls,"test_overlay_bound":expect_overlay,"test_error_contract_bound":expect_error,"same_root_components_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_components_checked":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
         std::hint::black_box((&held_owner, &graph));
         Ok(())

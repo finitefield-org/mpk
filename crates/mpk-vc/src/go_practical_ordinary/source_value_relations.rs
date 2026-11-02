@@ -743,6 +743,35 @@ impl GoPracticalGraphValueRelationBinding<'_> {
     }
 }
 
+/// Error-bearing source relations retain the same candidate contracts and
+/// graph. The catalogue covers the full original type and dynamic-error
+/// universe; its rows remain untrusted until each is kernel checked.
+pub struct GoPracticalGraphErrorValueRelationBinding<'a> {
+    contracts: GoPracticalGraphContractBinding<'a>,
+    catalogue: GoSourceValueRelationCatalogue,
+}
+impl<'a> GoPracticalGraphContractBinding<'a> {
+    pub fn derive_error_value_relations(
+        self,
+    ) -> Result<GoPracticalGraphErrorValueRelationBinding<'a>> {
+        let catalogue = generate_go_practical_source_value_relation_catalogue(
+            self.contracts().module().value_domain(),
+        )?;
+        Ok(GoPracticalGraphErrorValueRelationBinding {
+            contracts: self,
+            catalogue,
+        })
+    }
+}
+impl GoPracticalGraphErrorValueRelationBinding<'_> {
+    pub fn contracts(&self) -> &GoPracticalGraphContractBinding<'_> {
+        &self.contracts
+    }
+    pub fn catalogue(&self) -> &GoSourceValueRelationCatalogue {
+        &self.catalogue
+    }
+}
+
 pub fn generate_go_practical_error_free_source_value_relations(
     domain: &GoSourceValueDomain,
 ) -> Result<GoErrorFreeSourceValueRelations> {

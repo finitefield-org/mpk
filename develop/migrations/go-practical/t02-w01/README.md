@@ -42,6 +42,12 @@ now retains the same Go package owner and independently reconstructs its offline
 module data and graph in Rust while the candidate and both root sets are held.
 Launcher authority and source/program proofs remain open.
 
+The [checked error value relations](verification/checked-error-value-relations/README.md)
+retain the original contract and graph while checking nil and every concrete
+error row. The full live error-contract application passes; the 70-case
+regression remains in progress. Source execution and complete foundation
+remain open.
+
 The [error-free value relations](verification/error-free-value-relations/README.md)
 cover complete original source domains without inventing an `error` value.
 The private CLI checks the complete graph-bound certificate; live-root

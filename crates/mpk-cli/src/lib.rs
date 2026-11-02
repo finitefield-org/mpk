@@ -29,6 +29,8 @@ mod go_practical_checked_components;
 #[allow(dead_code)]
 mod go_practical_checked_entries;
 #[allow(dead_code)]
+mod go_practical_checked_error_value_relations;
+#[allow(dead_code)]
 mod go_practical_checked_invocations;
 #[allow(dead_code)]
 mod go_practical_checked_value_relations;
