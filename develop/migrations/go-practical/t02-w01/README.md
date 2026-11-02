@@ -42,6 +42,11 @@ now retains the same Go package owner and independently reconstructs its offline
 module data and graph in Rust while the candidate and both root sets are held.
 Launcher authority and source/program proofs remain open.
 
+The [complete cross-package capture](verification/cross-package-live/README.md)
+also checks an actual call into the original Go 1.22 dependency while preserving
+the whole application and SDK. Both checkers accept its entry and call-interface
+equations; application and callee execution proofs remain open.
+
 The [same-root checked components](verification/rooted-checked-components/README.md)
 construct entry and call mathematics from one held original owner and reject
 crossed graphs or functions. They do not establish launcher authority or a

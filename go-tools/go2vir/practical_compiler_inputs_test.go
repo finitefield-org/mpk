@@ -36,6 +36,17 @@ func TestPracticalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testi
 // selection as the original-owner test. The actual Linux SDK must also match the
 // registered bundle, rather than being relabelled after producing its records.
 func TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPackages(t *testing.T) {
+	compiler := practicalTestRegisteredCompiler(t)
+	practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t, compiler)
+}
+
+func TestPracticalInstalledCompilerInputsKeepWholePackagesWithCrossPackageCall(t *testing.T) {
+	compiler := practicalTestRegisteredCompiler(t)
+	practicalCompilerInputsWithOriginalCandidate(t, compiler, "RootWithCall", []byte("func RootWithCall(x int64) int64 { return c.Identity(x) }\n"))
+}
+
+func practicalTestRegisteredCompiler(t *testing.T) practicalCompilerImage {
+	t.Helper()
 	if runtime.GOOS != "linux" || runtime.GOARCH != "amd64" {
 		t.Skip("the registered SDK executes on Linux amd64")
 	}
@@ -64,10 +75,15 @@ func TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPackages(t *te
 	if err != nil {
 		t.Fatal(err)
 	}
-	practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t, compiler)
+	return compiler
 }
 
 func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T, compiler practicalCompilerImage) {
+	t.Helper()
+	practicalCompilerInputsWithOriginalCandidate(t, compiler, "Root", nil)
+}
+
+func practicalCompilerInputsWithOriginalCandidate(t *testing.T, compiler practicalCompilerImage, selectedFunction string, additionalPolicy []byte) {
 	t.Helper()
 	practicalContractTestOutput(t, "versioned-owned")
 	roots, _ := practicalTestCaptureRoots(t)
@@ -88,6 +104,7 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 	sums += practicalGraphTestModOnly(t, roots[1].Directory, module.Version{Path: "example.com/c", Version: "v1.0.0"}, []byte("module example.com/c\ngo 1.16\nfuture_directive ignored\nrequire (\nexample.com/leaf v1.0.0\nexample.com/a v1.0.0\n)\n"))
 	sums += practicalGraphTestModOnly(t, roots[1].Directory, module.Version{Path: "example.com/leaf", Version: "v1.0.0"}, []byte("module example.com/leaf\n// original unselected zero-requirement leaf\n"))
 	policy := []byte("package policy\nimport(a \"example.com/a\";c \"example.com/c\";alias \"example.com/alias\";\"net/http\")\nfunc Root(x uint16)uint16{return x+1}\nfunc Unused(r *http.Request,x int64)int64{go func(){select{}}();return a.Identity(c.Identity(alias.Identity(x)))}\nfunc init(){panic(\"original init must never execute\")}\n")
+	policy = append(policy, additionalPolicy...)
 	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "go.mod"), manifest, 0o600)
 	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "go.sum"), []byte(sums), 0o600)
 	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "policy.go"), policy, 0o600)
@@ -148,7 +165,7 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 		fail(err)
 	}
 	defer owner.Close()
-	request, err := newPracticalCandidateRequest([]practicalCandidateSelector{{Package: "example.com/policy", Function: "Root"}})
+	request, err := newPracticalCandidateRequest([]practicalCandidateSelector{{Package: "example.com/policy", Function: selectedFunction}})
 	if err != nil {
 		fail(err)
 	}
@@ -158,8 +175,8 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 	}
 	defer candidateInputs.Close()
 	selection := candidateInputs.selection
-	if roots := selection.rootRefs(); len(roots) != 1 || roots[0] != practicalClosureTestRef(t, owner, "example.com/policy", "Root") {
-		t.Fatal("candidate request did not select the original Root declaration")
+	if roots := selection.rootRefs(); len(roots) != 1 || roots[0] != practicalClosureTestRef(t, owner, "example.com/policy", selectedFunction) {
+		t.Fatal("candidate request did not select the original function declaration")
 	}
 	compilerInputs := candidateInputs.compiler
 	if !bytes.Equal(selection.selection.canonical, compilerInputs.exports.capture.selection.canonical) {
@@ -186,6 +203,11 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 	}
 	packet["compiler_inputs_hex"] = hex.EncodeToString(compilerInputs.canonical)
 	packet["candidate_request_hex"] = hex.EncodeToString(selection.requestBytes())
+	baseline, err := newPracticalCandidateRequest([]practicalCandidateSelector{{Package: "example.com/policy", Function: "Root"}})
+	if err != nil {
+		fail(err)
+	}
+	packet["baseline_candidate_request_hex"] = hex.EncodeToString(baseline.requestBytes())
 	unselected, err := newPracticalCandidateRequest([]practicalCandidateSelector{{Package: "example.com/policy", Function: "Unused"}})
 	if err != nil {
 		fail(err)

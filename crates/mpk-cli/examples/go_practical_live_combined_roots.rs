@@ -455,6 +455,16 @@ fn main() {
         }
         let packet: Value = serde_json::from_slice(&fs::read(owner_path)?)?;
         let candidate = candidate_request(&packet, "candidate_request_hex")?;
+        #[cfg(test)]
+        let expect_call = match std::env::var("MPK_GO_TEST_EXPECT_CALLS") {
+            Ok(value) if value == "1" => true,
+            Err(std::env::VarError::NotPresent) => false,
+            _ => return Err(fail("invalid test call expectation").into()),
+        };
+        #[cfg(not(test))]
+        let expect_call = false;
+        let expected_functions = if expect_call { 2 } else { 1 };
+        let expected_calls = usize::from(expect_call);
         let original = exports(&packet, directory)?;
         let matched = roots
             .bind(original)
@@ -465,36 +475,80 @@ fn main() {
                 &matched, &candidate, &graph,
             )?;
             let invocations = components.invocations();
-            if !invocations.invocations().catalogue().sites().is_empty()
-                || !invocations.checked().receipts().is_empty()
+            if invocations.invocations().catalogue().sites().len() != expected_calls
+                || invocations.checked().receipts().len() != expected_calls
             {
-                return Err(fail("original call-free root gained a call site").into());
+                return Err(fail("original call closure changed").into());
             }
             let checked = components.entries();
             let contracts = checked.entries().contracts();
             let module = contracts.contracts().module();
             if contracts.contracts().source().source_inputs().roots().len() != 1
                 || module.selected_roots().len() != 1
-                || module.functions().len() != 1
+                || module.functions().len() != expected_functions
             {
                 return Err(fail("original Go request lost its selected root").into());
             }
-            let function = &module.functions()[0];
-            if !function.is_selected_root()
-                || function.origin() != &GoSourceContractOrigin::Default
-                || function.termination() != "partial"
-                || !function.requires().is_empty()
-                || function.ensures().len() != 1
-                || function.ensures()[0].operator() != "bool.literal"
-                || function.ensures()[0].literal() != Some(&Value::Bool(true))
+            if module
+                .functions()
+                .iter()
+                .filter(|f| f.is_selected_root())
+                .count()
+                != 1
+                || module.functions().iter().any(|function| {
+                    function.origin() != &GoSourceContractOrigin::Default
+                        || function.termination() != "partial"
+                        || !function.requires().is_empty()
+                        || function.ensures().len() != 1
+                        || function.ensures()[0].operator() != "bool.literal"
+                        || function.ensures()[0].literal() != Some(&Value::Bool(true))
+                })
             {
                 return Err(fail("original zero-overlay default contract changed").into());
             }
+            if expect_call {
+                let site = &invocations.invocations().catalogue().sites()[0];
+                if site.caller() != &module.selected_roots()[0]
+                    || site.targets().len() != 1
+                    || site.input_type_ids().len() != 1
+                    || site.result_type_ids().len() != 1
+                    || !module.functions().iter().any(|function| {
+                        !function.is_selected_root()
+                            && function.function() == site.targets()[0].callee()
+                    })
+                {
+                    return Err(fail("original cross-package call changed").into());
+                }
+                let callee = module
+                    .selection()
+                    .source(site.targets()[0].callee().source_object_id())
+                    .ok_or_else(|| fail("missing original call target source"))?;
+                if callee.source().object().capability != "workspace/dep"
+                    || callee.source().object().path != "example.com/c@v1.1.0/dep.go"
+                {
+                    return Err(fail("cross-package call target differs from original c").into());
+                }
+                let row = invocations.reconstruct(0)?;
+                let receipt = &invocations.checked().receipts()[0];
+                let mut certificate = OpenOptions::new()
+                    .write(true)
+                    .create_new(true)
+                    .open(combined_dir.join("candidate-invocation.mpcert"))?;
+                certificate.write_all(row.certificate_bytes())?;
+                publish(
+                    combined_dir,
+                    "candidate-invocation-rust.json",
+                    &json!({"verdict":"accepted","module":receipt.module(),"declaration_count":receipt.declarations(),"axiom_count":0,"hashes":{"export":mpk_cert::hash_hex(receipt.export_hash()),"axiom_report":mpk_cert::hash_hex(receipt.axiom_report_hash()),"certificate":mpk_cert::hash_hex(receipt.certificate_hash())}}),
+                )?;
+            }
             let layouts = checked.entries().catalogue().layouts();
-            if layouts.len() != 1
-                || layouts[0].function() != &module.selected_roots()[0]
-                || layouts[0].inputs().len() != 1
-                || layouts[0].results().len() != 1
+            if layouts.len() != expected_functions
+                || !layouts
+                    .iter()
+                    .any(|layout| layout.function() == &module.selected_roots()[0])
+                || layouts
+                    .iter()
+                    .any(|layout| layout.inputs().len() != 1 || layout.results().len() != 1)
             {
                 return Err(fail("candidate entry layout lost the original function").into());
             }
@@ -502,8 +556,11 @@ fn main() {
             let reports = checked.checked().reports();
             if parts.len() != 1
                 || reports.len() != 1
-                || parts[0].function_modules().len() != 1
-                || parts[0].function_modules()[0].0 != module.selected_roots()[0]
+                || parts[0].function_modules().len() != expected_functions
+                || !parts[0]
+                    .function_modules()
+                    .iter()
+                    .any(|(function, _)| function == &module.selected_roots()[0])
             {
                 return Err(fail("candidate entry assembly lost the original function").into());
             }
@@ -547,8 +604,9 @@ fn main() {
                         fail("crossed original graph lost its complete source universe").into(),
                     );
                 }
+                let baseline = candidate_request(&packet, "baseline_candidate_request_hex")?;
                 let other_source = bind_go_practical_source_selection(
-                    &candidate,
+                    &baseline,
                     other_export.capture_inputs().selection_inputs(),
                 )?;
                 if other_source.source_inputs().roots().len() != 1
@@ -614,7 +672,11 @@ fn main() {
                         &owner, &candidate, &graph,
                     )?;
                 if components.entries().checked().assemblies().parts().len() != 1
-                    || !components.invocations().checked().receipts().is_empty()
+                    || components.entries().checked().assemblies().parts()[0]
+                        .function_modules()
+                        .len()
+                        != expected_functions
+                    || components.invocations().checked().receipts().len() != expected_calls
                 {
                     return Err(fail("test installed components lost the original root").into());
                 }
@@ -658,7 +720,7 @@ fn main() {
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"same_root_components_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_components_checked":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"candidate_function_bodies":expected_functions,"candidate_call_sites":expected_calls,"same_root_components_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_components_checked":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
         std::hint::black_box((&held_owner, &graph));
         Ok(())
