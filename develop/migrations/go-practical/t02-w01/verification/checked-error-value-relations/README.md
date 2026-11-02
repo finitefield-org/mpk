@@ -37,9 +37,10 @@ not native Linux release acceptance.
 The affected nil/small tests, complete live capture, both checkers and the
 source comparison exercise whole-domain coverage and the graph-bound consumer.
 Go vet, changed-file formatting and strict affected Rust/observer Clippy,
-including the test observer, passed. Two pre-existing observer cases remain
-to be rerun after the test-only error mode was added. No validation archive is
-committed.
+including the test observer, passed. The pre-existing call-free and
+postcondition-overlay cases also passed full-input reruns after the test-only
+error mode was added; their certificates match the previously Go-checked bytes.
+No validation archive is committed.
 
 R01 and T02-W01 remain open; installed/launcher authority, source execution
 and the complete foundation remain unproved. The practical profile is
