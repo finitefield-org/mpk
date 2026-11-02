@@ -8,6 +8,10 @@ mod frontend_registry;
 #[allow(dead_code)]
 mod go_practical_capture_binding;
 #[cfg(target_os = "linux")]
+#[path = "../src/go_practical_checked_entries.rs"]
+#[allow(dead_code)]
+mod go_practical_checked_entries;
+#[cfg(target_os = "linux")]
 #[path = "../src/go_practical_installed_compiler.rs"]
 #[allow(dead_code)]
 mod go_practical_installed_compiler;
@@ -485,35 +489,30 @@ fn main() {
             {
                 return Err(fail("candidate entry layout lost the original function").into());
             }
-            let assembly = entries
-                .catalogue()
-                .generate_assembly()
-                .map_err(|error| fail(format!("candidate entry equations: {error:?}")))?;
-            if assembly.function_modules().len() != 1
-                || assembly.function_modules()[0].0 != module.selected_roots()[0]
+            let checked = go_practical_checked_entries::check_go_graph_entries(entries)?;
+            let module = checked.entries().contracts().contracts().module();
+            let parts = checked.checked().assemblies().parts();
+            let reports = checked.checked().reports();
+            if parts.len() != 1
+                || reports.len() != 1
+                || parts[0].function_modules().len() != 1
+                || parts[0].function_modules()[0].0 != module.selected_roots()[0]
             {
                 return Err(fail("candidate entry assembly lost the original function").into());
             }
-            let checked =
-                mpk_kernel::verify_certificate_bytes_json_output(assembly.certificate_bytes());
-            if !checked.accepted {
-                return Err(fail(format!("entry equation check: {}", checked.json)).into());
-            }
-            let report: Value = serde_json::from_str(&checked.json)?;
-            if report["axiom_count"] != 0 {
-                return Err(fail("candidate entry equations contain axioms").into());
-            }
+            let report: Value =
+                serde_json::from_str(&mpk_kernel::render_verification_report_json(&reports[0]))?;
             let mut certificate = OpenOptions::new()
                 .write(true)
                 .create_new(true)
                 .open(combined_dir.join("candidate-entry.mpcert"))?;
-            certificate.write_all(assembly.certificate_bytes())?;
+            certificate.write_all(parts[0].certificate_bytes())?;
             publish(
                 combined_dir,
                 "candidate-entry-rust.json",
                 &json!({"verdict":report["verdict"],"module":report["module"],"declaration_count":report["declaration_count"],"axiom_count":report["axiom_count"],"hashes":report["hashes"]}),
             )?;
-            std::hint::black_box(&entries);
+            std::hint::black_box(&checked);
         }
         // This optional negative control imports another complete original
         // fixture only in the local test observer; production gets no path or

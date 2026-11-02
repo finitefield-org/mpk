@@ -42,6 +42,11 @@ now retains the same Go package owner and independently reconstructs its offline
 module data and graph in Rust while the candidate and both root sets are held.
 Launcher authority and source/program proofs remain open.
 
+The [checked candidate entry parts](verification/checked-candidate-entries/README.md)
+cover all original contract bodies and require zero-axiom Rust kernel acceptance
+for every completed part. A fresh Go recheck of the two wide parts is running;
+source execution and the complete foundation remain separate obligations.
+
 The [candidate-bound entry equations](verification/candidate-entries/README.md)
 retain the original graph and contract owner while deriving the entry catalogue.
 Both checkers accept the same live entry-equation bytes; source execution and
