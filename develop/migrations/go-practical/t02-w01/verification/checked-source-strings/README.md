@@ -34,7 +34,10 @@ Both checkers accept the same 655-declaration string certificate with zero
 axioms and certificate hash
 `f077cbc610d4fd854f4c40581d729b54633bee12023e5a62283ce758611be89a`.
 The entry, call and both error-value certificates are byte-identical to the
-previously Go-checked streams. The empty-string live regression is pending.
+previously Go-checked streams. The full 182-package static-call application
+also passed with zero source-string rows, the same held roots and test-only SDK
+owner, and the crossed-graph and function controls. Its entry, call and value
+certificates remain byte-identical to the previously Go-checked streams.
 
 The original catalogue cases, crossed-domain controls and full capture were
 selected because the change adds catalogue coverage and connects it to the
