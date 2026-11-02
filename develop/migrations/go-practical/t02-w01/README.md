@@ -42,6 +42,11 @@ now retains the same Go package owner and independently reconstructs its offline
 module data and graph in Rust while the candidate and both root sets are held.
 Launcher authority and source/program proofs remain open.
 
+The [candidate-bound call interfaces](verification/candidate-invocations/README.md)
+retain the original contracts and graph, including types referenced only by
+annotations. The affected 70-error invocation regression remains running;
+callee execution and program proof remain open.
+
 The [checked candidate entry parts](verification/checked-candidate-entries/README.md)
 cover all original contract bodies and require zero-axiom Rust kernel acceptance
 for every completed part. A fresh Go recheck also passed for both wide parts;

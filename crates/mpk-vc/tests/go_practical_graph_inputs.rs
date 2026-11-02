@@ -335,6 +335,19 @@ fn candidate_graph_binding_rejects_crossed_complete_original_owners() {
             .unwrap();
         output("candidate-graph-entry.rust.json", &report);
     }
+    let graph_source =
+        bind_go_practical_source_selection(&request, graph_selection(&versioned)).unwrap();
+    let invocations = bind_go_practical_module_graph(graph_source, &versioned)
+        .unwrap()
+        .derive_contracts()
+        .unwrap()
+        .derive_invocation_catalogue()
+        .unwrap();
+    assert_eq!(
+        invocations.contracts().graph().canonical_bytes(),
+        versioned.canonical_bytes()
+    );
+    assert!(invocations.catalogue().sites().is_empty());
     let local_source =
         bind_go_practical_source_selection(&request, graph_selection(&local)).unwrap();
     assert!(bind_go_practical_module_graph(local_source, &local).is_ok());

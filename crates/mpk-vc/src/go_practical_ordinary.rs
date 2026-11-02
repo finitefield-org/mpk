@@ -43,8 +43,9 @@ pub use source_entry::{
 };
 mod source_invocation;
 pub use source_invocation::{
-    generate_go_practical_source_invocation_catalogue, GoSourceInvocationCatalogue,
-    GoSourceInvocationRow,
+    generate_go_practical_contract_invocation_catalogue,
+    generate_go_practical_source_invocation_catalogue, GoPracticalGraphInvocationBinding,
+    GoPracticalInvocationBinding, GoSourceInvocationCatalogue, GoSourceInvocationRow,
 };
 mod source_string;
 mod source_string_index;

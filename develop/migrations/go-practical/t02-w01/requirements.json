@@ -9,6 +9,14 @@
       "requirement": "Private frozen registry/context/parameters/foundation contracts; retained policy delegation; no installed/public activation",
       "status": "partial_checked_ordinary_components_full_foundation_and_context_pending",
       "executor": "crates/mpk-vc/src/go_practical_ordinary.rs and go_practical_ordinary/{syntax,natural,integer,polynomial,range,word,word_proofs}.rs, crates/mpk-core and go-tools/mpk-checker-ref; candidate Go practical_context.go exists, while complete producer and checked context remain due",
+      "candidate_invocation_domain_checkpoint": {
+        "evidence": "verification/candidate-invocations/README.md",
+        "executor": "crates/mpk-vc/src/go_practical_ordinary/source_invocation.rs",
+        "scope": "A source- or graph-bound contract derives invocation candidates from its complete original call closure and full contract value domain, preserving annotation-only types and the same error universe. Both checkers accept the original cross-package call interface; the type-only and full graph controls pass. The existing 70-error invocation regression remains running, and no callee or program theorem is claimed.",
+        "R01_completed": false,
+        "public_profile_activated": false,
+        "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
       "checked_candidate_entry_parts_checkpoint": {
         "evidence": "verification/checked-candidate-entries/README.md",
         "executor": "crates/mpk-cli/src/go_practical_checked_entries.rs",

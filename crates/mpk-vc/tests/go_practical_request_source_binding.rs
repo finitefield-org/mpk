@@ -133,6 +133,46 @@ fn binds_complete_original_named_roots_to_their_physical_declarations() {
             .count(),
         2
     );
+    let invocations = contracts.derive_invocation_catalogue().unwrap();
+    let module = invocations.contracts().module();
+    let sites = invocations.catalogue().sites();
+    assert_eq!(sites.len(), 1);
+    let site = &sites[0];
+    assert!(module
+        .functions()
+        .iter()
+        .any(|function| function.is_selected_root() && function.function() == site.caller()));
+    assert_eq!(site.targets().len(), 1);
+    assert!(module.functions().iter().any(|function| {
+        !function.is_selected_root() && function.function() == site.targets()[0].callee()
+    }));
+    assert_eq!(site.input_type_ids().len(), 1);
+    assert_eq!(site.result_type_ids().len(), 1);
+    let row = invocations
+        .catalogue()
+        .generate_row(site.caller(), site.node())
+        .unwrap();
+    let checked = mpk_kernel::verify_certificate_bytes_json_output(row.certificate_bytes());
+    assert!(checked.accepted, "{}", checked.json);
+    let report: Value = serde_json::from_str(&checked.json).unwrap();
+    assert_eq!(report["axiom_count"], 0);
+    if let Some(dir) = std::env::var_os("MPK_GO_CANDIDATE_INVOCATION_OUTPUT") {
+        use std::io::Write;
+        let dir = PathBuf::from(dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        for (name, bytes) in [
+            ("candidate-invocation.mpcert", row.certificate_bytes()),
+            ("candidate-invocation.rust.json", checked.json.as_bytes()),
+        ] {
+            std::fs::OpenOptions::new()
+                .create_new(true)
+                .write(true)
+                .open(dir.join(name))
+                .unwrap()
+                .write_all(bytes)
+                .unwrap();
+        }
+    }
 }
 
 #[test]

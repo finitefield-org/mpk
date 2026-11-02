@@ -4,7 +4,9 @@
 use super::syntax::*;
 use super::{error_layout, source_error_layout, Builder, GoOrdinaryError, Result, MAX_BYTES};
 use crate::go_practical_type_keys::{
-    derive_go_source_call_sites, GoSourceCallSite, GoSourceErrorSelection, GoSourceSelectionRef,
+    derive_go_source_call_sites, GoPracticalContractBinding, GoPracticalGraphContractBinding,
+    GoSourceCallSite, GoSourceContractModule, GoSourceErrorSelection, GoSourceSelectionRef,
+    GoSourceValueDomain,
 };
 use serde_json::{json, Value};
 use sha2::{Digest, Sha256};
@@ -16,6 +18,54 @@ pub struct GoSourceInvocationCatalogue {
     cases: Vec<String>,
     original: Vec<u8>,
     scope: Value,
+}
+
+/// Invocation candidates retained with the exact request and source contracts.
+/// The catalogue is untrusted and does not prove a callee's execution or state.
+pub struct GoPracticalInvocationBinding<'a> {
+    contracts: GoPracticalContractBinding<'a>,
+    catalogue: GoSourceInvocationCatalogue,
+}
+impl<'a> GoPracticalContractBinding<'a> {
+    pub fn derive_invocation_catalogue(self) -> Result<GoPracticalInvocationBinding<'a>> {
+        let catalogue = generate_go_practical_contract_invocation_catalogue(self.module())?;
+        Ok(GoPracticalInvocationBinding {
+            contracts: self,
+            catalogue,
+        })
+    }
+}
+impl GoPracticalInvocationBinding<'_> {
+    pub fn contracts(&self) -> &GoPracticalContractBinding<'_> {
+        &self.contracts
+    }
+    pub fn catalogue(&self) -> &GoSourceInvocationCatalogue {
+        &self.catalogue
+    }
+}
+
+/// Invocation candidates retained with the same request, contracts and graph.
+pub struct GoPracticalGraphInvocationBinding<'a> {
+    contracts: GoPracticalGraphContractBinding<'a>,
+    catalogue: GoSourceInvocationCatalogue,
+}
+impl<'a> GoPracticalGraphContractBinding<'a> {
+    pub fn derive_invocation_catalogue(self) -> Result<GoPracticalGraphInvocationBinding<'a>> {
+        let catalogue =
+            generate_go_practical_contract_invocation_catalogue(self.contracts().module())?;
+        Ok(GoPracticalGraphInvocationBinding {
+            contracts: self,
+            catalogue,
+        })
+    }
+}
+impl GoPracticalGraphInvocationBinding<'_> {
+    pub fn contracts(&self) -> &GoPracticalGraphContractBinding<'_> {
+        &self.contracts
+    }
+    pub fn catalogue(&self) -> &GoSourceInvocationCatalogue {
+        &self.catalogue
+    }
 }
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GoSourceInvocationRow {
@@ -59,7 +109,30 @@ fn site_value(s: &GoSourceCallSite) -> Value {
 pub fn generate_go_practical_source_invocation_catalogue(
     unit: &GoSourceErrorSelection,
 ) -> Result<GoSourceInvocationCatalogue> {
-    let domain = unit.domain();
+    invocation_catalogue(unit, unit.domain())
+}
+
+/// Derive sites from the complete finite call closure, but build their source
+/// layout over the contract's full value domain, including annotation-only
+/// types. This is an untrusted catalogue, not a bound or checked owner.
+pub fn generate_go_practical_contract_invocation_catalogue(
+    module: &GoSourceContractModule,
+) -> Result<GoSourceInvocationCatalogue> {
+    let unit = module.finite_selection();
+    let domain = module.value_domain();
+    if unit.selection() != domain.selection()
+        || unit.domain().entries() != domain.entries()
+        || unit.domain().error_cases() != domain.error_cases()
+    {
+        return Err(GoOrdinaryError::Linkage);
+    }
+    invocation_catalogue(unit, domain)
+}
+
+fn invocation_catalogue(
+    unit: &GoSourceErrorSelection,
+    domain: &GoSourceValueDomain,
+) -> Result<GoSourceInvocationCatalogue> {
     let sites = derive_go_source_call_sites(unit).map_err(|_| GoOrdinaryError::Linkage)?;
     let selection = unit.selection();
     let ids = selection
@@ -91,6 +164,15 @@ pub fn generate_go_practical_source_invocation_catalogue(
 impl GoSourceInvocationCatalogue {
     pub fn sites(&self) -> &[GoSourceCallSite] {
         &self.sites
+    }
+    pub fn source_layout_module_name(&self) -> &str {
+        &self.source
+    }
+    pub fn case_type_ids(&self) -> &[String] {
+        &self.cases
+    }
+    pub fn prior_certificate_bytes(&self) -> &[u8] {
+        &self.original
     }
     pub fn generate_row(
         &self,

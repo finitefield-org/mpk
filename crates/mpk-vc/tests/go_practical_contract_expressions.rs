@@ -1,3 +1,7 @@
+use mpk_vc::go_practical_ordinary::{
+    generate_go_practical_contract_invocation_catalogue,
+    generate_go_practical_source_invocation_catalogue,
+};
 use mpk_vc::go_practical_type_keys::*;
 use serde_json::{json, Value};
 use std::collections::BTreeSet;
@@ -104,6 +108,49 @@ fn binary(op: &str, a: Value, b: Value) -> Value {
 }
 fn equality(a: Value) -> Value {
     binary("eq", a.clone(), a)
+}
+
+#[test]
+fn invocation_layout_keeps_contract_only_original_types() {
+    let c = corpus();
+    let k = keys(&c);
+    let original = raw(&c, 0);
+    let annotated = ensures(&original, equality(zero("example.com/policy.ContractOnly")));
+    let selector: GoSourceFunctionSelector =
+        serde_json::from_value(original["function"].clone()).unwrap();
+    let module = derive_go_source_contract_module(&k, &[selector], &[overlay(&annotated)]).unwrap();
+    assert_eq!(module.functions().len(), 1);
+    assert_eq!(module.value_domain().error_cases().len(), 1);
+    let original_types = module
+        .finite_selection()
+        .domain()
+        .types()
+        .map(|ty| ty.id().to_string())
+        .collect::<BTreeSet<_>>();
+    let contract_only = module
+        .value_domain()
+        .types()
+        .map(|ty| ty.id().to_string())
+        .filter(|id| !original_types.contains(id))
+        .collect::<Vec<_>>();
+    assert!(!contract_only.is_empty());
+    let base =
+        generate_go_practical_source_invocation_catalogue(module.finite_selection()).unwrap();
+    let full = generate_go_practical_contract_invocation_catalogue(&module).unwrap();
+    assert_eq!(base.sites(), full.sites());
+    assert_eq!(base.case_type_ids(), full.case_type_ids());
+    assert_ne!(
+        base.source_layout_module_name(),
+        full.source_layout_module_name()
+    );
+    let certificate =
+        mpk_cert::decode_canonical_certificate(full.prior_certificate_bytes()).unwrap();
+    for id in contract_only {
+        let member = format!("{}.T{id}.Carrier", full.source_layout_module_name());
+        assert!(certificate.name_table.contains(&member));
+    }
+    let checked = mpk_kernel::verify_certificate_bytes(full.prior_certificate_bytes()).unwrap();
+    assert_eq!(checked.axiom_count, 0);
 }
 fn old(a: Value) -> Value {
     json!({"op":"old","value":a})
