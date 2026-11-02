@@ -4,6 +4,10 @@ use serde_json::{json, Value};
 use std::io::Write;
 use std::path::{Path, PathBuf};
 
+#[path = "../../mpk-cli/src/go_practical_checked_strings.rs"]
+#[allow(dead_code)]
+mod checked_strings;
+
 fn corpus(name: &str) -> Value {
     let root = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../../develop/migrations/go-practical/t02-w01/verification");
@@ -242,6 +246,82 @@ fn source_strings_large() {
 #[test]
 fn source_strings_nominal() {
     check("source-strings");
+}
+
+fn check_original_checked_strings(name: &str, cases: usize, strings: usize) {
+    let selection = dispatch(name);
+    let domain = selection.domain();
+    assert_eq!(domain.error_cases().len(), cases);
+    let catalogue = generate_go_practical_source_string_catalogue(domain).unwrap();
+    let checked = checked_strings::check_go_string_catalogue(&catalogue, domain).unwrap();
+    assert_eq!(checked.receipts().len(), strings);
+    for (index, (receipt, id)) in checked
+        .receipts()
+        .iter()
+        .zip(catalogue.source_string_type_ids())
+        .enumerate()
+    {
+        assert_eq!(receipt.source_type_id(), id);
+        let row = checked.reconstruct(&catalogue, index).unwrap();
+        assert_eq!(row.module_name(), receipt.module());
+        assert_eq!(
+            mpk_cert::certificate_hash(row.certificate_bytes()),
+            *receipt.certificate_hash()
+        );
+        if let Some(output) = std::env::var_os("MPK_GO_CHECKED_STRING_OUTPUT") {
+            let output = PathBuf::from(output);
+            write(
+                &output,
+                &format!("{name}-{id}.mpcert"),
+                row.certificate_bytes(),
+            );
+            write(
+                &output,
+                &format!("{name}-{id}.rust.json"),
+                &serde_json::to_vec(&json!({
+                    "verdict": "accepted", "module": receipt.module(),
+                    "declaration_count": receipt.declarations(), "axiom_count": 0,
+                    "hashes": {"export": mpk_cert::hash_hex(receipt.export_hash()),
+                        "axiom_report": mpk_cert::hash_hex(receipt.axiom_report_hash()),
+                        "certificate": mpk_cert::hash_hex(receipt.certificate_hash())}
+                }))
+                .unwrap(),
+            );
+        }
+    }
+    assert!(matches!(
+        checked.reconstruct(&catalogue, strings),
+        Err(checked_strings::GoCheckedStringError::Coverage { .. })
+    ));
+    eprintln!("{name}: checked {strings} original strings and {cases} error cases");
+}
+
+#[test]
+fn checked_source_strings_small_and_nominal() {
+    for (name, cases, strings) in [
+        ("nil-only", 0, 1),
+        ("entry", 3, 1),
+        ("heterogeneous-payloads", 6, 1),
+        ("source-strings", 4, 4),
+    ] {
+        check_original_checked_strings(name, cases, strings);
+    }
+    let first = dispatch("nil-only");
+    let other = dispatch("entry");
+    let first_catalogue = generate_go_practical_source_string_catalogue(first.domain()).unwrap();
+    let other_catalogue = generate_go_practical_source_string_catalogue(other.domain()).unwrap();
+    let checked =
+        checked_strings::check_go_string_catalogue(&first_catalogue, first.domain()).unwrap();
+    assert!(matches!(
+        checked_strings::check_go_string_catalogue(&first_catalogue, other.domain()),
+        Err(checked_strings::GoCheckedStringError::Coverage { .. })
+    ));
+    assert!(checked.reconstruct(&other_catalogue, 0).is_err());
+}
+
+#[test]
+fn checked_source_strings_complete_error_universe() {
+    check_original_checked_strings("seventy-cases", 70, 1);
 }
 
 fn encoded(mut c: mpk_cert::encode::Certificate) -> Vec<u8> {

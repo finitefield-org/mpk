@@ -4,7 +4,9 @@
 use super::syntax::*;
 use super::{composition, error_layout, source_error_layout, string, word, word_index_builder};
 use super::{Builder, GoOrdinaryError, Result, MAX_BYTES};
-use crate::go_practical_type_keys::{GoSourceTypeKey, GoSourceValueDomain};
+use crate::go_practical_type_keys::{
+    GoPracticalGraphContractBinding, GoSourceTypeKey, GoSourceValueDomain,
+};
 use std::collections::{BTreeMap, BTreeSet};
 
 #[derive(Clone)]
@@ -24,6 +26,32 @@ pub struct GoSourceStringRow {
     source_type: String,
     module: String,
     certificate: Vec<u8>,
+}
+
+/// The catalogue is derived from, and retains, one complete candidate graph
+/// and its source contracts. Its rows require independent kernel checking.
+pub struct GoPracticalGraphStringBinding<'a> {
+    contracts: GoPracticalGraphContractBinding<'a>,
+    catalogue: GoSourceStringCatalogue,
+}
+impl<'a> GoPracticalGraphContractBinding<'a> {
+    pub fn derive_source_strings(self) -> Result<GoPracticalGraphStringBinding<'a>> {
+        let catalogue = generate_go_practical_source_string_catalogue(
+            self.contracts().module().value_domain(),
+        )?;
+        Ok(GoPracticalGraphStringBinding {
+            contracts: self,
+            catalogue,
+        })
+    }
+}
+impl GoPracticalGraphStringBinding<'_> {
+    pub fn contracts(&self) -> &GoPracticalGraphContractBinding<'_> {
+        &self.contracts
+    }
+    pub fn catalogue(&self) -> &GoSourceStringCatalogue {
+        &self.catalogue
+    }
 }
 impl GoSourceStringRow {
     pub fn source_layout_module_name(&self) -> &str {

@@ -1,9 +1,13 @@
+#[path = "../../mpk-cli/src/go_practical_checked_strings.rs"]
+#[allow(dead_code)]
+mod checked_strings;
 #[path = "support/go_source_entry_inputs.rs"]
 #[allow(dead_code)]
 mod inputs;
 
 use mpk_vc::go_practical_ordinary::{
     generate_go_practical_error_free_source_value_relations,
+    generate_go_practical_source_string_catalogue,
     import_go_practical_error_free_source_value_relations, GoOrdinaryError,
 };
 use mpk_vc::go_practical_type_keys::{
@@ -333,6 +337,112 @@ fn complete_original_error_free_domain_has_checked_relations() {
         relations.source_types().len(),
         report.declaration_count,
         relations.certificate_bytes().len()
+    );
+}
+
+#[test]
+fn complete_original_domains_check_all_strings() {
+    let contracts = original_contracts();
+    let empty_domain = contracts.value_domain();
+    assert!(empty_domain.error_cases().is_empty());
+    let empty = generate_go_practical_source_string_catalogue(empty_domain).unwrap();
+    assert!(empty.source_string_type_ids().is_empty());
+    assert!(
+        checked_strings::check_go_string_catalogue(&empty, empty_domain)
+            .unwrap()
+            .receipts()
+            .is_empty()
+    );
+
+    let pure = inputs::original("pure");
+    let domain = pure.domain();
+    assert!(domain.error_cases().is_empty());
+    // The full original selection contains an error-typed signature even
+    // though its dynamic error universe is empty.
+    assert!(domain
+        .types()
+        .any(|key| matches!(key, GoSourceTypeKey::Builtin { name, .. } if name == "error")));
+    let catalogue = generate_go_practical_source_string_catalogue(domain).unwrap();
+    assert!(!catalogue.source_string_type_ids().is_empty());
+    let checked = checked_strings::check_go_string_catalogue(&catalogue, domain).unwrap();
+    assert_eq!(
+        checked.receipts().len(),
+        catalogue.source_string_type_ids().len()
+    );
+    for (index, receipt) in checked.receipts().iter().enumerate() {
+        let row = checked.reconstruct(&catalogue, index).unwrap();
+        assert_eq!(row.source_string_type_id(), receipt.source_type_id());
+        assert_eq!(
+            mpk_cert::certificate_hash(row.certificate_bytes()),
+            *receipt.certificate_hash()
+        );
+    }
+    assert!(matches!(
+        checked_strings::check_go_string_catalogue(&catalogue, empty_domain),
+        Err(checked_strings::GoCheckedStringError::Coverage { .. })
+    ));
+    eprintln!(
+        "complete original pure domain: {} strings",
+        checked.receipts().len()
+    );
+
+    // An additional original root accepts a string without mentioning error.
+    // All original package source buffers remain in the imported components.
+    let packets: Value = serde_json::from_slice(
+        &std::fs::read(inputs::evidence().join("source-inputs/corpus.json")).unwrap(),
+    )
+    .unwrap();
+    let input = &packets["units"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|unit| unit["name"] == "pure")
+        .unwrap()["input"];
+    let sources = input["sources"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|row| {
+            GoTypeSourceBuffer::import(
+                &serde_json::to_vec(&row["object"]).unwrap(),
+                &unhex(&row["raw_hex"]),
+            )
+            .unwrap()
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(sources.len(), 4);
+    let keys = import_go_type_key_components(&unhex(&input["components_hex"]), &sources).unwrap();
+    let roots: Vec<GoSourceFunctionSelector> = serde_json::from_value(json!([
+        {"package":"example.com/policy/shadow","function":"Length","receiver":null}
+    ]))
+    .unwrap();
+    let contracts = derive_go_source_contract_module(&keys, &roots, &[]).unwrap();
+    let domain = contracts.value_domain();
+    assert!(domain.error_cases().is_empty());
+    assert!(!domain
+        .types()
+        .any(|key| matches!(key, GoSourceTypeKey::Builtin { name, .. } if name == "error")));
+    let catalogue = generate_go_practical_source_string_catalogue(domain).unwrap();
+    assert_eq!(catalogue.source_string_type_ids().len(), 1);
+    let checked = checked_strings::check_go_string_catalogue(&catalogue, domain).unwrap();
+    assert_eq!(checked.receipts().len(), 1);
+    let row = checked.reconstruct(&catalogue, 0).unwrap();
+    assert_eq!(
+        row.source_string_type_id(),
+        checked.receipts()[0].source_type_id()
+    );
+    let receipt = &checked.receipts()[0];
+    inputs::write("error-free-source-string.mpcert", row.certificate_bytes());
+    inputs::write(
+        "error-free-source-string.rust.json",
+        &serde_json::to_vec(&json!({
+            "verdict": "accepted", "module": receipt.module(),
+            "declaration_count": receipt.declarations(), "axiom_count": 0,
+            "hashes": {"export": mpk_cert::hash_hex(receipt.export_hash()),
+                "axiom_report": mpk_cert::hash_hex(receipt.axiom_report_hash()),
+                "certificate": mpk_cert::hash_hex(receipt.certificate_hash())}
+        }))
+        .unwrap(),
     );
 }
 

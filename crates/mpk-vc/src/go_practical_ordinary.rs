@@ -81,7 +81,8 @@ pub use source_error_operations::{
 pub use source_error_receiver::GoSourceErrorReceiverRow;
 pub use source_error_representation::GoSourceErrorRepresentationRow;
 pub use source_string::{
-    generate_go_practical_source_string_catalogue, GoSourceStringCatalogue, GoSourceStringRow,
+    generate_go_practical_source_string_catalogue, GoPracticalGraphStringBinding,
+    GoSourceStringCatalogue, GoSourceStringRow,
 };
 pub use source_string_index::{
     generate_go_practical_source_string_index_catalogue, GoSourceStringIndexCatalogue,
