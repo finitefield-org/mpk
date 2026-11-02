@@ -15,10 +15,10 @@ mod go_practical_installed_compiler;
 mod go_practical_source_roots;
 
 use go_practical_capture_binding::{
-    bind_installed_go_root_matched_inputs, source_capabilities_match,
+    bind_installed_go_root_matched_inputs, source_capabilities_match, GoCaptureSourceRoots,
 };
 use go_practical_installed_compiler::{InstalledGoCompiler, InstalledGoCompilerError};
-use go_practical_source_roots::{GoSourceRoots, GoSourceRootsMatch};
+use go_practical_source_roots::{GoSourceRootError, GoSourceRoots, GoSourceRootsMatch};
 use mpk_vc::go_practical_type_keys::*;
 use mpk_vc::release_bundle_v1::{validate_successor_release_registry, GO_TOOLCHAIN_BUNDLE_ID};
 use mpk_vc::semantic_profile_registry::{validate_semantic_profile_registry, RegistryRevision};
@@ -184,22 +184,23 @@ fn replace_object(
         .unwrap() = object;
 }
 
+fn root_bindings(base: &Path, capabilities: &[&str]) -> Vec<(String, PathBuf)> {
+    capabilities
+        .iter()
+        .map(|capability| {
+            let name = match *capability {
+                "workspace/main" => "main",
+                "workspace/dep" => "dep",
+                "original-go-sdk" => "sdk",
+                _ => panic!("unexpected capability"),
+            };
+            (capability.to_string(), base.join("roots").join(name))
+        })
+        .collect()
+}
+
 fn roots(base: &Path, capabilities: &[&str]) -> GoSourceRoots {
-    GoSourceRoots::open(
-        capabilities
-            .iter()
-            .map(|capability| {
-                let name = match *capability {
-                    "workspace/main" => "main",
-                    "workspace/dep" => "dep",
-                    "original-go-sdk" => "sdk",
-                    _ => panic!("unexpected capability"),
-                };
-                (capability.to_string(), base.join("roots").join(name))
-            })
-            .collect(),
-    )
-    .unwrap()
+    GoSourceRoots::open(root_bindings(base, capabilities)).unwrap()
 }
 
 fn matched(
@@ -249,6 +250,36 @@ fn restore_fixture() -> RestoredFixture {
         "restore all original evidence and source roots"
     );
     RestoredFixture { _temp: temp, base }
+}
+
+#[test]
+fn capture_root_session_rejects_ambiguous_or_unavailable_roots() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("source");
+    std::fs::create_dir(&root).unwrap();
+    assert!(matches!(
+        GoCaptureSourceRoots::open(vec![]),
+        Err(GoSourceRootError::Capabilities)
+    ));
+    for name in ["original-go-package-exports", "ORIGINAL-GO-PACKAGE-EXPORTS"] {
+        assert!(matches!(
+            GoCaptureSourceRoots::open(vec![(name.to_owned(), root.clone())]),
+            Err(GoSourceRootError::Capabilities)
+        ));
+    }
+    assert!(matches!(
+        GoCaptureSourceRoots::open(vec![
+            ("workspace/main".to_owned(), root.clone()),
+            ("WORKSPACE/main".to_owned(), root.clone()),
+        ]),
+        Err(GoSourceRootError::Capabilities)
+    ));
+    assert!(matches!(
+        GoCaptureSourceRoots::open(vec![("workspace/main".to_owned(), root.clone())])
+            .unwrap()
+            .open_export(temp.path().join("missing")),
+        Err(GoSourceRootError::Filesystem)
+    ));
 }
 
 #[test]
@@ -308,6 +339,16 @@ fn complete_capture_binding_rejects_coherent_mismatches() {
     let original_exports = exports(&packet, &directory);
     let record = unhex(packet["compiler_inputs_hex"].as_str().unwrap());
     let capabilities = ["original-go-sdk", "workspace/dep", "workspace/main"];
+    let export_root = base.join("unused-export-control");
+    std::fs::create_dir(&export_root).unwrap();
+    let pending = GoCaptureSourceRoots::open(root_bindings(base, &capabilities))
+        .unwrap()
+        .open_export(export_root)
+        .unwrap();
+    assert!(matches!(
+        pending.match_export(snapshot(&live, &directory)),
+        Err(GoSourceRootError::Capabilities)
+    ));
     let original_roots = matched(base, &live, &directory, &capabilities);
     let full = original_exports.capture_inputs().snapshot_inputs();
     assert_eq!(full.source_objects().len(), 5697);

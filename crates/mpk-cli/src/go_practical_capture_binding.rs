@@ -5,13 +5,102 @@
 use crate::go_practical_installed_compiler::{
     InstalledGoCompiler, InstalledGoCompilerError, InstalledGoSourceCompilerInputs,
 };
-use crate::go_practical_source_roots::GoSourceRootsMatch;
+use crate::go_practical_source_roots::{GoSourceRootError, GoSourceRoots, GoSourceRootsMatch};
 use mpk_vc::go_practical_type_keys::{
     GoSourceCompilerInputs, GoSourceExportInputs, GoSourceSnapshotInputs,
 };
 use mpk_vc::ReleaseRegistryIdentity;
+use std::collections::BTreeSet;
+use std::path::PathBuf;
 
 const EXPORT_CAPABILITY: &str = "original-go-package-exports";
+
+/// Capture-time root ownership, before the generated export cache exists.
+/// This enforces observation order, but does not authorize caller-selected
+/// paths or prove that an external process read from the retained handles.
+pub(crate) struct GoCaptureSourceRoots {
+    source: GoSourceRoots,
+}
+
+/// Both root sets are open, but neither snapshot has yet been matched.
+pub(crate) struct GoCapturePendingRoots {
+    source: GoSourceRoots,
+    export: GoSourceRoots,
+}
+
+/// The export snapshot was matched while its generated cache was live.
+pub(crate) struct GoCapturePendingSource {
+    source: GoSourceRoots,
+    export: GoSourceRootsMatch,
+}
+
+/// Both independently matched root sets are retained until binding.
+pub(crate) struct GoCaptureMatchedRoots {
+    source: GoSourceRootsMatch,
+    export: GoSourceRootsMatch,
+}
+
+impl GoCaptureSourceRoots {
+    pub(crate) fn open(bindings: Vec<(String, PathBuf)>) -> Result<Self, GoSourceRootError> {
+        let mut names = BTreeSet::new();
+        if bindings.is_empty()
+            || bindings.iter().any(|(name, _)| {
+                name.eq_ignore_ascii_case(EXPORT_CAPABILITY)
+                    || !names.insert(name.to_ascii_lowercase())
+            })
+        {
+            return Err(GoSourceRootError::Capabilities);
+        }
+        Ok(Self {
+            source: GoSourceRoots::open(bindings)?,
+        })
+    }
+
+    /// Open the one reserved export capability before capturing its bytes.
+    pub(crate) fn open_export(
+        self,
+        path: PathBuf,
+    ) -> Result<GoCapturePendingRoots, GoSourceRootError> {
+        let export = GoSourceRoots::open(vec![(EXPORT_CAPABILITY.to_owned(), path)])?;
+        Ok(GoCapturePendingRoots {
+            source: self.source,
+            export,
+        })
+    }
+}
+
+impl GoCapturePendingRoots {
+    pub(crate) fn match_export(
+        self,
+        snapshot: GoSourceSnapshotInputs,
+    ) -> Result<GoCapturePendingSource, GoSourceRootError> {
+        Ok(GoCapturePendingSource {
+            source: self.source,
+            export: self.export.compare(snapshot)?,
+        })
+    }
+}
+
+impl GoCapturePendingSource {
+    pub(crate) fn match_source(
+        self,
+        snapshot: GoSourceSnapshotInputs,
+    ) -> Result<GoCaptureMatchedRoots, GoSourceRootError> {
+        Ok(GoCaptureMatchedRoots {
+            source: self.source.compare(snapshot)?,
+            export: self.export,
+        })
+    }
+}
+
+impl GoCaptureMatchedRoots {
+    pub(crate) fn bind(
+        self,
+        exports: GoSourceExportInputs,
+    ) -> Result<GoCompleteRootMatchedExportInputs, InstalledGoCompilerError> {
+        bind_complete_go_root_matched_exports(exports, self.source, self.export)
+    }
+}
 
 /// Owns both the validated compiler inputs and every independently matched
 /// source-root handle. This is not launcher or export-cache-root authority.
@@ -109,7 +198,7 @@ pub(crate) fn complete_capabilities_match(
         && full.contains_exact_capabilities(export)
 }
 
-pub(crate) fn bind_complete_go_root_matched_exports(
+fn bind_complete_go_root_matched_exports(
     exports: GoSourceExportInputs,
     source_roots: GoSourceRootsMatch,
     export_roots: GoSourceRootsMatch,

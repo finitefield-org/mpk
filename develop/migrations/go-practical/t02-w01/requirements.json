@@ -1484,6 +1484,13 @@
       "requirement": "Original source/export metadata and complete compiler identity; immutable original packages without rewritten/stub source; closed capture for the later verification-closure algorithm",
       "status": "pending",
       "executor": "go-tools/go2vir/practical_capture.go, snapshot.go, loader.go",
+      "ordered_capture_session_checkpoint": {
+        "evidence": "verification/capture-session/README.md",
+        "scope": "A consuming private session opens source roots before the generated export root, matches both complete snapshots and binds their disjoint union to the original export owner. The full live 5697-object, 182-package capture and affected Linux tests pass; caller path and process-read authority are not established.",
+        "R06_completed": false,
+        "public_profile_activated": false,
+        "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
       "preparatory_test_only_combined_compiler_checkpoint": {
         "evidence": "verification/installed-combined/README.md",
         "scope": "A local test-configured Rust observer binds both held original source/export root sets to the private compiler owner using all 5577 independently checked registered SDK files and the complete 5697-object, 182-package Go owner. The test snapshot does not authorize an installed-release path or a launcher, and does not establish compiler/source semantics or application proof.",

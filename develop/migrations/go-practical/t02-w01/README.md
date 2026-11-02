@@ -7,6 +7,11 @@ cumulative T02 gate is final W04: `./scripts/check-fast.sh`, with no
 language-specific skip option. Release gates are the root README's local
 Go/Rust Linux gates.
 
+The [ordered capture session](verification/capture-session/README.md) now
+owns the two held root sets through their complete export-owner binding. Its
+full original Go capture and affected Linux tests pass; launcher authority,
+private context and source/program proofs remain open.
+
 Status: In progress. Entry is T01 completion commit
 `fe1b85cb70c7ea390c02469706d09cdc913f973f`. The
 [requirements](requirements.json) retain the complete W01 scope: private

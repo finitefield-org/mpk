@@ -19,8 +19,7 @@ mod go_practical_source_roots;
 
 #[cfg(target_os = "linux")]
 fn main() {
-    use go_practical_capture_binding::bind_complete_go_root_matched_exports;
-    use go_practical_source_roots::{GoSourceRoots, GoSourceRootsMatch};
+    use go_practical_capture_binding::GoCaptureSourceRoots;
     use mpk_vc::go_practical_type_keys::*;
     use mpk_vc::release_bundle_v1::{validate_successor_release_registry, GO_TOOLCHAIN_BUNDLE_ID};
     use mpk_vc::semantic_profile_registry::{validate_semantic_profile_registry, RegistryRevision};
@@ -255,7 +254,7 @@ fn main() {
         }
         Ok(owner)
     }
-    fn open_roots(dir: &Path, export: bool) -> Result<GoSourceRoots> {
+    fn root_bindings(dir: &Path, export: bool) -> Result<Vec<(String, PathBuf)>> {
         let initial = wait(&dir.join("roots-ready.json"))?;
         if initial["capture_started"] != false
             || export && initial["compiler_output_prepared"] != true
@@ -294,16 +293,16 @@ fn main() {
                 ))
             })
             .collect::<std::result::Result<Vec<_>, io::Error>>()?;
-        let roots =
-            GoSourceRoots::open(bindings).map_err(|error| fail(format!("root open: {error:?}")))?;
+        Ok(bindings)
+    }
+    fn publish_opened(dir: &Path, count: usize) -> Result<()> {
         publish(
             dir,
             "opened.json",
-            &json!({"status":"passed","capabilities":rows.len(),"opened_before_capture":true}),
-        )?;
-        Ok(roots)
+            &json!({"status":"passed","capabilities":count,"opened_before_capture":true}),
+        )
     }
-    fn match_roots(dir: &Path, roots: GoSourceRoots) -> Result<GoSourceRootsMatch> {
+    fn observed_snapshot(dir: &Path) -> Result<GoSourceSnapshotInputs> {
         let input = wait(&dir.join("snapshot-ready.json"))?;
         let source_directory = Path::new(
             input["source_directory"]
@@ -330,21 +329,45 @@ fn main() {
         {
             return Err(fail("original snapshot identity or count differs").into());
         }
-        let matched = roots
-            .compare(observed)
-            .map_err(|error| fail(format!("root comparison: {error:?}")))?;
+        Ok(observed)
+    }
+    fn publish_matched(dir: &Path, count: usize, digest: &str) -> Result<()> {
         publish(
             dir,
             "matched.json",
             &json!({"status":"passed","opened_before_capture":true,"original_source_objects":count,"native_snapshot_sha256":digest}),
-        )?;
-        Ok(matched)
+        )
     }
     fn run(source_dir: &Path, export_dir: &Path, combined_dir: &Path) -> Result<()> {
-        let source_roots = open_roots(source_dir, false)?;
-        let export_roots = open_roots(export_dir, true)?;
-        let export_roots = match_roots(export_dir, export_roots)?;
-        let source_roots = match_roots(source_dir, source_roots)?;
+        let source_bindings = root_bindings(source_dir, false)?;
+        let source_count = source_bindings.len();
+        let roots = GoCaptureSourceRoots::open(source_bindings)
+            .map_err(|error| fail(format!("source root open: {error:?}")))?;
+        publish_opened(source_dir, source_count)?;
+        let export_bindings = root_bindings(export_dir, true)?;
+        let export_path = export_bindings
+            .into_iter()
+            .next()
+            .ok_or_else(|| fail("missing export root"))?
+            .1;
+        let roots = roots
+            .open_export(export_path)
+            .map_err(|error| fail(format!("export root open: {error:?}")))?;
+        publish_opened(export_dir, 1)?;
+        let export_snapshot = observed_snapshot(export_dir)?;
+        let export_count = export_snapshot.source_objects().len();
+        let export_digest = export_snapshot.snapshot_sha256().to_owned();
+        let roots = roots
+            .match_export(export_snapshot)
+            .map_err(|error| fail(format!("export root comparison: {error:?}")))?;
+        publish_matched(export_dir, export_count, &export_digest)?;
+        let source_snapshot = observed_snapshot(source_dir)?;
+        let source_count = source_snapshot.source_objects().len();
+        let source_digest = source_snapshot.snapshot_sha256().to_owned();
+        let roots = roots
+            .match_source(source_snapshot)
+            .map_err(|error| fail(format!("source root comparison: {error:?}")))?;
+        publish_matched(source_dir, source_count, &source_digest)?;
         let ready = wait(&combined_dir.join("owner-ready.json"))?;
         if ready["original_roots_retired"] != true || ready["export_cache_retired"] != true {
             return Err(fail("original replay retirement was not observed").into());
@@ -380,7 +403,8 @@ fn main() {
         }
         let packet: Value = serde_json::from_slice(&fs::read(owner_path)?)?;
         let original = exports(&packet, directory)?;
-        let matched = bind_complete_go_root_matched_exports(original, source_roots, export_roots)
+        let matched = roots
+            .bind(original)
             .map_err(|error| fail(format!("complete root binding: {error:?}")))?;
         let source_count = matched.source_snapshot().source_objects().len();
         let export_count = matched.export_snapshot().source_objects().len();
