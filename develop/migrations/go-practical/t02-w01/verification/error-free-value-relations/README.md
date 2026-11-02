@@ -22,6 +22,11 @@ An original value-receiver method also retains a struct, its nominal type and
 a slice. Both checkers accepted its six-type, 99-declaration, 36,841-byte
 certificate with zero axioms and certificate hash
 `31fa8b006c8fec75745e567790acd3afaf030988a97c23a6af040bdfe96b6d72`.
+An additional candidate contract references an original type used only in its
+postcondition. The full source remains unchanged, and its contract-only types
+appear in the eight-type relation domain. Both checkers accepted the same
+124-declaration, 46,111-byte certificate with zero axioms and certificate hash
+`bba72b6f4228b69068af67781530e31b956c6f600d5773f3eab77e68ac506b87`.
 The exact importer rejects altered certificate bytes. Two complete original
 domains that do contain `error` reject this specialized path, including one
 with no concrete error cases and the original 70-case domain.
@@ -43,10 +48,11 @@ rejection of a crossed complete graph. Both checkers accepted its exact
 The targeted tests were selected to exercise the new constructor, exact
 import, source-domain boundary and graph retention. After adding the separate
 struct-receiver case, only that new test was rerun; the preceding three tests
-were unchanged. After adding the private CLI check, the affected full-graph
-test passed again with byte-identical, independently Go-checked certificates.
-No new validation archive is committed. Strict affected Clippy for the CLI
-library and graph test, and changed-file Rust formatting, passed.
+were unchanged. The added annotation-only test also ran independently. After
+adding the private CLI check, the affected full-graph test passed again with
+byte-identical, independently Go-checked certificates. No new validation
+archive is committed. Strict affected Clippy for the CLI library and affected
+tests, and changed-file Rust formatting, passed.
 
 These are relations on the complete encoded values, including padding and
 ghost fields. They do not establish Go `==`, runtime input validity, source

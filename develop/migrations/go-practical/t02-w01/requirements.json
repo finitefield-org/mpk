@@ -12,7 +12,7 @@
       "error_free_value_relations_checkpoint": {
         "evidence": "verification/error-free-value-relations/README.md",
         "executor": "crates/mpk-vc/src/go_practical_ordinary/source_value_relations.rs and crates/mpk-cli/src/go_practical_checked_value_relations.rs",
-        "scope": "Original source domains without error values retain every type and nominal underlying relation, with no synthetic error type. Both checkers accept the original three-type case, original slice and struct-receiver cases, and the complete graph-bound case. The private CLI checks the graph-bound bytes with the Rust kernel and requires zero axioms. Original nil-only and 70-case error domains reject this specialized path. These are whole-carrier mathematics, not Go equality, source execution or a complete foundation.",
+        "scope": "Original source domains without error values retain every type and nominal underlying relation, with no synthetic error type. Both checkers accept the original three-type case, original slice and struct-receiver cases, a contract-only original type, and the complete graph-bound case. The private CLI checks the graph-bound bytes with the Rust kernel and requires zero axioms. Original nil-only and 70-case error domains reject this specialized path. These are whole-carrier mathematics, not Go equality, source execution or a complete foundation.",
         "R01_completed": false,
         "public_profile_activated": false,
         "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"

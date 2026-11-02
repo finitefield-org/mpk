@@ -11,7 +11,8 @@ use mpk_vc::go_practical_type_keys::{
     import_go_type_key_components, GoSourceContractModule, GoSourceFunctionSelector,
     GoSourceOverlay, GoSourceTypeKey, GoTypeSourceBuffer,
 };
-use serde_json::Value;
+use serde_json::{json, Value};
+use std::collections::BTreeSet;
 
 fn unhex(value: &Value) -> Vec<u8> {
     value
@@ -183,6 +184,83 @@ fn complete_original_struct_receiver_domain_has_checked_relations() {
     );
     eprintln!(
         "original struct domain types={}, declarations={}, bytes={}",
+        relations.source_types().len(),
+        report.declaration_count,
+        relations.certificate_bytes().len()
+    );
+}
+
+#[test]
+fn contract_only_original_type_is_retained_in_error_free_relations() {
+    let packet: Value = serde_json::from_slice(
+        &std::fs::read(inputs::evidence().join("contract-expressions/corpus.json")).unwrap(),
+    )
+    .unwrap();
+    let sources = packet["input"]["sources"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|row| {
+            GoTypeSourceBuffer::import(
+                &serde_json::to_vec(&row["object"]).unwrap(),
+                &unhex(&row["raw_hex"]),
+            )
+            .unwrap()
+        })
+        .collect::<Vec<_>>();
+    let keys = import_go_type_key_components(&unhex(&packet["input"]["components_hex"]), &sources)
+        .unwrap();
+    let case = packet["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|row| row["native"]["function"]["function"] == "Method")
+        .unwrap();
+    let selector: GoSourceFunctionSelector =
+        serde_json::from_value(case["native"]["function"].clone()).unwrap();
+    let mut annotation: Value = serde_json::from_slice(&unhex(&case["raw_hex"])).unwrap();
+    let zero = json!({"op":"source.zero","type":"example.com/policy.ContractOnly"});
+    annotation["ensures"] = json!([{"op":"eq","args":[zero.clone(),zero]}]);
+    let candidate = GoTypeSourceBuffer::new(
+        "contract-only-candidate",
+        "method.json",
+        "overlay",
+        &serde_json::to_vec(&annotation).unwrap(),
+    )
+    .unwrap();
+    let overlay = GoSourceOverlay::import(&candidate).unwrap();
+    let contracts = derive_go_source_contract_module(&keys, &[selector], &[overlay]).unwrap();
+    let finite = contracts
+        .finite_selection()
+        .domain()
+        .types()
+        .map(|key| key.id().to_string())
+        .collect::<BTreeSet<_>>();
+    let domain = contracts.value_domain();
+    let extra = domain
+        .types()
+        .filter(|key| !finite.contains(key.id()))
+        .collect::<Vec<_>>();
+    assert!(
+        !extra.is_empty(),
+        "the original annotation-only type was lost"
+    );
+    let relations = generate_go_practical_error_free_source_value_relations(domain).unwrap();
+    for key in extra {
+        assert!(relations.source_types().contains(key));
+    }
+    let report = mpk_kernel::verify_certificate_bytes(relations.certificate_bytes()).unwrap();
+    assert_eq!(report.axiom_count, 0);
+    inputs::write(
+        "error-free-contract-only.mpcert",
+        relations.certificate_bytes(),
+    );
+    inputs::write(
+        "error-free-contract-only.rust.json",
+        mpk_kernel::render_verification_report_json(&report).as_bytes(),
+    );
+    eprintln!(
+        "contract-only domain types={}, declarations={}, bytes={}",
         relations.source_types().len(),
         report.declaration_count,
         relations.certificate_bytes().len()
