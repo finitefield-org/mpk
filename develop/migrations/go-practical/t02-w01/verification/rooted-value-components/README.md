@@ -20,14 +20,19 @@ non-export source set and directory observations match the preceding complete
 error capture. The nil, concrete-error and entry certificates are byte-identical
 to the previously Go-checked streams. Both held-root and test-only SDK owners
 checked the value rows; crossed graph and function controls reject. The
-postcondition-overlay case remains in progress.
+postcondition-overlay case also passed with its original cross-package call:
+both checkers accepted the same 35-declaration value certificate with zero
+axioms and certificate hash
+`daa0660983c8eb5a261eef6f5d98e1f75981b97226f2af9720890d708a5c5e89`.
+Its entry and call certificates match the previously Go-checked streams; the
+postcondition itself has not been proved.
 
 The full original captures and exact certificate comparisons were selected to
 exercise both source-domain paths and preserve all original inputs. A first
 scoped Clippy check identified oversized enum variants; boxing both owners
 fixed it and the changed example then passed strict Linux Clippy, including its
-test configuration. The affected final checks remain in progress. No
-validation archive is committed.
+test configuration. The affected full-input captures and local format/lint
+checks passed. No validation archive is committed.
 
 These are checked entry, call-interface and value mathematics, not Go
 execution, postconditions, a complete foundation or launcher authority. The

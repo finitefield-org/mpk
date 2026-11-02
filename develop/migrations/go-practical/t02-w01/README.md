@@ -43,8 +43,8 @@ module data and graph in Rust while the candidate and both root sets are held.
 Launcher authority and source/program proofs remain open.
 
 The [same-root value components](verification/rooted-value-components/README.md)
-derive checked entry, call and value mathematics from one held owner. The
-call-free full capture passes; error and annotated-call cases are being rerun.
+derive checked entry, call and value mathematics from one held owner. Complete
+call-free, error-contract and annotated-call captures pass.
 
 The [checked error value relations](verification/checked-error-value-relations/README.md)
 retain the original contract and graph while checking nil and every concrete
