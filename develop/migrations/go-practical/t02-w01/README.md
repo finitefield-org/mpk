@@ -44,7 +44,7 @@ Launcher authority and source/program proofs remain open.
 
 The [checked candidate entry parts](verification/checked-candidate-entries/README.md)
 cover all original contract bodies and require zero-axiom Rust kernel acceptance
-for every completed part. A fresh Go recheck of the two wide parts is running;
+for every completed part. A fresh Go recheck also passed for both wide parts;
 source execution and the complete foundation remain separate obligations.
 
 The [candidate-bound entry equations](verification/candidate-entries/README.md)

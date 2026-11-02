@@ -18,10 +18,9 @@ with zero axioms. The first contains 3,199 declarations; the wide parts contain
 3,830 and 3,412 declarations and are 1,350,988 and 1,324,010 bytes. The Go
 checker independently accepted the same zero-error part with identical hashes.
 Both wide parts are byte-for-byte identical to the original parts previously
-accepted by the recorded Go checker; those Go reports and the current Rust
-reports agree on module, counts and all hashes. A fresh Go recheck of both wide
-parts was also started and remains in progress; it is not yet reported as a
-completed run.
+accepted by the recorded Go checker. A fresh Go recheck also passed for both
+parts: the current Go and Rust reports agree on module, counts, zero axioms and
+all hashes. The earlier receipts agree on those same exact bytes.
 
 The later contract-coverage check retains the original selection with three
 roots, all three raw sidecars and four selected/transitive functions. Its own
