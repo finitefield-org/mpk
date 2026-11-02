@@ -119,6 +119,20 @@ fn binds_complete_original_named_roots_to_their_physical_declarations() {
         binding.request().context().semantic_profile(),
         "mpk.go.practical.v1"
     );
+    let expected = inputs.derive_contracts().unwrap();
+    let contracts = binding.derive_contracts().unwrap();
+    assert_eq!(contracts.module(), &expected);
+    assert_eq!(contracts.module().selected_roots().len(), 3);
+    assert_eq!(contracts.module().functions().len(), 4);
+    assert_eq!(
+        contracts
+            .module()
+            .functions()
+            .iter()
+            .filter(|function| function.overlay_object_id().is_some())
+            .count(),
+        2
+    );
 }
 
 #[test]
@@ -221,4 +235,19 @@ fn binds_all_8192_original_roots_without_narrowing_the_source_set() {
     let binding = bind_go_practical_source_selection(&request, &inputs).unwrap();
     assert_eq!(binding.source_inputs().roots().len(), 8192);
     eprintln!("bound all 8192 original roots in {:?}", started.elapsed());
+    let started = std::time::Instant::now();
+    let contracts = binding.derive_contracts().unwrap();
+    let module = contracts.module();
+    assert_eq!(module.selected_roots().len(), 8192);
+    assert_eq!(module.functions().len(), 8192);
+    assert_eq!(module.expression_nodes(), 8192);
+    assert!(module.functions().iter().all(|function| {
+        function.is_selected_root()
+            && function.origin() == &GoSourceContractOrigin::Default
+            && function.termination() == "partial"
+    }));
+    eprintln!(
+        "derived all 8192 original contract candidates in {:?}",
+        started.elapsed()
+    );
 }

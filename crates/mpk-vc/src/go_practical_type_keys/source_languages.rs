@@ -90,10 +90,7 @@ impl GoSourceFileLanguage {
         &self.language
     }
     pub fn in_practical_range(&self) -> bool {
-        matches!(
-            self.language.as_str(),
-            "go1.22" | "go1.23" | "go1.24" | "go1.25"
-        )
+        crate::go_practical_context::PRACTICAL_EFFECTIVE_LANGUAGES.contains(&self.language.as_str())
     }
 }
 #[derive(Clone, Debug, Eq, PartialEq)]

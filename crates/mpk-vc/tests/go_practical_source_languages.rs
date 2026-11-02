@@ -1,4 +1,6 @@
+use mpk_vc::go_practical_context::{GoPrivateCandidateRegistry, GoPrivateCandidateRequest};
 use mpk_vc::go_practical_type_keys::*;
+use mpk_vc::{hash_canonical_json, parse_strict_json, HashDomain, StrictJsonLimits};
 use serde_json::{json, Value};
 use std::path::{Path, PathBuf};
 fn evidence() -> PathBuf {
@@ -116,6 +118,139 @@ fn source_languages_match_every_original_pinned_go_observation() {
 fn selector(name: &str) -> GoSourceFunctionSelector {
     serde_json::from_value(json!({"package":"example.com/policy","function":name,"receiver":null}))
         .unwrap()
+}
+
+fn seal(value: &mut Value, field: &str, domain: &'static str) {
+    value.as_object_mut().unwrap().remove(field);
+    let strict = parse_strict_json(
+        &serde_json::to_vec(value).unwrap(),
+        StrictJsonLimits::new(268435456, 268435456, 64, 16777216),
+    )
+    .unwrap();
+    value[field] = json!(hash_canonical_json(HashDomain::new(domain), &strict)
+        .unwrap()
+        .to_hex());
+}
+
+fn request(name: &str) -> GoPrivateCandidateRequest {
+    let mut wire: Value = serde_json::from_slice(include_bytes!(
+        "fixtures/go-practical-candidate-request.json"
+    ))
+    .unwrap();
+    wire["selection"]["value"]["roots"] =
+        json!([{"package":"example.com/policy","function":name,"receiver":null}]);
+    seal(
+        &mut wire,
+        "request_sha256",
+        "MPK-VALIDATED-SEMANTIC-REQUEST-3.0",
+    );
+    GoPrivateCandidateRegistry::new()
+        .unwrap()
+        .import_request(
+            &parse_strict_json(
+                &serde_json::to_vec(&wire).unwrap(),
+                StrictJsonLimits::new(268435456, 268435456, 64, 16777216),
+            )
+            .unwrap(),
+        )
+        .unwrap()
+}
+
+fn physical_selection(
+    packet: &Value,
+    unit: &GoSourceContractInputs,
+    original: &[GoTypeSourceBuffer],
+    name: &str,
+) -> GoSourceSelectionInputs {
+    // Derive the original declaration only to construct the existing physical
+    // selection record. The candidate-bound path below performs its own checks.
+    let module = derive_go_source_contract_module(
+        unit.source_inputs().components(),
+        &[selector(name)],
+        unit.overlays(),
+    )
+    .unwrap();
+    let root = &module.selected_roots()[0];
+    let node = &module
+        .selection()
+        .source(root.source_object_id())
+        .unwrap()
+        .nodes()[root.node()];
+    let package = module
+        .selection()
+        .packages()
+        .iter()
+        .find(|package| {
+            package
+                .source_objects
+                .iter()
+                .any(|id| id == root.source_object_id())
+        })
+        .unwrap();
+    let mut wire = json!({
+        "schema":"mpk.go.practical.source_selection_inputs.v1",
+        "source_contract_inputs_sha256":unit.content_sha256(),
+        "roots":[{"package_id":package.id,"source_object_id":root.source_object_id(),
+                  "start_byte":node.start(),"end_byte":node.end()}],
+    });
+    seal(
+        &mut wire,
+        "content_sha256",
+        "MPK-PRIVATE-GO-SOURCE-SELECTION-INPUTS-1.0",
+    );
+    import_go_source_selection_inputs(
+        &serde_json::to_vec(&wire).unwrap(),
+        &unhex(packet["envelope_hex"].as_str().unwrap()),
+        &unhex(packet["components_hex"].as_str().unwrap()),
+        original,
+        &[],
+    )
+    .unwrap()
+}
+
+#[test]
+fn candidate_bound_contracts_enforce_original_selected_body_languages() {
+    let packet: Value = serde_json::from_slice(
+        &std::fs::read(root().join("native/native-originals/owned/language-owned-inputs.json"))
+            .unwrap(),
+    )
+    .unwrap();
+    let original = buffers(&packet);
+    let unit = import_go_source_contract_inputs(
+        &unhex(packet["envelope_hex"].as_str().unwrap()),
+        &unhex(packet["components_hex"].as_str().unwrap()),
+        &original,
+        &[],
+    )
+    .unwrap();
+    assert_eq!(unit.source_inputs().languages().unwrap().files().count(), 3);
+    let inputs = physical_selection(&packet, &unit, &original, "Root");
+    let root_request = request("Root");
+    let binding = bind_go_practical_source_selection(&root_request, &inputs).unwrap();
+    let contracts = binding.derive_contracts().unwrap();
+    assert_eq!(contracts.module().functions().len(), 2);
+    assert_eq!(contracts.source().request(), &root_request);
+    for name in ["Legacy", "CallsLegacy"] {
+        let inputs = physical_selection(&packet, &unit, &original, name);
+        let request = request(name);
+        let binding = bind_go_practical_source_selection(&request, &inputs).unwrap();
+        let error = match binding.derive_contracts() {
+            Err(GoSourceContractDerivationError::Language(error)) => error,
+            _ => panic!("candidate must reject the original selected old-language body"),
+        };
+        assert_eq!(error.kind(), GoSourceLanguageErrorKind::SelectedLanguage);
+        assert_eq!(error.version(), Some("go1.21"));
+        assert!(error.offset() > 0);
+        assert_eq!(
+            original
+                .iter()
+                .find(|source| source.object().id == error.source_object_id())
+                .unwrap()
+                .object()
+                .path,
+            "legacy.go"
+        );
+    }
 }
 #[test]
 fn owned_contracts_check_every_reached_body_and_keep_unselected_old_files() {

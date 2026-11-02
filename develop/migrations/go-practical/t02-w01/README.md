@@ -42,6 +42,11 @@ now retains the same Go package owner and independently reconstructs its offline
 module data and graph in Rust while the candidate and both root sets are held.
 Launcher authority and source/program proofs remain open.
 
+The [candidate-bound contracts](verification/candidate-contract-language/README.md)
+retain the original candidate and graph while deriving source contracts and
+checking selected and transitive Go language versions. This constructs
+candidates only; application proofs and the checked foundation remain open.
+
 The [root-held graph binding](verification/rooted-candidate-graph/README.md)
 keeps the full candidate selection and verified graph together. A complete
 different source/export owner with the same function name is rejected while

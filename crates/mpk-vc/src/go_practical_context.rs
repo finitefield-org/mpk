@@ -22,6 +22,8 @@ const REQUEST_SCHEMA: &str = "mpk.validated_semantic_request.v3";
 const GO_PROFILE: &str = "mpk.go.practical.v1";
 const GO_PARAMETERS: &str = "mpk.semantic_parameters.go_practical.v1";
 const GO_SELECTION: &str = "mpk.selection.go_functions.v1";
+pub(crate) const PRACTICAL_EFFECTIVE_LANGUAGES: [&str; 4] =
+    ["go1.22", "go1.23", "go1.24", "go1.25"];
 const LIMITS_HASH: &str = "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551";
 const FOUNDATION_HASH: &str = "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d";
 const CANDIDATE_REGISTRY_HASH: &str =
@@ -135,7 +137,7 @@ fn practical_parameters() -> Value {
         "goarch": "amd64",
         "goamd64": "v1",
         "compiler_release": "go1.25.0",
-        "effective_languages": ["go1.22", "go1.23", "go1.24", "go1.25"],
+        "effective_languages": PRACTICAL_EFFECTIVE_LANGUAGES,
         "limits_id": "mpk.go.practical.limits.v1",
         "limits_sha256": LIMITS_HASH,
     })

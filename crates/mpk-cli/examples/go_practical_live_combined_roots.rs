@@ -452,10 +452,28 @@ fn main() {
             let binding = matched
                 .bind_candidate_graph(&candidate, &graph)
                 .map_err(|error| fail(format!("candidate/source/graph binding: {error:?}")))?;
-            if binding.source().source_inputs().roots().len() != 1 {
+            let contracts = binding
+                .derive_contracts()
+                .map_err(|error| fail(format!("candidate source contracts: {error:?}")))?;
+            let module = contracts.contracts().module();
+            if contracts.contracts().source().source_inputs().roots().len() != 1
+                || module.selected_roots().len() != 1
+                || module.functions().len() != 1
+            {
                 return Err(fail("original Go request lost its selected root").into());
             }
-            std::hint::black_box(&binding);
+            let function = &module.functions()[0];
+            if !function.is_selected_root()
+                || function.origin() != &GoSourceContractOrigin::Default
+                || function.termination() != "partial"
+                || !function.requires().is_empty()
+                || function.ensures().len() != 1
+                || function.ensures()[0].operator() != "bool.literal"
+                || function.ensures()[0].literal() != Some(&Value::Bool(true))
+            {
+                return Err(fail("original zero-overlay default contract changed").into());
+            }
+            std::hint::black_box(&contracts);
         }
         // This optional negative control imports another complete original
         // fixture only in the local test observer; production gets no path or
@@ -564,7 +582,7 @@ fn main() {
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
         std::hint::black_box((&held_owner, &graph));
         Ok(())

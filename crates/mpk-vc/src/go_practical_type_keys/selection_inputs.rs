@@ -90,12 +90,39 @@ pub struct GoPracticalSourceBinding<'a> {
     request: &'a GoPrivateCandidateRequest,
     inputs: &'a GoSourceSelectionInputs,
 }
-impl GoPracticalSourceBinding<'_> {
+impl<'a> GoPracticalSourceBinding<'a> {
     pub fn request(&self) -> &GoPrivateCandidateRequest {
         self.request
     }
     pub fn source_inputs(&self) -> &GoSourceSelectionInputs {
         self.inputs
+    }
+
+    /// Derive contracts only from this exact bound source owner. Its existing
+    /// selected/transitive language check remains part of the derivation.
+    pub fn derive_contracts(
+        self,
+    ) -> std::result::Result<GoPracticalContractBinding<'a>, GoSourceContractDerivationError> {
+        let module = self.inputs.derive_contracts()?;
+        Ok(GoPracticalContractBinding {
+            source: self,
+            module,
+        })
+    }
+}
+
+/// Candidate-linked original source contracts, not a checked theorem or an
+/// installed context. The request and source selection remain borrowed.
+pub struct GoPracticalContractBinding<'a> {
+    source: GoPracticalSourceBinding<'a>,
+    module: GoSourceContractModule,
+}
+impl GoPracticalContractBinding<'_> {
+    pub fn source(&self) -> &GoPracticalSourceBinding<'_> {
+        &self.source
+    }
+    pub fn module(&self) -> &GoSourceContractModule {
+        &self.module
     }
 }
 
@@ -145,12 +172,40 @@ pub struct GoPracticalModuleGraphBinding<'a> {
     source: GoPracticalSourceBinding<'a>,
     graph: &'a GoSourceModuleGraphInputs,
 }
-impl GoPracticalModuleGraphBinding<'_> {
+impl<'a> GoPracticalModuleGraphBinding<'a> {
     pub fn source(&self) -> &GoPracticalSourceBinding<'_> {
         &self.source
     }
     pub fn graph(&self) -> &GoSourceModuleGraphInputs {
         self.graph
+    }
+
+    /// Keep the same graph and source owners while deriving the selected
+    /// contracts and checking their reached bodies' effective languages.
+    pub fn derive_contracts(
+        self,
+    ) -> std::result::Result<GoPracticalGraphContractBinding<'a>, GoSourceContractDerivationError>
+    {
+        let contracts = self.source.derive_contracts()?;
+        Ok(GoPracticalGraphContractBinding {
+            graph: self.graph,
+            contracts,
+        })
+    }
+}
+
+/// Source-derived contract candidates with the same request and graph still
+/// borrowed; this is not a source/program proof or an installed context.
+pub struct GoPracticalGraphContractBinding<'a> {
+    graph: &'a GoSourceModuleGraphInputs,
+    contracts: GoPracticalContractBinding<'a>,
+}
+impl GoPracticalGraphContractBinding<'_> {
+    pub fn graph(&self) -> &GoSourceModuleGraphInputs {
+        self.graph
+    }
+    pub fn contracts(&self) -> &GoPracticalContractBinding<'_> {
+        &self.contracts
     }
 }
 

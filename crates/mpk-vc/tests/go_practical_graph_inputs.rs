@@ -291,6 +291,17 @@ fn candidate_graph_binding_rejects_crossed_complete_original_owners() {
         versioned.canonical_bytes()
     );
     assert_eq!(binding.source().source_inputs().roots().len(), 1);
+    let contracts = binding.derive_contracts().unwrap();
+    assert_eq!(contracts.contracts().module().selected_roots().len(), 1);
+    assert_eq!(contracts.contracts().module().functions().len(), 1);
+    assert_eq!(
+        contracts.contracts().module().functions()[0].origin(),
+        &GoSourceContractOrigin::Default
+    );
+    assert_eq!(
+        contracts.graph().canonical_bytes(),
+        versioned.canonical_bytes()
+    );
     let local_source =
         bind_go_practical_source_selection(&request, graph_selection(&local)).unwrap();
     assert!(bind_go_practical_module_graph(local_source, &local).is_ok());
