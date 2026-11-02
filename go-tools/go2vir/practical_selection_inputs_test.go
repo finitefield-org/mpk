@@ -127,6 +127,33 @@ func TestPracticalSelectionInputsOwnCompletePhysicalRoots(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	request, err := newPracticalCandidateRequest([]practicalCandidateSelector{
+		{Package: "example.com/policy", Function: "Root"},
+		{Package: "example.com/policy", Function: "Work", Receiver: &practicalCandidateReceiver{Package: "example.com/policy", TypeName: "Count"}},
+		{Package: "example.com/policy", Function: "Work", Receiver: &practicalCandidateReceiver{Package: "example.com/policy", TypeName: "Other"}},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	bound, err := owner.candidateSourceSelection(request)
+	if err != nil || !bytes.Equal(bound.selection.canonical, packet.canonical) {
+		t.Fatal("candidate names did not bind the same complete original roots", err)
+	}
+	boundRefs := bound.rootRefs()
+	if len(boundRefs) != 3 || boundRefs[0] != root || boundRefs[1] != roots[2] || boundRefs[2] != roots[1] {
+		t.Fatal("candidate names resolved to different original declarations")
+	}
+	boundRefs[0] = practicalClosureRef{}
+	boundRequest := bound.requestBytes()
+	boundRequest[0] ^= 1
+	if bound.rootRefs()[0] != root || !bytes.Equal(bound.requestBytes(), request.requestBytes()) {
+		t.Fatal("caller changed owned candidate selection")
+	}
+	for _, bad := range []*practicalCandidateRequest{nil, {}, {registry: request.registry, context: request.context, selection: request.selection}} {
+		if value, err := owner.candidateSourceSelection(bad); err == nil || value.request != nil || value.roots != nil {
+			t.Fatal("incomplete candidate request accepted", err)
+		}
+	}
 	retainPracticalSyntaxEvidence(t, "selection-inputs.json", practicalSelectionInputEvidence(t, packet))
 	retainPracticalSyntaxEvidence(t, "physical-root-observations.json", map[string]any{"functions": observations, "all_original_files": files, "application_initializers_executed": false})
 	reverse := []practicalClosureRef{roots[2], roots[1], roots[0]}
@@ -140,6 +167,18 @@ func TestPracticalSelectionInputsOwnCompletePhysicalRoots(t *testing.T) {
 	maximum, err := owner.selectionInputs(boundary)
 	if err != nil {
 		t.Fatal("exact root count rejected", err)
+	}
+	maximumNames := make([]practicalCandidateSelector, 0, 8192)
+	for i := 0; i < 8192; i++ {
+		maximumNames = append(maximumNames, practicalCandidateSelector{Package: "example.com/policy", Function: fmt.Sprintf("Bound%04d", i)})
+	}
+	maximumRequest, err := newPracticalCandidateRequest(maximumNames)
+	if err != nil {
+		t.Fatal(err)
+	}
+	maximumBound, err := owner.candidateSourceSelection(maximumRequest)
+	if err != nil || len(maximumBound.rootRefs()) != 8192 || !bytes.Equal(maximumBound.selection.canonical, maximum.canonical) {
+		t.Fatal("candidate names lost the full original 8192-root boundary", err)
 	}
 	retainPracticalSyntaxEvidence(t, "selection-boundary-inputs.json", practicalSelectionInputEvidence(t, maximum))
 	badStart, badEnd, badPackage, badSource := root, root, root, root

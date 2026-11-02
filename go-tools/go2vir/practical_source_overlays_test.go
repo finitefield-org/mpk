@@ -3,6 +3,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"go/ast"
@@ -181,6 +182,48 @@ func init(){}
 	policy += "}\n"
 	owner, _ := practicalStorageTestOwner(t, map[string][]byte{"go.mod": []byte("module example.com/policy\ngo 1.25.0\n"), "policy.go": []byte(strings.ReplaceAll(policy, "\n", "\r\n")), "helper/helper.go": []byte("package helper\ntype Other uint8\nfunc(Other)Error()string{return \"helper\"}\ntype Node struct{E error}\n")})
 	defer owner.Close()
+	selector := func(function, receiver string) practicalCandidateSelector {
+		root := practicalCandidateSelector{Package: "example.com/policy", Function: function}
+		if receiver != "" {
+			root.Receiver = &practicalCandidateReceiver{Package: root.Package, TypeName: receiver}
+		}
+		return root
+	}
+	resolveCandidate := func(roots ...practicalCandidateSelector) (practicalCandidateSourceSelection, error) {
+		request, err := newPracticalCandidateRequest(roots)
+		if err != nil {
+			return practicalCandidateSourceSelection{}, err
+		}
+		return owner.candidateSourceSelection(request)
+	}
+	direct, err := resolveCandidate(selector("Work", "Recv"))
+	if err != nil {
+		t.Fatal("original value receiver rejected", err)
+	}
+	aliased, err := resolveCandidate(selector("Work", "RecvAlias"))
+	if err != nil || !bytes.Equal(direct.selection.canonical, aliased.selection.canonical) {
+		t.Fatal("receiver alias did not select the original declaration", err)
+	}
+	if _, err := resolveCandidate(selector("init", "Recv")); err != nil {
+		t.Fatal("ordinary init method rejected", err)
+	}
+	if _, err := resolveCandidate(selector("名前", "")); err != nil {
+		t.Fatal("original Unicode function rejected", err)
+	}
+	for _, roots := range [][]practicalCandidateSelector{
+		{selector("Work", "Recv"), selector("Work", "RecvAlias")},
+		{selector("Pointer", "Recv")},
+		{selector("Work", "ImportedAlias")},
+		{selector("Missing", "Recv")},
+	} {
+		request, err := newPracticalCandidateRequest(roots)
+		if err != nil {
+			t.Fatal("valid raw candidate rejected before source resolution", err)
+		}
+		if value, err := owner.candidateSourceSelection(request); err == nil || value.roots != nil {
+			t.Fatal("duplicate, pointer, imported or missing candidate accepted", err)
+		}
+	}
 	retainPracticalSyntaxEvidence(t, "overlays-inputs.json", practicalBoxingInput(t, owner))
 	function := func(name string, receiver any) map[string]any {
 		return map[string]any{"package": "example.com/policy", "function": name, "receiver": receiver}

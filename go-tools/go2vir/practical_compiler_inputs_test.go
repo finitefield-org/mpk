@@ -148,11 +148,23 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 		fail(err)
 	}
 	defer owner.Close()
-	compilerInputs, err := image.compilerInputs(owner, []practicalClosureRef{practicalClosureTestRef(t, owner, "example.com/policy", "Root")})
+	request, err := newPracticalCandidateRequest([]practicalCandidateSelector{{Package: "example.com/policy", Function: "Root"}})
 	if err != nil {
 		fail(err)
 	}
-	defer compilerInputs.Close()
+	candidateInputs, err := image.candidateCompilerInputs(owner, request)
+	if err != nil {
+		fail(err)
+	}
+	defer candidateInputs.Close()
+	selection := candidateInputs.selection
+	if roots := selection.rootRefs(); len(roots) != 1 || roots[0] != practicalClosureTestRef(t, owner, "example.com/policy", "Root") {
+		t.Fatal("candidate request did not select the original Root declaration")
+	}
+	compilerInputs := candidateInputs.compiler
+	if !bytes.Equal(selection.selection.canonical, compilerInputs.exports.capture.selection.canonical) {
+		t.Fatal("compiler inputs crossed the candidate's original source selection")
+	}
 	if err := image.Close(); err != nil {
 		fail(err)
 	}
@@ -161,7 +173,7 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 			t.Fatal("original root survived", err)
 		}
 	}
-	input, err := owner.moduleGraphInputs([]practicalClosureRef{practicalClosureTestRef(t, owner, "example.com/policy", "Root")})
+	input, err := owner.moduleGraphInputs(selection.rootRefs())
 	if err != nil {
 		fail(err)
 	}
@@ -173,11 +185,7 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 		t.Fatal("compiler/source export owners differ")
 	}
 	packet["compiler_inputs_hex"] = hex.EncodeToString(compilerInputs.canonical)
-	request, err := newPracticalCandidateRequest([]practicalCandidateSelector{{Package: "example.com/policy", Function: "Root"}})
-	if err != nil {
-		fail(err)
-	}
-	packet["candidate_request_hex"] = hex.EncodeToString(request.requestBytes())
+	packet["candidate_request_hex"] = hex.EncodeToString(selection.requestBytes())
 	unselected, err := newPracticalCandidateRequest([]practicalCandidateSelector{{Package: "example.com/policy", Function: "Unused"}})
 	if err != nil {
 		fail(err)

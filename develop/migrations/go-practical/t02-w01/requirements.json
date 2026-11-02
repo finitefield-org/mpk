@@ -1508,6 +1508,14 @@
       "requirement": "Original source/export metadata and complete compiler identity; immutable original packages without rewritten/stub source; closed capture for the later verification-closure algorithm",
       "status": "pending",
       "executor": "go-tools/go2vir/practical_capture.go, snapshot.go, loader.go",
+      "go_candidate_source_checkpoint": {
+        "evidence": "verification/go-source-selection/README.md",
+        "executor": "go-tools/go2vir/practical_candidate_source.go",
+        "scope": "The Go producer revalidates its complete inactive request, resolves original typed function and value-receiver declarations including aliases, and derives the physical roots used by the compiler-input handoff. All 8192 original boundary roots, alias and request-integrity controls pass. The full 5697-object, 182-package capture and registered SDK pass with the independent Rust request/source check. Installed-launcher/read authority, checked foundation and source/program proofs remain due.",
+        "R06_completed": false,
+        "public_profile_activated": false,
+        "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
       "request_source_binding_checkpoint": {
         "evidence": "verification/request-source-binding/README.md",
         "scope": "The inactive candidate request resolves against independently parsed original source scopes and must match the complete imported physical roots, including alias duplicate rejection and the unchanged 8192-root limit. The live 5697-object, 182-package source/export owner binds the actual Go-produced request while both matched roots remain held. A complete test-only registered-SDK compiler owner accepts the selected Root and rejects the existing unselected Unused function. The installed-owner method was not rerun against a staged installed release; launcher authority, checked foundation and source/program proofs remain due.",
