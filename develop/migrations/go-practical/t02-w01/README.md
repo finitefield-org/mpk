@@ -52,9 +52,8 @@ call-free, error-contract and annotated-call captures pass.
 
 The [checked error value relations](verification/checked-error-value-relations/README.md)
 retain the original contract and graph while checking nil and every concrete
-error row. The full live error-contract application passes; the 70-case
-regression remains in progress. Source execution and complete foundation
-remain open.
+error row. The full live error-contract application and the complete 70-case
+regression pass. Source execution and complete foundation remain open.
 
 The [error-free value relations](verification/error-free-value-relations/README.md)
 cover complete original source domains without inventing an `error` value.

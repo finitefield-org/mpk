@@ -24,7 +24,9 @@ seconds. Go also accepted the same nil and last concrete certificates, with
 zero axioms and matching hashes. Review then strengthened the check to compare
 the source error type, generated module identities and verified certificate
 identity on every row. The strengthened small-domain and crossed-catalogue
-controls pass; its full 70-case rerun remains in progress. A full live capture
+controls passed, and its full 70-case rerun passed all 71 rows in 2,467
+seconds. Its nil and last concrete certificates are byte-identical to the
+previously Go-checked streams. A full live capture
 adds an error argument, a non-pointer error type and an actual contract listing
 that type to the existing 182-package application. It retains all 5,577 SDK
 files, 5,517 non-export objects and 181 exports. Independent byte comparison
