@@ -128,6 +128,68 @@ fn complete_original_slice_domain_has_checked_relations() {
 }
 
 #[test]
+fn complete_original_struct_receiver_domain_has_checked_relations() {
+    let packet: Value = serde_json::from_slice(
+        &std::fs::read(inputs::evidence().join("contract-expressions/corpus.json")).unwrap(),
+    )
+    .unwrap();
+    let sources = packet["input"]["sources"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|row| {
+            GoTypeSourceBuffer::import(
+                &serde_json::to_vec(&row["object"]).unwrap(),
+                &unhex(&row["raw_hex"]),
+            )
+            .unwrap()
+        })
+        .collect::<Vec<_>>();
+    let keys = import_go_type_key_components(&unhex(&packet["input"]["components_hex"]), &sources)
+        .unwrap();
+    let case = packet["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|row| row["native"]["function"]["function"] == "Method")
+        .unwrap();
+    let selector: GoSourceFunctionSelector =
+        serde_json::from_value(case["native"]["function"].clone()).unwrap();
+    let original = GoTypeSourceBuffer::import(
+        &serde_json::to_vec(&case["object"]).unwrap(),
+        &unhex(&case["raw_hex"]),
+    )
+    .unwrap();
+    let overlay = GoSourceOverlay::import(&original).unwrap();
+    let contracts = derive_go_source_contract_module(&keys, &[selector], &[overlay]).unwrap();
+    let domain = contracts.value_domain();
+    assert!(domain
+        .types()
+        .any(|key| matches!(key, GoSourceTypeKey::Struct { .. })));
+    assert!(domain
+        .types()
+        .any(|key| matches!(key, GoSourceTypeKey::Slice { .. })));
+    let relations = generate_go_practical_error_free_source_value_relations(domain).unwrap();
+    assert_eq!(
+        relations.source_types().iter().collect::<Vec<_>>(),
+        domain.types().collect::<Vec<_>>()
+    );
+    let report = mpk_kernel::verify_certificate_bytes(relations.certificate_bytes()).unwrap();
+    assert_eq!(report.axiom_count, 0);
+    inputs::write("error-free-struct.mpcert", relations.certificate_bytes());
+    inputs::write(
+        "error-free-struct.rust.json",
+        mpk_kernel::render_verification_report_json(&report).as_bytes(),
+    );
+    eprintln!(
+        "original struct domain types={}, declarations={}, bytes={}",
+        relations.source_types().len(),
+        report.declaration_count,
+        relations.certificate_bytes().len()
+    );
+}
+
+#[test]
 fn complete_original_error_free_domain_has_checked_relations() {
     let contracts = original_contracts();
     assert_eq!(contracts.functions().len(), 4);

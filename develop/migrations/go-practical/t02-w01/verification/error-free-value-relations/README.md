@@ -18,6 +18,10 @@ The separate original loop-contract input includes a slice; both checkers
 also accepted its four-type, 75-declaration, 30,577-byte certificate with
 zero axioms and certificate hash
 `11e8564c061cfe52e29d75b239ec5636d1df0f5ca054e2a31c55ddab3f2ba75f`.
+An original value-receiver method also retains a struct, its nominal type and
+a slice. Both checkers accepted its six-type, 99-declaration, 36,841-byte
+certificate with zero axioms and certificate hash
+`31fa8b006c8fec75745e567790acd3afaf030988a97c23a6af040bdfe96b6d72`.
 The exact importer rejects altered certificate bytes. Two complete original
 domains that do contain `error` reject this specialized path, including one
 with no concrete error cases and the original 70-case domain.
@@ -31,8 +35,10 @@ rejection of a crossed complete graph. Both checkers accepted its exact
 35-declaration, 6,200-byte certificate with zero axioms and certificate hash
 `f28ba2b601165cd02bb09d70ddeb671232331b6dbaf5fdc56cc99ee257c9ec34`.
 The targeted tests were selected to exercise the new constructor, exact
-import, source-domain boundary and graph retention. No new validation archive
-is committed. Strict affected Clippy and changed-file Rust formatting passed.
+import, source-domain boundary and graph retention. After adding the separate
+struct-receiver case, only that new test was rerun; the preceding three tests
+were unchanged. No new validation archive is committed. Strict affected
+Clippy and changed-file Rust formatting passed.
 
 These are relations on the complete encoded values, including padding and
 ghost fields. They do not establish Go `==`, runtime input validity, source
