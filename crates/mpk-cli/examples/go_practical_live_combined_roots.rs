@@ -148,9 +148,10 @@ fn main() {
     }
     fn candidate_request(
         packet: &Value,
+        field: &str,
     ) -> Result<mpk_vc::go_practical_context::GoPrivateCandidateRequest> {
         let raw = unhex(
-            packet["candidate_request_hex"]
+            packet[field]
                 .as_str()
                 .ok_or_else(|| fail("missing original Go candidate request"))?,
         )?;
@@ -419,7 +420,7 @@ fn main() {
             return Err(fail("invalid original owner path").into());
         }
         let packet: Value = serde_json::from_slice(&fs::read(owner_path)?)?;
-        let candidate = candidate_request(&packet)?;
+        let candidate = candidate_request(&packet, "candidate_request_hex")?;
         let original = exports(&packet, directory)?;
         let matched = roots
             .bind(original)
@@ -466,6 +467,27 @@ fn main() {
             {
                 return Err(fail("test installed owner lost original roots").into());
             }
+            {
+                let binding = owner.bind_candidate_request(&candidate).map_err(|error| {
+                    fail(format!(
+                        "test installed candidate/source binding: {error:?}"
+                    ))
+                })?;
+                if binding.source_inputs().roots().len() != 1 {
+                    return Err(fail("test installed candidate lost its original root").into());
+                }
+                let other = candidate_request(&packet, "unselected_candidate_request_hex")?;
+                if !matches!(
+                    owner.bind_candidate_request(&other),
+                    Err(GoPracticalSourceBindingError::Mismatch { root: Some(0) })
+                ) {
+                    return Err(fail(
+                        "test installed owner accepted a different original function",
+                    )
+                    .into());
+                }
+                std::hint::black_box(&binding);
+            }
             owner
         };
         #[cfg(not(test))]
@@ -473,7 +495,7 @@ fn main() {
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"test_only_installed_owner_bound":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"test_only_installed_owner_bound":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
         std::hint::black_box(&held_owner);
         Ok(())

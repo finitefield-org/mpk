@@ -178,6 +178,11 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 		fail(err)
 	}
 	packet["candidate_request_hex"] = hex.EncodeToString(request.requestBytes())
+	unselected, err := newPracticalCandidateRequest([]practicalCandidateSelector{{Package: "example.com/policy", Function: "Unused"}})
+	if err != nil {
+		fail(err)
+	}
+	packet["unselected_candidate_request_hex"] = hex.EncodeToString(unselected.requestBytes())
 	files := []any{}
 	totalBytes := int64(0)
 	large := 0

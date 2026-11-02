@@ -28,7 +28,9 @@ does not supply launcher or source authority.
 The [request/source binding](verification/request-source-binding/README.md)
 now resolves that request against the original physical declarations while
 both source and export roots remain held. The complete live application and
-SDK case passes; launcher authority and source/program proofs remain open.
+SDK case passes, including the test-only compiler owner accepting the selected
+function and rejecting a different original function. Launcher authority and
+source/program proofs remain open.
 
 Status: In progress. Entry is T01 completion commit
 `fe1b85cb70c7ea390c02469706d09cdc913f973f`. The

@@ -10,9 +10,9 @@ and original source owner, rather than copying the captured source set.
 
 The owner of the matched source and export roots can perform this binding while
 keeping both root sets live. The installed-compiler owner has the corresponding
-API; it was compiled in this checkpoint but was not run against a staged
-installed release. Neither API authorizes launcher paths or proves which bytes
-an external process read.
+API. It was exercised with a test-only snapshot of the complete registered SDK,
+but was not run against a staged installed release. Neither API authorizes
+launcher paths or proves which bytes an external process read.
 
 The new five-test request/source suite passed, including the full original
 8,192-root case, an independently resealed but different physical declaration,
@@ -35,10 +35,23 @@ ran on Linux arm64. The request digest was
 `24000c87ae0e4b16194b84233c06cebfd2a2a8da044bba38740ca58d99f00c3b`.
 The observer is a test executable, not the installed launcher.
 
+A second complete live run exercised the compiler-owner method itself. Go
+produced requests for both the selected `Root` and the existing unselected
+`Unused` function. With the registered SDK inventory and both root sets held,
+the test-only compiler owner accepted `Root` and rejected `Unused` as a
+different physical root. This repeated the full original capture because the
+live directory handles cannot be reused after the preceding run. The same 182
+packages, 5,697 source/export objects and 5,577 SDK files were retained.
+
 Strict Clippy passed for the affected Rust tests and for both Linux observers
 and the capture-binding integration test. Changed-file Rust and Go formatting,
 Go `vet`, and `git diff --check` passed. The full original test data and limits
-were retained. No new validation archive is committed.
+were retained. The second run also passed strict Clippy for the normal observer
+and its test-only configuration, plus Go `vet` and changed-file formatting.
+The first offline test-observer build lacked the existing Cargo registry mounts
+and stopped before compilation; mounting the original cache, index and sources
+read-only allowed the unchanged offline build to pass. No new validation
+archive is committed.
 
 The foundation is still candidate-only; launcher authority, native Linux release
 acceptance, source/program proof and T02-W01 R01/R06 remain open. The practical
