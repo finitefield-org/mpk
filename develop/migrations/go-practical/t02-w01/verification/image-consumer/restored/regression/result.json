@@ -1,0 +1,618 @@
+{
+  "status": "failed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "test",
+    "-mod=vendor",
+    "-run",
+    "^(TestPracticalImageInputs.*|TestPracticalResolution.*|TestPracticalModule.*)$",
+    "-count=1",
+    "-json",
+    "."
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOVCS": "*:off",
+    "GOTELEMETRY": "off",
+    "GOWORK": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOFLAGS": "-buildvcs=false",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod",
+    "MPK_GO_PRACTICAL_SYNTAX_EVIDENCE": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/image-consumer/restored/regression",
+    "MPK_GO_PRACTICAL_ANALYSIS_EVIDENCE": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/image-consumer/restored/regression"
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "sources": [
+    {
+      "path": "go-tools/go2vir/active_corpus_test.go",
+      "sha256": "fdd64563b0103dcf833816455b181daf3df270e5d50446fee6860c4362b46369",
+      "bytes": 19494
+    },
+    {
+      "path": "go-tools/go2vir/bundle_candidate_test.go",
+      "sha256": "ca92ebb2c1b153c750db5f80724f2aa04bc60758508d77c5a6f5c72514548e41",
+      "bytes": 12027
+    },
+    {
+      "path": "go-tools/go2vir/bundle_selection.go",
+      "sha256": "b174bacc9a3ee1b3793a48f801b794044b3eafb886dcb7da208666108f34962f",
+      "bytes": 22651
+    },
+    {
+      "path": "go-tools/go2vir/canonical_json.go",
+      "sha256": "0b266e9187e97e8a3275978099cafb3cc16edf12c1094d8ef533909bbf22f16b",
+      "bytes": 10460
+    },
+    {
+      "path": "go-tools/go2vir/contract.go",
+      "sha256": "51316ed3fecbf200f569567f46fd9065c912a41d03299b96021e44c2418c9bda",
+      "bytes": 30100
+    },
+    {
+      "path": "go-tools/go2vir/corpus_test.go",
+      "sha256": "08007ed264fcc6da716241e72d7fb26bb53918aed84b13cfd1a66f17d6711f87",
+      "bytes": 16972
+    },
+    {
+      "path": "go-tools/go2vir/emit.go",
+      "sha256": "8e9457ca250c53bbe01de30644dc9085946e807df75737fef5933a3de42916ec",
+      "bytes": 10285
+    },
+    {
+      "path": "go-tools/go2vir/features.go",
+      "sha256": "050c9e7f59d429aeceb82a8fdbbac7a2ef2d78bad4e6759e237ab60508eb69fc",
+      "bytes": 18090
+    },
+    {
+      "path": "go-tools/go2vir/hash.go",
+      "sha256": "180957d685df429f8c458e503d7e3a3ce4235458dc65daeaa53e4c2e4549d7d8",
+      "bytes": 1258
+    },
+    {
+      "path": "go-tools/go2vir/loader.go",
+      "sha256": "6034f01b6e9b2e46adfc131299f21a8b38bbc1415a93de0de91db39eb2f296eb",
+      "bytes": 11318
+    },
+    {
+      "path": "go-tools/go2vir/loader_test.go",
+      "sha256": "294211d2b4a7b716b5cd9034c54c172123ff79cadc1e5afde4d71a8226d7e30d",
+      "bytes": 6649
+    },
+    {
+      "path": "go-tools/go2vir/lower.go",
+      "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052",
+      "bytes": 50967
+    },
+    {
+      "path": "go-tools/go2vir/lower_types.go",
+      "sha256": "40378faf14b85bd585b0425b333d1e0b4b66738912e2fbb7a0f3479ce90c33f1",
+      "bytes": 5075
+    },
+    {
+      "path": "go-tools/go2vir/main.go",
+      "sha256": "353468be619893d2235442d8fc686b03c4ab0e15751fc73e94f5777932d50911",
+      "bytes": 14048
+    },
+    {
+      "path": "go-tools/go2vir/main_test.go",
+      "sha256": "ec42bf8fea669fff426d89f8e18411a4cfeae6aa8933ccfb702ae41288e73aa5",
+      "bytes": 37853
+    },
+    {
+      "path": "go-tools/go2vir/manifest.go",
+      "sha256": "37c20f41cb3a11b90f5dadba2aaca5e694f4ddb1d058b7d7bfde985e039a6176",
+      "bytes": 9152
+    },
+    {
+      "path": "go-tools/go2vir/manifest_test.go",
+      "sha256": "cb75b2617a003777d68581bdde73cbc54d998bbb037fa57e96bec88f4fd4031b",
+      "bytes": 4684
+    },
+    {
+      "path": "go-tools/go2vir/practical_analysis.go",
+      "sha256": "7681d113cfff36a5d97a8ccc76d2eab5632b764232ae516c778495946f55ef24",
+      "bytes": 13455
+    },
+    {
+      "path": "go-tools/go2vir/practical_analysis_capture_test.go",
+      "sha256": "999f73212ce5478b2d998211b85da8be3fa07a9096ae064f2417ee1bed20f727",
+      "bytes": 10948
+    },
+    {
+      "path": "go-tools/go2vir/practical_analysis_test.go",
+      "sha256": "e2db8c23e7f7f0786c67326cd17a88c4a60c8f971618f7c5031f74a36e54f3ca",
+      "bytes": 7294
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive.go",
+      "sha256": "f8bc2ce51592797e9c9afe78a564e40c3524893aeb350824e78d46ca9620f8b3",
+      "bytes": 10962
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_capture_test.go",
+      "sha256": "a082111f9fdb66ef54b1f4f0847580a106aea6e31eca6bbbb8da2b46698b5dce",
+      "bytes": 9691
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_fold.go",
+      "sha256": "5791982a8213e654c8e653f6ffc1da7b9eb1900ad207826eb025e66b7aa1439e",
+      "bytes": 1072
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_ownership_test.go",
+      "sha256": "45ae78138bcfc8cdcf9eee55eeeaa0d778dcfb8c13215b53ee2f3a3d8a6104e4",
+      "bytes": 3634
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_test.go",
+      "sha256": "1a659f37f4f5523569e4608e8c7799028117b006f403cfbab7954a7912488d3a",
+      "bytes": 12048
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture.go",
+      "sha256": "9328ddf2554d62a22dc916dab5036be4bbb7504b1f64456345e84ccc6383715e",
+      "bytes": 15534
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture_test.go",
+      "sha256": "56c4da448eebebde85e6c9e541a4041ad016d0da8f6306b74d28bea95367e227",
+      "bytes": 15313
+    },
+    {
+      "path": "go-tools/go2vir/practical_cleanup_go125.go",
+      "sha256": "2fd7b44d266025e697ee0e2f6858b50762ebc192318b48d60b5c67d2bcd34b13",
+      "bytes": 1063
+    },
+    {
+      "path": "go-tools/go2vir/practical_cleanup_unavailable.go",
+      "sha256": "fc04fa620db586e47e3c046af6d57134fb39113de0fca03eacc29ada9e5dbc42",
+      "bytes": 185
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler.go",
+      "sha256": "751aa7f5bd191c59e270aa657879113336b5061102f350092d14a53ac409440e",
+      "bytes": 9991
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler_capture_test.go",
+      "sha256": "ce8793cfc3979241dcab18e529437e54ccd89497f39d2c6e3d4c006586fe2ef2",
+      "bytes": 11094
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler_test.go",
+      "sha256": "b44ac68aa7bee310740f83a34874e70345cf7f99fb95a8fc735eb4cccb255b18",
+      "bytes": 2624
+    },
+    {
+      "path": "go-tools/go2vir/practical_exports.go",
+      "sha256": "9d8516e7a4ac1b480717c2cbcdc82ebb1ba72ca3af8781976d078b2f4ca9e8f3",
+      "bytes": 21382
+    },
+    {
+      "path": "go-tools/go2vir/practical_exports_test.go",
+      "sha256": "03419045a8d47e7b2e55c6fbdfb971234a65e1a77897c8091d6de4b1e30492d9",
+      "bytes": 1899
+    },
+    {
+      "path": "go-tools/go2vir/practical_image_inputs.go",
+      "sha256": "7fbe8cfcd767be47ee46797c70cb5f1e7d04056728093812ebbdc8e487e1ec06",
+      "bytes": 8590
+    },
+    {
+      "path": "go-tools/go2vir/practical_image_inputs_test.go",
+      "sha256": "93a15affbd542c0f5147a5fea971830e12656282fb62d8f0259da70b72634caa",
+      "bytes": 10956
+    },
+    {
+      "path": "go-tools/go2vir/practical_module.go",
+      "sha256": "6a6e59cf3bedbd4f9b44bb751171b85c2d486a7d7b9e6d17d0a3ab2e0416ed8b",
+      "bytes": 5531
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_capture.go",
+      "sha256": "9183743b7a532f5169e9013a75c22cbd7ca7f97669b752c416e46b74def36390",
+      "bytes": 4510
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_capture_test.go",
+      "sha256": "1575a63ae86c81abed2aeb0befcc354338df95c4874dec93585d4fe5e5b6c085",
+      "bytes": 9599
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_inputs.go",
+      "sha256": "0b4615d58882d1a50b8ed169c795ee84d6f9d0ba2c3b65b3e13c8b1c863d93ce",
+      "bytes": 1881
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot.go",
+      "sha256": "9f3fae6478b88d18d23f59d9b2189d48edbb3bc64ba9cd6a9df8f2139b61601b",
+      "bytes": 4434
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot_capture_test.go",
+      "sha256": "3ee4ed013d253944e25a3c2e62158c14ab17d427730fc0fbedafa9777414a7bb",
+      "bytes": 8027
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot_test.go",
+      "sha256": "2bbe78c3752a8aba2ef4da3bdffcd7445ef1e03e7e05ebd657aab954474cd1fc",
+      "bytes": 1604
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_test.go",
+      "sha256": "3dea953e0d21d89d43c6a89b09f31be64ee172a91780d85cfa0f828b81b8894b",
+      "bytes": 7225
+    },
+    {
+      "path": "go-tools/go2vir/practical_namespace.go",
+      "sha256": "138d1c45284c11cf78b8718194670a14be056be69005f466b02c20942e4fcb8a",
+      "bytes": 6259
+    },
+    {
+      "path": "go-tools/go2vir/practical_namespace_test.go",
+      "sha256": "bbf5bfa58b898ceb850aa12a5d42ff0bbedaf035e201be24cb069c0fb8f429b5",
+      "bytes": 8651
+    },
+    {
+      "path": "go-tools/go2vir/practical_package.go",
+      "sha256": "5567b2612e07cdac329bb3050fcb6ee3f8f923c9a15461be4a6945697e813ae5",
+      "bytes": 9240
+    },
+    {
+      "path": "go-tools/go2vir/practical_package_test.go",
+      "sha256": "3ded83bcbcd21db9676e2974a9e5a08f525ab36a3c79765f812ec996d3294c93",
+      "bytes": 17762
+    },
+    {
+      "path": "go-tools/go2vir/practical_replay.go",
+      "sha256": "57453ab28a0dea15810bf3847112a7b23799ed7e9c7121e73c1dd3fdf52da532",
+      "bytes": 14868
+    },
+    {
+      "path": "go-tools/go2vir/practical_replay_test.go",
+      "sha256": "d83b99d6ffa711b755b86525e4e39f3547b10e5bae27fba28b4bbcba1580087b",
+      "bytes": 16024
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution.go",
+      "sha256": "4a550e14acb314148f5b0f5e7582155a32baaf73427db439e5f184a97aac99fe",
+      "bytes": 14964
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution_capture_test.go",
+      "sha256": "ec40f233424e34206fa86908431a64702cb2b6b8691031687e21296371dd9be4",
+      "bytes": 12487
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution_test.go",
+      "sha256": "3452a3afce4a26c02775462a8858d1a0110a77d162a82e38b37e8aaf1b923cdd",
+      "bytes": 2673
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_go125.go",
+      "sha256": "0df55c7d98a83359e5a3b662bd28348c9f970a653a248bfc5dfdb1c8d216bc16",
+      "bytes": 519
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable.go",
+      "sha256": "3dc114afa98fcb7cf17dad7cc66b8fbb282bc5b87d201d534c9c44ceb74eaed9",
+      "bytes": 247
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable_test.go",
+      "sha256": "5e3b451ac8b686110a6eefaa21cb97b9d9da53866beee63e35c6d4884ad497c1",
+      "bytes": 300
+    },
+    {
+      "path": "go-tools/go2vir/practical_snapshot.go",
+      "sha256": "7efb262dd5c22e504f131a42aa5a7ff12cf90f18a8c0b583ca26be819ba06fc3",
+      "bytes": 9173
+    },
+    {
+      "path": "go-tools/go2vir/practical_snapshot_test.go",
+      "sha256": "09967a5aba8648123f84c00e1ff517097ed68949d05cd8f25504ba0668716682",
+      "bytes": 18104
+    },
+    {
+      "path": "go-tools/go2vir/practical_source.go",
+      "sha256": "25d90659622e069862524c3c8b997d505e811de51e38aa76124503ca47952360",
+      "bytes": 5269
+    },
+    {
+      "path": "go-tools/go2vir/practical_source_test.go",
+      "sha256": "995a30a9343858bfc6c7dbcfd08875a504b389eaa52f4b011d6aa27663d88548",
+      "bytes": 8809
+    },
+    {
+      "path": "go-tools/go2vir/practical_stdlib.go",
+      "sha256": "89e816dffaccfce1d6b1623de8b937a123f1b31365c36e8e8208ba26cb02b3ef",
+      "bytes": 9048
+    },
+    {
+      "path": "go-tools/go2vir/practical_stdlib_test.go",
+      "sha256": "46b1d72fefa1bce1ad2648343934a6cc1dfd3299055e8fa90d9855a8725daa65",
+      "bytes": 14855
+    },
+    {
+      "path": "go-tools/go2vir/practical_syntax.go",
+      "sha256": "3bb22cc6f6ec9f6d3d276490f573008a1b5ba2f390c17afd1aeb62a5022e0feb",
+      "bytes": 8064
+    },
+    {
+      "path": "go-tools/go2vir/practical_syntax_test.go",
+      "sha256": "70d4bafdff346f8b71ad5a1cb2ee18eaf7555e9d340722d0b2dc47128e237798",
+      "bytes": 16165
+    },
+    {
+      "path": "go-tools/go2vir/practical_typecheck.go",
+      "sha256": "99eb3ddcd7c91ec5d83bcf35ece8ee69feb000cc598aa9f116ce5583fe08f043",
+      "bytes": 15966
+    },
+    {
+      "path": "go-tools/go2vir/practical_view.go",
+      "sha256": "1b2096c22e4546dd31f6be77f992e0575f8ba63f90394ee31e5ebffcc03a7692",
+      "bytes": 6679
+    },
+    {
+      "path": "go-tools/go2vir/practical_view_test.go",
+      "sha256": "89ca039f5512be02f54dd10c767708dede86b087a5f2eb9e0034c416fb8785e2",
+      "bytes": 8615
+    },
+    {
+      "path": "go-tools/go2vir/preflight.go",
+      "sha256": "8faf415d2954ac1821dd3c8f7bbf6d58e48ce9a5bbf56fd8d46d91651120d711",
+      "bytes": 27204
+    },
+    {
+      "path": "go-tools/go2vir/preflight_test.go",
+      "sha256": "adfa1f4844a44d66190ff8b4e7a4e5015add7f9ece73bd1d2f5cbd6547f0e100",
+      "bytes": 12140
+    },
+    {
+      "path": "go-tools/go2vir/profile_v0_test.go",
+      "sha256": "72205ffe1b8ed8fa42982fc61284cb56c9c94e1723ee7e80104ca65d346e067c",
+      "bytes": 3294
+    },
+    {
+      "path": "go-tools/go2vir/profile_v0_vectors_test.go",
+      "sha256": "c0960b21d6eb8ff4864fa7f4632222c54b67d331a26ecc1c6c811d63d7940c64",
+      "bytes": 2115
+    },
+    {
+      "path": "go-tools/go2vir/protocol.go",
+      "sha256": "11a2088602b48cb339dbff6c1647387df92e0d2308174c56eb2d40bbf088883f",
+      "bytes": 9548
+    },
+    {
+      "path": "go-tools/go2vir/registered_selection.go",
+      "sha256": "d232c2c1640447dfece6c372d412d15ff260cae2149979f624a7044759955777",
+      "bytes": 6315
+    },
+    {
+      "path": "go-tools/go2vir/secure_open_unix.go",
+      "sha256": "f53a822b58eae96837789f1d193665f34127ab0b74b842415e4112dc64055369",
+      "bytes": 310
+    },
+    {
+      "path": "go-tools/go2vir/secure_open_windows.go",
+      "sha256": "fb2c78196c792dc3d4f6d40731e1e3d8edd7237a982125444591724fcb7754d3",
+      "bytes": 579
+    },
+    {
+      "path": "go-tools/go2vir/snapshot.go",
+      "sha256": "b67ac51476f2d28b37a75fa3cd800c78c0745cdbf2cb9dd16f659be436d9e3ab",
+      "bytes": 5346
+    },
+    {
+      "path": "go-tools/go2vir/snapshot_test.go",
+      "sha256": "23aee6661119cfef77d8426c9d8d69d5b3dfb0cfe6e9ec6bb530193b37657547",
+      "bytes": 2613
+    },
+    {
+      "path": "go-tools/go2vir/source_map.go",
+      "sha256": "393d0d1d7b17f7ceb27b8003fc4aefc85bdd35844621b9a34a974cdb0fdef3f3",
+      "bytes": 5166
+    },
+    {
+      "path": "go-tools/go2vir/ssa.go",
+      "sha256": "871a444533e536a62aadb828b4c407a58cbd48b595617a17f94075934cb4384e",
+      "bytes": 1183
+    },
+    {
+      "path": "go-tools/go2vir/successor_migration_test.go",
+      "sha256": "77b22bf193270f3fb639ce299479f8cb113c978d15145e1291c0683f1e69c213",
+      "bytes": 21694
+    },
+    {
+      "path": "go-tools/go2vir/vir_limits.go",
+      "sha256": "35c56519d657de24f9c32555b5048e68411fe4d37e5f3875c5a540ff8d6a980a",
+      "bytes": 8636
+    },
+    {
+      "path": "go-tools/go2vir/vir_types.go",
+      "sha256": "51023734e8eba6bb65aa1bc7759feadbc8c171ce8d66db313c8eaa65f4121088",
+      "bytes": 16722
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/source-admission/source-vectors.json",
+      "sha256": "81e7c48cb20d4c51c40b95edd00f54942420d3f3a6225e40159fd1c9d884f0cc",
+      "bytes": 22544
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/source-admission/native-facts.jsonl",
+      "sha256": "932cfc67127d9a17b33a08fb09ce69ca0e30789df7c4209d5d77cc500bbbb9a6",
+      "bytes": 139223
+    },
+    {
+      "path": "go-tools/go2vir/go.mod",
+      "sha256": "b90bfc21fd7a30139ab5852b895e0e1fcb7f8442d01ca4e2463c2ad1cfd15af3",
+      "bytes": 179
+    },
+    {
+      "path": "go-tools/go2vir/go.sum",
+      "sha256": "3b423539c29460b977ec958cd53a84c813d2c15a3d2cdfb841f07f3ef7a6104c",
+      "bytes": 632
+    },
+    {
+      "path": "go-tools/go2vir/vendor/modules.txt",
+      "sha256": "7acbaa5ff9b089a9665dae3dc009d872df913a55db4391bf1280243ddb60a99c",
+      "bytes": 1152
+    }
+  ],
+  "source_snapshot": "develop/migrations/go-practical/t02-w01/verification/image-consumer/restored/inputs",
+  "runner": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/image-consumer/run-selected.py",
+    "sha256": "6bb89558e53cf1e6ef6c483ca9d003cbf91d34f522ecae1b67435c851b942b59",
+    "bytes": 9145
+  },
+  "selection_reason": "Restore every original source/export buffer through the verified image view, preserve independent namespaces/roots/roles and share actual module binding rules between capture and immutable consumers. Retire original roots and donor buffers before full source typing/export binding; reject altered module observations without process/filesystem fallback. Preserve complete initial failing epochs. Affected namespace/snapshot/image/native package/analysis paths only. Materialize original captured byte images at original launcher-authorized absolute paths, preserve full native namespace and not-captured distinctions, compose all snapshots under shared frozen budgets, and clone full original compiler inventory without source/mod rewriting. Native export preparation now derives the original offline module cache from bound versioned archive identities. Affected byte-image/export/source/package/module/analysis boundaries only. Capture complete original prepared Go1.25.0 compiler src inventory with final source roles derived atomically from the same original bytes, fixed Linux/amd64/v1 build rules and no relabeling/racing second read. Original native -deps -export -compiled output, complete original compiler .a bytes with own build IDs, exact original source files/import maps/selected root and package closure are bound as preparation observations. Whole original standard source dependencies/SDK vendor/internal namespaces and full source type checking must match native Go package/file/import maps without host fallback or typed-package adapters. Preserve all original SDK raw source objects, original application/native list outputs and every failed epoch. Affected source/capture/package/module/analysis consumers, current182 frontend-input empty-cache builds, legacy compile-only, vet/format; no CSharp/agents/Actions/intermediate whole gate. Complete export/native module/package immutable authority, full56-all6-19 foundation/private context/all169/T02-T11 remain due.",
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "started_at_utc": "2026-10-20T09:39:24.619994+00:00",
+  "exit_code": 1,
+  "wall_seconds": 9.002335208002478,
+  "finished_at_utc": "2026-10-20T09:39:33.623308+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/image-consumer/restored/regression/stdout.log",
+    "sha256": "4492c96e2afc46f2ce79c3f01812ebc8a7a359eaf123c78f4775f0244f96d282",
+    "bytes": 115853
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/image-consumer/restored/regression/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "sources_unchanged_during_execution": true,
+  "root_tests_passed": [
+    "TestPracticalImageInputsRebindWholeOriginalModuleGraphAfterRetirement",
+    "TestPracticalImageInputsRejectBackingMutationBeforeRestoration",
+    "TestPracticalModuleCaptureMatchesOriginalGoResolution",
+    "TestPracticalModuleCaptureRejectsWorkspaceAndVendorInputs",
+    "TestPracticalModuleCaptureRejectsUnboundAndLinkedReplacements",
+    "TestPracticalModuleCaptureChoosesExplicitMostSpecificRoot",
+    "TestPracticalModuleCaptureRequiresOriginalOwnerAndDirective",
+    "TestPracticalModuleSnapshotRetainsExactVersionedDownloadInputs",
+    "TestPracticalModuleSnapshotRetainsLegacyArchiveWithoutInsertedManifest",
+    "TestPracticalModuleSnapshotRejectsMissingStaleOrInconsistentOriginals",
+    "TestPracticalModuleSnapshotUsesOriginalSumsAndRejectsLocationAliases",
+    "TestPracticalModuleSnapshotInfoPreservesOriginalGoMetadata",
+    "TestPracticalModuleSnapshotInfoRejectsAmbiguousOrInvalidMetadata",
+    "TestPracticalModuleManifestPreservesOriginalDirectives",
+    "TestPracticalModuleManifestRejectsUnsatisfiedRequirements",
+    "TestPracticalModuleSumsBindExactManifestBytes",
+    "TestPracticalModuleSumsRejectMalformedOrConflictingInputs",
+    "TestPracticalResolutionUsesActualGoVersionSelectionAndOriginalSnapshots",
+    "TestPracticalResolutionBindsActualLocalAndVersionedReplacements",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs",
+    "TestPracticalResolutionMissingOfflineInputsNeverAcquireReplacementSources",
+    "TestPracticalResolutionRejectsChecksumsOwnedByAnotherModuleInput",
+    "TestPracticalResolutionDecodesPinnedGoStreamAndRetainsMetadata",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput",
+    "TestPracticalResolutionOutputBoundCancelsAndRetainsOnlyBoundedBytes",
+    "TestPracticalResolutionRequiresExactCompilerBeforeInputReads"
+  ],
+  "subtests_passed": [
+    "TestPracticalModuleCaptureRejectsWorkspaceAndVendorInputs/go.work",
+    "TestPracticalModuleCaptureRejectsWorkspaceAndVendorInputs/go.work.sum",
+    "TestPracticalModuleCaptureRejectsWorkspaceAndVendorInputs/vendor",
+    "TestPracticalModuleCaptureRejectsUnboundAndLinkedReplacements/../outside",
+    "TestPracticalModuleCaptureRejectsUnboundAndLinkedReplacements/./linked",
+    "TestPracticalModuleCaptureChoosesExplicitMostSpecificRoot/more-specific",
+    "TestPracticalModuleCaptureChoosesExplicitMostSpecificRoot/ambiguous",
+    "TestPracticalModuleCaptureRequiresOriginalOwnerAndDirective/detached",
+    "TestPracticalModuleCaptureRequiresOriginalOwnerAndDirective/wrong-owner",
+    "TestPracticalModuleCaptureRequiresOriginalOwnerAndDirective/negative-index",
+    "TestPracticalModuleCaptureRequiresOriginalOwnerAndDirective/past-end",
+    "TestPracticalModuleCaptureRequiresOriginalOwnerAndDirective/versioned",
+    "TestPracticalModuleSnapshotRetainsExactVersionedDownloadInputs/example.com/pracdep",
+    "TestPracticalModuleSnapshotRetainsExactVersionedDownloadInputs/example.com/Upper/Dep/v2",
+    "TestPracticalModuleSnapshotRetainsExactVersionedDownloadInputs/example.com/legacy",
+    "TestPracticalModuleSnapshotRejectsMissingStaleOrInconsistentOriginals/missing-mod",
+    "TestPracticalModuleSnapshotRejectsMissingStaleOrInconsistentOriginals/missing-info",
+    "TestPracticalModuleSnapshotRejectsMissingStaleOrInconsistentOriginals/missing-ziphash",
+    "TestPracticalModuleSnapshotRejectsMissingStaleOrInconsistentOriginals/missing-zip",
+    "TestPracticalModuleSnapshotRejectsMissingStaleOrInconsistentOriginals/stale-mod-sum",
+    "TestPracticalModuleSnapshotRejectsMissingStaleOrInconsistentOriginals/inconsistent-zip-manifest",
+    "TestPracticalModuleSnapshotRejectsMissingStaleOrInconsistentOriginals/wrong-info-version",
+    "TestPracticalModuleSnapshotRejectsMissingStaleOrInconsistentOriginals/stale-ziphash",
+    "TestPracticalModuleSnapshotRejectsMissingStaleOrInconsistentOriginals/newer-module-patch",
+    "TestPracticalModuleSnapshotUsesOriginalSumsAndRejectsLocationAliases/location-alias",
+    "TestPracticalModuleSnapshotUsesOriginalSumsAndRejectsLocationAliases/forged-manifest-sum",
+    "TestPracticalModuleSnapshotInfoRejectsAmbiguousOrInvalidMetadata/duplicate",
+    "TestPracticalModuleSnapshotInfoRejectsAmbiguousOrInvalidMetadata/time-type",
+    "TestPracticalModuleSnapshotInfoRejectsAmbiguousOrInvalidMetadata/time-value",
+    "TestPracticalModuleSnapshotInfoRejectsAmbiguousOrInvalidMetadata/origin-field-type",
+    "TestPracticalModuleSnapshotInfoRejectsAmbiguousOrInvalidMetadata/trailing",
+    "TestPracticalModuleSnapshotInfoRejectsAmbiguousOrInvalidMetadata/wrong-version",
+    "TestPracticalModuleSnapshotInfoRejectsAmbiguousOrInvalidMetadata/missing-version",
+    "TestPracticalModuleSnapshotInfoRejectsAmbiguousOrInvalidMetadata/origin-type",
+    "TestPracticalModuleSnapshotInfoRejectsAmbiguousOrInvalidMetadata/not-object",
+    "TestPracticalModuleManifestPreservesOriginalDirectives/1.22",
+    "TestPracticalModuleManifestPreservesOriginalDirectives/1.23",
+    "TestPracticalModuleManifestPreservesOriginalDirectives/1.24",
+    "TestPracticalModuleManifestPreservesOriginalDirectives/1.25.0",
+    "TestPracticalModuleManifestRejectsUnsatisfiedRequirements/missing-module",
+    "TestPracticalModuleManifestRejectsUnsatisfiedRequirements/missing-go",
+    "TestPracticalModuleManifestRejectsUnsatisfiedRequirements/newer-patch",
+    "TestPracticalModuleManifestRejectsUnsatisfiedRequirements/tool",
+    "TestPracticalModuleManifestRejectsUnsatisfiedRequirements/ignore",
+    "TestPracticalModuleManifestRejectsUnsatisfiedRequirements/invalid-path",
+    "TestPracticalModuleManifestRejectsUnsatisfiedRequirements/old-language",
+    "TestPracticalModuleManifestRejectsUnsatisfiedRequirements/future-language",
+    "TestPracticalModuleManifestRejectsUnsatisfiedRequirements/newer-suggestion",
+    "TestPracticalModuleManifestRejectsUnsatisfiedRequirements/unknown-directive",
+    "TestPracticalModuleManifestRejectsUnsatisfiedRequirements/godebug",
+    "TestPracticalModuleSumsBindExactManifestBytes/changed-bytes",
+    "TestPracticalModuleSumsBindExactManifestBytes/wrong-version",
+    "TestPracticalModuleSumsBindExactManifestBytes/wrong-module",
+    "TestPracticalModuleSumsRejectMalformedOrConflictingInputs/short",
+    "TestPracticalModuleSumsRejectMalformedOrConflictingInputs/wrong-major",
+    "TestPracticalModuleSumsRejectMalformedOrConflictingInputs/bad-suffix",
+    "TestPracticalModuleSumsRejectMalformedOrConflictingInputs/bad-path",
+    "TestPracticalModuleSumsRejectMalformedOrConflictingInputs/binary",
+    "TestPracticalModuleSumsRejectMalformedOrConflictingInputs/conflict",
+    "TestPracticalModuleSumsRejectMalformedOrConflictingInputs/extra-field",
+    "TestPracticalModuleSumsRejectMalformedOrConflictingInputs/missing-field",
+    "TestPracticalModuleSumsRejectMalformedOrConflictingInputs/noncanonical-version",
+    "TestPracticalModuleSumsRejectMalformedOrConflictingInputs/algorithm",
+    "TestPracticalModuleSumsRejectMalformedOrConflictingInputs/base64",
+    "TestPracticalResolutionBindsActualLocalAndVersionedReplacements/local-exact-before-wildcard",
+    "TestPracticalResolutionBindsActualLocalAndVersionedReplacements/versioned",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/main-path",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/main-location",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/module-version",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/manifest-location",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/checksum",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/language",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/invented-replacement",
+    "TestPracticalResolutionRejectsAlteredGoObservationsAgainstOriginalInputs/duplicate-main",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/unknown-Go-field",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/Go-error",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/replacement-error",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/chained-replacement",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/array",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/empty-path",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/trailing",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/duplicate-module",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/empty",
+    "TestPracticalResolutionRejectsMalformedAmbiguousAndFailedGoOutput/duplicate-field"
+  ],
+  "tests_failed": [
+    "TestPracticalImageInputsRestoreAllRolesAndOwnTheirOriginalNamespaces",
+    "TestPracticalImageInputsRejectAlteredOriginalModuleObservations"
+  ],
+  "tests_skipped": []
+}

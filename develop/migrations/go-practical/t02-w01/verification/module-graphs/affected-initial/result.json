@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "test",
+    "-json",
+    "-count=1",
+    "-timeout=40m",
+    "-run",
+    "^TestPractical(Resolution|Observation|ImageInputsRebindWholeOriginalModuleGraphAfterRetirement|ModuleObservationsKeepOriginal)"
+  ],
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go125-20261025-download/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-export-inputs-190-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-module-observations-191-mod",
+    "MPK_GO_PRACTICAL_SYNTAX_EVIDENCE": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/affected-initial/native-originals"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/affected-initial/inputs.json",
+    "bytes": 320318,
+    "sha256": "5bcd1e7e036e01c01e220b914a220e2a34490c09053baa87873d6f664838aba2",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/run.py",
+    "bytes": 7348,
+    "sha256": "a0692c41e75da5f2f0f6111ff424a5f52a54faf05157764463697b1fdcde538b",
+    "mode": 420
+  },
+  "go_tool": {
+    "path": "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "bytes": 14117888,
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "mode": 493
+  },
+  "started_at_utc": "2026-10-26T13:55:05.669520+00:00",
+  "selection_reason": "Changed controlled Go observation, original replacement location, immutable module rebinding and owner graph handoff. Compare actual pruned/unpruned original graphs, unselected/empty old manifests, cycles, duplicates, exclusions, root upgrades, local/versioned replacements, original input retirement, whole native stdout/stderr and detached handoffs. Run new graph roots plus affected original resolution/observation/image/module-owner consumers, vet and explicit changed-file format. Rust consumers are unchanged and retain their original evidence; no removed-language tests or whole gate run.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 200.89062904100865,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/affected-initial/stdout.log",
+    "bytes": 42530,
+    "sha256": "8b445f7551a6a8a02704489e209658482147f26bd1fc5b49332f1f666f2c5789",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/affected-initial/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T13:58:26.561645+00:00"
+}

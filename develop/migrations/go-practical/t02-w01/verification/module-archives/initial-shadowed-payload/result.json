@@ -1,0 +1,53 @@
+{
+  "status": "failed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "test",
+    "-mod=vendor",
+    "-run",
+    "^TestPracticalArchiveRejectsCorruptBodyCRCAndSizes$",
+    "-count=1",
+    "-json",
+    "."
+  ],
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "cwd": "go-tools/go2vir",
+  "exit_code": 1,
+  "wall_seconds": 1.2496180419111624,
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_archive.go",
+      "sha256": "b52c24457ffbaa83fac0358936265c44741fafcec1e50104647d659ce5ac6ce7",
+      "bytes": 9623,
+      "original_copy": "develop/migrations/go-practical/t02-w01/verification/module-archives/initial-shadowed-payload/practical_archive.go.txt"
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_test.go",
+      "sha256": "0894c5b59bfeb2a7ce27ef0a50067f3f497c63292a4b256cb8caaf56f3f4f8af",
+      "bytes": 11954,
+      "original_copy": "develop/migrations/go-practical/t02-w01/verification/module-archives/initial-shadowed-payload/practical_archive_test.go.txt"
+    }
+  ],
+  "selection_reason": "Focused review regression: a corrupt shadowed directory payload must not bypass complete original ZIP CRC verification even though Go HashZip hashes the last occurrence for every repeated name.",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/initial-shadowed-payload/stdout.log",
+    "sha256": "d94fc32b131e221b82d2c2ecce386f9a559092dd0ac2f38f613dde1252ce773a",
+    "bytes": 6404
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/initial-shadowed-payload/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

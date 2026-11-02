@@ -1,0 +1,41 @@
+{
+  "compiler_command": [
+    "rustc",
+    "--edition",
+    "2021",
+    "-C",
+    "opt-level=1",
+    "-C",
+    "debug-assertions=on",
+    "/private/tmp/mpk-t01-profile-probe.rs",
+    "-o",
+    "/private/tmp/mpk-t01-profile-probe"
+  ],
+  "observations": [
+    {
+      "debug_assertion_panics": true,
+      "exit_code": 101,
+      "input": "0",
+      "integer_overflow_panics": false,
+      "mode": "debug",
+      "stdout": ""
+    },
+    {
+      "debug_assertion_panics": false,
+      "exit_code": 101,
+      "input": "255",
+      "integer_overflow_panics": true,
+      "mode": "overflow",
+      "stdout": ""
+    },
+    {
+      "debug_assertion_panics": false,
+      "exit_code": 0,
+      "input": "1",
+      "integer_overflow_panics": false,
+      "mode": "overflow",
+      "stdout": "2\n"
+    }
+  ],
+  "reason": "Standalone behavior probe for the observed opt-level1/debug-assertions configuration. Authoritative effective Cargo profile fields for all116 workspace test targets are recorded separately in cargo-profile-result.json."
+}

@@ -1,0 +1,30 @@
+{
+  "status": "both_full_original_type_rejections_preserved",
+  "original_go_run": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/original-Go/result.json",
+    "sha256": "e74a9df10c52d6ac4893ed4246adad5360daaa3f606c97b83519e38d8f02dab9",
+    "bytes": 3878
+  },
+  "original_rust_report": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/initial/construction/certificates/word-signed-order.rust.json",
+    "sha256": "cec22e466d880eb4fd187f90fb8bd54fb3627eb39682889a44a6d4999c3c6f31",
+    "bytes": 543
+  },
+  "observer_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/run-original-go.py",
+    "sha256": "7a8ac742e55c23589e28430f8c7800eb189835f4266ce022dde19941bcf01b84",
+    "bytes": 2110
+  },
+  "observer_diagnostic": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/original-Go/observer-diagnostic.log",
+    "sha256": "af6776c05abc8ab35ab832a530fac20265a438d20b4c89b80d45b1e4b07bdeb1",
+    "bytes": 980
+  },
+  "corrected_classifier": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-signed-order/check-original-go.py",
+    "sha256": "66d3f17e9554b8fac46939502416c9e0fca77fd42c2e1a844d4fbdb0e2d44951",
+    "bytes": 2168
+  },
+  "Go_process_repeated": false,
+  "scope": "The original observer wrongly assumed JSON inside the Go core's human error_detail. Preserve that source/traceback and classify the exact already-completed raw Go report against the structured Rust mismatch. This is an insufficient original proof recipe, not a semantic control or a Go source counterexample."
+}

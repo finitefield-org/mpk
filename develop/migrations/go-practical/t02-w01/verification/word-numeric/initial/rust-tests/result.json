@@ -1,0 +1,118 @@
+{
+  "schema": "mpk.go_practical.word_numeric_check.v1",
+  "status": "passed",
+  "started_at_utc": "2026-10-19T12:55:14.298062+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_word_numeric",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_WORD_NUMERIC_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-numeric/initial/rust-tests/certificates"
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "b48952e34b10317ee5d2e6ed48ce49169bfd79ddac40327baae66347551b165d",
+      "bytes": 30565
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "f9ae06bca999a04ce3204d5d65651a9ec7575fda70567972a1aa358e2730b3b2",
+      "bytes": 10141
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "22e95db9dea126890df5a32adedf54c89ffaa93ab79af23ec325695759643afa",
+      "bytes": 24624
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "208e689773abb4f172fcedb6b1a051e46e031dd05d77fe187e7561df2819a9dd",
+      "bytes": 13898
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "73a40e53333a7913ce2f99c8b69eb327f6020742111c5de46e0c8c1650cb69a6",
+      "bytes": 16907
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_numeric.rs",
+      "sha256": "72f327f6bcd129af9c3f925af1e09bff677220e6ede2e6395d40cac8e21b4e67",
+      "bytes": 3005
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "selection_reason": "Fresh balanced unbounded Nat values and shared powers for actual8/16/32/64-bit word circuits. A local full-adder truth proof and general Nat semiring combination compose actual low/high ripple-block conservation, with arbitrary initial Nat. Scope to this new isolated integration target and directly affected private recipe/import/format consumers. Preserve the complete preceding word graph; no prototype certificate, source/application proof, CSharp test, intermediate full gate or unaffected checker matrix.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "exit_code": 0,
+  "wall_seconds": 181.53612075001,
+  "finished_at_utc": "2026-10-19T12:58:15.835897+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/initial/rust-tests/stdout.log",
+    "sha256": "d43409e6172ea718057afaff36b49d1a27cd021e9cc163a9f7129f7e5c42af01",
+    "bytes": 232
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/initial/rust-tests/stderr.log",
+    "sha256": "c045f918780225fa4da1d2389d6428090d225945c2902b21c81a60fe7772f266",
+    "bytes": 257
+  },
+  "certificates": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-numeric/initial/rust-tests/certificates/word-numeric-foundation.mpcert",
+      "sha256": "1ff5f06ebd68b23f407d6ce0ee99ec5a0bbf216a4bb4e501da24a3013344db89",
+      "bytes": 721255
+    }
+  ]
+}

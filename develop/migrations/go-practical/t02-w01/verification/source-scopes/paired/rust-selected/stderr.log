@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.29s
+     Running tests/go_practical_source_scopes.rs (target/debug/deps/go_practical_source_scopes-f05c422800f1bf7d)
+
+thread 'matches_original_go_lexical_binding_observations' (47629511) panicked at crates/mpk-vc/tests/go_practical_source_scopes.rs:126:9:
+assertion `left == right` failed: original lexical use 90: {"definition_source_object_id":"568dc0ce74dadefb169ab9cc5a530e155c5990f8ee2e754d254e7162a945d0d5","definition_start_byte":1325,"end_byte":1326,"kind":"type_parameter","name":"U","source_object_id":"568dc0ce74dadefb169ab9cc5a530e155c5990f8ee2e754d254e7162a945d0d5","start_byte":1325}
+  left: Null
+ right: Object {"definition_source_object_id": String("568dc0ce74dadefb169ab9cc5a530e155c5990f8ee2e754d254e7162a945d0d5"), "definition_start_byte": Number(1325), "kind": String("type_parameter"), "name": String("U")}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_scopes`

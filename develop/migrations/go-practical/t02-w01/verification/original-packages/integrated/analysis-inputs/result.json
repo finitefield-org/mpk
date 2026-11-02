@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+    "test",
+    "-json",
+    "-count=1",
+    "-timeout=20m",
+    "-run",
+    "^(TestPracticalAnalysisCapturedInputsRebuildTheSameActualFrontend|TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs)$"
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-go-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod",
+    "MPK_GO_PRACTICAL_ANALYSIS_EVIDENCE": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/original-packages/integrated/analysis-inputs"
+  },
+  "source_receipt": "develop/migrations/go-practical/t02-w01/verification/original-packages/integrated/inputs.json",
+  "selection_reason": "The added production Go file changes the actual development binary. Exercise the original analysis/frontend capture consumer so the complete new file inventory is owned, two independent empty-cache host builds agree and crossed/missing original input controls still reject. These are private development builds with no installed frontend identity or native Linux acceptance.",
+  "native_release_acceptance": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "started_at_utc": "2026-10-20T17:39:04.822226+00:00",
+  "exit_code": 0,
+  "seconds": 55.33838274993468,
+  "passed_tests": [
+    "TestPracticalAnalysisCapturedInputsRebuildTheSameActualFrontend",
+    "TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs/go-sum",
+    "TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs/replacement",
+    "TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs/vendor-version",
+    "TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs/vendor-body",
+    "TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs/missing-package",
+    "TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs/unknown-asset",
+    "TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs/root-assembly",
+    "TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs/embedded-input",
+    "TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs/linked-source",
+    "TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs"
+  ],
+  "failed_tests": [],
+  "source_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-20T17:40:00.186538+00:00"
+}

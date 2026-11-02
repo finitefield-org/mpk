@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T15:04:12.431244+00:00",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--lib",
+    "--test",
+    "go_practical_analysis_info",
+    "--test",
+    "go_practical_analysis_module",
+    "--test",
+    "go_practical_analysis_namespace",
+    "--test",
+    "go_practical_analysis_archives",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-clippy/inputs.json",
+    "bytes": 192547,
+    "sha256": "f85228c1693244c9280f8e7fa7ef402599c2406e75f1237902bc96ecbdf2a551",
+    "mode": 420
+  },
+  "selection_reason": "Check Go module-info JSON/time behavior and its analysis module owner, alongside the directly consumed full original sources, archive and Unicode fold components. A caller-supplied snapshot is not authenticated as an original filesystem; source syntax and binary/context authority remain separate. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 21.731306042000142,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-clippy/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-clippy/stderr.log",
+    "bytes": 135,
+    "sha256": "b4b0fcd665fa9fc37e43dee970c710f72e44b825db314ea30155ac051b22e2de",
+    "mode": 420
+  }
+}

@@ -1,0 +1,45 @@
+[
+  {
+    "observations": {
+      "go": {
+        "cpu_system_seconds": 0.028687999999999998,
+        "cpu_user_seconds": 2.579138,
+        "exit_code": 1,
+        "peak_rss_bytes": 90112000,
+        "report": {
+          "error_detail": "term 197987 inferred app but expected app",
+          "error_kind": "core_check",
+          "verdict": "rejected"
+        },
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "wall_seconds": 2.930380000034347
+      },
+      "rust": {
+        "cpu_system_seconds": 0.012806,
+        "cpu_user_seconds": 2.218916,
+        "exit_code": 1,
+        "peak_rss_bytes": 39862272,
+        "report": {
+          "axiom_count": null,
+          "axiom_report": null,
+          "declaration_count": null,
+          "error_code": "KERNEL_CORE_CHECK",
+          "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"198093\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"198107\",\"kind\":\"check_type_mismatch\",\"term_index\":\"198067\"}}",
+          "hashes": {
+            "axiom_report": null,
+            "certificate": "e7c5d0313821b082a134e1c9b98aecb0c35c6b66f5f15ef865648632e2be0a3e",
+            "export": null
+          },
+          "module": null,
+          "verdict": "rejected"
+        },
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "wall_seconds": 2.836128249997273
+      }
+    },
+    "path": "stage-reslice-difference-nonnegative.mpcert",
+    "raw_sha256": "87c476df2458bf43822e8d56a90bbd7bb9457f3ac0b1df6eff81429709b69df3"
+  }
+]

@@ -1,0 +1,19 @@
+
+running 1 test
+test identify_original_first_failed_declaration_without_changing_the_checker ... boundary=2686 accepted=true last=Mpk.Go.Practical.Word.Order.W8.EqualCarryBlock0At1
+boundary=2700 accepted=true last=Mpk.Go.Practical.Word.Order.W8.EqualCarryBlock0At5
+boundary=2800 accepted=true last=Mpk.Go.Practical.Word.Order.W32.UnsignedLessEqualNatural
+boundary=2950 accepted=true last=Mpk.Go.Practical.Word.Order.W64.EqualBlock1At2
+boundary=3100 accepted=true last=Mpk.Go.Practical.Word.Order.W64.EqualBlock1At40
+boundary=3200 accepted=false last=Mpk.Go.Practical.Word.Order.W64.DivideDefinedNatural
+prefix=3150 accepted=true last=Mpk.Go.Practical.Word.Order.W64.EqualBlock0At55 error=None
+prefix=3175 accepted=true last=Mpk.Go.Practical.Word.Order.W64.EqualCarryBlock0At61 error=None
+prefix=3187 accepted=true last=Mpk.Go.Practical.Word.Order.W64.EqualCarryBlock3At56 error=None
+prefix=3193 accepted=true last=Mpk.Go.Practical.Word.Order.W64.EqualCarryBlock6At0 error=None
+prefix=3196 accepted=false last=Mpk.Go.Practical.Word.Order.W64.NotEqualNatural error=Some("{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"107756\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"395789\",\"side\":\"lhs\",\"term_index\":\"396193\"}}")
+prefix=3194 accepted=false last=Mpk.Go.Practical.Word.Order.W64.CarryPairEquality error=Some("{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"107756\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"395789\",\"side\":\"lhs\",\"term_index\":\"396193\"}}")
+first_failed_index=3193 name=Mpk.Go.Practical.Word.Order.W64.CarryPairEquality
+ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.56s
+

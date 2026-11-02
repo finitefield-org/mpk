@@ -1,0 +1,42 @@
+{
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "selected_reason": "Only four changed test sources and their single CSharp VC integration consumer; production code and the source43 full diagnostic binary are unchanged.",
+  "source_commit": "43c6739990da01f6bd39eee2935fe9a837563800",
+  "working_tree_test_sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_document_epoch_tests.rs",
+      "sha256": "b40f43f8a0a4faa8a1db6a4bd0c3e4b2eb390200d66cfa9e0083aa11523e2dd3"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs",
+      "sha256": "8bd171f333e445fd1afd11669440b3a1856ca7dded9525993bd4e1ef1ca657b2"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs",
+      "sha256": "bcd516ee31d7e403bd09e63249ecbfdf00ef4f8ed318c5d8345ed5d294b2c874"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "8057a5f6b568cb1f8bab8a957c7456c0502c0786f6bf2b5410dbbb320114aab9"
+    }
+  ],
+  "status": "passed",
+  "environment": {
+    "CARGO_NET_OFFLINE": "true"
+  },
+  "exit_code": 0,
+  "wall_seconds": 44.36012583295815,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "481e34cb8822a56729f4aa271b0fbdd2e5ef9a8e92a79c95b846e1af44bd6d02"
+}

@@ -1,0 +1,149 @@
+{
+  "schema": "mpk-go-practical-t01-w05-aggregate-archive-repair-1.0",
+  "status": "selected_repairs_passed_complete_repaired_gate_required",
+  "recorded_at_utc": "2026-10-18T11:30:11.730966+00:00",
+  "source_base_commit": "0a68bf007146910dfd3a710a993626ec480ff860",
+  "original_compiled_source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "selection_reason": "Two still-queued historical assertions share the concrete retired-count-helper mismatch already observed elsewhere. Preserve their complete original comparisons at actual retained pre-counter epochs; retain the separate current component closure. No production, existing fixture or shared comparator changes.",
+  "changed_source_inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs",
+      "sha256": "b3699b45b29fb6ea9396975c8f39546fb9b50ebf9c16abd2a10905c9f16086f0",
+      "bytes": 47071
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/retained-csharp/aggregate-preservation-epochs/manifest.json",
+      "sha256": "b75cd0713d0d45b91d6985b7ccc567f67cf2cd83bd693945827792f4942281fb",
+      "bytes": 477701
+    }
+  ],
+  "original_failures": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/aliased-consumers-result.json",
+      "sha256": "5d506c211153cffba46b429712be14e20dc4769c5f390958a706efd61ec19dcd",
+      "bytes": 113985
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/decimal-shared-result.json",
+      "sha256": "849035bc999d0cd793ff609b756669bfd5fc6101db2a61f60893b697177fb3dd",
+      "bytes": 2830
+    }
+  ],
+  "original_input_epoch_verification": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/original-input-epoch-verification.json",
+    "sha256": "7fdc67adc587f37747f192ff8fcf34f04d24cdaab57124dab50ccd3cd9102689",
+    "bytes": 492
+  },
+  "original_diagnostic_compiler_sources": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/compiler-source-snapshots.json",
+    "sha256": "015130aaae159c2df209a68aa026691d17c727d8013ac2f98fd2266fef64ba1e",
+    "bytes": 23519
+  },
+  "unmodified_comparator_diagnosis": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/corpus-result.json",
+    "sha256": "274271eda61b4afdac36d03d45d8c757b02da5246efe785cc4a4a900132058fb",
+    "bytes": 1512
+  },
+  "actual_test_profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  },
+  "checks": {
+    "build": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/build-result.json",
+        "sha256": "018a150caf4ea410792ec8375e524812c3416d2adb36c9b7a31949d656623b88",
+        "bytes": 2349
+      },
+      "wall_seconds": 76.92716612503864
+    },
+    "aliased-consumers": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/aliased-consumers-result.json",
+        "sha256": "102cfff5c44a5951fd86df61697741278872fbd3b37d7d9127b2f0c8805172e2",
+        "bytes": 2010
+      },
+      "wall_seconds": 11.738803584012203
+    },
+    "decimal-shared": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/decimal-shared-result.json",
+        "sha256": "b44a52482b74b9fe8e471784f4a6afaf49a3e8f9ebdeabccd785f90730f72751",
+        "bytes": 2002
+      },
+      "wall_seconds": 0.7933507079724222
+    },
+    "format-check": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/format-check-result.json",
+        "sha256": "bc2cffe7dc76657800aee99be0137e40cb3de53e0e9f4d27b10a1cb25e80cf54",
+        "bytes": 1451
+      },
+      "wall_seconds": 0.24135691695846617
+    },
+    "clippy": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/clippy-result.json",
+        "sha256": "e9c4953d2ddabd1d62dca0cc4b5565aab7bb8c5ed9c9de0a85e2f35fadbf5103",
+        "bytes": 1525
+      },
+      "wall_seconds": 12.953996542026289
+    }
+  },
+  "historical_comparison": {
+    "families": 12,
+    "vectors": 225,
+    "reassociated_vectors": 133,
+    "exactly_unchanged_vectors": 92,
+    "non_cost_metadata_pairs": 12,
+    "exact_StepTwo_calls_each_aggregate": 8192,
+    "complete_original_declarations_and_dependencies_checked": true,
+    "only_original_four_metadata_cost_fields_removed": true,
+    "helper_prefix_exemptions": false,
+    "checkpoint_commit": "09a14bdde6b14408e4f25e55cb787dd989577d7e",
+    "sealed_unique_members": 716,
+    "checkpoint_vectors_reusing_existing_files": 102,
+    "checkpoint_vectors_copied_from_actual_git_objects": 123,
+    "body_mutations_rejected": 12
+  },
+  "decimal_shared": {
+    "current_component_declarations": 1837,
+    "historical_component_declarations": 1864,
+    "historical_decimal_declarations": 643,
+    "complete_current_component_closure_retained": true,
+    "complete_historical_component_closure_checked": true,
+    "complete_historical_decimal_reassociation_checked": true,
+    "current_and_historical_body_mutations_rejected": 2
+  },
+  "current_producer_evidence": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/preceding-current-producers-result.json",
+    "sha256": "8f28bbef126f51ec26fc8f5812943c5c05f2bda2fcfc1408b07bc76cc84f1e79",
+    "bytes": 2154
+  },
+  "current_producer_scope": "Both unchanged source320 lib owners already pass actual regeneration/normal golden checks in the original running diagnostic. Its completed183-case target is preserved as an exact raw prefix. These unchanged semantic matrices are not repeated for historical test-linkage repairs; every target remains required in the new complete gate.",
+  "current_certificate_pins_structurally_validated": 225,
+  "raw_stdout_whitespace": {
+    "audit": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/raw-log-whitespace.json",
+    "exact_paths": 44,
+    "source_json_directory_exclusions": false
+  },
+  "production_changed": false,
+  "existing_certificate_bytes_changed": false,
+  "existing_source_captures_changed": false,
+  "shared_structural_comparator_changed": false,
+  "checker_rules_or_limits_changed": false,
+  "current_checker_rerun_required": false,
+  "checker_scope_reason": "Only test linkage and separately sealed historical copies change. No new checker acceptance or semantic/source equivalence is inferred.",
+  "original_full_gate": "Original source320 no-fail-fast run remains diagnostic and continues unchanged. It has two observed assertion failures; separate exact isolated reproductions also identify the structural-boundary and these two still-queued archive assertions. All five have selected repairs. Preserve the final original run and execute a complete repaired retry.",
+  "complete_repaired_gate_passed": false,
+  "T01_complete": false,
+  "T02_started": false,
+  "go_demands_unelaborated": 169,
+  "csharp_application_proofs_pending": 987,
+  "source_or_application_proofs_discharged": false,
+  "native_Linux_release_gate_executed": false,
+  "profile_activated": false
+}

@@ -1,0 +1,94 @@
+{
+  "status": "passed_with_exact_immutable_libtest_stdout_eof_records",
+  "initial_default_check": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "exit_code": 2,
+    "stdout": "develop/migrations/go-practical/t02-w01/verification/source-error-selector/controls-corrected/stdout.log:6: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-error-selector/controls/stdout.log:11: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-error-selector/entries/stdout.log:27: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-error-selector/first-large/stdout.log:77: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-error-selector/first/stdout.log:11: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-error-selector/large-controls/stdout.log:6: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-error-selector/replay/stdout.log:6: new blank line at EOF.\n",
+    "stderr": ""
+  },
+  "preserved_original_stdout": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-error-selector/controls-corrected/stdout.log",
+      "bytes": 180,
+      "sha256": "b21e5e902b84b20ca2fffd872e57a7b59a678868c6d24046a5894f18e5df0136"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-error-selector/controls/stdout.log",
+      "bytes": 270,
+      "sha256": "a914fbdbff727f44ad0673b9450afc7b21d4747a8c32a99267c9163f9070d40a"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-error-selector/entries/stdout.log",
+      "bytes": 1836,
+      "sha256": "db156deb1f5494fb476448151180d98be10967e016005aa4282b5dcfc0122e2f"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-error-selector/first-large/stdout.log",
+      "bytes": 7137,
+      "sha256": "504e4f54284a426fd5532200673d27e93b086ce9d608843dc9b7cbdb27f11da2"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-error-selector/first/stdout.log",
+      "bytes": 293,
+      "sha256": "b8f108f368483aa2d3b365f9ee1d1603043325186939494b3574e427a2c9724e"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-error-selector/large-controls/stdout.log",
+      "bytes": 178,
+      "sha256": "26df965878afa70dee9fad4c98aa32f0c1500927e6fac8c9fb9a98df4df4b55d"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-error-selector/replay/stdout.log",
+      "bytes": 178,
+      "sha256": "5a61aa3acd14c16291b5b6a977930860c2ea15711deb802f6f468fb74af3f06c"
+    }
+  ],
+  "default_check_all_other_files": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      ".",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-error-selector/controls-corrected/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-error-selector/controls/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-error-selector/entries/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-error-selector/first-large/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-error-selector/first/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-error-selector/large-controls/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-error-selector/replay/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "raw_stdout_other_whitespace_check": {
+    "command": [
+      "/usr/bin/git",
+      "-c",
+      "core.whitespace=-blank-at-eof",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      "develop/migrations/go-practical/t02-w01/verification/source-error-selector/controls-corrected/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-error-selector/controls/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-error-selector/entries/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-error-selector/first-large/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-error-selector/first/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-error-selector/large-controls/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-error-selector/replay/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "persistent_git_or_scanner_configuration_weakened": false,
+  "scope": "Only exact receipt-bound original libtest stdout EOF blank lines are retained. Every other staged file receives the default whitespace check. No persistent Git or repository scanner setting changes."
+}

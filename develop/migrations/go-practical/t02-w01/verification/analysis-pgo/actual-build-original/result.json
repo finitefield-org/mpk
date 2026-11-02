@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "seconds": 176.761272791,
+  "original_inputs_unchanged": true,
+  "builds": [
+    {
+      "mode": "auto",
+      "binary": {
+        "path": "/private/tmp/mpk-go-analysis-pgo-build-actual-build-original/build-auto/go2vir",
+        "bytes": 9181672,
+        "sha256": "0797b83254db807ece284fa3d726f2af7329401738403154a20693bcb21a8f0b",
+        "mode": 493
+      },
+      "encoded": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/auto.elf.hex",
+        "bytes": 18363344,
+        "sha256": "158c9b9ed1844a060f99d67ab053d804788f8434119ba365eb598f9cf3633b30",
+        "mode": 420
+      },
+      "build_info_pgo_lines": [
+        "build\t-pgo=default.pgo"
+      ],
+      "byte_equal_registered": false,
+      "profile_exact_after_build": true
+    },
+    {
+      "mode": "off",
+      "binary": {
+        "path": "/private/tmp/mpk-go-analysis-pgo-build-actual-build-original/build-off/go2vir",
+        "bytes": 9004378,
+        "sha256": "ccc4a984d41b5da7b3a6838cbfaeee3eb23f675a2e4d7fb5d4f9fcd7e597d538",
+        "mode": 493
+      },
+      "encoded": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/off.elf.hex",
+        "bytes": 18008756,
+        "sha256": "35100bfc9e92f88e2da3c7542e6aa6674761c0d3eb6e79a6f84c84f8cc1efd71",
+        "mode": 420
+      },
+      "build_info_pgo_lines": [],
+      "byte_equal_registered": true,
+      "profile_exact_after_build": true
+    }
+  ],
+  "commands": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/commands.json",
+    "bytes": 9127,
+    "sha256": "9ee980037d41f59ab3f495e3ab23a3a9bfaf08f522b2b9e3e9918f7d505c6eae",
+    "mode": 420
+  }
+}

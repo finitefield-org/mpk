@@ -1,0 +1,67 @@
+{
+  "status": "failed",
+  "command": [
+    "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+    "test",
+    "-json",
+    "-count=1",
+    "-timeout=40m",
+    "-run",
+    "^TestPracticalErrorRepresentationOriginalPayloads$"
+  ],
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-go-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod",
+    "MPK_GO_PRACTICAL_SYNTAX_EVIDENCE": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/native/native-originals"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/native/inputs.json",
+    "bytes": 419042,
+    "sha256": "19aabf2587319bec4c1df7a35439a905aa825b47a231dc6e7c57b1ace846c69e"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/native/driver.py",
+    "bytes": 6399,
+    "sha256": "bc1166b176aebc457402706fa6a484d9a2e9bfb02c5a1242d2c8896f31bf6e20"
+  },
+  "tools": {
+    "go": {
+      "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+      "bytes": 14117888,
+      "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b"
+    },
+    "gofmt": {
+      "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+      "bytes": 2914768,
+      "sha256": "f8c812fc7e22867e5970a687898cd62d8c15561ccc6800c84ac9fdc6583e4b03"
+    }
+  },
+  "selection_reason": "Concrete closed representation predicate over the full original receiver: exact same-U source tag and equality of every inactive payload to its original source zero. Check projections, actual full Box/Nil witnesses, copy preservation and selection/nil consequences, retaining all source and previous receiver/selector identities. No arbitrary active-payload validity or canonical capture/source-execution authority is inferred; no funext, axiom, reduced U or case/root/helper/parameter cap. Full21 small and71 large rows, prior92 literal-byte replay, genuine false inactive/tag/copy/target controls and independent exact predicate/statements/actual observation checks in both complete cores. Native budgets and Go/Rust-only scope unchanged; scoped checks only.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T19:48:39.815616+00:00",
+  "exit_code": 1,
+  "seconds": 124.00122395798098,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/native/stdout.log",
+    "bytes": 1924,
+    "sha256": "c18b0c631b0d486bd997f619c54b3de8e88735401261121223e998f72c974466"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/native/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-22T19:50:43.819186+00:00"
+}

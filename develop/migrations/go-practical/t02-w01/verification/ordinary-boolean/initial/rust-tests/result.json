@@ -1,0 +1,70 @@
+{
+  "status": "failed",
+  "started_at_utc": "2026-10-19T08:29:03.527266+00:00",
+  "selection_reason": "Only the new ordinary Boolean foundation generator/importer, its source-free positive/incorrect-claim/determinism tests, strict source formatting/lint and current independent checker build. No CSharp test target, intermediate check-fast or source/application proof claim.",
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "21d3a0b22ddc39e7e316583146b7f0f54832160e67df4f9c0e9fa86bd59ffcac",
+      "bytes": 13873
+    },
+    {
+      "path": "crates/mpk-vc/src/lib.rs",
+      "sha256": "b5f86ab1e9f76e7c9a7087fc88e3b6e1b47d1dda7d956fe97efc2a08623d74f1",
+      "bytes": 9634
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_ordinary.rs",
+      "sha256": "d19e36e1ea8ce0d469a0facad884c8364d9bf9c2c62c6910b2534b85994611a7",
+      "bytes": 4659
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    }
+  ],
+  "checker_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/checker-inputs.json",
+    "sha256": "6296d74c1a85126a9f8d39b73419e2caa9b6a69fee9ff8ee53f28fec4ddca323",
+    "bytes": 12794
+  },
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_ORDINARY_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/rust-tests/certificates"
+  },
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_ordinary",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "cwd": ".",
+  "exit_code": 101,
+  "wall_seconds": 90.29688966600224,
+  "finished_at_utc": "2026-10-19T08:30:33.825279+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/rust-tests/stdout.log",
+    "sha256": "350a4994ea7d6bbaa466f978949f3e89935400c948c13aa5c6d746de93be129c",
+    "bytes": 503
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/rust-tests/stderr.log",
+    "sha256": "a82559ae38d650d10f20f24437ab4dac68698c7d482d42dcc10d703c45920729",
+    "bytes": 1288
+  }
+}

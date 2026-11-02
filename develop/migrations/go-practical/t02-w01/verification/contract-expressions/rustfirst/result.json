@@ -1,0 +1,46 @@
+{
+  "status": "failed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_contract_expressions",
+    "--",
+    "--nocapture"
+  ],
+  "cwd": ".",
+  "environment": {
+    "MPK_GO_CONTRACT_EXPRESSIONS_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/rustfirst/observations"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/rustfirst/inputs.json",
+    "bytes": 273941,
+    "sha256": "ac0c81dbc6b3ec2122673d72212546a848a468b2a2c6f583bbec48e1ca7bbd25"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/rustfirst/driver.py",
+    "bytes": 7544,
+    "sha256": "9482d289b813fabe3286c7a66ba064ef96c1d103f8bff319d0fe8af697d88b44"
+  },
+  "selection_reason": "New original contract-expression typing extends the source domain and caches checked local types. Check all70 heads, lexical/header/old namespaces, native original Go header bindings, and affected overlay/scopes/domain/selection consumers. No production Go frontend change; unrelated semantics and frontend rebuilds are unnecessary.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T01:51:55.424305+00:00",
+  "exit_code": 101,
+  "seconds": 19.349684500019066,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/rustfirst/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/rustfirst/stderr.log",
+    "bytes": 1567,
+    "sha256": "2e09b62668c426dfc840fa1df1f528cd1c1a40beef7b8fbe05f987e5626305c5"
+  },
+  "whole_source_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-22T01:52:14.841192+00:00"
+}

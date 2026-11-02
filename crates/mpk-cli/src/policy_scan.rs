@@ -958,7 +958,7 @@ pub mod v1 {
             .checked_add(before.len())
             .filter(|bytes| *bytes <= STAGING_TOTAL_BYTES_MAX)
             .ok_or_else(|| input_error("source staging total-byte limit exceeded"))?;
-        if matches!(state.source_language, "rust" | "java")
+        if state.source_language == "rust"
             && !state.staged_identities.insert((before.dev(), before.ino()))
         {
             return Err(input_error("source snapshot contains a hard-link alias"));
@@ -1152,21 +1152,6 @@ pub mod v1 {
                         | ".cargo/config.toml" => Some(InputKind::BuildManifest),
                         _ => file_name.map(|_| InputKind::Source),
                     }
-                }
-            }
-            "csharp" | "java" => {
-                if contracts.contains(relative) {
-                    Some(InputKind::Contract)
-                } else {
-                    file_name
-                        .filter(|name| {
-                            name.ends_with(if source_language == "java" {
-                                ".java"
-                            } else {
-                                ".cs"
-                            })
-                        })
-                        .map(|_| InputKind::Source)
                 }
             }
             _ => None,
@@ -1944,59 +1929,6 @@ pub mod v1 {
             validate_release_registry, FrontendIdentity, ReleaseRegistryIdentity, ToolchainIdentity,
         };
         use std::cell::Cell;
-
-        #[test]
-        fn private_java_capture_preserves_source_contract_and_unlisted_inventory() {
-            let temporary = tempfile::tempdir().unwrap();
-            fs::create_dir_all(temporary.path().join("src/demo")).unwrap();
-            fs::create_dir(temporary.path().join("contracts")).unwrap();
-            let source = b"package demo; public interface Probe {}\n";
-            fs::write(temporary.path().join("src/demo/Probe.java"), source).unwrap();
-            fs::write(temporary.path().join("contracts/probe.json"), b"{}\n").unwrap();
-            fs::write(
-                temporary.path().join("ambient.class"),
-                b"never a Java dependency",
-            )
-            .unwrap();
-            let contracts = ["contracts/probe.json".to_owned()];
-            let staging = capture_successor_staging(temporary.path(), "java", &contracts).unwrap();
-            assert_eq!(staging.captured_inputs.len(), 2);
-            assert_eq!(staging.captured_inputs[0].kind, InputKind::Contract);
-            assert_eq!(staging.captured_inputs[1].kind, InputKind::Source);
-            assert_eq!(staging.captured_inputs[1].bytes, source);
-            assert_eq!(staging.staged_placeholders, ["ambient.class"]);
-            fs::write(temporary.path().join("src/demo/Probe.java"), b"changed\n").unwrap();
-            assert_eq!(staging.captured_inputs[1].bytes, source);
-            // The native capture retains the inventory for the child's exact
-            // selection gate; unlisted .java files cannot silently disappear.
-            fs::write(temporary.path().join("src/demo/Unlisted.java"), source).unwrap();
-            assert_eq!(
-                capture_successor_staging(temporary.path(), "java", &contracts)
-                    .unwrap()
-                    .captured_inputs
-                    .len(),
-                3
-            );
-            #[cfg(unix)]
-            {
-                std::os::unix::fs::symlink(
-                    "Probe.java",
-                    temporary.path().join("src/demo/Alias.java"),
-                )
-                .unwrap();
-                assert!(capture_successor_staging(temporary.path(), "java", &contracts).is_err());
-                fs::remove_file(temporary.path().join("src/demo/Alias.java")).unwrap();
-            }
-            #[cfg(target_os = "linux")]
-            {
-                fs::hard_link(
-                    temporary.path().join("src/demo/Probe.java"),
-                    temporary.path().join("src/demo/Alias.java"),
-                )
-                .unwrap();
-                assert!(capture_successor_staging(temporary.path(), "java", &contracts).is_err());
-            }
-        }
 
         #[cfg(target_os = "linux")]
         #[test]

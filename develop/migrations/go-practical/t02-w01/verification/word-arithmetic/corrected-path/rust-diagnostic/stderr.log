@@ -1,0 +1,24 @@
+warning: function `coefficient` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs:13:4
+   |
+13 | fn coefficient(i: usize) -> Expr {
+   |    ^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `unary` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs:16:4
+   |
+16 | fn unary(width: usize, name: &str, x: Expr) -> Expr {
+   |    ^^^^^
+
+warning: function `map_value` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs:33:4
+   |
+33 | fn map_value(d: usize, e: Equality) -> Equality {
+   |    ^^^^^^^^^
+
+warning: `mpk-vc` (lib) generated 3 warnings
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1.41s
+     Running tests/go_practical_word_arithmetic_diagnostic.rs (target/debug/deps/go_practical_word_arithmetic_diagnostic-22d444d595707062)

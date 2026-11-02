@@ -1,0 +1,17 @@
+{
+  "status": "failed",
+  "selection_reason": "Exploratory host Go tar header probe while the pinned Linux capture test runs. This does not replace that test.",
+  "command": [
+    "go",
+    "run",
+    "/private/tmp/mpk-inspect-registered-tar.go",
+    "develop/migrations/go-practical/t02-w01/verification/installed-compiler/original-go-source.tar"
+  ],
+  "exit_code": 1,
+  "stdout": "",
+  "stderr": "/private/tmp/mpk-inspect-registered-tar.go:2:8: package archive/tar is not in std (/usr/local/go/src/archive/tar)\n",
+  "source": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/host-tar-probe.go.txt",
+  "source_sha256": "fc941b1568f5fdaebbcc6e7444917d155ef1f7e0445606a833c7defd0637d46f",
+  "host_go_version": "go1.23.2 darwin/arm64",
+  "conclusion": "The host Go installation cannot compile this probe; no observation about archive contents follows."
+}

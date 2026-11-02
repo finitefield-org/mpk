@@ -1,0 +1,61 @@
+{
+  "schema": "mpk.go_practical.retained_input_echo_followup.v0",
+  "status": "exact_observed_serialized_input_echoes",
+  "created_at_utc": "2026-10-18T20:02:48.886224+00:00",
+  "cases": [
+    {
+      "id": "transition",
+      "original_fixture": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/transition-clauses/requests.json",
+        "sha256": "4713089203738f04c343238e5169227077a94730900dd8fffd746bb1fe3167aa",
+        "bytes": 14601
+      },
+      "serialized_echo": {
+        "path": "develop/migrations/go-practical/t01-w05/retained-csharp/input-echo-followup/transition/requests.json",
+        "sha256": "d7c656e8d2339a2d27b2b803d46fa74ff381532f23966b92b0e45adeb68f6edd",
+        "bytes": 14569
+      },
+      "request_contexts": 2,
+      "ids": [
+        "scalar-map",
+        "compound"
+      ],
+      "exact_assertion_audit": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/transition-clauses-diagnosis/exact-request-operands-audit.json",
+        "sha256": "ea25c4873ae4204e97164b2db60ec145a19e874a12a0bc16589bb05bd42aba5d",
+        "bytes": 1520
+      },
+      "complete_original_JSON_values_and_nested_UTF8_sidecar_strings_equal": true
+    },
+    {
+      "id": "literal",
+      "original_fixture": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/literal-clauses/requests.json",
+        "sha256": "8cc08508cba079bc1640dd8a28a287f3de699b04ab124e716ab8673ec00a9c0e",
+        "bytes": 8693
+      },
+      "serialized_echo": {
+        "path": "develop/migrations/go-practical/t01-w05/retained-csharp/input-echo-followup/literal/requests.json",
+        "sha256": "9c0dd4128a89232a925a0fa22de123b6c36cf85480d46d74174c41c6f362b7bd",
+        "bytes": 8687
+      },
+      "request_contexts": 1,
+      "ids": [
+        "rich-literal-clauses"
+      ],
+      "exact_assertion_audit": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/literal-clauses-diagnosis/exact-request-operands-audit.json",
+        "sha256": "4289eadf6249fc8235c80b4456c983b6ea829e74943ae7ad57706b4c8b6be9c5",
+        "bytes": 1558
+      },
+      "complete_original_JSON_values_and_nested_UTF8_sidecar_strings_equal": true
+    }
+  ],
+  "scope": "Preserve separately the exact Rust pretty-serialized final request operands for the original transition and rich-literal owners. Original fixtures, source/capture values, every packet/selector loop and all original assertions remain required. These are serialization representation references, not fresh compiler captures or application proofs.",
+  "fields_ignored_or_normalized": false,
+  "profile_activated": false,
+  "full_gate_passed": false,
+  "T01_complete": false,
+  "selected_validation_required": true,
+  "selected_validation_recorded_separately": true
+}

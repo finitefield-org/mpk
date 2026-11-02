@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "selection_reason": "Format-check only the changed Rust modules, accessor and binding integration test; unrelated modules are not recursively reformatted.",
+  "command": [
+    "rustfmt",
+    "--edition",
+    "2021",
+    "--check",
+    "--config",
+    "skip_children=true",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/src/lib.rs",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/src/go_practical_capture_binding.rs",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/tests/go_practical_capture_binding.rs",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/snapshot_inputs.rs"
+  ],
+  "inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/src/lib.rs",
+      "bytes": 1010,
+      "sha256": "4049cdffc13afe5ffef8086affeb24654e69de53d8c298ecdea2f589006c85ab"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/src/go_practical_capture_binding.rs",
+      "bytes": 2945,
+      "sha256": "505cc2b244fa9331ba47306563386d3c67ce07d0a91206e2bb08663869664c63"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/tests/go_practical_capture_binding.rs",
+      "bytes": 18731,
+      "sha256": "de63640b6d2db5952046ee327b4d0461d57bb92362a6ad1b4d9afe79f93193d1"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/snapshot_inputs.rs",
+      "bytes": 18165,
+      "sha256": "17efbd8fb3abcab984a5257ba7c100075399fee90e5d86525aabc34f1efd9a72"
+    }
+  ],
+  "inputs_unchanged": true,
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

@@ -1,0 +1,7 @@
+    Finished `test` profile [optimized + debuginfo] target(s) in 0.23s
+     Running tests/go_practical_source_error_boxings.rs (target/debug/deps/go_practical_source_error_boxings-7732ada47833882f)
+
+thread 'all_seventy_source_cases_fit_and_preserve_every_payload' (53794091) panicked at crates/mpk-vc/tests/go_practical_source_error_boxings.rs:193:5:
+source-boxing-N70: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"c315bdaa5f3178f6e9f0f39f0e32a0b6c662ec9a1a6e4dfd7f676770a19fe23a"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"rhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"1643587\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"1667901\",\"side\":\"rhs\",\"term_index\":\"1669120\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_error_boxings`

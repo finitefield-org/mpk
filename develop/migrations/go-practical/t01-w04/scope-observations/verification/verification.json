@@ -1,0 +1,66 @@
+{
+  "checks": [
+    {
+      "command": "python3 -m unittest -v test_scope_report",
+      "cwd": "develop/probes/go-practical",
+      "eof_newlines_removed": 0,
+      "exit_code": 0,
+      "log": "unittest-scope.log",
+      "observed_tests": 35,
+      "reason": "New native-evidence checker: identity, call/type, alias/nil/runtime and false-promotion boundaries",
+      "tool_captured_utf8_bytes": 4113,
+      "tool_captured_utf8_sha256": "53ec7ed26f34f3a3a6423ee5813691a9f40f14d6dc83a9f9f5912a61aec50663"
+    },
+    {
+      "command": "python3 develop/probes/go-practical/run_scope_probes.py --check",
+      "cwd": ".",
+      "eof_newlines_removed": 0,
+      "exit_code": 0,
+      "identical_executions": 2,
+      "log": "native-replay.log",
+      "observed_sources": 49,
+      "reason": "Fresh private observer build reproduces retained source/output/binary identities under the exact Go distribution",
+      "tool_captured_utf8_bytes": 101,
+      "tool_captured_utf8_sha256": "ca456df8ec6fa6101b8d193293f144ff69356df2aceda2202d819fc6b0fb4e9d"
+    },
+    {
+      "command": "python3 develop/probes/go-practical/check_scope_metadata.py",
+      "cwd": ".",
+      "eof_newlines_removed": 0,
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Changed draft rules, vectors, planned owners, local links and unchanged predecessor identities",
+      "tool_captured_utf8_bytes": 149,
+      "tool_captured_utf8_sha256": "61e7999571e45d24df8b63aa48ebbffa35f46c3fe6de9739e19e1cc442541425"
+    },
+    {
+      "command": "compile five new Python sources; pinned gofmt -l scope_reference.go",
+      "cwd": ".",
+      "eof_newlines_removed": 0,
+      "exit_code": 0,
+      "log": "format-python.log",
+      "reason": "Syntax and formatting of the new private Python/Go tools",
+      "tool_captured_utf8_bytes": 78,
+      "tool_captured_utf8_sha256": "7a616f3365a6cef97dcab86ff1511227ec75d664cf3160b857a14fb1bf8ab930"
+    }
+  ],
+  "entry_commit": "9cdbb85d3c45fe973788b4923850ec2ab643b161",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04 checkpoint; repository instructions reserve the cumulative T01 gate for the final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "f52ca4817a70245b08e1715bf05a7995764e9b49ad5744b1e6196908cf7d03b7",
+  "not_repeated": [
+    "unchanged production frontend/kernel suites",
+    "unchanged W03 both-checker proof matrices",
+    "unchanged historical diagnostics"
+  ],
+  "output_scope": "UTF-8 text returned by exec_command/write_stdin, not a separately captured raw process stream",
+  "review": "Original snippets remain intact; native statuses and draft profile expectations are separate; full runtime result is independently specified; no production/frozen parser/kernel/registry edit",
+  "schema": "mpk.go_practical.w04_scope_verification.v0",
+  "scope": "selected private observer/evidence and draft semantic metadata; no production admission or source-model proof",
+  "status": "W04 in progress; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

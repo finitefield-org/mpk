@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--check",
+    "crates/mpk-vc/src/go_practical_type_keys.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scopes.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_types.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/selection.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/domains.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_overlays.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_overlays/expressions.rs",
+    "crates/mpk-vc/tests/go_practical_contract_expressions.rs"
+  ],
+  "cwd": ".",
+  "environment": {},
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/format/inputs.json",
+    "bytes": 273899,
+    "sha256": "8b26d9848e5414faf42f313b700cdd8fe4f5f115ff6b089244784eaa60b3d114"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/format/driver.py",
+    "bytes": 8014,
+    "sha256": "5fc224b35f6a86ccb1eee531eee52b3a194844da14f2c759b25501d0cef47e57"
+  },
+  "selection_reason": "New original contract-expression typing extends the source domain and caches checked local types. Check all70 heads, lexical/header/old namespaces, native original Go header bindings, and affected overlay/scopes/domain/selection consumers. No production Go frontend change; unrelated semantics and frontend rebuilds are unnecessary.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T01:55:44.929585+00:00",
+  "exit_code": 0,
+  "seconds": 1.0616305000148714,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/format/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/format/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "whole_source_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-22T01:55:46.072318+00:00"
+}

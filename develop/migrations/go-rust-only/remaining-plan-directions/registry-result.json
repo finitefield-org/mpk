@@ -1,0 +1,31 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "semantic_profile_registry_runtime",
+    "installed_registry_contains_only_go_and_rust_and_rejects_other_profiles",
+    "--",
+    "--exact"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 73.82231225003488,
+  "status": "passed",
+  "inputs_unchanged": true,
+  "stdout": {
+    "path": "develop/migrations/go-rust-only/remaining-plan-directions/stdout.log",
+    "bytes": 196,
+    "sha256": "32f4a82453f653115e8477367108799e77e76eccc37e85c4782322d427744241",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "develop/migrations/go-rust-only/remaining-plan-directions/stderr.log",
+    "bytes": 275,
+    "sha256": "c4ffdc2c853c54508aaa29b28741eda6c8a39be513e70433630a976eaf4da3c3",
+    "mode": 420
+  }
+}

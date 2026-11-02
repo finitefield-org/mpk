@@ -1,0 +1,88 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-m",
+        "unittest",
+        "-v",
+        "test_variant_report"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical",
+      "exit_code": 0,
+      "log": "unittest-report.log",
+      "reason": "24 evidence/adversarial tests for the new rank/backedge report and preserved source/axiom/hash boundaries",
+      "sha256": "dbd0e5e022c94c56c77fc0e1ccfccdea0cbe0f4a74b494016ec042b3f3d8437e",
+      "wall_seconds": 0.4359296250040643
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_variant_probes.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh private build and deterministic replay of ten ordinary claims plus three retained regressions; both unchanged checker implementations",
+      "sha256": "794092d1e7a28d311c7441c5004217a72bc9bd0c283a782f10b5d13cd91a0ea0",
+      "wall_seconds": 11.897904958983418
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_variant_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Current draft/retained foundation and diagnostic integrity, 143 predecessor pins, links and ledger order",
+      "sha256": "9c6844799fd3a6a1b16d4244027e7edec7667f0b4168503fa05808e962d8fa05",
+      "wall_seconds": 0.15414283401332796
+    },
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "--config",
+        "skip_children=true",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/variant-certificates/build.rs",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/variant-certificates/src/main.rs",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/variant-certificates/src/variant.rs"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "rustfmt.log",
+      "reason": "Only three new untrusted producer Rust sources; retained snapshots are excluded",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.03564070799620822
+    }
+  ],
+  "entry_commit": "540ee9033324c62b7f204f3bca337f2f4c976e81",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative gate reserved for final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "d20bed89fc789af9b8605e219671df63e650d23d066c9d321a0196e1f3bd333c",
+  "not_repeated": [
+    "unchanged production/core unit suites; 77 mirrored checker files byte-identical to preceding proposal",
+    "unaffected collection matrices and previous native observations"
+  ],
+  "observed_test_count": 24,
+  "output_scope": "complete raw combined stdout/stderr captured from local subprocesses",
+  "python_sources_compiled": 5,
+  "remaining": [
+    "exact joint source/core/foundation/overlay/wire/hash/limit/migration freeze",
+    "complete loop condition/body/post/callee totality and source/frame/word/range/application bindings",
+    "inactive publication and local release gates"
+  ],
+  "schema": "mpk.go_practical.w04_variant_verification.v0",
+  "scope": "ordinary arbitrary-Nat backedge variant termination; no complete Go source totality or public profile claim",
+  "signature_review": "Decoded canonical VRankTerminates signature: initial invariant is explicit; preservation/decrease each guard both live states; count is succ(rank(initial)); no caller bound argument.",
+  "status": "W04 in progress; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "develop/migrations/go-practical/t02-w01/verification/execution-histories/review-inputs.py"
+  ],
+  "observed_exit_code": 1,
+  "tool_session": 46366,
+  "tool_output_chunk": "5b1277",
+  "driver_sha256": "0260b38422aae9998b696907887a8dd74d90f664ee6cabd3c1c3fa909bac0205",
+  "complete_original_driver": "develop/migrations/go-practical/t02-w01/verification/execution-histories/review-first-attempt/driver.py.original",
+  "failure": "The documentation links included input-review.json before the review output existed. The link check correctly rejected that missing file. Create its output placeholder before the unchanged review reruns; no rule, source, cap, seal, exclusion or case changes.",
+  "diagnostic": "Traceback (most recent call last):\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/review-inputs.py\", line 113, in <module>\n    main()\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/review-inputs.py\", line 100, in main\n    assert all(row[\"exists\"] for row in links)\nAssertionError\n"
+}

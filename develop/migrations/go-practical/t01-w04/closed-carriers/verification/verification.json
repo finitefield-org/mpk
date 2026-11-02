@@ -1,0 +1,103 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_closed_carriers"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "unittest-carriers.log",
+      "reason": "20 closure/alias/nominal/full-width/byte/U-dependent Plain/hidden-cycle/result/context/AST/determinism/scope tests",
+      "sha256": "bd914f9c09153292ee2ec5a9ab37a371e9a9155bb2bce58041dbfa6bf364f66e",
+      "wall_seconds": 6.298848124977667
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_closed_carriers.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh offline locked private emitter and unchanged77-file checker builds; two exact generations/eight paired ordinary outcomes/two legacy inputs with complete source/binary/toolchain identities",
+      "sha256": "e3d7b5fbdbed2a10ff2b73851e9af230d9867f756af9dbd03435a123008e9bb8",
+      "wall_seconds": 30.304503833001945
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_carrier_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Closed schemas/instances/canonical certificates, all retained102/152/44/192/81/5/10/24/13/39 evidence,143 predecessor pins,two diagnostics,links and ledger42",
+      "sha256": "de5c57b7e62770cf48825ab1e8282e92ccb43b98d80b1489bee65a0edbdd7a4b",
+      "wall_seconds": 12.855480916041415
+    },
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "--config",
+        "skip_children=true",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/closed-carriers/src/main.rs"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "rustfmt.log",
+      "reason": "Only new Rust emitter; unchanged imported builder, private TCB snapshots and production sources excluded",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.06390349997673184
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-c",
+        "import pathlib;p=pathlib.Path('develop/probes/go-practical');names=('carrier_terms.py','closed_carriers.py','carrier_cases.py','carrier_build.py','run_closed_carriers.py','test_closed_carriers.py','check_carrier_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: seven new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "Syntax compilation of seven new specialization/ordinary-term/fixture/build/replay/test/metadata sources",
+      "sha256": "e4df2efa2dfb72a9d50afd17f0b66f9e2d048c04d71549f84108eced152ce344",
+      "wall_seconds": 0.04263799998443574
+    }
+  ],
+  "entry_commit": "4c6a8151b77c1640e7aaaf8c163bfd4dc914bbcc",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative gate reserved for final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "f303525c8ebcb78997e02bf2347e19504cdb678b9d64e4b6a1fb6a215c6d78c1",
+  "not_repeated": [
+    "unchanged production/kernel unit suites",
+    "older proof/native/module/overlay/counter matrices; retained source/receipt/diagnostic integrity checked",
+    "Go format checks: no Go source changed"
+  ],
+  "observed_tests": 20,
+  "output_scope": "complete raw combined stdout/stderr captured from local subprocesses",
+  "python_sources_compiled": 7,
+  "remaining": [
+    "full independent source/capture/root/alias/nominal/underlying and error-U completeness proofs; finite identity/zero-access normalization and validity predicates",
+    "all operation/contract/control/source-binding laws and downstream schema/migration review; W05/T01 gate and complete T02\u2013T11"
+  ],
+  "schema": "mpk.go_practical.w04_closed_carrier_verification.v0",
+  "scope": "concrete carrier/zero expansion and checked ordinary zero/projection laws; not complete source/validity/finite-id or operation foundation",
+  "source_inputs": 565,
+  "status": "W04 in progress; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

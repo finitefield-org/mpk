@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/hdiutil",
+    "create",
+    "-size",
+    "24g",
+    "-type",
+    "SPARSE",
+    "-fs",
+    "Case-sensitive APFS",
+    "-volname",
+    "MPK-Rust-SDK",
+    "-nospotlight",
+    "/private/tmp/mpk-go-rust-scope/frozen-rust-sdk.sparseimage"
+  ],
+  "exit_code": 0,
+  "logs": {
+    "stdout": {
+      "path": "develop/migrations/go-rust-only/verification/sdk-case-volume/create.stdout.log",
+      "sha256": "f0fec0d3c5a26d63ac4136c0d87ea279e60413f407e6966ef30a9eb5d05136e2",
+      "bytes": 68
+    },
+    "stderr": {
+      "path": "develop/migrations/go-rust-only/verification/sdk-case-volume/create.stderr.log",
+      "sha256": "0d39ea094e7529cf26e9f8c3e1d46228f096f4cadfa1ea8656c5f32043968df5",
+      "bytes": 147
+    }
+  },
+  "created_at_utc": "2026-10-20T15:16:20.455637+00:00",
+  "reason": "Frozen Linux sysroot contains case-distinct headers; preserve every original path and byte instead of omitting or renaming headers."
+}

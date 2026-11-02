@@ -1,0 +1,47 @@
+{
+  "inputs": {
+    "certificate": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/rust-factored/certificates/crossed-input.mpcert",
+      "bytes": 612069,
+      "sha256": "a8d0418b901c86e384115a1c7e3ef391eb45f2c56c706e090f9f7ecd9298f51b",
+      "mode": 420
+    },
+    "rust_report": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/rust-factored/certificates/crossed-input.rust.json",
+      "bytes": 543,
+      "sha256": "cb1fbf5f16ec2df59af3137d3b7cf99bfea9d2c0abf9aef1c41596089ffa9746",
+      "mode": 420
+    },
+    "checker": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+      "bytes": 3239410,
+      "sha256": "748cd0db8fb50e491ea27bd233d9f349ecbc3e8f3a2b71e7d29b121cd9666b7d",
+      "mode": 493
+    },
+    "driver": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/check-pair.py",
+      "bytes": 5932,
+      "sha256": "df2157144b510cd4eb4f6c1500caf2f2553585665ec51839270fcd9f1f8d5d4a",
+      "mode": 420
+    }
+  },
+  "command": [
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+    "verify",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/rust-factored/certificates/crossed-input.mpcert"
+  ],
+  "exit_code": 1,
+  "seconds": 0.8220852089580148,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/paired/rust-factored/crossed-input/stdout.log",
+    "bytes": 108,
+    "sha256": "ce7ff7918f661c06ad80beee9d26b7521a4244d91716038ddfd07c0609a27cb9",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/paired/rust-factored/crossed-input/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  }
+}

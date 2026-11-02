@@ -1,0 +1,33 @@
+{
+  "inputs": {
+    "certificate": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/rust-factored/certificates/wide-part-001.mpcert",
+      "bytes": 1324010,
+      "sha256": "0bcf87af236b4c4f21c07ee159fb81edd82f48bcab0c179cca0ceb3a43dabb21",
+      "mode": 420
+    },
+    "rust_report": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/rust-factored/certificates/wide-part-001.rust.json",
+      "bytes": 672,
+      "sha256": "3d679e2ef7e1f440aa108ef3952dcab70fc74ef512efb75c5d9c446c0914f242",
+      "mode": 420
+    },
+    "checker": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+      "bytes": 3239410,
+      "sha256": "748cd0db8fb50e491ea27bd233d9f349ecbc3e8f3a2b71e7d29b121cd9666b7d",
+      "mode": 493
+    },
+    "driver": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/check-pair.py",
+      "bytes": 6500,
+      "sha256": "9309f4e29e0548c50128af211da1aa7a5a2552af9a7d5400472ca318d711ae8e",
+      "mode": 420
+    }
+  },
+  "command": [
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/reference-build/mpk-checker-ref",
+    "verify",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/rust-factored/certificates/wide-part-001.mpcert"
+  ]
+}

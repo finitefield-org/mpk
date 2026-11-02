@@ -1,0 +1,16 @@
+{
+  "status": "failed",
+  "started_at_utc": "2026-10-26T23:18:43.842034+00:00",
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-byte-reproduction/inputs.json",
+    "bytes": 70888,
+    "sha256": "2e5a8301db74992be3966c067c50e5ef85fd66c1c4e9872cfeee64cabbaf0cbc",
+    "mode": 420
+  },
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "error": "RustBuildFailure('BUNDLE_BUILD_INPUTS_INVALID')",
+  "traceback": "FileNotFoundError: archive directory link target missing: usr/include/linux/netfilter/xt_connmark.h -> usr/include/linux/netfilter/xt_connmark.h\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 1356, in copy_entry\n    directory = self.resolve_directory(source_name)\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 1331, in resolve_directory\n    raise RustBuildFailure() from FileNotFoundError(\nrust_build_inputs.RustBuildFailure: BUNDLE_BUILD_INPUTS_INVALID\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/restore_rust.py\", line 107, in main\n    phase('complete-native-development-sysroot', lambda: rust.materialize_native_sysroot(vector, staging, work))\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/restore_rust.py\", line 84, in phase\n    result = action()\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/restore_rust.py\", line 107, in <lambda>\n    phase('complete-native-development-sysroot', lambda: rust.materialize_native_sysroot(vector, staging, work))\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 3851, in materialize_native_sysroot\n    build_view.copy_prefix(relative, output / relative)\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 1402, in copy_prefix\n    copied += self.copy_entry(name, destination / relative)\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 1358, in copy_entry\n    raise file_error\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 1352, in copy_entry\n    self.copy_file(source_name, destination)\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 1344, in copy_file\n    copy_no_replace(source, destination)\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 1415, in copy_no_replace\n    raise RustBuildFailure()\nrust_build_inputs.RustBuildFailure: BUNDLE_BUILD_INPUTS_INVALID\n",
+  "seconds": 1142.3106365419999,
+  "consumed_inputs_unchanged": true
+}

@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "selection_reason": "Preserve both original compressed byte streams and the entire initial review exactly; encode only raw binary storage to avoid treating incidental compressed-byte matches as active source text. Scanner rules and exclusions remain unchanged.",
+  "archives": [
+    {
+      "original": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/registered-analysis/go-vet-after-path/inputs.tar.gz",
+        "bytes": 4872659,
+        "sha256": "445b3c6b7b0114a96d5dc98b9ece4f18b82ac0539f117625ef4ea67fcc56c8a9",
+        "mode": 420
+      },
+      "encoded": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/registered-analysis/go-vet-after-path/inputs.tar.gz.hex",
+        "bytes": 9745318,
+        "sha256": "9cb6a0f7b38d5bf4490a58c9602361cfce8fcc8eaac9b164609e338f08754408",
+        "mode": 420
+      },
+      "recovered_bytes": 4872659,
+      "recovered_sha256": "445b3c6b7b0114a96d5dc98b9ece4f18b82ac0539f117625ef4ea67fcc56c8a9",
+      "exact_recovery": true
+    },
+    {
+      "original": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/registered-analysis/roots-original/inputs.tar.gz",
+        "bytes": 16039472,
+        "sha256": "3ae9c05c9377d9e370a1bf8c57216dcf03982652611a98f23d417c288ef66a3b",
+        "mode": 420
+      },
+      "encoded": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/registered-analysis/roots-original/inputs.tar.gz.hex",
+        "bytes": 32078944,
+        "sha256": "bf1337b95cb2b5f1fcc637e16354c0dc121dcd50912f742d828d3487edb8330a",
+        "mode": 420
+      },
+      "recovered_bytes": 16039472,
+      "recovered_sha256": "3ae9c05c9377d9e370a1bf8c57216dcf03982652611a98f23d417c288ef66a3b",
+      "exact_recovery": true
+    }
+  ],
+  "initial_review": {
+    "raw_bytes": 162902,
+    "raw_sha256": "87134b0c080b7606600777170860e1769642d972ac69c5a60b3004c7943b77f8",
+    "encoded": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/registered-analysis/review-initial.json.hex",
+      "bytes": 325804,
+      "sha256": "1e944a716e1da7a272e840d31a23ceab1c88f852ed9505f989aa30c6a502991c",
+      "mode": 420
+    },
+    "active_findings": 2,
+    "archived_findings": 0
+  },
+  "initial_archived_findings": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/registered-analysis/archived-findings-initial.json.hex",
+    "bytes": 6,
+    "sha256": "24a9fe82f268d7cae54b027c3f0c046f7fc6a5284c955db60069937f7c29512f",
+    "mode": 420
+  },
+  "initial_driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/registered-analysis/review-initial.py",
+    "bytes": 5453,
+    "sha256": "ddcba6c080781cd776d1d6deba23e1daf23b2918837fd5f418ad524e99fd6d06",
+    "mode": 420
+  },
+  "scanner_rules_changed": false
+}

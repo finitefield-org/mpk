@@ -1,0 +1,95 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_embedded_selection",
+    "--test",
+    "go_practical_snapshot_inputs",
+    "--test",
+    "go_practical_package_files",
+    "--test",
+    "go_practical_auxiliary_inputs",
+    "--test",
+    "go_practical_cgo_directives",
+    "--test",
+    "go_practical_source_inputs",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_EMBEDDED_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/rust-original/observations/embedded",
+    "MPK_GO_SNAPSHOT_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/rust-original/observations/snapshots",
+    "MPK_GO_SOURCE_BUILD_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/rust-original/observations/build",
+    "MPK_GO_SOURCE_LANGUAGES_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/rust-original/observations/languages",
+    "MPK_GO_SOURCE_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/rust-original/observations/sources",
+    "MPK_GO_PACKAGE_FILES_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/rust-original/observations/packages",
+    "MPK_GO_AUXILIARY_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/rust-original/observations/auxiliary",
+    "MPK_GO_CGO_DIRECTIVES_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/rust-original/observations/cgo"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/rust-original/inputs.json",
+    "bytes": 30339016,
+    "sha256": "2a15d435bbb071d4151b4f2b41943e85f2af624052317bbc638d5ebdc6af0c2b",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/run.py",
+    "bytes": 11681,
+    "sha256": "58dc1c9e1fc90f3ac48d403e38eaff551ff543b04ec1f8b9d2acd2ec41f2a713",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T07:30:44.352136+00:00",
+  "selection_reason": "Independently derive original Go embed pattern bytes and non-test resource selection from the complete immutable snapshot, without caller-supplied patterns or filesystem fallback. Compare all54 unchanged original native cases including all27 rejections; preserve complete candidate namespaces/buffers before resource failure. Compare original pragma/comment/literal/raw-byte cases, the entire pinned path.Match corpus plus raw-byte vectors, and every2003 original package directory. Exercise the full5535-object native owner, exact resources and coherent omission/unknown-directory controls with the identical original Root contract. Run the new native observations and affected Rust capture/package/auxiliary/cgo/source consumers, strict Clippy, vet and changed-file formats; untouched lexer/parser/build/language/kernel/foundation matrices and original Go owner/export/invocation production retain prior full evidence without repeat. Keep both43-root/zero-or70-error units/type domains/all32 proof streams/frozen limits intact. Canonical source/compiler/root/context/program authority remains due.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 162.46222491699154,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "external_originals_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/rust-original/stdout.log",
+    "bytes": 2646,
+    "sha256": "9e6d362bbf946ce38ae339fefbcba50bd0e27a8c556ae6cc9606ed56f738d613",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/rust-original/stderr.log",
+    "bytes": 771,
+    "sha256": "4632714c9410620987d4d832cb690111e16b2fe1d6a9b2ee3142144c5f0669ee",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T07:33:26.815967+00:00"
+}

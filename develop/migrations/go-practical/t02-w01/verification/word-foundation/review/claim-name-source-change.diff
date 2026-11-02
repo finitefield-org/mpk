@@ -1,0 +1,14 @@
+diff --git a/develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/inputs/crates/mpk-vc/tests/go_practical_word_foundation.rs b/crates/mpk-vc/tests/go_practical_word_foundation.rs
+index 34c3374d..437df6de 100644
+--- a/develop/migrations/go-practical/t02-w01/verification/word-foundation/reviewed/rust-tests/inputs/crates/mpk-vc/tests/go_practical_word_foundation.rs
++++ b/crates/mpk-vc/tests/go_practical_word_foundation.rs
+@@ -341 +341,8 @@ fn false_carry_add_identity_and_divisor_guard_claims_reject_as_core_type_mismatc
+-                    &format!("Mpk.Go.Practical.Test.False{width}{claim}"),
++                    &format!(
++                        "Mpk.Go.Practical.Test.False{width}{}",
++                        if claim == "carry" {
++                            "Carry"
++                        } else {
++                            "DivisorGuard"
++                        }
++                    ),

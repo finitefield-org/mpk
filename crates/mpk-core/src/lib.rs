@@ -3,6 +3,7 @@
 #![forbid(unsafe_code)]
 
 pub mod bool_cases;
+pub mod bool_rec_type;
 pub mod context;
 pub mod decl_check;
 pub mod defeq;
@@ -13,6 +14,7 @@ pub mod inductive_gen;
 pub mod infer;
 pub mod level;
 pub mod name;
+pub mod nat_induct;
 pub mod positivity;
 pub mod reduce;
 pub mod reduce_inductive;
@@ -20,6 +22,7 @@ pub mod subst;
 pub mod term;
 
 pub use bool_cases::check_bool_cases_declaration;
+pub use bool_rec_type::check_bool_rec_type_declaration;
 pub use context::{LocalContext, LocalDecl, LocalDefinition};
 pub use decl_check::{check_theorem, register_checked_theorem};
 pub use defeq::{definitionally_equal, definitionally_equal_with_fuel, DEFAULT_DEFEQ_FUEL};
@@ -40,6 +43,7 @@ pub use inductive_gen::{
 pub use infer::{check, infer, infer_sort};
 pub use level::{LevelArena, LevelHash, LevelId, LevelNode};
 pub use name::{GlobalId, Name, NameError, NameResolver};
+pub use nat_induct::check_nat_induct_declaration;
 pub use positivity::{check_mvp_positivity, PositivityErrorKind};
 pub use reduce::{whnf, whnf_with_fuel, ReduceError, DEFAULT_WHNF_FUEL};
 pub use reduce_inductive::{

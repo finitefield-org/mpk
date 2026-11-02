@@ -1,0 +1,5 @@
+package policy
+import dep "example.com/Dep"
+func Root(x uint16)uint16{return x+1}
+func Unused(x int64)int64{return dep.Identity(x)}
+func init(){panic("original initialization must never execute")}

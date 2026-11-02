@@ -1,0 +1,70 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+warning: unused imports: `DeclarationKind` and `Declaration`
+ --> crates/mpk-vc/tests/go_practical_word_index_foundation.rs:1:37
+  |
+1 | use mpk_cert::encode::{Certificate, Declaration, DeclarationKind, TermNode};
+  |                                     ^^^^^^^^^^^  ^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused imports: `GoOrdinaryError` and `import_go_practical_word_index_foundation`
+ --> crates/mpk-vc/tests/go_practical_word_index_foundation.rs:4:50
+  |
+4 |     generate_go_practical_word_shift_foundation, import_go_practical_word_index_foundation,
+  |                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+5 |     GoOrdinaryError,
+  |     ^^^^^^^^^^^^^^^
+
+warning: function `baseline` is never used
+  --> crates/mpk-vc/tests/go_practical_word_index_foundation.rs:57:4
+   |
+57 | fn baseline() -> Certificate {
+   |    ^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `encode` is never used
+  --> crates/mpk-vc/tests/go_practical_word_index_foundation.rs:66:4
+   |
+66 | fn encode(mut certificate: Certificate) -> Vec<u8> {
+   |    ^^^^^^
+
+warning: function `term` is never used
+  --> crates/mpk-vc/tests/go_practical_word_index_foundation.rs:94:4
+   |
+94 | fn term(c: &mut Certificate, node: TermNode) -> u32 {
+   |    ^^^^
+
+warning: function `constant` is never used
+  --> crates/mpk-vc/tests/go_practical_word_index_foundation.rs:99:4
+   |
+99 | fn constant(c: &mut Certificate, name: &str) -> u32 {
+   |    ^^^^^^^^
+
+warning: function `call` is never used
+   --> crates/mpk-vc/tests/go_practical_word_index_foundation.rs:113:4
+    |
+113 | fn call(c: &mut Certificate, name: &str, arguments: Vec<u32>) -> u32 {
+    |    ^^^^
+
+warning: function `false_claim` is never used
+   --> crates/mpk-vc/tests/go_practical_word_index_foundation.rs:123:4
+    |
+123 | fn false_claim(c: &mut Certificate) -> u32 {
+    |    ^^^^^^^^^^^
+
+warning: function `replace_result` is never used
+   --> crates/mpk-vc/tests/go_practical_word_index_foundation.rs:129:4
+    |
+129 | fn replace_result(c: &mut Certificate, ty: u32, result: u32) -> u32 {
+    |    ^^^^^^^^^^^^^^
+
+warning: function `replace_domain` is never used
+   --> crates/mpk-vc/tests/go_practical_word_index_foundation.rs:182:4
+    |
+182 | fn replace_domain(c: &mut Certificate, ty: u32, at: usize, domain: u32) -> u32 {
+    |    ^^^^^^^^^^^^^^
+
+warning: `mpk-vc` (test "go_practical_word_index_foundation") generated 10 warnings (run `cargo fix --test "go_practical_word_index_foundation" -p mpk-vc` to apply 2 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 39.63s
+     Running tests/go_practical_word_index_foundation.rs (target/debug/deps/go_practical_word_index_foundation-2a60fef8dfedf40f)

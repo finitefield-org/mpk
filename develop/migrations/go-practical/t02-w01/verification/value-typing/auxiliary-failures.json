@@ -1,0 +1,24 @@
+{
+  "scope": "Bookkeeping failures outside the48 recorded scoped test/lint/format commands; source production code and final950/4985 results did not change.",
+  "failures": [
+    {
+      "tool_chunk_id": "1723b6",
+      "driver": "audit-aliases-incomplete.py.raw",
+      "original_driver_saved_before_read": "final-alias-original-byte-audit/driver.py",
+      "error": "KeyError: the transport-list replacement also altered the scalar-originals map lookup. No final audit result was produced.",
+      "repair": "Use the scalar-alias-original string lookup; retain failed original driver and run the corrected audit in a distinct folder."
+    },
+    {
+      "tool_chunk_id": "f84e9d",
+      "driver": "summarize-aliases-incomplete.py.raw",
+      "error": "FileNotFoundError: dependent summary launched before the failed alias audit had produced a result. No new verification summary was produced.",
+      "repair": "Require terminal successful corrected audit before summary."
+    },
+    {
+      "tool_chunk_id": "439e0a",
+      "driver": "review-aliases-incomplete.py.raw",
+      "error": "AssertionError at current-check source correspondence: review still read the earlier index-only verification summary. No successful new review was produced.",
+      "repair": "Regenerate the summary only after the successful corrected audit, then run review sequentially."
+    }
+  ]
+}

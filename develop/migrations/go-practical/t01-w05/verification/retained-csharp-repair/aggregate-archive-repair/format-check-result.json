@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-18T11:27:56.022105+00:00",
+  "command": [
+    "rustfmt",
+    "--edition",
+    "2021",
+    "--check",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_W09_AGGREGATE_CONSUMER_OUT",
+    "MPK_W09_DECIMAL_SHARED_OUT"
+  ],
+  "build_receipt_sha256": "018a150caf4ea410792ec8375e524812c3416d2adb36c9b7a31949d656623b88",
+  "selection_reason": "Only changed source file.",
+  "exit_code": 0,
+  "expected_one_test_passed": null,
+  "wall_seconds": 0.24135691695846617,
+  "finished_at_utc": "2026-10-18T11:27:56.264630+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/format-check.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/format-check.stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "classification": "Harness assumed Git --no-index --check returned exactly2 for whitespace findings; actual content-difference plus whitespace status is3. Exact warning is only a final blank line. The assumption failed before any registry write.",
+  "original_registry_unchanged_and_matches_prepared_index": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/raw-log-whitespace.json",
+    "sha256": "20dbfa4b4e9e180f43aa302d0eafe971be1fcd702318f568b064610bac316664",
+    "bytes": 28610
+  },
+  "command": [
+    "/usr/bin/git",
+    "diff",
+    "--no-index",
+    "--check",
+    "--",
+    "/dev/null",
+    "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-diagnosis/stdout.log"
+  ],
+  "actual_exit_code": 3,
+  "exact_output": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-diagnosis/stdout.log:11: new blank line at EOF.\n",
+  "raw_stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-diagnosis/stdout.log",
+    "sha256": "6e288b167e691d379565cebd726fd85138d3efcff0e9404f568cc648df844f37",
+    "bytes": 429
+  },
+  "corrected_validation": "Require the exact path/digest and only EOF blank-line warnings; accept the actual2-or3 whitespace statuses."
+}

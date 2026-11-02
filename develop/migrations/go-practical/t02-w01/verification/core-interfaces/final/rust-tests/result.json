@@ -1,0 +1,168 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-19T10:52:50.643239+00:00",
+  "selection_reason": "Strengthen the actual ordinary identity definition to compute through unchanged legacy Nat.rec, and prove its universal identity with the new Nat.induct. Rerun all four affected generator/importer/negative/unused-node integration roots and their18 certificate outputs, strict Clippy and format. Other kernel/Go primitive code and passing unit matrices are unchanged and retain prior evidence. No CSharp tests, intermediate full gate or complete source/program/foundation/context claim.",
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "59109819397a15ffb721f72d52ccf8d85289feb5da684a5b0259da3e3b41ecac",
+      "bytes": 24851
+    },
+    {
+      "path": "crates/mpk-vc/src/lib.rs",
+      "sha256": "b5f86ab1e9f76e7c9a7087fc88e3b6e1b47d1dda7d956fe97efc2a08623d74f1",
+      "bytes": 9634
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_core_foundation.rs",
+      "sha256": "f2dac3d8e437bf44d18f074ed15f173fc6d9a80614772219f9188913196b6f3f",
+      "bytes": 12364
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_CORE_FOUNDATION_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates"
+  },
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_core_foundation",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "wall_seconds": 92.74829645792488,
+  "finished_at_utc": "2026-10-19T10:54:23.392574+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/stdout.log",
+    "sha256": "9c52a6d7b91de4cda0bb668c9b297315c29d877a69428705f5722298409d442e",
+    "bytes": 499
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/stderr.log",
+    "sha256": "f5d0ef33c2127e5f5a620215a1c7f9e22decdf2fff15df387dbdc4b4cca93c23",
+    "bytes": 555
+  },
+  "tests_passed": 4,
+  "certificates": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/bool-alias.mpcert",
+      "sha256": "cbe2e2f125c98220f72c6c4b0649425a19924e70bd3dbcb41308d04e932da82d",
+      "bytes": 4212
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/bool-flag.mpcert",
+      "sha256": "f6dc7f955f950029b513711e922bf2f96a712854c97125d2b9006ecdcfad99de",
+      "bytes": 4210
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/bool-levels.mpcert",
+      "sha256": "ccb36f1097b9c610ea077b6f7e1b839948acd2b9de7957936ea3cd1ddc1a9b63",
+      "bytes": 4211
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/bool-type.mpcert",
+      "sha256": "6aa79a514e57d1d9102fb20d08a8459043ce14196f53133fc364c7f99e252848",
+      "bytes": 4210
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/core-foundation.mpcert",
+      "sha256": "5b3b9c6e3eafa8f3c5652967cbad1f6d7eaa786d1ca23da894884a8a1b7ff373",
+      "bytes": 4207
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/false-equality.mpcert",
+      "sha256": "8ad77830bf8a6647a938f700423cc794e4ae14825228584e61340b09fddbc7ce",
+      "bytes": 4243
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/false-nat-law.mpcert",
+      "sha256": "b0af8175745ec4ed0288fba84021fbd9449b74bdd1f1db180fe4d5de6f96b685",
+      "bytes": 4255
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/nat-alias.mpcert",
+      "sha256": "4147f589e345092c9e99bad6f4ea8424b5288a116c7780674232e63f070840c9",
+      "bytes": 4212
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/nat-extra-after.mpcert",
+      "sha256": "3dbe619585fd20d3c4bc0875c3a7ab91b8101736604f56971542b68ab27a62c2",
+      "bytes": 4281
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/nat-extra-before.mpcert",
+      "sha256": "249e16e418a02be84a2bfd5fa5c58fd231681d30b9eb45ba566c13af9e195416",
+      "bytes": 4281
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/nat-flag.mpcert",
+      "sha256": "f560038d311424923443126940a4217b56577925455b1b2b00d01057cab85bd5",
+      "bytes": 4210
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/nat-levels.mpcert",
+      "sha256": "4ff6826bd8757dc471cf0c25c2a4ebce2f2abea3b031c69b3818d83a96eb998c",
+      "bytes": 4211
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/nat-order.mpcert",
+      "sha256": "2233943dc0672a0ffc6a1bb47cf5e674baa44fef9f43224e7a353fc9ffd16211",
+      "bytes": 4210
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/nat-prior-opaque.mpcert",
+      "sha256": "868f98c42df19bf60b05f00d4a67fbc27339a89ebcfbad64a6c56362bd794893",
+      "bytes": 4286
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/nat-prior-type.mpcert",
+      "sha256": "785df0c9bc68d0bdb991ed5c650b3b8fa84afd88c240acc8740e2fa564c80d9d",
+      "bytes": 4290
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/nat-type.mpcert",
+      "sha256": "28071bcabb8c0096b32859ae7718ef123bfe0534c17b1ed568d6eb4c540ad6fa",
+      "bytes": 4210
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/retained-boolean-basis.mpcert",
+      "sha256": "74a8ae4965b0713929d9874071129e62f4218fdbad2c77a3b59d084b7ac8039a",
+      "bytes": 3402
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/final/rust-tests/certificates/unused-interface-nodes.mpcert",
+      "sha256": "c50f2b9b092005f089d518f068a77cc33549d6ccdb6e0bf545d207d82fdfce62",
+      "bytes": 4215
+    }
+  ]
+}

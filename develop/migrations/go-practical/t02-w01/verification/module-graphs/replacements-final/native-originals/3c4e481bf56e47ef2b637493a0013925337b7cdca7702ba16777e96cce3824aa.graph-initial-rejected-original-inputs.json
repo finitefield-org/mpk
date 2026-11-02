@@ -1,0 +1,152 @@
+{
+  "namespace": {
+    "workspace/dep\u0000": [
+      {
+        "Name": "cache",
+        "Type": 2147483648
+      },
+      {
+        "Name": "example.com",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache": [
+      {
+        "Name": "download",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download": [
+      {
+        "Name": "example.com",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com": [
+      {
+        "Name": "alias",
+        "Type": 2147483648
+      },
+      {
+        "Name": "b",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/alias": [
+      {
+        "Name": "@v",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/alias/@v": [
+      {
+        "Name": "v1.0.0.mod",
+        "Type": 0
+      },
+      {
+        "Name": "v1.1.0.info",
+        "Type": 0
+      },
+      {
+        "Name": "v1.1.0.mod",
+        "Type": 0
+      },
+      {
+        "Name": "v1.1.0.zip",
+        "Type": 0
+      },
+      {
+        "Name": "v1.1.0.ziphash",
+        "Type": 0
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/b": [
+      {
+        "Name": "@v",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/b/@v": [
+      {
+        "Name": "v1.0.0.info",
+        "Type": 0
+      },
+      {
+        "Name": "v1.0.0.mod",
+        "Type": 0
+      },
+      {
+        "Name": "v1.0.0.zip",
+        "Type": 0
+      },
+      {
+        "Name": "v1.0.0.ziphash",
+        "Type": 0
+      }
+    ],
+    "workspace/main\u0000": [
+      {
+        "Name": "go.mod",
+        "Type": 0
+      },
+      {
+        "Name": "go.sum",
+        "Type": 0
+      }
+    ]
+  },
+  "objects": [
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "806f66841934dcd5ae21c7b98724321fd9713d6ae72ccf74f4f20b005847ffee",
+      "capability": "workspace/main",
+      "path": "go.mod",
+      "kind": "go_mod",
+      "raw_sha256": "7c8ee7085c9996810983c23a8824258616fddfcf2ca224b36c15b3556eee0db6",
+      "bytes": 95
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "870ad4e05c7ff0916710b7e3b32d0ac983d463e16b5b01cd0a18f0dd36c01008",
+      "capability": "workspace/dep",
+      "path": "cache/download/example.com/alias/@v/v1.0.0.mod",
+      "kind": "go_mod",
+      "raw_sha256": "a2e91991f90c8037f32f733bf3929f838c7760d6f7062a83cffd5ccf20646572",
+      "bytes": 58
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "f04ef2fa896de0b4a8ffd3278c44f9155f59ea77df91014dd1eeee83cdcaeb67",
+      "capability": "workspace/main",
+      "path": "go.sum",
+      "kind": "go_sum",
+      "raw_sha256": "413e25a8d450d0566097e5e594ccec8661ffb433d9af9015ca4cc06bd2f6a26a",
+      "bytes": 378
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "fd898750e2c5798c48bdd7b39f9988951c7849a26e2754625214d4430cf485cf",
+      "capability": "workspace/dep",
+      "path": "cache/download/example.com/b/@v/v1.0.0.mod",
+      "kind": "go_mod",
+      "raw_sha256": "e6cfd711c9a4fd42559267741a457a17272be29ff890bd7d49b5ecf67c042130",
+      "bytes": 62
+    }
+  ],
+  "origins": [
+    {
+      "Capability": "workspace/dep",
+      "Directory": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalModuleGraphRetainsVersionedReplacementAndInitialRoo4196931039/001/dep"
+    },
+    {
+      "Capability": "workspace/main",
+      "Directory": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalModuleGraphRetainsVersionedReplacementAndInitialRoo4196931039/001/main"
+    }
+  ],
+  "raw": {
+    "806f66841934dcd5ae21c7b98724321fd9713d6ae72ccf74f4f20b005847ffee": "bW9kdWxlIGV4YW1wbGUuY29tL2FwcApnbyAxLjI1LjAKcmVxdWlyZSBleGFtcGxlLmNvbS9hbGlhcyB2MS4wLjAKcmVxdWlyZSBleGFtcGxlLmNvbS9iIHYxLjAuMAo=",
+    "870ad4e05c7ff0916710b7e3b32d0ac983d463e16b5b01cd0a18f0dd36c01008": "bW9kdWxlIGV4YW1wbGUuY29tL2FsaWFzCmdvIDEuMTYKZnV0dXJlX2RpcmVjdGl2ZSBpZ25vcmVkCg==",
+    "f04ef2fa896de0b4a8ffd3278c44f9155f59ea77df91014dd1eeee83cdcaeb67": "ZXhhbXBsZS5jb20vYiB2MS4wLjAgaDE6V0pFeGhDUE5wT1BBNGdnMlp3Rjl6Qlc3ME42WHc4WVAyY0plZWpHZHc0ND0KZXhhbXBsZS5jb20vYiB2MS4wLjAvZ28ubW9kIGgxOlRUN2xiT2JDajFGM2tRZG5vQk5HZ25NT1Z0VXVaU2xhRW5OdncyNmw3T1E9CmV4YW1wbGUuY29tL2FsaWFzIHYxLjAuMC9nby5tb2QgaDE6alhxU25EWTNVS25lV2VwbnBQdGsxb0lSZStMMklIRjJ0WnVwYlp3cGFWbz0KZXhhbXBsZS5jb20vYWxpYXMgdjEuMS4wIGgxOkgxWXhiRWRZa3dIZjljaGtEM1FxeUlXbDJZMG95dTE1NDluZU1mUWlmNXM9CmV4YW1wbGUuY29tL2FsaWFzIHYxLjEuMC9nby5tb2QgaDE6aiswNUNYcWNodUdJblBIZzVQK2tsQ1Z2TGFnOW9JbWpDZHNYL2pCc214az0K",
+    "fd898750e2c5798c48bdd7b39f9988951c7849a26e2754625214d4430cf485cf": "bW9kdWxlIGV4YW1wbGUuY29tL2IKZ28gMS4yMgpyZXF1aXJlIGV4YW1wbGUuY29tL2FsaWFzIHYxLjEuMAo="
+  }
+}

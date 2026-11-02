@@ -1,0 +1,12 @@
+{
+  "go": {
+    "exit_code": 1,
+    "stderr": "",
+    "stdout": "{\"verdict\":\"rejected\",\"error_kind\":\"core_check\",\"error_detail\":\"term 449 inferred app but expected app\"}\n"
+  },
+  "rust": {
+    "exit_code": 1,
+    "stderr": "",
+    "stdout": "{\"verdict\":\"rejected\",\"module\":null,\"declaration_count\":null,\"axiom_count\":null,\"hashes\":{\"export\":null,\"axiom_report\":null,\"certificate\":\"7d8a985e0ec58eca4c33c73e19d39b849c03f9ae8dd9ea0741ef0334cead0d31\"},\"axiom_report\":null,\"error_code\":\"KERNEL_CORE_CHECK\",\"error_detail\":\"{\\\"code\\\":\\\"CORE_TYPE_MISMATCH\\\",\\\"location\\\":[{\\\"field\\\":\\\"check\\\"}],\\\"details\\\":{\\\"expected_kind\\\":\\\"app\\\",\\\"expected_term_index\\\":\\\"1337\\\",\\\"inferred_kind\\\":\\\"app\\\",\\\"inferred_term_index\\\":\\\"461\\\",\\\"kind\\\":\\\"check_type_mismatch\\\",\\\"term_index\\\":\\\"449\\\"}}\"}\n"
+  }
+}

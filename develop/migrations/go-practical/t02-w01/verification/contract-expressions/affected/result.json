@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_source_overlays",
+    "--test",
+    "go_practical_source_scopes",
+    "--test",
+    "go_practical_source_domains",
+    "--test",
+    "go_practical_error_dispatch",
+    "--test",
+    "go_practical_source_selection",
+    "--",
+    "--nocapture"
+  ],
+  "cwd": ".",
+  "environment": {
+    "MPK_GO_AFFECTED_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/affected/observations",
+    "MPK_GO_SOURCE_OVERLAYS_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/affected/observations/source_overlays",
+    "MPK_GO_SOURCE_SCOPES_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/affected/observations/source_scopes",
+    "MPK_GO_SOURCE_DOMAINS_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/affected/observations/source_domains",
+    "MPK_GO_ERROR_DISPATCH_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/affected/observations/error_dispatch",
+    "MPK_GO_SOURCE_SELECTION_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/affected/observations/source_selection"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/affected/inputs.json",
+    "bytes": 273927,
+    "sha256": "08a52b37932c91bde94778157c123b1fbc44f754ae6b62f728674850d0c3c359"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/affected/driver.py",
+    "bytes": 8014,
+    "sha256": "5fc224b35f6a86ccb1eee531eee52b3a194844da14f2c759b25501d0cef47e57"
+  },
+  "selection_reason": "New original contract-expression typing extends the source domain and caches checked local types. Check all70 heads, lexical/header/old namespaces, native original Go header bindings, and affected overlay/scopes/domain/selection consumers. No production Go frontend change; unrelated semantics and frontend rebuilds are unnecessary.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T01:55:43.555476+00:00",
+  "exit_code": 0,
+  "seconds": 231.93883174995426,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/affected/stdout.log",
+    "bytes": 2267,
+    "sha256": "da091d5583d9f625bfca98a7ce2e436435ed16dbcd9861be57f7c7c5423f3572"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/affected/stderr.log",
+    "bytes": 726,
+    "sha256": "461ce0154fe3e48a3b713a660229d0b6cf9b82c55c5a4a7573052abf19c662d7"
+  },
+  "whole_source_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-22T01:59:35.852132+00:00"
+}

@@ -1,0 +1,71 @@
+{
+  "schema": "mpk.go_practical.zero_and_signed_division_prerequisites_native_comparison.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T18:18:54.546894+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/native/result.json",
+    "sha256": "ef61494d2a6cf429831456549eb90670f216261de3b7a46ce872271c51eae484",
+    "bytes": 6768
+  },
+  "query_origins": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/query-origins.json",
+    "sha256": "03ffea7c739d39dc59e4437eb01783adc0335a3130894f1667d318ca68511446",
+    "bytes": 2568
+  },
+  "components": [
+    {
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-zero/final/rust-tests/model/certificate.mpcert",
+        "sha256": "6cdac50b1b10d56baefa679b71add664d2dc3129af78552737233a3c5da4157e",
+        "bytes": 108827
+      },
+      "model": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-zero/final/rust-tests/model/model.json",
+        "sha256": "f198106e67d0e79f449b7092931263f46d8e7af618981b1219bdd1efadbf3a08",
+        "bytes": 4158
+      },
+      "metrics": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-zero/final/rust-tests/model/metrics.json",
+        "sha256": "b5c46342fc3d86c0ebbc1f0f4d4e316676fbb7d7b445db4c67edf2047d8ed3cf",
+        "bytes": 623
+      }
+    },
+    {
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/final/rust-tests/model/certificate.mpcert",
+        "sha256": "2d23c58db425fc11d653c8c7966db69a0f71495d614712cd7b8abc0f2246e11d",
+        "bytes": 1255288
+      },
+      "model": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/final/rust-tests/model/model.json",
+        "sha256": "17691f93b1afa02b2e4fca155ae21dec108001141bf83053bfb63232f34dcab4",
+        "bytes": 29393
+      },
+      "metrics": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/final/rust-tests/model/metrics.json",
+        "sha256": "a84bd69f730ce556fb38b82b2f8a678eadea40b7e1146a1abcbdfe4890699f29",
+        "bytes": 880
+      }
+    }
+  ],
+  "independent_integer_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division/native-comparison-final/independent-integer-oracle.json",
+    "sha256": "22077875f5ad1d78d359bf417dcc02cb87e436969f29a74349e206d4706c3210",
+    "bytes": 44878
+  },
+  "original_queries": 128,
+  "zero_queries": 32,
+  "zero_cases": 4,
+  "signed_queries": 96,
+  "defined_signed_results": 88,
+  "source_zero_divisor_faults": 8,
+  "minimum_minus_one_observations": 8,
+  "two_fresh_native_outputs_identical": true,
+  "prepared_image_files": 5577,
+  "Nat_integer_or_theorem_bodies_executed": false,
+  "scope": "Finite observations of the actual decoded operators and direct/scoped Boolean zero predicates. Source zero-divisor guards compare to actual recovered Go faults; minimum/-one follows normal Go wrapping. Universal signed division/remainder and source/application proofs remain required.",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

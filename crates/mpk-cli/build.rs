@@ -23,7 +23,7 @@ fn main() {
     });
     let semantic = mpk_vc::semantic_profile_registry::validate_semantic_profile_registry(
         &semantic_bytes,
-        mpk_vc::semantic_profile_registry::RegistryRevision::Revision3,
+        mpk_vc::semantic_profile_registry::RegistryRevision::Revision4,
     )
     .unwrap_or_else(|error| {
         panic!(

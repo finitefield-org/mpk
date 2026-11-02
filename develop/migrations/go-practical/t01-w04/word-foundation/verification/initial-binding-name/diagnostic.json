@@ -1,0 +1,23 @@
+{
+  "finding": "a full operation digest used as a name component may begin with a digit",
+  "inputs": [
+    {
+      "path": "word_bindings.py.txt",
+      "sha256": "a61093ecaff516b950fe68f19232fbcde5be9b1c49797ffa2c14677a2fcc7e8e"
+    },
+    {
+      "path": "plan.json",
+      "sha256": "2698d33570e4c28f936ec91a21d265be77f202f9dc35cb0b6fb7bf8462df271e"
+    },
+    {
+      "path": "candidate.mpcert",
+      "sha256": "157508b76ffc8ca4c9997edf3e97c68699eff96d49a1ba611ff293d9aa189d35"
+    },
+    {
+      "path": "results.json",
+      "sha256": "cc92beed016261a0c479e7f9383a983cb6ff28a86b107a27e47e58e9332d2820"
+    }
+  ],
+  "repair": "prefix the complete hash component with H; no truncation,identity or semantic change",
+  "scope": "ordinary declaration name format,not a core proposition/source failure"
+}

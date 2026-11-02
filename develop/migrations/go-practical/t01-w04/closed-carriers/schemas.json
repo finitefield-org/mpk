@@ -1,0 +1,192 @@
+{
+  "instance_union": {
+    "joint": [
+      "schema",
+      "semantic_context_sha256",
+      "type_definitions_sha256",
+      "global_error_universe_id",
+      "role",
+      "result_types",
+      "dependencies",
+      "depth",
+      "plain",
+      "weight_units",
+      "id"
+    ],
+    "source": [
+      "schema",
+      "semantic_context_sha256",
+      "type_definitions_sha256",
+      "global_error_universe_id",
+      "role",
+      "source_type_id",
+      "dependencies",
+      "depth",
+      "plain",
+      "weight_units",
+      "id"
+    ]
+  },
+  "new_identities": [
+    {
+      "domain": "MPK-GO-TYPE-DEFINITIONS-1.0",
+      "schema": "mpk.go.type_definitions.v1"
+    },
+    {
+      "domain": "MPK-GO-SEMANTIC-INSTANCE-1.0",
+      "schema": "mpk.go.semantic_instance.v1"
+    }
+  ],
+  "ordinary_ast": {
+    "app": [
+      "kind",
+      "function",
+      "arguments"
+    ],
+    "const": [
+      "kind",
+      "name"
+    ],
+    "lam": [
+      "kind",
+      "name",
+      "domain",
+      "body"
+    ],
+    "pi": [
+      "kind",
+      "name",
+      "domain",
+      "body"
+    ],
+    "sort0": [
+      "kind"
+    ],
+    "var": [
+      "kind",
+      "name"
+    ]
+  },
+  "remaining": [
+    "full independent source/capture/root/alias/nominal/underlying and error-U completeness proofs; finite identity/zero-access normalization and validity predicates",
+    "all operation/contract/control/source-binding laws and downstream schema/migration review; W05/T01 gate and complete T02\u2013T11"
+  ],
+  "roots": [
+    {
+      "field_types": {
+        "aliases": "declaration-id sorted exact target refs",
+        "content_sha256": "lowercase sha256",
+        "definitions": "id-sorted complete closed source type definition union",
+        "error_implementers": "type-id sorted exact Error() string signature refs",
+        "error_universe_id": "same captured closed error universe id",
+        "identity_nodes": "id-sorted exact source identity DAG with one capture/context",
+        "schema": "literal type_definitions.v1"
+      },
+      "hash_domain": "MPK-GO-TYPE-DEFINITIONS-1.0",
+      "hash_field": "content_sha256",
+      "hash_preimage_fields": [
+        "schema",
+        "identity_nodes",
+        "definitions",
+        "aliases",
+        "error_implementers",
+        "error_universe_id"
+      ],
+      "name": "type_definitions",
+      "optional_fields": [],
+      "required_fields": [
+        "schema",
+        "identity_nodes",
+        "definitions",
+        "aliases",
+        "error_implementers",
+        "error_universe_id",
+        "content_sha256"
+      ],
+      "schema": "mpk.go.type_definitions.v1",
+      "unknown_fields": "reject"
+    },
+    {
+      "field_types": {
+        "content_sha256": "lowercase sha256",
+        "entries": "id-sorted complete dependency closure of source/joint union",
+        "foundation_ref": "context-equal exact compiled reference",
+        "global_error_universe_id": "same captured U",
+        "limits_sha256": "context-equal exact compiled limits hash",
+        "roots": "sorted unique derived instance ids",
+        "schema": "literal closed_instances.v1",
+        "semantic_context": "full validated Go practical context.v3",
+        "type_definitions_sha256": "complete input type definition hash"
+      },
+      "hash_domain": "MPK-GO-CLOSED-INSTANCES-1.0",
+      "hash_field": "content_sha256",
+      "hash_preimage_fields": [
+        "schema",
+        "semantic_context",
+        "foundation_ref",
+        "limits_sha256",
+        "type_definitions_sha256",
+        "global_error_universe_id",
+        "roots",
+        "entries"
+      ],
+      "name": "instances",
+      "optional_fields": [],
+      "required_fields": [
+        "schema",
+        "semantic_context",
+        "foundation_ref",
+        "limits_sha256",
+        "type_definitions_sha256",
+        "global_error_universe_id",
+        "roots",
+        "entries",
+        "content_sha256"
+      ],
+      "schema": "mpk.go.closed_instances.v1",
+      "unknown_fields": "reject"
+    },
+    {
+      "field_types": {
+        "content_sha256": "lowercase sha256",
+        "declarations": "complete dependency-ordered ordinary definitions/theorems with closed AST",
+        "foundation_ref": "context-equal exact compiled reference",
+        "instances_sha256": "complete closed instance set hash",
+        "module": "fixed private module",
+        "schema": "literal foundation_expansion.v1",
+        "seed_sha256": "exact retained zero-axiom core seed bytes",
+        "semantic_context_sha256": "complete typed context hash",
+        "type_definitions_sha256": "complete input type definition hash"
+      },
+      "hash_domain": "MPK-GO-FOUNDATION-EXPANSION-1.0",
+      "hash_field": "content_sha256",
+      "hash_preimage_fields": [
+        "schema",
+        "semantic_context_sha256",
+        "foundation_ref",
+        "instances_sha256",
+        "type_definitions_sha256",
+        "seed_sha256",
+        "module",
+        "declarations"
+      ],
+      "name": "expansion",
+      "optional_fields": [],
+      "required_fields": [
+        "schema",
+        "semantic_context_sha256",
+        "foundation_ref",
+        "instances_sha256",
+        "type_definitions_sha256",
+        "seed_sha256",
+        "module",
+        "declarations",
+        "content_sha256"
+      ],
+      "schema": "mpk.go.foundation_expansion.v1",
+      "unknown_fields": "reject"
+    }
+  ],
+  "schema": "mpk.go_practical.closed_carriers_draft.v0",
+  "status": "closed specialization/ordinary-term draft; not source/finite-id/validity/operation foundation completion"
+}

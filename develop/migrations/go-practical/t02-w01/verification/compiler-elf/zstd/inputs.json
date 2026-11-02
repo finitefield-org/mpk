@@ -1,0 +1,1951 @@
+{
+  "basis_commit": "133d465e86f455e0bf5c5436ba43a87b2bb02c68",
+  "sources": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/fixtures.py",
+      "bytes": 5942,
+      "sha256": "ee9554951fb4126a1273739579ec2cb5f5d46e0bb8a4b61444223f91756f7cba",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/fixtures.py",
+      "bytes": 8387,
+      "sha256": "f56d06a7bb2e2c1e4ec9a8412070619b5be97a0b602cef98b8df88bcd94ff3e2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/run.py",
+      "bytes": 10421,
+      "sha256": "d8ee7a0f811a1a1c7b94ae7aa0596a7d71b077991834b44dd3a03c8a54b5cd07",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/active_corpus_test.go",
+      "bytes": 19494,
+      "sha256": "fdd64563b0103dcf833816455b181daf3df270e5d50446fee6860c4362b46369",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/bundle_candidate_test.go",
+      "bytes": 12027,
+      "sha256": "ca92ebb2c1b153c750db5f80724f2aa04bc60758508d77c5a6f5c72514548e41",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/bundle_selection.go",
+      "bytes": 22651,
+      "sha256": "b174bacc9a3ee1b3793a48f801b794044b3eafb886dcb7da208666108f34962f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/canonical_json.go",
+      "bytes": 10460,
+      "sha256": "0b266e9187e97e8a3275978099cafb3cc16edf12c1094d8ef533909bbf22f16b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/contract.go",
+      "bytes": 30100,
+      "sha256": "51316ed3fecbf200f569567f46fd9065c912a41d03299b96021e44c2418c9bda",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/corpus_test.go",
+      "bytes": 16972,
+      "sha256": "08007ed264fcc6da716241e72d7fb26bb53918aed84b13cfd1a66f17d6711f87",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/emit.go",
+      "bytes": 10285,
+      "sha256": "8e9457ca250c53bbe01de30644dc9085946e807df75737fef5933a3de42916ec",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/features.go",
+      "bytes": 18090,
+      "sha256": "050c9e7f59d429aeceb82a8fdbbac7a2ef2d78bad4e6759e237ab60508eb69fc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/go.mod",
+      "bytes": 179,
+      "sha256": "b90bfc21fd7a30139ab5852b895e0e1fcb7f8442d01ca4e2463c2ad1cfd15af3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/go.sum",
+      "bytes": 632,
+      "sha256": "3b423539c29460b977ec958cd53a84c813d2c15a3d2cdfb841f07f3ef7a6104c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/hash.go",
+      "bytes": 1258,
+      "sha256": "180957d685df429f8c458e503d7e3a3ce4235458dc65daeaa53e4c2e4549d7d8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/loader.go",
+      "bytes": 11318,
+      "sha256": "6034f01b6e9b2e46adfc131299f21a8b38bbc1415a93de0de91db39eb2f296eb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/loader_test.go",
+      "bytes": 6649,
+      "sha256": "294211d2b4a7b716b5cd9034c54c172123ff79cadc1e5afde4d71a8226d7e30d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/lower.go",
+      "bytes": 50967,
+      "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/lower_types.go",
+      "bytes": 5075,
+      "sha256": "40378faf14b85bd585b0425b333d1e0b4b66738912e2fbb7a0f3479ce90c33f1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/main.go",
+      "bytes": 14048,
+      "sha256": "353468be619893d2235442d8fc686b03c4ab0e15751fc73e94f5777932d50911",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/main_test.go",
+      "bytes": 37853,
+      "sha256": "ec42bf8fea669fff426d89f8e18411a4cfeae6aa8933ccfb702ae41288e73aa5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/manifest.go",
+      "bytes": 9152,
+      "sha256": "37c20f41cb3a11b90f5dadba2aaca5e694f4ddb1d058b7d7bfde985e039a6176",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/manifest_test.go",
+      "bytes": 4684,
+      "sha256": "cb75b2617a003777d68581bdde73cbc54d998bbb037fa57e96bec88f4fd4031b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_aggregate_constants_reference_test.go",
+      "bytes": 14383,
+      "sha256": "cfcd731576a93496579b8fbe68f4cff8878ddefb9e08f14fe58c316e22dfea43",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_analysis.go",
+      "bytes": 13455,
+      "sha256": "7681d113cfff36a5d97a8ccc76d2eab5632b764232ae516c778495946f55ef24",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_analysis_capture_test.go",
+      "bytes": 10948,
+      "sha256": "999f73212ce5478b2d998211b85da8be3fa07a9096ae064f2417ee1bed20f727",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_analysis_test.go",
+      "bytes": 7294,
+      "sha256": "e2db8c23e7f7f0786c67326cd17a88c4a60c8f971618f7c5031f74a36e54f3ca",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_archive.go",
+      "bytes": 10987,
+      "sha256": "b198df0fa990bbedfd1e0c88bbb444d0bd86f560ccb74b912dc42f0a3b30d957",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_archive_capture_test.go",
+      "bytes": 9691,
+      "sha256": "a082111f9fdb66ef54b1f4f0847580a106aea6e31eca6bbbb8da2b46698b5dce",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_archive_fold.go",
+      "bytes": 1072,
+      "sha256": "5791982a8213e654c8e653f6ffc1da7b9eb1900ad207826eb025e66b7aa1439e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_archive_ownership_test.go",
+      "bytes": 3634,
+      "sha256": "45ae78138bcfc8cdcf9eee55eeeaa0d778dcfb8c13215b53ee2f3a3d8a6104e4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_archive_test.go",
+      "bytes": 12048,
+      "sha256": "1a659f37f4f5523569e4608e8c7799028117b006f403cfbab7954a7912488d3a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_assignment_typing_reference_test.go",
+      "bytes": 17459,
+      "sha256": "8ca14f642cd98d71f80da5d0cc01539bf4e076defcd403765d8f209ba265b3a6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_auxiliary_inputs_test.go",
+      "bytes": 6492,
+      "sha256": "5211890d6eb2da9cc3144aada14ae27d6bb4a5f644e9d8f37241641c4eb6a18f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_body_typing_reference_test.go",
+      "bytes": 24996,
+      "sha256": "29a660602cb2574160cc2b10b54e3ae8433f28a357a7b7b81bb31f04fecd73f3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_capture.go",
+      "bytes": 15534,
+      "sha256": "9328ddf2554d62a22dc916dab5036be4bbb7504b1f64456345e84ccc6383715e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_capture_test.go",
+      "bytes": 15313,
+      "sha256": "56c4da448eebebde85e6c9e541a4041ad016d0da8f6306b74d28bea95367e227",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_cgo_directives_test.go",
+      "bytes": 9305,
+      "sha256": "b49c242209f74533f89899b60880d12517753ad9d212c7cb614e9ada925ff7b4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_cleanup_go125.go",
+      "bytes": 1063,
+      "sha256": "2fd7b44d266025e697ee0e2f6858b50762ebc192318b48d60b5c67d2bcd34b13",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_cleanup_unavailable.go",
+      "bytes": 185,
+      "sha256": "fc04fa620db586e47e3c046af6d57134fb39113de0fca03eacc29ada9e5dbc42",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_closure.go",
+      "bytes": 28716,
+      "sha256": "fd183bb9fc469953c9f4b6f585c1fd512cf41c20430fd3f1b6c015e251e448f6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_closure_test.go",
+      "bytes": 21239,
+      "sha256": "d45d0e8be92cd2b18c2c1c7e64a7aac6d0dda94412c0b845d9a0c2bd98243eaa",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_compiler.go",
+      "bytes": 9991,
+      "sha256": "751aa7f5bd191c59e270aa657879113336b5061102f350092d14a53ac409440e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_compiler_build_info_test.go",
+      "bytes": 3157,
+      "sha256": "1c63d4c6236cdc007b015a1551eccb89e2a8cc3a826701844e368c7646263778",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_compiler_capture_test.go",
+      "bytes": 11094,
+      "sha256": "ce8793cfc3979241dcab18e529437e54ccd89497f39d2c6e3d4c006586fe2ef2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_compiler_elf_test.go",
+      "bytes": 2433,
+      "sha256": "2ec2b413f7a25fd157e6a42d7c86dc61ac0b79d0ee69d8ddf7a57e52cf4259b1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_compiler_inputs.go",
+      "bytes": 4648,
+      "sha256": "98e61a9aaeb312d803bd286b7dbc6e9efd89d65e9812118fcaabf5bae8da2664",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_compiler_inputs_test.go",
+      "bytes": 8875,
+      "sha256": "ab45d0ac7dda67bcffe947a47e74b380f5a4c0a06cf65b6b725db624fd4b1f61",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_compiler_source_roles_test.go",
+      "bytes": 5656,
+      "sha256": "80e07737d12861e10edf47484aa85d9fe9b984bc8946b6de3c55130a7f265fee",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_compiler_test.go",
+      "bytes": 2624,
+      "sha256": "b44ac68aa7bee310740f83a34874e70345cf7f99fb95a8fc735eb4cccb255b18",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_constant_reference_test.go",
+      "bytes": 13817,
+      "sha256": "7780a7c648ecd93a9f88ed73ba1b60d10e5e309541e8c434cad52d9730172b93",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_contract_expressions_test.go",
+      "bytes": 7525,
+      "sha256": "be73bc778038ca6f6bec055c17e38eccd0224027758a87642f8a61e735b17be3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_contract_inputs.go",
+      "bytes": 3424,
+      "sha256": "08a38fa940cfffd20ca8693ddb925cd2ef5817caec8e65844e71ab5524392727",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_contract_inputs_test.go",
+      "bytes": 7601,
+      "sha256": "fc4aaebe1033dac5643f839909255da4682d7ac906f601c7b35d12ce840e8909",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_contract_modules_test.go",
+      "bytes": 8932,
+      "sha256": "8bd9c55c9c40bcb75bd2ea274e75f640d89ab4288d281a6053a17612f697e0d6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_embed.go",
+      "bytes": 7465,
+      "sha256": "6215629deb4bef4956a9436c9f5fb4adb61c5e634b5849fa36183eb900186ae6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_embed_test.go",
+      "bytes": 9938,
+      "sha256": "92a8e70eaca3214fcf91ce3dd3e92566d41333af3b52e0324c2e551d3bc35b77",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_embedded_selection_test.go",
+      "bytes": 17112,
+      "sha256": "52d52fc1342e8f9b28ce72cd278c595e11837cdf4292e12f5aaac508c32b9e84",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_error_boxings_test.go",
+      "bytes": 16498,
+      "sha256": "ec6124c478887255962610ddd98918d8dcfbc7adcdb88aae9a4cd49dac455897",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_error_dispatch_test.go",
+      "bytes": 14701,
+      "sha256": "fc0011efc96d6d7857a30dc2a25dbd0d3d1ea96a566c9e3767fc6334dbb127cf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_error_representation_test.go",
+      "bytes": 2708,
+      "sha256": "3a20ed19c7170a39bce8a9a231106797836bbc6c1ae14c9a33e242eca35d78e2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_export_inputs.go",
+      "bytes": 4103,
+      "sha256": "9702722dad34b226e6bf200ba71ceae7632760bcbd65f14701501bbc48ca3dc0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_export_inputs_test.go",
+      "bytes": 2365,
+      "sha256": "c5481d3f76539b9c64a7d92a46d161dbc4134d00825146eda3cdc9157f240827",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_exports.go",
+      "bytes": 24857,
+      "sha256": "8bcae31345942baa8575c5a622581126ec8f4fec5539aa0ff23eb4408ddf492b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_exports_test.go",
+      "bytes": 1899,
+      "sha256": "03419045a8d47e7b2e55c6fbdfb971234a65e1a77897c8091d6de4b1e30492d9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_graph_expansion_oracle_test.go",
+      "bytes": 10450,
+      "sha256": "672c35f9baa8e9e3cf68d5d5e7fbf06908ac69ba2483269064c345f7a66f4f3f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_graph_import_inputs_test.go",
+      "bytes": 6303,
+      "sha256": "07f2b62ae5ad550666735f53f02952f8752f40cf3d8be4373a0499e5f7f91765",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_graph_manifest_oracle_test.go",
+      "bytes": 6337,
+      "sha256": "fd06e037fefbf076640468d1ce70c29f6e982ebc602bd804c46b53aecaad19fc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_image_inputs.go",
+      "bytes": 10080,
+      "sha256": "efbbfd8f58d655e7f543ffe756a7245ed4661e4d3ec0846d9b801a6bf3469d7a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_image_inputs_test.go",
+      "bytes": 13171,
+      "sha256": "2aa97cf257d290cf2fa4a43052a73fc16f9dbb7bc605ec18876b14d3be047678",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_lex_reference_test.go",
+      "bytes": 8540,
+      "sha256": "6c0aeb1c7bf6b45f1afba2e7f6e9ee76358c4cb45801246939678f6752d01ecf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_method_typing_reference_test.go",
+      "bytes": 21778,
+      "sha256": "e196add3587160c77f39dcd5610687e99f0b03b7f6a19e79133288453d2c4741",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module.go",
+      "bytes": 5783,
+      "sha256": "c79cf236d7799e2d6e66d5bd5e883ff56d7f495220b5a905a9df57ef155883ef",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_capture.go",
+      "bytes": 4977,
+      "sha256": "e8208775613ac67014e7d379a25589866e161128063088b398977a31d6bdd268",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_capture_test.go",
+      "bytes": 9599,
+      "sha256": "1575a63ae86c81abed2aeb0befcc354338df95c4874dec93585d4fe5e5b6c085",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_data_compat_test.go",
+      "bytes": 6330,
+      "sha256": "a9feb29f4342cd214af908c13079a059c74a5f1991d833314886b670b7ad29a4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_data_oracle_test.go",
+      "bytes": 10291,
+      "sha256": "9fbe881df9a34f1f244b8d8ce8cdd1380952c90599e4eaf6ba7c55815a8dfcc5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_graph.go",
+      "bytes": 19462,
+      "sha256": "5bb5e531605962c674ff93ab8b6e55790103436b1a040b7b662e0999508dbe5c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_graph_inputs.go",
+      "bytes": 3767,
+      "sha256": "c4ff44e82bc7530d610b56caa506ff6f8cb2cfcbf977b18aedd930d90d00175c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_graph_test.go",
+      "bytes": 25538,
+      "sha256": "967854c8c597ac0790b17309fe975a3a32c298810d184df85c4e559cde5c5072",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_inputs.go",
+      "bytes": 1881,
+      "sha256": "0b4615d58882d1a50b8ed169c795ee84d6f9d0ba2c3b65b3e13c8b1c863d93ce",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_manifest_oracle_test.go",
+      "bytes": 8710,
+      "sha256": "d01ffe47facf42af0d6bae4709a03ca7c134ceeda6d29632f8a5b648d73ae77b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_observation_inputs.go",
+      "bytes": 2842,
+      "sha256": "3a7b49a5a59c49aa663ad1862bdd02c78da27d67773d3770567d59db29372db2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_observation_inputs_test.go",
+      "bytes": 7015,
+      "sha256": "4c85410a07361c61b4d2f38a0bf143fe25ec5d22f5a9499bbf59afe195b1b599",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_snapshot.go",
+      "bytes": 4434,
+      "sha256": "9f3fae6478b88d18d23f59d9b2189d48edbb3bc64ba9cd6a9df8f2139b61601b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_snapshot_capture_test.go",
+      "bytes": 8027,
+      "sha256": "3ee4ed013d253944e25a3c2e62158c14ab17d427730fc0fbedafa9777414a7bb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_snapshot_test.go",
+      "bytes": 1604,
+      "sha256": "2bbe78c3752a8aba2ef4da3bdffcd7445ef1e03e7e05ebd657aab954474cd1fc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_module_test.go",
+      "bytes": 7225,
+      "sha256": "3dea953e0d21d89d43c6a89b09f31be64ee172a91780d85cfa0f828b81b8894b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_namespace.go",
+      "bytes": 6259,
+      "sha256": "138d1c45284c11cf78b8718194670a14be056be69005f466b02c20942e4fcb8a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_namespace_test.go",
+      "bytes": 8651,
+      "sha256": "bbf5bfa58b898ceb850aa12a5d42ff0bbedaf035e201be24cb069c0fb8f429b5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_observation.go",
+      "bytes": 6452,
+      "sha256": "371f4b5645e5fcf9e7ac15382d87b7a06d22413fd5ee8bdeeccd7dd225c0cc09",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_observation_json.go",
+      "bytes": 5813,
+      "sha256": "f1c902ec171fd8cf2940a70c23bb503754598c1c17147fa4697238e72f9e98d3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_observation_json_owner_test.go",
+      "bytes": 7812,
+      "sha256": "44e9b31a651b9c0adb4178bc2b1f2b6ac6730a5048cef9e45ddef976191cab8e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_observation_json_test.go",
+      "bytes": 6650,
+      "sha256": "0fad2334b6d0173ffed7acdb8cbd5689507ee7e438bd1f6be42667518590b9e0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_observation_test.go",
+      "bytes": 6394,
+      "sha256": "f6550e820a7a2a0e74d0f2e406ef8cec7f4a134cfd5f402a449f2092f94ab77d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_original_packages.go",
+      "bytes": 7489,
+      "sha256": "1075154a93696dbdfe3fcafb547d7cc201f01828dbf5be98a36aaed1fb14afed",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_original_packages_test.go",
+      "bytes": 9767,
+      "sha256": "4d17adb2a84877560db496be9d64f98920a4827efca302bc9d521a16b3958f7b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_package.go",
+      "bytes": 9240,
+      "sha256": "5567b2612e07cdac329bb3050fcb6ee3f8f923c9a15461be4a6945697e813ae5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_package_test.go",
+      "bytes": 17762,
+      "sha256": "3ded83bcbcd21db9676e2974a9e5a08f525ab36a3c79765f812ec996d3294c93",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_parse_reference_test.go",
+      "bytes": 11607,
+      "sha256": "48c795b43a2dbb389dfa3c220d4afa21b6295c18f798edcce33620316881560d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_replay.go",
+      "bytes": 14868,
+      "sha256": "57453ab28a0dea15810bf3847112a7b23799ed7e9c7121e73c1dd3fdf52da532",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_replay_compare.go",
+      "bytes": 10337,
+      "sha256": "1cbbc4ba5ef946251241ca433299f5a50acafea15492eb97ae9c6b0b080c4ba7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_replay_compare_test.go",
+      "bytes": 5637,
+      "sha256": "d0d9566b1e44116ca0fa15f03e5a5d43e77c931d41fb39becde645ef3a27d4fb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_replay_exchange_test.go",
+      "bytes": 4043,
+      "sha256": "eb9d1d9e635579e89fd116829dd6953d0051dd0a10657c137ab0e472f0e04615",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_replay_test.go",
+      "bytes": 17496,
+      "sha256": "c81d42d98c8f4fc77daf61736ff495fceef7105d9517826f4d9139c8c442be96",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_resolution.go",
+      "bytes": 13464,
+      "sha256": "f34d5b593de8da0750633afd5ef561c62d4a41f76859e4d9a2b96d4c96b7cba3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_resolution_capture_test.go",
+      "bytes": 12487,
+      "sha256": "ec40f233424e34206fa86908431a64702cb2b6b8691031687e21296371dd9be4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_resolution_test.go",
+      "bytes": 2673,
+      "sha256": "3452a3afce4a26c02775462a8858d1a0110a77d162a82e38b37e8aaf1b923cdd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_return_typing_reference_test.go",
+      "bytes": 21119,
+      "sha256": "8701f2e87b411861d431b246e31a9e8803b3cf32e92560b886b9ea4d157ae110",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_root_go125.go",
+      "bytes": 519,
+      "sha256": "0df55c7d98a83359e5a3b662bd28348c9f970a653a248bfc5dfdb1c8d216bc16",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_root_unavailable.go",
+      "bytes": 247,
+      "sha256": "3dc114afa98fcb7cf17dad7cc66b8fbb282bc5b87d201d534c9c44ceb74eaed9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_root_unavailable_test.go",
+      "bytes": 300,
+      "sha256": "5e3b451ac8b686110a6eefaa21cb97b9d9da53866beee63e35c6d4884ad497c1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_scalar_typing_reference_test.go",
+      "bytes": 14506,
+      "sha256": "9238c7d00d52d08fd7e9d8acce0b611fbf1e8a0926f0624994fcf9d24e1db847",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_selection_inputs.go",
+      "bytes": 4540,
+      "sha256": "1d1aaa2b056f1ced777698e79a24e3d0bfd069713fc4295b0c9ff4695c536390",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_selection_inputs_test.go",
+      "bytes": 9097,
+      "sha256": "207c638cb192bbc4391aee87bab69f148f9154a4383b896d1833a5b37a2e0748",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_slice_builtin_reference_test.go",
+      "bytes": 18222,
+      "sha256": "4862199c5511c3b87335756f2a23745d9968b9a34937720afd74108ae8558396",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_snapshot.go",
+      "bytes": 9173,
+      "sha256": "7efb262dd5c22e504f131a42aa5a7ff12cf90f18a8c0b583ca26be819ba06fc3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_snapshot_inputs.go",
+      "bytes": 6537,
+      "sha256": "2c10c170c815f7d0ce51dbcb4520ee53120164981f03857d34363c0d02a74e8a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_snapshot_inputs_test.go",
+      "bytes": 9907,
+      "sha256": "582c0e846bfd9a25f6ccad7d6631eb84c19508953c4a48e0df99171772a6b996",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_snapshot_test.go",
+      "bytes": 18104,
+      "sha256": "09967a5aba8648123f84c00e1ff517097ed68949d05cd8f25504ba0668716682",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source.go",
+      "bytes": 5269,
+      "sha256": "25d90659622e069862524c3c8b997d505e811de51e38aa76124503ca47952360",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_build_test.go",
+      "bytes": 7866,
+      "sha256": "8a2db079c370c45dfd5638542773624088eb76c2ecc312d5011e13ce1d2c6671",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_domains_test.go",
+      "bytes": 7470,
+      "sha256": "1df30aa84d4f9e3c4af3970973c4a75fa5eb76f14e146898cfc7ed86191ae9d6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_execution_test.go",
+      "bytes": 5045,
+      "sha256": "e1bfb222dfed773ad4e19e0947ad4f7c75c4c677f6c1af03355c23ded66caa8d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_inputs.go",
+      "bytes": 5224,
+      "sha256": "cfceae93273c0e6d227a248c4df1513e597d492116952f4a4f3f4dedbbd63fdf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_inputs_test.go",
+      "bytes": 4273,
+      "sha256": "7f7935064ee44a5041e091c093fd9f82f708929d794607a3ba7bf3cb546ad793",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_invocation_test.go",
+      "bytes": 9811,
+      "sha256": "ed0050ec889d2a93c80ad1bb5fd3c1a4269a5d53e0bf344c6b43b35fc26b87b8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_languages_test.go",
+      "bytes": 7748,
+      "sha256": "5ff6e911e3ed6e4d4720c8eedae2359c54ad2a689c9c35fca5d21f2ee19882ae",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_overlays_test.go",
+      "bytes": 11434,
+      "sha256": "990d7728178591bd3053a0352b7068c3e33cd505852c997717fbf0c9259e3271",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_package_test.go",
+      "bytes": 11965,
+      "sha256": "de220090803f15fced2fd08394c0bac9aa6d47ca4b7a75a061c8d1d7e4507cad",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_scopes_reference_test.go",
+      "bytes": 6336,
+      "sha256": "86e7a095cd260eacf5f85c5a669f501555ba84c650f9039b0b416e77d01df4e0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_signatures_reference_test.go",
+      "bytes": 11057,
+      "sha256": "73629b5c81c150c3d34681186f4c5459d3880d9166759bd3978a784eeeb78e6b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_string_index_test.go",
+      "bytes": 5070,
+      "sha256": "7340688d35209056c3cc802840ae7fabb30390373b3cc7e3ac98a7c439d43a63",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_string_length_test.go",
+      "bytes": 4741,
+      "sha256": "8b97a3af1d12f9bfafa0da9c98b1c04123d3e0387013d50933dc6397e25b8dff",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_string_operation_test.go",
+      "bytes": 7543,
+      "sha256": "fe08954cb02c120ed94c4365ba7dcc9649649344ba9f8b422a24c6f9b3582bc2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_string_test.go",
+      "bytes": 2717,
+      "sha256": "2a42c211b3a62d5fb44a3ff6c37f4d60d2eb5d2ff99fd160832531e356dd005b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_test.go",
+      "bytes": 8809,
+      "sha256": "995a30a9343858bfc6c7dbcfd08875a504b389eaa52f4b011d6aa27663d88548",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_source_types_reference_test.go",
+      "bytes": 1938,
+      "sha256": "99b4b7d549e51c1bb4c7133ab44c0ba611efedcc87283cac5481e2ccf27022a4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_standard_module_test.go",
+      "bytes": 5954,
+      "sha256": "cafd79bc56399728c21ba1dd00936d15f5710e0e31d863920db9eee50e71ec96",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_stdlib.go",
+      "bytes": 9253,
+      "sha256": "5caba8a275d01dfa3b71b6f3c2451ced03d96b30facb5b789fcef037f25e5ca1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_stdlib_test.go",
+      "bytes": 14855,
+      "sha256": "46b1d72fefa1bce1ad2648343934a6cc1dfd3299055e8fa90d9855a8725daa65",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_storage.go",
+      "bytes": 12787,
+      "sha256": "a67125ebd19c53383882c348e160a50309f5f4fa8d0bf0883a3a0af364e8b784",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_storage_test.go",
+      "bytes": 20679,
+      "sha256": "e95027d07ec3b571f06021825c7e9c13442a5c909b5c270784cb32b3a5255a09",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_storage_types.go",
+      "bytes": 9538,
+      "sha256": "ccad30fe46818833da35c439be848457385d1e82b0fb6d3700b8fa422d4598ef",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_string_constant.go",
+      "bytes": 7111,
+      "sha256": "af74df97f996234065a2c0a709c5d18d10c3836aa99cd970b6566050070ffd76",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_string_constant_test.go",
+      "bytes": 18637,
+      "sha256": "6b121e7387161e14be9007e436796cd2b41d64cca928efedad22010a0606734f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_syntax.go",
+      "bytes": 8064,
+      "sha256": "3bb22cc6f6ec9f6d3d276490f573008a1b5ba2f390c17afd1aeb62a5022e0feb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_syntax_test.go",
+      "bytes": 16165,
+      "sha256": "70d4bafdff346f8b71ad5a1cb2ee18eaf7555e9d340722d0b2dc47128e237798",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_type_keys.go",
+      "bytes": 10702,
+      "sha256": "f3da93148b11701718e14f12da904dbd43642000dc098ba721d6992f86ce7713",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_type_keys_test.go",
+      "bytes": 5589,
+      "sha256": "4727840cd89e14485951e7b46735a338d7a4a9d3a02700402039e4bfbee554fc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_typecheck.go",
+      "bytes": 16051,
+      "sha256": "6dbea1598199e4e1fc0c562906ee2b1e295b03bc90e29bb8a3d4b38e35b16e46",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_value_typing_reference_test.go",
+      "bytes": 20648,
+      "sha256": "4215619e6522f141c47af7d41c741ab0bf39ee630b54ff340b50d524fb2f8a65",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_view.go",
+      "bytes": 6679,
+      "sha256": "1b2096c22e4546dd31f6be77f992e0575f8ba63f90394ee31e5ebffcc03a7692",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_view_test.go",
+      "bytes": 8615,
+      "sha256": "89ca039f5512be02f54dd10c767708dede86b087a5f2eb9e0034c416fb8785e2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/preflight.go",
+      "bytes": 27204,
+      "sha256": "8faf415d2954ac1821dd3c8f7bbf6d58e48ce9a5bbf56fd8d46d91651120d711",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/preflight_test.go",
+      "bytes": 12140,
+      "sha256": "adfa1f4844a44d66190ff8b4e7a4e5015add7f9ece73bd1d2f5cbd6547f0e100",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/profile_v0_test.go",
+      "bytes": 3294,
+      "sha256": "72205ffe1b8ed8fa42982fc61284cb56c9c94e1723ee7e80104ca65d346e067c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/profile_v0_vectors_test.go",
+      "bytes": 2115,
+      "sha256": "c0960b21d6eb8ff4864fa7f4632222c54b67d331a26ecc1c6c811d63d7940c64",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/protocol.go",
+      "bytes": 9548,
+      "sha256": "11a2088602b48cb339dbff6c1647387df92e0d2308174c56eb2d40bbf088883f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/registered_selection.go",
+      "bytes": 6315,
+      "sha256": "d232c2c1640447dfece6c372d412d15ff260cae2149979f624a7044759955777",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/secure_open_unix.go",
+      "bytes": 310,
+      "sha256": "f53a822b58eae96837789f1d193665f34127ab0b74b842415e4112dc64055369",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/secure_open_windows.go",
+      "bytes": 579,
+      "sha256": "fb2c78196c792dc3d4f6d40731e1e3d8edd7237a982125444591724fcb7754d3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/snapshot.go",
+      "bytes": 5346,
+      "sha256": "b67ac51476f2d28b37a75fa3cd800c78c0745cdbf2cb9dd16f659be436d9e3ab",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/snapshot_test.go",
+      "bytes": 2613,
+      "sha256": "23aee6661119cfef77d8426c9d8d69d5b3dfb0cfe6e9ec6bb530193b37657547",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/source_map.go",
+      "bytes": 5166,
+      "sha256": "393d0d1d7b17f7ceb27b8003fc4aefc85bdd35844621b9a34a974cdb0fdef3f3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/ssa.go",
+      "bytes": 1183,
+      "sha256": "871a444533e536a62aadb828b4c407a58cbd48b595617a17f94075934cb4384e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/successor_migration_test.go",
+      "bytes": 21694,
+      "sha256": "ce27f8982dd8d7beec8c2093bd2ba0bb75ee9c9a9350f66547d1e8751e0ad99e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/PROVENANCE.json",
+      "bytes": 4652,
+      "sha256": "75ac0bc56d42c580d1888ac3ebf0bb2d84c1e0b6869bbadfbb2709188eab641e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/mod/@v/v0.27.0.info",
+      "bytes": 190,
+      "sha256": "04349209629977dda443e3693aac2e1fe69e4ec11f9e2394abd7964562081f77",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/mod/@v/v0.27.0.mod",
+      "bytes": 86,
+      "sha256": "b20d6c1f4b46742e6af828327160346aeb3e622ab1780ad51b80e1d67adfe95b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/mod/@v/v0.27.0.zip",
+      "bytes": 172649,
+      "sha256": "19fb241d46e4397d3193b5fa899e2a9d62bb5d1c41f73d09d29c17c3c0d3953c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/mod/@v/v0.27.0.ziphash",
+      "bytes": 47,
+      "sha256": "04a0868750aac8cda3b141d56dea66c9318dd4c42abaadc9344dd4a79564b3c2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/sync/@v/v0.16.0.info",
+      "bytes": 191,
+      "sha256": "fd24e5454141026609d9f4fc219860cf6b35ba6755d18fea1bb0f8c57a5c21a7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/sync/@v/v0.16.0.mod",
+      "bytes": 36,
+      "sha256": "720b98f1bf033d6b64a454ca8c29cdca6e9265ab7d70db3b834dff49560f1587",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/sync/@v/v0.16.0.zip",
+      "bytes": 25707,
+      "sha256": "ca43984183eb14f7f50d33da350312fed1c42e106dceac2437bfd5084b497dcd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/sync/@v/v0.16.0.ziphash",
+      "bytes": 47,
+      "sha256": "82dbee1faf4eaddc4edf8ec0f5e4c0ccb68b2aa6b5dba7d1f65784726a79f0c4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/tools/@v/v0.36.0.info",
+      "bytes": 192,
+      "sha256": "e216832347c36cd14aef42dc5fc33f5a1cc8715533297beec84806513c697f2a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/tools/@v/v0.36.0.mod",
+      "bytes": 301,
+      "sha256": "53792e623827ef40be8f1af36dcf12790e82780b3d33b4b0944f56a3584bc429",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/tools/@v/v0.36.0.zip",
+      "bytes": 3553586,
+      "sha256": "85b486030e995cd5b4d56dea92f247b32bf4e0ae2fe6816b29d4514b5a43fec8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/practical-analysis-cache/golang.org/x/tools/@v/v0.36.0.ziphash",
+      "bytes": 47,
+      "sha256": "fa7366314a5fe810f1d06b864d5d388acc909a7184235e16996f86a26484b368",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/preflight/valid/go.mod",
+      "bytes": 39,
+      "sha256": "96a5843d08c3c5310825b54930c7141d63f07f98ec82b06a940c7bd42aa14be6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/preflight/valid/go.sum",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/preflight/valid/helper/helper.go",
+      "bytes": 64,
+      "sha256": "bc072d288433f3f0852fe7ee2a3efbaea582fdbdf6ee89f840b6d44631a2039f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/preflight/valid/identity.go",
+      "bytes": 121,
+      "sha256": "8c90d31b7a3505ecbadf942995504233241ebfc5fca651597c8062bbae303b0d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/preflight/valid/identity_contract.json",
+      "bytes": 181,
+      "sha256": "ddfafe866f187501b19a19b0e89106361db7401d160195c652c162a876c80ba4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/testdata/valid-invocation.json",
+      "bytes": 1651,
+      "sha256": "08a86088626f70d0140e82b177b64a48a7b61965c47fd044430306086ce17cfb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/mod/LICENSE",
+      "bytes": 1453,
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/mod/PATENTS",
+      "bytes": 1303,
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/mod/internal/lazyregexp/lazyre.go",
+      "bytes": 1871,
+      "sha256": "2c98e15329ce3fb10d4348f791446d1a7f557b92c954a26a7188dad26f78974b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/mod/modfile/print.go",
+      "bytes": 3870,
+      "sha256": "f69e398d1c0f1dad8b704f6b2b7f20e294fc2b7d90ea4ca862c17fbc3fd35514",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/mod/modfile/read.go",
+      "bytes": 23964,
+      "sha256": "ae587831de240effc4b9a3f84fffb1d3e1a73ac29930ccaec0b9db8897370be9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/mod/modfile/rule.go",
+      "bytes": 50421,
+      "sha256": "2aca758f4006e1f6698fa5570c36ac826959e763d729bf76f44f0514e4510731",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/mod/modfile/work.go",
+      "bytes": 7829,
+      "sha256": "ad31b233b102190481c0b6bb6a4b350c9b34ae8836f349431fe297687cb68fc5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/mod/module/module.go",
+      "bytes": 27534,
+      "sha256": "d4ca5a29e60707f0566cc9b2fd1b6c4aef406403440c64d358f51c27da63cfbf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/mod/module/pseudo.go",
+      "bytes": 8630,
+      "sha256": "55f36593e394a3595a52f636028442f6be9ed010a6a7e0403dac980b545a374d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/mod/semver/semver.go",
+      "bytes": 9260,
+      "sha256": "23305fff81d9a4a2bcf643f65087287349dfd03c97aea8b7f947b1da1cd1b6a2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/mod/sumdb/dirhash/hash.go",
+      "bytes": 4094,
+      "sha256": "24de6a735c1605e39b6381e6962787faa5c59adab896fb66dbc1ac8b6afcb297",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/sync/LICENSE",
+      "bytes": 1453,
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/sync/PATENTS",
+      "bytes": 1303,
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/sync/errgroup/errgroup.go",
+      "bytes": 4007,
+      "sha256": "696b0385dd5f1a165c7d0251160afc3d652b9f64f4a8f64b9a9495e6ac4695eb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/LICENSE",
+      "bytes": 1453,
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/PATENTS",
+      "bytes": 1303,
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/enclosing.go",
+      "bytes": 17149,
+      "sha256": "d4b16aa6d161c540127e68793394f33aabfd1a405f21dbdc606531b27bb26514",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/imports.go",
+      "bytes": 13898,
+      "sha256": "22a81e013209847faef4e3ef07d77048c0eef52872a45fdaf1f18e461cbf3a14",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/rewrite.go",
+      "bytes": 12721,
+      "sha256": "9f4e08f8ae25f0ad3841656bdccfa82f92ef6dcc9c35630771df2d5b2a9a7691",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/util.go",
+      "bytes": 369,
+      "sha256": "c4fd6def2830db96b562cebddbe0e253f50f42f06b902a02ddbbb307e4a4884f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/allpackages.go",
+      "bytes": 5050,
+      "sha256": "6d6e3c1cf1165f5c9b0aa22679e6273c71cc65010e242dafadacf31801df4c9b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/fakecontext.go",
+      "bytes": 3405,
+      "sha256": "6ded146e1702086fbc8c280cc6c44386c3987c76b919d670912effb7380b4a76",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/overlay.go",
+      "bytes": 2930,
+      "sha256": "8f815669fe88022c66f2c300ae140720f09bc80100cd263b85b02c4f0159d760",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/tags.go",
+      "bytes": 2740,
+      "sha256": "0eb4410cbe907f4dbbb0495159120665e523e83c7293972ddcbfe1eb48e7126d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/util.go",
+      "bytes": 5871,
+      "sha256": "44ab7b94eee0b950e1a67e7830b651359552ec2f8eec7fb6f8d63e778fb5d90c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/gcexportdata/gcexportdata.go",
+      "bytes": 9205,
+      "sha256": "11d7509118b6ea206c3eed768f3d9f48208cd1263e7b40adf92da7ec0b63e0e4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/gcexportdata/importer.go",
+      "bytes": 2026,
+      "sha256": "144f9060e1cf20b36b8ca2930da56b08d3ea79fece33424bc13f420b56ea08da",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/internal/cgo/cgo.go",
+      "bytes": 7387,
+      "sha256": "144d7ea9c29a7e301bd39ecdacb697730c45d3c8988474d1ad40f943bc8ff043",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/internal/cgo/cgo_pkgconfig.go",
+      "bytes": 1140,
+      "sha256": "a092411fb0cba1e8d8dfbdbfbd9f739c584e7dd7525d8d63c295c4180710f3aa",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/loader/doc.go",
+      "bytes": 9563,
+      "sha256": "340f40b536bba5ff9032e872d08e258a927e035b46e60629237fc73df59e8451",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/loader/loader.go",
+      "bytes": 33800,
+      "sha256": "065421b19cfa4e89d859c2d160d9957b4e6d7a0b090c4895132b452a8cc9d8de",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/loader/util.go",
+      "bytes": 2998,
+      "sha256": "102a6f34c9675e5087ae99647c36afa9b12f7dc786e2109cc9a7d5e01b438444",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/packages/doc.go",
+      "bytes": 12441,
+      "sha256": "4a6d8ed8c653c2c3dfbe566ce30a0eece34df2bcadc012cc230b4ac92ca4d9fe",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/packages/external.go",
+      "bytes": 5338,
+      "sha256": "913aeda530dbc214b50ebd179d3a5aded8855ed2e121451b512903eb1b174974",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/packages/golist.go",
+      "bytes": 38018,
+      "sha256": "3cefc07d6729d09989d99f293d51e2755efdfdfaee4acbc33d79650822db6133",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/packages/golist_overlay.go",
+      "bytes": 2404,
+      "sha256": "771f2fc0133663f07056923ccd0bc22a00732d1d58cf3dd40961812e477ad9df",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/packages/loadmode_string.go",
+      "bytes": 1238,
+      "sha256": "b2ab5a9e57f504018fa50045ee8af11db90e7097bb3aa910a820b8a1cf757b39",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/packages/packages.go",
+      "bytes": 50647,
+      "sha256": "578858b8bc69e9cd19effaa8d6b7a141eb4d161a44d4deda57b9c1bfef6ff73b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/packages/visit.go",
+      "bytes": 1780,
+      "sha256": "0d697e86d8c1673d1c1cfa0014f3da44faf3ffd18fab7632e8f88b5084c46ac5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/TODO",
+      "bytes": 309,
+      "sha256": "c7a1ffbdd0275b2ee2f249537c7a34dc2e9cec1b3394f0e51e68274e76fc2863",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/block.go",
+      "bytes": 2848,
+      "sha256": "2ad41f66924645eb5238cc4475c5cd0e219adbcbcf05bbc004f8a07ca35ba483",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/blockopt.go",
+      "bytes": 4484,
+      "sha256": "f6af102e18988740f4f78c321dfc5942a3d71d69501a17f7cabecfeb1dd8882a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/builder.go",
+      "bytes": 94291,
+      "sha256": "9cce5e887959a2c8d7dc025bbfca1a364725fe99cc45f2833c000704533acf12",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/const.go",
+      "bytes": 5208,
+      "sha256": "1e6747e387435f242da8baa22d45c4ff19220f7be298c1dbd8d55a5c76e17c6d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/create.go",
+      "bytes": 8924,
+      "sha256": "92e39cf494ce588cc0e5aa2e0bdfb56b0a1dc0e43a440d3918b43211d210f8ee",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/doc.go",
+      "bytes": 6017,
+      "sha256": "6b395cddfeccacbc321c6511d6e48dc5b74b707f9c8a6f4034f0646ed8b30957",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/dom.go",
+      "bytes": 9672,
+      "sha256": "9871bc1973a6a506b1a2422c8b7ade7283b7ba2ee9d7b797ae17522492cde5f9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/emit.go",
+      "bytes": 17249,
+      "sha256": "0e6233bd623c8a72cdeef46fc1976726df65a47995a6cd69f32e7196732a3d07",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/func.go",
+      "bytes": 24057,
+      "sha256": "c708d9fc7d788d5176c4f490ed685841ee68949ec565351f71c4ac3283f6d43a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/instantiate.go",
+      "bytes": 3598,
+      "sha256": "0ffe4cc113fb4dabd3038cd01e59aa6f9b3f9e5ca7960e9b6cf4a0707b1f73aa",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/lift.go",
+      "bytes": 19285,
+      "sha256": "b9da517437891c942788bbe22ab9e98bfa069cf227d7ddc64b283610b19fad76",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/lvalue.go",
+      "bytes": 4166,
+      "sha256": "32f162a4303393ebd80d615b56b58ac075a35c9361d125e3b2557221977805b4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/methods.go",
+      "bytes": 5198,
+      "sha256": "3a8356704edb80ac102f7db1474bdcb94470d96cab44a04d67cf9150dc5280e6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/mode.go",
+      "bytes": 3219,
+      "sha256": "e8c757b27722b7cf60bdc802c125376bf9ae5f9c51014b9e3dad483f06906c76",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/print.go",
+      "bytes": 11055,
+      "sha256": "c344b1b6ab172da1230698fd7040f5c6f8253c29bb4eaac1d79b3dab01819f70",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/sanity.go",
+      "bytes": 18304,
+      "sha256": "9a2288a93f981531c55aad81e153d80bb06e2422e8ae249bcda2333fdcfb43a5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/source.go",
+      "bytes": 9467,
+      "sha256": "28ac1e6ec3315042b116b16cb7000a7829765fed4e8a5af04374e9abb587e638",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssa.go",
+      "bytes": 65046,
+      "sha256": "53c7d3587184ef3870150ff2f36f061e02f426882afd73efd79ed4e81e624894",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/deprecated.go",
+      "bytes": 1088,
+      "sha256": "ac67c09546bb1bae69cc0f50d6fbb5dcb9e9437d3c0413a2ba14198dcdbb9a7d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/load.go",
+      "bytes": 6785,
+      "sha256": "75d8dfc8c53af6a209147e419d6ebf0b637d21de527972b1ecaf5922d69715c0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/switch.go",
+      "bytes": 6955,
+      "sha256": "b482570dcd2c671ccecd79edc9fa2db4a0b8b63baf3fbdd97128478a4aba4617",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/visit.go",
+      "bytes": 5182,
+      "sha256": "8a7a6bd2b641012ef17b06e4d4b43e0ea3df4a432979a5699eb1274459e31301",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/subst.go",
+      "bytes": 19762,
+      "sha256": "8d8412e368d69d2d88ccd082535307444a85b92459334eb53a3e6b4a0180e63d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/task.go",
+      "bytes": 2943,
+      "sha256": "f90f38ebaea5edc6703885b3a7fc8b16f2078fadf20eaeb6331dd72760b7bfd1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/typeset.go",
+      "bytes": 4912,
+      "sha256": "b040023683a602c27c8927b8b2b54578a664c53568a70973e8746d64bcad5d19",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/util.go",
+      "bytes": 10820,
+      "sha256": "39603595b62b4d8bc9c2c797bfc8268564d2ca3d3e0c6682aee42e3ced649106",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/wrappers.go",
+      "bytes": 10060,
+      "sha256": "16025b548f1236d9c0fadfe8c7d1348db6c711345b979182204b1f724228a9e1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/types/objectpath/objectpath.go",
+      "bytes": 25795,
+      "sha256": "ccb1916e084d1de3d7ed826a570fd37d97ebb7234001fb3e182b73633cb93659",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/callee.go",
+      "bytes": 2675,
+      "sha256": "b37197ad34f51938d5fbf72d10941f7d3d3d611b8c4dcca5bbebd9e3c9ce1c68",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/imports.go",
+      "bytes": 883,
+      "sha256": "0ae519946446f6dbe09a616e3c63373c2582b335ccf7b0f754b411dc2bcc407e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/map.go",
+      "bytes": 12379,
+      "sha256": "2ff104e4e79d0bff03184c502b02724f07fa778f4dd60d0ac4d15472ad6d8553",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/methodsetcache.go",
+      "bytes": 2132,
+      "sha256": "100c78e2baf07de1d4a620904ffb0a57ef440392629c6324fce3a385811627f2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/ui.go",
+      "bytes": 1680,
+      "sha256": "f3fab1cec5e81bdf56207ebf00a54b739c636624a4c6ab3d9b2ec26a7a486560",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/aliases/aliases.go",
+      "bytes": 1414,
+      "sha256": "9ca766639a703d9c3b0ba68c6182068f42417e70fcca831dc6499077d87b4b90",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/aliases/aliases_go122.go",
+      "bytes": 2838,
+      "sha256": "7fa6b0412b405a2296016c7fdb0fab26639e2ea42d8bdde6d056be1e6b4a4f9a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/event/core/event.go",
+      "bytes": 2126,
+      "sha256": "6d2acef1c114259b059f9228abde12c42fd0c5d8079c101aa2be4ab6701fe6e1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/event/core/export.go",
+      "bytes": 2248,
+      "sha256": "5e21b09d6630036c00f5963ccbd8494b3138693880ad19ca4355fa3a02d5db60",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/event/core/fast.go",
+      "bytes": 2222,
+      "sha256": "eeca498a9f3c6057f571c9836a5f0c6ae2cfa9ae71a43961f935fb3db8dda83e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/event/doc.go",
+      "bytes": 298,
+      "sha256": "b445c134d90b26e77a83d413fc1be3033e2ba8979c10efb3d46280e70392e890",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/event/event.go",
+      "bytes": 4464,
+      "sha256": "7c047e8aae01bd441f81bb710e9dc26a639b0bd7cdf1f6b55d425103046f33a1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/event/keys/keys.go",
+      "bytes": 15856,
+      "sha256": "a70eef67a67b5ae5ade4e3905466c06a7ef2a06e9fe615082b4f50f78ac3ecc0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/event/keys/standard.go",
+      "bytes": 961,
+      "sha256": "a148501721c061870eed1bd936028157e6b3b109391763dafb00888b3a221b60",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/event/keys/util.go",
+      "bytes": 488,
+      "sha256": "0df0a7d65008baf347371eb61c8dd26d3c1eb6f22099f605ee9716d76f2dcd35",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/event/label/label.go",
+      "bytes": 5671,
+      "sha256": "3dba9ef645843ef0d98414482f60b5e0ca08c0a36427283e4e136c0bc94e8961",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/bimport.go",
+      "bytes": 2016,
+      "sha256": "f5b8b401f4b36fdd589ba4c836fb1c74929ee63db2bad349d7092b9f24e1ad64",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/exportdata.go",
+      "bytes": 12356,
+      "sha256": "5d3acd6def1174913b2f1256492a3ca671d578f67b6907fcb548294dfcc114dd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/gcimporter.go",
+      "bytes": 3136,
+      "sha256": "2e615f50e10859939ddb1f8baa3eb94c6ba7f9a5b4a39e87687f1d9c4c1b7d4f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/iexport.go",
+      "bytes": 43385,
+      "sha256": "8eb3cf50185b0a1861c8e33d016192ec42f32b8eb30ea547457d6c39f18c1fa4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/iimport.go",
+      "bytes": 28798,
+      "sha256": "b4b8ec555f6c97d1a74ea1fb2b9306b22424c90b9bc8ced656151c6ffc3d3ebc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/iimport_go122.go",
+      "bytes": 1087,
+      "sha256": "f11a6b62c87b052147f166374bc6885317575c866ec8cb5e2c33d94551ebffae",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/predeclared.go",
+      "bytes": 2116,
+      "sha256": "c749f1f8f79b08ec0ff11e963f54b264e2edcf1d8a79e654c9776a550e0f936a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/support.go",
+      "bytes": 697,
+      "sha256": "c03a9375b40c46a4ee4f8b4b89fc5b04abb60cff8f84815229febfaaffb28bc0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/ureader_yes.go",
+      "bytes": 19607,
+      "sha256": "d37b69bc6374e76004da2b1bb91c3c34e53b728ebf2ce2de271492f303b47706",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/invoke.go",
+      "bytes": 17409,
+      "sha256": "6a07f4ecd3e7566643810962ba551001b50bd4403e87a915327899f0cd6d55a5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/invoke_notunix.go",
+      "bytes": 377,
+      "sha256": "df5c54077bf4ba9f2674cef5ccaa81e779d15dbb405845dec4ffaa4522f0c211",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/invoke_unix.go",
+      "bytes": 361,
+      "sha256": "d2157f049e3394fa873136bd180fd295e46d543b8f13dd1542ffa21665bdf0c6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/vendor.go",
+      "bytes": 5242,
+      "sha256": "e945f1e01b59274b673488b1cbb5a0bdb470b47d26c0dfdc12f859e5860fe3be",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/version.go",
+      "bytes": 2284,
+      "sha256": "5fdbec1757ec9f0a9a4c19d52f5dacef9268210dd0997fce2930abd378cf03e8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/packagesinternal/packages.go",
+      "bytes": 788,
+      "sha256": "fc0553fc12bd0244147a183719504350895c81eea15ce8bd46a63568cb3dd2aa",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/codes.go",
+      "bytes": 1726,
+      "sha256": "5c461c53bbb51051b771cdf19529769d1f2ebfc477a55d79c577cec8d9fb36b8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/decoder.go",
+      "bytes": 13766,
+      "sha256": "c33bc4c61be2941ad7e548add06486b9c42b6aa65cb15514089fccf19b946e06",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/doc.go",
+      "bytes": 1543,
+      "sha256": "1d77eb03ea757b7e5dfccb19f21cd37881afaf7c54a9168b12ed703ef6033744",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/encoder.go",
+      "bytes": 9781,
+      "sha256": "0518a4b2e6be4f9429d1b73b97388ae79574291383d131967700bb8101048cb3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/flags.go",
+      "bytes": 253,
+      "sha256": "4f999d54f9614c9c2aa162e048fdec78158bbcafebeef188a2fef9a347a8e488",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/reloc.go",
+      "bytes": 835,
+      "sha256": "04fe1a5ee6398ee088d2c358ffbbf5610b9a86f4db79616ae7ca823fe5365e38",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/support.go",
+      "bytes": 336,
+      "sha256": "b21d95c059b9f6c697d2e5a4fe6907650402d26bd6d0207f2297906cd7753543",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/sync.go",
+      "bytes": 2475,
+      "sha256": "4f6b2ae8d2bef0eced46e8baf60c4b0f096615fbd8e1c10ca351e2c1e181de7d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/syncmarker_string.go",
+      "bytes": 2989,
+      "sha256": "0d2ff4992c445a0c06f3a99f53f743d169e3affd7a3b7602bfcd47c99290f994",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/version.go",
+      "bytes": 2444,
+      "sha256": "6ac51749ef68e607e0b517de0cb202ca19dbdea299be75e0ba3440837b45ca23",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/deps.go",
+      "bytes": 17802,
+      "sha256": "45cc3b108d99b510dcc7e29c110d0750dc663faae26c468ce94013f8bd609732",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/import.go",
+      "bytes": 2518,
+      "sha256": "616c6c669e1252a653965b65d8784bfb40a2f1185565bda3cb29fe6704ef0464",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/manifest.go",
+      "bytes": 697762,
+      "sha256": "f82a44714aafdf9c1cf9da430737591d64fe71b3874ecf1a587e7c987e3bc068",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/stdlib.go",
+      "bytes": 2858,
+      "sha256": "6eb0d62fad82e62b84d37c24b9bec2596f475b04466871414722ef1f0b83bf3a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/common.go",
+      "bytes": 2078,
+      "sha256": "897b914268f42beefb0e6c22121b59b6f89d915e18923b1f65f5153331344ea7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/coretype.go",
+      "bytes": 5506,
+      "sha256": "7dc166581791474e92609c5a176153a134d506a89ed9ed253283e163914f66b9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/free.go",
+      "bytes": 3159,
+      "sha256": "b6411d6084f544aa7634356a009275c894cb8ce9a103bf17fe3a12640de0bb9a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/normalize.go",
+      "bytes": 6844,
+      "sha256": "3466cd5d44ac24f1dd392cbc99217a04bbe03d94f6dac1122f74c2da54594131",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/termlist.go",
+      "bytes": 4066,
+      "sha256": "12c02e6bfb07862b3c689521de7f140d709764615ba45a217c0975fef36775bc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/typeterm.go",
+      "bytes": 3835,
+      "sha256": "8b07ccdb692525921710ac25043c57b3a1472eda1bc2dfc701b9793835a662d2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/classify_call.go",
+      "bytes": 3657,
+      "sha256": "2a4cfa556b5a6c01e982a547ad18a65a7d36ca2b3783b1baeb0d74937becd0a9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/element.go",
+      "bytes": 4018,
+      "sha256": "4db7ab3cedff579a6fdd38f27e61afb4a1422f49c5c5fac4ae8ef3d5261d4136",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/errorcode.go",
+      "bytes": 34767,
+      "sha256": "194f42c4cfa2bcb5ac5ebd9b8400a6424d4ffb4d2e4996d3763598791467207b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/errorcode_string.go",
+      "bytes": 7664,
+      "sha256": "32f91e4d3af45b513dffba82d283db0c5981ce6aa16172a74b65aed383956b8e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/qualifier.go",
+      "bytes": 1226,
+      "sha256": "83d9e4277e0c47c1003224a07b39c50d0b9b696a9dd744594c4d1e32692bd590",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/recv.go",
+      "bytes": 1411,
+      "sha256": "c8787e980f61efeab19c99ca7dc4d1f318b9fa77c3952add7f82be3c947b47b0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/toonew.go",
+      "bytes": 2943,
+      "sha256": "54cff0151c458fce40c8e85746718c415087863df29229f6168ded7e338ba2c4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/types.go",
+      "bytes": 4766,
+      "sha256": "543aecec3a36dc1aaa3f9e04fe81d8c7bc69adce7eb3fb544ece5f7b4322650f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/varkind.go",
+      "bytes": 1141,
+      "sha256": "576a8a171f0363590ed52e599328684eab41aa40e6b908f95c1abaf411d967f8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/zerovalue.go",
+      "bytes": 10864,
+      "sha256": "b33371d9438a3cfcdcbe8409d5f5351ee2e0a427c0436d777c7f291337e873b3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/features.go",
+      "bytes": 1330,
+      "sha256": "98ab11824e7856eee2e4a3149b24bfa42bcf3a28297604edb3d8aedbdcbeddc5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/gover.go",
+      "bytes": 4297,
+      "sha256": "fe5a58b005181f17e132c3261ce552a58454d178356bf8a5f294914d3915a750",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/types.go",
+      "bytes": 1180,
+      "sha256": "e08b60c8fe9503229f2e5dac29d84ba092e14aba41824e68f201b338e40930a6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/versions.go",
+      "bytes": 2030,
+      "sha256": "c63d071bcf95bb6a3f1f869a51255198980de8c36ddbff20227653cd33b4769d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vendor/modules.txt",
+      "bytes": 1152,
+      "sha256": "7acbaa5ff9b089a9665dae3dc009d872df913a55db4391bf1280243ddb60a99c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vir_limits.go",
+      "bytes": 8636,
+      "sha256": "35c56519d657de24f9c32555b5048e68411fe4d37e5f3875c5a540ff8d6a980a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/vir_types.go",
+      "bytes": 17461,
+      "sha256": "46acb9fd47787e916b970f9f4d2736c0edeeb474aa842bb047a5bdae23c1177a",
+      "mode": 420
+    }
+  ],
+  "complete_archive": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/zstd/inputs.tar.gz",
+    "bytes": 4304835,
+    "sha256": "165712212cdccd2c7a8f33a5033d126a8179ea0fa91aba0125fb781c7e672815",
+    "mode": 420
+  },
+  "preserved_original_paths": [],
+  "whole_original_sdk": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/original-sdk/inputs.json",
+    "bytes": 3415090,
+    "sha256": "72f3f53783e5527046c92e1425335637bb68dda899ce484197fe337fecacbd55",
+    "mode": 420
+  },
+  "sdk_archive": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/original-sdk/inputs.tar.gz",
+    "bytes": 57441375,
+    "sha256": "090069ff8b733bda3c3c7f909c6b58d170839bf44ecffb91169991a642623b83",
+    "mode": 420
+  },
+  "scope": "Keep all original source/package/fixture/proof objects; exact original earlier committed paths are reused without replacing or dropping bytes."
+}

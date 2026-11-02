@@ -1,0 +1,63 @@
+{
+  "status": "original_positive_candidate_rejection_reproduced",
+  "observed_at_utc": "2026-10-19T13:26:47.996418+00:00",
+  "command": [
+    "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "verify",
+    "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/initial/rust-tests/certificates/word-arithmetic-foundation.mpcert"
+  ],
+  "exit_code": 1,
+  "seconds": 1.1817260419484228,
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/initial/rust-tests/certificates/word-arithmetic-foundation.mpcert",
+    "sha256": "ce27055d7baf4a8c414a1485cff27b13df3072d224080dd860eee90c11fe5fa3",
+    "bytes": 796499
+  },
+  "original_Rust_report": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/initial/rust-tests/certificates/word-arithmetic-foundation.rust.json",
+    "sha256": "c58c8acd30f9d4a963c84f21f3c69e36201542c67a43c1b9bedbc79bc6ed801b",
+    "bytes": 543
+  },
+  "unchanged_go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "unchanged_go_source_build_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/initial/go-rejection/stdout.log",
+    "sha256": "27c8aefbe0c37ba7e40f76e729ca2fce29d358855b0eeea9ed18da83885f2620",
+    "bytes": 108
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/initial/go-rejection/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "original_Rust_observation": {
+    "verdict": "rejected",
+    "module": null,
+    "declaration_count": null,
+    "axiom_count": null,
+    "hashes": {
+      "export": null,
+      "axiom_report": null,
+      "certificate": "3a78e216333bee5e99ce8ed80b88c4af05d3f2870ae64a440785b6a4c3870c05"
+    },
+    "axiom_report": null,
+    "error_code": "KERNEL_CORE_CHECK",
+    "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"319991\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"320004\",\"kind\":\"check_type_mismatch\",\"term_index\":\"319961\"}}"
+  },
+  "Go_observation": {
+    "verdict": "rejected",
+    "error_kind": "core_check",
+    "error_detail": "term 319819 inferred app but expected app"
+  },
+  "diagnostic_first_failure": "Mpk.Go.Practical.Word.Numeric.PowerTwoWeight1",
+  "semantic_negative_counted": false,
+  "scope": "Original intended-positive proof fails both unchanged cores; preserve every original input/report. Explicit checked Nat numeral-addition congruence must replace implicit conversion of a computed exponent inside PowerTwo."
+}

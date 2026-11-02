@@ -1,0 +1,55 @@
+diff --git a/develop/migrations/go-practical/t02-w01/verification/range-foundation/reviewed/rust-tests/inputs/crates/mpk-vc/tests/go_practical_range_foundation.rs b/crates/mpk-vc/tests/go_practical_range_foundation.rs
+index d33288fa..4962fc6a 100644
+--- a/develop/migrations/go-practical/t02-w01/verification/range-foundation/reviewed/rust-tests/inputs/crates/mpk-vc/tests/go_practical_range_foundation.rs
++++ b/crates/mpk-vc/tests/go_practical_range_foundation.rs
+@@ -691 +690,0 @@ fn reencoded_wrong_folds_bounds_and_unrelated_or_forged_premises_fail_in_core()
+-        "intsum-body",
+@@ -707 +705,0 @@ fn reencoded_wrong_folds_bounds_and_unrelated_or_forged_premises_fail_in_core()
+-            "intsum-body" => "Range.FoldIntSum",
+@@ -747 +744,0 @@ fn reencoded_wrong_folds_bounds_and_unrelated_or_forged_premises_fail_in_core()
+-                "intsum-body" => constant(&mut c, "Mpk.Go.Practical.Int.Zero"),
+@@ -830,0 +828,44 @@ fn reencoded_wrong_folds_bounds_and_unrelated_or_forged_premises_fail_in_core()
++
++#[test]
++fn typed_wrong_integer_sum_value_cannot_satisfy_its_step_law() {
++    let mut c = baseline();
++    let nat = constant(&mut c, "Std.Nat");
++    let int = integer(&mut c);
++    let zero = constant(&mut c, "Mpk.Go.Practical.Int.Zero");
++    let function = term(&mut c, TermNode::Pi { ty: nat, body: int });
++    // Exactly the three operation arguments. The exposed Bool -> Nat result
++    // carrier is the returned value, not an additional operation argument.
++    let wrong = lam(&mut c, function, zero);
++    let wrong = lam(&mut c, nat, wrong);
++    let wrong = lam(&mut c, nat, wrong);
++    let index = global(&c, "Mpk.Go.Practical.Range.FoldIntSum") as usize;
++    let DeclarationKind::Def { ty, .. } = c.declarations[index].kind else {
++        panic!();
++    };
++    declare(
++        &mut c,
++        "Mpk.Go.Practical.Test.TypedWrongIntSum",
++        DeclarationKind::Def {
++            ty,
++            value: wrong,
++            reducibility: DefinitionReducibility::Reducible,
++        },
++    );
++    let typed = encode(c.clone());
++    emit("typed-wrong-intsum-value", &typed, true);
++    assert_eq!(
++        import_go_practical_range_foundation(&typed),
++        Err(GoOrdinaryError::Linkage)
++    );
++    if let DeclarationKind::Def { value, .. } = &mut c.declarations[index].kind {
++        *value = wrong;
++    } else {
++        panic!();
++    }
++    let bytes = encode(c);
++    emit("intsum-body", &bytes, false);
++    assert_eq!(
++        import_go_practical_range_foundation(&bytes),
++        Err(GoOrdinaryError::Linkage)
++    );
++}

@@ -1,0 +1,46 @@
+{
+  "schema": "mpk.go_practical.word_shifts_native_comparison.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T21:30:40.315245+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/native/result.json",
+    "sha256": "7092469cd053e5350307455148fd5a816da6c480af351ff962ed2cef3eda2f61",
+    "bytes": 6008
+  },
+  "query_origins": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/query-origins.json",
+    "sha256": "9ec83ac02e3d2b91c5b081b63d465ee91cc7fddf0f8ca9a9356ac96d5d2d221a",
+    "bytes": 8913
+  },
+  "Rust_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/final/rust-tests/result.json",
+    "sha256": "7c742d979f69f8b2969e360d7c5a36c557e10ff72503ecfae381acc21f8fb5e3",
+    "bytes": 47003
+  },
+  "actual_Bool_model": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/final/rust-tests/model/model.json",
+    "sha256": "0568150cc9075a9a2909140c8697dc1dff88176ee1f180470243a20a472250d5",
+    "bytes": 154314
+  },
+  "model_metrics": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/final/rust-tests/model/metrics.json",
+    "sha256": "569b74084234d7dcfae701c46b5ac70bf67b9f343e94f4a55f7d930dc5e7362b",
+    "bytes": 777
+  },
+  "independent_integer_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/native-comparison-final/independent-integer-oracle.json",
+    "sha256": "783dadcdfab9cdea6f73c7f78f6db985a2ba05a17e397437cc237565e620eead",
+    "bytes": 211105
+  },
+  "original_queries": 504,
+  "defined_counts": 480,
+  "negative_count_native_panics": 24,
+  "defined_high_counts": 309,
+  "two_native_outputs_identical": true,
+  "prepared_image_files": 5577,
+  "Nat_Int_witness_or_theorem_bodies_executed": false,
+  "scope": "The original combined execution completed the model/control roots and failed only its separate retained-count assertion, then the assertion/report literals were narrowly repaired and the affected root rerun. All original complete rows. The model evaluates actual source Bool shifts/stages/guards and the new exact CountHigh bit tree; native Go separately observes negative-count panic and real typed full64 shifts. Python uses modular multiplication and floor integer division; for huge counts it compares zero/sign-fill output without materializing enormous powers. Finite observations do not supply any universal Nat/Int theorem. Full variable-shift conservation, source/application/profile binding and Linux release remain due.",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

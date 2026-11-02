@@ -1,0 +1,44 @@
+{
+  "status": "failed",
+  "started_at_utc": "2026-10-18T17:56:06.984108+00:00",
+  "source_base_commit": "e8ceb3c1fd8501e1fe774289091f188cdc8fdc65",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "RUST_MIN_STACK": "unset",
+  "test_source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs",
+    "sha256": "32b2e4302de562e1c5a9ffd3d0b4524d83778c7feb1df264f7ed4a32ce6c74a5",
+    "bytes": 21321
+  },
+  "selection_reason": "Only the final serialized responses input echo association changes. Build the existing integration target with all original context, closure, import, mutation and runtime assertions preserved; no compiler, producer, interpreter, checker or resource bounds change.",
+  "pid": 62132,
+  "exit_code": 101,
+  "wall_seconds": 3.5888135419227183,
+  "finished_at_utc": "2026-10-18T17:56:10.573323+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/build/stdout.jsonl",
+    "sha256": "9e5ae141fa289e7fe0f8a4a6f5e848dc21d45ca1eaf044c154fb2fcc517f29eb",
+    "bytes": 33857
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/build/stderr.log",
+    "sha256": "641189049025687055fc42d46290efcc247cd7950aeb0b986cc910576bebb187",
+    "bytes": 161
+  }
+}

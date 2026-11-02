@@ -1,0 +1,48 @@
+{
+  "status": "scoped_checks_passed",
+  "basis_commit": "01613e7621e6a85ef01f61debdef5f64ab02f5f9",
+  "source_epochs": [
+    "clippy-initial",
+    "clippy-ownership",
+    "format-final",
+    "format-ownership",
+    "format-write",
+    "go-format-final",
+    "go-format-write",
+    "native",
+    "native-consumer",
+    "native-consumer-final",
+    "roles-initial",
+    "rust-initial",
+    "vet"
+  ],
+  "preserved_failed_epochs": [
+    "clippy-initial",
+    "native-consumer"
+  ],
+  "rust_epoch": "rust-initial",
+  "native_consumer_epoch": "native-consumer-final",
+  "affected_rust_roots": 20,
+  "native_roots": 2,
+  "complete_native_cases": 1427,
+  "complete_original_cases": 656,
+  "sdk_manifest_cases": 18,
+  "fully_rekeyed_standard_module_controls": 4,
+  "original_component_counts": {
+    "source_objects": 1033,
+    "packages": 181,
+    "declarations": 0,
+    "types": 1,
+    "underlying": 0,
+    "aliases": 0,
+    "package_roots": 181,
+    "type_roots": 1
+  },
+  "all_original_application_and_Root_bytes_preserved": true,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "proofs_replayed": false,
+  "whole_repository_gate_run": false,
+  "removed_language_tests_run": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

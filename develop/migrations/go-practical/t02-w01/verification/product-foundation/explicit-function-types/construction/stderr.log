@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 3m 07s
+     Running tests/go_practical_product_foundation.rs (target/debug/deps/go_practical_product_foundation-111fd125c3384fb6)
+
+thread 'actual_heterogeneous_product_component_and_complete_old_identities' (39324067) panicked at crates/mpk-vc/tests/go_practical_product_foundation.rs:26:5:
+assertion `left == right` failed: product-foundation: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"b91a0bcd2603acff7b055a53e907337edc957141c04cba4e52563ebab95b8132"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_NOT_A_FUNCTION\",\"location\":[{\"field\":\"infer\"},{\"field\":\"app\"},{\"index\":4}],\"details\":{\"actual\":\"app\",\"argument_index\":\"4\",\"argument_term_index\":\"7\",\"function_term_index\":\"717\",\"function_type_index\":\"657\",\"kind\":\"app_function_type_not_pi\",\"term_index\":\"1119\",\"whnf_type_index\":\"657\"}}"}
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_product_foundation`

@@ -1,0 +1,14 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0382]: borrow of moved value: `observed.right`
+   --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_bounds/family.rs:182:21
+    |
+ 72 |             .then(gap_def.clone().on_right(observed.right))?;
+    |                                            -------------- value moved here
+...
+182 |                     observed.right.clone(),
+    |                     ^^^^^^^^^^^^^^ value borrowed here after move
+    |
+    = note: move occurs because `observed.right` has type `syntax::Expr`, which does not implement the `Copy` trait
+
+For more information about this error, try `rustc --explain E0382`.
+error: could not compile `mpk-vc` (lib) due to 1 previous error

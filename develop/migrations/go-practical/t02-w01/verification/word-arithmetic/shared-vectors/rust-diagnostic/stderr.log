@@ -1,0 +1,20 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0382]: borrow of moved value: `path`
+  --> crates/mpk-vc/tests/go_practical_word_arithmetic_diagnostic.rs:32:18
+   |
+ 4 | ...et path = std::env::var("MPK_GO_WORD_ARITHMETIC_DIAGNOSTIC_INPUT").unwrap_or_else(|_| "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/initial/rust-tests/certificates/word-arithmetic-foundation.mpcert".into());
+   |       ---- move occurs because `path` has type `std::string::String`, which does not implement the `Copy` trait
+ 5 | ...et raw = std::fs::read(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..").join(path)).unwrap();
+   |                                                                                               ---- value moved here
+...
+32 | ...et report = serde_json::json!({"input":path,"first_failed... are not complete certificate acceptances."});
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ value borrowed here after move
+   |
+   = note: this error originates in the macro `$crate::json_internal` which comes from the expansion of the macro `serde_json::json` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider borrowing `path`
+   |
+ 5 |     let raw = std::fs::read(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..").join(&path)).unwrap();
+   |                                                                                                 +
+
+For more information about this error, try `rustc --explain E0382`.
+error: could not compile `mpk-vc` (test "go_practical_word_arithmetic_diagnostic") due to 1 previous error

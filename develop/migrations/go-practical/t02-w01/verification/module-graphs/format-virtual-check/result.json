@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go125-20261025-download/go/bin/gofmt",
+    "-l",
+    "go-tools/go2vir/practical_observation.go",
+    "go-tools/go2vir/practical_resolution.go",
+    "go-tools/go2vir/practical_module_capture.go",
+    "go-tools/go2vir/practical_module_graph.go",
+    "go-tools/go2vir/practical_module_graph_inputs.go",
+    "go-tools/go2vir/practical_image_inputs.go",
+    "go-tools/go2vir/practical_original_packages.go",
+    "go-tools/go2vir/practical_module_observation_inputs.go",
+    "go-tools/go2vir/practical_observation_test.go",
+    "go-tools/go2vir/practical_storage_test.go",
+    "go-tools/go2vir/practical_module_graph_test.go"
+  ],
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go125-20261025-download/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-export-inputs-190-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-module-observations-191-mod"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/format-virtual-check/inputs.json",
+    "bytes": 3860,
+    "sha256": "f44f21313a09b5bfb8958248aa360e0a323bbb61222a5acf3133f2c81a29dd54",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/run.py",
+    "bytes": 8148,
+    "sha256": "d6d57d9a882f374019cd69528afb37232a3e9682e77ffeadc878eded993335e8",
+    "mode": 420
+  },
+  "go_tool": {
+    "path": "/private/tmp/mpk-go125-20261025-download/go/bin/gofmt",
+    "bytes": 2914768,
+    "sha256": "f8c812fc7e22867e5970a687898cd62d8c15561ccc6800c84ac9fdc6583e4b03",
+    "mode": 493
+  },
+  "started_at_utc": "2026-10-26T14:05:11.199944+00:00",
+  "selection_reason": "Changed controlled Go observation, original replacement location, immutable module rebinding and owner graph handoff. Compare actual pruned/unpruned original graphs, unselected/empty old manifests, cycles, duplicates, exclusions, root upgrades, local/versioned replacements, original input retirement, whole native stdout/stderr and detached handoffs. Run new graph roots plus affected original resolution/observation/image/module-owner consumers, vet and explicit changed-file format. Rust consumers are unchanged and retain their original evidence; no removed-language tests or whole gate run.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 5.849950208008522,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/format-virtual-check/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-graphs/format-virtual-check/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T14:05:17.050632+00:00"
+}

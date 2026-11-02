@@ -1,0 +1,29 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0716]: temporary value dropped while borrowed
+  --> crates/mpk-vc/tests/support/go_word_order_observations.rs:50:18
+   |
+47 |         let result = model.invoke(
+   |                            ------ borrow later used by call
+...
+50 |                 &[xx]
+   |                  ^^^^ creates a temporary value which is freed while still in use
+51 |             } else {
+   |             - temporary value is freed at the end of this statement
+   |
+   = note: consider using a `let` binding to create a longer lived value
+
+error[E0716]: temporary value dropped while borrowed
+  --> crates/mpk-vc/tests/support/go_word_order_observations.rs:52:18
+   |
+47 |         let result = model.invoke(
+   |                            ------ borrow later used by call
+...
+52 |                 &[xx, yy]
+   |                  ^^^^^^^^ creates a temporary value which is freed while still in use
+53 |             },
+   |             - temporary value is freed at the end of this statement
+   |
+   = note: consider using a `let` binding to create a longer lived value
+
+For more information about this error, try `rustc --explain E0716`.
+error: could not compile `mpk-vc` (test "go_practical_word_order") due to 2 previous errors

@@ -1,0 +1,150 @@
+{
+  "schema": "mpk-go-practical-t01-w05-json-numeric-capacity-repair-1.0",
+  "status": "selected_repairs_passed_complete_repaired_gate_required",
+  "recorded_at_utc": "2026-10-18T11:14:19.331257+00:00",
+  "source_base_commit": "1d3af2aa6d980f6b49eba3cbb69ecab7f74f352e",
+  "original_compiled_source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "selection_reason": "One reproduced numeric-capacity historical assertion spans a later counter-helper change. Retain the complete original historical comparison, reject unreviewed mutations, and run both unchanged current-source producer/import/mutation owners. Other unchanged semantic matrices are not repeated.",
+  "changed_source_inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_cell_count_tests.rs",
+      "sha256": "d5b6a39d02277ce2bda4fbf79f96af7604296970ca189de883ba995ffe7a3721",
+      "bytes": 6677
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/retained-csharp/json-numeric-capacity-epochs/manifest.json",
+      "sha256": "2b8516c2810ec76d2a5b5684c2ee6893b1119b93c253959f90e41c9639e69549",
+      "bytes": 5713
+    }
+  ],
+  "original_failure": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-diagnosis/result.json",
+    "sha256": "a0e631a1c01a5a55012b75e0cc7f3a24109fbaf19d4554458c28d98839174e37",
+    "bytes": 2604
+  },
+  "original_git_inputs": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-diagnosis/original-git-input-verification.json",
+    "sha256": "bf8caab82db4262aefc15a567eff7dc4df0a95b4b7c8b4b9babe7fc483c120e9",
+    "bytes": 1627
+  },
+  "direct_current_diagnosis": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-diagnosis/current-direct-comparison-result.json",
+    "sha256": "2180ed481c98edac7b8b3bbe860e635ad7fe13506eceb2d88fe4d7e53e09996e",
+    "bytes": 21844
+  },
+  "direct_historical_diagnosis": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-diagnosis/historical-direct-comparison-result.json",
+    "sha256": "9345fe9bf6ff73b978108c845d792284e7648e3cfb8b5f8a740782a3cd7ec180",
+    "bytes": 5664
+  },
+  "actual_test_profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  },
+  "checks": {
+    "build": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/build-result.json",
+        "sha256": "98072174577846fb0f7358aa1123c3e9ce6a3f2e9a5a2755eca05e0181043394",
+        "bytes": 2282
+      },
+      "wall_seconds": 75.34030899999198
+    },
+    "numeric-history": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/numeric-history-result.json",
+        "sha256": "e8eeed983ceeb86d3504c58d33d97ec6091e3f83e4dc325e813d115b3adaf744",
+        "bytes": 2011
+      },
+      "wall_seconds": 29.687990791047923
+    },
+    "sequence-current-source": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/sequence-current-source-result.json",
+        "sha256": "45ce1d6257780e0eaa4f73db14c9f0542e6e421fd20017bb2f908e25d7cd7776",
+        "bytes": 2031
+      },
+      "wall_seconds": 5.284405415994115
+    },
+    "sum-current-source": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/sum-current-source-result.json",
+        "sha256": "cec9441314abbe5f15ac89bc45ad84bbbe12f47d25c3014996d48e2a668eb80d",
+        "bytes": 2017
+      },
+      "wall_seconds": 6.201887125032954
+    },
+    "format-check": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/format-check-result.json",
+        "sha256": "d664b2cc34b02fc614ded07a5f66e02147adcc6583b3c098b1abc03e37ee48d9",
+        "bytes": 1516
+      },
+      "wall_seconds": 0.25392308295704424
+    },
+    "clippy": {
+      "receipt": {
+        "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/clippy-result.json",
+        "sha256": "500a9fd85a36134a4acea8a9e927f05646c2a7de891f59adb16fc7b978c48eab",
+        "bytes": 1577
+      },
+      "wall_seconds": 11.478495083050802
+    }
+  },
+  "historical_comparison": {
+    "cases": 2,
+    "sealed_git_members": 8,
+    "declaration_names_and_types": 4387,
+    "unchanged_body_counts": [
+      2086,
+      2289
+    ],
+    "exact_changed_grammar_bodies_each": 6,
+    "unreviewed_body_type_inventory_mutations_rejected": 6,
+    "complete_original_assertions_retained": true,
+    "checkpoint_commit": "09a14bdde6b14408e4f25e55cb787dd989577d7e",
+    "universal_semantic_equivalence_proved": false
+  },
+  "current_consumers": {
+    "arrays": {
+      "sequences": 3,
+      "products": 2,
+      "terms": 136462,
+      "declarations": 2065
+    },
+    "sums": {
+      "sums": 6,
+      "templates": 5,
+      "sequences": 1,
+      "products": 7,
+      "terms": 144293,
+      "declarations": 2268
+    },
+    "normal_golden_mode": true,
+    "generation_output_flags_unset": true,
+    "strict_import_dependency_and_mutation_assertions_retained": true,
+    "source_or_application_proofs_discharged": false
+  },
+  "raw_stdout_whitespace": {
+    "audit": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/raw-log-whitespace.json",
+    "exact_paths": 40,
+    "source_json_directory_exclusions": false
+  },
+  "production_changed": false,
+  "existing_certificate_bytes_changed": false,
+  "existing_source_captures_changed": false,
+  "checker_rules_or_limits_changed": false,
+  "current_checker_rerun_required": false,
+  "checker_scope_reason": "Only test assertions and sealed historical input linkage change. Current generator/checker/certificate bytes stay unchanged, so no new checker acceptance is inferred from existing historical receipts.",
+  "original_full_gate": "Source320 diagnostic still runs with its unchanged binary. Both calendar and numeric-capacity historical assertions have failed and have separate selected repairs; collect remaining failures, preserve the terminal raw run, then execute the complete gate over committed repaired source.",
+  "complete_repaired_gate_passed": false,
+  "T01_complete": false,
+  "T02_started": false,
+  "go_demands_unelaborated": 169,
+  "csharp_application_proofs_pending": 987,
+  "native_Linux_release_gate_executed": false,
+  "profile_activated": false
+}

@@ -1,0 +1,47 @@
+{
+  "checker_binaries": {
+    "go": "bc21d279807f5994a16287a532db65cac3bbb170bfa4d0ca5c6729825e24c62c",
+    "rust": "0146400024f313fc4f1e7634d7626f5bb21f95691d9a9c99c5445290620ba286"
+  },
+  "observations": {
+    "go": {
+      "cpu_system_seconds": 0.003981,
+      "cpu_user_seconds": 0.0018809999999999999,
+      "exit_code": 1,
+      "peak_rss_bytes": 5144576,
+      "report": {
+        "error_detail": "generated recursor name does not match family",
+        "error_kind": "core_check",
+        "verdict": "rejected"
+      },
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "wall_seconds": 0.04169837501831353
+    },
+    "rust": {
+      "cpu_system_seconds": 0.002546,
+      "cpu_user_seconds": 0.001539,
+      "exit_code": 1,
+      "peak_rss_bytes": 2932736,
+      "report": {
+        "axiom_count": null,
+        "axiom_report": null,
+        "declaration_count": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_UNSUPPORTED_FEATURE\",\"location\":[{\"field\":\"reduce_inductive\"}],\"details\":{\"inductive\":\"18\",\"kind\":\"malformed_generated_recursor\",\"recursor\":\"22\",\"term_index\":\"605\"}}",
+        "hashes": {
+          "axiom_report": null,
+          "certificate": "079ff7f97411a72a464805774397243221a01cc45fde1362651a7b56b3d754cd",
+          "export": null
+        },
+        "module": null,
+        "verdict": "rejected"
+      },
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "wall_seconds": 0.015281166997738183
+    }
+  },
+  "raw_sha256": "d5a9ddf4358f576450ec6973968d975af51d8a5084080000c9a4c222742754ad",
+  "scope": "corrected proposed-interface candidate rejected by unchanged production checkers; separate private prototype required"
+}

@@ -1,0 +1,269 @@
+{
+  "all_word_Nat_Int_operations_proved": false,
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_numeric_bridge"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "unit.log",
+      "reason": "All12 affected numeric bridge tests,isolated statement mutations,exact typed source Value references,whole-word block closure,actual ripple/signed/large-Nat observations and distinct fuel/pending boundaries",
+      "sha256": "e35f7b6ec40c15c0df0f9d23fd56de3b94ad0c5d4c428eed4a8c5024b6594726",
+      "wall_seconds": 40.54392974998336
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "develop/probes/go-practical/run_numeric_bridge.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh unchanged77-source checker build and complete20 paired proof cases,two exact emissions,13 typed Value arithmetic theorems and288 actual ripple/Go/integer observations; binary/source/toolchain replay",
+      "sha256": "acfddeae71bcb16b9fe0e9edfba0893e19b64218356b59272661e011c84fafab",
+      "wall_seconds": 292.9120837500086
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "develop/probes/go-practical/check_numeric_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Complete numeric/source/ordinary expansion,697 current input pins,preceding word/proof/capture evidence,143 predecessor paths,strict JSONs/document links and ordered ledger50; W04 open",
+      "sha256": "d9fdf85f50ea5ab9e47933d2cd518e3801dad3a4d799c66b8b122bfc13a65f42",
+      "wall_seconds": 180.09310025000013
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+        "-l",
+        "develop/probes/go-practical/numeric_observer.go"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "gofmt.log",
+      "reason": "Only the new independent Go numeric observer; earlier/private/production sources unchanged",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.0721674170345068
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-c",
+        "from pathlib import Path;p=Path('develop/probes/go-practical');names=('word_numeric_bridge.py','numeric_bridge_cases.py','run_numeric_bridge.py','test_numeric_bridge.py','check_numeric_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: five new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "All five new numeric bridge/case/replay/test/metadata Python sources",
+      "sha256": "e7ef511670e20fa204fd39ff40fc62592d2b415aea4e870561a5113d2fbcbf21",
+      "wall_seconds": 0.07394941698294133
+    }
+  ],
+  "complete_go_elaboration": false,
+  "conditional_signed_cross_sums_proved": true,
+  "document_links": 424,
+  "documents": 25,
+  "entry_commit": "04fd6d9f267b705cdfc93d408b45a1ec5780a8bc",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; final W05 owns cumulative whole T01 gate",
+    "status": "deferred"
+  },
+  "host_toolchain_inventory": {
+    "files": 14496,
+    "sha256": "85d1dd7ca77c9263d83e25f05e4c32105738fdc002434d61b27671aee4e259bc"
+  },
+  "initial_repaired_findings": [
+    {
+      "finding": "root correspondence used a separately wrapped Carry0 where the retained whole-word addition theorem uses the literal incoming parameter; conversion expands nested word computations before equating the wrapper",
+      "observed_outcomes": {
+        "go": "candidate conversion-fuel failure",
+        "rust": "candidate conversion-fuel failure"
+      },
+      "record": "initial-root-conversion/diagnostic.json",
+      "repair": "use the exact incoming parameter for offset0 in the new bridge; preserve actual ripple definitions and checker budgets",
+      "scope": "positive proof construction exhausted existing conversion fuel; not a false claim or source counterexample",
+      "sha256": "76f2104a81fa9f4fdcd8c64778490b8cdb36ac981f2b592cb06934e4b88b8096"
+    },
+    {
+      "finding": "implicitly equating the actual Value wrapper inside a complete Nat equation expands the denotation before finding the same word result",
+      "observed_outcomes": {
+        "go": "accepted zero-axiom candidate",
+        "rust": "candidate conversion-fuel failure"
+      },
+      "record": "initial-source-value-conversion/diagnostic.json",
+      "repair": "prove the actual source Value word equality first,then lift that equality explicitly through sign/value/Nat contexts; no checker or conversion-budget change",
+      "scope": "positive typed Value application exhausted unchanged core conversion budget; not a false claim or Go counterexample",
+      "sha256": "d52a6783e218917f1170548774619b2a36e59357bf176f0ba074dae54eda1b26"
+    }
+  ],
+  "materialization": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+      "-B",
+      "develop/probes/go-practical/run_numeric_bridge.py",
+      "--write"
+    ],
+    "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+    "environment": {
+      "PYTHONPATH": "develop/probes/go-practical"
+    },
+    "exit_code": 0,
+    "log": "initial-materialization.log",
+    "reason": "Materialize complete ripple/Nat/signed and13 exact typed Value additions,20 paired ordinary cases and288 actual ripple/Go/integer observations; preserve conversion-fuel controls separately",
+    "sha256": "acfddeae71bcb16b9fe0e9edfba0893e19b64218356b59272661e011c84fafab",
+    "wall_seconds": 166.79641541698948
+  },
+  "maximum_direct_proof_child_rss_bytes": 231702528,
+  "maximum_direct_proof_child_wall_seconds": 3.1132837500190362,
+  "metadata_checker_sha256": "b1e6bd78e2b4fdff2defce958dd47da5b2ac533428fa86d512efeb9101f94551",
+  "native_no_overflow": 210,
+  "native_observations": 288,
+  "native_overflow": 78,
+  "not_repeated": [
+    "unaffected older ordinary/native matrices; relevant187-declaration balanced seed rechecked in all new certificates,preceding word/proof/capture evidence and143 predecessor paths verified",
+    "formatting unchanged old/private/production sources; only new Go observer checked; no new Rust source introduced"
+  ],
+  "observed_tests": 12,
+  "ordinary_cases": 20,
+  "outcomes": {
+    "accepted_zero_axiom": 4,
+    "candidate_conversion_fuel_failure": 2,
+    "ordinary_type_mismatch": 14
+  },
+  "output_scope": "complete raw combined stdout/stderr from selected local subprocesses; exact initial source/plans/certificates/paired results retained separately",
+  "pending_control_evidence": {
+    "cases": [
+      "w32-dropped-final-carry",
+      "w64-dropped-final-carry"
+    ],
+    "meaning": "Neither candidate is accepted; these failures do not establish false-claim or source-counterexample evidence",
+    "other_negative_evidence": "fourteen different altered statements reject by paired core type mismatch",
+    "status": "candidate conversion-fuel failure in both checkers"
+  },
+  "positive_certificates": [
+    {
+      "bytes": 134328,
+      "declarations": 398,
+      "expected": "accepted",
+      "id": "w8-valid",
+      "module": "Probe.GoPractical.WordNumericBridge.W8",
+      "mutation": "valid",
+      "new_definitions": 125,
+      "new_theorems": 86,
+      "terms": 11005,
+      "width": 8
+    },
+    {
+      "bytes": 160567,
+      "declarations": 505,
+      "expected": "accepted",
+      "id": "w16-valid",
+      "module": "Probe.GoPractical.WordNumericBridge.W16",
+      "mutation": "valid",
+      "new_definitions": 176,
+      "new_theorems": 142,
+      "terms": 13080,
+      "width": 16
+    },
+    {
+      "bytes": 215104,
+      "declarations": 720,
+      "expected": "accepted",
+      "id": "w32-valid",
+      "module": "Probe.GoPractical.WordNumericBridge.W32",
+      "mutation": "valid",
+      "new_definitions": 277,
+      "new_theorems": 256,
+      "terms": 17246,
+      "width": 32
+    },
+    {
+      "bytes": 337297,
+      "declarations": 1159,
+      "expected": "accepted",
+      "id": "w64-valid",
+      "module": "Probe.GoPractical.WordNumericBridge.W64",
+      "mutation": "valid",
+      "new_definitions": 482,
+      "new_theorems": 490,
+      "terms": 25583,
+      "width": 64
+    }
+  ],
+  "profile_activated": false,
+  "proof_resource_scope": "60s/1GiB per direct proof child; Darwin measurement,not Linux release/process-tree evidence",
+  "remaining": [
+    "general Nat/Int operations,full arithmetic/multiplication/division/shift/contract/source correctness beyond the checked addition bridge",
+    "all remaining ordinary source/state/permission/frame/control/totality definitions/proofs and complete Go theorem/program/skeleton assembly",
+    "frontend-envelope/policy/API/release roots,reviewed migrations,W04 freeze,W05 inactive publication/T01 gate and full T02–T11"
+  ],
+  "retained_seed_declarations": 187,
+  "review": {
+    "checked": [
+      "whole arbitrary8/16/32/64-bit operands and incoming Bool quantified; no input bit-pattern enumeration or narrowing",
+      "each aligned block composes exact child carry,sum projection and sign-stage incoming-carry proofs",
+      "pointwise bit equality lifts through finite balanced denotation without word function extensionality or eta",
+      "genuine Std.Nat successor denotation retains arbitrary initial Nat and the actual final2^width carry",
+      "conditional signed theorem uses actual incoming/final sign carries and input/result sign bits; overflowing Go addition remains modular and defined",
+      "all13 exact captured-operation Value/Defined declarations copied unchanged after complete reconstruction; same-width nominal source IDs retain distinct theorem names",
+      "source Value word equality checked first,then explicitly lifted through sign/value/Nat contexts rather than relying on whole-expression conversion",
+      "four positive sets pass both source-free checkers with zero axioms and identical output hashes; every certificate emits twice identically",
+      "fourteen statement-only mutations fail by core type mismatch; two dropped-carry fuel failures kept separate from false-claim evidence",
+      "actual typed Go addition/math.bits/math.big,actual ordinary ripple/carry/guard AST evaluation and independent integer oracle agree for288 cases",
+      "210 signed no-overflow cases satisfy cross sums and78 actual overflow cases do not; large initial values stay exact decimal strings",
+      "old seed,77 private checker sources,production core/kernel,Certificate v0,preceding helpers and installed profiles unchanged",
+      "source/AST/evaluation/state/permission/frame/enclosing-function correctness and remaining general Nat/Int/contract operations are not promoted by the addition component"
+    ],
+    "kind": "local manual review of block induction,pointwise value congruence,actual sign/carry guard,typed Value lifting,finite Go comparison and affected metadata",
+    "remaining_requirements": [
+      "general Nat/Int operations,full arithmetic/multiplication/division/shift/contract/source correctness beyond the checked addition bridge",
+      "all remaining ordinary source/state/permission/frame/control/totality definitions/proofs and complete Go theorem/program/skeleton assembly",
+      "frontend-envelope/policy/API/release roots,reviewed migrations,W04 freeze,W05 inactive publication/T01 gate and full T02–T11"
+    ],
+    "resolved_findings": [
+      "use the exact incoming parameter for offset0 in the new bridge; preserve actual ripple definitions and checker budgets",
+      "prove the actual source Value word equality first,then lift that equality explicitly through sign/value/Nat contexts; no checker or conversion-budget change"
+    ]
+  },
+  "ripple_addition_Nat_proved": true,
+  "schema": "mpk.go_practical.w04_numeric_bridge_verification.v0",
+  "scope": "actual ripple/balanced word pointwise/carry/sign-stage correspondence,exact Nat addition with final carry and conditional signed cross sums,13 exact source Value additions; not full word arithmetic/Int/contract/source/frame or complete Go VC elaboration",
+  "source_evaluation_proved": false,
+  "source_inputs": 697,
+  "source_values": 13,
+  "status": "W04 in progress; five selected local checks passed; two deliberately altered candidates remain conversion-fuel failures; no T complete",
+  "strict_jsons": 143,
+  "unchanged_private_checker_sources": 77,
+  "unit_execution": {
+    "failed": 0,
+    "passed": 12,
+    "record": "unit.json",
+    "selection": "New full-width ripple/Nat/signed/source-typed addition proof construction,isolated statement controls,exact Value/scope/nominal references,all binary blocks,current ripple/Go equations and distinct fuel/pending boundaries",
+    "tests": 12
+  },
+  "work_item": "GO-PRAC-T01-W04"
+}

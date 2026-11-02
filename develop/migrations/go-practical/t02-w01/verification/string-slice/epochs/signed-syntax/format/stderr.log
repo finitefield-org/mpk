@@ -1,0 +1,12 @@
+error: unexpected closing delimiter: `}`
+   --> /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/string/slice/signed.rs:139:1
+    |
+ 65 |     fn signed_negative(&mut self) -> Result<()> {
+    |                                                 - the nearest open delimiter
+...
+ 99 |             .then(Equality::boolean(less(u.clone(),add(v.clone(),modulus())),bit(true),call("Mpk.Go.Practical.Word.Index.UpperBound",vec![add(v,modulus()),modulus(),u,upper.proof,ord("W64.ValueBound",vec![x.clone()])]))))?;
+    |                                                                                                                                                                                                                             - missing open `(` for this delimiter
+...
+139 | }
+    | ^ unexpected closing delimiter
+

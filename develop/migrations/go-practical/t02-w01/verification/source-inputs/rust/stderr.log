@@ -1,0 +1,7 @@
+    Finished `test` profile [optimized + debuginfo] target(s) in 0.49s
+     Running tests/go_practical_source_inputs.rs (target/debug/deps/go_practical_source_inputs-e42684c5bfed2ccd)
+
+thread 'source_inputs_reject_coherent_native_facts_and_incomplete_package_roots' (59089554) panicked at crates/mpk-vc/tests/go_practical_source_inputs.rs:231:5:
+assertion failed: import_go_type_key_components(&canonical(&subset), &buffers).is_ok()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_inputs`

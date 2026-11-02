@@ -1,0 +1,165 @@
+{
+  "schema": "mpk.go_practical.module_archive_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T09:06:13.440644+00:00",
+  "entry_commit": "a7b71f45beeefbac4d14ec2596872adadfe716d7",
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_archive.go",
+      "sha256": "5dc0b348aee5aeab065dc0948bcaf1983a5bc2f3fabc6a86cd175459c3c028a7",
+      "bytes": 10086
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_fold.go",
+      "sha256": "5791982a8213e654c8e653f6ffc1da7b9eb1900ad207826eb025e66b7aa1439e",
+      "bytes": 1072
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_test.go",
+      "sha256": "1a659f37f4f5523569e4608e8c7799028117b006f403cfbab7954a7912488d3a",
+      "bytes": 12048
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_capture_test.go",
+      "sha256": "a082111f9fdb66ef54b1f4f0847580a106aea6e31eca6bbbb8da2b46698b5dce",
+      "bytes": 9691
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture.go",
+      "sha256": "444be86d82c9a298786f3a13058720fc34e35ff8f763355af35010b5be755699",
+      "bytes": 15450
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/sumdb/dirhash/hash.go",
+      "sha256": "24de6a735c1605e39b6381e6962787faa5c59adab896fb66dbc1ac8b6afcb297",
+      "bytes": 4094
+    },
+    {
+      "path": "go-tools/go2vir/vendor/modules.txt",
+      "sha256": "7acbaa5ff9b089a9665dae3dc009d872df913a55db4391bf1280243ddb60a99c",
+      "bytes": 1152
+    }
+  ],
+  "vendor_provenance": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/vendor-provenance.json",
+    "sha256": "9729f550aaf01518baf73feda5532e8c65752caae64dbbf8b9832c92a96ec7bd",
+    "bytes": 1144
+  },
+  "selected_results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/reviewed/archive/result.json",
+      "sha256": "5296bced1197b2a0f133292c2bb47d57ee00ce08d1669717f85214ad739cdd38",
+      "bytes": 6727,
+      "mode": "archive",
+      "status": "passed",
+      "seconds": 1.6419982080115005
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/reviewed/legacy-archive/result.json",
+      "sha256": "e3b03db15559e6927117b198316c1037be92c0b44aef5e643b11a336008fd811",
+      "bytes": 5659,
+      "mode": "legacy-archive",
+      "status": "passed",
+      "seconds": 1.93636279203929
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/reviewed/vet/result.json",
+      "sha256": "380736b39e39741bdb01decfbbc061d50020d4b14faf01e10de7cb6df9afd81a",
+      "bytes": 4274,
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.34614295803476125
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/reviewed/format/result.json",
+      "sha256": "a5ed04fd593792725e6a2b0b405c1dffd6c87c7a265d9eaf5ea1f32357428070",
+      "bytes": 4471,
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.006927249953150749
+    }
+  ],
+  "prior_affected_boundary_baseline": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/selected/result.json",
+      "sha256": "273545a43729dc6d6377863f38a3abf15915cb5773a80f3e4c0e4fed7f4616e2",
+      "bytes": 9089,
+      "mode": "selected",
+      "status": "passed",
+      "seconds": 2.250788624980487
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/legacy/result.json",
+      "sha256": "b8ee8324b0d08a4c63c1f9c42e7cb7cf21c074ae63ec063f6dcd6db575e601f0",
+      "bytes": 7174,
+      "mode": "legacy",
+      "status": "passed",
+      "seconds": 2.0403871670132503
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/vet/result.json",
+      "sha256": "b1f699a3a176514f1aa70faed7de702d8e4895d4636751b3419b5efce8c5c58e",
+      "bytes": 4254,
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.6438775419956073
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/format/result.json",
+      "sha256": "d85b5513cab205d104346aa60b4b4a05a2ae0e6dc31bd9d9fc356392dec1441a",
+      "bytes": 4452,
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.006846875068731606
+    }
+  ],
+  "root_tests_passed": 9,
+  "subtests_passed": 25,
+  "legacy_pure_archive_roots": 6,
+  "legacy_pure_archive_subtests": 17,
+  "initial_full_selected_roots": 13,
+  "initial_full_selected_subtests": 46,
+  "initial_full_legacy_roots": 9,
+  "initial_full_legacy_subtests": 28,
+  "initial_fixture_failure": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/initial-shadowed-payload/result.json",
+    "sha256": "b7b66e2c3240ace85908bf65f71552b7ad573caa14cc4015e1ef94259a5c817a",
+    "bytes": 2133
+  },
+  "initial_fixture_failure_scope": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/initial-shadowed-payload/failure-scope.json",
+    "sha256": "4c11d4891f6d0c998e7f010b5eb4a821e43e174b6c9d4b42f559522b9cf8ec13",
+    "bytes": 478
+  },
+  "actual_shadowed_directory_regression": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/shadowed-payload-regression/result.json",
+    "sha256": "dfd22b0a818b794e72b0ab3179c58b6f9c41c98fb6b2b56178259224680ccc1b",
+    "bytes": 2112
+  },
+  "implemented": [
+    "Verify exact original auxiliary ZIP bytes and full source-object identity, canonical module/version ZIP prefix and original h1 checksum. Preserve raw ZIP encoding identity separately from content h1.",
+    "Use unchanged repository-pinned x/mod v0.27.0 Hash1 after verifying its cached module ZIP against the existing go.sum and preserving its BSD license; module/go.sum versions do not change.",
+    "Validate Go file paths, root manifest spelling, Unicode simple-fold ancestor/leaf collisions, file/directory and duplicate file conflicts. Component trie avoids recursive/quadratic parent copies.",
+    "Stream member bodies under original declared sizes and Go CRC rules; check all directory headers, including those shadowed by Go HashZip last-name lookup. Preserve Go-compatible zero-uncompressed directory metadata.",
+    "Honor Go ZIP size/manifest/license protocol bounds, retain valid empty archives and opaque unselected asset names without treating every member as a logical source candidate.",
+    "Retain member SHA256/length inventory and verify captured original content against it; copied inventory cannot mutate private metadata. This is content linkage, not module/package/capability authority.",
+    "Bind checksum ownership to an actual captured original go.sum and reconstruct a separate private index once. Caller mutable parsed maps cannot replace original checksum authority.",
+    "Share complete observed archive namespace-entry accounting across capabilities, including implicit parents and repeated/root headers. Repeated archive reads use the same input/index without double charging. Failed transactions cannot seal.",
+    "Current pinned Go mod verify accepts the original offline dependency cache and rejects a changed original file; MPK content linkage agrees. Original main go.mod/go.sum remain unchanged. No network/cache repair/generation executes."
+  ],
+  "verification_selection": "After the shadowed-directory fix, rerun all9 archive consumers and six pure legacy archive cases, plus current vet/format. The initial13-root affected-boundary and9-root legacy selections remain recorded; unaffected old budget/manifest/profile/argument tests are not repeated.",
+  "review_followup": "The first focused run stops at fixture setup because Go zip.Writer refuses nonempty directory bodies. The corrected raw header fixture reproduces the actual missed shadowed directory validation. Check every original directory header before Hash1, which otherwise reads only the last occurrence for repeated names. All original logs and exact source copies remain retained.",
+  "budget_scope": "Archive namespace boundaries use actual small original ZIP files with remaining counters seeded near the frozen maximum. They do not constitute full131072-entry/256MiB stress or native host enforcement evidence.",
+  "remaining": [
+    "Complete private ordinary foundation/registry/context and exact compiler/stdlib/analysis inventory.",
+    "Original versioned .mod/.info/.ziphash and archive/root-manifest linkage; complete actual selected Go module graph/replacements and all consulted metadata.",
+    "Independent source/package/capability authority, immutable production original-package loader namespace and full source/export/build-input inventory.",
+    "W02 closure algorithms, W03 independent common artifact import and W04 actual scalar application proof/cumulative gate; later T03\u2013T11 work."
+  ],
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "source_program_proof_claimed": false,
+  "native_Linux_acceptance_claimed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp"
+}

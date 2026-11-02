@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_type_keys.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations/manifest.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations/manifest/syntax.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations/manifest/versions.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations/manifest/lax.rs",
+    "crates/mpk-vc/tests/go_practical_graph_manifests.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-manifests/format-initial/inputs.json",
+    "bytes": 3163,
+    "sha256": "e26a718ef17b97fac7eb2fbca0964964b6113545feb9f30310d5b0d853f0e6da",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-manifests/run.py",
+    "bytes": 7731,
+    "sha256": "c4d62f566e0c1b0081dcf3655f64f70e729245960de583308a1435f9bdb0fffd",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T14:32:27.233417+00:00",
+  "selection_reason": "Derive dependency go.mod facts independently under pinned lax syntax/directive/version behavior, including arbitrary original bytes, ignored future/main-only blocks, unknown directives, old Go fallback spelling, unchecked module paths, exact require/retract/ignore semantics, pruning and compiler-version facts. Compare all656 earlier original mode cases plus new lax cases, actual initial/final old/empty/versioned/virtual graph inputs and the complete HTTP owner. Shared syntax retains strict defaults, so rerun the strict manifest and original export/module consumers. Run affected strict Clippy/vet and explicit-path formats. No whole gate, removed-language tests, kernel cap, axiom, root/type/error/proof scope or profile activation change.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 1.5807857500039972,
+  "consumed_inputs_unchanged": false,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-manifests/format-initial/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/graph-manifests/format-initial/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T14:32:28.815015+00:00"
+}

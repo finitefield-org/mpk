@@ -1,0 +1,41 @@
+{
+  "schema": "mpk-retained-current-producer-observation-1.0",
+  "status": "passed_selected_producers_in_ongoing_source320_diagnostic",
+  "observed_at_utc": "2026-10-18T11:27:10.979685+00:00",
+  "compiled_source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "complete_test_target_passed": {
+    "package": "mpk-vc",
+    "target": "lib",
+    "passed": 183,
+    "failed": 0,
+    "seconds": 3324.36
+  },
+  "selected_test_lines": [
+    "test csharp_practical_vir_model::ordinary_carriers::structural::aggregate_fold::tests::aggregate_fold_decimal_json_collection_budget ... ok",
+    "test csharp_practical_vir_model::ordinary_carriers::structural::ordered_fold::tests::csharp_03_t06_w09_json_and_collection_folds_share_budget ... ok"
+  ],
+  "completed_target_raw_prefix": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/preceding-current-producers.stdout.log",
+    "sha256": "52c89fe36fcdf20861d963cdd8ad637189a116b8a30463068ae6e815a7edb799",
+    "bytes": 89376
+  },
+  "prefix_scope": "Exact byte prefix of the original still-running stdout through the completed lib target summary. It is not a terminal whole-gate log or gate acceptance.",
+  "source_inputs": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_aggregate_fold.rs",
+      "sha256": "efaa9a47669f73a7fe00f90f1811df36ff666beab251720dde2c1b631253b276",
+      "bytes": 28886,
+      "matches_source320_git_bytes": true
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_ordered_fold.rs",
+      "sha256": "55aba70a15271d5f91665181145045b7757f4b8bb7378335f92f637c5db36623",
+      "bytes": 29450,
+      "matches_source320_git_bytes": true
+    }
+  ],
+  "intervening_production_source_changes": false,
+  "selection_reason": "These unchanged production owners already regenerate and compare both current component/combined definition goldens in the running source320 diagnostic. Do not repeat their unaffected semantic matrices for test-only historical input repairs; new complete gate will run every target again.",
+  "whole_gate_passed": false,
+  "application_proofs_discharged": false
+}

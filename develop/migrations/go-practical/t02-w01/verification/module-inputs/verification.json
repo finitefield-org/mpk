@@ -1,0 +1,110 @@
+{
+  "schema": "mpk.go_practical.module_input_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T08:20:41.665821+00:00",
+  "entry_commit": "770e0f17bf8510cfb5a977562de57665503d231f",
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_module.go",
+      "sha256": "6a6e59cf3bedbd4f9b44bb751171b85c2d486a7d7b9e6d17d0a3ab2e0416ed8b",
+      "bytes": 5531
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_test.go",
+      "sha256": "3dea953e0d21d89d43c6a89b09f31be64ee172a91780d85cfa0f828b81b8894b",
+      "bytes": 7225
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_capture.go",
+      "sha256": "ce5c2310977d3911e69c4d72779493c6c03968012c2ebe0e512be406c96426c2",
+      "bytes": 4150
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_capture_test.go",
+      "sha256": "1575a63ae86c81abed2aeb0befcc354338df95c4874dec93585d4fe5e5b6c085",
+      "bytes": 9599
+    }
+  ],
+  "input_vectors": [
+    {
+      "path": "develop/migrations/go-practical/t01-w02/module-probes.json",
+      "sha256": "c4ce51fdf23a8b55b6dbe0e9675fd710f37040ba183e45c868d3eb43fbd1320f",
+      "bytes": 115741
+    },
+    {
+      "path": "develop/probes/go-practical/module-cases.json",
+      "sha256": "b8aae7daac943cfec28581d994455c276d649411a1bb509c540bcc4e21a59af9",
+      "bytes": 11953
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/source-admission/catalog.json",
+      "sha256": "3882a7b8b8143a9e51eee4b42c29206da3d9c01e29c6cf334eb4e2ebf210d593",
+      "bytes": 31171
+    }
+  ],
+  "selected_results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-inputs/selected/result.json",
+      "sha256": "93d0a6499d9a299e807e284e8a1e117c4b1dcc603b7112719470849086e361cf",
+      "bytes": 8812,
+      "mode": "selected",
+      "status": "passed",
+      "seconds": 2.2165805420372635
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-inputs/legacy/result.json",
+      "sha256": "a6acf381993ae4af349e7b60e5c554fb49f8c9628d1186f28fe47bc881599105",
+      "bytes": 7417,
+      "mode": "legacy",
+      "status": "passed",
+      "seconds": 2.1812370830448344
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-inputs/vet/result.json",
+      "sha256": "3221839c4d76434720963c4f08b703917b280cebaf6d1e2ebc217c02c8089054",
+      "bytes": 3674,
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.46138458291534334
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-inputs/format/result.json",
+      "sha256": "3f24f7209ce7b4af9d0b531a394291b050ceedfadc9b8514440392e325a67bce",
+      "bytes": 3789,
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.006290875026024878
+    }
+  ],
+  "root_tests_passed": 12,
+  "subtests_passed": 52,
+  "legacy_root_tests_passed": 7,
+  "legacy_subtests_passed": 40,
+  "implemented": [
+    "Parse original complete module manifests without formatting or rewriting; retain require/exclude/retract/local and versioned replacement directives.",
+    "Check complete module compiler patch requirements before language normalization; main proof language minors are1.22–1.25; type-check-only dependencies can use older source versions.",
+    "Preserve dependency toolchain suggestions without treating them as main-toolchain selection. Reject unmodeled directive families.",
+    "Strict original go.sum h1 index, canonical module versions and conflicts; identical duplicate lines retain their raw bytes. Verify exact go.mod Hash1 summary against the independent retained Go1.25 observation.",
+    "Capture main/dependency go.mod and optional empty/nonempty go.sum through actual bound-root reader. Reject root workspace/vendor inputs.",
+    "Map one original local replacement directive to the most specific explicit capability, reject unbound/link/ambiguous/detached inputs, reparse original bytes instead of trusting mutable parser metadata.",
+    "Differential comparison with actual pinned Go1.25.0 list -mod=readonly -m -json all, original manifests and complete unused source body retained in the sealed snapshot."
+  ],
+  "reviewed_properties": [
+    "Version selection remains Go resolver responsibility; no MVS reimplementation.",
+    "Root mapping uses full path components, original owner bytes and explicit capabilities; ambiguity at a less-specific root cannot make binding depend on map iteration.",
+    "The module graph comparison reads the original fixture; it is a targeted differential observation, not production immutable-loader materialization.",
+    "Hash1 manifest checks do not claim ZIP/archive verification, package loading or source semantics."
+  ],
+  "remaining": [
+    "Private checked foundation/registry/context and compiler/stdlib/analysis authority.",
+    "Exact versioned offline archives/content/metadata, all consulted manifest sums and selected Go graph validation.",
+    "Immutable original-package loader namespace and source/export/build-input identity capture.",
+    "Original full-package type checking, independent consumer import and application proof work in assigned T02 work items."
+  ],
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "source_program_proof_claimed": false,
+  "native_Linux_acceptance_claimed": false,
+  "T02_W01_complete": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp"
+}

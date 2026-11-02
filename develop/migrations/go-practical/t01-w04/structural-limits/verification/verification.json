@@ -1,0 +1,95 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-m",
+        "unittest",
+        "-v",
+        "test_structural_counters"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical",
+      "exit_code": 0,
+      "log": "unittest-structural.log",
+      "reason": "20 meaningful counter/shape/current/past/heap-cell/copy/target/error/zero/alias-depth/HTTP-budget tests",
+      "sha256": "9dadc4b640b22c66221275852111af739e3b3f95916d066d6f2ac3faa8d5ac4f",
+      "wall_seconds": 1.322752833017148
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_structural_limits.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh pinned native helper rebuild,85 original layout sources and two complete offline HTTP loads; exact counter/type/state/source/vendor/toolchain/binary/raw replay",
+      "sha256": "215aacb840bc2a1466f4052d7c606d3e4f4f1b332152426318a6052464e23ebd",
+      "wall_seconds": 12.272897749964613
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_structural_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Current candidate/owner/unit/outcome scope plus retained admission/view/lifetime/overlay/Nat evidence,143 predecessor pins,two diagnostics,links and ledger order",
+      "sha256": "d519d044cf2e75c012f5ce5c81bffaba329c40516861e82ea5dd6d3755988ae4",
+      "wall_seconds": 3.244558167003561
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+        "-l",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/structural_go_metrics.go",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/structural_module_metrics.go"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "gofmt.log",
+      "reason": "Only the two new native metric Go sources",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.023937542049679905
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-c",
+        "import pathlib;p=pathlib.Path('develop/probes/go-practical');names=('structural_counters.py','structural_counter_cases.py','structural_limit_catalog.py','test_structural_counters.py','run_structural_limits.py','check_structural_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: six new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "Syntax compilation of six new private counter/catalog/fixture/replay/test/metadata Python sources",
+      "sha256": "5f3537ba7604ac2b60bd9acce8ddff6181bb844aa6ce5a06c3175b95c2bbdc85",
+      "wall_seconds": 0.03549074998591095
+    }
+  ],
+  "entry_commit": "b9ec95fce4361b0a37f6ab9bc3297a772593dac3",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative gate reserved for final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "54792064466a3957fd7628247a59bcf454521f2d8ca7d29296e7c6dca1539a1f",
+  "not_repeated": [
+    "unchanged production/kernel unit suites",
+    "older full module/overlay/lifetime/operator/proof matrices; retained source/receipt integrity checked; targeted unused-HTTP loader measured because syntax budget is affected"
+  ],
+  "observed_tests": 20,
+  "output_scope": "complete raw combined stdout/stderr captured from local subprocesses",
+  "python_sources_compiled": 6,
+  "remaining": [
+    "complete source/counter/normalization/finite-ID/allocator proofs and production preallocation enforcement",
+    "exact successor schemas/hashes, independent import and reviewed migrations, resource supervision",
+    "W05 full T01 gate and all T02–T11 implementation/application/local release gates"
+  ],
+  "schema": "mpk.go_practical.w04_structural_limits_verification.v0",
+  "scope": "private numeric/carrier candidates, original layout and full HTTP syntax observations; no production/source/allocator/finite-ID proof or activation",
+  "status": "W04 in progress; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

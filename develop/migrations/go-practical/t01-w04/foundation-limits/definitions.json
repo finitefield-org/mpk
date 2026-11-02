@@ -1,0 +1,1809 @@
+{
+  "caller_extension_points": [],
+  "common_required_members": [
+    "captured source/type/context/contract/operation linkage",
+    "input representation validity under explicit entry/path assumptions",
+    "Go-permitted evaluation and no unspecified interfering sibling effects",
+    "every executed runtime check, profile-domain and permission obligation",
+    "ordinary zero-axiom complete value/effect/output-validity relation",
+    "full frame and same-invocation result/post-state linkage"
+  ],
+  "content_sha256": "aea4dcd78da29c072edaa9699b0c0dd6d85e38a1dc30b0177264aa27496cd394",
+  "core_interfaces": [
+    {
+      "constructors": [
+        "zero : Nat",
+        "succ : Nat -> Nat"
+      ],
+      "family": "Std.Nat",
+      "guards": [
+        "generated reserved recursor name",
+        "family at Sort0",
+        "exact two generated constructors in declaration order",
+        "canonical constructor names/types",
+        "exact eliminator type",
+        "no universe arguments even in partial/neutral uses",
+        "scan all prior types/opaque values/theorem proofs",
+        "reject later constructors without environment mutation",
+        "legacy rec/cases keep their existing rules"
+      ],
+      "iota": [
+        "induct P z s zero = z",
+        "induct P z s (succ n) = s n (induct P z s n)"
+      ],
+      "name": "Std.Nat.induct",
+      "signature": "(P : Nat -> Sort0) -> P zero -> ((n : Nat) -> P n -> P (succ n)) -> (n : Nat) -> P n",
+      "sources": [
+        {
+          "path": "develop/probes/go-practical/control-foundation/rust/nat_induct.rs",
+          "schema": null,
+          "sha256": "730a8d6e56d08a8873e9d052351ea41810eef26da0af5369d34b6c8879de48c6",
+          "size_bytes": 13136
+        },
+        {
+          "path": "develop/probes/go-practical/control-foundation/go/nat_induct.go",
+          "schema": null,
+          "sha256": "c11b4a95db2d988c6efde61cfc472698c975d273af67c6b8d4b85193261d5b36",
+          "size_bytes": 5582
+        }
+      ]
+    },
+    {
+      "constructors": [
+        "false : Bool",
+        "true : Bool"
+      ],
+      "family": "Std.Bool",
+      "guards": [
+        "generated reserved recursor name",
+        "family at Sort0",
+        "exact two generated constructors in declaration order",
+        "canonical constructor names/types",
+        "exact eliminator type",
+        "no universe arguments even in partial/neutral uses",
+        "scan all prior types/opaque values/theorem proofs",
+        "reject later constructors without environment mutation",
+        "legacy rec/cases keep their existing rules"
+      ],
+      "iota": [
+        "recType A B false = A",
+        "recType A B true = B"
+      ],
+      "name": "Std.Bool.recType",
+      "signature": "Sort0 -> Sort0 -> Bool -> Sort0",
+      "sources": [
+        {
+          "path": "develop/probes/go-practical/termination-foundation/rust/bool_rec_type.rs",
+          "schema": null,
+          "sha256": "d37836b7bcb1e11fa318b6431129d79ebd185d6a0f9e21985b5baeb0ae0dcfcd",
+          "size_bytes": 5837
+        },
+        {
+          "path": "develop/probes/go-practical/termination-foundation/go/bool_rec_type.go",
+          "schema": null,
+          "sha256": "6758331d5eb519ba97a4526a2619501fa9a037d50b259dc78ef33fa7fe6d15cc",
+          "size_bytes": 4815
+        }
+      ]
+    }
+  ],
+  "evidence_receipts": [
+    {
+      "path": "develop/migrations/go-practical/t01-w03/completion-audit.json",
+      "schema": "mpk.go_practical.w03_completion_audit.v0",
+      "sha256": "539b11ffe265ae22031883eb57766114577ebcbe728b5edb523bd76d2709ecbd",
+      "size_bytes": 11633
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/nat-termination/observations.json",
+      "schema": "mpk.go_practical.nat_termination_report.v0",
+      "sha256": "70a67a8b0c3913f11b18d16362dd74cb9a0d103d6d4db2bc41f791582b64c6a5",
+      "size_bytes": 131430
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/storage-lifetimes/observations.json",
+      "schema": "mpk.go_practical.lifetime_probe.v0",
+      "sha256": "dcd841f2d1a80cdf8cc2162a171b22213e21d0de5e3d38c5e3a24230d8ce0cc0",
+      "size_bytes": 44558
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/storage-views/observations.json",
+      "schema": "mpk.go_practical.storage_view_probe.v0",
+      "sha256": "0b54d2185ba397499324bd91f80ece8cd79e63100eeed0222afce62732e9622a",
+      "size_bytes": 56068
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/structural-limits/observations.json",
+      "schema": "mpk.go_practical.structural_limits_probe.v0",
+      "sha256": "171c24171a51192ca69d39395df9eff9234d9092b06dd2fc22ba9ba908c8fc16",
+      "size_bytes": 118707
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/variant-termination/observations.json",
+      "schema": "mpk.go_practical.variant_termination_report.v0",
+      "sha256": "bb05a91fd19e419c2fe9029a78e845433f8f7161d7f4356a1fbc52b271eb1641",
+      "size_bytes": 72102
+    }
+  ],
+  "id": "mpk.go.foundation_definitions.v1",
+  "limits_ref": {
+    "content_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+    "id": "mpk.go.practical.limits.v1",
+    "schema": "mpk.go.practical.limits.v1"
+  },
+  "mirrored_checker_inputs": [
+    {
+      "path": "crates/mpk-cert/Cargo.toml",
+      "sha256": "b99ff7fde6a4f0cb50a091eb02997c97d5f2e934b42eddfd375f53b96bfc3a47"
+    },
+    {
+      "path": "crates/mpk-cert/src/axiom_report.rs",
+      "sha256": "cae850ba9adf8f52485f25d3322a479e5effb3b5044c4998b8dbe10e395e9843"
+    },
+    {
+      "path": "crates/mpk-cert/src/binary_tags.rs",
+      "sha256": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b"
+    },
+    {
+      "path": "crates/mpk-cert/src/canonical.rs",
+      "sha256": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74"
+    },
+    {
+      "path": "crates/mpk-cert/src/cert_basic.rs",
+      "sha256": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295"
+    },
+    {
+      "path": "crates/mpk-cert/src/decode.rs",
+      "sha256": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13"
+    },
+    {
+      "path": "crates/mpk-cert/src/encode.rs",
+      "sha256": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf"
+    },
+    {
+      "path": "crates/mpk-cert/src/export.rs",
+      "sha256": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd"
+    },
+    {
+      "path": "crates/mpk-cert/src/hash.rs",
+      "sha256": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83"
+    },
+    {
+      "path": "crates/mpk-cert/src/imports.rs",
+      "sha256": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183"
+    },
+    {
+      "path": "crates/mpk-cert/src/lib.rs",
+      "sha256": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553"
+    },
+    {
+      "path": "crates/mpk-core/Cargo.toml",
+      "sha256": "7d23784732e23fd78029884f2b9a5bc6200e7192c31ae10ada567e61a15607a3"
+    },
+    {
+      "path": "crates/mpk-core/src/bool_cases.rs",
+      "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+    },
+    {
+      "path": "crates/mpk-core/src/bool_rec_type.rs",
+      "sha256": "d37836b7bcb1e11fa318b6431129d79ebd185d6a0f9e21985b5baeb0ae0dcfcd"
+    },
+    {
+      "path": "crates/mpk-core/src/context.rs",
+      "sha256": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d"
+    },
+    {
+      "path": "crates/mpk-core/src/decl_check.rs",
+      "sha256": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783"
+    },
+    {
+      "path": "crates/mpk-core/src/defeq.rs",
+      "sha256": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270"
+    },
+    {
+      "path": "crates/mpk-core/src/env.rs",
+      "sha256": "5f684220304a73c0b0b262b4af06a86b32aa644862b1629c0fb0986f9ee089a4"
+    },
+    {
+      "path": "crates/mpk-core/src/error.rs",
+      "sha256": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive.rs",
+      "sha256": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive_gen.rs",
+      "sha256": "4758d3cf280f0d9c107e4af886f0880fd29670e9a23f2ddffa7728f958075cc2"
+    },
+    {
+      "path": "crates/mpk-core/src/infer.rs",
+      "sha256": "07a67738fddb330c5870e8a9c81bb6693d56b02284ff0c04e996ea4aaa7840e3"
+    },
+    {
+      "path": "crates/mpk-core/src/level.rs",
+      "sha256": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad"
+    },
+    {
+      "path": "crates/mpk-core/src/lib.rs",
+      "sha256": "7b334d7d7a60bcd6bb080ed43ac55f150d651450a2664f19447479fea4fe2d9b"
+    },
+    {
+      "path": "crates/mpk-core/src/name.rs",
+      "sha256": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99"
+    },
+    {
+      "path": "crates/mpk-core/src/nat_induct.rs",
+      "sha256": "730a8d6e56d08a8873e9d052351ea41810eef26da0af5369d34b6c8879de48c6"
+    },
+    {
+      "path": "crates/mpk-core/src/positivity.rs",
+      "sha256": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce.rs",
+      "sha256": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce_inductive.rs",
+      "sha256": "cc5a09e0d17e76d0d8c12b60a498de13d144086d6cd26999402def69f634d3c1"
+    },
+    {
+      "path": "crates/mpk-core/src/subst.rs",
+      "sha256": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f"
+    },
+    {
+      "path": "crates/mpk-core/src/term.rs",
+      "sha256": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60"
+    },
+    {
+      "path": "crates/mpk-kernel/Cargo.toml",
+      "sha256": "3226dc567ef89c9488b61e6c79df2134eb7b1dd36c7cbe19abb3e3e7916ac826"
+    },
+    {
+      "path": "crates/mpk-kernel/src/bool_cases_tests.rs",
+      "sha256": "1ec5b21c3a581fcdd0fd234f7a25c26651958b1f9f96792061fd9936395ca460"
+    },
+    {
+      "path": "crates/mpk-kernel/src/cache.rs",
+      "sha256": "fb9bd805c365f6f614e2f0cb432bc92964e78faa4749df15ad62c4a82ed767ad"
+    },
+    {
+      "path": "crates/mpk-kernel/src/decl_driver.rs",
+      "sha256": "f7dc5ed58726ee9f15ed52d5ca0b240799247f6c8801fa129d24f0656c4fa14e"
+    },
+    {
+      "path": "crates/mpk-kernel/src/json_output.rs",
+      "sha256": "82992d18824fd25f7c1fcd58d569e4e339bda8be2f60588bb20d2537b9b6cdb5"
+    },
+    {
+      "path": "crates/mpk-kernel/src/lib.rs",
+      "sha256": "ff4c1550532e2896bce4374145242f9a54d24502c8f2a79454067d664c383d72"
+    },
+    {
+      "path": "crates/mpk-kernel/src/profile.rs",
+      "sha256": "e44ce30ffbc29617073456ce8dd9bd46ce731549c423a01a747c82542cffc580"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_check.rs",
+      "sha256": "27e8f109d9241cee011984021d74f57088f4ebf30012a858e0fe6416cae96027"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_structural.rs",
+      "sha256": "6117063aa07e3ac5882ebba60ab907518a2c9844f96d35887f5a31c8d66906c0"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_theory.rs",
+      "sha256": "81d52c5be4e325c3cccb1d6e0096b0e118f245f53234d5496dfdac066fee95af"
+    },
+    {
+      "path": "crates/mpk-kernel/src/verifier.rs",
+      "sha256": "e8932a62713b8f8af18a980093a6ff162b3510b4b4e7da924d9b421552a9e3f2"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/certificate_decoder_fuzz_smoke.rs",
+      "sha256": "bd7589eb77846f61a1958ce539e2edbace4d422aaaed096e3c12f49c7b2288e0"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/fast_kernel_profile.rs",
+      "sha256": "c8b68b7a4b22fbe9b23a02c5609cb083be7c843f3521f7e6f05f38c1caf06b88"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/theory_certificate_encoders.rs",
+      "sha256": "568342571c0d9971c4e2b2a6ce6c38d12e957a81e722e2962574088cb3968cc4"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/theory_certificate_fuzz_smoke.rs",
+      "sha256": "e793e24646335a47cba9465046835bed86ba413d7d5384a9cbc53f88c67e2cc1"
+    },
+    {
+      "path": "crates/mpk-theory/Cargo.toml",
+      "sha256": "120227c9b1a0bbbe48e146d6d2412793b9e357cb43e7d21585c760a268081908"
+    },
+    {
+      "path": "crates/mpk-theory/src/array_cert.rs",
+      "sha256": "7b6261cbedc9200ffe8ce5513374e2c14aa6b999926607e450440e26bb25cace"
+    },
+    {
+      "path": "crates/mpk-theory/src/bitvec_eval.rs",
+      "sha256": "3fa7578174f4e3a489d395653687899d1d06fc59780b9224d652638b7d589ac4"
+    },
+    {
+      "path": "crates/mpk-theory/src/bool_cert.rs",
+      "sha256": "17bcac0225e8281ecf754115734cf254addf87bc44a6da4fddaebabbea226c14"
+    },
+    {
+      "path": "crates/mpk-theory/src/lib.rs",
+      "sha256": "10719601e65de998218739cd2b5b61a6bf69df6692c1b829c307c6cf57d61ccd"
+    },
+    {
+      "path": "crates/mpk-theory/src/linarith_cert.rs",
+      "sha256": "3606832e69432a08295e014f0810e5f20aa7d10fdef2bc8789448ebf98d6895a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report_test.go",
+      "sha256": "d0b81bf2605439ccca678118c5074e0193a217cc372d12a41e2ad148c6ec6b8a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases_test.go",
+      "sha256": "c2f1f22c035fcd8640ee7f697820c7c7a258b09c3ed6add072eef1978a79fa1c"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type.go",
+      "sha256": "6758331d5eb519ba97a4526a2619501fa9a037d50b259dc78ef33fa7fe6d15cc"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "415db8d600819882fde6e705a06f141c3c5d76836b6d0271a8970f6182a55f3e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main_test.go",
+      "sha256": "6496a4642d47c4cddabad6a9074f62516184978f88bb3043b3253518c0c635e4"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "04c994f351a58109f05a4b665e9a899f198f86b54679ae7f903f9e82d25d3ac3"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check_test.go",
+      "sha256": "ea726b6f4ecba51dd003e5acdda995f14cd9544e00fd0b6de5bcace599d1493a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_term_intern_test.go",
+      "sha256": "1703507c1036e184508a0a4a082173414f10f01688b20b9ffdb2a3ddc2d24fde"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder_test.go",
+      "sha256": "b9b6bc2753dc513cfc45ca1efe1cff2bca031791dd8293fa6a2873ef3d61c01e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "a11a348e8679ec125b22c38924026468f218401e68b4e22fff2c24b330b0fda2"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq_test.go",
+      "sha256": "f199578a7845974c785a2d4da64d8b995d67fc0ef763a628aab6a6f3bf14a3d8"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash_test.go",
+      "sha256": "922bf39c91f2e715526dd6277939aa324e53809466fa053b2d35ab55ed540b86"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "c11b4a95db2d988c6efde61cfc472698c975d273af67c6b8d4b85193261d5b36"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct_test.go",
+      "sha256": "7e9331ba6ac8f0c1da9d7d35eede58eb324018b0207124ad6f88c56f57777726"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check_test.go",
+      "sha256": "5f29b974ebb641f59723eba732c6b2ec227c52b7ff871a7ce470050a94c1cc18"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify_test.go",
+      "sha256": "eb287ff774bb5415b4f4b9bfa0d2510203da6cd857f613aa0a8fe11802f68bd3"
+    }
+  ],
+  "operation_families": [
+    {
+      "id": "mpk.go.recipe.calls.v1",
+      "operations": [
+        {
+          "component": "calls",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-17",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_calls.go",
+          "primary_test_owner": "go-tools/go2vir/practical_calls_test.go",
+          "profile_domain": [
+            "0 <= arity <= 16"
+          ],
+          "requirement": "GO-V1-R008",
+          "result_relation": "One ordered product; no application wrapper type and no additional execution.",
+          "runtime_safety": [],
+          "signature": "pack<T0..Tk>(T0..Tk) -> Product<T0..Tk>",
+          "source_forms": [
+            "0..16 results"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "calls",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-18",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "joint-call-once",
+            "discarded-result"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_calls.go",
+          "primary_test_owner": "go-tools/go2vir/practical_calls_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R008",
+          "result_relation": "Projection j repeats the same invocation token/source/contract/effect linkage. Discarding a value does not discard execution.",
+          "runtime_safety": [],
+          "signature": "project<j>(invocation.Product,invocation.post_state) -> Tj",
+          "source_forms": [
+            "result use",
+            "discarded result"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "calls",
+          "effects": "exact checked callee effect/frame; restore/transfer tokens without duplicating ownership",
+          "evaluation_rule": "call",
+          "id": "GP-OP-19",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "joint-call-once",
+            "forwarded-return"
+          ],
+          "permission_obligations": [
+            "callee reads/writes fit transferred footprints; writable arguments have tracked fresh origin"
+          ],
+          "primary_production_executor": "go-tools/go2vir/practical_calls.go",
+          "primary_test_owner": "go-tools/go2vir/practical_calls_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R008",
+          "result_relation": "Nonvariadic static signature only. Execute once with exact callee/source/context/contract identities and ordered results. Preconditions, result relation, termination if requested and frame depend on checked callee proof.",
+          "runtime_safety": [],
+          "signature": "call<F>(args,heap,permissions) -> (Product,heap,permissions)",
+          "source_forms": [
+            "resolved static calls",
+            "value-receiver methods"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "calls",
+          "effects": "none",
+          "evaluation_rule": "return",
+          "id": "GP-OP-20",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "forwarded-return",
+            "named-return-zero",
+            "early-return-skips-post"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_calls.go",
+          "primary_test_owner": "go-tools/go2vir/practical_calls_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R008",
+          "result_relation": "Assign/evaluate return values once and establish function post/frame directly. Initialize named results at entry; never run enclosing loop post after return.",
+          "runtime_safety": [],
+          "signature": "return(Product,state) -> Return(Product,state)",
+          "source_forms": [
+            "explicit",
+            "forwarding",
+            "named/naked returns"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "calls",
+          "effects": "ordered local or permitted heap stores; no rollback if later store panics",
+          "evaluation_rule": "assignment",
+          "id": "GP-OP-21",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "parallel-index",
+            "duplicate-target",
+            "slice-rebind-target",
+            "array-rebind-target",
+            "struct-rebind-target",
+            "struct-slice-rebind-target",
+            "cell-field-merge",
+            "assignment-calls-before-store-panic",
+            "rhs-panic-before-writes",
+            "range-assignment-target"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_calls.go",
+          "primary_test_owner": "go-tools/go2vir/practical_calls_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R008",
+          "result_relation": "Phase1 freezes location operands and RHS values with Go order; phase2 stores left-to-right. Local array/struct handles survive rebind; slice addresses retain old descriptor. Every cell field merge uses the current cell.",
+          "runtime_safety": [],
+          "signature": "assign(locations,Product,state) -> state",
+          "source_forms": [
+            "=",
+            ":=",
+            "parallel/tuple",
+            "blank destinations"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        }
+      ]
+    },
+    {
+      "id": "mpk.go.recipe.construction.v1",
+      "operations": [
+        {
+          "component": "construction",
+          "effects": "fresh initialized backing, never overwrite accessible live backing",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-43",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+          "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+          "profile_domain": [
+            "cap <= storage bound; available typed backing slot"
+          ],
+          "requirement": "GO-V1-R015",
+          "result_relation": "Omitted cap=len; initialize every capacity cell with Element<S> zero. cap0 uses non-nil NoAccess representative; positive storage is tracked fresh.",
+          "runtime_safety": [
+            "0 <= len <= cap <= target MaxInt"
+          ],
+          "signature": "slice_make<S,I,J>(I,J,state) -> (S,state)",
+          "source_forms": [
+            "make(S,len[,cap])"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "construction",
+          "effects": "fresh initialized backing",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-44",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+          "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+          "profile_domain": [
+            "resolved length <= storage bound; available typed backing slot"
+          ],
+          "requirement": "GO-V1-R015",
+          "result_relation": "Go keyed/positional element evaluation; zero-fill gaps, infer len/cap from greatest index. Empty literal is non-nil cap0.",
+          "runtime_safety": [],
+          "signature": "slice_literal<S>(elements,state) -> (S,state)",
+          "source_forms": [
+            "S{...}"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "construction",
+          "effects": "one exact typed-cell update",
+          "evaluation_rule": "assignment",
+          "id": "GP-OP-45",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "cell-field-merge"
+          ],
+          "permission_obligations": [
+            "FreshOwned for the addressed cell; NoAccess never grants a write"
+          ],
+          "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+          "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R015",
+          "result_relation": "Full typed cell reconstruction at exact absolute address; preserve all other cells/regions. Field stores merge into the current cell.",
+          "runtime_safety": [
+            "0 <= exact_integer(i) < length(s)"
+          ],
+          "signature": "slice_store<S,I>(S,I,Element<S>,state) -> state",
+          "source_forms": [
+            "s[i]=v",
+            "plain-cell field update"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "construction",
+          "effects": "snapshot-correct destination interval/frame",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-46",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [
+            "n>0 implies destination FreshOwned; source readable"
+          ],
+          "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+          "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R015",
+          "result_relation": "Identical Go element type; n=min(len dst,len src). Capture source values before overlapping writes; return n; n0 preserves all backing.",
+          "runtime_safety": [],
+          "signature": "slice_copy<D,S>(D,S,state) -> (int,state)",
+          "source_forms": [
+            "copy(dst,src)"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "construction",
+          "effects": "destination interval/frame",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-47",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "byte-string-copy"
+          ],
+          "permission_obligations": [
+            "n>0 implies destination FreshOwned"
+          ],
+          "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+          "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R015",
+          "result_relation": "Go special form; n=min(dst len,string byte len); copy all eight bits, unchanged source string.",
+          "runtime_safety": [],
+          "signature": "byte_copy_string<D assignable []byte>(D,string,state) -> (int,state)",
+          "source_forms": [
+            "copy(dst,string)"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "construction",
+          "effects": "suffix/frame",
+          "evaluation_rule": "call",
+          "id": "GP-OP-48",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [
+            "count>0 implies destination FreshOwned"
+          ],
+          "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+          "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+          "profile_domain": [
+            "old len+count <= old cap, exact full-width no-growth proof"
+          ],
+          "requirement": "GO-V1-R015",
+          "result_relation": "Evaluate each value once, write old-length suffix, retain region/offset/capacity and Go named S. Count0 preserves nil tag and backing.",
+          "runtime_safety": [],
+          "signature": "slice_append_values<S>(S,Element<S>...,state) -> (S,state)",
+          "source_forms": [
+            "append(s,v0,..)"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "construction",
+          "effects": "snapshot suffix/frame",
+          "evaluation_rule": "call",
+          "id": "GP-OP-49",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [
+            "positive count implies destination FreshOwned"
+          ],
+          "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+          "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+          "profile_domain": [
+            "old len+len(t) <= old cap"
+          ],
+          "requirement": "GO-V1-R015",
+          "result_relation": "Snapshot complete source slice before overlap-correct suffix writes; same no-growth/domain/named-result rule as GP-OP-48.",
+          "runtime_safety": [],
+          "signature": "slice_append_spread<S,T>(S,T,state) -> (S,state)",
+          "source_forms": [
+            "append(s,t...)"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "construction",
+          "effects": "suffix/frame",
+          "evaluation_rule": "call",
+          "id": "GP-OP-50",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "byte-string-append"
+          ],
+          "permission_obligations": [
+            "positive count implies destination FreshOwned"
+          ],
+          "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+          "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+          "profile_domain": [
+            "old len+byte_length(t) <= old cap"
+          ],
+          "requirement": "GO-V1-R015",
+          "result_relation": "Go special form appends exact bytes and preserves named S; source string unchanged.",
+          "runtime_safety": [],
+          "signature": "byte_append_string<S assignable []byte>(S,string,state) -> (S,state)",
+          "source_forms": [
+            "append(s,string...)"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        }
+      ]
+    },
+    {
+      "id": "mpk.go.recipe.errors.v1",
+      "operations": [
+        {
+          "component": "errors",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-23",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+          "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R009",
+          "result_relation": "NilInterface has no concrete tag/payload.",
+          "runtime_safety": [],
+          "signature": "error_nil<U>() -> Error<U>",
+          "source_forms": [
+            "nil at error type"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "errors",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-24",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+          "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+          "profile_domain": [
+            "ER01..ER05 closed universe/type graph"
+          ],
+          "requirement": "GO-V1-R009",
+          "result_relation": "ConcreteError(type_id,complete root payload); no Error body call. Concrete zero stays non-nil.",
+          "runtime_safety": [],
+          "signature": "error_box<T in U>(T) -> Error<U>",
+          "source_forms": [
+            "implicit/explicit boxing"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "errors",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-25",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+          "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R009",
+          "result_relation": "Test NilInterface only; no payload/message evaluation. The other source operand is resolved untyped nil.",
+          "runtime_safety": [],
+          "signature": "error_is_nil<U>(Error<U>) -> Bool",
+          "source_forms": [
+            "== nil",
+            "!= nil"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "errors",
+          "effects": "checked selected body",
+          "evaluation_rule": "call",
+          "id": "GP-OP-26",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [
+            "each target callee's footprint"
+          ],
+          "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+          "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+          "profile_domain": [
+            "ER06..ER10; no open dispatch"
+          ],
+          "requirement": "GO-V1-R009",
+          "result_relation": "Evaluate receiver once, dispatch finite exact body table, use one joint invocation. Every target body enters closure.",
+          "runtime_safety": [
+            "receiver != NilInterface"
+          ],
+          "signature": "error_invoke<U>(Error<U>,state) -> (string,state)",
+          "source_forms": [
+            "closed error.Error()"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        }
+      ]
+    },
+    {
+      "id": "mpk.go.recipe.loops.v1",
+      "operations": [
+        {
+          "component": "loops",
+          "effects": "complete head/test/body/post state transitions; no finite unroll substitution",
+          "evaluation_rule": "loop",
+          "id": "GP-OP-51",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "switch-continue-target",
+            "early-return-skips-post"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_loops.go",
+          "primary_test_owner": "go-tools/go2vir/practical_loops_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R016",
+          "result_relation": "Execute init once; test before body; normal/continue edges run per-iteration binding transition and post; break/return skip post. Missing test=true.",
+          "runtime_safety": [],
+          "signature": "for(init,test,body,post,state) -> control/state",
+          "source_forms": [
+            "for clause",
+            "condition-only",
+            "for{}"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "loops",
+          "effects": "none",
+          "evaluation_rule": "range",
+          "id": "GP-OP-52",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "range-array-copy",
+            "range-array-descriptor-copy",
+            "range-array-call-once",
+            "range-blank-second-variable",
+            "range-no-element-read"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_loops.go",
+          "primary_test_owner": "go-tools/go2vir/practical_loops_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R016",
+          "result_relation": "Apply Go constant-expression exception with <=1 effective variable. Otherwise evaluate once and copy array value. Produce increasing int indices; only read snapshot element when second nonblank variable is present.",
+          "runtime_safety": [],
+          "signature": "range_array<[N]T:Root>(expression,bindings,body,state) -> control/state",
+          "source_forms": [
+            "array range"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "loops",
+          "effects": "none",
+          "evaluation_rule": "range",
+          "id": "GP-OP-53",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "range-slice-capture",
+            "range-slice-nil",
+            "range-assignment-target"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_loops.go",
+          "primary_test_owner": "go-tools/go2vir/practical_loops_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R016",
+          "result_relation": "Capture descriptor and length once; fetch current shared backing element at each step when second value needed. Local slice rebinding does not shorten the loop. Range assignment uses two phases each iteration.",
+          "runtime_safety": [],
+          "signature": "range_slice<S>(expression,bindings,body,state) -> control/state",
+          "source_forms": [
+            "slice range"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "loops",
+          "effects": "none",
+          "evaluation_rule": "abrupt",
+          "id": "GP-OP-54",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "switch-break-target",
+            "nested-loop-break"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_loops.go",
+          "primary_test_owner": "go-tools/go2vir/practical_loops_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R016",
+          "result_relation": "Target innermost enclosing loop or expression switch. Consumer removes only its own target; break exit never assumes loop test false.",
+          "runtime_safety": [],
+          "signature": "break(target_ref,state) -> Break(target_ref,state)",
+          "source_forms": [
+            "unlabeled break"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "loops",
+          "effects": "none",
+          "evaluation_rule": "abrupt",
+          "id": "GP-OP-55",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "switch-continue-target"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_loops.go",
+          "primary_test_owner": "go-tools/go2vir/practical_loops_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R016",
+          "result_relation": "Target innermost enclosing loop through any switch. Skip rest of body; run exact target's binding/post transition once.",
+          "runtime_safety": [],
+          "signature": "continue(loop_ref,state) -> Continue(loop_ref,state)",
+          "source_forms": [
+            "unlabeled continue"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        }
+      ]
+    },
+    {
+      "id": "mpk.go.recipe.slices.v1",
+      "operations": [
+        {
+          "component": "slices",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-35",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+          "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R013",
+          "result_relation": "Nil tag with zero length/capacity and NoAccess.",
+          "runtime_safety": [],
+          "signature": "slice_nil<S>() -> S",
+          "source_forms": [
+            "nil slice",
+            "zero slice"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "slices",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-36",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "slice-rebind-target"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+          "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R013",
+          "result_relation": "Copy descriptor, preserve sharing and permissions; ZS03 canonical zero-access association is observational only.",
+          "runtime_safety": [],
+          "signature": "slice_value<S>(S) -> S",
+          "source_forms": [
+            "descriptor assignment/root copies"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "slices",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-37",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+          "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R013",
+          "result_relation": "Exact descriptor length/capacity, zero for nil. Do not replace cap by len.",
+          "runtime_safety": [],
+          "signature": "slice_size<S>(S,kind) -> int",
+          "source_forms": [
+            "len",
+            "cap"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "slices",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-38",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+          "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R013",
+          "result_relation": "Test nil tag, never length/capacity/region equality. Slice-to-slice equality is excluded.",
+          "runtime_safety": [],
+          "signature": "slice_is_nil<S>(S) -> Bool",
+          "source_forms": [
+            "== nil",
+            "!= nil"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "slices",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-39",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [
+            "read accessible typed cell"
+          ],
+          "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+          "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R014",
+          "result_relation": "Derive full absolute offset+i and initialized typed-cell read from validity and source guard. No supplied fit/no-wrap oracle.",
+          "runtime_safety": [
+            "0 <= exact_integer(i) < length(s)"
+          ],
+          "signature": "slice_read<S,I>(S,I,heap) -> Element<S>",
+          "source_forms": [
+            "s[i]"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "slices",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-40",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+          "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+          "profile_domain": [
+            "output validity derived from input validity, not assumed"
+          ],
+          "requirement": "GO-V1-R014",
+          "result_relation": "offset'=offset+lo; length'=hi-lo; cap'=cap-lo; keep nil tag and shared store. Omitted hi is old len.",
+          "runtime_safety": [
+            "0 <= lo <= hi <= cap(s)"
+          ],
+          "signature": "slice_two<S,I,J>(S,I,J) -> S",
+          "source_forms": [
+            "s[lo:hi]"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "slices",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-41",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+          "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R014",
+          "result_relation": "offset'=offset+lo; length'=hi-lo; cap'=max-lo; preserve sharing/nil tag.",
+          "runtime_safety": [
+            "0 <= lo <= hi <= max <= cap(s)"
+          ],
+          "signature": "slice_three<S,I,J,K>(S,I,J,K) -> S",
+          "source_forms": [
+            "s[lo:hi:max]"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "slices",
+          "effects": "materialize tracked array backing if needed",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-42",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+          "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+          "profile_domain": [
+            "typed live storage and slot budget"
+          ],
+          "requirement": "GO-V1-R013",
+          "result_relation": "View storage of that array location; array assignment/value passing copies values. Root array elements with descriptors are not Plain and cannot produce nested-reference slice cells.",
+          "runtime_safety": [
+            "0 <= lo <= hi <= max <= N; max=N for two-index view"
+          ],
+          "signature": "array_view<T:Plain,N>(array_location,lo,hi[,max],state) -> ([]T,state)",
+          "source_forms": [
+            "addressable array slicing"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        }
+      ]
+    },
+    {
+      "id": "mpk.go.recipe.strings.v1",
+      "operations": [
+        {
+          "component": "strings",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-27",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+          "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+          "profile_domain": [
+            "materialized literal byte length <= string bound; overflow is source/profile rejection, not runtime panic; exact compile-time constants use GP-OP-02"
+          ],
+          "requirement": "GO-V1-R010",
+          "result_relation": "Exact 8-bit bytes including NUL/invalid UTF8, zero padding outside logical length.",
+          "runtime_safety": [],
+          "signature": "string_literal<T>(bytes) -> T",
+          "source_forms": [
+            "string literals",
+            "named strings"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "strings",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-28",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+          "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R010",
+          "result_relation": "Byte equality or lexicographic unsigned-byte order, then length; never Unicode/rune order.",
+          "runtime_safety": [],
+          "signature": "string_compare<T>(op,T,T) -> Bool",
+          "source_forms": [
+            "==",
+            "!=",
+            "<",
+            "<=",
+            ">",
+            ">="
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "strings",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-29",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+          "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R010",
+          "result_relation": "Logical byte length as target int. A source constant len uses GP-OP-02 with its exact Go constant type/context.",
+          "runtime_safety": [],
+          "signature": "string_len<T>(T) -> int",
+          "source_forms": [
+            "nonconstant len(string)"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "strings",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-30",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+          "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R010",
+          "result_relation": "Full eight bits of source byte at exact index.",
+          "runtime_safety": [
+            "0 <= exact_integer(i) < byte_length(s)"
+          ],
+          "signature": "string_byte<T,I>(T,I) -> byte",
+          "source_forms": [
+            "s[i]"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "strings",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-31",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+          "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R010",
+          "result_relation": "Bytes s[lo..hi), length hi-lo, canonical unobservable padding; result retains Go string type.",
+          "runtime_safety": [
+            "0 <= lo <= hi <= byte_length(s)"
+          ],
+          "signature": "substring<T,I,J>(T,I,J) -> T",
+          "source_forms": [
+            "s[lo:hi]"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "strings",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-32",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+          "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+          "profile_domain": [
+            "byte_length(s)+byte_length(t) <= string bound; not a Go panic"
+          ],
+          "requirement": "GO-V1-R012",
+          "result_relation": "Complete left bytes followed by right bytes; result length is mathematical sum.",
+          "runtime_safety": [],
+          "signature": "concat<T>(T,T) -> T",
+          "source_forms": [
+            "s+t"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "strings",
+          "effects": "none",
+          "evaluation_rule": "call",
+          "id": "GP-OP-33",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+          "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R011",
+          "result_relation": "Prefix byte relation including empty prefix; exact Go1.25.0 symbol/body/binding proof required.",
+          "runtime_safety": [],
+          "signature": "has_prefix(string,string) -> Bool",
+          "source_forms": [
+            "exact strings.HasPrefix adapter or verified source"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "strings",
+          "effects": "none",
+          "evaluation_rule": "call",
+          "id": "GP-OP-34",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+          "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R011",
+          "result_relation": "Suffix byte relation including empty suffix; exact Go1.25.0 symbol/body/binding proof required.",
+          "runtime_safety": [],
+          "signature": "has_suffix(string,string) -> Bool",
+          "source_forms": [
+            "exact strings.HasSuffix adapter or verified source"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        }
+      ]
+    },
+    {
+      "id": "mpk.go.recipe.syntax.v1",
+      "operations": [
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-04",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Full-width Go bit equations with wrapping; unary negation has no runtime overflow guard.",
+          "runtime_safety": [],
+          "signature": "integer_unary<T>(op,T) -> T",
+          "source_forms": [
+            "+",
+            "-",
+            "^"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-05",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Full-width Go wrapping/bit equations. Mathematical no-overflow/sum claims are separate requested theorems.",
+          "runtime_safety": [],
+          "signature": "integer_binary<T>(op,T,T) -> T",
+          "source_forms": [
+            "+",
+            "-",
+            "*",
+            "&",
+            "|",
+            "^",
+            "&^"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-06",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "integer-defined-edges"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Go quotient truncates toward zero; remainder follows dividend. Signed minimum/-1 gives minimum and remainder0.",
+          "runtime_safety": [
+            "divisor != 0"
+          ],
+          "signature": "integer_divrem<T>(op,T,T) -> T",
+          "source_forms": [
+            "/",
+            "%"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-07",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "integer-defined-edges"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Interpret the complete count as a mathematical integer; nonnegative count>=width gives zero or signed-right sign fill, never count modulo width.",
+          "runtime_safety": [
+            "signed shift count >= 0"
+          ],
+          "signature": "shift<T,I>(op,T,I) -> T",
+          "source_forms": [
+            "<<",
+            ">>"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "short_circuit",
+          "id": "GP-OP-08",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "short-circuit"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Not and Go short circuit; skipped RHS has no execution/effect/safety member.",
+          "runtime_safety": [],
+          "signature": "boolean(op,Bool[,Bool]) -> Bool",
+          "source_forms": [
+            "!",
+            "&&",
+            "||"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-09",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Go-compatible nominal operands; Bool equality only, integer signedness/width exact, strings use GP-OP-28.",
+          "runtime_safety": [],
+          "signature": "scalar_compare<T>(op,T,T) -> Bool",
+          "source_forms": [
+            "==",
+            "!=",
+            "<",
+            "<=",
+            ">",
+            ">="
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-10",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [
+            "exact field/index identity, no duplicate/keyed-out-of-range initializer; frozen aggregate limits"
+          ],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Evaluate supplied initializers once in Go-permitted order; assign explicit fields/elements, zero-fill omitted positions. Blank fields have no observable value; do not erase initializer evaluation.",
+          "runtime_safety": [],
+          "signature": "aggregate_construct<T:Root>(initializers) -> T",
+          "source_forms": [
+            "array/struct literals"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-11",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Read exact captured non-embedded field; Root descriptor fields retain backing. Blank fields are not observable.",
+          "runtime_safety": [],
+          "signature": "field<T,F>(T,field_id) -> F",
+          "source_forms": [
+            "direct field selection"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "local value and any associated array backing update; preserve other locations and live view associations",
+          "evaluation_rule": "assignment",
+          "id": "GP-OP-12",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "array-rebind-target",
+            "array-view-assignment",
+            "struct-rebind-target",
+            "struct-slice-rebind-target",
+            "cell-field-merge"
+          ],
+          "permission_obligations": [
+            "positive writes to materialized local array backing use its tracked FreshOwned permission"
+          ],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Update the current value at an internal local-root location path. Existing array storage at that location, including array fields, keeps its identity and updates all live views; assignment copies source elements. A slice-crossing location captures its descriptor and addresses its heap instead.",
+          "runtime_safety": [],
+          "signature": "local_store<T>(location<T>,T,state) -> state",
+          "source_forms": [
+            "local/parameter/field/array value updates"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-13",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Read full T at exact mathematical index; no low-address projection before bounds proof.",
+          "runtime_safety": [
+            "0 <= exact_integer(i) < N"
+          ],
+          "signature": "array_read<T,N,I>([N]T,I) -> T",
+          "source_forms": [
+            "a[i]"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "short_circuit",
+          "id": "GP-OP-15",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Run exactly the selected branch after condition effects; preserve short circuit and lexical scopes.",
+          "runtime_safety": [],
+          "signature": "branch(Bool,state,then,else) -> control/state",
+          "source_forms": [
+            "if",
+            "else if"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "switch",
+          "id": "GP-OP-16",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "switch-case-order",
+            "switch-default-first",
+            "switch-break-target"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Capture tag once; test nondefault case expressions in source order until first equality. Default position gives no priority. Consume only break targeted to this switch; no fallthrough/type-switch.",
+          "runtime_safety": [],
+          "signature": "switch(tag,cases,default,state) -> control/state",
+          "source_forms": [
+            "expression switch",
+            "tagless switch"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "compound",
+          "id": "GP-OP-22",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "compound-once"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Evaluate target once; perform the corresponding Go scalar read/op/store with its actual checks and effects.",
+          "runtime_safety": [],
+          "signature": "compound(location<T>,op,T,state) -> state",
+          "source_forms": [
+            "op=",
+            "++",
+            "--"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "syntax",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-56",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "array-size-call",
+            "range-array-call-once"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+          "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R007",
+          "result_relation": "Runtime result N at target int. A valid Go constant-expression case routes to GP-OP-02, retaining constant typing/representability and skipping operand execution. Otherwise execute operand once with every call/check/effect even though N is statically known.",
+          "runtime_safety": [],
+          "signature": "array_size<[N]T>(expression,kind,state) -> (int,state)",
+          "source_forms": [
+            "len(array)",
+            "cap(array)"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        }
+      ]
+    },
+    {
+      "id": "mpk.go.recipe.types.v1",
+      "operations": [
+        {
+          "component": "types",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-01",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "named-return-zero"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_types.go",
+          "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R006",
+          "result_relation": "Bool false; integer zero; empty string; nil slice/error; arrays/structs recurse, preserving nominal T.",
+          "runtime_safety": [],
+          "signature": "zero<T:Root>() -> T",
+          "source_forms": [
+            "omitted fields",
+            "var",
+            "named results"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "types",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-02",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_types.go",
+          "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+          "profile_domain": [
+            "materialized runtime value fits frozen type/string/aggregate limits; untyped compile-time intermediates remain exact"
+          ],
+          "requirement": "GO-V1-R006",
+          "result_relation": "Use compiler-resolved exact value and source Go representability; no intermediate wrapping before conversion.",
+          "runtime_safety": [],
+          "signature": "constant<T>(exact Go constant) -> T",
+          "source_forms": [
+            "const",
+            "iota",
+            "typed literals"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "types",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-03",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_types.go",
+          "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+          "profile_domain": [
+            "source and target are closed admitted types; no implicit nominal conversion"
+          ],
+          "requirement": "GO-V1-R006",
+          "result_relation": "Closed whitelist: integer-to-integer extension/truncation; Go-compatible Bool/string named-type conversions; Go-identical underlying array/struct conversions (Go tag-ignoring rule); identical-underlying slice conversions; error identity at the same closed U. Aggregate values copy, descriptor fields retain backing, error identity preserves complete carrier. Error boxing/nil use GP-OP-23/24. Exclude slice-to-array, integer-string, string-byte/rune slice, unsafe and pointer conversions.",
+          "runtime_safety": [],
+          "signature": "convert<S,T>(S) -> T",
+          "source_forms": [
+            "integer/Bool/string/aggregate/slice identity-compatible conversions"
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        },
+        {
+          "component": "types",
+          "effects": "none",
+          "evaluation_rule": "ordinary",
+          "id": "GP-OP-14",
+          "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+          "native_evaluation_vectors": [
+            "aggregate-error-equality"
+          ],
+          "permission_obligations": [],
+          "primary_production_executor": "go-tools/go2vir/practical_types.go",
+          "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+          "profile_domain": [],
+          "requirement": "GO-V1-R006",
+          "result_relation": "Admit only Go-comparable arrays/structs recursively containing Bool/integer/string/equality-admitted aggregates. Exclude error/slice/interface at every path. Compare nonblank fields/elements; negate for !=.",
+          "runtime_safety": [],
+          "signature": "aggregate_equal<T>(T,T) -> Bool",
+          "source_forms": [
+            "array/struct == !="
+          ],
+          "vc_owner": "crates/mpk-vc/src/go_practical_vc.rs"
+        }
+      ]
+    }
+  ],
+  "operation_table": {
+    "path": "develop/migrations/go-practical/t01-w04/operation-table.json",
+    "schema": "mpk.go_practical.w04_operation_table_draft.v0",
+    "sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+    "size_bytes": 55993
+  },
+  "representation": "operation_recipe_inventory_draft",
+  "schema": "mpk.go.foundation_definitions.v1",
+  "semantic_profile": "mpk.go.practical.v1",
+  "source_callable_members": [],
+  "version": 1
+}

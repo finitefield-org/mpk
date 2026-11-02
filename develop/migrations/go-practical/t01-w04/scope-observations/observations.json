@@ -1,0 +1,89 @@
+{
+  "artifacts": {
+    "native-input.json": {
+      "bytes": 8859,
+      "sha256": "ecc0d24e78f23459ef7cf8a3fcbe03dcfedb1f983770bf465658dd58acef099f"
+    },
+    "native-output.json": {
+      "bytes": 15042,
+      "sha256": "5935aa47a5b338b87267a92c4d57c414c28b31e139e6a2f3aa6ad3dc6aeef6a1"
+    }
+  },
+  "build": {
+    "buildvcs": false,
+    "effective_language": "go1.25.0",
+    "host": "darwin/arm64",
+    "release": "go1.25.0",
+    "runtime_target_scope": "host observations, not Linux release",
+    "trimpath": true,
+    "type_target": "gc/amd64"
+  },
+  "draft_outcome_counts": {
+    "accepted_model": 22,
+    "accepted_model_pending_domain": 1,
+    "accepted_model_pending_safety": 1,
+    "configuration_rejection": 1,
+    "source_rejection": 24
+  },
+  "inputs": [
+    {
+      "bytes": 38332,
+      "path": "develop/migrations/go-practical/t01-w04/source-vectors.json",
+      "sha256": "7db54f98dafd84c826ec0db7187bf5010960f0ac146d3107b20951b22f9240f6"
+    },
+    {
+      "bytes": 9971,
+      "path": "develop/probes/go-practical/check_scope_report.py",
+      "sha256": "0e3b6561e142a31bc6d72f20210cf5bbdd9d37b7bed8374b96f90c6d6b799857"
+    },
+    {
+      "bytes": 634,
+      "path": "develop/probes/go-practical/host-toolchain.json",
+      "sha256": "1927d5c54d8e62d2e479e9b30969f4ff4d482163d1da11dce8c0595e0d060bb4"
+    },
+    {
+      "bytes": 17741,
+      "path": "develop/probes/go-practical/run_module_probes.py",
+      "sha256": "95cf152ef7538f97e51f68831c2c7f9521445a18612d0bde0ba22d5b503d205c"
+    },
+    {
+      "bytes": 4835,
+      "path": "develop/probes/go-practical/run_scope_probes.py",
+      "sha256": "44dd61340c1acb031dcda2f779035b49cc82103ae87c9451654eec28ef75a143"
+    },
+    {
+      "bytes": 14946,
+      "path": "develop/probes/go-practical/scope_cases.py",
+      "sha256": "57a0f9aa3f8973ca56b7fe9093fea33e58637968f1880a76059e0cd41bdb0377"
+    },
+    {
+      "bytes": 8377,
+      "path": "develop/probes/go-practical/scope_reference.go",
+      "sha256": "3f32289da757dcd1930742f8bb05658f27b2c142ee4f6ebe3697387a55d6e16a"
+    },
+    {
+      "bytes": 7908,
+      "path": "develop/probes/go-practical/test_scope_report.py",
+      "sha256": "7f0e9eb05b73eb04dc717e8a3468a7def1032db39309cb60a524598b7beadef7"
+    }
+  ],
+  "native_type_counts": {
+    "ok": 43,
+    "source_parse_error": 1,
+    "source_type_error": 5
+  },
+  "observer_binary_sha256": "7cd34b039e0c3c483cb987264b67b2911ba7dfb8a42d98ae5192e4385066f8ad",
+  "pending": [
+    "W04 exact operation/overlay/wire/limit/migration freeze and review",
+    "T02\u2013T06 production source/type/closure/error/slice/loop bindings and both-checker application proofs",
+    "W05 complete T01 gate; T07 installed-release activation"
+  ],
+  "schema": "mpk.go_practical.w04_scope_observations.v0",
+  "scope": "private original-Go type/runtime observations for W04 draft vectors; no practical frontend admission, source/model proof, Linux release or public-profile acceptance",
+  "status": "native observations retained; W04 freeze remains in progress",
+  "toolchain_inventory": {
+    "files": 14496,
+    "sha256": "85d1dd7ca77c9263d83e25f05e4c32105738fdc002434d61b27671aee4e259bc"
+  },
+  "work_item": "GO-PRAC-T01-W04"
+}

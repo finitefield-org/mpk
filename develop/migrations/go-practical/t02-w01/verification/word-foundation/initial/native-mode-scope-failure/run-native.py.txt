@@ -1,0 +1,71 @@
+"""Fresh native Go operator observations, independently of ordinary proof/model code."""
+from pathlib import Path
+import datetime,hashlib,json,os,stat,subprocess,sys,tempfile,time
+
+repo=Path.cwd();root=Path(__file__).resolve().parent.relative_to(repo.resolve());mode=sys.argv[1]
+assert mode in ['build','compare']
+def seal(p):
+ p=Path(p);b=p.read_bytes();return {'path':str(p),'sha256':hashlib.sha256(b).hexdigest(),'bytes':len(b)}
+def write(p,value):p.write_text(json.dumps(value,indent=2)+'\n')
+if mode=='build':
+ out=root/'native';out.mkdir(exist_ok=False);inputs=out/'inputs';inputs.mkdir()
+ original=Path('develop/probes/go-practical/word_observer.go');queries=Path('develop/migrations/go-practical/t01-w04/word-foundation/queries.json')
+ source=inputs/'word_observer.go';source.write_bytes(original.read_bytes());query_input=inputs/'queries.json';query_input.write_bytes(queries.read_bytes())
+ prepared=Path('develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json');image=json.loads(prepared.read_text())
+ assert image['host']=='darwin_arm64' and image['toolchain']['distribution_sha256']=='a80de99f741cb69a8ed887c137b0be3d6368ddd051ac3145eb6feec7f85b6fb7'
+ original_toolchain=Path('/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64')
+ work=Path(tempfile.mkdtemp(prefix='mpk-go-practical-word-native-',dir='/private/tmp'));toolchain=work/'image';toolchain.mkdir();goroot=toolchain/'go';go=goroot/'bin/go'
+ for row in image['inventory']['files']:
+  relative=Path(row['path']);assert not relative.is_absolute() and '..' not in relative.parts
+  p=original_toolchain/relative;s=p.lstat();assert stat.S_ISREG(s.st_mode) and not p.is_symlink()
+  raw=p.read_bytes();assert len(raw)==row['size_bytes'] and hashlib.sha256(raw).hexdigest()==row['sha256'] and bool(s.st_mode&0o111)==row['executable']
+  target=toolchain/relative;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw);target.chmod(0o555 if row['executable'] else 0o444)
+ def validate_image(label):
+  start=time.monotonic();expected={row['path'] for row in image['inventory']['files']};assert len(expected)==5577
+  actual=set()
+  for directory,dirs,files in os.walk(goroot,followlinks=False):
+   for name in dirs:assert not (Path(directory)/name).is_symlink()
+   for name in files:actual.add(str((Path(directory)/name).relative_to(toolchain)))
+  assert actual==expected,(sorted(actual-expected),sorted(expected-actual))
+  for row in image['inventory']['files']:
+   p=toolchain/row['path'];s=p.lstat();assert stat.S_ISREG(s.st_mode) and not p.is_symlink()
+   assert s.st_size==row['size_bytes'] and bool(s.st_mode&0o111)==row['executable']
+   assert hashlib.sha256(p.read_bytes()).hexdigest()==row['sha256'],str(p)
+  return {'label':label,'files':5577,'original_bytes':sum(r['size_bytes'] for r in image['inventory']['files']),'seconds':time.monotonic()-start,'status':'passed'}
+ before=validate_image('before fresh empty-cache native compilation')
+ cache=work/'cache';cache.mkdir();binary=work/'word-observer'
+ overrides={'GOROOT':str(goroot),'GOCACHE':str(cache),'GOPATH':str(work/'gopath'),'GOMODCACHE':str(work/'mod'),'GOENV':'off','GOWORK':'off','GOTOOLCHAIN':'local','GOPROXY':'off','GOSUMDB':'off','GOTELEMETRY':'off','GO111MODULE':'off','CGO_ENABLED':'0','GOFLAGS':'','GOEXPERIMENT':''}
+ env=os.environ.copy();env.update(overrides);version=subprocess.check_output([str(go),'version'],env=env,text=True).strip();assert version=='go version go1.25.0 darwin/arm64'
+ commands=[]
+ def run(name,command,stdin=None):
+  start=time.monotonic()
+  with (out/(name+'.stdout.log')).open('wb') as stdout,(out/(name+'.stderr.log')).open('wb') as stderr:
+   result=subprocess.run(command,env=env,input=stdin,stdout=stdout,stderr=stderr,check=False)
+  row={'name':name,'command':command,'exit_code':result.returncode,'seconds':time.monotonic()-start,'stdout':seal(out/(name+'.stdout.log')),'stderr':seal(out/(name+'.stderr.log'))};commands.append(row);assert result.returncode==0,row
+ command=[str(go),'build','-trimpath','-buildvcs=false','-o',str(binary),str(source.resolve())];run('build',command)
+ raw=query_input.read_bytes();run('run1',[str(binary)],raw);run('run2',[str(binary)],raw)
+ one=(out/'run1.stdout.log').read_bytes();two=(out/'run2.stdout.log').read_bytes();assert one==two
+ observations=json.loads(one);assert len(observations)==1640 and len({r['id'] for r in observations})==1640
+ after=validate_image('after native compilation and both executions')
+ assert original.read_bytes()==source.read_bytes() and queries.read_bytes()==raw
+ record={'schema':'mpk.go_practical.fresh_word_native_observation.v1','status':'passed','observed_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'original_source':seal(original),'owned_source':seal(source),'original_queries':seal(queries),'owned_queries':seal(query_input),'compiler_version':version,'complete_original_prepared_image':seal(prepared),'complete_original_image_checks':[before,after],'compiler':seal(go),'observer_binary':seal(binary),'build_cache_initially_empty':True,'environment':overrides,'commands':commands,'two_native_outputs_byte_identical':True,'native_rows':1640,'native_kind_counts':{kind:sum(r['kind']==kind for r in observations) for kind in ['word','boolean','runtime_safety_failure']},'scope':'Actual typed native Go operators/conversions and recovered runtime panics over the frozen finite matrix. This is independent comparison evidence, not a universal arithmetic/source/application proof or native Linux release gate.','CSharp_tests_executed':False,'public_profile_activated':False,'full_T02_gate':'deferred to W04: check-fast.sh --skip-csharp'}
+ write(out/'result.json',record);print(json.dumps({'status':'passed','native_rows':1640,'two_runs_identical':True,'kind_counts':record['native_kind_counts']}))
+else:
+ out=root/'native-comparison';out.mkdir(exist_ok=False)
+ native_path=root/'native/result.json';native=json.loads(native_path.read_text());assert native['status']=='passed'
+ for row in native['commands']:
+  for name in ['stdout','stderr']:assert seal(row[name]['path'])==row[name]
+ data=root/'reviewed/rust-tests/model';model=json.loads((data/'model.json').read_text());oracle=json.loads((data/'oracle.json').read_text());metrics=json.loads((data/'metrics.json').read_text());observations=json.loads((root/'native/run1.stdout.log').read_text())
+ assert model==oracle and len(model)==len(observations)==1640
+ certificate=root/'reviewed/rust-tests/certificates/word-foundation.mpcert';assert (data/'certificate.mpcert').read_bytes()==certificate.read_bytes()
+ assert metrics['query_sha256']==native['original_queries']['sha256']
+ counts={'word':0,'boolean':0,'runtime_safety_failure':0}
+ for a,b in zip(model,observations,strict=True):
+  assert a['id']==b['id'] and a['kind']==b['kind'],(a,b)
+  counts[a['kind']]+=1
+  if a['kind']=='word':assert a['value_hex']==b['value_hex'],(a,b)
+  elif a['kind']=='boolean':assert a['value']==b['value'],(a,b)
+  else:
+   expected={'division_by_zero':'divide by zero','negative_shift':'negative shift'}[a['reason']];assert expected in b['detail'],(a,b)
+ record={'schema':'mpk.go_practical.word_model_native_comparison.v1','status':'passed','observed_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'native_execution':seal(native_path),'actual_certificate':seal(certificate),'model_certificate':seal(data/'certificate.mpcert'),'actual_decoded_certificate_model':seal(data/'model.json'),'independent_integer_oracle':seal(data/'oracle.json'),'model_metrics':seal(data/'metrics.json'),'rows':1640,'kind_counts':counts,'agreement':'Every actual decoded-certificate Boolean-DAG result/guard agrees with independent finite integer arithmetic and fresh pinned native Go execution. Two original native byte streams are identical. All full bits, signed minima, carry/remainder boundaries, full64 shift counts and conversions stay intact.','scope':'Finite observations and actual ordinary basic laws; no general Nat/Int conservation, Go source correspondence, whole application, immutable capture authority or Linux release proof.','CSharp_tests_executed':False,'public_profile_activated':False,'full_T02_gate':'deferred to W04: check-fast.sh --skip-csharp'}
+ write(out/'result.json',record);print(json.dumps({'status':'passed','rows':1640,'kind_counts':counts}))

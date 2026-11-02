@@ -1,0 +1,24 @@
+{
+  "certificate": "numeric-second.mpcert",
+  "correction": "transport not(true)=false by checked Bool congruence on the original inverse theorem; do not silently replace its nested incoming carry",
+  "correction_evidence": {
+    "path": "../reslicing/observations.json",
+    "replay": "separate final --check passes all 100 candidates in both unchanged checkers and reproduces exact canonical certificates and original-Go bytes",
+    "scope": "complete ordinary 100-candidate matrix: both checkers accept 50 zero-axiom claims and reject 50 distinct false mutations at core type checking; original failed positives remain diagnostic",
+    "sha256": "19fe7ddf01364d37e1f0fb884dde91421ff7076c43884df9da14ba767ca8ae4a"
+  },
+  "expected": "accepted",
+  "failed_positive_certificates": 3,
+  "localization": "localization/observations.json and localization/prefix-localization.json",
+  "localized_first_failure": "SliceAccessValidityResliceNumberRestoreSum",
+  "observations": "observations.json",
+  "observed": "both core type mismatch",
+  "pending": null,
+  "schema": "mpk.go_practical.reslice_initial.v0",
+  "scope": "ordinary full-width endpoint arithmetic extension; numeric library candidate rejected at core type checking before general reslice claims",
+  "sha256": "d2e29b961839d3b49574535abbf3df3dd5a3f151979b461239e54c2fad7950a0",
+  "source_baseline": "94752d34168df9aa71dc420126bb25fdf29bace5",
+  "source_snapshot": "source",
+  "source_snapshot_groups": 2,
+  "status": "failed positive diagnostic; never false-claim evidence"
+}

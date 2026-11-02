@@ -1,0 +1,71 @@
+{
+  "finding": "new standalone exporter embeds temporary dependency source paths,so fresh exporter binary hash differs even though all20 native checker outcomes pass",
+  "scope": "private untrusted-tool build reproducibility failure; not ordinary proof or Go source failure",
+  "observed_exporter_sha256": "bc6e1926679b3614658e68ae38b31d0fc544c23f2e55a102a9cfddc21beb5f4d",
+  "materialized_exporter_sha256": "aa0f2eba967660267b7ab45b6c7441cf25bcdd8d026e1ffb74ac8ae682fa8a44",
+  "observed_rust_checker_sha256": "b502ab86c98ebb031d5d78da1c81d92be9649d5882913b1b68914bc079328a38",
+  "materialized_rust_checker_sha256": "b502ab86c98ebb031d5d78da1c81d92be9649d5882913b1b68914bc079328a38",
+  "embedded_paths": [
+    "/private/tmp/mpk-word-arithmetic-uaw6a8s6/workspace/crates/mpk-cert/src/axiom_report.rs",
+    "/private/tmp/mpk-word-arithmetic-uaw6a8s6/workspace/crates/mpk-core/src/error.rs",
+    "/private/tmp/mpk-word-arithmetic-uaw6a8s6/workspace/crates/mpk-core/src/level.rs",
+    "/private/tmp/mpk-word-arithmetic-uaw6a8s6/workspace/crates/mpk-core/src/name.rs",
+    "/private/tmp/mpk-word-arithmetic-uaw6a8s6/workspace/crates/mpk-core/src/reduce_inductive.rs",
+    "/private/tmp/mpk-word-arithmetic-uaw6a8s6/workspace/crates/mpk-core/src/term.rs",
+    "/private/tmp/mpk-word-arithmetic-uaw6a8s6/workspace/crates/mpk-kernel/src/decl_driver.rs",
+    "/private/tmp/mpk-word-arithmetic-uaw6a8s6/workspace/crates/mpk-kernel/src/json_output.rs",
+    "/private/tmp/mpk-word-arithmetic-uaw6a8s6/workspace/crates/mpk-kernel/src/proof_theory.rs",
+    "/private/tmp/mpk-word-arithmetic-uaw6a8s6/workspace/crates/mpk-theory/src/bool_cert.rs"
+  ],
+  "repair": "standalone prefix remapping alone remained nonreproducible; final exporter builds as a second binary of the unchanged retained private tool package,with shared frozen dependency lock and fixed virtual source prefix",
+  "inputs": [
+    {
+      "path": "exporter-fresh.bin",
+      "sha256": "bc6e1926679b3614658e68ae38b31d0fc544c23f2e55a102a9cfddc21beb5f4d"
+    },
+    {
+      "path": "fresh-replay.json",
+      "sha256": "75dcd305409061f6d45cbff465290060be6dafe0ec0c36557b43b10f4fa20bb2"
+    },
+    {
+      "path": "fresh-replay.log",
+      "sha256": "186879e8bde92253f68e83303bc282fd8004f6a228334935cc05f90738c80c54"
+    },
+    {
+      "path": "observations.json",
+      "sha256": "71acf4a68257f38b35677e2560e8d3f07406abec4b74ef378c9306dfeb14c4ba"
+    },
+    {
+      "path": "remapped-standalone/Cargo.lock.txt",
+      "sha256": "782e8983fa4e1017b64e874a71bc59edc93057ea267d66372830fa185c11ef2e"
+    },
+    {
+      "path": "remapped-standalone/Cargo.toml.txt",
+      "sha256": "df3ece3fc98561fd233725a787224d5ba0e5d9fdf69d2e2718447ec8b110d9f6"
+    },
+    {
+      "path": "remapped-standalone/main.rs.txt",
+      "sha256": "c2aff05ef4eec708d9513bbcf1db0ebb975f6d52916e1036ee433a9322afd79c"
+    },
+    {
+      "path": "remapped-standalone/observed-hashes.json",
+      "sha256": "20ad819ad5df4596e8cadb757d530effcb98b7f818425b3a0a54d935056c2b6c"
+    },
+    {
+      "path": "remapped-standalone/run_word_arithmetic.py.txt",
+      "sha256": "b3f4d8365c18bc88570d5d7f5218fc2fe697dd2672f81462596707478c03f405"
+    },
+    {
+      "path": "remapped-standalone/second-exporter.bin",
+      "sha256": "fd701a7e7091d3de530a8c5a0a68333dcc5a12e350c7faceea7f78e82e38545d"
+    },
+    {
+      "path": "remapped-standalone/word_arithmetic_build.py.txt",
+      "sha256": "ba850ef518c48b95cde363c9d7fda05f92d00e7023818a84ca4ff81bebc2a403"
+    },
+    {
+      "path": "run_word_arithmetic.py.txt",
+      "sha256": "25cf910124d43d1cd9df6601b3f16bac399cfce908a11f317cc14c904092ca7c"
+    }
+  ]
+}

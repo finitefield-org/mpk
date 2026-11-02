@@ -1,0 +1,23 @@
+
+running 6 tests
+test coherently_resealed_export_archives_cannot_change_target_build_id_or_bounds ... ok
+test resealed_module_and_package_metadata_cannot_cross_original_manifest_owners ... ok
+test resealed_native_metadata_cannot_replace_original_source_or_export_bindings ... ok
+test whole_original_compiler_metadata_and_exports_bind_to_every_source_package ... ok
+test whole_original_module_graph_binds_replacements_and_every_package_owner ... ok
+test whole_original_versioned_replacement_keeps_cache_escaping_and_archive_sources ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 97.05s
+
+
+running 7 tests
+test coherently_changed_unselected_mod_bytes_still_require_original_go_sum ... ok
+test coherently_resealed_final_root_claims_require_original_main_requirements ... ok
+test coherently_resealed_graph_claims_cannot_replace_original_dependencies ... ok
+test freshly_captured_whole_owner_independently_derives_final_roots ... ok
+test large_original_native_graph_and_export_streams_survive_full_handoff ... ok
+test whole_original_local_graph_imports_non_utf8_versions_without_host_sources ... ok
+test whole_original_versioned_graph_keeps_lower_empty_cycles_and_pruning ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 48.08s
+

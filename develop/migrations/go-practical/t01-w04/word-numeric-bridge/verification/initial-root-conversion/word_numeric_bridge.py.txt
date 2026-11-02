@@ -1,0 +1,178 @@
+"""Connect the actual ripple circuits to the retained exact Nat word library.
+
+Proofs quantify whole arbitrary word operands. A binary block proof composes
+the checked child carry/sum equalities; it never enumerates operand values.
+Only three local full-adder flags and address selectors use Bool elimination.
+"""
+from pathlib import Path
+from word_foundation import (MODULE as WORD,WIDTHS,Library,EvaluationProof,boolean_library,boolean_theorems,
+    word_library,word_theorems,boolean_proof,boolean,bit,var,const,app,pi,lam,bind,eq,refl,call,bc,at,address,choose)
+from carrier_terms import nat
+from run_proof_pilot import ROOT
+
+MODULE='Probe.GoPractical.WordNumericBridge'
+OLD='Probe.GoPractical.Word.'
+SEED=ROOT/'develop/migrations/go-practical/t01-w03/balanced-words/signed-tree-64-nat-conservation.mpcert'
+
+
+def cube(depth):return bind('pi',[('_cube'+str(i),boolean()) for i in range(depth)],boolean())
+def function():return pi('_natural',nat(),nat())
+def old(name,*args):return call(OLD+name,*args)
+def tree(name,depth,*args):return old('Tree'+name+str(depth),*args)
+def composition(left,right):return old('Compose',left,right)
+def maybe(f,b):return old('Maybe',f,b)
+def trans(ty,left,middle,right,p,q):return call('Std.Eq.trans',ty,left,middle,right,p,q)
+def symmetry(ty,left,right,proof):return call('Std.Eq.symm',ty,left,right,proof)
+def congr(domain,codomain,f,left,right,proof):return call('Std.Eq.congr',domain,codomain,f,left,right,proof)
+
+
+def old_boolean_definitions():
+    """Untrusted normalization recipes for the exact retained one-bit bodies.
+
+    Every produced equality is checked against the actual seed definitions.
+    Recipes do not authorize a source fact or replace either core validator.
+    """
+    a,b,c=var('x'),var('y'),var('incoming')
+    and_=lambda x,y:choose(x,y,bit(False))
+    or_=lambda x,y:choose(x,bit(True),y)
+    not_=lambda x:choose(x,bit(False),bit(True))
+    xor=lambda x,y:choose(x,not_(y),y)
+    parity=xor(xor(a,b),c);carry=or_(and_(a,b),and_(c,xor(a,b)))
+    args=[('x',boolean()),('y',boolean()),('incoming',boolean())]
+    return [{'name':OLD+'Tree'+name+'0','kind':'definition','ty':bind('pi',args,boolean()),'value':bind('lam',args,value)} for name,value in (('Sum',parity),('Carry',carry))]
+
+
+class Bridge:
+    def __init__(self,width):
+        assert width in WIDTHS
+        self.width=width;self.depth=(width-1).bit_length();self.prefix=MODULE+'.W'+str(width)+'.';self.word_prefix=WORD+'.W'+str(width)+'.'
+        self.lib=Library();boolean_library(self.lib);boolean_theorems(self.lib)
+        p=word_library(self.lib,width);word_theorems(self.lib,width,p)
+        self.x,self.y,self.c=var('x'),var('y'),var('incoming')
+        self.arguments=[('x',cube(self.depth)),('y',cube(self.depth)),('incoming',boolean())]
+    def name(self,n):return self.prefix+n
+    def local(self,n,*args):return call(self.name(n),*args)
+    def wc(self,n,*args):return call(self.word_prefix+n,*args)
+    def emit(self,n,args,result,proof,kind='theorem'):self.lib.emit(self.name(n),args,result,proof,kind)
+    def sub(self,x,offset,depth):
+        return app(x,*address(self.width,offset)[:self.depth-depth])
+    def carry(self,index):return self.wc('Carry'+str(index),self.x,self.y,self.c)
+    def sum(self):return self.wc('AddCarry',self.x,self.y,self.c)
+    def tag(self,n,depth,offset):return n+str(depth)+'At'+str(offset)
+    def old_block(self,n,depth,offset):
+        return tree(n,depth,self.sub(self.x,offset,depth),self.sub(self.y,offset,depth),self.carry(offset))
+    def proof_at(self,ty,p,left,right,arguments):
+        return congr(ty,boolean(),lam('_selected',ty,app(var('_selected'),*arguments)),left,right,p)
+
+    def local_adder(self):
+        evaluator=EvaluationProof(self.lib.rows+old_boolean_definitions())
+        names=['a','b','c'];env={n:var(n) for n in names}
+        for name in ('Sum','Carry'):
+            left=lambda e,n=name:tree(n,0,e['a'],e['b'],e['c'])
+            right=lambda e,n=name:bc(n,e['a'],e['b'],e['c'])
+            ty=bind('pi',[(n,boolean()) for n in names],eq(boolean(),left(env),right(env)))
+            self.emit('Local'+name,[],ty,boolean_proof(names,left,right,evaluator))
+
+    def block(self,depth,offset):
+        size=1<<depth;x=self.sub(self.x,offset,depth);y=self.sub(self.y,offset,depth);incoming=self.carry(offset)
+        left=self.old_block('Carry',depth,offset);right=self.carry(offset+size)
+        if depth==0:
+            proof=self.local('LocalCarry',x,y,incoming)
+        else:
+            half=size//2;self.block(depth-1,offset);self.block(depth-1,offset+half)
+            xl,yl=app(x,bit(False)),app(y,bit(False));xh,yh=app(x,bit(True)),app(y,bit(True))
+            low=tree('Carry',depth-1,xl,yl,incoming);mid=self.carry(offset+half)
+            body=tree('Carry',depth-1,xh,yh,low);changed=tree('Carry',depth-1,xh,yh,mid)
+            first=tree('CarryDefinition',depth,x,y,incoming)
+            step=congr(boolean(),boolean(),lam('_low',boolean(),tree('Carry',depth-1,xh,yh,var('_low'))),low,mid,
+                self.local(self.tag('Carry',depth-1,offset),self.x,self.y,self.c))
+            last=self.local(self.tag('Carry',depth-1,offset+half),self.x,self.y,self.c)
+            proof=trans(boolean(),left,body,right,first,trans(boolean(),body,changed,right,step,last))
+        self.emit(self.tag('Carry',depth,offset),self.arguments,eq(boolean(),left,right),proof)
+        self.sum_block(depth,offset)
+
+    def sum_block(self,depth,offset):
+        x=self.sub(self.x,offset,depth);y=self.sub(self.y,offset,depth);incoming=self.carry(offset)
+        indices=['address'+str(i) for i in range(depth)];variables=[var(n) for n in indices]
+        source=tree('Sum',depth,x,y,incoming)
+        target=app(self.sum(),*(address(self.width,offset)[:self.depth-depth]+variables))
+        statement=eq(boolean(),app(source,*variables),target)
+        if depth==0:
+            # Literal address projection exposes precisely the ripple's bit i.
+            proof=self.local('LocalSum',x,y,incoming)
+        else:
+            half=1<<(depth-1);rest=[var(n) for n in indices[1:]];ty=cube(depth-1)
+            def branch(high):
+                child_offset=offset+(half if high else 0);xh,yh=app(x,bit(high)),app(y,bit(high))
+                low=tree('Carry',depth-1,app(x,bit(False)),app(y,bit(False)),incoming)
+                actual_in=low if high else incoming
+                child=tree('Sum',depth-1,xh,yh,actual_in)
+                projected=app(source,bit(high));first=old('TreeSumProjection'+str(depth)+('High' if high else 'Low'),x,y,incoming)
+                p=self.proof_at(ty,first,projected,child,rest)
+                start=app(projected,*rest);middle=app(child,*rest)
+                if high:
+                    mid=self.carry(offset+half);changed=tree('Sum',depth-1,xh,yh,mid)
+                    replacement=congr(boolean(),ty,lam('_low',boolean(),tree('Sum',depth-1,xh,yh,var('_low'))),low,mid,
+                        self.local(self.tag('Carry',depth-1,offset),self.x,self.y,self.c))
+                    step=self.proof_at(ty,replacement,child,changed,rest)
+                    p=trans(boolean(),start,middle,app(changed,*rest),p,step);middle=app(changed,*rest)
+                last=self.local(self.tag('Sum',depth-1,child_offset),self.x,self.y,self.c,*rest)
+                end=app(self.sum(),*(address(self.width,child_offset)[:self.depth-depth+1]+rest))
+                proof=trans(boolean(),start,middle,end,p,last)
+                return bind('lam',[(n,boolean()) for n in indices[1:]],proof)
+            motive=lam(indices[0],boolean(),bind('pi',[(n,boolean()) for n in indices[1:]],statement))
+            proof=lam(indices[0],boolean(),call('Std.Bool.cases',motive,branch(False),branch(True),variables[0]))
+        ty=bind('pi',self.arguments+[(n,boolean()) for n in indices],statement)
+        proof=bind('lam',self.arguments,proof)
+        self.emit(self.tag('Sum',depth,offset),[],ty,proof)
+
+    def value_congruence(self):
+        f=var('f');x,y=var('left_word'),var('right_word')
+        for d in range(self.depth+1):
+            indices=[('p'+str(i),boolean()) for i in range(d)];at_=[var(n) for n,_ in indices]
+            pointwise=bind('pi',indices,eq(boolean(),app(x,*at_),app(y,*at_)))
+            vx,vy=tree('Value',d,f,x),tree('Value',d,f,y)
+            args=[('f',function()),('left_word',cube(d)),('right_word',cube(d)),('pointwise',pointwise)]
+            if d==0:proof=congr(boolean(),function(),lam('_bit',boolean(),tree('Value',0,f,var('_bit'))),x,y,var('pointwise'))
+            else:
+                xl,yl=app(x,bit(False)),app(y,bit(False));xh,yh=app(x,bit(True)),app(y,bit(True));weight=tree('Weight',d-1,f)
+                lowx,lowy=tree('Value',d-1,f,xl),tree('Value',d-1,f,yl)
+                highx,highy=tree('Value',d-1,weight,xh),tree('Value',d-1,weight,yh)
+                lowproof=self.local('ValueCongruence'+str(d-1),f,xl,yl,app(var('pointwise'),bit(False)))
+                highproof=self.local('ValueCongruence'+str(d-1),weight,xh,yh,app(var('pointwise'),bit(True)))
+                oldbody=composition(lowx,highx);mid=composition(lowy,highx);newbody=composition(lowy,highy)
+                p=congr(function(),function(),lam('_value',function(),composition(var('_value'),highx)),lowx,lowy,lowproof)
+                q=congr(function(),function(),lam('_value',function(),composition(lowy,var('_value'))),highx,highy,highproof)
+                proof=trans(function(),vx,oldbody,vy,tree('ValueDefinition',d,f,x),
+                    trans(function(),oldbody,mid,vy,p,trans(function(),mid,newbody,vy,q,
+                        symmetry(function(),vy,newbody,tree('ValueDefinition',d,f,y)))))
+            self.emit('ValueCongruence'+str(d),args,eq(function(),vx,vy),proof)
+
+    def conservation(self):
+        d=self.depth;f=var('f');x,y,c=self.x,self.y,self.c;result=self.sum()
+        val=lambda w:tree('Value',d,f,w);weight=tree('Weight',d,f)
+        oldsum=tree('Sum',d,x,y,c);oldcarry=tree('Carry',d,x,y,c);newcarry=self.carry(self.width)
+        left=composition(val(x),composition(val(y),maybe(f,c)))
+        oldright=composition(val(oldsum),maybe(weight,oldcarry));mid=composition(val(result),maybe(weight,oldcarry));right=composition(val(result),maybe(weight,newcarry))
+        pointwise=self.local(self.tag('Sum',d,0),x,y,c)
+        values=self.local('ValueCongruence'+str(d),f,oldsum,result,pointwise)
+        p=congr(function(),function(),lam('_value',function(),composition(var('_value'),maybe(weight,oldcarry))),val(oldsum),val(result),values)
+        q=congr(boolean(),function(),lam('_carry',boolean(),composition(val(result),maybe(weight,var('_carry')))),oldcarry,newcarry,self.local(self.tag('Carry',d,0),x,y,c))
+        proof=trans(function(),left,oldright,right,tree('Addition',d,f,x,y,c),trans(function(),oldright,mid,right,p,q))
+        self.emit('Addition',[('f',function())]+self.arguments,eq(function(),left,right),proof)
+        initial=var('initial');args=[('initial',nat())]+self.arguments
+        left=app(composition(tree('Value',d,const('Std.Nat.succ'),x),composition(tree('Value',d,const('Std.Nat.succ'),y),maybe(const('Std.Nat.succ'),c))),initial)
+        right=app(composition(tree('Value',d,const('Std.Nat.succ'),result),maybe(tree('Weight',d,const('Std.Nat.succ')),newcarry)),initial)
+        p=congr(function(),nat(),lam('_value',function(),app(var('_value'),initial)),
+            composition(tree('Value',d,const('Std.Nat.succ'),x),composition(tree('Value',d,const('Std.Nat.succ'),y),maybe(const('Std.Nat.succ'),c))),
+            composition(tree('Value',d,const('Std.Nat.succ'),result),maybe(tree('Weight',d,const('Std.Nat.succ')),newcarry)),
+            self.local('Addition',const('Std.Nat.succ'),x,y,c))
+        self.emit('NatConservation',args,eq(nat(),left,right),p)
+        self.emit('UnsignedValue',[('x',cube(d))],nat(),app(tree('Value',d,const('Std.Nat.succ'),x),const('Std.Nat.zero')),'definition')
+
+    def build(self):
+        self.local_adder();self.block(self.depth,0);self.value_congruence();self.conservation()
+        return {'module':MODULE+'.W'+str(self.width),'declarations':self.lib.rows}
+
+
+def plan(width):return Bridge(width).build()

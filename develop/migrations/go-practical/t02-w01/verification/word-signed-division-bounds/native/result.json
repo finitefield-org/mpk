@@ -1,0 +1,190 @@
+{
+  "schema": "mpk.go_practical.fresh_signed_division_bounds_native_observation.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T19:39:06.359432+00:00",
+  "original_source": {
+    "path": "develop/probes/go-practical/division_bounds_observer.go",
+    "sha256": "490461796cfd50ae2ccd1a59a0b40daa52b4f83fb2db3ed7bafe9dab52db1343",
+    "bytes": 6008
+  },
+  "owned_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/inputs/division_bounds_observer.go",
+    "sha256": "490461796cfd50ae2ccd1a59a0b40daa52b4f83fb2db3ed7bafe9dab52db1343",
+    "bytes": 6008
+  },
+  "original_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/queries.json",
+    "sha256": "51b5098de003d1c1fe2701e4fb7300a21d751239185e789a503f5c035a78d2f0",
+    "bytes": 20523
+  },
+  "owned_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/inputs/queries.json",
+    "sha256": "51b5098de003d1c1fe2701e4fb7300a21d751239185e789a503f5c035a78d2f0",
+    "bytes": 20523
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-signed-division-bounds-native-04hj_13j/image/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "observer_binary": {
+    "path": "/private/tmp/mpk-go-practical-signed-division-bounds-native-04hj_13j/signed-division-bounds-observer",
+    "sha256": "17f7058b65436ab4f1451c17772cf64438568b5813566ecc6eeab4a9ff1347b2",
+    "bytes": 3190194
+  },
+  "complete_original_prepared_image": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json",
+    "sha256": "c6bcb748bf728a999d4edd56fb4cd390f9c1134671990dfd4e35e0c1086cc75d",
+    "bytes": 2574682
+  },
+  "complete_original_image_checks": [
+    {
+      "label": "Original pre-build image validation",
+      "status": "passed_by_reached_control_flow",
+      "files": 5577,
+      "seconds": null,
+      "evidence": "The exact original runner validates every copied name/byte/mode before constructing the empty cache and running any command. Its observed traceback occurs after build and both runs, so that earlier validation completed. Its original in-memory elapsed time was lost and is not recreated."
+    },
+    {
+      "label": "Full image revalidation during metadata recovery after original native executions",
+      "status": "passed",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 1.4307054580422118
+    }
+  ],
+  "build_cache_initially_empty": true,
+  "build_cache_initialization_evidence": "Preserved original runner creates a unique new workspace and an empty new cache directory before its build; the original later count assertion was reached.",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-signed-division-bounds-native-04hj_13j/image/go",
+    "GOCACHE": "/private/tmp/mpk-go-practical-signed-division-bounds-native-04hj_13j/cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-signed-division-bounds-native-04hj_13j/gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-signed-division-bounds-native-04hj_13j/mod",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GO111MODULE": "off",
+    "CGO_ENABLED": "0",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": ""
+  },
+  "commands": [
+    {
+      "name": "build",
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-division-bounds-native-04hj_13j/image/go/bin/go",
+        "build",
+        "-trimpath",
+        "-buildvcs=false",
+        "-o",
+        "/private/tmp/mpk-go-practical-signed-division-bounds-native-04hj_13j/signed-division-bounds-observer",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/inputs/division_bounds_observer.go"
+      ],
+      "exit_code": 0,
+      "seconds": null,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/build.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/build.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "metadata_provenance": "Command/path reconstructed from the preserved exact original runner and its unique owned workspace. Zero exit status follows from its asserted run() calls and the observed later count-only assertion. Original command elapsed times were not persisted before that exception and are intentionally null."
+    },
+    {
+      "name": "run1",
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-division-bounds-native-04hj_13j/signed-division-bounds-observer"
+      ],
+      "exit_code": 0,
+      "seconds": null,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/run1.stdout.log",
+        "sha256": "810bbd4ae43eabccc7146691054a26f4a41b1f1474fc0f414f265a266fd99a44",
+        "bytes": 67950
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/run1.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "metadata_provenance": "Command/path reconstructed from the preserved exact original runner and its unique owned workspace. Zero exit status follows from its asserted run() calls and the observed later count-only assertion. Original command elapsed times were not persisted before that exception and are intentionally null."
+    },
+    {
+      "name": "run2",
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-division-bounds-native-04hj_13j/signed-division-bounds-observer"
+      ],
+      "exit_code": 0,
+      "seconds": null,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/run2.stdout.log",
+        "sha256": "810bbd4ae43eabccc7146691054a26f4a41b1f1474fc0f414f265a266fd99a44",
+        "bytes": 67950
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/run2.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "metadata_provenance": "Command/path reconstructed from the preserved exact original runner and its unique owned workspace. Zero exit status follows from its asserted run() calls and the observed later count-only assertion. Original command elapsed times were not persisted before that exception and are intentionally null."
+    }
+  ],
+  "two_native_outputs_byte_identical": true,
+  "native_rows": 96,
+  "metadata_recovery": {
+    "original_runner": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/original-runner.py",
+      "sha256": "a0a03f5d5b06d97421282dc462096643266ec26171f8db4ec715969daebce4a7",
+      "bytes": 6019
+    },
+    "original_wrapper_exit_code": 1,
+    "observed_tool_failure_text": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/observed-wrapper-failure.txt",
+      "sha256": "8e401557a82e98afde8c23fadb4fa485ed9bba00bc0fc9efc68b468e1d34d8dc",
+      "bytes": 423
+    },
+    "failure_text_provenance": "Text retained from the terminal tool response; native command raw stdout/stderr are separate original binary files.",
+    "fixed_runner": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/run-native.py",
+      "sha256": "726a5a93b688c7e3279e19976dcde50a5d83e940866e56b06d50276890f4f06a",
+      "bytes": 6018
+    },
+    "recovery_script": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/recover-native-record.py",
+      "sha256": "36b9b5008c7579cb2f11518d60e7e482107164365a27de1d355af636075054a7",
+      "bytes": 8100
+    },
+    "only_original_failure": "Copied unique-ID expected count128 instead of96. The actual len96 and all96 unique IDs pass, as do byte-identical outputs and every native observer assertion.",
+    "native_build_or_observation_repeated": false,
+    "original_timing_fields_recreated": false,
+    "recovery_version_recheck": {
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-division-bounds-native-04hj_13j/image/go/bin/go",
+        "version"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/recovery-version.stdout.log",
+        "sha256": "2e13f287eba3d1fa15b1d8dc82c2b80ac9d8a6d7443acfe04422e57b5d6a9e76",
+        "bytes": 33
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/recovery-version.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  },
+  "scope": "All96 original complete signed source rows, including8 real recovered zero-divisor rows and8 normal minimum/-one rows, retain exact original native outputs. Typed source quotient/remainder, independent unsigned magnitudes, math-big gaps and corrected/exact reconstruction passed native assertions. The wrapper count metadata is recovered with explicit control-flow provenance and a fresh full5577-file image revalidation; unavailable original timings remain null. No native build/observation was repeated. No source/application proof or Linux release gate is inferred.",
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

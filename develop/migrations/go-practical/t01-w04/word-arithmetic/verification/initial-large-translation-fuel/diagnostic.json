@@ -1,0 +1,67 @@
+{
+  "finding": "applying a function equality through a concrete iteration context forces beta conversion to weak-head-normalize WeightLaw5; both32/64 candidates exhaust fuel; naming powers alone does not repair it",
+  "scope": "positive proof construction resource failure; not false source evidence; no checker/budget change",
+  "inputs": [
+    {
+      "path": "32/candidate.mpcert",
+      "sha256": "dbcd46af7e975013e1b664ff199d1344ca2705ba6d53c61ca4801071a01b3044"
+    },
+    {
+      "path": "32/go.json",
+      "sha256": "33f5899777af2f17e1461f34ffe3a8acd775bcd653ee2533b98bc6daf7a64107"
+    },
+    {
+      "path": "32/plan.json",
+      "sha256": "a910d0b2eedcd31a53fc7a55c1bcfdb920e9b8196be6a09a0cab25cc5867e5b3"
+    },
+    {
+      "path": "32/rust.json",
+      "sha256": "15535ad29fb469ddde038dcd4728a85172f71aabb48a1ed57b484b9f2d1e9404"
+    },
+    {
+      "path": "64/candidate.mpcert",
+      "sha256": "fc8d85762b32dc95985390614b0f830afd59169d3f93865dba0c93df9864bd79"
+    },
+    {
+      "path": "64/go.json",
+      "sha256": "23774d20dd42f155ba20713ff9ffdf7f2c539361b7918cfe0f9afb1de2e7c852"
+    },
+    {
+      "path": "64/plan.json",
+      "sha256": "445285ea9db3c3e8d89d1d97a6543a5c479169bab05bdb19771ac0d924de6b04"
+    },
+    {
+      "path": "64/rust.json",
+      "sha256": "87001ebf83dcb620aee8f2afb9c560fa4e6ef1600aeb6cb4ea028b0f7c3287bf"
+    },
+    {
+      "path": "named-powers/candidate.mpcert",
+      "sha256": "c0bec7a489244821c27c3f5fa067d7679e60b43ee97a06cc50b5739f382fcaf1"
+    },
+    {
+      "path": "named-powers/go.json",
+      "sha256": "d91ef352b73dd22d1f12828456d8b4eba80f5376bebdf9b52cf81df7b0e84708"
+    },
+    {
+      "path": "named-powers/plan.json",
+      "sha256": "f40776dd306819091b6fb3ccdc945c0f58d9d54203df77fe37a8115577ff3fd3"
+    },
+    {
+      "path": "named-powers/rust.json",
+      "sha256": "72df80e450c0236472587bb23b8b736f1e29ae929159dc3a578f2db86d93ba3e"
+    },
+    {
+      "path": "named-powers/word_arithmetic.py.txt",
+      "sha256": "008756760ea386d301bccff0eeee38bb6a42db1b0f7d98e02839af961ea4b92b"
+    },
+    {
+      "path": "prefix-outcomes.json",
+      "sha256": "747e113790de37f299985c14ca571ec614f2678951b257efeb6e061434b485a4"
+    },
+    {
+      "path": "word_arithmetic.py.txt",
+      "sha256": "0da4360c806e69e999d100f4c5c2990cb59ba5fe323072d88d87f0208df5bdba"
+    }
+  ],
+  "repair": "check generic ApplyEquality and MaybeTranslation with abstract functions first; apply their direct result types to concrete iterations; keep named power DAG definitions and existing checker budgets"
+}

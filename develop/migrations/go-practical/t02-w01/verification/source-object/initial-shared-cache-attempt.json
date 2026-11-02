@@ -1,0 +1,28 @@
+{
+  "status": "setup_failed_before_tests",
+  "exit_code": 1,
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "test",
+    "-mod=vendor",
+    "-run",
+    "^TestPracticalSource",
+    "-count=1",
+    "-v",
+    "."
+  ],
+  "environment_overrides": {
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off"
+  },
+  "observed_diagnostics": [
+    "package bufio is not in std (/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/src/bufio)",
+    "cannot find module providing package golang.org/x/mod/modfile: import lookup disabled by -mod=vendor"
+  ],
+  "source_tests_executed": false,
+  "raw_log_file_saved": false,
+  "diagnostic_summary_scope": "Initial tool output recorded setup errors. On-disk stdlib and vendor inputs exist. Repeating with isolated writable Go cache/GOPATH/GOMODCACHE succeeds; no toolchain or module download is used.",
+  "resolution": "Pinned Go1.25.0 with explicit isolated cache and offline environment in run-selected.py."
+}

@@ -1,0 +1,28 @@
+{
+  "finding": "root correspondence used a separately wrapped Carry0 where the retained whole-word addition theorem uses the literal incoming parameter; conversion expands nested word computations before equating the wrapper",
+  "first_failing_declaration": "Probe.GoPractical.WordNumericBridge.W8.Addition",
+  "inputs": [
+    {
+      "path": "word_numeric_bridge.py.txt",
+      "sha256": "03d7375902e21a88a605aa9161556d53aef07acb5157f9111c7a5e75cb11ff36"
+    },
+    {
+      "path": "plan.json",
+      "sha256": "d331ca3b54df72807918dcf409454d10b037f36c9d61b5523f087c82e790fc82"
+    },
+    {
+      "path": "candidate.mpcert",
+      "sha256": "302a00e965fdbe8f666dda9228ca7073a44be100c1f62f9e39982a416ada6858"
+    },
+    {
+      "path": "rust.json",
+      "sha256": "e5363b251e75fcb5ba97317d666031bac26cd6862e168a16144aa94d54ee7e68"
+    },
+    {
+      "path": "go.json",
+      "sha256": "f8fdec8b020846f583b243ea5303f314856a1587dc0da4dd0b00605c8496ff0a"
+    }
+  ],
+  "repair": "use the exact incoming parameter for offset0 in the new bridge; preserve actual ripple definitions and checker budgets",
+  "scope": "positive proof construction exhausted existing conversion fuel; not a false claim or source counterexample"
+}

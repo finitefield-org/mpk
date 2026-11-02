@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T13:34:42.041392+00:00",
+  "command": [
+    "cargo",
+    "check",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-cli",
+    "--lib"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-vendor/initial-check/inputs.json",
+    "bytes": 190073,
+    "sha256": "8586661e6effbad769b3e68d1b9ace0afca692573e696145ccdf6b8c81c3dc3c",
+    "mode": 420
+  },
+  "selection_reason": "Check independent parsing of the complete original Go analysis-vendor manifest and affected consumers. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 29.18060887500178,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-vendor/initial-check/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-vendor/initial-check/stderr.log",
+    "bytes": 287,
+    "sha256": "56c6a1a9e90a29cededb7e5ca05c95c0a1498e0c4dfc890ada9c874fb52ab467",
+    "mode": 420
+  }
+}

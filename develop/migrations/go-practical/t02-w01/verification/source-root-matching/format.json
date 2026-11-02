@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "selection_reason": "Check formatting only for the modified snapshot view and its Linux CLI/test consumers.",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "--check",
+    "crates/mpk-vc/src/go_practical_type_keys/snapshot_inputs.rs",
+    "crates/mpk-cli/src/lib.rs",
+    "crates/mpk-cli/src/go_practical_source_roots.rs",
+    "crates/mpk-cli/tests/go_practical_source_roots.rs"
+  ],
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_type_keys/snapshot_inputs.rs",
+      "bytes": 16858,
+      "sha256": "b3b0c35831e27a58eaa7c42fa3fb2387500245b1a483b6cbb3ed54ac58a1c79d"
+    },
+    {
+      "path": "crates/mpk-cli/src/lib.rs",
+      "bytes": 928,
+      "sha256": "278ce95a300cd3fb3837f473f8cc71954917d0c7e5b1e674afb1897945bd7069"
+    },
+    {
+      "path": "crates/mpk-cli/src/go_practical_source_roots.rs",
+      "bytes": 11659,
+      "sha256": "c9698423e40e0e60ca95ce5149eaad97581136a84af09b73a2dbec316e171f22"
+    },
+    {
+      "path": "crates/mpk-cli/tests/go_practical_source_roots.rs",
+      "bytes": 6347,
+      "sha256": "5a4c2f41e81fcc0f8f7b4c14e558f18a02a24e82bb1c841d941ad60cf2091f90"
+    }
+  ],
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

@@ -1,0 +1,593 @@
+{
+  "schema": "mpk.go_practical.error_value_checkpoint.v1",
+  "status": "scoped_checks_passed",
+  "basis_commit": "ab353e38981c28949f3d09a6f4b54099c1ed06bc",
+  "language_scope": [
+    "Go",
+    "Rust"
+  ],
+  "observed_at_utc": "2026-10-22T03:47:09.708421+00:00",
+  "actual_summary_driver_prelaunch_sha256": "122388c725efa3707ae3b1d4160caa25928c058a82574c6c6eed49cae52ee398",
+  "component": {
+    "certificate": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/final/certificates/error-values.mpcert",
+      "bytes": 471001,
+      "sha256": "1b5fd24d70d005c7873921971577b7ba9c13a97c7bd61a7261d2fa8c24b80c10"
+    },
+    "declarations": 2050,
+    "terms": 33772,
+    "bytes": 471001,
+    "axioms": 0,
+    "imports": 0,
+    "new_definitions": 9,
+    "new_laws": 90,
+    "logical_hashes": {
+      "export": "10a3622280a81d696bda1d15759156d6a86b143df342629f6d0e5e608a977065",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "62a618c390c30a2180c4800493dc261dac3cfb82002506a576f4e471c6e95ebf"
+    },
+    "complete_first_success_and_final_bytes_reports_equal": true
+  },
+  "retained_entire_named_libraries": {
+    "word": {
+      "declarations": 1892,
+      "raw_sha256": "23c88fb260bf9d27c2defb64a892f275653cd1741ed030f00a911fed1b2aa11c"
+    },
+    "product_relations": {
+      "declarations": 94,
+      "raw_sha256": "584cbf2e2a70ce0d86f7703b754e9a22fd84dcd59ffd42e6df00e22fdb2a0d1d"
+    }
+  },
+  "current_checks": {
+    "final": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/final/result.json",
+      "bytes": 50626,
+      "sha256": "2520adc1cd972bd59d33a847a5312c3cda3c53f37bb4b68171ff2c79768e4c19"
+    },
+    "affected": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/affected/result.json",
+      "bytes": 34058,
+      "sha256": "27d89c69c4c634785e7f68154785c285f8fcd9dc39ad7a2126ef0714e9a12ee6"
+    },
+    "lint": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/lint/result.json",
+      "bytes": 2987,
+      "sha256": "9ac17aed2427ecda3272c6861c31cf976204240a2fe4c1ec5018695b0cf1b907"
+    },
+    "format": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/format/result.json",
+      "bytes": 2973,
+      "sha256": "2f62b84757ebf947912945572319ebbf9d740da2e25753c86118240035c62eeb"
+    }
+  },
+  "new_Rust_roots": 4,
+  "affected_old_Rust_roots": 8,
+  "paired": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/final-paired/result.json",
+    "bytes": 422673,
+    "sha256": "dd2159bc20cd9d4b285b931021ddc5ba4ccd792eafddbe2a679ab790aa2e8f0d"
+  },
+  "same_byte_library_streams": 169,
+  "zero_axiom_positives": 2,
+  "genuine_core_type_mismatches": 167,
+  "mismatch_subtypes": {
+    "check_type_mismatch": 98,
+    "lambda_domain_mismatch": 69
+  },
+  "false_law_controls": 90,
+  "erased_actual_premises": 69,
+  "definition_corruptions": 5,
+  "false_concrete_claims": 3,
+  "finite_actual_term_observations": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/final/certificates/finite-observations.json",
+    "bytes": 416326,
+    "sha256": "c48bb1d5d782657c0317d8cdee745c8b4e5798bf66eb49f5199878fe019a598c"
+  },
+  "finite_observations": 528,
+  "single_bit_positions": 64,
+  "complete_two_field_payload_patterns": 4,
+  "finite_interpreter_steps": 5457888,
+  "source_epochs": 14,
+  "source_preimages": 7148,
+  "actual_executions": [
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/affected/result.json",
+        "bytes": 34058,
+        "sha256": "27d89c69c4c634785e7f68154785c285f8fcd9dc39ad7a2126ef0714e9a12ee6"
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_word_foundation",
+        "--test",
+        "go_practical_product_relations",
+        "--",
+        "--nocapture",
+        "--test-threads=1",
+        "--skip",
+        "actual_certificate_word_terms_agree_with_all_frozen_finite_integer_observations"
+      ],
+      "preimages": 511
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/all-laws-unformatted/result.json",
+        "bytes": 3014,
+        "sha256": "189c084faef0d16cd96feccfe604f70fd0e47c5b971f0012514e8dd7f99cc64f"
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition=2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_ordinary.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/error_value.rs",
+        "crates/mpk-vc/tests/go_practical_error_values.rs"
+      ],
+      "preimages": 511
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/bit-separations/result.json",
+        "bytes": 3457,
+        "sha256": "e18c102a4c86f2a53d3f0868f7e3be858f7a040084276fc65979d6252a61b80a"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "actual_full_width",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 510,
+      "classification": "Diagnostic prefix observations locate TagOneIsNonzero: direct reflexivity omits computed-major rewriting at the actual low bit. Not a passing/semantic-negative candidate."
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/computed-majors/result.json",
+        "bytes": 3455,
+        "sha256": "6c2482f3afe68cbb4be6f694307ad080d249edc49ac73bfeffb372a42b65f134"
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "actual_full_width",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 511
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/congruence/result.json",
+        "bytes": 3427,
+        "sha256": "986dccf5b469824a5ee2f016eaab40bf4aad1dd406e0fd0338865c5b2d0d6a7e"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "actual_full_width",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 510,
+      "classification": "Diagnostic prefix observations locate NilIsNil: direct reflexivity omits required explicit computed-major rewriting. Not a passing/semantic-negative candidate."
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/current/result.json",
+        "bytes": 50412,
+        "sha256": "52c6357bdc461297227d5c144e3df246c59333504fc734e810c92b5122cf71e1"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 511,
+      "classification": "Original appended test declaration names violated certificate naming syntax. Both failed test roots and original malformed candidates remain; no canonical rejection is counted as a semantic control."
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/diagnosis/result.json",
+        "bytes": 3421,
+        "sha256": "04d878536cd17a88b22c84285fced9ec299e27c4114db8162b5fcefb50bbcc61"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "actual_full_width",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 510,
+      "classification": "Diagnostic prefix observations locate IsNilOfMake fuel failure. Original full stream and complete sources retained; diagnostic prefix streams reconstruct from the retained driver/source but were not individually persisted."
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/final/result.json",
+        "bytes": 50626,
+        "sha256": "2520adc1cd972bd59d33a847a5312c3cda3c53f37bb4b68171ff2c79768e4c19"
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 511
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/first/result.json",
+        "bytes": 3352,
+        "sha256": "bef4ddcb5f4ea977d87f1d5cecbfc7fd6d7f4ae4f68d2d4469e13f05158c6165"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "actual_full_width",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 510,
+      "classification": "Original full64 projection/comparator conversion fuel failure; actual Go observation also retained. Not a semantic negative."
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/format/result.json",
+        "bytes": 2973,
+        "sha256": "2f62b84757ebf947912945572319ebbf9d740da2e25753c86118240035c62eeb"
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition=2021",
+        "--check",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_ordinary.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/error_value.rs",
+        "crates/mpk-vc/tests/go_practical_error_values.rs"
+      ],
+      "preimages": 511
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/lint/result.json",
+        "bytes": 2987,
+        "sha256": "9ac17aed2427ecda3272c6861c31cf976204240a2fe4c1ec5018695b0cf1b907"
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "clippy",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "go_practical_error_values",
+        "--test",
+        "go_practical_word_foundation",
+        "--test",
+        "go_practical_product_relations",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "preimages": 511
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/names-unformatted/result.json",
+        "bytes": 3003,
+        "sha256": "a370090b8ebd3125577d32d92f7f869017f47a41539ca46df9f66683fa5d1b19"
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition=2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_ordinary.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/error_value.rs",
+        "crates/mpk-vc/tests/go_practical_error_values.rs"
+      ],
+      "preimages": 511
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/nil-laws/result.json",
+        "bytes": 3416,
+        "sha256": "18c555564383fd807d7de141af8b75b4db0aee12324a90b913d1a0962638c302"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "actual_full_width",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 510,
+      "classification": "Diagnostic prefix observations locate closed nil alias conversion fuel failure. Not a semantic negative."
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/unformatted/result.json",
+        "bytes": 2979,
+        "sha256": "213d6b45568ff4233be118e176e7499db9a1a6c10ba3ea0469089caeee62b15d"
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition=2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_ordinary.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/error_value.rs",
+        "crates/mpk-vc/tests/go_practical_error_values.rs"
+      ],
+      "preimages": 510
+    }
+  ],
+  "original_failed_epochs": [
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/bit-separations/result.json",
+        "bytes": 3457,
+        "sha256": "e18c102a4c86f2a53d3f0868f7e3be858f7a040084276fc65979d6252a61b80a"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "actual_full_width",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 510,
+      "classification": "Diagnostic prefix observations locate TagOneIsNonzero: direct reflexivity omits computed-major rewriting at the actual low bit. Not a passing/semantic-negative candidate."
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/congruence/result.json",
+        "bytes": 3427,
+        "sha256": "986dccf5b469824a5ee2f016eaab40bf4aad1dd406e0fd0338865c5b2d0d6a7e"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "actual_full_width",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 510,
+      "classification": "Diagnostic prefix observations locate NilIsNil: direct reflexivity omits required explicit computed-major rewriting. Not a passing/semantic-negative candidate."
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/current/result.json",
+        "bytes": 50412,
+        "sha256": "52c6357bdc461297227d5c144e3df246c59333504fc734e810c92b5122cf71e1"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 511,
+      "classification": "Original appended test declaration names violated certificate naming syntax. Both failed test roots and original malformed candidates remain; no canonical rejection is counted as a semantic control."
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/diagnosis/result.json",
+        "bytes": 3421,
+        "sha256": "04d878536cd17a88b22c84285fced9ec299e27c4114db8162b5fcefb50bbcc61"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "actual_full_width",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 510,
+      "classification": "Diagnostic prefix observations locate IsNilOfMake fuel failure. Original full stream and complete sources retained; diagnostic prefix streams reconstruct from the retained driver/source but were not individually persisted."
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/first/result.json",
+        "bytes": 3352,
+        "sha256": "bef4ddcb5f4ea977d87f1d5cecbfc7fd6d7f4ae4f68d2d4469e13f05158c6165"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "actual_full_width",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 510,
+      "classification": "Original full64 projection/comparator conversion fuel failure; actual Go observation also retained. Not a semantic negative."
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/nil-laws/result.json",
+        "bytes": 3416,
+        "sha256": "18c555564383fd807d7de141af8b75b4db0aee12324a90b913d1a0962638c302"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_error_values",
+        "actual_full_width",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "preimages": 510,
+      "classification": "Diagnostic prefix observations locate closed nil alias conversion fuel failure. Not a semantic negative."
+    }
+  ],
+  "first_actual_Go_failure_observation": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/first-go-observation/result.json",
+    "bytes": 5598,
+    "sha256": "6b82f4c80315d3251ff0d312eacda35cad0382e856302cda81f31d06b64fe0ab"
+  },
+  "original_review_bootstrap_failure": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/error-values/input-review-first/result.json",
+    "bytes": 417748,
+    "sha256": "f4c2f690fc35b7fe09f7f5b1cc9986514f07c872c1531729bed9965639decb7b"
+  },
+  "unchanged_frozen_inputs": {
+    "manifest": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/product-relations/frozen-design-preservation.json",
+      "bytes": 53232,
+      "sha256": "3e4064923d298b473c7522d78754620c046c70364ca4da32da3543f460bc4961"
+    },
+    "count": 255
+  },
+  "selection_reason": "New ordinary tagged observation definitions/laws and complete Word/Product.Relation dependencies. New tests verify all laws, all actual premises, definition corruption, full64/whole payload observations and exact ownership. All old named identities and raw producer hashes are pinned; affected old producer/import/guard consumers pass. The unchanged1640-query word-operation matrix is retained without rerunning it; no word operation changed. No unrelated semantic tests or equivalent intermediate full gate.",
+  "limits": {
+    "declarations": 4096,
+    "terms": 131072,
+    "bytes": 2097152,
+    "conversion_fuel": 1024,
+    "ordinary_interpreter_steps": 50000000,
+    "ordinary_interpreter_values": 2000000
+  },
+  "kernel_evaluator_axiom_import_or_budget_changes": false,
+  "exact_frozen_Error_U_layout_or_validity_proved": false,
+  "source_universe_or_dispatch_proved": false,
+  "Go_production_frontend_changed": false,
+  "frontend_rebuild_repeated": false,
+  "agents_used": false,
+  "GitHub_Actions_used": false,
+  "complete_R01_R06_W01": false,
+  "public_profile_activated": false,
+  "all_actual_validation_handles_terminal": true,
+  "full_T02_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "strict_whole_repository_gate_passed": false,
+  "remaining": "The pair is an observation view, not the frozen balanced n-case carrier. Checked layout adapters, exact source U/tag assignment, canonical nil/inactive-field zeros and case payload validity, backing-store and dynamic dispatch safety/receiver/precondition/frame/result obligations remain. Full56 ordinary foundation/private registry/descriptor/context, canonical source/capture/module roles and scope/contract wire, source/runtime/state/program proofs, native Linux and all169 application demands/T02-T11 remain due. The169 local library streams are distinct from the application demands. Earlier historical-scope scanner findings remain for final-gate resolution."
+}

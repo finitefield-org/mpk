@@ -1,0 +1,27 @@
+{
+  "status": "signal_sent",
+  "complete_replacement_obligations_checked_before_supersession": true,
+  "replacement_proof": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregate-paired/result.json",
+    "bytes": 8078,
+    "sha256": "ed898c87f566876ce871c5f27dc252664b48e04a9c81396e388fcc779ad1333f"
+  },
+  "actual_driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/individual-supersession/signal-go.py",
+    "bytes": 2371,
+    "sha256": "c0569372149f528b5138e4735f178cb50453781ffbd881f56483dd5894117879"
+  },
+  "original_parent": {
+    "pid": 51833,
+    "ppid": 16851,
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python develop/migrations/go-practical/t02-w01/verification/source-invocations/run-paired-followup.py"
+  },
+  "owned_child": {
+    "pid": 66947,
+    "ppid": 51833,
+    "command": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref verify /Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/rust-entries/certificates/wide-002.mpcert"
+  },
+  "signal": "SIGINT",
+  "reason": "macOS reports executable basename Python, so the lowercase-only owner filter in the original guarded helper missed the waiting Go owner. Case-insensitive owner inspection identifies the exact original parent and its sole full-certificate checker child. The complete replacement proofs already passed; no verification restart or production/test source edit.",
+  "at_utc": "2026-10-23T05:38:10.376727+00:00"
+}

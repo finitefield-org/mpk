@@ -1,0 +1,149 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "label": "vc",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "release_bundle",
+        "--test",
+        "rust_calls",
+        "--test",
+        "rust_positive_corpus",
+        "--test",
+        "rust_runtime_safety",
+        "--test",
+        "safety_profiles",
+        "--test",
+        "semantic_profile_registry_runtime",
+        "--test",
+        "successor_go_migration",
+        "--test",
+        "successor_rust_migration",
+        "--test",
+        "successor_source_artifacts",
+        "--test",
+        "successor_vc",
+        "--test",
+        "go_vir_corpus"
+      ],
+      "exit_code": 0,
+      "seconds": 18.848960876464844,
+      "stdout": {
+        "path": "develop/migrations/go-rust-only/verification/host-final/vc.stdout.log",
+        "sha256": "6f19aa169aaad51591ea0dc02dd337a24b1cd9645c7a447b8d017e851fc40b49",
+        "bytes": 4976
+      },
+      "stderr": {
+        "path": "develop/migrations/go-rust-only/verification/host-final/vc.stderr.log",
+        "sha256": "88809fc64935546acc1da811df746963ef8c94d9657c3134a69a7e7717c08de6",
+        "bytes": 1234
+      }
+    },
+    {
+      "label": "cli",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "mpk-cli",
+        "--test",
+        "frontend_runner",
+        "--test",
+        "policy_cli",
+        "--test",
+        "policy_scan",
+        "--test",
+        "successor_frontend_protocol",
+        "--test",
+        "successor_go_protocol",
+        "--test",
+        "successor_rust_protocol",
+        "--test",
+        "successor_go_release",
+        "--test",
+        "successor_rust_release",
+        "--test",
+        "successor_ai_explain",
+        "--test",
+        "successor_policy_verify"
+      ],
+      "exit_code": 0,
+      "seconds": 21.280345916748047,
+      "stdout": {
+        "path": "develop/migrations/go-rust-only/verification/host-final/cli.stdout.log",
+        "sha256": "3f3f0b14ea2a44ab4423fe5f5dfc38f6b6bca3d0b39f8389ae2e40af4f5cfd60",
+        "bytes": 2948
+      },
+      "stderr": {
+        "path": "develop/migrations/go-rust-only/verification/host-final/cli.stderr.log",
+        "sha256": "cf8f3972e2868f5eb679373031e0173b51d279e23bb47d8100734a984643bdb5",
+        "bytes": 1293
+      }
+    },
+    {
+      "label": "api",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "mpk-api",
+        "--lib"
+      ],
+      "exit_code": 0,
+      "seconds": 2.2466530799865723,
+      "stdout": {
+        "path": "develop/migrations/go-rust-only/verification/host-final/api.stdout.log",
+        "sha256": "cc3da5c7c173526568b4d73170f64c1ea1f707cee80d8438da22e75c3edd6187",
+        "bytes": 1199
+      },
+      "stderr": {
+        "path": "develop/migrations/go-rust-only/verification/host-final/api.stderr.log",
+        "sha256": "8d0061b52546e255ea403329ce141f1b863d845e228b7c0f3e5f9e2aa7259883",
+        "bytes": 228
+      }
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "mpk-cli",
+        "-p",
+        "mpk-vc",
+        "-p",
+        "mpk-api",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "seconds": 13.830218076705933,
+      "stdout": {
+        "path": "develop/migrations/go-rust-only/verification/host-final/clippy.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-rust-only/verification/host-final/clippy.stderr.log",
+        "sha256": "877675b463cc71ee1c28d6e4072258c49668e9a88ea5f48dba1155ec9bc582a7",
+        "bytes": 299
+      }
+    }
+  ],
+  "source_inputs_unchanged": true,
+  "native_release_acceptance": false,
+  "selection_reason": "The final registry/binary/artifact identities affect shared Go/Rust dispatch, typed imports, VC/certificate links, rejection, API sessions, and their CLI owners. Select only these consumer targets plus required lint; unchanged kernel/foundation/math suites are deferred to the cumulative T02 final W gate.",
+  "full_gate_deferred_to": "GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "finished_at_utc": "2026-10-20T16:05:44.595715+00:00"
+}

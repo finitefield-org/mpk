@@ -1,0 +1,20 @@
+{
+  "status": "repaired",
+  "original_reviewed_ledger": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/ledger-whitespace-preimage.raw",
+    "bytes": 594876,
+    "sha256": "8674fa32a450fc00dd8b7b69498339fcd4e25608543fb24ef78865116a344744",
+    "mode": 420
+  },
+  "current_ledger": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/docs/go-practical-implementation-traceability-ledger.md",
+    "bytes": 594875,
+    "sha256": "9311633bc4b508703eac9b01828e0039507a5335b95a952e8cf7300b09171666",
+    "mode": 420
+  },
+  "change": "Remove one extra final newline from ledger prose after the staged whitespace check reported a new blank line at EOF. All original bytes remain preserved; no code, producer stdout/stderr or verification source changed.",
+  "original_check_exit_code": 2,
+  "original_check_stdout": "develop/docs/go-practical-implementation-traceability-ledger.md:8626: new blank line at EOF.\n",
+  "original_check_stderr": "",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

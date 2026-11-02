@@ -1,0 +1,91 @@
+{
+  "budget_rationale": "transport/term/declaration candidates exceed two times the observed representative maxima after power-of-two rounding; memory exceeds two times producer peak; time retains the measured private ceiling. These are headroom candidates, not evidence every Go source program fits.",
+  "candidate_proof_budgets": {
+    "certificate_bytes": 2097152,
+    "certificate_declarations": 4096,
+    "certificate_terms": 131072,
+    "checker_wall_seconds_each": 60,
+    "construction_wall_seconds": 60,
+    "peak_rss_bytes_each_child": 1073741824
+  },
+  "evidence": "develop/migrations/go-practical/t01-w03/sequential-resources/observations.json",
+  "lifetime_accounting_interpretation_draft": {
+    "cell_candidate": 128,
+    "model_iteration_allocations": 1000,
+    "model_iteration_peak_positive_slots": 1,
+    "native_gc_observed": false,
+    "not_a_limit_on": "cumulative source allocations, ghost owner identities/history, concrete Go addresses/GC behavior or OOM",
+    "past_observation": "separate immutable entry/post stores; active entry descriptors still root current storage until invocation exit",
+    "receipt": "develop/migrations/go-practical/t01-w04/storage-lifetimes/observations.json",
+    "slot_candidate": 2,
+    "slot_unit": "simultaneously live positive canonical owners per exact root element type, including complete modeled entry/evaluation/result/target/error roots",
+    "source_binding_proved": false,
+    "status": "draft live-owner accounting; source/root/retirement/finite-carrier proofs and numeric freeze remain open"
+  },
+  "observed_resource_maxima": {
+    "certificate_bytes": 698048,
+    "construction": {
+      "peak_rss_bytes": 466616320,
+      "wall_seconds": 7.146788874990307
+    },
+    "declarations": 1333,
+    "go": {
+      "peak_rss_bytes": 188055552,
+      "wall_seconds": 13.008823584008496
+    },
+    "rust": {
+      "peak_rss_bytes": 72499200,
+      "wall_seconds": 5.6660961249726824
+    },
+    "terms": 55744
+  },
+  "pending": [
+    "freeze counters, rejection/pending outcomes and exact child enforcement before publication",
+    "inventory preservation of all predecessor source-admission and artifact-budget semantics",
+    "measure or justify any extra type/region/count limit before claiming it supported",
+    "production complete applications must meet frozen budgets; resource failures cannot be hidden by widening limits"
+  ],
+  "schema": "mpk.go_practical.w04_candidate_limits.v0",
+  "semantic_candidates": {
+    "joint_results": 16,
+    "slice_storage_elements": 128,
+    "source_integer_bits": 64,
+    "string_bytes": 256,
+    "typed_region_slots_per_measured_heap": 2
+  },
+  "status": "candidate freeze inputs; no normative or runtime limit changed",
+  "storage_view_interpretation_draft": {
+    "cell_candidate": 128,
+    "cell_unit": "accessible root array cells per heap owner; each cell has its complete captured Plain layout",
+    "not_a_limit_on": "number of child views, source machine addresses, all original allocation cells or cumulative allocations after proved retirement",
+    "receipt": "develop/migrations/go-practical/t01-w04/storage-views/observations.json",
+    "slot_candidate": 2,
+    "slot_unit": "canonical positive heap owner of an exact root storage element type; child typed views are projections",
+    "status": "draft interpretation; full local arena/live-frame/lifetime/counter proofs and numeric freeze remain open"
+  },
+  "structural_accounting_draft": {
+    "all_store_units": 33554432,
+    "catalog": "develop/migrations/go-practical/t01-w04/structural-limits/limits.json",
+    "counter_candidates": 64,
+    "current_store_units": 8388608,
+    "descriptor_units": 37,
+    "isolated_boundaries": 192,
+    "location_units": 33,
+    "measured_http_nodes": 1417549,
+    "native_layout_sources": 85,
+    "past_store_units": 8388608,
+    "path": "develop/migrations/go-practical/t01-w04/structural-limits/README.md",
+    "predecessor_typed_syntax_nodes": 1000000,
+    "receipt": "develop/migrations/go-practical/t01-w04/structural-limits/observations.json",
+    "remaining": [
+      "complete source/normalization/finite-ID/allocator/counter proofs and production preallocation enforcement",
+      "exact successor schemas/hashes, independent validation and reviewed migrations; resource supervision and application/release gates"
+    ],
+    "source_finite_id_proved": false,
+    "status": "private numeric/accounting candidates; no normative or runtime limit changed",
+    "typed_syntax_nodes_candidate": 4194304,
+    "unit_scope": "abstract carrier units; not Go bytes/RSS, proof cost or a support guarantee",
+    "value_ceiling_scope": "source roots/inline/observation values and each materialized Plain heap cell; backing collections use store totals",
+    "value_units": 2097152
+  }
+}

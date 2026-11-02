@@ -1,0 +1,106 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-18T16:09:43.654786+00:00",
+  "compiled_source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-calendar-original-test-binary",
+    "sha256": "53da17280f5e86f1aeee4737592031f4b70d1fc5632f403e7512b4c12ee23656",
+    "bytes": 40911640
+  },
+  "command": [
+    "/private/tmp/mpk-t01-w05-calendar-original-test-binary",
+    "--exact",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_operations_preserve_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_options_preserve_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_integrated_slots_preserve_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::exceptions::csharp_03_t06_w09_control_native_exceptions_preserve_existing_declarations",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::native_literals::csharp_03_t06_w09_control_native_literals_preserve_existing_declarations",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "selected": [
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_operations_preserve_existing_declarations",
+      "family": "before-native-operations",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_options_preserve_existing_declarations",
+      "family": "before-native-options",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_integrated_slots_preserve_existing_declarations",
+      "family": "before-integrated-slots",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::exceptions::csharp_03_t06_w09_control_native_exceptions_preserve_existing_declarations",
+      "family": "before-native-exceptions",
+      "strip_phis": false
+    },
+    {
+      "test": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::native_literals::csharp_03_t06_w09_control_native_literals_preserve_existing_declarations",
+      "family": "before-native-literals",
+      "strip_phis": false
+    }
+  ],
+  "epoch_manifest": {
+    "path": "develop/migrations/go-practical/t01-w05/retained-csharp/control-preservation-epochs/refined-manifest.json",
+    "sha256": "92db14d34d20f5e0dcd365dc5be134c367e93e65a6b5b5f432cfb7c2c81fca6c",
+    "bytes": 412612
+  },
+  "environment": {
+    "MPK_W09_CONTROL_EDGES_OUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/csharp-03/ordinary-foundation/verification-logs/control-edges/before-source-steps/control-edges"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS"
+  ],
+  "previous_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null
+  },
+  "expected_tests": 5,
+  "expected_original_program_comparisons": 90,
+  "selection_reason": "The five concrete common-after failures retain a pending alias frame at their earlier feature checkpoints. Exercise all original comparisons through the retained pre-step checkpoint; the separate unchanged source-steps owner already checks the later two-frame resolution into the complete checkpoint.",
+  "whole_gate_passed": false,
+  "application_proofs_discharged": false,
+  "exit_code": 0,
+  "wall_seconds": 2.5504560420522466,
+  "finished_at_utc": "2026-10-18T16:09:46.206214+00:00",
+  "completed_cases": [
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_integrated_slots_preserve_existing_declarations",
+      "result": "ok"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_operations_preserve_existing_declarations",
+      "result": "ok"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::csharp_03_t06_w09_control_native_options_preserve_existing_declarations",
+      "result": "ok"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::exceptions::csharp_03_t06_w09_control_native_exceptions_preserve_existing_declarations",
+      "result": "ok"
+    },
+    {
+      "name": "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::native_literals::csharp_03_t06_w09_control_native_literals_preserve_existing_declarations",
+      "result": "ok"
+    }
+  ],
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-diagnosis/original-pre-step-history/stdout.log",
+    "sha256": "5993cff46f901ba93d41d417ffe3b4b16953ae9d5b5b8f9fd78bffe1dc3129d5",
+    "bytes": 1008
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-diagnosis/original-pre-step-history/stderr.log",
+    "sha256": "277d01c985f984d9dfa86eb9ce7bed0a201165ff1cff4e41f784649f6c559141",
+    "bytes": 605
+  }
+}

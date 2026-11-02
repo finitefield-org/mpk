@@ -1,0 +1,54 @@
+{
+  "schema": "mpk.go_practical.signed_division_bounds_native_comparison.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T19:46:59.723652+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native/result.json",
+    "sha256": "74d299a96a3434c978afb8fdaa7c0a04141572acd09e97377a73b426e406385b",
+    "bytes": 10151
+  },
+  "query_origins": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/query-origins.json",
+    "sha256": "dfd57e45e83d4481fa834870fe8a4593376e045fcd3dee4359bb5eb37d4cb355",
+    "bytes": 2118
+  },
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/model/certificate.mpcert",
+    "sha256": "a0158c8449e9f44c36279dd735166fe84f5b30f1d30a8caa337d32e256927e56",
+    "bytes": 1465556
+  },
+  "actual_Bool_model": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/model/model.json",
+    "sha256": "810bbd4ae43eabccc7146691054a26f4a41b1f1474fc0f414f265a266fd99a44",
+    "bytes": 67950
+  },
+  "model_metrics": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/model/metrics.json",
+    "sha256": "04252c838b9d4556a785bdd4ec4a132327fa1d2c1ae0bd06d28e671f2aec1537",
+    "bytes": 1162
+  },
+  "independent_integer_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/native-comparison-final/independent-integer-oracle.json",
+    "sha256": "6306c1382792b6542c7dcfb341a85dc25cfb27d6f287f113f46f7a647ef4c57b",
+    "bytes": 85807
+  },
+  "original_queries": 96,
+  "defined_pairs": 88,
+  "actual_source_operator_results": 176,
+  "source_zero_divisor_faults": 8,
+  "minimum_minus_one_pairs": 8,
+  "negative_unit_divisors": 8,
+  "exact_source_reconstructions": 80,
+  "corrected_source_reconstructions": 88,
+  "prepared_image_files": 5577,
+  "two_native_outputs_identical": true,
+  "native_count_wrapper_metadata_recovery_qualified": true,
+  "original_native_timing_fields_recreated": false,
+  "native_build_or_observation_repeated": false,
+  "Nat_gap_half_predicate_Int_or_theorem_bodies_executed": false,
+  "scope": "Finite counterpart observations of both actual source operators and Bool magnitude/Neg/Top/guards. Python uses signed truncation/conservation, correction by exact signed difference divided by modulus and direct H-minus-quotient gap; native uses typed Go and math-big product gaps. All original full rows match. The ordinary certificate separately proves the universal bounds/correction/minimum classification; these finite observations do not establish it or a whole source/application proof. Native metadata recovery preserves original outputs and qualifies lost timing/precheck provenance without repeating native work.",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

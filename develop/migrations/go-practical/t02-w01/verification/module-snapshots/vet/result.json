@@ -1,0 +1,89 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "vet",
+    "-mod=vendor",
+    "."
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOWORK": "off",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot.go",
+      "sha256": "84b42b360ade8de47379d8623315c93d0e88462078f845e493f0774481872372",
+      "bytes": 4143
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot_test.go",
+      "sha256": "2bbe78c3752a8aba2ef4da3bdffcd7445ef1e03e7e05ebd657aab954474cd1fc",
+      "bytes": 1604
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot_capture_test.go",
+      "sha256": "3ee4ed013d253944e25a3c2e62158c14ab17d427730fc0fbedafa9777414a7bb",
+      "bytes": 8027
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive.go",
+      "sha256": "ad995d22331b7ef003c7f7a5d38d6531f32157f0f73b525330b317e81b41534b",
+      "bytes": 10335
+    }
+  ],
+  "frozen_contract": {
+    "path": "develop/migrations/go-practical/t01-w05/source-kind/catalog.json",
+    "sha256": "1ddbd93204546f227c43dc7729d3547b56abe2a5870a4a418e1d424806b38219",
+    "bytes": 2858
+  },
+  "selection_reason": "New versioned .mod/.info/.ziphash/ZIP capture, original Go manifest and archive h1 consistency, root manifest byte equality, exact escaped download paths, legacy missing-ZIP-manifest preservation and sticky missing/stale-input rejection. The original checksum-owner helper is shared with archive capture, so both archive-capture consumers and the existing manifest-h1 vector are selected. Pure archive/parser/native-Go checksum code is unchanged and its prior passing results are retained. Legacy checks two pure module-info cases plus old closed/unavailable-root boundaries. No CSharp tests or intermediate full gate.",
+  "full_T02_gate": "deferred to T02-W04; use check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "started_at_utc": "2026-10-19T09:13:42.150074+00:00",
+  "input_vectors": [
+    {
+      "path": "develop/migrations/go-practical/t01-w02/module-probes.json",
+      "sha256": "c4ce51fdf23a8b55b6dbe0e9675fd710f37040ba183e45c868d3eb43fbd1320f",
+      "bytes": 115741
+    },
+    {
+      "path": "develop/probes/go-practical/module-cases.json",
+      "sha256": "b8aae7daac943cfec28581d994455c276d649411a1bb509c540bcc4e21a59af9",
+      "bytes": 11953
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/vendor-provenance.json",
+      "sha256": "9729f550aaf01518baf73feda5532e8c65752caae64dbbf8b9832c92a96ec7bd",
+      "bytes": 1144
+    }
+  ],
+  "exit_code": 0,
+  "wall_seconds": 0.41535929101519287,
+  "finished_at_utc": "2026-10-19T09:13:42.566046+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-snapshots/vet/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-snapshots/vet/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

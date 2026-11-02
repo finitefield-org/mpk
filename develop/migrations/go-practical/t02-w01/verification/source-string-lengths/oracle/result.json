@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "command": [
+    "python3",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/observe-structural.py",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/rust/certificates",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/oracle/structural-comparison.json"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/oracle/inputs.json",
+    "bytes": 224403,
+    "sha256": "dc694086ef0a486dee496c3d2ee3fb25f869f00696a658f4f2fd66bd9738a5aa"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/oracle/driver.py",
+    "bytes": 6530,
+    "sha256": "f95bfc2828e700a59a2f525f2b728fdfdaca44e4d127e11400a2f1738cba7a14"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Independently reconstruct every original type/zero/recipe and all actual builtin int string-length definitions/statements. Verify full64 header identity, balanced signed Int interpretation, genuine capacity/nonnegative guards and every string in original U0/U4/U70 units. Extra accepted mathematics must fail exact source import and the independent export set. Accelerate only exact earlier accepted Nat definitions; finite observations supplement full ordinary proofs. No source expression/context authority.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-23T01:56:53.769207+00:00",
+  "exit_code": 0,
+  "seconds": 41.31149266602006,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/oracle/stdout.log",
+    "bytes": 71,
+    "sha256": "2d35ba9c7720a80bd0548fc4396ecf469d7f605358eb38e67969dfd1570993a9"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/oracle/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-23T01:57:35.082225+00:00"
+}

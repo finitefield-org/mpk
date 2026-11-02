@@ -1,0 +1,24 @@
+[workspace]
+members = [
+    "crates/mpk-core",
+    "crates/mpk-cert",
+    "crates/mpk-kernel",
+    "crates/mpk-cli",
+    "crates/mpk-vc",
+    "crates/mpk-api",
+    "crates/mpk-theory",
+    "crates/mpk-linux-sandbox",
+]
+exclude = ["rust-tools/rust2vir", "examples/rust-payment-policy"]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+version = "0.1.0"
+license = "Apache-2.0"
+repository = "https://github.com/finitefield-org/mpk"
+homepage = "https://finitefield.org/en/"
+readme = "README.md"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"

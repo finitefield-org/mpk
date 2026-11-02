@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "exit_code": 0,
+  "command": [
+    "scripts/generate-release-report.py",
+    "--write"
+  ],
+  "logs": {
+    "release-report-initial.stdout": {
+      "path": "develop/migrations/go-rust-only/verification/release-report-initial/release-report-initial.stdout",
+      "sha256": "5cb5fad9c9ce5fde337ec9210006a801bf78f6d0afc93023d4d55cdc63ed1126",
+      "bytes": 26
+    },
+    "release-report-initial.stderr": {
+      "path": "develop/migrations/go-rust-only/verification/release-report-initial/release-report-initial.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "report_sha256": "066f6df44fdabe462d02a8b40f0f5f2667f95bd5a15a4e3c1b7579c3893e85b4",
+  "source_languages": [
+    "go",
+    "rust"
+  ],
+  "native_acceptance": "pending",
+  "selection_reason": "The changed report generator must publish only the supported Go/Rust registry and evaluate the actual source-free certificates; it must not reuse retired-language native receipts. Final Rust pin changes require another matching report epoch."
+}

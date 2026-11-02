@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "complete_prelaunch_archive": {
+    "files": 972,
+    "bytes": 16407642,
+    "all_paths_bytes_hashes_modes_exact": true,
+    "missing_or_extra_members": 0
+  },
+  "verification_driver_syntax": "passed",
+  "current_document_and_follow_up_links": "passed",
+  "workflow_directory": "absent",
+  "whitespace": {
+    "initial_command": ["/usr/bin/git", "diff", "--cached", "--check"],
+    "initial_exit_code": 2,
+    "complete_initial_output": "develop/migrations/go-rust-only/remaining-plan-directions/stdout.log:6: new blank line at EOF.\n",
+    "raw_output_preserved": {
+      "path": "develop/migrations/go-rust-only/remaining-plan-directions/stdout.log",
+      "sha256": "32f4a82453f653115e8477367108799e77e76eccc37e85c4782322d427744241",
+      "reason": "The real Cargo test output ends with a blank line. Preserve the complete producer bytes rather than normalizing evidence."
+    },
+    "follow_up_command": ["/usr/bin/git", "diff", "--cached", "--check", "--", ".", ":(exclude)develop/migrations/go-rust-only/remaining-plan-directions/stdout.log"],
+    "follow_up_exit_code": 0,
+    "all_other_staged_files": "passed"
+  },
+  "full_T02_gate": "Deferred to final T02-W04. No whole gate or decomposed equivalent was run."
+}

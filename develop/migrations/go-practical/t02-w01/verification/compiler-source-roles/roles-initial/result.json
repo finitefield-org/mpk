@@ -1,0 +1,83 @@
+{
+  "status": "failed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_compiler_source_roles",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_COMPILER_SOURCE_ROLES_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/roles-initial/observations/source-roles",
+    "MPK_GO_COMPILER_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/roles-initial/observations/compilers",
+    "MPK_GO_GRAPH_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/roles-initial/observations/graphs",
+    "MPK_GO_GRAPH_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/roles-initial/observations/graph-manifests",
+    "MPK_GO_MODULE_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/roles-initial/observations/manifests",
+    "MPK_GO_EXPORT_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/roles-initial/observations/exports"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/roles-initial/inputs.json",
+    "bytes": 83447601,
+    "sha256": "6e50be423ac86e4836826f7aa2c6fc2866babece9defd79d7d9b696b2dcb5b48",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/run.py",
+    "bytes": 10607,
+    "sha256": "05a0323f892616c733546818c11c93c3adf42b9518698e1e2a71a48e2f8b977f",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T19:45:42.298924+00:00",
+  "selection_reason": "Independently derive every original SDK source role and all SDK package directories from full owned bytes, including ignored/test/cgo/documentation/auxiliary/manifest inputs and invalid headers. Native observes all11004 raw SDK source files and complete boundary probes; every source byte remains owned while the actual prepared owner retains all5480 SDK sources and5577 total files under the fixed Go1.25.0 linux/amd64/CGO0 context. The native Go-only epoch owns all Go compiler/test/vendor sources and the complete sealed original SDK; unrelated Rust sources are independent and not consumed by that command. Rust epochs retain the whole5577-file SDK and182-package/5697-object application/one-Root-contract, all existing compiler/export controls and affected lexer/build/package/auxiliary roots. Original source/type/error/proof universes remain at their exact committed paths and receipts. No source/body stub, smaller input universe, scanner rule, source/bundle/kernel/certificate limit or full gate/removed-language test is introduced. Full source/program/context/installed/native Linux and remaining T02-T11 obligations remain open.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 101,
+  "seconds": 109.75552329199854,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/roles-initial/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-source-roles/roles-initial/stderr.log",
+    "bytes": 1577,
+    "sha256": "df5708073aa85f1b7a66ce1307dca06a655dfd30f049e61d161ae136d13eb6c2",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T19:47:32.056005+00:00"
+}

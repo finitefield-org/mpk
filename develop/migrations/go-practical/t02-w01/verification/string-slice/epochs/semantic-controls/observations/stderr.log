@@ -1,0 +1,20 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+warning: method `byte_input` is never used
+   --> crates/mpk-vc/tests/support/go_string_equality_eval.rs:360:12
+    |
+ 58 | impl<'a> Interpreter<'a> {
+    | ------------------------ method in this implementation
+...
+360 |     pub fn byte_input(&mut self, bits: u8) -> u32 {
+    |            ^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mpk-vc` (test "go_practical_string_slice") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 38.65s
+     Running tests/go_practical_string_slice.rs (target/release/deps/go_practical_string_slice-47aec506b09a9c6b)
+
+thread 'observations_cover_full_carriers_signed_guards_and_normalization' (44956955) panicked at crates/mpk-vc/tests/support/go_string_equality_eval.rs:102:9:
+finite observation ceiling: steps=9559667 values=2000001 environments=965438; universal core proof is checked separately
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_string_slice`

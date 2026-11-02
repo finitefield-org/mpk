@@ -1,0 +1,39 @@
+{
+  "model_guard_cases": [
+    {
+      "id": "stdout-at",
+      "guard_error": null
+    },
+    {
+      "id": "stdout-above",
+      "guard_error": "FRONTEND_PROTOCOL_LIMIT"
+    },
+    {
+      "id": "stderr-at",
+      "guard_error": null
+    },
+    {
+      "id": "stderr-above",
+      "guard_error": "FRONTEND_PROTOCOL_LIMIT"
+    },
+    {
+      "id": "limit-before-killed",
+      "guard_error": "FRONTEND_PROTOCOL_LIMIT"
+    },
+    {
+      "id": "killed-before-usage",
+      "guard_error": "FRONTEND_PROCESS_KILLED"
+    },
+    {
+      "id": "usage-before-missing",
+      "guard_error": "FRONTEND_PROTOCOL_UNEXPECTED_USAGE"
+    }
+  ],
+  "invalid_trusted_fact_types": 5,
+  "actual_native_boundary_constants": {
+    "stdout_bytes": 268435456,
+    "stderr_bytes": 2097152
+  },
+  "native_observation_record": "../limits.json",
+  "meaning": "Model guard types/order/inclusive constants checked against actual compiled boundary observations; no proof/source verdict"
+}

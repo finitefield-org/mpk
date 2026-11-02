@@ -1,0 +1,92 @@
+{
+  "schema": "mpk.go_practical.fixed_codec_clause_request_echo_repair.v0",
+  "status": "all_selected_checks_passed_complete_repaired_gate_pending",
+  "observed_at_utc": "2026-10-18T18:47:39.504557+00:00",
+  "source_base_commit": "e8ceb3c1fd8501e1fe774289091f188cdc8fdc65",
+  "compiled_original_source": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "original_failure": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-diagnosis/result.json",
+    "sha256": "652e513cdbbd6a1535f9831e461f4792834dd29d9b234a7ec9aa11064e92249d",
+    "bytes": 7865
+  },
+  "original_exact_assertion_operands": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-diagnosis/exact-request-operands-audit.json",
+    "sha256": "b043a81896e4d9225257bf0a8d6f2e909cbe9b9bef54f3f8cab1ddf2c3639a17",
+    "bytes": 1970
+  },
+  "input_manifest": {
+    "path": "develop/migrations/go-practical/t01-w05/retained-csharp/fixed-codec-clause-request-echo/manifest.json",
+    "sha256": "ab50173a37d04eef459f2c10bb5c817d2ca50cbd6cf58896b13c607480047ab7",
+    "bytes": 2008
+  },
+  "source_preservation": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/source-preservation-audit.json",
+    "sha256": "8b1c4a02adb9d7a5cbe04543fd78939e4ccdaaccca232057f7f6d22db7787eaf",
+    "bytes": 1040
+  },
+  "selected": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/build/result.json",
+      "sha256": "6f5f41df340a9546ba89cc50fa0cfe76941ef336823e16c673ed4c6c9d4c5fa3",
+      "bytes": 2138,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 41.34122316702269
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/normal/result.json",
+      "sha256": "d10c3cb4ea0fda23de9e00e286458d7f107739fe3e443a49c6b06daab0f643eb",
+      "bytes": 3312,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 142.77475641702767
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/format/result.json",
+      "sha256": "1d10556454b5a1dba893b99012d1250f5e4978dee39543ceaf73de203365730d",
+      "bytes": 2510,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 4.629369582980871
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/clippy/result.json",
+      "sha256": "47564009b2547237407f7bb9e21624791588d9811995678f9f2a1fae97888f17",
+      "bytes": 2614,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 5.487162624951452
+    }
+  ],
+  "input_echo_representation_audit": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/input-echo-representation-audit.json",
+    "sha256": "43094c14dbc358abaadd5090214b650ffe3438a2a8d6fa829b7e9c5e37badd58",
+    "bytes": 5914
+  },
+  "original_codec_contexts": 6,
+  "input_contexts_including_mixed": 7,
+  "source_clauses": 44,
+  "format_composition_bit_observations": 21088,
+  "original_assertions_preserved": 23,
+  "added_guard_assertions": 3,
+  "every_original_parser_valid_invalid_oversized_case_and_format_composition_bit_loop_preserved": true,
+  "all_current_component_metadata_certificate_goldens_checked": true,
+  "all_twenty_original_fixture_members_unchanged": true,
+  "complete_original_json_values_and_nested_UTF8_sidecar_strings_equal": true,
+  "original_request_bytes": 57546,
+  "fixed_echo_bytes": 57366,
+  "representation_difference": "Exact sorted ASCII-escaped pretty input versus exact sorted UTF8 pretty output; full-width invalid digit strings retain every original code point. No member ordering changes, field deletion, normalization or native input value change.",
+  "unaffected_mixed_source_owner": "Its body does not echo requests.json and is byte unchanged; original whole diagnostic reports it passed. It remains required in the entire repaired gate.",
+  "production_interpreter_checker_source_changes": false,
+  "original_test_resource_limits_or_bounds_changed": false,
+  "application_proofs_discharged": false,
+  "profile_activated": false,
+  "full_gate": {
+    "status": "pending_entire_committed_repaired_retry",
+    "original_source320_still_running": true,
+    "this_original_reported_failure_selected_repaired": true
+  },
+  "T01_complete": false,
+  "T02_started": false,
+  "final_changed_input_review": "Required separately before committing these final inputs; the entire repaired gate remains mandatory."
+}

@@ -1,0 +1,182 @@
+{
+  "nested": {
+    "core_interface": [
+      "name",
+      "family",
+      "constructors",
+      "signature",
+      "iota",
+      "guards",
+      "sources"
+    ],
+    "counter": [
+      "id",
+      "maximum",
+      "unit",
+      "category",
+      "counting_rule",
+      "exceeded"
+    ],
+    "member": [
+      "path",
+      "schema",
+      "sha256",
+      "size_bytes"
+    ],
+    "operation_family": [
+      "id",
+      "operations"
+    ],
+    "reference": [
+      "schema",
+      "id",
+      "content_sha256"
+    ]
+  },
+  "remaining": [
+    "complete ordinary carrier/operation/contract specialization/expansion/binding schemas and all source obligations",
+    "production joint core integration and four-profile migration/preservation, complete foundation bundle review/freeze, W05/T01 gate and T02\u2013T11"
+  ],
+  "roots": [
+    {
+      "field_types": {
+        "content_sha256": "lowercase sha256",
+        "counters": "id-sorted exact64 counter records",
+        "id": "literal limits.v1",
+        "schema": "literal limits.v1",
+        "semantic_profile": "literal go.practical.v1",
+        "version": "uint exact1",
+        "weights": "exact compiled named weight equations"
+      },
+      "hash_domain": "MPK-GO-PRACTICAL-LIMITS-1.0",
+      "hash_field": "content_sha256",
+      "hash_preimage_fields": [
+        "schema",
+        "id",
+        "version",
+        "semantic_profile",
+        "counters",
+        "weights"
+      ],
+      "name": "limits",
+      "optional_fields": [],
+      "required_fields": [
+        "schema",
+        "id",
+        "version",
+        "semantic_profile",
+        "counters",
+        "weights",
+        "content_sha256"
+      ],
+      "schema": "mpk.go.practical.limits.v1",
+      "unknown_fields": "reject"
+    },
+    {
+      "field_types": {
+        "caller_extension_points": "empty array",
+        "common_required_members": "ordered exact6 proof member descriptions",
+        "content_sha256": "lowercase sha256",
+        "core_interfaces": "ordered exact2 core_interface records",
+        "evidence_receipts": "path-sorted exact6 raw members",
+        "id": "literal foundation_definitions.v1",
+        "limits_ref": "exact compiled reference",
+        "mirrored_checker_inputs": "path-sorted exact77 path/hash records",
+        "operation_families": "ordered exact8 operation_family records covering56 operations",
+        "operation_table": "exact raw member",
+        "representation": "literal operation_recipe_inventory_draft",
+        "schema": "literal foundation_definitions.v1",
+        "semantic_profile": "literal go.practical.v1",
+        "source_callable_members": "empty array",
+        "version": "uint exact1"
+      },
+      "hash_domain": "MPK-GO-FOUNDATION-DEFINITIONS-1.0",
+      "hash_field": "content_sha256",
+      "hash_preimage_fields": [
+        "schema",
+        "id",
+        "version",
+        "semantic_profile",
+        "representation",
+        "limits_ref",
+        "core_interfaces",
+        "mirrored_checker_inputs",
+        "operation_families",
+        "common_required_members",
+        "operation_table",
+        "evidence_receipts",
+        "source_callable_members",
+        "caller_extension_points"
+      ],
+      "name": "definitions",
+      "optional_fields": [],
+      "required_fields": [
+        "schema",
+        "id",
+        "version",
+        "semantic_profile",
+        "representation",
+        "limits_ref",
+        "core_interfaces",
+        "mirrored_checker_inputs",
+        "operation_families",
+        "common_required_members",
+        "operation_table",
+        "evidence_receipts",
+        "source_callable_members",
+        "caller_extension_points",
+        "content_sha256"
+      ],
+      "schema": "mpk.go.foundation_definitions.v1",
+      "unknown_fields": "reject"
+    },
+    {
+      "field_types": {
+        "activation": "literal candidate_only",
+        "caller_extension_points": "empty array",
+        "content_sha256": "lowercase sha256",
+        "definitions_ref": "exact compiled reference",
+        "id": "literal go.practical.foundation.v1",
+        "limits_ref": "exact compiled reference",
+        "members": "path-sorted exact3 raw members",
+        "schema": "literal foundation_descriptor.v1",
+        "semantic_profile": "literal go.practical.v1",
+        "source_callable_members": "empty array",
+        "version": "uint exact1"
+      },
+      "hash_domain": "MPK-GO-PRACTICAL-FOUNDATION-1.0",
+      "hash_field": "content_sha256",
+      "hash_preimage_fields": [
+        "schema",
+        "id",
+        "version",
+        "semantic_profile",
+        "activation",
+        "limits_ref",
+        "definitions_ref",
+        "members",
+        "source_callable_members",
+        "caller_extension_points"
+      ],
+      "name": "descriptor",
+      "optional_fields": [],
+      "required_fields": [
+        "schema",
+        "id",
+        "version",
+        "semantic_profile",
+        "activation",
+        "limits_ref",
+        "definitions_ref",
+        "members",
+        "source_callable_members",
+        "caller_extension_points",
+        "content_sha256"
+      ],
+      "schema": "mpk.go.foundation_descriptor.v1",
+      "unknown_fields": "reject"
+    }
+  ],
+  "schema": "mpk.go_practical.foundation_limits_protocol_draft.v0",
+  "status": "three private closed packaging roots; operation recipes are not complete closed kernel definitions or source proofs"
+}

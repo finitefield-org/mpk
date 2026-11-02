@@ -1,0 +1,18 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0505]: cannot move out of `at` because it is borrowed
+   --> crates/mpk-vc/src/go_practical_ordinary/array/relation.rs:207:24
+    |
+187 |         let norm_eq = |ty: Expr, z: Expr, data: Expr| {
+    |                       ------------------------------- borrow of `at` occurs here
+188 |             let mut arg = vec![ty.clone(), z.clone(), n.clone(), data.clone()];
+189 |             arg.extend(at.clone());
+    |                        -- borrow occurs due to use in closure
+...
+207 |         witness.extend(at);
+    |                        ^^ move out of `at` occurs here
+...
+229 |                     norm_eq(a, var("za"), f),
+    |                     ------- borrow later used here
+
+For more information about this error, try `rustc --explain E0505`.
+error: could not compile `mpk-vc` (lib) due to 1 previous error

@@ -1,0 +1,15 @@
+/out/go2vir: go1.25.0
+	path	github.com/finitefield-org/mpk/go-tools/go2vir
+	mod	github.com/finitefield-org/mpk/go-tools/go2vir	(devel)	
+	dep	golang.org/x/mod	v0.27.0	
+	dep	golang.org/x/sync	v0.16.0	
+	dep	golang.org/x/tools	v0.36.0	
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	-pgo=default.pgo
+	build	-trimpath=true
+	build	CGO_ENABLED=0
+	build	DefaultGODEBUG=containermaxprocs=0,decoratemappings=0,gotestjsonbuildtext=1,multipathtcp=0,randseednop=0,rsa1024min=0,tlsmlkem=0,tlssha1=1,updatemaxprocs=0,x509rsacrt=0,x509sha256skid=0,x509usepolicies=0
+	build	GOAMD64=v1
+	build	GOARCH=amd64
+	build	GOOS=linux

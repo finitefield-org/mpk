@@ -1,6 +1,6 @@
 //! Active successor policy and explanation command routes.
 //!
-//! These routes accept only revision-3 semantic-context and selection
+//! These routes accept only revision-4 semantic-context and selection
 //! envelopes. Bundle identities and profile contracts are compiled into the
 //! release; callers cannot select paths, predecessor registries, or alternate
 //! contract payloads.
@@ -31,9 +31,8 @@ use crate::successor_policy::{
     SuccessorPolicyScanSource, SuccessorPolicySource,
 };
 use crate::successor_release_bundle::{
-    ACTIVE_RELEASE_REGISTRY_SHA256, CSHARP_FRONTEND_BUNDLE_ID, CSHARP_TOOLCHAIN_BUNDLE_ID,
-    GO_FRONTEND_BUNDLE_ID, GO_TOOLCHAIN_BUNDLE_ID, RUST_FRONTEND_BUNDLE_ID,
-    RUST_TOOLCHAIN_BUNDLE_ID, SUCCESSOR_RELEASE_REGISTRY_ID,
+    ACTIVE_RELEASE_REGISTRY_SHA256, GO_FRONTEND_BUNDLE_ID, GO_TOOLCHAIN_BUNDLE_ID,
+    RUST_FRONTEND_BUNDLE_ID, RUST_TOOLCHAIN_BUNDLE_ID, SUCCESSOR_RELEASE_REGISTRY_ID,
 };
 
 pub const POLICY_SCAN_USAGE: &str = "mpk policy scan <source-root> --semantic-context <context.json> --selection <selection.json> [--contract <normalized-path> ...] --json-out <scan.json>";
@@ -370,7 +369,7 @@ fn parse_invocation(
 
 fn prepare_invocation(parsed: &ParsedInvocation) -> Result<PreparedInvocation, SuccessorCliError> {
     let registry =
-        validate_semantic_profile_registry(ACTIVE_SEMANTIC_REGISTRY, RegistryRevision::Revision3)
+        validate_semantic_profile_registry(ACTIVE_SEMANTIC_REGISTRY, RegistryRevision::Revision4)
             .map_err(|error| input(format!("compiled semantic registry is invalid: {error}")))?;
     let semantic_context = read_strict_value(&parsed.semantic_context, "semantic context")?;
     let selection = read_strict_value(&parsed.selection, "selection")?;
@@ -386,31 +385,11 @@ fn prepare_invocation(parsed: &ParsedInvocation) -> Result<PreparedInvocation, S
         .map_err(|error| input(format!("serialize selection: {error}")))?;
     let language = validated.semantic_context().source_language();
     let (frontend_bundle_id, toolchain_bundle_id) = release_pair(language)?;
-    let contracts_are_selected = matches!(language, "csharp" | "java");
-    let (capture_contracts, launcher_contracts) = if contracts_are_selected {
-        if !parsed.contracts.is_empty() {
-            return Err(input(format!(
-                "{language} contract paths are selected only by the validated selection envelope"
-            )));
-        }
-        let contracts = validated.selection().value()["contracts"]
-            .as_array()
-            .ok_or_else(|| input(format!("{language} selection has no contract list")))?
-            .iter()
-            .map(|value| {
-                value
-                    .as_str()
-                    .map(str::to_owned)
-                    .ok_or_else(|| input(format!("{language} selection contract path is invalid")))
-            })
-            .collect::<Result<Vec<_>, _>>()?;
-        (contracts, Vec::new())
-    } else {
-        if parsed.contracts.is_empty() {
-            return Err(input("Go and Rust successor routes require --contract"));
-        }
-        (parsed.contracts.clone(), parsed.contracts.clone())
-    };
+    if parsed.contracts.is_empty() {
+        return Err(input("Go and Rust successor routes require --contract"));
+    }
+    let capture_contracts = parsed.contracts.clone();
+    let launcher_contracts = parsed.contracts.clone();
     let staging = capture_successor_staging(&parsed.source_root, language, &capture_contracts)
         .map_err(capture_error)?;
     Ok(PreparedInvocation {
@@ -428,13 +407,7 @@ fn run_frontend(
     prepared: &PreparedInvocation,
 ) -> Result<AcceptedInstalledFrontendRun, SuccessorCliError> {
     let captured = captured_refs(&prepared.staging);
-    let captured_launcher = matches!(
-        prepared.semantic_context["source_language"].as_str(),
-        Some("csharp" | "java")
-    );
-    let staged_directories = if captured_launcher {
-        Vec::new()
-    } else {
+    let staged_directories = {
         prepared
             .staging
             .staged_directories
@@ -442,9 +415,7 @@ fn run_frontend(
             .map(String::as_str)
             .collect::<Vec<_>>()
     };
-    let staged_placeholders = if captured_launcher {
-        Vec::new()
-    } else {
+    let staged_placeholders = {
         prepared
             .staging
             .staged_placeholders
@@ -492,11 +463,6 @@ fn release_pair(language: &str) -> Result<(&'static str, &'static str), Successo
     match language {
         "go" => Ok((GO_FRONTEND_BUNDLE_ID, GO_TOOLCHAIN_BUNDLE_ID)),
         "rust" => Ok((RUST_FRONTEND_BUNDLE_ID, RUST_TOOLCHAIN_BUNDLE_ID)),
-        "csharp" => Ok((CSHARP_FRONTEND_BUNDLE_ID, CSHARP_TOOLCHAIN_BUNDLE_ID)),
-        "java" => Ok((
-            mpk_vc::java_release::FRONTEND_ID,
-            mpk_vc::java_release::TOOLCHAIN_ID,
-        )),
         _ => Err(input(
             "semantic request selected an inactive source language",
         )),
@@ -527,27 +493,11 @@ fn active_contract(
             "redaction_profile_id":"minimal-v1",
             "source_access":false
         }),
-        (CompiledSemanticProfile::CSharpScalarV0, ProfileContractField::Ai) => json!({
-            "display_language":"C#",
-            "projection_profile_id":"mpk.csharp.ai_projection.v0",
-            "proof_authority":false,
-            "redaction_profile_id":"minimal-v1",
-            "source_access":false
-        }),
-        (CompiledSemanticProfile::JavaScalarV0, ProfileContractField::Ai) => json!({
-            "display_language":"Java",
-            "projection_profile_id":"mpk.java.ai_projection.v0",
-            "proof_authority":false,
-            "redaction_profile_id":"minimal-v1",
-            "source_access":false
-        }),
         (profile, ProfileContractField::Evidence) => json!({
             "proof_authority":"certificate_only",
             "recipe_profile_id":match profile {
                 CompiledSemanticProfile::GoFixedV0 => "mpk.go.evidence_recipe.v0",
                 CompiledSemanticProfile::RustCheckedV0 => "mpk.rust.evidence_recipe.v0",
-                CompiledSemanticProfile::CSharpScalarV0 => "mpk.csharp.evidence_recipe.v0",
-                CompiledSemanticProfile::JavaScalarV0 => "mpk.java.evidence_recipe.v0",
             },
             "require_reference_checker":true,
             "require_source_free_check":true
@@ -555,29 +505,22 @@ fn active_contract(
         (profile, ProfileContractField::Policy) => json!({
             "axiom_profile":match profile {
                 CompiledSemanticProfile::GoFixedV0 => "zero-axiom",
-                CompiledSemanticProfile::RustCheckedV0 | CompiledSemanticProfile::CSharpScalarV0 => "mvp-theory",
-                CompiledSemanticProfile::JavaScalarV0 => "mvp-theory",
+                CompiledSemanticProfile::RustCheckedV0 => "mvp-theory",
             },
             "checker_profile":"mvp-strict",
             "strategy_profile":match profile {
                 CompiledSemanticProfile::GoFixedV0 => "payment-policy-alpha",
                 CompiledSemanticProfile::RustCheckedV0 => "payment-policy-rust-alpha",
-                CompiledSemanticProfile::CSharpScalarV0 => "payment-policy-csharp-alpha",
-                CompiledSemanticProfile::JavaScalarV0 => "payment-policy-java-alpha",
             }
         }),
         (profile, ProfileContractField::Vc) => json!({
             "contract_profile_id":match profile {
                 CompiledSemanticProfile::GoFixedV0 => "mpk.go.contract.v0",
                 CompiledSemanticProfile::RustCheckedV0 => "mpk.rust.contract.v0",
-                CompiledSemanticProfile::CSharpScalarV0 => "mpk.csharp.contract.v0",
-                CompiledSemanticProfile::JavaScalarV0 => "mpk.java.contract.v0",
             },
             "required_check_profile_id":match profile {
                 CompiledSemanticProfile::GoFixedV0 => "mpk.go.fixed.v0",
                 CompiledSemanticProfile::RustCheckedV0 => "mpk.rust.checked.v0",
-                CompiledSemanticProfile::CSharpScalarV0 => "mpk.csharp.required_checks.v0",
-                CompiledSemanticProfile::JavaScalarV0 => "mpk.java.required_checks.v0",
             },
             "verification_limit_profile_id":"mpk.verify.limits.v0"
         }),
@@ -750,57 +693,4 @@ impl Drop for OutputReservation {
             }
         }
     }
-}
-
-/// Non-dispatchable W09 plan proving that the private CLI consumers all read
-/// the successor family. No argv spelling or public route is created here.
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub(crate) struct PrivateCliConsumerPlan {
-    semantic_profile: String,
-    consumed_schemas: Vec<String>,
-}
-
-impl PrivateCliConsumerPlan {
-    pub(crate) fn semantic_profile(&self) -> &str {
-        &self.semantic_profile
-    }
-
-    pub(crate) fn consumed_schemas(&self) -> &[String] {
-        &self.consumed_schemas
-    }
-}
-
-pub(crate) fn prepare_private_successor_cli_consumer(
-    semantic_profile: &str,
-    frontend_schema: &str,
-    policy_scan_schema: &str,
-    policy_evidence_schema: &str,
-    ai_request_schema: &str,
-) -> Result<PrivateCliConsumerPlan, &'static str> {
-    let recognized_profile =
-        mpk_vc::csharp_practical_registry::SuccessorCompiledSemanticProfile::from_semantic_profile(
-            semantic_profile,
-        )
-        .is_some();
-    let schemas = [
-        frontend_schema,
-        policy_scan_schema,
-        policy_evidence_schema,
-        ai_request_schema,
-    ];
-    if !recognized_profile
-        || schemas
-            != [
-                "mpk.frontend.success.v2",
-                "mpk.policy.scan.v3",
-                "mpk.policy.evidence.v3",
-                "mpk.ai.explain.request.v3",
-            ]
-    {
-        return Err("private CLI consumer identity");
-    }
-    Ok(PrivateCliConsumerPlan {
-        semantic_profile: semantic_profile.to_owned(),
-        consumed_schemas: schemas.into_iter().map(str::to_owned).collect(),
-    })
 }

@@ -5,6 +5,12 @@ Status: complete implementation audit and remediation record for
 
 Prepared: 2026-08-25.
 
+Current scope: this is a historical audit of the Go/Rust shared boundary.
+MPK supports [Go and Rust only](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md).
+The former other-language extension queue is retired; this record authorizes
+no additional language task or release prerequisite. Continue the
+[Go work plan](09_go_practical_subset_design-todo.md).
+
 ## 1. Scope and authority
 
 This record audits the completed `VIR-01`, `GO-VIR-02`, and
@@ -19,9 +25,9 @@ It answers three questions:
    implemented, without adding a future-language placeholder or extension
    hook?
 
-The frozen Go/Rust specifications remain authoritative. This audit does not
-activate C#, Java, Dart, TypeScript, or Python, amend a serialized schema, or
-select the successor extension mechanism reserved for `MLANG-01`.
+The frozen Go/Rust specifications remain authoritative for the audited epoch.
+This audit activates no additional language, amends no serialized schema, and
+provides no current extension-planning authority.
 
 ## 2. Result
 
@@ -163,9 +169,11 @@ TypeScript, or Python accepted value or production path.
 | Certificate/checkers | Both languages converge on the same source-free Certificate v0 and exact dual-checker byte boundary. | Sufficient after `R01`. |
 | AI explanation | Evidence v1 is validated and redacted through one language-neutral untrusted-helper model with closed Go/Rust profile registrations. | Sufficient as implemented. |
 
-No current abstraction was widened for a candidate future language. Whether a
-successor uses a revised closed tagged union or a closed hash-pinned semantic
-profile registry remains a decision for `MLANG-01-T02` after the C# gap audit.
+No abstraction was widened for a candidate future language in this audit.
+The installed semantic registry is now revision 4 with only the Go fixed and
+Rust checked profiles, as specified by the
+[language scope](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md). The former gap-audit
+and other-language successor decisions are retired.
 
 ## 8. Exit evidence
 
@@ -182,5 +190,6 @@ T03 exits with:
 - no C#, Java, Dart, TypeScript, or Python production code, profile, tuple,
   bundle, schema branch, or accepted value.
 
-`MLANG-00` is therefore complete. The next task is `MLANG-01-T01`; no C#
-production implementation is authorized yet.
+`MLANG-00` is complete for its original epoch. Current development follows
+the [Go work plan](09_go_practical_subset_design-todo.md) while retaining the
+checked Rust profile; there is no other-language successor task.

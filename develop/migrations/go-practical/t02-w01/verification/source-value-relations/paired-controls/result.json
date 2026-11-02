@@ -1,0 +1,569 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-22T21:54:04.441657+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/driver.py",
+    "bytes": 6773,
+    "sha256": "d758a991140612ce3ef166a5cb04de9420f343133426ecd2e98d8ad529dabbcd"
+  },
+  "complete_prelaunch_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/prelaunch-inputs.json",
+    "bytes": 24583,
+    "sha256": "d92c69c91f7defe98aac889b0bcf41588fcec9505244be5a9e1ee6c1f914910c"
+  },
+  "original_Rust_executions": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/result.json",
+      "bytes": 5034,
+      "sha256": "ce6e0cfed06a7a16b9f624398a18569f7c33300fc199a5cb4f10b5b85ad5b560"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/result.json",
+      "bytes": 5303,
+      "sha256": "d03bc718f45e2bacd2c52da34a5242e23508a791507a62c6437f051bb98f1b1d"
+    }
+  ],
+  "original_failed_suite_retained": true,
+  "failed_suite_reason": "First control root lacked its positive entry fixture; the other two complete roots passed. Only the first affected root is rerun after the nil-only setup fix.",
+  "go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "go_production_sources": [
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57",
+      "bytes": 23259
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432",
+      "bytes": 5272
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type.go",
+      "sha256": "d5d3e93ab336e8686092547579f0d76640d280a6b347691890e6b63aeec13a0e",
+      "bytes": 4986
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0",
+      "bytes": 2893
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "1fe9acc0f8277c1290dd24ff4af0cde526e9e0e283026192af4c0bd671331a0a",
+      "bytes": 32802
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02",
+      "bytes": 38400
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "a951f73a15315ed34c38829dfab819d34aa947b8050e3b097adb81bf37f65e0c",
+      "bytes": 10399
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75",
+      "bytes": 112
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41",
+      "bytes": 7917
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "72b3fff34b37f57dde648735a4ba1f6191f11253394f71cd30566a23e578e8bb",
+      "bytes": 5751
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996",
+      "bytes": 17766
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e",
+      "bytes": 10238
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250",
+      "bytes": 72
+    }
+  ],
+  "actual_unchanged_Go_build_evidence": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "bytes": 45747,
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a"
+  },
+  "cases": [
+    {
+      "name": "last-large-wrong-inactive-copy-relation",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/certificates/last-large-wrong-inactive-copy-relation.mpcert",
+        "bytes": 806513,
+        "sha256": "f331934eceb3b9de4f4011051f086b35361db05b2e9c2d0a7dcb8f1fb0605a4a"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/certificates/last-large-wrong-inactive-copy-relation.rust.json",
+        "bytes": 543,
+        "sha256": "b90df713c244d2090eb440ffd42c5f8787d1e8096336ae60b346ebeff0d14718"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/certificates/last-large-wrong-inactive-copy-relation.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 90.89719000004698,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/last-large-wrong-inactive-copy-relation.stdout.log",
+        "bytes": 108,
+        "sha256": "d421250b62a8b717bc4b479f1ab54c6a0eebed9065b78044884677e603661f65"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/last-large-wrong-inactive-copy-relation.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "8195d029df91744e073943d760cdcba172f96a4d860aab4e8e4e4019ea58fe82"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"641023\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"641048\",\"kind\":\"check_type_mismatch\",\"term_index\":\"641028\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 641028 inferred app but expected app"
+      }
+    },
+    {
+      "name": "slice-owner-observation-erased",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/certificates/slice-owner-observation-erased.mpcert",
+        "bytes": 149336,
+        "sha256": "6e2ed9dfb5701eadde83dd987f44208ed9e1fd733114eb66b760f47f298ea64f"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/certificates/slice-owner-observation-erased.rust.json",
+        "bytes": 535,
+        "sha256": "72b0d3ebbd6aff82347db79d7faec264c01ec0e2e37e16bbd52171e5708df67b"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/certificates/slice-owner-observation-erased.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.0865905829705298,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/slice-owner-observation-erased.stdout.log",
+        "bytes": 102,
+        "sha256": "da5264aff04e68eab9a981912abc29581acf924eb9afda03a4cbe7c5150bf189"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/slice-owner-observation-erased.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "fff79129720a87ea733ff8e5058a8c3a1665cd39c4e5b36254c7210f52da989a"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"pi\",\"expected_term_index\":\"19506\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"19516\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 7 inferred app but expected pi"
+      }
+    },
+    {
+      "name": "source-bool-zero-is-true",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/certificates/source-bool-zero-is-true.mpcert",
+        "bytes": 148703,
+        "sha256": "467ce2e78b86c4fbfc13106fd616c8f8d447fccc4bd501d7a3fbaa0e9607de11"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/certificates/source-bool-zero-is-true.rust.json",
+        "bytes": 540,
+        "sha256": "bc5faa6f1f895a182b1f9ccd9cedf41d67300dbb15b2fb7a6130447f6d0ad048"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/certificates/source-bool-zero-is-true.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.3007727920776233,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/source-bool-zero-is-true.stdout.log",
+        "bytes": 107,
+        "sha256": "6f4f82622196b2088ad1d29a63fc2065428b22aca6371482d6c3f2dab43d752b"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/source-bool-zero-is-true.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "f18b77996708e0056651c422af80b5829b3bba49f8fd859bec74de9f7d4f1a36"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"25154\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"25156\",\"kind\":\"check_type_mismatch\",\"term_index\":\"25155\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 25155 inferred app but expected app"
+      }
+    },
+    {
+      "name": "string-bytes-replaced-by-length-observation",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/certificates/string-bytes-replaced-by-length-observation.mpcert",
+        "bytes": 148716,
+        "sha256": "c019cf34ea0a6c2e613145377d8018f5f249e42530a247d888e3148763f7dc6a"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/certificates/string-bytes-replaced-by-length-observation.rust.json",
+        "bytes": 535,
+        "sha256": "a83d44b7060afd9fbf664817f7064cb752d59766363d42aaecefdc80b17457fe"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls/certificates/string-bytes-replaced-by-length-observation.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.14448395802173764,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/string-bytes-replaced-by-length-observation.stdout.log",
+        "bytes": 102,
+        "sha256": "da5264aff04e68eab9a981912abc29581acf924eb9afda03a4cbe7c5150bf189"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/string-bytes-replaced-by-length-observation.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "61ad72a74e9cc84ef73073b8ea6a39736b70eb92711cac8134697a7d358e65b5"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"pi\",\"expected_term_index\":\"25309\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"25317\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 7 inferred app but expected pi"
+      }
+    },
+    {
+      "name": "arbitrary-copy-related-to-nil",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/arbitrary-copy-related-to-nil.mpcert",
+        "bytes": 72396,
+        "sha256": "4a21fc590f005d349d703467bd01655625033c416c183761053f8b1812f46c80"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/arbitrary-copy-related-to-nil.rust.json",
+        "bytes": 540,
+        "sha256": "cd446e32d8b50a8c03f971e61570b0748da77e6ea8e7137b72d2ca6c56990696"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/arbitrary-copy-related-to-nil.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.059027915936894715,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/arbitrary-copy-related-to-nil.stdout.log",
+        "bytes": 107,
+        "sha256": "89328b41c09890e83846154b2cb03abfeb4d9ea0d4072e34453e5a268c39b69e"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/arbitrary-copy-related-to-nil.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "d7a3f218fcec94cd43e66f5e0d29cfda24df5547296af329ae8f5a0e0548e5ca"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"19508\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"19611\",\"kind\":\"check_type_mismatch\",\"term_index\":\"19519\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 19519 inferred app but expected app"
+      }
+    },
+    {
+      "name": "boxed-relation-forces-wrong-active-value",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/boxed-relation-forces-wrong-active-value.mpcert",
+        "bytes": 72424,
+        "sha256": "219346c3432fd8ef7a11cf55b86552dd957386d786b3021331dbd7bd3a47ab8a"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/boxed-relation-forces-wrong-active-value.rust.json",
+        "bytes": 540,
+        "sha256": "aaf4dcb27416eee31a155b58549a145215ba20c3f6c3367266cf906159649fce"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/boxed-relation-forces-wrong-active-value.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.08078308298718184,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/boxed-relation-forces-wrong-active-value.stdout.log",
+        "bytes": 107,
+        "sha256": "91c1e38bfc4213bf42e0692bf49758999592c3281b02f3452a64f3ecdd2922d5"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/boxed-relation-forces-wrong-active-value.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "1c5200034b54a9bb6b99830d6956667c080a048102d0719d2617d877e6e29b99"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"20115\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"15725\",\"kind\":\"check_type_mismatch\",\"term_index\":\"20124\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 20120 inferred app but expected app"
+      }
+    },
+    {
+      "name": "constant-byte-view-is-only-math",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/constant-byte-view-is-only-math.mpcert",
+        "bytes": 72388,
+        "sha256": "4a8c16e4607b0c072ef478cc901e7b6df12409784a9c87816658fe00d2c6a30c"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/constant-byte-view-is-only-math.rust.json",
+        "bytes": 762,
+        "sha256": "fc0aa38fd2b8fac665dc20d8742b7939dbcf667e720328ce2fc16ba643ab81e5"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/constant-byte-view-is-only-math.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.16003295802511275,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/constant-byte-view-is-only-math.stdout.log",
+        "bytes": 508,
+        "sha256": "a0081b918c5cbb87e249ef1ce2003fcee1c68f942dbdc987682558fd0b4ab3d3"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/constant-byte-view-is-only-math.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.ValueRelations.C6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1",
+        "declaration_count": 203,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "a7fc15405ffb34f34456da579f8c25386e4e6c9eca838ca37beaa234c42e3dad",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "cb9bddd2ae71e6b883c8a6e2b1fc6946ba2654d65eba427a0069cec65f81d12a"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.ValueRelations.C6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1",
+        "declaration_count": 203,
+        "hashes": {
+          "export": "a7fc15405ffb34f34456da579f8c25386e4e6c9eca838ca37beaa234c42e3dad",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "cb9bddd2ae71e6b883c8a6e2b1fc6946ba2654d65eba427a0069cec65f81d12a"
+        }
+      }
+    },
+    {
+      "name": "nonzero-source-byte-related-to-zero",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/nonzero-source-byte-related-to-zero.mpcert",
+        "bytes": 72409,
+        "sha256": "ff29cddd1f01f03566ae015f3370dcb90bd43aecbd0b9da099a3b0628e5e1396"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/nonzero-source-byte-related-to-zero.rust.json",
+        "bytes": 540,
+        "sha256": "e089525b62829db621f3c314c50e4a491eadbf38b910a62f41a6ebd49a55866d"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/nonzero-source-byte-related-to-zero.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.05042016599327326,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/nonzero-source-byte-related-to-zero.stdout.log",
+        "bytes": 107,
+        "sha256": "bc9cca985e0245663842f79780ba7991fbf9bf67ffec85ef1e2f7ff2dfe2f3b9"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/nonzero-source-byte-related-to-zero.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "8a416a26011ac2c04679f2e047d263db41032621907c733813a64d52b462b244"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"15599\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"15601\",\"kind\":\"check_type_mismatch\",\"term_index\":\"15600\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 15600 inferred app but expected app"
+      }
+    },
+    {
+      "name": "related-box-is-nil",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/related-box-is-nil.mpcert",
+        "bytes": 72406,
+        "sha256": "8e389b61adbb3cb394fd21cfd5e6083ad32713cc78037370d058bd3ec4e7f125"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/related-box-is-nil.rust.json",
+        "bytes": 540,
+        "sha256": "51588d59a08d2af6a0f56623ce6c0aa262751c09c27a7a9a403389dba04424e9"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/controls-small-fixed/certificates/related-box-is-nil.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.07126400002744049,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/related-box-is-nil.stdout.log",
+        "bytes": 107,
+        "sha256": "accdfd9487876a7045c52196f84c966dadc4d279fb85506778afbc1643f6230d"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/paired-controls/related-box-is-nil.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "140e4e23c78523df5de196e03e8ddc4147934cc54af3ae34670cd4946255a50b"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"20027\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"20111\",\"kind\":\"check_type_mismatch\",\"term_index\":\"20039\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 20035 inferred app but expected app"
+      }
+    }
+  ],
+  "scope": "Whole original source-specific nil/copy certificate streams, with all tags, active payloads and inactive zeros. Every original input and the unchanged Go binary/source closure is captured before checking. Private source-key boxing is not source-runtime validity or canonical context/program authority. No arbitrary-input validity/canonical capture/context/program/release claim.",
+  "same_byte_streams": 9,
+  "zero_axiom_acceptances": 1,
+  "genuine_type_rejections": 8,
+  "whole_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-22T21:55:36.347772+00:00"
+}

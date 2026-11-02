@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.24s
+     Running tests/go_practical_scalar_typing.rs (target/debug/deps/go_practical_scalar_typing-9a71fcf0a22d0b1c)
+
+thread 'matches_original_go_scalar_expression_and_binding_types' (48499851) panicked at crates/mpk-vc/tests/go_practical_scalar_typing.rs:121:13:
+case 4681 "edge-max(1<<count,2)-Word" falsely accepted: {"accepted":true,"initializer_body_or_invocation_state_or_program_authority":false,"values":[{"addressable":false,"boolean":null,"bytes_hex":null,"constant":false,"integer_decimal":null,"type_key":{"declaration_id":"f07b3077f5e2cb57e5b76f2ab4598063db70d4cc7b44383195af1286a55dfd1b","id":"ef14ef897615cc11aa547715c0409484e738e6052a50c8c4a2ef1e442a724182","kind":"nominal","schema":"mpk.go.source_type.v2"},"underlying_builtin":"uint16"}]}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_scalar_typing`

@@ -1,0 +1,998 @@
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:127:
+             },
+             false,
+         )?;
+-        self.emit(d, "Type", &[("A", Expr::Sort0)], Expr::Sort0, cube(d, a.clone()), false)?;
+         self.emit(
+             d,
++            "Type",
++            &[("A", Expr::Sort0)],
++            Expr::Sort0,
++            cube(d, a.clone()),
++            false,
++        )?;
++        self.emit(
++            d,
+             "TypeAsFunction",
+             &[("A", Expr::Sort0), ("data", fc(d, "Type", vec![a.clone()]))],
+             cube(d, a.clone()),
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:146:
+                 zero()
+             } else {
+                 let tail = index(d - 1, &address[1..]);
+-                choose(nat(), address[0].clone(), add(capacity(d - 1), tail.clone()), tail)
++                choose(
++                    nat(),
++                    address[0].clone(),
++                    add(capacity(d - 1), tail.clone()),
++                    tail,
++                )
+             },
+             false,
+         )?;
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:153:
+         self.emit(
+             d,
+             "Lookup",
+-            &[("A", Expr::Sort0), ("data", cube(d, a.clone())), ("i", nat())],
++            &[
++                ("A", Expr::Sort0),
++                ("data", cube(d, a.clone())),
++                ("i", nat()),
++            ],
+             a.clone(),
+             if d == 0 {
+                 data.clone()
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:161:
+                 choose(
+                     a.clone(),
+                     less(i.clone(), capacity(d - 1)),
+-                    lookup(d - 1, a.clone(), app(data.clone(), vec![bit(false)]), i.clone()),
+-                    lookup(d - 1, a.clone(), app(data.clone(), vec![bit(true)]), sub(i, capacity(d - 1))),
++                    lookup(
++                        d - 1,
++                        a.clone(),
++                        app(data.clone(), vec![bit(false)]),
++                        i.clone(),
++                    ),
++                    lookup(
++                        d - 1,
++                        a.clone(),
++                        app(data.clone(), vec![bit(true)]),
++                        sub(i, capacity(d - 1)),
++                    ),
+                 )
+             },
+             false,
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:172:
+             ("P", predicate(a.clone())),
+             ("data", cube(d, a.clone())),
+         ];
+-        self.emit(d, "All", &inputs, Expr::Sort0, all(d, var("P"), data.clone()), false)?;
++        self.emit(
++            d,
++            "All",
++            &inputs,
++            Expr::Sort0,
++            all(d, var("P"), data.clone()),
++            false,
++        )?;
+         let mut observed = inputs.to_vec();
+-        observed.push(("valid", fc(d, "All", vec![a.clone(), var("P"), data.clone()])));
+-        self.emit(d, "AllAsFunction", &observed, all(d, var("P"), data.clone()), var("valid"), false)?;
+-        self.emit(d, "Fits", &[("n", nat())], Expr::Sort0, fits(d, n.clone()), false)?;
++        observed.push((
++            "valid",
++            fc(d, "All", vec![a.clone(), var("P"), data.clone()]),
++        ));
+         self.emit(
+             d,
++            "AllAsFunction",
++            &observed,
++            all(d, var("P"), data.clone()),
++            var("valid"),
++            false,
++        )?;
++        self.emit(
++            d,
++            "Fits",
++            &[("n", nat())],
++            Expr::Sort0,
++            fits(d, n.clone()),
++            false,
++        )?;
++        self.emit(
++            d,
+             "FitsAsFunction",
+             &[("n", nat()), ("fits", fc(d, "Fits", vec![n.clone()]))],
+             fits(d, n.clone()),
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:188:
+         self.emit(
+             d,
+             "Embed",
+-            &[("A", Expr::Sort0), ("n", nat()), ("data", cube(d, a.clone()))],
++            &[
++                ("A", Expr::Sort0),
++                ("n", nat()),
++                ("data", cube(d, a.clone())),
++            ],
+             seq(a.clone()),
+-            sc("Make", vec![a.clone(), n, lam("_point", nat(), lookup(d, a, data, var("_point")))]),
++            sc(
++                "Make",
++                vec![
++                    a.clone(),
++                    n,
++                    lam("_point", nat(), lookup(d, a, data, var("_point"))),
++                ],
++            ),
+             false,
+         )
+     }
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:219:
+             let high = read(true, sub(small.clone(), half.clone()));
+             let false_proof = Equality {
+                 ty: a.clone(),
+-                left: choose(a.clone(), less(small.clone(), half.clone()), low.clone(), high.clone()),
++                left: choose(
++                    a.clone(),
++                    less(small.clone(), half.clone()),
++                    low.clone(),
++                    high.clone(),
++                ),
+                 right: low.clone(),
+-                proof: sc("ChoiceTrue", vec![a.clone(), less(small.clone(), half.clone()), low.clone(), high, fc(d - 1, "IndexBound", address[1..].to_vec())]),
+-            }.then(Equality {
++                proof: sc(
++                    "ChoiceTrue",
++                    vec![
++                        a.clone(),
++                        less(small.clone(), half.clone()),
++                        low.clone(),
++                        high,
++                        fc(d - 1, "IndexBound", address[1..].to_vec()),
++                    ],
++                ),
++            }
++            .then(Equality {
+                 ty: a.clone(),
+                 left: low,
+-                right: app(data.clone(), [vec![bit(false)], address[1..].to_vec()].concat()),
++                right: app(
++                    data.clone(),
++                    [vec![bit(false)], address[1..].to_vec()].concat(),
++                ),
+                 proof: previous(false),
+-            })?.proof;
++            })?
++            .proof;
+             let shifted = add(half.clone(), small.clone());
+             let condition = less(shifted.clone(), half.clone());
+             let low = read(false, shifted.clone());
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:242:
+                 ty: a.clone(),
+                 left: choose(a.clone(), condition.clone(), low.clone(), high.clone()),
+                 right: high.clone(),
+-                proof: sc("ChoiceFalse", vec![a.clone(), condition, low, high, arithmetic::not_below(half, small.clone())?.proof]),
+-            }.then(subtraction)?.then(Equality {
++                proof: sc(
++                    "ChoiceFalse",
++                    vec![
++                        a.clone(),
++                        condition,
++                        low,
++                        high,
++                        arithmetic::not_below(half, small.clone())?.proof,
++                    ],
++                ),
++            }
++            .then(subtraction)?
++            .then(Equality {
+                 ty: a.clone(),
+                 left: read(true, small),
+-                right: app(data.clone(), [vec![bit(true)], address[1..].to_vec()].concat()),
++                right: app(
++                    data.clone(),
++                    [vec![bit(true)], address[1..].to_vec()].concat(),
++                ),
+                 proof: previous(true),
+-            })?.proof;
++            })?
++            .proof;
+             let mut branch = address.clone();
+             branch[0] = var("_head");
+-            call("Std.Bool.cases", vec![lam("_head", boolean(), property(&branch)), false_proof, true_proof, address[0].clone()])
++            call(
++                "Std.Bool.cases",
++                vec![
++                    lam("_head", boolean(), property(&branch)),
++                    false_proof,
++                    true_proof,
++                    address[0].clone(),
++                ],
++            )
+         };
+         let mut args = vec![("A", Expr::Sort0), ("data", cube(d, a))];
+         args.extend(bit_args(d));
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:266:
+             let half = capacity(d - 1);
+             let condition = less(i.clone(), half.clone());
+             let high_index = sub(i.clone(), half.clone());
+-            let read = |value, index| lookup(d - 1, a.clone(), app(data.clone(), vec![bit(value)]), index);
++            let read =
++                |value, index| lookup(d - 1, a.clone(), app(data.clone(), vec![bit(value)]), index);
+             let low = read(false, i.clone());
+             let high = read(true, high_index.clone());
+             let case = |value, index, bound| {
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:273:
+-                fc(d - 1, "LookupValid", vec![a.clone(), p.clone(), app(data.clone(), vec![bit(value)]), app(var("valid"), vec![bit(value)]), index, bound])
++                fc(
++                    d - 1,
++                    "LookupValid",
++                    vec![
++                        a.clone(),
++                        p.clone(),
++                        app(data.clone(), vec![bit(value)]),
++                        app(var("valid"), vec![bit(value)]),
++                        index,
++                        bound,
++                    ],
++                )
+             };
+-            let motive = lam("_flag", boolean(), pi("_branch", eq(boolean(), condition.clone(), var("_flag")), app(p.clone(), vec![choose(a.clone(), var("_flag"), low, high)])));
+-            let right_bound = sc("AppendRightBound", vec![half.clone(), i.clone(), half, var("bound"), var("_branch")]);
+-            let right = lam("_branch", eq(boolean(), condition.clone(), bit(false)), case(true, high_index, right_bound));
+-            let left = lam("_branch", eq(boolean(), condition.clone(), bit(true)), case(false, i.clone(), var("_branch")));
+-            app(call("Std.Bool.cases", vec![motive, right, left, condition.clone()]), vec![refl(boolean(), condition)])
++            let motive = lam(
++                "_flag",
++                boolean(),
++                pi(
++                    "_branch",
++                    eq(boolean(), condition.clone(), var("_flag")),
++                    app(p.clone(), vec![choose(a.clone(), var("_flag"), low, high)]),
++                ),
++            );
++            let right_bound = sc(
++                "AppendRightBound",
++                vec![half.clone(), i.clone(), half, var("bound"), var("_branch")],
++            );
++            let right = lam(
++                "_branch",
++                eq(boolean(), condition.clone(), bit(false)),
++                case(true, high_index, right_bound),
++            );
++            let left = lam(
++                "_branch",
++                eq(boolean(), condition.clone(), bit(true)),
++                case(false, i.clone(), var("_branch")),
++            );
++            app(
++                call(
++                    "Std.Bool.cases",
++                    vec![motive, right, left, condition.clone()],
++                ),
++                vec![refl(boolean(), condition)],
++            )
+         };
+         self.emit(
+             d,
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:283:
+             "LookupValid",
+-            &[("A", Expr::Sort0), ("P", predicate(a.clone())), ("data", cube(d, a.clone())), ("valid", all(d, p.clone(), data.clone())), ("i", nat()), ("bound", inside(i.clone(), capacity(d)))],
++            &[
++                ("A", Expr::Sort0),
++                ("P", predicate(a.clone())),
++                ("data", cube(d, a.clone())),
++                ("valid", all(d, p.clone(), data.clone())),
++                ("i", nat()),
++                ("bound", inside(i.clone(), capacity(d))),
++            ],
+             app(p, vec![lookup(d, a, data, i)]),
+             proof,
+             true,
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:291:
+     fn embeddings(&mut self, d: usize) -> Result<()> {
+         let (a, p, data, n, i) = (var("A"), var("P"), var("data"), var("n"), var("i"));
+         let value = embed(d, a.clone(), n.clone(), data.clone());
+-        let input = [("A", Expr::Sort0), ("n", nat()), ("data", cube(d, a.clone()))];
+-        self.emit(d, "EmbedLength", &input, eq(nat(), length(a.clone(), value.clone()), n.clone()), refl(nat(), n.clone()), true)?;
++        let input = [
++            ("A", Expr::Sort0),
++            ("n", nat()),
++            ("data", cube(d, a.clone())),
++        ];
++        self.emit(
++            d,
++            "EmbedLength",
++            &input,
++            eq(nat(), length(a.clone(), value.clone()), n.clone()),
++            refl(nat(), n.clone()),
++            true,
++        )?;
+         let mut indexed = input.to_vec();
+         indexed.push(("i", nat()));
+         let read = lookup(d, a.clone(), data.clone(), i.clone());
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:299:
+-        self.emit(d, "EmbedAt", &indexed, eq(a.clone(), at(a.clone(), value.clone(), i), read.clone()), refl(a.clone(), read), true)?;
++        self.emit(
++            d,
++            "EmbedAt",
++            &indexed,
++            eq(a.clone(), at(a.clone(), value.clone(), i), read.clone()),
++            refl(a.clone(), read),
++            true,
++        )?;
+         let address = bits(d);
+         let natural_index = index(d, &address);
+         let mut at_slot = input.to_vec();
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:303:
+         at_slot.extend(bit_args(d));
+         let mut previous = vec![a.clone(), data.clone()];
+         previous.extend(address.iter().cloned());
+-        self.emit(d, "EmbedIndex", &at_slot, eq(a.clone(), at(a.clone(), value.clone(), natural_index.clone()), app(data.clone(), address)), fc(d, "LookupIndex", previous), true)?;
++        self.emit(
++            d,
++            "EmbedIndex",
++            &at_slot,
++            eq(
++                a.clone(),
++                at(a.clone(), value.clone(), natural_index.clone()),
++                app(data.clone(), address),
++            ),
++            fc(d, "LookupIndex", previous),
++            true,
++        )?;
+         at_slot.push(("bound", inside(natural_index.clone(), n.clone())));
+-        self.emit(d, "EmbedIndexValid", &at_slot, sc("IndexValid", vec![a.clone(), value.clone(), natural_index]), var("bound"), true)?;
+-        let result = pi("_point", nat(), pi("_in", inside(var("_point"), length(a.clone(), value.clone())), app(p.clone(), vec![at(a.clone(), value, var("_point"))])));
+         self.emit(
+             d,
++            "EmbedIndexValid",
++            &at_slot,
++            sc("IndexValid", vec![a.clone(), value.clone(), natural_index]),
++            var("bound"),
++            true,
++        )?;
++        let result = pi(
++            "_point",
++            nat(),
++            pi(
++                "_in",
++                inside(var("_point"), length(a.clone(), value.clone())),
++                app(p.clone(), vec![at(a.clone(), value, var("_point"))]),
++            ),
++        );
++        self.emit(
++            d,
+             "EmbedValid",
+-            &[("A", Expr::Sort0), ("P", predicate(a.clone())), ("n", nat()), ("data", cube(d, a.clone())), ("fits", fits(d, n.clone())), ("valid", all(d, p.clone(), data.clone()))],
++            &[
++                ("A", Expr::Sort0),
++                ("P", predicate(a.clone())),
++                ("n", nat()),
++                ("data", cube(d, a.clone())),
++                ("fits", fits(d, n.clone())),
++                ("valid", all(d, p.clone(), data.clone())),
++            ],
+             result,
+-            lam("_point", nat(), lam("_in", inside(var("_point"), n), fc(d, "LookupValid", vec![a, p, data, var("valid"), var("_point"), app(var("fits"), vec![var("_point"), var("_in")])]))),
++            lam(
++                "_point",
++                nat(),
++                lam(
++                    "_in",
++                    inside(var("_point"), n),
++                    fc(
++                        d,
++                        "LookupValid",
++                        vec![
++                            a,
++                            p,
++                            data,
++                            var("valid"),
++                            var("_point"),
++                            app(var("fits"), vec![var("_point"), var("_in")]),
++                        ],
++                    ),
++                ),
++            ),
+             true,
+         )?;
+-        self.emit(d, "FitsFull", &[], fits(d, capacity(d)), lam("_point", nat(), lam("_in", inside(var("_point"), capacity(d)), var("_in"))), true)?;
+-        let impossible = Equality::boolean(less(var("_point"), zero()), bit(false), nc("LessZero", vec![var("_point")])).reverse().then(Equality::boolean(less(var("_point"), zero()), bit(true), var("_in")))?.proof;
+-        self.emit(d, "FitsEmpty", &[], fits(d, zero()), lam("_point", nat(), lam("_in", inside(var("_point"), zero()), bc("FalseElim", vec![inside(var("_point"), capacity(d)), impossible]))), true)
++        self.emit(
++            d,
++            "FitsFull",
++            &[],
++            fits(d, capacity(d)),
++            lam(
++                "_point",
++                nat(),
++                lam("_in", inside(var("_point"), capacity(d)), var("_in")),
++            ),
++            true,
++        )?;
++        let impossible = Equality::boolean(
++            less(var("_point"), zero()),
++            bit(false),
++            nc("LessZero", vec![var("_point")]),
++        )
++        .reverse()
++        .then(Equality::boolean(
++            less(var("_point"), zero()),
++            bit(true),
++            var("_in"),
++        ))?
++        .proof;
++        self.emit(
++            d,
++            "FitsEmpty",
++            &[],
++            fits(d, zero()),
++            lam(
++                "_point",
++                nat(),
++                lam(
++                    "_in",
++                    inside(var("_point"), zero()),
++                    bc(
++                        "FalseElim",
++                        vec![inside(var("_point"), capacity(d)), impossible],
++                    ),
++                ),
++            ),
++            true,
++        )
+     }
+ }
+ 
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector/arithmetic.rs:2:
+ use super::*;
+ 
+ fn commute(a: Expr, b: Expr) -> Equality {
+-    Equality::natural(add(a.clone(), b.clone()), add(b.clone(), a.clone()), nc("AddComm", vec![a, b]))
++    Equality::natural(
++        add(a.clone(), b.clone()),
++        add(b.clone(), a.clone()),
++        nc("AddComm", vec![a, b]),
++    )
+ }
+ fn associate(a: Expr, b: Expr, c: Expr) -> Equality {
+-    Equality::natural(add(add(a.clone(), b.clone()), c.clone()), add(a.clone(), add(b.clone(), c.clone())), nc("AddAssoc", vec![a, b, c]))
++    Equality::natural(
++        add(add(a.clone(), b.clone()), c.clone()),
++        add(a.clone(), add(b.clone(), c.clone())),
++        nc("AddAssoc", vec![a, b, c]),
++    )
+ }
+ fn add_zero(a: Expr) -> Equality {
+     Equality::natural(add(a.clone(), zero()), a.clone(), nc("AddZero", vec![a]))
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector/arithmetic.rs:12:
+ }
+ fn less_left(e: Equality, right: Expr) -> Equality {
+-    e.clone().mapped(lam("_value", nat(), less(var("_value"), right.clone())), less(e.left, right.clone()), less(e.right, right), boolean())
++    e.clone().mapped(
++        lam("_value", nat(), less(var("_value"), right.clone())),
++        less(e.left, right.clone()),
++        less(e.right, right),
++        boolean(),
++    )
+ }
+ fn less_right(left: Expr, e: Equality) -> Equality {
+-    e.clone().mapped(lam("_value", nat(), less(left.clone(), var("_value"))), less(left.clone(), e.left), less(left, e.right), boolean())
++    e.clone().mapped(
++        lam("_value", nat(), less(left.clone(), var("_value"))),
++        less(left.clone(), e.left),
++        less(left, e.right),
++        boolean(),
++    )
+ }
+ pub(super) fn unshift(half: Expr, small: Expr) -> Result<Equality> {
+     let from = sub(add(half.clone(), small.clone()), half.clone());
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector/arithmetic.rs:21:
+     let middle = sub(add(small.clone(), half.clone()), half.clone());
+-    commute(half.clone(), small.clone()).mapped(lam("_value", nat(), sub(var("_value"), half.clone())), from, middle.clone(), nat()).then(Equality::natural(middle, small.clone(), nc("SubAddRight", vec![small, half])))
++    commute(half.clone(), small.clone())
++        .mapped(
++            lam("_value", nat(), sub(var("_value"), half.clone())),
++            from,
++            middle.clone(),
++            nat(),
++        )
++        .then(Equality::natural(
++            middle,
++            small.clone(),
++            nc("SubAddRight", vec![small, half]),
++        ))
+ }
+ pub(super) fn not_below(half: Expr, small: Expr) -> Result<Equality> {
+     let zero_plus = commute(zero(), half.clone()).then(add_zero(half.clone()))?;
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector/arithmetic.rs:26:
+     less_left(commute(half.clone(), small.clone()), half.clone())
+-        .then(less_right(add(small.clone(), half.clone()), zero_plus.reverse()))?
+-        .then(Equality::boolean(less(add(small.clone(), half.clone()), add(zero(), half.clone())), less(small.clone(), zero()), nc("LessTranslate", vec![small.clone(), zero(), half])))?
+-        .then(Equality::boolean(less(small.clone(), zero()), bit(false), nc("LessZero", vec![small])))
++        .then(less_right(
++            add(small.clone(), half.clone()),
++            zero_plus.reverse(),
++        ))?
++        .then(Equality::boolean(
++            less(add(small.clone(), half.clone()), add(zero(), half.clone())),
++            less(small.clone(), zero()),
++            nc("LessTranslate", vec![small.clone(), zero(), half]),
++        ))?
++        .then(Equality::boolean(
++            less(small.clone(), zero()),
++            bit(false),
++            nc("LessZero", vec![small]),
++        ))
+ }
+ 
+ pub(super) fn bounds(vectors: &mut Vectors<'_>, d: usize) -> Result<()> {
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector/arithmetic.rs:34:
+     let property = |address: &[Expr]| inside(index(d, address), add(capacity(d), padding.clone()));
+     let proof = if d == 0 {
+         let successor = commute(one(), padding.clone())
+-            .then(Equality::natural(add(padding.clone(), one()), succ(add(padding.clone(), zero())), nc("AddSucc", vec![padding.clone(), zero()])))?
++            .then(Equality::natural(
++                add(padding.clone(), one()),
++                succ(add(padding.clone(), zero())),
++                nc("AddSucc", vec![padding.clone(), zero()]),
++            ))?
+             .then(add_zero(padding.clone()).on_succ())?;
+-        less_right(zero(), successor).then(Equality::boolean(less(zero(), succ(padding.clone())), bit(true), nc("LessZeroSucc", vec![padding.clone()])))?.proof
++        less_right(zero(), successor)
++            .then(Equality::boolean(
++                less(zero(), succ(padding.clone())),
++                bit(true),
++                nc("LessZeroSucc", vec![padding.clone()]),
++            ))?
++            .proof
+     } else {
+         let (half, small) = (capacity(d - 1), index(d - 1, &address[1..]));
+         let previous = |padding: Expr| {
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector/arithmetic.rs:44:
+             args.push(padding);
+             fc(d - 1, "IndexPaddedBound", args)
+         };
+-        let false_proof = less_right(small.clone(), associate(half.clone(), half.clone(), padding.clone()))
+-            .then(Equality::boolean(less(small.clone(), add(half.clone(), add(half.clone(), padding.clone()))), bit(true), previous(add(half.clone(), padding.clone()))))?.proof;
+-        let true_proof = less_left(commute(half.clone(), small.clone()), add(add(half.clone(), half.clone()), padding.clone()))
+-            .then(less_right(add(small.clone(), half.clone()), associate(half.clone(), half.clone(), padding.clone())))?
+-            .then(less_right(add(small.clone(), half.clone()), commute(half.clone(), add(half.clone(), padding.clone()))))?
+-            .then(Equality::boolean(less(add(small.clone(), half.clone()), add(add(half.clone(), padding.clone()), half.clone())), less(small.clone(), add(half.clone(), padding.clone())), nc("LessTranslate", vec![small.clone(), add(half.clone(), padding.clone()), half])))?
+-            .then(Equality::boolean(less(small, add(capacity(d - 1), padding.clone())), bit(true), previous(padding.clone())))?.proof;
++        let false_proof = less_right(
++            small.clone(),
++            associate(half.clone(), half.clone(), padding.clone()),
++        )
++        .then(Equality::boolean(
++            less(
++                small.clone(),
++                add(half.clone(), add(half.clone(), padding.clone())),
++            ),
++            bit(true),
++            previous(add(half.clone(), padding.clone())),
++        ))?
++        .proof;
++        let true_proof = less_left(
++            commute(half.clone(), small.clone()),
++            add(add(half.clone(), half.clone()), padding.clone()),
++        )
++        .then(less_right(
++            add(small.clone(), half.clone()),
++            associate(half.clone(), half.clone(), padding.clone()),
++        ))?
++        .then(less_right(
++            add(small.clone(), half.clone()),
++            commute(half.clone(), add(half.clone(), padding.clone())),
++        ))?
++        .then(Equality::boolean(
++            less(
++                add(small.clone(), half.clone()),
++                add(add(half.clone(), padding.clone()), half.clone()),
++            ),
++            less(small.clone(), add(half.clone(), padding.clone())),
++            nc(
++                "LessTranslate",
++                vec![small.clone(), add(half.clone(), padding.clone()), half],
++            ),
++        ))?
++        .then(Equality::boolean(
++            less(small, add(capacity(d - 1), padding.clone())),
++            bit(true),
++            previous(padding.clone()),
++        ))?
++        .proof;
+         let mut branch = address.clone();
+         branch[0] = var("_head");
+-        call("Std.Bool.cases", vec![lam("_head", boolean(), property(&branch)), false_proof, true_proof, address[0].clone()])
++        call(
++            "Std.Bool.cases",
++            vec![
++                lam("_head", boolean(), property(&branch)),
++                false_proof,
++                true_proof,
++                address[0].clone(),
++            ],
++        )
+     };
+     let mut args = bit_args(d);
+     args.push(("padding", nat()));
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_ordinary/finite_vector/arithmetic.rs:60:
+-    vectors.emit(d, "IndexPaddedBound", &args, property(&address), proof, true)?;
++    vectors.emit(
++        d,
++        "IndexPaddedBound",
++        &args,
++        property(&address),
++        proof,
++        true,
++    )?;
+     let mut padded = address.clone();
+     padded.push(zero());
+-    let proof = less_right(index(d, &address), add_zero(capacity(d))).reverse()
+-        .then(Equality::boolean(less(index(d, &address), add(capacity(d), zero())), bit(true), fc(d, "IndexPaddedBound", padded)))?.proof;
+-    vectors.emit(d, "IndexBound", &bit_args(d), inside(index(d, &address), capacity(d)), proof, true)
++    let proof = less_right(index(d, &address), add_zero(capacity(d)))
++        .reverse()
++        .then(Equality::boolean(
++            less(index(d, &address), add(capacity(d), zero())),
++            bit(true),
++            fc(d, "IndexPaddedBound", padded),
++        ))?
++        .proof;
++    vectors.emit(
++        d,
++        "IndexBound",
++        &bit_args(d),
++        inside(index(d, &address), capacity(d)),
++        proof,
++        true,
++    )
+ }
+ 
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:129:
+     }
+ }
+ 
+-
+ #[test]
+ fn finite_vectors_preserve_all_sequence_prerequisites_and_slot_depths() {
+     let foundation = generate_go_practical_finite_vector_foundation().unwrap();
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:148:
+         assert_eq!(all.get(&name), Some(&value), "{name}");
+     }
+     for d in 0..=8 {
+-        for name in ["Type", "Capacity", "Index", "Lookup", "All", "Fits", "Embed",
+-            "IndexPaddedBound", "IndexBound", "LookupIndex", "LookupValid", "EmbedValid"] {
++        for name in [
++            "Type",
++            "Capacity",
++            "Index",
++            "Lookup",
++            "All",
++            "Fits",
++            "Embed",
++            "IndexPaddedBound",
++            "IndexBound",
++            "LookupIndex",
++            "LookupValid",
++            "EmbedValid",
++        ] {
+             assert!(all.contains_key(&format!("Mpk.Go.Practical.FiniteVector.D{d}.{name}")));
+         }
+-        let declaration = certificate.declarations.iter().find(|item|
+-            certificate.name_table[item.name as usize] == format!("Mpk.Go.Practical.FiniteVector.D{d}.Type")).unwrap();
+-        let DeclarationKind::Def { value, .. } = declaration.kind else { panic!("type definition") };
+-        let TermNode::Lam { body: mut value, .. } = certificate.term_table[value as usize] else { panic!("element parameter") };
++        let declaration = certificate
++            .declarations
++            .iter()
++            .find(|item| {
++                certificate.name_table[item.name as usize]
++                    == format!("Mpk.Go.Practical.FiniteVector.D{d}.Type")
++            })
++            .unwrap();
++        let DeclarationKind::Def { value, .. } = declaration.kind else {
++            panic!("type definition")
++        };
++        let TermNode::Lam {
++            body: mut value, ..
++        } = certificate.term_table[value as usize]
++        else {
++            panic!("element parameter")
++        };
+         for _ in 0..d {
+-            let TermNode::Pi { ty, body } = certificate.term_table[value as usize] else { panic!("missing slot bit") };
+-            let TermNode::Const { global, .. } = certificate.term_table[ty as usize] else { panic!("Bool slot address") };
+-            assert_eq!(certificate.name_table[certificate.declarations[global as usize].name as usize], "Std.Bool");
++            let TermNode::Pi { ty, body } = certificate.term_table[value as usize] else {
++                panic!("missing slot bit")
++            };
++            let TermNode::Const { global, .. } = certificate.term_table[ty as usize] else {
++                panic!("Bool slot address")
++            };
++            assert_eq!(
++                certificate.name_table[certificate.declarations[global as usize].name as usize],
++                "Std.Bool"
++            );
+             value = body;
+         }
+-        assert_eq!(certificate.term_table[value as usize], TermNode::Var(d as u32));
++        assert_eq!(
++            certificate.term_table[value as usize],
++            TermNode::Var(d as u32)
++        );
+     }
+-    println!("finite vectors: declarations={} terms={} bytes={} zero axioms; depths=0..8 slots=1..256",
+-        certificate.declarations.len(), certificate.term_table.len(), bytes.len());
++    println!(
++        "finite vectors: declarations={} terms={} bytes={} zero axioms; depths=0..8 slots=1..256",
++        certificate.declarations.len(),
++        certificate.term_table.len(),
++        bytes.len()
++    );
+ }
+ 
+ #[test]
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:172:
+ fn exact_finite_vector_ownership_is_separate_from_core_acceptance() {
+     let foundation = generate_go_practical_finite_vector_foundation().unwrap();
+-    assert_eq!(foundation, import_go_practical_finite_vector_foundation(foundation.certificate_bytes()).unwrap());
+-    assert_eq!(foundation, generate_go_practical_finite_vector_foundation().unwrap());
++    assert_eq!(
++        foundation,
++        import_go_practical_finite_vector_foundation(foundation.certificate_bytes()).unwrap()
++    );
++    assert_eq!(
++        foundation,
++        generate_go_practical_finite_vector_foundation().unwrap()
++    );
+     let mut c = baseline();
+     let ty = constant(&mut c, "Std.Bool");
+     let value = constant(&mut c, "Std.Bool.false");
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:179:
+     let name = c.name_table.len() as u32;
+-    c.name_table.push("Mpk.Go.Practical.FiniteVector.HonestExtra".into());
+-    c.declarations.push(Declaration { name, kind: DeclarationKind::Def { ty, value, reducibility: mpk_cert::encode::DefinitionReducibility::Reducible } });
++    c.name_table
++        .push("Mpk.Go.Practical.FiniteVector.HonestExtra".into());
++    c.declarations.push(Declaration {
++        name,
++        kind: DeclarationKind::Def {
++            ty,
++            value,
++            reducibility: mpk_cert::encode::DefinitionReducibility::Reducible,
++        },
++    });
+     let different = encode(c);
+     inspect("finite-vector-honest-extra", &different, true);
+-    assert_eq!(import_go_practical_finite_vector_foundation(&different), Err(GoOrdinaryError::Linkage));
++    assert_eq!(
++        import_go_practical_finite_vector_foundation(&different),
++        Err(GoOrdinaryError::Linkage)
++    );
+     let mut trailing = foundation.certificate_bytes().to_vec();
+     trailing.push(0);
+-    assert_eq!(import_go_practical_finite_vector_foundation(&trailing), Err(GoOrdinaryError::Linkage));
+-    assert_eq!(import_go_practical_finite_vector_foundation(&vec![0; 2_097_153]), Err(GoOrdinaryError::Limit));
++    assert_eq!(
++        import_go_practical_finite_vector_foundation(&trailing),
++        Err(GoOrdinaryError::Linkage)
++    );
++    assert_eq!(
++        import_go_practical_finite_vector_foundation(&vec![0; 2_097_153]),
++        Err(GoOrdinaryError::Limit)
++    );
+ }
+ 
+ fn changed_operation(c: &mut Certificate, node: u32, operation: &str, d: usize) -> u32 {
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:195:
+             term(c, TermNode::Lam { ty, body })
+         }
+         _ => match operation {
+-            "Capacity" => constant(c, &format!("Mpk.Go.Practical.FiniteVector.D{}.Capacity", d - 1)),
++            "Capacity" => constant(
++                c,
++                &format!("Mpk.Go.Practical.FiniteVector.D{}.Capacity", d - 1),
++            ),
+             "Index" if d == 0 => {
+                 let zero = constant(c, "Std.Nat.zero");
+                 call(c, "Std.Nat.succ", vec![zero])
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:202:
+             }
+             "Index" => {
+-                let tail = (0..d - 1).rev().map(|i| term(c, TermNode::Var(i as u32))).collect();
+-                call(c, &format!("Mpk.Go.Practical.FiniteVector.D{}.Index", d - 1), tail)
++                let tail = (0..d - 1)
++                    .rev()
++                    .map(|i| term(c, TermNode::Var(i as u32)))
++                    .collect();
++                call(
++                    c,
++                    &format!("Mpk.Go.Practical.FiniteVector.D{}.Index", d - 1),
++                    tail,
++                )
+             }
+             "Lookup" => {
+                 let a = term(c, TermNode::Var(2));
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:209:
+                 let data = term(c, TermNode::Var(1));
+                 let no = constant(c, "Std.Bool.false");
+-                let data = term(c, TermNode::App { function: data, arguments: vec![no] });
++                let data = term(
++                    c,
++                    TermNode::App {
++                        function: data,
++                        arguments: vec![no],
++                    },
++                );
+                 let i = term(c, TermNode::Var(0));
+-                call(c, &format!("Mpk.Go.Practical.FiniteVector.D{}.Lookup", d - 1), vec![a, data, i])
++                call(
++                    c,
++                    &format!("Mpk.Go.Practical.FiniteVector.D{}.Lookup", d - 1),
++                    vec![a, data, i],
++                )
+             }
+             "Embed" => {
+                 let a = term(c, TermNode::Var(2));
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:218:
+                 let a_in = term(c, TermNode::Var(3));
+                 let data_in = term(c, TermNode::Var(1));
+                 let i = term(c, TermNode::Var(0));
+-                let read = call(c, &format!("Mpk.Go.Practical.FiniteVector.D{d}.Lookup"), vec![a_in, data_in, i]);
++                let read = call(
++                    c,
++                    &format!("Mpk.Go.Practical.FiniteVector.D{d}.Lookup"),
++                    vec![a_in, data_in, i],
++                );
+                 let natural = constant(c, "Std.Nat");
+-                let function = term(c, TermNode::Lam { ty: natural, body: read });
++                let function = term(
++                    c,
++                    TermNode::Lam {
++                        ty: natural,
++                        body: read,
++                    },
++                );
+                 call(c, "Mpk.Go.Practical.Sequence.Make", vec![a, n, function])
+             }
+             _ => unreachable!(),
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:227:
+-        }
++        },
+     }
+ }
+ 
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:231:
+ #[test]
+ fn finite_vector_laws_reject_false_claims_erased_bounds_and_wrong_operations() {
+     let original = baseline();
+-    let names = original.declarations.iter().filter(|d|
+-        matches!(d.kind, DeclarationKind::Theorem { .. }) && original.name_table[d.name as usize].starts_with("Mpk.Go.Practical.FiniteVector."))
+-        .map(|d| original.name_table[d.name as usize].clone()).collect::<Vec<_>>();
++    let names = original
++        .declarations
++        .iter()
++        .filter(|d| {
++            matches!(d.kind, DeclarationKind::Theorem { .. })
++                && original.name_table[d.name as usize]
++                    .starts_with("Mpk.Go.Practical.FiniteVector.")
++        })
++        .map(|d| original.name_table[d.name as usize].clone())
++        .collect::<Vec<_>>();
+     assert_eq!(names.len(), 99);
+     for name in names {
+         let mut c = original.clone();
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:240:
+-        let index = c.declarations.iter().position(|d| c.name_table[d.name as usize] == name).unwrap();
+-        let DeclarationKind::Theorem { ty, proof } = c.declarations[index].kind.clone() else { unreachable!() };
++        let index = c
++            .declarations
++            .iter()
++            .position(|d| c.name_table[d.name as usize] == name)
++            .unwrap();
++        let DeclarationKind::Theorem { ty, proof } = c.declarations[index].kind.clone() else {
++            unreachable!()
++        };
+         let bad = false_claim(&mut c);
+         let ty = replace_result(&mut c, ty, bad);
+         c.declarations[index].kind = DeclarationKind::Theorem { ty, proof };
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:245:
+         let short = name.strip_prefix("Mpk.Go.Practical.FiniteVector.").unwrap();
+         inspect(&format!("false-{short}"), &encode(c), false);
+     }
+-    for (d, name) in [(0,"Index"),(1,"Index"),(6,"Index"),(8,"Index"),
+-        (1,"Lookup"),(6,"Lookup"),(8,"Lookup"),(0,"Embed"),(6,"Embed"),(8,"Embed"),(8,"Capacity")] {
++    for (d, name) in [
++        (0, "Index"),
++        (1, "Index"),
++        (6, "Index"),
++        (8, "Index"),
++        (1, "Lookup"),
++        (6, "Lookup"),
++        (8, "Lookup"),
++        (0, "Embed"),
++        (6, "Embed"),
++        (8, "Embed"),
++        (8, "Capacity"),
++    ] {
+         let mut c = original.clone();
+-        let index = c.declarations.iter().position(|item|
+-            c.name_table[item.name as usize] == format!("Mpk.Go.Practical.FiniteVector.D{d}.{name}")).unwrap();
+-        let DeclarationKind::Def { ty, value, reducibility } = c.declarations[index].kind.clone() else { unreachable!() };
++        let index = c
++            .declarations
++            .iter()
++            .position(|item| {
++                c.name_table[item.name as usize]
++                    == format!("Mpk.Go.Practical.FiniteVector.D{d}.{name}")
++            })
++            .unwrap();
++        let DeclarationKind::Def {
++            ty,
++            value,
++            reducibility,
++        } = c.declarations[index].kind.clone()
++        else {
++            unreachable!()
++        };
+         let value = changed_operation(&mut c, value, name, d);
+-        c.declarations[index].kind = DeclarationKind::Def { ty, value, reducibility };
++        c.declarations[index].kind = DeclarationKind::Def {
++            ty,
++            value,
++            reducibility,
++        };
+         let mut definitions = c.clone();
+         definitions.declarations.truncate(index + 1);
+-        assert_eq!(mpk_kernel::check_declarations(&definitions).unwrap().declaration_count, index + 1);
+-        println!("type-correct changed operation: D{d}.{name}; declarations={}", index+1);
++        assert_eq!(
++            mpk_kernel::check_declarations(&definitions)
++                .unwrap()
++                .declaration_count,
++            index + 1
++        );
++        println!(
++            "type-correct changed operation: D{d}.{name}; declarations={}",
++            index + 1
++        );
+         inspect(&format!("body-D{d}.{name}"), &encode(c), false);
+     }
+     for d in 0..=8 {
+Diff in /Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs:263:
+-        let mut premises = vec![("LookupValid",3),("EmbedValid",4),("EmbedValid",5),("EmbedIndexValid",3+d)];
+-        if d > 0 { premises.push(("LookupValid",5)); }
++        let mut premises = vec![
++            ("LookupValid", 3),
++            ("EmbedValid", 4),
++            ("EmbedValid", 5),
++            ("EmbedIndexValid", 3 + d),
++        ];
++        if d > 0 {
++            premises.push(("LookupValid", 5));
++        }
+         for (name, premise) in premises {
+             let mut c = original.clone();
+-            let index = c.declarations.iter().position(|item|
+-                c.name_table[item.name as usize] == format!("Mpk.Go.Practical.FiniteVector.D{d}.{name}")).unwrap();
+-            let DeclarationKind::Theorem { ty, proof } = c.declarations[index].kind.clone() else { unreachable!() };
++            let index = c
++                .declarations
++                .iter()
++                .position(|item| {
++                    c.name_table[item.name as usize]
++                        == format!("Mpk.Go.Practical.FiniteVector.D{d}.{name}")
++                })
++                .unwrap();
++            let DeclarationKind::Theorem { ty, proof } = c.declarations[index].kind.clone() else {
++                unreachable!()
++            };
+             let boolean = constant(&mut c, "Std.Bool");
+             let yes = constant(&mut c, "Std.Bool.true");
+             let unrelated = call(&mut c, "Std.Eq", vec![boolean, yes, yes]);

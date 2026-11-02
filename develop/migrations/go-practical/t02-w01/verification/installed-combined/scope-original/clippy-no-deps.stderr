@@ -1,0 +1,129 @@
+   Compiling mpk-core v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-core)
+    Checking mpk-theory v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-theory)
+    Checking mpk-linux-sandbox v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-linux-sandbox)
+    Checking mpk-cert v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cert)
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Checking mpk-kernel v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-kernel)
+    Checking mpk-api v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-api)
+   Compiling mpk-cli v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli)
+error: unused import: `std::cell::Cell`
+    --> crates/mpk-cli/src/policy_scan.rs:1931:13
+     |
+1931 |         use std::cell::Cell;
+     |             ^^^^^^^^^^^^^^^
+     |
+     = note: `-D unused-imports` implied by `-D warnings`
+     = help: to override `-D warnings` add `#[allow(unused_imports)]`
+
+error: unused import: `serde_json::json`
+    --> crates/mpk-cli/src/frontend_protocol.rs:1455:9
+     |
+1455 |     use serde_json::json;
+     |         ^^^^^^^^^^^^^^^^
+
+error: unused import: `mpk_vc::validate_release_registry`
+ --> crates/mpk-cli/src/frontend_registry.rs:4:5
+  |
+4 | use mpk_vc::validate_release_registry;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: unused import: `super::*`
+   --> crates/mpk-cli/src/frontend_runner.rs:596:9
+    |
+596 |     use super::*;
+    |         ^^^^^^^^
+
+error: unused import: `crate::frontend_registry::SnapshotFile`
+   --> crates/mpk-cli/src/frontend_runner.rs:597:9
+    |
+597 |     use crate::frontend_registry::SnapshotFile;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: unused import: `crate::frontend_sandbox::launch_snapshot_for_test`
+   --> crates/mpk-cli/src/frontend_runner.rs:598:9
+    |
+598 |     use crate::frontend_sandbox::launch_snapshot_for_test;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: unused imports: `Digest` and `Sha256`
+   --> crates/mpk-cli/src/frontend_runner.rs:599:16
+    |
+599 |     use sha2::{Digest, Sha256};
+    |                ^^^^^^  ^^^^^^
+
+error: unused import: `super::*`
+  --> crates/mpk-cli/src/go_practical_frontend_runner.rs:69:9
+   |
+69 |     use super::*;
+   |         ^^^^^^^^
+
+error: unused import: `super::*`
+    --> crates/mpk-cli/src/frontend_sandbox.rs:3019:9
+     |
+3019 |     use super::*;
+     |         ^^^^^^^^
+
+error: unused import: `std::io::Cursor`
+    --> crates/mpk-cli/src/frontend_sandbox.rs:3020:9
+     |
+3020 |     use std::io::Cursor;
+     |         ^^^^^^^^^^^^^^^
+
+error: unused import: `super::*`
+   --> crates/mpk-cli/src/go_practical_source_roots.rs:365:9
+    |
+365 |     use super::*;
+    |         ^^^^^^^^
+
+error: unused import: `std::ffi::OsString`
+   --> crates/mpk-cli/src/go_practical_source_roots.rs:366:9
+    |
+366 |     use std::ffi::OsString;
+    |         ^^^^^^^^^^^^^^^^^^
+
+error: unused import: `std::os::unix::ffi::OsStringExt`
+   --> crates/mpk-cli/src/go_practical_source_roots.rs:367:9
+    |
+367 |     use std::os::unix::ffi::OsStringExt;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: unused import: `std::os::unix::fs::symlink`
+   --> crates/mpk-cli/src/go_practical_source_roots.rs:368:9
+    |
+368 |     use std::os::unix::fs::symlink;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: unused import: `std::os::unix::net::UnixListener`
+   --> crates/mpk-cli/src/go_practical_source_roots.rs:369:9
+    |
+369 |     use std::os::unix::net::UnixListener;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: unused import: `super`
+   --> crates/mpk-cli/src/frontend_registry.rs:427:9
+    |
+427 |     use super::*;
+    |         ^^^^^
+
+error: function `alpha_certificate` is never used
+    --> crates/mpk-cli/src/program_certificate.rs:2736:8
+     |
+2736 |     fn alpha_certificate() -> (Certificate, usize) {
+     |        ^^^^^^^^^^^^^^^^^
+     |
+     = note: `-D dead-code` implied by `-D warnings`
+     = help: to override `-D warnings` add `#[expect(dead_code)]` or `#[allow(dead_code)]`
+
+error: function `rust_acceptance` is never used
+    --> crates/mpk-cli/src/program_certificate.rs:2746:8
+     |
+2746 |     fn rust_acceptance() -> VerificationReport {
+     |        ^^^^^^^^^^^^^^^
+
+error: function `reference_acceptance` is never used
+    --> crates/mpk-cli/src/program_certificate.rs:2758:8
+     |
+2758 |     fn reference_acceptance() -> ReferenceCheckerReport {
+     |        ^^^^^^^^^^^^^^^^^^^^
+
+error: could not compile `mpk-cli` (lib) due to 19 previous errors

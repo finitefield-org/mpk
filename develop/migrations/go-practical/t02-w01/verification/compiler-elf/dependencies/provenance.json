@@ -1,0 +1,16 @@
+{
+  "upstream": "https://github.com/KillingSpark/zstd-rs",
+  "api_documentation": "https://docs.rs/ruzstd/0.9.0/ruzstd/",
+  "archive_url": "https://static.crates.io/crates/ruzstd/ruzstd-0.9.0.crate",
+  "bytes": 105370,
+  "sha256": "a252f5e20f038fe7b4ea53e073e65398d652c864cc162fc77c56c2f13717b888",
+  "retrieval": "macOS /usr/bin/curl with ordinary TLS certificate validation; Python urllib initial certificate validation failed before any bytes were stored",
+  "original_package_retained": true,
+  "private_changes": [
+    "minimal dependency-free manifest; all upstream source/package files retained",
+    "private block-only facade; native Go frame/checksum/prefix policy belongs to caller",
+    "native Go/RFC128KiB guards before literals/sequence expansion in two upstream block modules",
+    "private Cargo manifest retains upstream minimum Rust1.87; no registry/C dependencies"
+  ],
+  "upstream_source_reduction": false
+}

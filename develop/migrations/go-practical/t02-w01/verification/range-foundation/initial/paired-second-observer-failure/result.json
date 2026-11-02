@@ -1,0 +1,32 @@
+{
+  "status": "observed_expected_observer_failure",
+  "observed_at_utc": "2026-10-19T11:55:05.100502+00:00",
+  "command": [
+    "python3",
+    "-B",
+    "develop/migrations/go-practical/t02-w01/verification/range-foundation/run-paired.py",
+    "reviewed"
+  ],
+  "exit_code": 1,
+  "seconds": 9.284895083983429,
+  "observer_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/paired-second-observer-failure/run-paired.py.txt",
+    "sha256": "b7773aea82f14e57561b1615dea57a6d7d3e8172f3dc445bb4f116e61e067b46",
+    "bytes": 4200
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/paired-second-observer-failure/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/paired-second-observer-failure/stderr.log",
+    "sha256": "35c49b22278ca168fd286a53965b357bf2724a900e100d3a067cc4e9b60a592d",
+    "bytes": 916
+  },
+  "cause": "Observer still incorrectly restricts inferred/expected kinds to app and pi. Both actual checkers agree on inferred-pi/expected-const in the initial integer-fold control.",
+  "both_checkers_rejected_original_same_bytes": true,
+  "runtime_or_proof_code_changed": false,
+  "all_original_and_reproduced_partial_outputs_retained": true,
+  "further_review": "The integer-fold test traversed the exposed carrier Pi as an extra argument. Replace it with a separately checked well-typed wrong fold definition and an exact three-argument semantic negative. Run only this affected new test root in Rust; retain unchanged passing positive/corrected-finite-proof evidence."
+}

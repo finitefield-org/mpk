@@ -1,0 +1,39 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0603]: function `upper` is private
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scopes.rs:149:79
+    |
+149 |                         if name.chars().next().is_some_and(validate::unicode::upper) {
+    |                                                                               ^^^^^ private function
+    |
+note: the function `upper` is defined here
+   --> crates/mpk-vc/src/go_practical_type_keys/validate/unicode.rs:700:1
+    |
+700 | pub(super) fn upper(c: char) -> bool {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0603]: function `upper` is private
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scopes.rs:155:75
+    |
+155 |                     if name.chars().next().is_some_and(validate::unicode::upper) {
+    |                                                                           ^^^^^ private function
+    |
+note: the function `upper` is defined here
+   --> crates/mpk-vc/src/go_practical_type_keys/validate/unicode.rs:700:1
+    |
+700 | pub(super) fn upper(c: char) -> bool {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0603]: function `upper` is private
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scopes.rs:680:75
+    |
+680 |                     if name.chars().next().is_some_and(validate::unicode::upper)
+    |                                                                           ^^^^^ private function
+    |
+note: the function `upper` is defined here
+   --> crates/mpk-vc/src/go_practical_type_keys/validate/unicode.rs:700:1
+    |
+700 | pub(super) fn upper(c: char) -> bool {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0603`.
+error: could not compile `mpk-vc` (lib) due to 3 previous errors

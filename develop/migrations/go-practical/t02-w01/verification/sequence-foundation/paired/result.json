@@ -1,0 +1,3212 @@
+{
+  "status": "passed",
+  "Rust_execution": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/result.json",
+    "sha256": "3695df490af4d8dbf9a5dd464037067f2e0e6cb76200f2ae9dbb1a53741b8210",
+    "bytes": 115220
+  },
+  "go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "go_production_sources": [
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57",
+      "bytes": 23259
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432",
+      "bytes": 5272
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type.go",
+      "sha256": "d5d3e93ab336e8686092547579f0d76640d280a6b347691890e6b63aeec13a0e",
+      "bytes": 4986
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0",
+      "bytes": 2893
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "1fe9acc0f8277c1290dd24ff4af0cde526e9e0e283026192af4c0bd671331a0a",
+      "bytes": 32802
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02",
+      "bytes": 38400
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "a951f73a15315ed34c38829dfab819d34aa947b8050e3b097adb81bf37f65e0c",
+      "bytes": 10399
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75",
+      "bytes": 112
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41",
+      "bytes": 7917
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "72b3fff34b37f57dde648735a4ba1f6191f11253394f71cd30566a23e578e8bb",
+      "bytes": 5751
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996",
+      "bytes": 17766
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e",
+      "bytes": 10238
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250",
+      "bytes": 72
+    }
+  ],
+  "unchanged_Go_build_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "started_at_utc": "2026-10-20T18:13:42.552315+00:00",
+  "cases": [
+    {
+      "name": "body-Append",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/body-Append.mpcert",
+        "sha256": "cd016df3dc3fef4ca6b429ac1ecdcdbcc595f51d8bc3a60295e389b984c21729",
+        "bytes": 35092
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/body-Append.rust.json",
+        "sha256": "ca06c811148a4ede75e4c205f989b3fe76f451baede76410ade0ca5d04966b34",
+        "bytes": 540
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/body-Append.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.08824087493121624,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/body-Append.stdout.log",
+        "sha256": "c6e62d2c4c68cd7e35825e2e59ceeda6dcad00d5bcbf5d370bea429cd090a8fa",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/body-Append.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "c672156395290a515eccdf4a08c9975488b5cb2df091095c3816db0a94b88af0"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"11332\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11343\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11336\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11241 inferred app but expected app"
+      }
+    },
+    {
+      "name": "body-Map",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/body-Map.mpcert",
+        "sha256": "42568bff4d686c90b1262769617ac822b4151ef639ef131e6ee6ce0db0d79463",
+        "bytes": 35163
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/body-Map.rust.json",
+        "sha256": "4d91b60c1bb74688abf60df89eac8ef8a57387eb0864688f7cba31f6e9494244",
+        "bytes": 540
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/body-Map.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.06738258397672325,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/body-Map.stdout.log",
+        "sha256": "b8d3f775015cf13965d7e21be1cbce05f19ba8f0b3ceea1340cac0227150515a",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/body-Map.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "98bd5468a1afa874422e4de2c0cb43bf0b09044361a3a3a5aff60464634369f1"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"10962\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"10981\",\"kind\":\"check_type_mismatch\",\"term_index\":\"10968\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 10873 inferred app but expected app"
+      }
+    },
+    {
+      "name": "body-Offset",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/body-Offset.mpcert",
+        "sha256": "425e97d1b2234a89baf5e02326e2c1ce5747e12a4ac9662652909531e6948abb",
+        "bytes": 35141
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/body-Offset.rust.json",
+        "sha256": "a2909eb8cf8d4a093333ee8b9da6b73600a9205795b05e305fe1c5ae812027ec",
+        "bytes": 540
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/body-Offset.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.11368116701487452,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/body-Offset.stdout.log",
+        "sha256": "edbfee680708b007cbcc63d82dbaf3cdd05ad88cffb08f373d81dc199d606a95",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/body-Offset.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "755090cbf6553be3969856b6da478e90e5ead6a3e43bb0d4f36ce27d091fc17f"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"11262\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11277\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11268\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11173 inferred app but expected app"
+      }
+    },
+    {
+      "name": "body-Set",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/body-Set.mpcert",
+        "sha256": "db3d871b0e8c6f16e25f70e15f967dc09c8eee204a3b5800c49ac2652a12831a",
+        "bytes": 35097
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/body-Set.rust.json",
+        "sha256": "2952b88388206bec75dbe96460ef93d58416339438dc720e66bdc95ca1e090c0",
+        "bytes": 540
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/body-Set.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.06412795791402459,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/body-Set.stdout.log",
+        "sha256": "c3a713d5a34576cb5d035332757aa90dd22a53c5e59009b208dc1be2ab753bab",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/body-Set.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "2e377ea4bc0b8f0759d25c7e31d0441f1a1c1dc0a5d6faec9d9b2f5a0a09367e"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"11090\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11107\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11096\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11001 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-AppendAt",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendAt.mpcert",
+        "sha256": "3683a94afd44727d81959c10097cb0c233424d1472dcf927807a52e6b2435689",
+        "bytes": 35117
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendAt.rust.json",
+        "sha256": "b2f25e3ba0cd85c0e4dd16f67cd78f28afd6a8570f196e855e1542c6e5c48a82",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendAt.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.12000691599678248,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-AppendAt.stdout.log",
+        "sha256": "977b784a513105d6efc30a40838c3df3ed4b0bf1202fd060059651bec851468a",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-AppendAt.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "01ffb3b55cb7068f114e89e3bc9f71d2165afd11b552be1f37af09c7ceb3d4f5"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11427\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11422\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11327 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-AppendLeft",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendLeft.mpcert",
+        "sha256": "9a4a0e1e26f4f2a4ed86865503cd4c4109c804958533f35dbc908d677b577308",
+        "bytes": 35122
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendLeft.rust.json",
+        "sha256": "871c5b39f2588d045ac5a447296ec592e081fd6338bb521b74ac9d8fdf81edd2",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendLeft.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.04905912501271814,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-AppendLeft.stdout.log",
+        "sha256": "5960e9a2d3da1cb0c400a61f021241a65f49df3496b8375e096e3858daa8482d",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-AppendLeft.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "7b457744fb524073360aceeb6191ca69873093a6218685c6047df23bbb04a8a0"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"13064\",\"kind\":\"check_type_mismatch\",\"term_index\":\"13030\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 12935 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-AppendLength",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendLength.mpcert",
+        "sha256": "9ceb6e138a577061902244fd864450445f5f72a1e68523e24ef420466da7d456",
+        "bytes": 35112
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendLength.rust.json",
+        "sha256": "8765075683f53a9fcfafbc0b3f732868371b2f963caa586ba407e24015fe3348",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendLength.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.05737129203043878,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-AppendLength.stdout.log",
+        "sha256": "8a6d0091d5414c073424d12731b2f13a330124738bcbb1769df5da94300630f3",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-AppendLength.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "17197e1da3a968e81d7bb72362e73c6ec0b45e1e7c7668fdd3b186bf2d1463b2"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11351\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11347\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11252 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-AppendRight",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendRight.mpcert",
+        "sha256": "8167b43ae07ee392f70aea28d6a8c30ed135bb8adf8514ccb3592c6211e6af14",
+        "bytes": 35122
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendRight.rust.json",
+        "sha256": "08dbbc3288373600f4b3ef151c34dfe8e5bbae392881a53ee9ba693904b930bd",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendRight.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.03344020794611424,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-AppendRight.stdout.log",
+        "sha256": "63072aef4758df6c8e1398ceec4c78a07217cb049041537f492216770ebc1521",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-AppendRight.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "cef978782a34626b1762b17de27a008da11f10f814f019602d4c69272cc2fc9c"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"13158\",\"kind\":\"check_type_mismatch\",\"term_index\":\"13135\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 13040 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-AppendRightBound",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendRightBound.mpcert",
+        "sha256": "f755f6b1044a53a0907bbb81f7991d6920e984b12fd3206cb9a80ca8b7a37c06",
+        "bytes": 35123
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendRightBound.rust.json",
+        "sha256": "42bd8e375dfae7bc13b6fc47708120732714f75864be381d12e256e54d58e613",
+        "bytes": 539
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendRightBound.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.04865595803130418,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-AppendRightBound.stdout.log",
+        "sha256": "68c19d17b82419aa42a3fde1ccc71253f8cfa22085ca1d52902bf96ad5ab6644",
+        "bytes": 106
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-AppendRightBound.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "b1a44f9689a2a9a31313c1ec22449eaa67cf67e6c63b11d3401138b7b5bbd5e3"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"pi\",\"expected_term_index\":\"10024\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"10129\",\"kind\":\"check_type_mismatch\",\"term_index\":\"10126\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 10049 inferred app but expected pi"
+      }
+    },
+    {
+      "name": "false-AppendValid",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendValid.mpcert",
+        "sha256": "e6d835b949d40df040836768a8d1bf9a7805d20918c5f7f545dc7a7a23111f19",
+        "bytes": 35137
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendValid.rust.json",
+        "sha256": "087a1621b53a1f641c67fa6f7ec8e70c6cd0a065917b8e490256c35d2ba50c16",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-AppendValid.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.06849170895293355,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-AppendValid.stdout.log",
+        "sha256": "3aeb26b34d56ba60a929b5e7fc7f6e2dc69e123b920bf04c552fefa4315244db",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-AppendValid.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "201d95de3fc1ae2eae7dec052d57bd61e527dd91c80b5313858c85818ef75fc0"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"14382\",\"kind\":\"check_type_mismatch\",\"term_index\":\"14095\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 14000 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-ChoiceFalse",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ChoiceFalse.mpcert",
+        "sha256": "b0aed9f8448fc31c5763602149da6ad141bc2bf2b6c333616c902967a8d1eff2",
+        "bytes": 35121
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ChoiceFalse.rust.json",
+        "sha256": "9e95fc25f7fd358c25ac46cd590d356bb937b4f577cc501e5383df1f60432b52",
+        "bytes": 536
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ChoiceFalse.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.13018337509129196,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-ChoiceFalse.stdout.log",
+        "sha256": "d55fee7168e3d4bb2cf3090a13423879dd2f50fc3a1e4f0015b5032cb3f3ed9f",
+        "bytes": 106
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-ChoiceFalse.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "a00c56723cdc6c2dd8fcad3acd5e8462d963869dcb8759717e574d40b9feba6c"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"9992\",\"kind\":\"check_type_mismatch\",\"term_index\":\"9948\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 9871 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-ChoiceTrue",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ChoiceTrue.mpcert",
+        "sha256": "9ce0950d0c5f7c41aa0f2525f169ecf3630a235fe1fef502016ac0ef49e8bc6a",
+        "bytes": 35121
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ChoiceTrue.rust.json",
+        "sha256": "0a0ef41ee397b9e30b165cd35cb546866431bf78379b68543ce8626edf7aedd9",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ChoiceTrue.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.22600895806681365,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-ChoiceTrue.stdout.log",
+        "sha256": "f32a5e73ab973483757e17cd1eec050c5fb2327055937edc8ed08488e4b623d3",
+        "bytes": 106
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-ChoiceTrue.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "910a68240284abd78575c2ed1f301e4d2cf49a1f15c082bb2142f9ed87e92faf"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"10014\",\"kind\":\"check_type_mismatch\",\"term_index\":\"10003\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 9926 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-ConstantAt",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ConstantAt.mpcert",
+        "sha256": "29a442cc3b07a9b93bdb95c7463df478e974d73712d3483b2462ff9db13f0f8c",
+        "bytes": 35117
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ConstantAt.rust.json",
+        "sha256": "dada6a833afc662037e0bf20141987af8fa817bcf9899eb2eab5be7681484f11",
+        "bytes": 536
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ConstantAt.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.1376977920299396,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-ConstantAt.stdout.log",
+        "sha256": "2883c71810016b3e1d5407e7256e1169c20d68793d7562163f5357f75062bfa4",
+        "bytes": 106
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-ConstantAt.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "19704978537b0fa0008caf35222dbccd407d9c7b83494b0800be348eceeb152d"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"6247\",\"kind\":\"check_type_mismatch\",\"term_index\":\"6227\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 6156 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-ConstantLength",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ConstantLength.mpcert",
+        "sha256": "505dc4eef58eda3171a4d67a008a220f9c75f9f5d2d6a9fe6bba75c127829838",
+        "bytes": 35112
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ConstantLength.rust.json",
+        "sha256": "ce7999c3393797786145f70f753cfd4903a5b3b6bc3c199ec71ea85bc6ca4016",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ConstantLength.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.07698954094666988,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-ConstantLength.stdout.log",
+        "sha256": "bc14521b1edfe4784d46d0ddfd72485dec1145fbb2ef6ab214ac6404af58ab35",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-ConstantLength.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "ae76937d692638653ccc6bd39399c507eb9421efe55852c46639685767e1502b"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"10671\",\"kind\":\"check_type_mismatch\",\"term_index\":\"10667\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 10572 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-ConstantValid",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ConstantValid.mpcert",
+        "sha256": "bfd0d495d8f63e3790db031896006a423ee208d064af1195df7cca4ed32ceccc",
+        "bytes": 35132
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ConstantValid.rust.json",
+        "sha256": "246e64cd151fd0a7eaa28bf630aafbdc4969c3b8692a2213509ba8cf66589f10",
+        "bytes": 533
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-ConstantValid.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.026732082944363356,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-ConstantValid.stdout.log",
+        "sha256": "ce711af84edbeada91d8eb674590942179fbd75ed2e2e27fb4da77bd7231b9ee",
+        "bytes": 103
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-ConstantValid.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "d0df012ea20aef7a298984251f59b6d48dea4698a2905705c863b174f1e1061d"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"8774\",\"kind\":\"check_type_mismatch\",\"term_index\":\"9\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 9 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-EmptyValid",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-EmptyValid.mpcert",
+        "sha256": "3acf3992293886193abb84b059d7bcd39dfc5771ad0da4698b5f565361c2cbfb",
+        "bytes": 35127
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-EmptyValid.rust.json",
+        "sha256": "be64cfcddc05d61c1514c993b9d9e483d0be1ca77449df5beb18e9686d63aa5b",
+        "bytes": 537
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-EmptyValid.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.0257616660092026,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-EmptyValid.stdout.log",
+        "sha256": "cdfcc0ec63d5d5e21ff88b98259e2d0a2b2982d46ab83b580501b1fc057115c1",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-EmptyValid.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "6600c846edc45cef491a29e37ed23e258decf532c838c1f5ae296cf08ef7a178"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"9804\",\"kind\":\"check_type_mismatch\",\"term_index\":\"13173\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 13078 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-MakeAt",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MakeAt.mpcert",
+        "sha256": "3b7f28cf77313b21ca579123fdc86d0f4987c5f33d5d0ce2d87125b538e05a95",
+        "bytes": 35117
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MakeAt.rust.json",
+        "sha256": "f205e77b68eb3944ef3646580ae3a7013d0f77bad3ee78da99c992fc66ce4fa7",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MakeAt.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.03000070806592703,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MakeAt.stdout.log",
+        "sha256": "dc38a26a0aef050ac81b0ab1efebcbe4c0b4c15d2142cba1ed62f186f4298c66",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MakeAt.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "2ae31820f9f92370d9f016b1d388a6633d8b910641053255287bd03e0d44628b"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"10728\",\"kind\":\"check_type_mismatch\",\"term_index\":\"10723\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 10628 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-MakeLength",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MakeLength.mpcert",
+        "sha256": "4262963e27c8628f9be5958db649a7bd6842a4427bc9afc78ac7935dc3dcac79",
+        "bytes": 35112
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MakeLength.rust.json",
+        "sha256": "ccc07c27deceb1868667832fdf7f4440400d997c5c9906d770ea7be4c1ca9677",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MakeLength.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.029850416001863778,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MakeLength.stdout.log",
+        "sha256": "ca37a86500012e6eeeacedc09b9e06e5e29d6bce6e1f01c1a952c9e329817b28",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MakeLength.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "f709b58cfd20041273e7ce8e3facb28d2d1701e29d97be108bc303c2eba3d820"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"10668\",\"kind\":\"check_type_mismatch\",\"term_index\":\"10664\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 10569 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-MapAt",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapAt.mpcert",
+        "sha256": "e02070b605253dd25427225a63def10accb3eaa57221d9e7ccb6175d8199b3c4",
+        "bytes": 35121
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapAt.rust.json",
+        "sha256": "7857c3eafa74390bc3d9ff7064b5579d6697fc450ffcf6a3ea9a8aa57f0461da",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapAt.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.02990299998782575,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MapAt.stdout.log",
+        "sha256": "ddfcf44b687961a350a5a93d34cf8bfcbc9bc726b0df8f9108f86f14b46097fd",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MapAt.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "f597939fec71f549784dca0f8a77a7e505cba55099558bee2b22c93aefb1925c"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"10970\",\"kind\":\"check_type_mismatch\",\"term_index\":\"10963\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 10868 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-MapCompose",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapCompose.mpcert",
+        "sha256": "244431a00320b122f68b14e0a8fedee114b321111b01789944e0a064ee95a022",
+        "bytes": 35135
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapCompose.rust.json",
+        "sha256": "4c52722823483aaed2b0b230f9c7d87885b3a33c17d7b949bef0df45a6d863fe",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapCompose.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.034095666953362525,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MapCompose.stdout.log",
+        "sha256": "2092facda5e2bcc745a74d83bf66f8e42c1ebff52beda6df990a26d535e654b4",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MapCompose.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "ef45ce4443df0fb13a27407b48146899f894de0ed0efc9e7d3ab5184dec1ed08"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11802\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11791\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11696 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-MapIdentity",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapIdentity.mpcert",
+        "sha256": "1cd53423a8cbe56556d24a15be09922a5c9c4dc7ba330e50c7fd46a9a659beca",
+        "bytes": 35117
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapIdentity.rust.json",
+        "sha256": "dc3ab25a75702dd63dcbd15a6e2d5cba55efe959c7d79abfa3673203332b7abf",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapIdentity.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.046536875073798,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MapIdentity.stdout.log",
+        "sha256": "714cedbe68531b7a8b483b8397f78f20331839bbfcc2a9ce9ea5e5b9196b5256",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MapIdentity.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "2a252963ac7df4caeaeacaf18e41fa8a9d9fd2741a7f0c000c8342b1f52b29d4"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11675\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11670\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11575 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-MapLength",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapLength.mpcert",
+        "sha256": "2e13129f87044d58be6a612fb0fd62617d2c60ae6a55181085a718c50f6b77bf",
+        "bytes": 35116
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapLength.rust.json",
+        "sha256": "0dd5876083b701a35cc78d35150e99baf1f8ba55d92938116008e408a87ce9a2",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapLength.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.023275625077076256,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MapLength.stdout.log",
+        "sha256": "554d1abc79753e64e2bf0ba9c540615d4ea6d89f4545d69f7344ad38048b769f",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MapLength.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "b801f984a06f261cb441e16fc3ebc318a8800018b35decf798b3a33e7021ac48"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"10880\",\"kind\":\"check_type_mismatch\",\"term_index\":\"10875\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 10780 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-MapRespects",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapRespects.mpcert",
+        "sha256": "7bb1445063f18ef68f947186a8d3ad7650b489198f6451b3764bc55c519b88bf",
+        "bytes": 35141
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapRespects.rust.json",
+        "sha256": "ee9d50777fbb77e99d6d69c1bef8cdfbaee02dbf265710b9675492654eb829c0",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapRespects.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.07817541703116149,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MapRespects.stdout.log",
+        "sha256": "3f36bd23d57473e502e937edb6b6d3ddc986c986e1509c5c2f1491df2a2e8d15",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MapRespects.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "bab26cdb4b41cbad2ebd65a0f630055ad9b9cec3524439acf7b631e9e7fdad86"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"12090\",\"kind\":\"check_type_mismatch\",\"term_index\":\"12051\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11956 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-MapValid",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapValid.mpcert",
+        "sha256": "5fbb9892a849a745d0fa6737f1cc74b5e717c077ade3357126635ef0cad36716",
+        "bytes": 35146
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapValid.rust.json",
+        "sha256": "669930508196dad94d316efa1dc5388039c52410520dbf588e29256090f34bfe",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-MapValid.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.0311747919768095,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MapValid.stdout.log",
+        "sha256": "80203dc20dd0e2e38a07bed626eb977db8c8dbc7a7e34622831eb039b1755c8b",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-MapValid.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "612a820a3d5105356112cfb4abec3323a26d365fe04f5f5074a8d4fca7e3fcda"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"13557\",\"kind\":\"check_type_mismatch\",\"term_index\":\"13383\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 13288 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-OffsetAt",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetAt.mpcert",
+        "sha256": "897fd86e9836adb143fce300972a65bc092e0b0e6c8ba529973342e8374a741f",
+        "bytes": 35122
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetAt.rust.json",
+        "sha256": "812fc384382ac45fe1ad4c15dfa2afc8787ac6d79ddbc8847040bb2ddac40043",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetAt.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.03386066702660173,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-OffsetAt.stdout.log",
+        "sha256": "edbfee680708b007cbcc63d82dbaf3cdd05ad88cffb08f373d81dc199d606a95",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-OffsetAt.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "41353c2e171fac9e20283827e540e6126d5da8a0cc7db8621c13080860a7e93a"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11274\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11268\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11173 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-OffsetCompose",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetCompose.mpcert",
+        "sha256": "acf59fbe0a8ac613c2ead847ff5dbce94d8df72da29d4e5395b601ae257cf9f0",
+        "bytes": 35137
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetCompose.rust.json",
+        "sha256": "ec68ec4ddb623ac06a20a65fe91ef8ea879d0aad887725a912ade612ac618b1c",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetCompose.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.06261483300477266,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-OffsetCompose.stdout.log",
+        "sha256": "6e6ff8900611a23a2c06b53bad9dd4bb1bb5ceb310efab38660cf8a1e21a9573",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-OffsetCompose.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "eca5066becfb0fb34e5df407bbee6537fedf84262ffea644a7c1d243f35636a5"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"12840\",\"kind\":\"check_type_mismatch\",\"term_index\":\"12781\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 12686 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-OffsetLength",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetLength.mpcert",
+        "sha256": "8d9e8b7fdaa476646f6a611485656981316b7a0a123c79ec22a0079219ce7553",
+        "bytes": 35117
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetLength.rust.json",
+        "sha256": "200c025c54b514b1b54dfd4ded703fb9aae6a645c59329cb2f7c8b9645cf4a65",
+        "bytes": 534
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetLength.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.04518795805051923,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-OffsetLength.stdout.log",
+        "sha256": "d1ca21e6dc534af862fa312e30f19800d23b6424d34d88ca1430ffdc4cf3b3b8",
+        "bytes": 105
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-OffsetLength.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "dbcbc0ff49f2289ea6cc291cc5989fb67fa2929f65f0981e10995d7762f8acc5"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"565\",\"kind\":\"check_type_mismatch\",\"term_index\":\"727\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 727 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-OffsetValid",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetValid.mpcert",
+        "sha256": "19da2f53665fc7a5120e2d1ab82f0664df8447b464918a9fea6a0c608ee6250a",
+        "bytes": 35142
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetValid.rust.json",
+        "sha256": "c58dfccaf9138d9dcd04aacbbd3494ddeb456080d7d53c2a4361e568f843b2e4",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetValid.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.07831154204905033,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-OffsetValid.stdout.log",
+        "sha256": "c9876c62501626ea5650a90b969898a6d0df844e5c9691a93472a85f5e4435af",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-OffsetValid.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "26e9766197b9332ea4834c9a1ccf35e497559dd9c9e85a9ff7004c8486b28dcb"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"14011\",\"kind\":\"check_type_mismatch\",\"term_index\":\"13885\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 13790 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-OffsetZero",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetZero.mpcert",
+        "sha256": "ae33f6ce8af807c302775448ef3ef9c9ac7284c35d6806641b48763a9868fd6b",
+        "bytes": 35122
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetZero.rust.json",
+        "sha256": "fb041b9d8e63a39832d46314c861b7b2fce01520f09b559584169fd0d2681a6a",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-OffsetZero.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.03823812503833324,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-OffsetZero.stdout.log",
+        "sha256": "1639f8b8e6bc9f218a2b56d67b7994d4ea64fb206bbb3e0140d33ac0c072ff7f",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-OffsetZero.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "062b26a84610c54487a9637ec845893b2d04452028ef15f6c706ead3b556a96f"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"12704\",\"kind\":\"check_type_mismatch\",\"term_index\":\"12662\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 12567 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-PrefixEmpty",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixEmpty.mpcert",
+        "sha256": "230c73a8ac45773a39fc90a88e7c1502405221e057a47c4853c6680709ab8244",
+        "bytes": 35122
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixEmpty.rust.json",
+        "sha256": "169c738fbc7dde22fd9c85b8593c414111afb4d926c03e19c2998b1fd3e77631",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixEmpty.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.06387408392038196,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-PrefixEmpty.stdout.log",
+        "sha256": "168e15e9325ff4c9904f4a789f44a59c918b358c0d9edd1aa54de2c81321a329",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-PrefixEmpty.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "21934ba7b944baa8322e387cd08d84fbd52271fbf8fd1f84bef1ad45c667dcc1"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11742\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11747\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11652 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-PrefixReflexive",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixReflexive.mpcert",
+        "sha256": "979dabec053e400d83f77781c6f25f8d22bd6ae54822e3e5b1d39bdb3d2f42ba",
+        "bytes": 35122
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixReflexive.rust.json",
+        "sha256": "897c760b32a657289d73b0a5697e65aee967f50b6af7de5849760578dabaa229",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixReflexive.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.03992229199502617,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-PrefixReflexive.stdout.log",
+        "sha256": "294475dafb2b2df61e30080f40f0452749c646a42cce357666eb700de069d760",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-PrefixReflexive.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "bb28d517445d39710ab7796fa79df4eb76270316af8542866cbf82b6e9caff64"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11505\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11499\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11404 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-PrefixRestrict",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixRestrict.mpcert",
+        "sha256": "4c85d8af5624605c0cab78c1c4bf0e757467949f82c4d38ff0183e6bcd58a770",
+        "bytes": 35142
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixRestrict.rust.json",
+        "sha256": "313ae920473f5ad95c18246aebb03017370bb3965044a10536793e825f6ebfc7",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixRestrict.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.033454000018537045,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-PrefixRestrict.stdout.log",
+        "sha256": "5714e84bb60c40fd516995ca002a6246b5f95a13fbc6505d379623b8c28b7295",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-PrefixRestrict.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "90901899940a3ee5884da0d428834fcae2bd0cf9ba3bf90474eb0880df07fba9"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11552\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11644\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11549 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-PrefixSymmetric",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixSymmetric.mpcert",
+        "sha256": "660ddbab15e1bd16836cb1bb59c78f1dac5b66ccae0c63f39e4c0f949f23e7df",
+        "bytes": 35132
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixSymmetric.rust.json",
+        "sha256": "8f341ecb7790a40a73566b69475999f4c22107692714fd3afe84acfb0cf38797",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixSymmetric.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.03205054206773639,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-PrefixSymmetric.stdout.log",
+        "sha256": "ee9ca852152f860168e6490602fed9ac22a4e9528ad7eb6c9475f974f166a7b3",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-PrefixSymmetric.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "0183eed3bff163988e8c194001d70a09f1655318c16dfe52ce15752b58d1607c"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11545\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11514\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11419 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-PrefixTransitive",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixTransitive.mpcert",
+        "sha256": "e05c6fb313a088719d78b32e3490c496b514d06f5270a7f6d33d1dccec17dc25",
+        "bytes": 35142
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixTransitive.rust.json",
+        "sha256": "a5b32c8ce6e1aefb182ec675c871479342e1568166ba9eaf85660837dc571dc1",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-PrefixTransitive.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.038752874941565096,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-PrefixTransitive.stdout.log",
+        "sha256": "e90d473a335fc63728cc6f40962c635a739c73e97c2700b4f3ca3707c331ee5f",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-PrefixTransitive.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "4aa1fff112400f9ef74f37d5b38256313def07135960b1f942327696f40ef878"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11626\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11561\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11466 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-SetAt",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetAt.mpcert",
+        "sha256": "5f40b645dd4b179d889220da6d7c5e8dfcb72d65cee869e4e422cfc09e48600f",
+        "bytes": 35122
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetAt.rust.json",
+        "sha256": "497f94fd5236c45e6ca7da95710869995a7896c6d5384b734037e122dba00fb9",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetAt.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.06700904108583927,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-SetAt.stdout.log",
+        "sha256": "bbebc47ffc0a4a3f83d78dca58fb73e7f680d53b63941b2c277d28d913735d1a",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-SetAt.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "9d65d72ae9efabfe4d00b96ac40884da37383e3aa7927c4cf7930904598d7ae1"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11138\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11132\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 11037 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-SetLength",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetLength.mpcert",
+        "sha256": "8eccbd07d9f7cdf55292f1235d5ef5d127933f25fb24c367f644277587d1c7d3",
+        "bytes": 35117
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetLength.rust.json",
+        "sha256": "6ac966322e55ce179d994e2e69e9c3b061adb7061e3989a791609958d191d386",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetLength.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.07155200000852346,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-SetLength.stdout.log",
+        "sha256": "676a0a06a746cc8c711d594568d174e91dac9ae1093386c974e4a61b588a62ce",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-SetLength.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "bede49cad03afb72fc960f13e585ce942b4783ef58f571e110c7bf275d296426"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"11060\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11055\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 10960 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-SetOther",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetOther.mpcert",
+        "sha256": "581ce8baaa1035b4124980d747c46288031760923afeea97ef2e5588e60f4df0",
+        "bytes": 35127
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetOther.rust.json",
+        "sha256": "b6570ae8b8c625015e22be9e7d8dbe7e31b7707c98acda0b7cfeff84aabbb377",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetOther.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.10106937505770475,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-SetOther.stdout.log",
+        "sha256": "cd3759fb8d0072cb5329d80cc1627ebdf3877d5f3dcc503232a9a97118da935f",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-SetOther.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "997f2dd028ab136211fd5af517249bb5524d322e8b02b802da0785c499481669"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"12329\",\"kind\":\"check_type_mismatch\",\"term_index\":\"12295\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 12200 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-SetOverwrite",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetOverwrite.mpcert",
+        "sha256": "cd7d684278a5b92ff564db06d57e93297d30b80274ed1a7935c722621d724215",
+        "bytes": 35132
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetOverwrite.rust.json",
+        "sha256": "2c66fd1f25c7cf392600637f68066a4f7c7a6fcae6c5d45746e11b4cacc5fac7",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetOverwrite.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.04375570791307837,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-SetOverwrite.stdout.log",
+        "sha256": "9340424be21b7b2820b5c3dd810e6951271818a0cda9afb1cacb7663161dfbc5",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-SetOverwrite.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "3029402967a1f32e21c0a9941fd5059d5a354af25c03837075a12b1788ceb782"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"12483\",\"kind\":\"check_type_mismatch\",\"term_index\":\"12413\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 12318 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-SetSame",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetSame.mpcert",
+        "sha256": "952cdfc35309641f29420a62656bb5ec813e1e93f4f759c2114e3337fd8dde79",
+        "bytes": 35117
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetSame.rust.json",
+        "sha256": "3a58d2ee97781c24cf8b9e8c8c418497c4d4aa0385700479d82168da8080e20c",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetSame.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.32673566695302725,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-SetSame.stdout.log",
+        "sha256": "23097032e652b0855d02bbc82b19b009d47b7047c976da932fd0ab01647074f2",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-SetSame.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "db09741bbf25a3c97301e9ff0bcd66e6dcc012c14ce7a3944e2af9d4053cb203"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"12255\",\"kind\":\"check_type_mismatch\",\"term_index\":\"12228\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 12133 inferred app but expected app"
+      }
+    },
+    {
+      "name": "false-SetValid",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetValid.mpcert",
+        "sha256": "82f9561b8b84817ea9a891b65a6dcd000bec02c7fdb0c28e2de8376e5e36b4dd",
+        "bytes": 35142
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetValid.rust.json",
+        "sha256": "e9a23222376811d441e083474f8dc6b5f60ad58c4d7bb890395276159dc66dfb",
+        "bytes": 538
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/false-SetValid.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.1019355000462383,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-SetValid.stdout.log",
+        "sha256": "5864b24fd70b79542c974d84de3e83dd83b08dadcdf2dd43551d6633db04a005",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/false-SetValid.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "476723d273f1f55ea0671af3b51adc9f03f8e39ea17c8bdfd6e34997420feca6"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"13831\",\"kind\":\"check_type_mismatch\",\"term_index\":\"13622\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 13527 inferred app but expected app"
+      }
+    },
+    {
+      "name": "premise-AppendRightBound-3",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-AppendRightBound-3.mpcert",
+        "sha256": "624c1a4e6e743438f5660ddf1732436f801a478996050360634b485c3853128a",
+        "bytes": 35115
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-AppendRightBound-3.rust.json",
+        "sha256": "c2f7bec5b37e4ab33ca0aa9dc70a880bb458d0ac89172d2fdd2fa96956590f91",
+        "bytes": 539
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-AppendRightBound-3.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.16983579203952104,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-AppendRightBound-3.stdout.log",
+        "sha256": "79e0494576c72fef145bc259863c8b5e12f9a1bf6cc5a34fd6f29a6e1963a957",
+        "bytes": 106
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-AppendRightBound-3.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "6ba1feea8b34abdfe6e553c43169d9dfc50a1345de5a2823a73d86d3dcd84da3"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"pi\",\"expected_term_index\":\"10024\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"10128\",\"kind\":\"check_type_mismatch\",\"term_index\":\"10125\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 10048 inferred app but expected pi"
+      }
+    },
+    {
+      "name": "premise-AppendRightBound-4",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-AppendRightBound-4.mpcert",
+        "sha256": "774b591cd239d98a7aefd8bb722e966382580e69ec537b317f2a07da1b9cd3dc",
+        "bytes": 35120
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-AppendRightBound-4.rust.json",
+        "sha256": "b02ada4a8c673c01bd80f056e8bfd5a9ef59e5cec5302d7f2407a1b80b707bb8",
+        "bytes": 539
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-AppendRightBound-4.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.1334337079897523,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-AppendRightBound-4.stdout.log",
+        "sha256": "68c19d17b82419aa42a3fde1ccc71253f8cfa22085ca1d52902bf96ad5ab6644",
+        "bytes": 106
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-AppendRightBound-4.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "ce43434bac4aaf6fa718e8c434a9ab227a89f0a8fb8f928273451d9449e19185"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"pi\",\"expected_term_index\":\"10024\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"10129\",\"kind\":\"check_type_mismatch\",\"term_index\":\"10126\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 10049 inferred app but expected pi"
+      }
+    },
+    {
+      "name": "premise-AppendValid-4",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-AppendValid-4.mpcert",
+        "sha256": "dbad7780301e36aa56f64ede9e6587ceef4d81d2eb61d3c8d690035d0184b87e",
+        "bytes": 35119
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-AppendValid-4.rust.json",
+        "sha256": "bf8d045368fcc68dbd664486d9116961279ecb4e92e2b7558eff6ebec1400bbd",
+        "bytes": 585
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-AppendValid-4.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.17846791702322662,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-AppendValid-4.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-AppendValid-4.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "1f5aff4e38484000e50ba669319a77fcf047a5f43c9ebbc1697b0e32ddbbf691"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"9806\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"14102\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-AppendValid-5",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-AppendValid-5.mpcert",
+        "sha256": "af91bce37a76e0c853c6c3c2794a14da033e110a75c296e14674228c831064db",
+        "bytes": 35124
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-AppendValid-5.rust.json",
+        "sha256": "97a696cec21d5eb1bdcc31ef657bf940a782abeee2b2d2084ef210447954dbdf",
+        "bytes": 586
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-AppendValid-5.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.057249833014793694,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-AppendValid-5.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-AppendValid-5.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "7305c26d7e2924bb851dcf4129a2122dc708eafa082b343f1fc32315dbcb8252"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"14072\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"14101\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-ChoiceFalse-4",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-ChoiceFalse-4.mpcert",
+        "sha256": "60dc880445e47d0a56a6d2daebbb9e6a1b55993edfc7caa2f091a80ab5cffcf6",
+        "bytes": 35118
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-ChoiceFalse-4.rust.json",
+        "sha256": "1d044ae0b847b75523c800ab147ff54540db609510151181b4da6690d0876663",
+        "bytes": 585
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-ChoiceFalse-4.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.20171970804221928,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-ChoiceFalse-4.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-ChoiceFalse-4.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "7448f8ddd4daae4728191ccc03c1d952f64d6cbb1b5a38ccebc62fed59e35f8a"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"9947\",\"actual_kind\":\"app\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"9951\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-ChoiceTrue-4",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-ChoiceTrue-4.mpcert",
+        "sha256": "d65982a33111e13b5ede4ebccd157b3fc44c5d36279cf34e4a39a71c1855fbef",
+        "bytes": 35118
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-ChoiceTrue-4.rust.json",
+        "sha256": "bb9162afc6c8b9afaf2456237d30a0805a7c2c6fbafc38193f979b2ab45d5523",
+        "bytes": 587
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-ChoiceTrue-4.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.09080666699446738,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-ChoiceTrue-4.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-ChoiceTrue-4.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "c6c1cb190be1fd61ec6f46198a07a248ec994c53fdfa00fa92d0f6efd8180cf0"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"10003\",\"actual_kind\":\"app\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"10005\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-ConstantValid-4",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-ConstantValid-4.mpcert",
+        "sha256": "0d8e366467e9dcc7c6b4a514425e7a00548b3369da26b6929f78149b7c0b2333",
+        "bytes": 35119
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-ConstantValid-4.rust.json",
+        "sha256": "1a9871d89558ee9de0e7fe3a8ce7ede032194f006f6427f287b27c88d2ba607f",
+        "bytes": 585
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-ConstantValid-4.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.2561810410115868,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-ConstantValid-4.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-ConstantValid-4.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "783db8d4db626b1c5b6fccaa9a3c5857fb51a66ff9f69ff34208f4943d55305d"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"525\",\"actual_kind\":\"app\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"13263\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-EmptyValid-3",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-EmptyValid-3.mpcert",
+        "sha256": "e4a8900458d635b64bc2a6bb4c6bd091b12c21a8a2d5fd893a352cf0d56517ca",
+        "bytes": 35114
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-EmptyValid-3.rust.json",
+        "sha256": "29bdfd69b3ad435d282bff38120bc2b4ee380b22a28040d695dd9d1458e2fe96",
+        "bytes": 587
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-EmptyValid-3.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.03221362491603941,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-EmptyValid-3.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-EmptyValid-3.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "e0b917c31ce810d5ea2c212fa326ca1d25d54685cccfc9eb54bd84c671428574"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"13164\",\"actual_kind\":\"app\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"13174\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-MapRespects-6",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-MapRespects-6.mpcert",
+        "sha256": "df4e9e6fc26e233fb1fef849afc7b24625936b315553f5b7411242df4d80a9f8",
+        "bytes": 35128
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-MapRespects-6.rust.json",
+        "sha256": "e0d2455b5e53ea11b7a7f7381b0e518c1fefd26d2d83096da29323a17efd942c",
+        "bytes": 586
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-MapRespects-6.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.07594987493939698,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-MapRespects-6.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-MapRespects-6.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "1c37f491ca7161d305a516af9e1af43427e9136f818da18d8aecc5d9bd5748ec"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"12055\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"12059\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-MapValid-5",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-MapValid-5.mpcert",
+        "sha256": "e2a3500665eb665626b580f6f8b77db012b8d07458b382efa9fb8a2f71cb21ce",
+        "bytes": 35123
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-MapValid-5.rust.json",
+        "sha256": "2fd9a093ea940539f69e96f7a91df496ab65e8a5a34242b632d0ccdcf6c01593",
+        "bytes": 586
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-MapValid-5.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.0822714160894975,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-MapValid-5.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-MapValid-5.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "27e2fcf45ff2704df1b80ad7aa6bd3b22f2de4260ec661660dae76d8601c86c8"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"13383\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"13391\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-MapValid-7",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-MapValid-7.mpcert",
+        "sha256": "dd43be759001942eeec48603c27901a590ef0fe40f73c8dc15634f76c28b2b31",
+        "bytes": 35133
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-MapValid-7.rust.json",
+        "sha256": "1c6176c5d390390bb0e563c01600997f595f8f8ac5a85152fcaf8aeccb56e0f5",
+        "bytes": 586
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-MapValid-7.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.17511449998710304,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-MapValid-7.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-MapValid-7.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "4dd84a342d7f027037b249e86d5668076b59ec456e58f88d4f24ec86f9a7d1e5"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"13383\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"13389\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-OffsetValid-5",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-OffsetValid-5.mpcert",
+        "sha256": "05994d010a74cb6d3b4a3069265d1867b9cac730655b5cacea58863d6443981e",
+        "bytes": 35124
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-OffsetValid-5.rust.json",
+        "sha256": "5e0fff57bab026c050d2019343b2be80f53ffa4a3ea216822ac48ea268c5023a",
+        "bytes": 586
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-OffsetValid-5.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.0558120000641793,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-OffsetValid-5.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-OffsetValid-5.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "212c7e23f6de58d20133152b88cff18adf58666f2df4293efc1842103eb82e26"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"13602\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"13892\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-OffsetValid-6",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-OffsetValid-6.mpcert",
+        "sha256": "fd0328f9f90b8288975da059ee13a2c3558f44b7015ecda6110271c5f77af358",
+        "bytes": 35129
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-OffsetValid-6.rust.json",
+        "sha256": "194b7b4e0a4422e753df2a4f4f31670b2b4fee04355d8475c708ac3dccaaf4bb",
+        "bytes": 586
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-OffsetValid-6.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.05293362506199628,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-OffsetValid-6.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-OffsetValid-6.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "d88ffd98e931b070aaca1077748ad78d7123fd89fc6946b75de136e943778949"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"13887\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"13891\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-PrefixRestrict-5",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixRestrict-5.mpcert",
+        "sha256": "f21e3baa9651badae61793e42e5483668b8221740e9acdc5d10a4cc3e0a5a393",
+        "bytes": 35124
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixRestrict-5.rust.json",
+        "sha256": "b9b8fd1e355824979f01cd7d0506bf48b196d3f39a623ad510f4c115a068f826",
+        "bytes": 586
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixRestrict-5.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.03453562501817942,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-PrefixRestrict-5.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-PrefixRestrict-5.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "87ba8b36c7bf232d5c6485be28da7260a0be1dca363350b43498c41df109188c"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"11643\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"11648\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-PrefixRestrict-6",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixRestrict-6.mpcert",
+        "sha256": "8df6c1257396571e3a125eaf16e57c2a1b4d05e1c7316c6401daa37f839dcddc",
+        "bytes": 35129
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixRestrict-6.rust.json",
+        "sha256": "8ecd5bfccfac0f39e38cef69a4942aa365b3d387c71aaf7a13c71a18988a1570",
+        "bytes": 586
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixRestrict-6.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.03413937508594245,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-PrefixRestrict-6.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-PrefixRestrict-6.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "53e084c025a4357a49bf8005ebe784f1adb45b9ffb015c3726dc0e6d5bfaea5d"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"11643\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"11647\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-PrefixSymmetric-4",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixSymmetric-4.mpcert",
+        "sha256": "f9f852a64c92f8573e1776eef5906a3f759c2ccc8e6562a0481bd7373e0c265b",
+        "bytes": 35119
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixSymmetric-4.rust.json",
+        "sha256": "46cb5c56ac28197568ddbdc01e12d6d5406c72660b962f8f9bdcf0cf493ff986",
+        "bytes": 585
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixSymmetric-4.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.11881158396136016,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-PrefixSymmetric-4.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-PrefixSymmetric-4.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "0cd254a8cfd96bb8465e3159b8924cda159e8d4c679d17451e5198b639269b71"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"9715\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"11518\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-PrefixTransitive-5",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixTransitive-5.mpcert",
+        "sha256": "19fff0639b239a506e721443a520f0c440025d6a1f0e81a07900380b24416ed3",
+        "bytes": 35124
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixTransitive-5.rust.json",
+        "sha256": "fb91221f1a99d52e720865e0130dc27adcab4a780df1827b80c5cbdf908ea30d",
+        "bytes": 585
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixTransitive-5.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.11345670802984387,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-PrefixTransitive-5.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-PrefixTransitive-5.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "3e0dc018175d51ca3adc426561efb64aa4a1a1fcc3e7c9a7a60dc34e37175e8a"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"9732\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"11566\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-PrefixTransitive-6",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixTransitive-6.mpcert",
+        "sha256": "a51beece474e166f74fddff373e2308034f9f77fe683ecd54bde4c3c433601b7",
+        "bytes": 35129
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixTransitive-6.rust.json",
+        "sha256": "894c69757fb91460b3cb00aec2e106bc5e674fde85fdda47a2f2ffb87c5ccc6f",
+        "bytes": 586
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-PrefixTransitive-6.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.2339156250236556,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-PrefixTransitive-6.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-PrefixTransitive-6.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "b131993d7fe42794963d585308b5b0530e22b0e6791250c181b8208e3f34b9dd"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"11561\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"11565\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-SetOther-5",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-SetOther-5.mpcert",
+        "sha256": "351465141955362af1e5b368dc3c2cf5cee84c10d9e24340ac39307462c52bd7",
+        "bytes": 35124
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-SetOther-5.rust.json",
+        "sha256": "9777d4600686e77685a2c4f56b2cee704083d37a97aed3eb8601f836657a2559",
+        "bytes": 587
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-SetOther-5.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.12732800003141165,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-SetOther-5.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-SetOther-5.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "62721131843a3f18303ebb3758780bc9c1bf7abf81cdd88d67c8d04b3c505dcb"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"12294\",\"actual_kind\":\"app\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"12298\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-SetValid-5",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-SetValid-5.mpcert",
+        "sha256": "d0ee5a5fc10ab38d3ae23b6a91589f7c90edd010d8d39f3dcaf82bbdf4646fac",
+        "bytes": 35124
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-SetValid-5.rust.json",
+        "sha256": "27bf5399caceef887d0b881d00721f3ab2ba1daa335aa4437079281a337825e3",
+        "bytes": 586
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-SetValid-5.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.2590767500223592,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-SetValid-5.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-SetValid-5.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "f40724a06e9cfb886e7877fdb3ba8437648988f849edf7cb0e614a15fedf1cec"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"13618\",\"actual_kind\":\"pi\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"13629\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "premise-SetValid-6",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-SetValid-6.mpcert",
+        "sha256": "c0fe336a45110c1a9243476994c6e3c31a014c8bb6c4fe68675b8983b7eb2816",
+        "bytes": 35129
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-SetValid-6.rust.json",
+        "sha256": "806ab6bd2ea59046f616896207f6bc6756f71fd661d74081fcd2531f60a63579",
+        "bytes": 585
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/premise-SetValid-6.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 0.2067082499852404,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-SetValid-6.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/premise-SetValid-6.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "a514c48238ec684d911212327dd1229e47e5a2b19dd6bd70e55f8d766d5c2dd1"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"302\",\"actual_kind\":\"app\",\"expected_domain_index\":\"465\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"13628\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      }
+    },
+    {
+      "name": "sequence-foundation",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/sequence-foundation.mpcert",
+        "sha256": "fee5f5fea86a0abc655eb53b15f2d17cda8a2262abc93c03d452fcaab0f42aa0",
+        "bytes": 35076
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/sequence-foundation.rust.json",
+        "sha256": "4c52dfd5d20bfd0bb048714a874c465dbaa87fca3cffe2bb3e4154d775ab5ff1",
+        "bytes": 598
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/sequence-foundation.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.5734885829733685,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/sequence-foundation.stdout.log",
+        "sha256": "90c2fab9d0cb7ee5c21115619beb9371bd5e28e381ae5bcecb8ea833fba08278",
+        "bytes": 344
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/sequence-foundation.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SequenceFoundation",
+        "declaration_count": 183,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "d1c7e43eaa0fcadd8868bf5ed81827bf0617e0adbd657e11ea17479aeb497f35",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "a2c3b3f0d742b1e8452491e42d4642d695b80661b8276bfcfa2ccd73a856de44"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "Go": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SequenceFoundation",
+        "declaration_count": 183,
+        "hashes": {
+          "export": "d1c7e43eaa0fcadd8868bf5ed81827bf0617e0adbd657e11ea17479aeb497f35",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "a2c3b3f0d742b1e8452491e42d4642d695b80661b8276bfcfa2ccd73a856de44"
+        }
+      }
+    },
+    {
+      "name": "sequence-honest-extra",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/sequence-honest-extra.mpcert",
+        "sha256": "b521346c92aabeb535a9c2022f2e04385be5ec91b55ef9cc242ec8d1752c8301",
+        "bytes": 35164
+      },
+      "Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/sequence-honest-extra.rust.json",
+        "sha256": "95d2e44b93bd1be77f356dc7fe0d43227f2fac4145f24971cfdf67d494d4c968",
+        "bytes": 598
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/epochs/complete/selected/candidates/sequence-honest-extra.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.4435032500186935,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/sequence-honest-extra.stdout.log",
+        "sha256": "c7aa2090a7a6be4ad4877d5917a81a0093af3c743176ebc64a64b8d212065581",
+        "bytes": 344
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/sequence-foundation/paired/sequence-honest-extra.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "Rust": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SequenceFoundation",
+        "declaration_count": 184,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "a1fe64bdb748ac99c959b41ff67de6a442158fbbe5fee1dafdf165596caafbbd",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "b3bd17742247f71312675386525a958f36a91f3f510c1db7c61197158c9c9847"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "Go": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SequenceFoundation",
+        "declaration_count": 184,
+        "hashes": {
+          "export": "a1fe64bdb748ac99c959b41ff67de6a442158fbbe5fee1dafdf165596caafbbd",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "b3bd17742247f71312675386525a958f36a91f3f510c1db7c61197158c9c9847"
+        }
+      }
+    }
+  ],
+  "native_release_acceptance": false,
+  "source_program_or_registered_context_proof": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "same_byte_inputs": 63,
+  "zero_axiom_acceptances": 2,
+  "genuine_core_type_mismatches": 61,
+  "finished_at_utc": "2026-10-20T18:13:49.488403+00:00"
+}

@@ -1,0 +1,23 @@
+{
+  "classification": "verified_wait_with_runtime_sample",
+  "full_gate_required": true,
+  "interpretation": "The owned worker is actively evaluating ordinary terms for the fixed decimal result/error-priority test. The source loops examine each output bit. This is runtime diagnosis, not a passing test or a proof of eventual termination.",
+  "observed_code": [
+    "csharp_practical_ordinary_test_eval.rs:evaluate_counted",
+    "csharp_practical_ordinary_test_eval.rs:defer"
+  ],
+  "owned_test_pid": 87779,
+  "restart_performed": false,
+  "sample_command": [
+    "/usr/bin/sample",
+    "87779",
+    "1",
+    "10",
+    "-file",
+    "/private/tmp/mpk-t01-decimal-runtime.sample.txt"
+  ],
+  "sample_exit_code": 0,
+  "sample_sha256": "17c13c9a9436a577e13ea63b687a277a8234b98155191abfd2ad1c45537e4d80",
+  "source_commit": "43c6739990da01f6bd39eee2935fe9a837563800",
+  "source_or_test_inputs_changed": false
+}

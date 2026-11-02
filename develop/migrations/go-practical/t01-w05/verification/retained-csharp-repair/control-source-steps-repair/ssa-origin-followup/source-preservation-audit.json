@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_step_tests.rs",
+      "sha256": "b452e954b202405a49ef934cee4eec16ca02572c9c14b24aa0d75e9e748781b2",
+      "bytes": 57985
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+      "sha256": "0a0e1b27b03e792b15cec93233b6f87c8e6c93da77601353b59a583569dec78e",
+      "bytes": 151753
+    }
+  ],
+  "original_step_source": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-diagnosis/original-test-source.rs.txt",
+    "sha256": "66eeac1f64c457adfe267b9ac3bba74ef54309fe798bb8d991b78c0eac7651eb",
+    "bytes": 49960
+  },
+  "original_harness_source": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/previous-attempt/csharp_practical_ordinary_control_edge_tests.rs.txt",
+    "sha256": "b7dd63d21d97a1b1ae05c3456395595f0a3626ef94f2710563092d08ae7b59b6",
+    "bytes": 151531
+  },
+  "step_original_whole_file_assertions": 112,
+  "step_added_assertions": 9,
+  "harness_original_whole_file_assertions": 329,
+  "harness_added_assertions": 0,
+  "both_entire_original_sources_recovered_byte_for_byte": true,
+  "runtime_entry": "run_steps hardcodes inspect_steps(...,true); all original runtime paths, examples, mutations, bits, positive/negative checks and strict imports remain.",
+  "metadata_entry": "Only the existing StepMetadata owners additionally call audit_step_components, which hardcodes false and stops before runtime evaluation. No environment switch or caller-supplied runtime flag exists.",
+  "original_runtime_contexts": 18,
+  "original_runtime_goldens": 36,
+  "original_count_summands_and_original_assertion_calls_preserved": true,
+  "production_source_changes": false,
+  "original_fixture_changes": false,
+  "core_resource_or_stack_limit_changes": false,
+  "full_gate_passed": false
+}

@@ -1,0 +1,124 @@
+{
+  "schema": "mpk.go_practical.signed_division_bounds_manual_source_review.v1",
+  "status": "reviewed_no_actionable_findings",
+  "observed_at_utc": "2026-10-19T19:50:55.155767+00:00",
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "81348ad750917b66f99197cfa522893a8e60d4d04f2041d34aee7c9bfbfe4b8d",
+      "bytes": 45489
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "2eda5f6ae14b2dfab2035c77d7bebbafccff6a4014c2091e54dafa6ecc218d2d",
+      "bytes": 21962
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division.rs",
+      "sha256": "d614f7ad385b199cc9c8abc8c48363f91cf0a0b86b4b4db9586f136c25d15fc8",
+      "bytes": 9094
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/bounds.rs",
+      "sha256": "2a2e53dbb62c4b3d10e215e463d3aa657f1f60ccd65a8002f8f1d7d87eaa64ee",
+      "bytes": 7474
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/bounds/correction.rs",
+      "sha256": "846eeaeaf796feb536f70616499af8a554195b5c6b7b81f4160a651e77b56f1e",
+      "bytes": 13911
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/bounds/exception.rs",
+      "sha256": "0bbc987c7cfe3fdc6abf230f6b316c694b3e2ae5a5f5ffdd5a6fe1da4a5c9e8c",
+      "bytes": 36979
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/bounds/family.rs",
+      "sha256": "6336bd9c165c05a58fe873c4b1886c5c825af3a355cc5fe59131f64f2f0cbd2a",
+      "bytes": 9896
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/bounds/natural.rs",
+      "sha256": "afda6389a54861152d0fbcbfb1eeb4e755c9ad107893dd176ea6a36f74677fd1",
+      "bytes": 9605
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_division/bounds/signs.rs",
+      "sha256": "edd9769e7a1d3776accd825a4ad7307b5a4c587c5ad105f678fd330c04dfc426",
+      "bytes": 9637
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_division_bounds.rs",
+      "sha256": "769c8f0a1d433d5b2ac1122190d875a424412a3a9476bd2fb2f82907ce021e84",
+      "bytes": 4863
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_division_bounds_controls.rs",
+      "sha256": "68e651e6ef6092d2a3d60b0068b22cbb21d631b2f352356ee831cf6c30c6d262",
+      "bytes": 12269
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_division_bounds_observations.rs",
+      "sha256": "a2c8d5280d0064ad30d0c22bd68bea17bcfa90288f788352037ab3fad26dedc4",
+      "bytes": 10038
+    },
+    {
+      "path": "develop/probes/go-practical/division_bounds_observer.go",
+      "sha256": "490461796cfd50ae2ccd1a59a0b40daa52b4f83fb2db3ed7bafe9dab52db1343",
+      "bytes": 6008
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/compare-native.py",
+      "sha256": "f1dcb0b0fd03ca8b27aaa966f4aa1c3cd666d2d2577f4d4e8bdfb8ca7694c0ca",
+      "bytes": 8382
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/measure-retained-identities.py",
+      "sha256": "bb9b2a777f292349942741a2103513bf055b02f3926730fd1362937881d290fc",
+      "bytes": 4718
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/record-checkpoint.py",
+      "sha256": "f1a736a530e0eadac101932624e7f71469585422973b0535a7885a96ef63b544",
+      "bytes": 15370
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/recover-native-record.py",
+      "sha256": "36b9b5008c7579cb2f11518d60e7e482107164365a27de1d355af636075054a7",
+      "bytes": 8100
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/run-candidate-go.py",
+      "sha256": "9dfd60e8e03b91d975f29e2e5bad51a6dd672f5e0b6a4ece1ea1c3553c2ebe1f",
+      "bytes": 2502
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/run-native.py",
+      "sha256": "726a5a93b688c7e3279e19976dcde50a5d83e940866e56b06d50276890f4f06a",
+      "bytes": 6018
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/run-paired.py",
+      "sha256": "d67d7afb8bdcac620fe336f4abd9a45d654fd5fe3fc92fb77204ff0969150dc2",
+      "bytes": 6425
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/run-selected.py",
+      "sha256": "3ee1812b4a68be3bfaa3f119229bcfd8c36e4ba6bcdcc0e06d5847b4d8f0fbe8",
+      "bytes": 4993
+    }
+  ],
+  "reviewed_concerns": [
+    "Owning importer checks cap before private deterministic regeneration and compares complete exact bytes; old factories and prior append remain unchanged. Fixed eight additional half roots have diagnostic exact old identities; no caller-selected premises or quotient values.",
+    "All new facts are ordinary universal proofs with real Nat/Int equations, Bool cases, induction and congruence transport. Real y-nonzero source guard transfers to actual magnitude division, q+computed gap=H and r<H. New names/CheckedStep prefix disjoint from old prerequisite bounds/refinement.",
+    "NegativeUnit soundness AND completeness bind actual signed divisor to -1. Quotient half forward/reverse classification binds actual dividend minimum, actual sign/magnitude and source operations. Optional no-overflow exactness guard does not change source-definedness; minimum/-one actual source quotient/remain normal values proved.",
+    "Canonical complete mutations rebuild exports/axioms normally and preserve zero axioms; each genuine mismatch is checked by both unchanged cores over identical bytes. Honest different valid component passes both cores but exact importer rejects. No resource/format/fuel failure counts.",
+    "Finite model executes both actual source operators, unsigned magnitudes and actual Bool signs/negation/guards over all96 original full rows. Undefined cases keep null source results. Host numeric counterparts explicitly distinct from universal Nat/Int proof checking. Native typed Go/math-big versus Python signed truncation/direct gap subtraction provide separate counterparts. i128 model products bounded by actual a=d*q+r and machine width<=64.",
+    "Native metadata repair changes only actual copied unique-ID count128 to96. Full original runner/logs/owned inputs/tool diagnostic remain; original zero status/precheck inferred from reached control flow, lost elapsed times null. Recovery full5577-file revalidation clearly later. Record-writer spaced-token mismatch corrected separately without proof/native reruns.",
+    "Evidence runners capture actual affected inputs before execution, preserve originals, check current byte equality after actual terminal handles and keep whole T02 gate deferred. All255 frozen members/official scanner/seals unchanged. No CSharp/workflow/source/application release claims."
+  ],
+  "validation_selection_reason": "Actual all-width quotient/remainder half bounds and exact source minimum/-one correction classification.4093 declarations/99499 terms/1465556 bytes, zero axioms; unchanged4096/131072/2097152 limits. All3897 prior named identities and old raw generator exact;8 additional old half proofs and188 new declarations. Four affected roots,70 same-byte streams(2accepted68 actual type mismatches47check21lambda), strict selected Clippy/Rust/Go format and96 original full-input paired-source Bool/native/integer comparisons pass. Actual176 source results,8 faults,8minimum rows,80exact88corrected equations. Universal proofs checked by both unchanged cores; finite Bool model derives host numeric counterparts without executing Nat/Int/predicate/theorem bodies. Native count wrapper and record-writer token-spacing metadata failures remain qualified with exact original scripts/observed tool text/raw native logs; no observations repeat or original elapsed timings invented. All captured sources stay exact until actual terminal handles. All255 frozen inputs and official127 rules/four scopes/39 seals remain exact. Only2 exact per-file hash/length-bound raw libtest stdout EOF observations; no source/JSON/directory/blanket exclusions, CSharp tests, unaffected suites, intermediate whole gate or whole-source/application/profile/Linux release claim. Full T02-T11/W01 scope remains active; cumulative T02 gate stays W04.",
+  "findings": [],
+  "whole_work_item_or_T02_complete": false
+}

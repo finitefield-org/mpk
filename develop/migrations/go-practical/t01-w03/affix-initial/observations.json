@@ -1,0 +1,45 @@
+[
+  {
+    "observations": {
+      "go": {
+        "cpu_system_seconds": 0.049082,
+        "cpu_user_seconds": 5.371975,
+        "exit_code": 1,
+        "peak_rss_bytes": 157794304,
+        "report": {
+          "error_detail": "term 291376 inferred app but expected app",
+          "error_kind": "core_check",
+          "verdict": "rejected"
+        },
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "wall_seconds": 5.290912624972407
+      },
+      "rust": {
+        "cpu_system_seconds": 0.021766,
+        "cpu_user_seconds": 4.629188,
+        "exit_code": 1,
+        "peak_rss_bytes": 67551232,
+        "report": {
+          "axiom_count": null,
+          "axiom_report": null,
+          "declaration_count": null,
+          "error_code": "KERNEL_CORE_CHECK",
+          "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"292515\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"292575\",\"kind\":\"check_type_mismatch\",\"term_index\":\"291560\"}}",
+          "hashes": {
+            "axiom_report": null,
+            "certificate": "82cbb78719d07697879c220f0d5b8510407b8a72c6d2a2c9b98fe4282309e1ad",
+            "export": null
+          },
+          "module": null,
+          "verdict": "rejected"
+        },
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "wall_seconds": 4.677150875038933
+      }
+    },
+    "path": "library.mpcert",
+    "raw_sha256": "61135cd0b0fac17d6534029f58da157e0c56ecc97da322863cb90ea9a8207a47"
+  }
+]

@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 00s
+     Running tests/go_practical_word_arithmetic.rs (target/debug/deps/go_practical_word_arithmetic-88e31111f0c01804)
+
+thread 'actual_arithmetic_component_exact_import_and_retained_numeric_basis' (36399036) panicked at crates/mpk-vc/tests/go_practical_word_arithmetic.rs:26:5:
+assertion `left == right` failed: word-arithmetic-foundation: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"818963d36d0f7ec4dedb21cf4dc10d1655e7297319dea90569f9e379583a91b7"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"}],\"details\":{\"constant_term_index\":\"155812\",\"kind\":\"defeq_fuel_exhausted\",\"lhs_term_index\":\"414915\",\"operation\":\"defeq_delta\",\"rhs_term_index\":\"414927\"}}"}
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_word_arithmetic`

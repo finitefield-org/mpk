@@ -1,0 +1,246 @@
+{
+  "physical_original_roots_removed": true,
+  "queries": [
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "captured",
+      "outcome": "present",
+      "path": "policy.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_sum",
+      "name": "empty-original",
+      "outcome": "present",
+      "path": "go.sum"
+    },
+    {
+      "capability": "workspace/dep",
+      "directory": false,
+      "kind": "go_file",
+      "name": "other-capability",
+      "outcome": "present",
+      "path": "policy.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": true,
+      "kind": "",
+      "name": "known-directory",
+      "outcome": "present",
+      "path": "exports"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": true,
+      "kind": "",
+      "name": "empty-directory",
+      "outcome": "present",
+      "path": "empty"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "absent-leaf",
+      "outcome": "absent",
+      "path": "absent.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "absent-ancestor",
+      "outcome": "absent",
+      "path": "absent/child.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "export_data",
+      "name": "absent-known-directory",
+      "outcome": "absent",
+      "path": "exports/absent.a"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": true,
+      "kind": "",
+      "name": "absent-directory",
+      "outcome": "absent",
+      "path": "absent"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "unread-file",
+      "outcome": "uncaptured",
+      "path": "unread.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": true,
+      "kind": "",
+      "name": "unvisited-directory",
+      "outcome": "uncaptured",
+      "path": "pending"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "unvisited-present",
+      "outcome": "uncaptured",
+      "path": "pending/uncaptured.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "unvisited-unknown",
+      "outcome": "uncaptured",
+      "path": "pending/absent.go"
+    },
+    {
+      "capability": "workspace/unused",
+      "directory": true,
+      "kind": "",
+      "name": "unvisited-root",
+      "outcome": "uncaptured",
+      "path": ""
+    },
+    {
+      "capability": "workspace/unused",
+      "directory": false,
+      "kind": "go_file",
+      "name": "unvisited-root-unknown",
+      "outcome": "uncaptured",
+      "path": "absent.go"
+    },
+    {
+      "capability": "workspace/foreign",
+      "directory": false,
+      "kind": "go_file",
+      "name": "unbound",
+      "outcome": "rejected",
+      "path": "policy.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "metadata",
+      "name": "wrong-role",
+      "outcome": "rejected",
+      "path": "policy.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "caller-kind",
+      "name": "unknown-role",
+      "outcome": "rejected",
+      "path": "policy.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "wrong-case",
+      "outcome": "rejected",
+      "path": "POLICY.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "linked-file",
+      "outcome": "rejected",
+      "path": "linked.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": true,
+      "kind": "",
+      "name": "linked-directory",
+      "outcome": "rejected",
+      "path": "linked-dir"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "linked-ancestor",
+      "outcome": "rejected",
+      "path": "linked-dir/uncaptured.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "special",
+      "outcome": "rejected",
+      "path": "special.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": true,
+      "kind": "",
+      "name": "file-as-directory",
+      "outcome": "rejected",
+      "path": "policy.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "directory-as-file",
+      "outcome": "rejected",
+      "path": "exports"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "escape",
+      "outcome": "rejected",
+      "path": "../policy.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "go_file",
+      "name": "absolute",
+      "outcome": "rejected",
+      "path": "/policy.go"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "export_data",
+      "name": "separator",
+      "outcome": "rejected",
+      "path": "exports//pkg.a"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "auxiliary",
+      "name": "native-backslash",
+      "outcome": "rejected",
+      "path": "native\\asset.bin"
+    },
+    {
+      "capability": "workspace/main",
+      "directory": false,
+      "kind": "auxiliary",
+      "name": "native-newline",
+      "outcome": "rejected",
+      "path": "ignored\nasset.bin"
+    }
+  ],
+  "returned_data_independent": true
+}

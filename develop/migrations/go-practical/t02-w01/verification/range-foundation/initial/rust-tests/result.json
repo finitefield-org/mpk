@@ -1,0 +1,96 @@
+{
+  "schema": "mpk.go_practical.range_foundation_check.v1",
+  "status": "failed",
+  "started_at_utc": "2026-10-19T11:45:01.968326+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_range_foundation",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_RANGE_FOUNDATION_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/rust-tests/certificates"
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "80cb1cc5f6f31d96208d90cfe46b901254a7cbe3ee33d20dd92e5169a79f5744",
+      "bytes": 28259
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_range_foundation.rs",
+      "sha256": "bfa1d0c0a8eb27a742753b06ebfefa8de50aca2d3e23ac59a5e68009e46a5520",
+      "bytes": 24130
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "selection_reason": "Fresh ordinary half-open Forall/Exists/NatSum/IntSum definitions and arbitrary-Nat zero/step/empty/preservation proofs, including actual bounded FoldForall premises and semantic integer equivalence. Scope tests to full actual component, exact import, retained integer hash, concrete empty/nonempty/equal/reversed intervals, actual bounded-only equality of bodies differing outside the visited prefix, ten altered/reencoded fold/law definitions and a forged bounded premise. No caller proof receipt or source-definedness claim. Only affected isolated Rust integration target, strict Clippy and changed-file format; no CSharp tests or broad/intermediate gate, and unchanged core/Go/legacy matrices retained.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "exit_code": 101,
+  "wall_seconds": 85.71900341694709,
+  "finished_at_utc": "2026-10-19T11:46:27.688457+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/rust-tests/stdout.log",
+    "sha256": "324108a3fca902f837f24882d9b67c880154be4dfabd6f501ba1f911695aec1f",
+    "bytes": 759
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/initial/rust-tests/stderr.log",
+    "sha256": "678361e41188250228adbd3123c8e4b28c5060a1f5922d6058cb42fc2a85b3b3",
+    "bytes": 1987
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "classification": "Added private test helper used an unqualified PathBuf return type, absent from this module scope. No selected test executed; preserve compile failure separately from original final response echo assertion.",
+  "build": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/build/result.json",
+    "sha256": "c9987ec0ce72aac6adfef2af56446070aa35b58735e642edee4d3a4e6c61cecc",
+    "bytes": 1758
+  },
+  "initial_test_source_snapshot": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/build/initial-test-source.rs.txt",
+    "sha256": "32b2e4302de562e1c5a9ffd3d0b4524d83778c7feb1df264f7ed4a32ce6c74a5",
+    "bytes": 21321
+  },
+  "compiler_errors": [
+    {
+      "rendered": "error[E0425]: cannot find type `PathBuf` in this scope\n   --> crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs:318:56\n    |\n318 | fn serialized_response_golden(original_root: &Path) -> PathBuf {\n    |                                                        ^^^^^^^ not found in this scope\n    |\n    = note: struct `crate::ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::steps::PathBuf` exists but is inaccessible\nhelp: consider importing this struct\n    |\n  2 + use std::path::PathBuf;\n    |\n\n",
+      "$message_type": "diagnostic",
+      "children": [
+        {
+          "children": [],
+          "code": null,
+          "level": "note",
+          "message": "struct `crate::ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::steps::PathBuf` exists but is inaccessible",
+          "rendered": null,
+          "spans": []
+        },
+        {
+          "children": [],
+          "code": null,
+          "level": "help",
+          "message": "consider importing this struct",
+          "rendered": null,
+          "spans": [
+            {
+              "byte_end": 79,
+              "byte_start": 79,
+              "column_end": 1,
+              "column_start": 1,
+              "expansion": null,
+              "file_name": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs",
+              "is_primary": true,
+              "label": null,
+              "line_end": 2,
+              "line_start": 2,
+              "suggested_replacement": "use std::path::PathBuf;\n",
+              "suggestion_applicability": "MaybeIncorrect",
+              "text": [
+                {
+                  "highlight_end": 1,
+                  "highlight_start": 1,
+                  "text": "use super::fixed_codec_clause_tests::alias;"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "level": "error",
+      "message": "cannot find type `PathBuf` in this scope",
+      "spans": [
+        {
+          "byte_end": 9976,
+          "byte_start": 9969,
+          "column_end": 63,
+          "column_start": 56,
+          "expansion": null,
+          "file_name": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs",
+          "is_primary": true,
+          "label": "not found in this scope",
+          "line_end": 318,
+          "line_start": 318,
+          "suggested_replacement": null,
+          "suggestion_applicability": null,
+          "text": [
+            {
+              "highlight_end": 63,
+              "highlight_start": 56,
+              "text": "fn serialized_response_golden(original_root: &Path) -> PathBuf {"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "code": "E0425",
+        "explanation": "An unresolved name was used.\n\nErroneous code examples:\n\n```compile_fail,E0425\nsomething_that_doesnt_exist::foo;\n// error: unresolved name `something_that_doesnt_exist::foo`\n\n// or:\n\ntrait Foo {\n    fn bar() {\n        Self; // error: unresolved name `Self`\n    }\n}\n\n// or:\n\nlet x = unknown_variable;  // error: unresolved name `unknown_variable`\n```\n\nPlease verify that the name wasn't misspelled and ensure that the\nidentifier being referred to is valid for the given situation. Example:\n\n```\nenum something_that_does_exist {\n    Foo,\n}\n```\n\nOr:\n\n```\nmod something_that_does_exist {\n    pub static foo : i32 = 0i32;\n}\n\nsomething_that_does_exist::foo; // ok!\n```\n\nOr:\n\n```\nlet unknown_variable = 12u32;\nlet x = unknown_variable; // ok!\n```\n\nIf the item is not defined in the current module, it must be imported using a\n`use` statement, like so:\n\n```\n# mod foo { pub fn bar() {} }\n# fn main() {\nuse foo::bar;\nbar();\n# }\n```\n\nIf the item you are importing is not defined in some super-module of the\ncurrent module, then it must also be declared as public (e.g., `pub fn`).\n"
+      }
+    }
+  ],
+  "correction": "Use std::path::PathBuf in the private helper return type."
+}

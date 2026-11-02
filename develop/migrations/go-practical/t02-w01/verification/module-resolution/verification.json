@@ -1,0 +1,144 @@
+{
+  "schema": "mpk.go_practical.module_discovery_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T09:41:27.871298+00:00",
+  "entry_commit": "75a64d7cc1b52e15f961285bde03e133664d3e66",
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_resolution.go",
+      "sha256": "26b155ff75346f76a7bf0c466ac368db29688090549b8ce54f6138ac05038e9b",
+      "bytes": 14125
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution_test.go",
+      "sha256": "3452a3afce4a26c02775462a8858d1a0110a77d162a82e38b37e8aaf1b923cdd",
+      "bytes": 2673
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution_capture_test.go",
+      "sha256": "ec40f233424e34206fa86908431a64702cb2b6b8691031687e21296371dd9be4",
+      "bytes": 12487
+    }
+  ],
+  "results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/selected/result.json",
+      "sha256": "3c89fe79a9d298ac081278c2fedb1eae49773a5cba20cb04e9dbbbc7bc779026",
+      "bytes": 7381,
+      "attempt": "initial",
+      "mode": "selected",
+      "status": "passed",
+      "seconds": 3.8191183749586344,
+      "root_tests": 11,
+      "subtests": 31
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/legacy/result.json",
+      "sha256": "b3d01db9db0f95a14a2c402d4f7ef6532cb78fb5a5d02096f9f07d382b114ab5",
+      "bytes": 5984,
+      "attempt": "initial",
+      "mode": "legacy",
+      "status": "passed",
+      "seconds": 2.1474399170838296,
+      "root_tests": 7,
+      "subtests": 21
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/vet/result.json",
+      "sha256": "8811af158e7176b7e06d913875b0fc7c269a8e17aca462a2cb18a786d4384907",
+      "bytes": 3504,
+      "attempt": "initial",
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.5290647090878338,
+      "root_tests": 0,
+      "subtests": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/format/result.json",
+      "sha256": "81a1d734020bff38a687a86aa7f3a8fa3b75ca42f28e60d15ce915a2fd9468fc",
+      "bytes": 3598,
+      "attempt": "initial",
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.0078063750406727195,
+      "root_tests": 0,
+      "subtests": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/reviewed/selected/result.json",
+      "sha256": "6560bfd96fdf073385ea6e1511efc06093caaf2cbfc349766387ed6f091fa2b1",
+      "bytes": 4909,
+      "attempt": "reviewed",
+      "mode": "selected",
+      "status": "passed",
+      "seconds": 2.629198042093776,
+      "root_tests": 4,
+      "subtests": 10
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/reviewed/legacy/result.json",
+      "sha256": "71c8d717ed0d3976faa2788e0ee20c0d788d611f7a5dacfaed1aff642f34fcf7",
+      "bytes": 5828,
+      "attempt": "reviewed",
+      "mode": "legacy",
+      "status": "passed",
+      "seconds": 1.916761750006117,
+      "root_tests": 7,
+      "subtests": 21
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/reviewed/vet/result.json",
+      "sha256": "7c4caabe5cbca142a66a8774bdfca50ad15aeb61de6c992da8945b317f7f8a75",
+      "bytes": 3349,
+      "attempt": "reviewed",
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.2920023329788819,
+      "root_tests": 0,
+      "subtests": 0
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/reviewed/format/result.json",
+      "sha256": "f25758ae47914155539345c2a3c4f22fa9f46cea5439c3722149d30ac324b7d9",
+      "bytes": 3440,
+      "attempt": "reviewed",
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.0057884999550879,
+      "root_tests": 0,
+      "subtests": 0
+    }
+  ],
+  "review_regression": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/review/main-checksum-owner/before-fix/result.json",
+    "sha256": "904edd24cc5df1357e07e23bdd385d0960183ac9d83331056fc9a9eac8c1a880",
+    "bytes": 3266
+  },
+  "implemented": [
+    "Invoke exact validated Go1.25.0 list -mod=readonly -m -json all in the original main directory under the closed offline linux/amd64 loader environment. Hash the actual executable before/after; bound stdout/stderr and cancel on timeout/overflow.",
+    "Decode the pinned Go streamed module API with duplicate, unknown-field, count/byte, error, repeated-path and chained-replacement rejection; retain original stdout independently.",
+    "Bind the sole main module to original manifest/path/language and every selected versioned dependency to original .mod/.info/.ziphash/.zip and original captured go.sum. Bind local and versioned replacements to original directives and authorized original roots; exact version replacement precedes path-wide directives.",
+    "Reject a foreign captured checksum source even if its valid sums would authorize archives absent from the original main go.sum. The checksum source must be the exact captured main-module go.sum object before independently reconstructing original entries.",
+    "Use private scratch/build/home paths and a value-copy environment override for the original module cache. Cleanup never chmods the original module cache. Native tests retain original application/source/manifest/sum bytes and seal all observed original inputs."
+  ],
+  "reviewed_properties": [
+    "Pinned Go source modinfo.ModulePublic, modload.moduleInfo and modload.replacement were inspected for stream shape, inherited replacement paths/languages/checksums and exact-before-wildcard directives; Go itself performs version selection.",
+    "Actual original a/b dependency requirements cause Go to select c@v1.1.0 over c@v1.0.0; actual local exact-before-wildcard and versioned replacements agree with captured snapshots.",
+    "Preparation observation only: the subprocess initially reads the mutable original namespace. Every consulted version/metadata and complete immutable production replay remain due; this result is not a registered context or proof authority.",
+    "The native test selection uses the existing validated compiler fixture, not a new complete practical compiler/standard-library/analysis inventory.",
+    "After reproducing the checksum-owner omission, all four binder consumers rerun. Unchanged pure stream/output limits, missing-offline-input and public environment/profile checks retain initial evidence. Legacy recompiles common code and rejects unavailable rooted capture."
+  ],
+  "remaining": [
+    "Complete checked private foundation/registry/context and exact compiler/stdlib/analysis identity before production original-package materialization.",
+    "Capture every consulted module version/metadata and complete original source/export/build inputs, then replay Go on the sealed immutable namespace before producing authoritative graph/package records.",
+    "W02 original package typing/two closures, W03 independent common artifacts and W04 source-bound scalar proof plus cumulative gate; remaining T03-T11 scope."
+  ],
+  "CSharp_tests_executed": false,
+  "production_immutable_loader_materialized": false,
+  "public_profile_activated": false,
+  "source_program_proof_claimed": false,
+  "native_Linux_acceptance_claimed": false,
+  "T02_W01_complete": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp"
+}

@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+    "-l",
+    "go-tools/mpk-checker-ref/checker_agreement_test.go"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "GOROOT": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-go-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/checker-format-fixed/inputs.json",
+    "bytes": 295835,
+    "sha256": "56d00df527d0ad323908d6e3e023d3d54bd700ec7c4db9a93f41ebc5bb129d4f"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/checker-format-fixed/driver.py",
+    "bytes": 9011,
+    "sha256": "d63033f08561d4f346398b6e50c7a7434e6769360e148455d13e85f8c6fb9da5"
+  },
+  "tools": {
+    "go": {
+      "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+      "bytes": 14117888,
+      "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b"
+    },
+    "gofmt": {
+      "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+      "bytes": 2914768,
+      "sha256": "f8c812fc7e22867e5970a687898cd62d8c15561ccc6800c84ac9fdc6583e4b03"
+    }
+  },
+  "selection_reason": "Retire127 C#-only replay roots from the tagged checker-agreement file. Compile all tagged Go checker tests and execute only the two affected shared report/process protocol roots; their complete unchanged bodies remain. The generic cross-core certificate corpus and actual source-free engines are unchanged; their full old matrices are not repeated. No C# replay root executes.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-23T02:09:18.983391+00:00",
+  "exit_code": 0,
+  "seconds": 0.059975249925628304,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/checker-format-fixed/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-string-lengths/checker-format-fixed/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-23T02:09:19.044155+00:00"
+}

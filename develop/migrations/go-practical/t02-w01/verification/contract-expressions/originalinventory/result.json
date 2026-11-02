@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_source_overlays",
+    "--test",
+    "go_practical_source_scopes",
+    "--test",
+    "go_practical_source_selection",
+    "--",
+    "--nocapture"
+  ],
+  "cwd": ".",
+  "environment": {
+    "MPK_GO_INPUT-OWNERS_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/originalinventory/observations",
+    "MPK_GO_SOURCE_OVERLAYS_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/originalinventory/observations/source_overlays",
+    "MPK_GO_SOURCE_SCOPES_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/originalinventory/observations/source_scopes",
+    "MPK_GO_SOURCE_DOMAINS_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/originalinventory/observations/source_domains",
+    "MPK_GO_ERROR_DISPATCH_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/originalinventory/observations/error_dispatch",
+    "MPK_GO_SOURCE_SELECTION_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/originalinventory/observations/source_selection"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/originalinventory/inputs.json",
+    "bytes": 282314,
+    "sha256": "9037cc23b3ae3f9bdf71e226a6418e2a3306ce868db5a4ffe322a67523e69458"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/originalinventory/driver.py",
+    "bytes": 8996,
+    "sha256": "b1bb3e4c3bc6bfd70ed55c34b0dc091cb91d97792be9ed0ef5cfe9eeabe8ec71"
+  },
+  "selection_reason": "Supplement the initially passing affected run with explicit complete prelaunch input inventory for the old overlay/scopes/selection owners: both frozen catalog/witness files, original source-scope buffers and the directives corpus. Preserve the initial run; rerun only these three affected suites. Domain and finite dispatch input inventories were already complete, so their passing tests are not repeated.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T02:04:23.420429+00:00",
+  "exit_code": 0,
+  "seconds": 54.91272600006778,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/originalinventory/stdout.log",
+    "bytes": 1282,
+    "sha256": "993401a4a0bc45a6fb2ade45960f8d1bd45cbfbf35044ddaf7bc567d689b8e5c"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-expressions/originalinventory/stderr.log",
+    "bytes": 422,
+    "sha256": "adc06691f1ee1c151b6b611d8922acd81266541c54c6c105d6055cddce101817"
+  },
+  "whole_source_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-22T02:05:18.570951+00:00"
+}

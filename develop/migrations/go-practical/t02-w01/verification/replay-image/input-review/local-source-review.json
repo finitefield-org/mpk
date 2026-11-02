@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-20T08:27:29.529147+00:00",
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_replay.go",
+      "sha256": "0c3f8420e5d3c2a7138d003aabb9800032036c36ff4259e78629fffda142e159",
+      "bytes": 16242
+    },
+    {
+      "path": "go-tools/go2vir/practical_replay_test.go",
+      "sha256": "dbdcebee707f02e08782bb08c48aa881a7c8ca14d042113e9d8506d942454109",
+      "bytes": 13408
+    },
+    {
+      "path": "go-tools/go2vir/practical_exports.go",
+      "sha256": "e7db55029e5a4bc5c00a077971855f3170b1fc56c7da89b226fae82d53283a4e",
+      "bytes": 21276
+    }
+  ],
+  "reviewed_boundaries": [
+    "Source origins are retained from original capture authorization separately from byte identities; snapshot hash, original root binding and canonical SourceObjects are checked before materialization. All snapshot budgets share one counter.",
+    "Private path mirror cannot overlap original source capabilities; original source/mod/function/type bytes are never rewritten/stubbed. Overlapping copied bytes must agree. Original namespace data is independently owned, and unread names cannot acquire absence or fabricated data through the image reader.",
+    "Full original compiler inventory copies with stream hash/size/stat/open checks and validates again after read-only sealing. Compiler binaries use existing inventory bounds, not disguised source-object limits.",
+    "The original offline module cache is derived from the actual selected versioned archive/manifest ownership, replacing no source/module selections and introducing no ambient/download fallback.",
+    "Full unchanged bodies including unused HTTP handler/panic init are typed. Native kernel replay uses UID501/cap-drop/no-new-privileges/network-none/read-only input mounts and a hidden ambient SDK, with original absolute paths and no original host source. Two empty caches reproduce full module/package metadata and all whole archive bytes; actual negative kernel controls reject.",
+    "All source/compiler/image bytes are independently checked after all kernel commands. Every actual handle is terminal before staging. Local x86-64 emulation is explicit and is not native Linux release acceptance.",
+    "A byte image does not authorize a registered context or complete general consulted namespace. Production kernel lifecycle/context/full namespace/selected-closure authority, full56-all6-19 source/program foundation/private descriptor/registry/context/retained policies/all169/T02-T11 remain due."
+  ],
+  "findings": [],
+  "all_actual_validation_handles_terminal": true,
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp"
+}

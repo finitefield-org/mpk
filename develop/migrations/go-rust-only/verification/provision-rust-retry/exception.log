@@ -1,0 +1,36 @@
+FileNotFoundError: archive directory link target missing: usr/include/linux/netfilter/xt_connmark.h -> usr/include/linux/netfilter/xt_connmark.h
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 1356, in copy_entry
+    directory = self.resolve_directory(source_name)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 1331, in resolve_directory
+    raise RustBuildFailure() from FileNotFoundError(
+rust_build_inputs.RustBuildFailure: BUNDLE_BUILD_INPUTS_INVALID
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/mpk-go-rust-scope/provision-observed.py", line 42, in <module>
+    rust.update_build_inputs(provision=True)
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 4388, in update_build_inputs
+    descriptor = materialize_production_cache(vector, staging, Path(temporary))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 4364, in materialize_production_cache
+    materialize_native_sysroot(vector, staging, work)
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 3851, in materialize_native_sysroot
+    build_view.copy_prefix(relative, output / relative)
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 1402, in copy_prefix
+    copied += self.copy_entry(name, destination / relative)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 1358, in copy_entry
+    raise file_error
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 1352, in copy_entry
+    self.copy_file(source_name, destination)
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 1344, in copy_file
+    copy_no_replace(source, destination)
+  File "/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py", line 1415, in copy_no_replace
+    raise RustBuildFailure()
+rust_build_inputs.RustBuildFailure: BUNDLE_BUILD_INPUTS_INVALID

@@ -1,0 +1,66 @@
+{
+  "aliases": [],
+  "domain": "MPK-GO-SOURCE-OBJECT-1.0",
+  "fields": [
+    "bytes",
+    "capability",
+    "id",
+    "kind",
+    "path",
+    "raw_sha256",
+    "schema"
+  ],
+  "hash_preimage_fields": [
+    "bytes",
+    "capability",
+    "kind",
+    "path",
+    "raw_sha256",
+    "schema"
+  ],
+  "historical_rule": "Preceding private models and generated fixtures remain sealed historical candidate data, not production importers or current source evidence. T02 regenerates the complete source/context/VIR/VC/policy graph with the final enum and fresh IDs; no graph relabeling or old proof promotion.",
+  "independent_importer": "crates/mpk-vc/src/go_practical_artifacts.rs",
+  "production_executor": "go-tools/go2vir/practical_capture.go",
+  "schema": "mpk.go_practical.final_source_kind_design.v0",
+  "scope": "source-kind/identity metadata only; no Go compilation, source correspondence, ordinary proposition or registered-run authority",
+  "source_kind_enum": [
+    "go_file",
+    "go_mod",
+    "go_sum",
+    "overlay",
+    "metadata",
+    "export_data",
+    "excluded_source",
+    "auxiliary"
+  ],
+  "source_object_schema": "mpk.go.source_object.v1",
+  "status": "final_inactive_v1_freeze_amendment",
+  "vectors": [
+    {
+      "expected": "metadata_linked",
+      "id": "source-kind-go-file",
+      "node": {
+        "bytes": 326,
+        "capability": "main",
+        "id": "fd3a81b1426774063136002dfd6016c60501946ffa25e75d3d6504d64b54d963",
+        "kind": "go_file",
+        "path": "policy.go",
+        "raw_sha256": "b6d9de8245061fea54b6ff873315abf9543f95e191465dbcadebfadce25699e6",
+        "schema": "mpk.go.source_object.v1"
+      },
+      "raw_bytes_hex": "7061636b61676520706f6c6963790a2f2f20e58583e381ae5554462d38e382bde383bce382b9e38082e4bd8de7bdaee381afe789a9e79086e38390e382a4e38388e380820a7479706520416d6f756e7420696e7436340a74797065204f7468657220696e7436340a7479706520436f64652075696e74380a74797065204d6f6e6579203d20416d6f756e740a66756e6328436f646529204572726f72282920737472696e67207b2072657475726e2022636f646522207d0a66756e6320526f6f74287873205b5d416d6f756e74292028416d6f756e742c6572726f7229207b20746f74616c3a3d416d6f756e742830293b20666f72205f2c763a3d72616e6765207873207b20746f74616c2b3d76207d3b20696620746f74616c3c30207b2072657475726e20302c436f6465283129207d3b2072657475726e20746f74616c2c6e696c207d0a",
+      "source_admission_proved": false
+    },
+    {
+      "expected": "source_kind_rejected",
+      "fixture_ref": {
+        "node_id": "823bcb4c2106594f9e14a96f461ce52f78fd2df7351428db7af68144c9bdfb3d",
+        "path": "develop/migrations/go-practical/t01-w04/identity-dag/fixture.json",
+        "sha256": "d680e429dbb4d5616962e57841b76abdd077a7fb9848e9c24895a3b7c645393a"
+      },
+      "id": "source-kind-preliminary-crossing",
+      "source_admission_proved": false
+    }
+  ],
+  "work_item": "GO-PRAC-T02-W01/GO-PRAC-T02-W03"
+}

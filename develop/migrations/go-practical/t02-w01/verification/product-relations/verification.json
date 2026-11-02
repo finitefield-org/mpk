@@ -1,0 +1,158 @@
+{
+  "schema": "mpk.go_practical.product_relations_checkpoint.v1",
+  "status": "scoped_checks_passed",
+  "entry_commit": "27490ecb06ff728162bb9499c7b5773c23b83514",
+  "observed_at_utc": "2026-10-20T05:32:57.472231+00:00",
+  "components": [
+    {
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-relations/typed-environment/tests/certificates/product-relations.mpcert",
+        "sha256": "584cbf2e2a70ce0d86f7703b754e9a22fd84dcd59ffd42e6df00e22fdb2a0d1d",
+        "bytes": 16265
+      },
+      "declarations": 94,
+      "terms": 1621,
+      "bytes": 16265,
+      "axioms": 0,
+      "logical_hashes": {
+        "export": "fc189d4b444294c82e3945fcc91be2d3b4c87dbda8fc707c29809cd777af43ed",
+        "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+        "certificate": "e9f634040a3eeb6013d50f7d0cb9da848a78e342b33816ea828622d3969e2c09"
+      },
+      "construction_and_final_full_bytes_and_reports_equal": true
+    },
+    {
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-relations/typed-environment/tests/certificates/word-product-equality.mpcert",
+        "sha256": "7ebbeee44516bf986be88d09181be7a7cb8f72064607e04d1eae16e565cdb229",
+        "bytes": 1029561
+      },
+      "declarations": 3581,
+      "terms": 74155,
+      "bytes": 1029561,
+      "axioms": 0,
+      "logical_hashes": {
+        "export": "7c7720da3b01e76040a58a6a25da452374d40179c0d297ff62cae6d049508b56",
+        "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+        "certificate": "9d92e22dfc24945b36c96db8ebdddecdc02d03a8340e0968b4c58248bdc9fff8"
+      },
+      "construction_and_final_full_bytes_and_reports_equal": true
+    }
+  ],
+  "new_generic_definitions": 2,
+  "new_generic_laws": 14,
+  "mixed_width_pairs": 16,
+  "concrete_word_pair_laws": 32,
+  "arbitrary_integer_representation_shift_laws": 1,
+  "complete_original_identities": {
+    "product": 78,
+    "word_signed_equality": 3489,
+    "old_product_raw_sha256": "06d60305b4616213d61ca3dae35decf76fb150e729e1f063c8c6266cc9ec709e",
+    "old_word_signed_equality_raw_sha256": "aff545ade52f37b0c5dcf215e8fd5f5aff1a06d269193a9827cbc4b350e6c06f"
+  },
+  "checks": [
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-relations/typed-environment/construction/result.json",
+        "sha256": "14ddfc8bf38fbe04a073fa30a6f9dfaac398a07d78a0141237136dafaa75f245",
+        "bytes": 23480
+      },
+      "seconds": 120.87490120902658
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-relations/typed-environment/tests/result.json",
+        "sha256": "7033287ed8f8a7e189fbe06d22e889259c99acea3d1ffb99d6363a73869e4b07",
+        "bytes": 46088
+      },
+      "seconds": 67.57283554098103
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-relations/typed-environment/clippy/result.json",
+        "sha256": "76b07d7c2bfdb566c7b3f142939b6f8b63eeeeca4ce8648a1a00b1b428a70d7e",
+        "bytes": 22698
+      },
+      "seconds": 28.591998749994673
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-relations/typed-environment/format/result.json",
+        "sha256": "6cc33ba55598b1e4b5c67753ead84117c091f53e8553ff341908671277facd71",
+        "bytes": 29941
+      },
+      "seconds": 0.5064393751090392
+    }
+  ],
+  "both_cores": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-relations/typed-environment/paired/result.json",
+    "sha256": "19136314e1614c8e34ee08127b942dbe60aba105eac7a283311683137948d3cb",
+    "bytes": 217174
+  },
+  "same_byte_streams": 84,
+  "zero_axiom_positives": 4,
+  "genuine_core_type_mismatches": 80,
+  "mismatch_subtypes": {
+    "check_type_mismatch": 52,
+    "lambda_domain_mismatch": 28
+  },
+  "failed_original_epochs": [
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-relations/initial/construction/result.json",
+        "sha256": "02ab3b030c7cc45d74184f7f6a9dbc1e4dfd5674651db11bd04c7cfbc9de2dd6",
+        "bytes": 22882
+      },
+      "full_source_snapshot": "develop/migrations/go-practical/t02-w01/verification/product-relations/initial/inputs",
+      "classification": "Rust E0282 missing Bool-case environment type annotation before any certificate generation; not a semantic negative"
+    },
+    {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-relations/observer-initial/result.json",
+        "sha256": "cd072cd991c7c0be8068ce8831e59b3bfeb44da0e9cd236f8458e5a30a70d856",
+        "bytes": 885
+      },
+      "full_source_snapshot": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/product-relations/observer-initial/finalize.py",
+        "sha256": "3d051e16195716b93fbe9c6a00c773429e22a4f727ebf079c1a20f28fed9983b",
+        "bytes": 8151
+      },
+      "classification": "Observer assumed30 lambda/50 check subtypes. Actual80 genuine rejections are28 lambda/52 check. Original unchanged observer is rerun once to capture complete stdout/stderr after its first tool-visible assertion. All84 original Rust/Go verdicts remain unchanged; no semantic negative is added or replaced."
+    }
+  ],
+  "frozen_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-relations/frozen-design-preservation.json",
+    "sha256": "3e4064923d298b473c7522d78754620c046c70364ca4da32da3543f460bc4961",
+    "bytes": 53232
+  },
+  "selection_reason": "New relational product definitions/laws and concrete applications depend on existing product and signed-equality foundations. Fresh tests compare every old named type/body/proof/level/family identity and full raw generator bytes; no old declaration is pruned or replaced. Four focused roots cover canonical proof acceptance, every16 mixed-width pair and arbitrary Int representative shifts, exact byte ownership versus genuinely valid extensions, and80 actual false-claim/premise/operation controls. Current Clippy/format and independent same-full-byte Go checks pass. The unchanged65-arity layout matrix, original93600 field obligations and prior Go/frontend matrices are retained without unrelated reruns; no new all65 relation-consumer or source-program acceptance claim.",
+  "production_sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "29af8e234193d93eac288c784617ff4ac3a6a46f2a8e821c12231e040c87476c",
+      "bytes": 54775
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/product_relation.rs",
+      "sha256": "614dfdfff943abf6d4232a1551c2f14d446dc9a5d3da07179450e458b7a5e84f",
+      "bytes": 25132
+    }
+  ],
+  "all_actual_validation_handles_terminal": true,
+  "limits": {
+    "declarations": 4096,
+    "terms": 131072,
+    "bytes": 2097152,
+    "conversion_fuel": 1024
+  },
+  "axiom_import_kernel_fuel_or_cap_changes": false,
+  "source_JSON_or_directory_exclusions_added": false,
+  "CSharp_tests_executed": false,
+  "agents_used": false,
+  "GitHub_Actions_used": false,
+  "T02_W01_complete": false,
+  "full_T02_gate_passed": false,
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp",
+  "remaining": "Complete bounded56-family source/carrier/nominal/type/operation/storage/lifetime/state/program foundation with all6 common members and19 theorem families, complete original definitions and compiler-derived operation/VC root closure, private descriptor/registry/context/retained policies and authoritative immutable original package/export/selected-closure replay/all169 application demands/T02-T11 remain required. R06 stays pending. Actual Go struct comparability, field order/evaluation/effects/invocation/source-AST binding are not established by these mathematical relation products.",
+  "public_profile_source_application_or_Linux_release_claim": false
+}

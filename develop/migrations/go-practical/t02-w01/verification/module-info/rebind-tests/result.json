@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T15:20:05.485568+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_module_data",
+    "coherently_resealed_auxiliary_data_cannot_replace_original_module_contents"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-info/rebind-tests/inputs.json",
+    "bytes": 4625063,
+    "sha256": "24ddc08073e5d2928e4e2953e30be3471dfcd8c37bdb9258f3be21e514bea289",
+    "mode": 420
+  },
+  "selection_reason": "Check generic original application module-info validation and its directly affected analysis/module consumers, retaining the complete original application, SDK and archive inputs. A caller-supplied snapshot is not authenticated as an original filesystem; source syntax and binary/context authority remain separate. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 182.1150389579998,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-info/rebind-tests/stdout.log",
+    "bytes": 200,
+    "sha256": "e2ef67fbfd243daa51425cf144550d85f7693e26475bda3b033ae0e7a5acb0a1",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-info/rebind-tests/stderr.log",
+    "bytes": 297,
+    "sha256": "1fc45771f7b76c35dabfb5593384537cb651d9892bf404b3ac7c2d96a7e9fdd3",
+    "mode": 420
+  }
+}

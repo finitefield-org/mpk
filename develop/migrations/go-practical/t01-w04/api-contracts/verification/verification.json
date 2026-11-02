@@ -1,0 +1,118 @@
+{
+  "W04_frozen": false,
+  "affected_rechecks": 7,
+  "commands": [
+    {
+      "command": "python3 -B develop/probes/go-practical/run_api_contracts.py --write",
+      "log": "probe-final.log",
+      "result": "pass; all native/API and hash observations repeated twice"
+    },
+    {
+      "command": "PYTHONPATH=develop/probes/go-practical python3 -B -m unittest test_api_contracts -v",
+      "log": "tests.log",
+      "result": "19 passed after canonical-byte guard repair; exact pre-payload-repair sources retained in initial-response-coverage"
+    },
+    {
+      "command": "PYTHONPATH=develop/probes/go-practical python3 -B -m unittest -v <seven affected ApiTests methods>",
+      "log": "tests-affected.log",
+      "result": "7 passed after final payload repair",
+      "targets": [
+        "test_complete_five_profile_eight_bundle_wire_and_transaction_matrix",
+        "test_every_failed_model_transaction_preserves_exact_session_bytes",
+        "test_go_vc_list_keeps_all169_unelaborated_demands_and_no_ordinary_members",
+        "test_integer_to_bool_source_replacement_cannot_hide_behind_equal_Python_values",
+        "test_encoding_or_invalid_backend_output_failure_is_not_semantic_rejection_or_commit",
+        "test_retained_native_API_traces_and_independent_hashes_match_complete_record",
+        "test_go_pending_blocks_all_candidate_routes_and_source_export"
+      ]
+    },
+    {
+      "command": "AST parse of the seven new Python sources",
+      "log": "syntax.log",
+      "result": "pass"
+    },
+    {
+      "command": "compare copied iterative JSON algorithm to proof_canonical.py except two envelope constants",
+      "log": "json-copy.log",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -B develop/probes/go-practical/check_api_metadata.py",
+      "log": "metadata.log",
+      "result": "pass; complete immediate predecessor and current metadata/link/owner audit"
+    }
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "reason": "AGENTS.md permits cumulative T gate only at final W; current work is intermediate W04; no equivalent whole gate decomposed into separate commands",
+    "status": "deferred to GO-PRAC-T01-W05"
+  },
+  "initial_findings": [
+    {
+      "disposition": "reproduced private model integer/Boolean equality confusion; complete canonical-byte comparisons now reject without source-state mutation",
+      "path": "initial-source-equality/diagnostic.json"
+    },
+    {
+      "disposition": "retain complete generated VC and source counts in the new response shape; source state keeps exact refs without duplicating VC bodies",
+      "path": "initial-response-coverage/diagnostic.json"
+    }
+  ],
+  "log_hashes": {
+    "json-copy.log": "b664a22cd05574a7ecc951035486b83eaf04bee327341d7887a2e01b59e93b01",
+    "metadata.log": "41cf5a5b12089698762c84b6274e52620eedd984f509ae90fdeb205783744b7d",
+    "probe-final.log": "e1315428ddcf2bf4bb3195b2b75241c606b5a96c95667df8624763c1734b2ef9",
+    "probe-repaired.log": "e1315428ddcf2bf4bb3195b2b75241c606b5a96c95667df8624763c1734b2ef9",
+    "probe.log": "e1315428ddcf2bf4bb3195b2b75241c606b5a96c95667df8624763c1734b2ef9",
+    "source-equality-review.log": "82ca109e7996664a3668a4f57ffffede4e4afff14c7e96d8a525936d808a24cd",
+    "syntax.log": "5cabc9eeb2681ce2a04888a9c68f46030312f43c926990d9db59b26af6fe2d4b",
+    "tests-affected.log": "8963d317a980656e34c8e56e2829472935cc662b8bdd3eddb21d1dde75ea3200",
+    "tests.log": "5d03963a557f0bbf35e6a9c998443b4f2cc77b29f3b6960aca597ac0846b5e2e"
+  },
+  "metadata_audit": {
+    "log": "metadata.log",
+    "result": "pass",
+    "summary": "PASS:195 strict JSONs,847 source pins,6800 API cases,33 routes,143 predecessors,30 documents/526 links; W04 open"
+  },
+  "native_release_gate": {
+    "scope": "local Linux amd64 emulation only; not native installed-release/cgroup/process-tree evidence",
+    "status": "not run; remains required in T07/T11"
+  },
+  "observation_sha256": "2f0f107283c9e97f2b758eca6ecf1bc0f03a366cd5cc80aaaae7e1fca719b4d8",
+  "profile_activated": false,
+  "results": {
+    "cases": 6800,
+    "hash_vectors": 24,
+    "model_transactions": 96,
+    "native_queries": 6,
+    "outcomes": {
+      "configuration_rejection": 6466,
+      "locally_regenerated_helper": 22,
+      "request_shape_valid": 264,
+      "transport_rejection": 48
+    },
+    "retained_native_API_operations": 102,
+    "retained_native_atomic_failures": 72,
+    "routes": 33,
+    "source_bundles": 8
+  },
+  "review": {
+    "all33_declared_routes_accounted": true,
+    "all_success_outputs_helper_only": true,
+    "current_CSharp_reserved_namespace_unchanged": true,
+    "full_context_and_local_outcome_binding": true,
+    "implementation_proof_scope": "all general source/compiler/ordinary/definedness/state/frame/control/application proofs remain mandatory in T02–T06; API/AI/release in T07 and full v2 T08–T11 scope retained",
+    "native_v4_execution_claimed": false,
+    "production_and_old_helper_sources_unchanged": true,
+    "remaining_design_batches": "AI/release roots,ordinary-program predicate/signature/budget closure,all consumer migration dispositions and requirement-owner audit",
+    "source_or_resource_failure_not_theorem_falsehood": true,
+    "source_unelaborated_not_proved": true
+  },
+  "schema": "mpk.go_practical.api_contract_verification.v0",
+  "scope": "inactive API v4 request/response/session design,all33 declared routes,atomic source-state transactions and exact local response/snapshot binding; six fresh retained APIv2 traces and independent small-document canonical hashes",
+  "selection_reason": "Only new API contracts/model/transport and their retained API/native hash consumers changed. Verify all declared route shapes,full source and context binding,snapshot/restart/replay/freeze,Go pending obligations,output authority and encoding failure atomicity. The late payload repair changes source import counts,generated VC output and response hashes; recheck the seven affected tests. Existing kernel/proof/frontend source is unchanged,so do not rerun unrelated arithmetic/Go/compiler/kernel suites. The immediate policy predecessor is reconstructed by the metadata audit.",
+  "source_inputs": 847,
+  "specification_published": false,
+  "status": "selected validation passed; W04/T01 remain in progress",
+  "targeted_tests": 19,
+  "work_item": "GO-PRAC-T01-W04"
+}

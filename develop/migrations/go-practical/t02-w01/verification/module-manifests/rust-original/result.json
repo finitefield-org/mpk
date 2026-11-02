@@ -1,0 +1,94 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_module_data",
+    "--test",
+    "go_practical_export_inputs",
+    "--",
+    "--nocapture",
+    "--test-threads=1",
+    "--skip",
+    "every_original_go_sum_line_matches_the_pinned_native_parser",
+    "--skip",
+    "every_whole_original_zip_matches_native_go_at_full_protocol_boundaries"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_MODULE_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/observations/manifests",
+    "MPK_GO_MODULE_DATA_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/observations/data",
+    "MPK_GO_EXPORT_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/observations/exports",
+    "MPK_GO_EMBEDDED_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/observations/embedded",
+    "MPK_GO_SNAPSHOT_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/observations/snapshots",
+    "MPK_GO_SOURCE_BUILD_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/observations/build",
+    "MPK_GO_SOURCE_LANGUAGES_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/observations/languages",
+    "MPK_GO_SOURCE_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/observations/sources",
+    "MPK_GO_PACKAGE_FILES_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/observations/packages",
+    "MPK_GO_AUXILIARY_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/observations/auxiliary",
+    "MPK_GO_CGO_DIRECTIVES_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/observations/cgo"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/inputs.json",
+    "bytes": 58326280,
+    "sha256": "38856744b2011f4188ee60d93b2e7113a6561def692ade92158423997090f1ca",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/run.py",
+    "bytes": 15877,
+    "sha256": "227426faccbf7806c45b23ad4df55ab583d047b58fcca2f289a6c53be9152502",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T13:11:43.119178+00:00",
+  "selection_reason": "Independently read every original strict go.mod directive into owned dependency requirements, exclusions, replacements and retractions, preserving original bytes/order/duplicates and canonical module versions. Connect this reader to original module/source/export correspondence. Compare pinned Go main/dependency dispositions, quoted arbitrary path bytes, invalid source/comments, exact Go/toolchain patch rules, complete semver normalization and large decimal domains. Run the new manifest tests and affected existing module-data/export consumers, strict Clippy/vet and changed-file formats. Unchanged standalone sum/ZIP protocol matrices retain their previous complete evidence without repetition; actual original module-data and export consumers still run. Preserve all original package/source/proof universes, unchanged previous full resource/source/language/foundation evidence and frozen limits. General MVS and root/compiler/context/source/program/native Linux release authority remain due.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 137.68657225000788,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "external_originals_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/stdout.log",
+    "bytes": 928,
+    "sha256": "d9fd4527af2d8d0042826152b7c62731a4cfac5a0d8f037f60142ef918811225",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/module-manifests/rust-original/stderr.log",
+    "bytes": 293,
+    "sha256": "1447f0f39eebb462f65bd85dfd19663bcad177dc9062c90f0ec4506f37c7c7e5",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T13:14:00.809153+00:00"
+}

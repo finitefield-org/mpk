@@ -1,0 +1,47 @@
+{
+  "status": "passed_with_original_output_retained",
+  "observed_at_utc": "2026-10-20T23:10:24.468992+00:00",
+  "actual_checks": [
+    {
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 2,
+      "stdout": "develop/migrations/go-practical/t02-w01/verification/string-equality/epochs/initial/foundation/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-equality/epochs/semantic-controls/selected/stdout.log:17: new blank line at EOF.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--cached",
+        "--check",
+        "--",
+        ".",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-equality/epochs/initial/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-equality/epochs/semantic-controls/selected/stdout.log"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "exact_raw_output_warnings": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-equality/epochs/initial/foundation/stdout.log",
+      "sha256": "a1782ff1d9d0b0e26aacf4b432ec133938309126e5c09b3c2a8129c03e9ac0a7",
+      "bytes": 301
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-equality/epochs/semantic-controls/selected/stdout.log",
+      "sha256": "cc13de290d162cafce8aac83aab30692981e312918aa62ce83f32bcfbe3636f8",
+      "bytes": 1293
+    }
+  ],
+  "all_other_staged_files_pass_whitespace_check": true,
+  "original_Cargo_output_bytes_modified": false,
+  "obsolete_IR_matcher_scope_seal_or_exclusion_changes": false
+}

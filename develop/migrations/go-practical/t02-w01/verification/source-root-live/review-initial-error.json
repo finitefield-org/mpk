@@ -1,0 +1,19 @@
+{
+  "status": "failed",
+  "selection_reason": "Retain the first full original-data review result when its final aggregation failed after scanning all 16880 native files. The original review driver and the exact encoded archived findings remain unchanged.",
+  "command": [
+    "python3",
+    "-B",
+    "develop/migrations/go-practical/t02-w01/verification/source-root-live/review.py"
+  ],
+  "phase": "final report aggregation",
+  "error_type": "KeyError",
+  "error_key": "design_status_marker",
+  "cause": "The native evidence manifest shadowed the scanner manifest before exclusion counts were read.",
+  "native_files_scanned": 16880,
+  "archived_findings": 0,
+  "original_driver_sha256": "88504ec684fc5da6a14e6d2bc3474410c880479dae6654d9ea568131c4515a7c",
+  "encoded_original_findings_sha256": "24a9fe82f268d7cae54b027c3f0c046f7fc6a5284c955db60069937f7c29512f",
+  "available_output_note": "The tool returned the traceback directly; no stdout/stderr file existed for this first run.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

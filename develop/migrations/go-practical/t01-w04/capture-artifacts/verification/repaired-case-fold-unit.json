@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "-v",
+    "test_capture_artifacts.CaptureTests.test_case_colliding_paths_in_one_capture_capability_reject"
+  ],
+  "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+  "environment": {
+    "PYTHONPATH": "develop/probes/go-practical"
+  },
+  "exit_code": 0,
+  "wall_seconds": 15.157486291020177,
+  "log": "repaired-case-fold-unit.log",
+  "sha256": "5652e2cf4a71109954aebe04a13e85196dba7fe471cad871e1c061a9ef0cad00",
+  "reason": "Re-run only initial failed assertion; existing graph guard correctly rejects case collision before inventory guard; other23 tests passed unchanged"
+}

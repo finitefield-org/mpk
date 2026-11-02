@@ -1,0 +1,724 @@
+{
+  "status": "scoped_checks_passed",
+  "basis_commit": "6c347926a1722d86bf1cfe8b3062eef1a8bac993",
+  "observed_at_utc": "2026-10-21T10:06:00.726068+00:00",
+  "source_languages": [
+    "Go",
+    "Rust"
+  ],
+  "implementation": "crates/mpk-vc/src/go_practical_ordinary/storage_lens.rs",
+  "foundation": {
+    "certificate": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/foundation/candidates/lens-foundation.mpcert",
+      "sha256": "d7f6c6f08567c8cdcfaa37ad496e4f41a0d2cb82bfe53aca761d6b3fa16f0cce",
+      "bytes": 1115975
+    },
+    "declarations": 2902,
+    "terms": 87423,
+    "bytes": 1115975,
+    "new_lens_definitions": 17,
+    "new_lens_laws": 181,
+    "complete_prior_identities": 2688,
+    "complete_prior_bytes": 1033685,
+    "additional_prior_product_relation_declarations": 16,
+    "axioms": 0
+  },
+  "current_checks": {
+    "foundation": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/foundation/result.json",
+      "sha256": "eba31c3b6a369658b2bae7415b933ed5762ef5b6a1512b8ff95f76b54414714e",
+      "bytes": 152598
+    },
+    "observations": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/observations/result.json",
+      "sha256": "6d74c767d631738cdb46734feddd26c54ea34dbc30ca57deac61cf8cd32c3fa7",
+      "bytes": 152567
+    },
+    "definitions": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/definitions/result.json",
+      "sha256": "3da5c3a6a389b53108ac30b37326d172c6c85aac27a210557fff690797f99e62",
+      "bytes": 152612
+    },
+    "alphabet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/alphabet/result.json",
+      "sha256": "b07a1f2069f76e13b19cce55a57e031af194c89f87a7a37918c5bbf5342356e2",
+      "bytes": 152627
+    },
+    "laws": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/laws/result.json",
+      "sha256": "dcc240c2e51537298ba80f4bdc34c53aeb81eef8fd0b273af98a7b483b181820",
+      "bytes": 152615
+    },
+    "lint": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/lint/result.json",
+      "sha256": "a091b0f5f579e18a733d87dcbde389417d0240597370daf76d1fd3288c540935",
+      "bytes": 152556
+    },
+    "format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/format/result.json",
+      "sha256": "1d796d7c8c546c9e2f0e407e8fbfe34e19e5fb7ea104320679a3977a5ea07d05",
+      "bytes": 153218
+    }
+  },
+  "independent_cores": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/paired/result.json",
+    "sha256": "7f9b8802904abfc7f9a121d1413bad33a8d7ab7024ed28b4f804259e6e70cd83",
+    "bytes": 1162607
+  },
+  "original_failed_complete_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/original-failures/result.json",
+    "sha256": "ab2c67543edf978318e5e2038b93c6b734f4a102fc413b930858c99bf345a3dd",
+    "bytes": 9283
+  },
+  "native_go": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/native-go-current/result.json",
+    "sha256": "a37ba1c54d585933268c676739b1bf316c44a3d7301e09d97cb9b0e420673649",
+    "bytes": 5403
+  },
+  "native_binary_preservation_and_original_limitation": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/native-binary-preservation.json",
+    "sha256": "4d930066e987f0c99a9f47b4aac015c029d5d3c3a679a8275f0f2e1e51f93da3",
+    "bytes": 1501
+  },
+  "control_inventory": {
+    "actual_typed_witness_domains": 249,
+    "altered_conclusions": 181,
+    "complete_candidates": 448,
+    "typed_wrong_definitions": 16,
+    "zero_axiom_acceptances": 2
+  },
+  "actual_definition_observations": {
+    "actual_AST_steps": 67909080,
+    "definition_callbacks": false,
+    "full_root_outputs": 1060,
+    "observer_ceilings_changed": false,
+    "shared_alias_reads": 406,
+    "theorem_bodies": false,
+    "whole_original_cases": 203
+  },
+  "affected_Rust_roots": 5,
+  "format_files": 11,
+  "whole_current_source_inputs_identical": true,
+  "full_source_epochs": 11,
+  "source_preimages": 4848,
+  "actual_executions": [
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-algebra/format-write/result.json",
+        "sha256": "a0f7f594bd18a6b9d4d83d723b9fcde3343194f0943de9412ef726ddb1ffd925",
+        "bytes": 152308
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_ordinary.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/algebra.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/frames.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays/relations.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays/restoration.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/products.rs",
+        "crates/mpk-vc/tests/go_practical_storage_lens.rs"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-algebra/format-write/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-algebra/format-write/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "formatter_mutation_expected": true
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-algebra-checked/foundation/result.json",
+        "sha256": "b562b309aa07993bf7481b3c79343a843e5a072839805808fbc82b816d282de2",
+        "bytes": 152065
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_storage_lens",
+        "lens_retains_complete_parent",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-algebra-checked/foundation/stdout.log",
+        "sha256": "424374a3e65390a52811d7bd6e685edf4c45e7900636186fdd009a751112a71c",
+        "bytes": 284
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-algebra-checked/foundation/stderr.log",
+        "sha256": "99657e29e08a8778da3e548e9afe42ef6363c4f0a39ecb44f8ef075842742040",
+        "bytes": 250
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/alphabet/result.json",
+        "sha256": "b07a1f2069f76e13b19cce55a57e031af194c89f87a7a37918c5bbf5342356e2",
+        "bytes": 152627
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_storage_lens",
+        "exact_ownership_is_distinct_from_core_accepted_extensions",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/alphabet/stdout.log",
+        "sha256": "dcd1a0e8d93b8903542412d6d142edaa2f7f8139300f23450aa9f87312ea19ba",
+        "bytes": 183
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/alphabet/stderr.log",
+        "sha256": "76c721862b2db828304cc4c886c7cc121bed8931a8fea1805397bd440d3bc271",
+        "bytes": 175
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/definitions/result.json",
+        "sha256": "3da5c3a6a389b53108ac30b37326d172c6c85aac27a210557fff690797f99e62",
+        "bytes": 152612
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_storage_lens",
+        "lens_definitions_have_actual_countermodels",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/definitions/stdout.log",
+        "sha256": "57cd7289ea3ed1f9036caf5f84b43e2ee459c762f40531d274d2b11c191e18be",
+        "bytes": 254
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/definitions/stderr.log",
+        "sha256": "76c721862b2db828304cc4c886c7cc121bed8931a8fea1805397bd440d3bc271",
+        "bytes": 175
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/format/result.json",
+        "sha256": "1d796d7c8c546c9e2f0e407e8fbfe34e19e5fb7ea104320679a3977a5ea07d05",
+        "bytes": 153218
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--check",
+        "--edition",
+        "2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_ordinary.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/algebra.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/frames.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays/relations.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays/restoration.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/products.rs",
+        "crates/mpk-vc/tests/go_practical_storage_lens.rs",
+        "crates/mpk-vc/tests/support/go_storage_lens_observations.rs",
+        "crates/mpk-vc/tests/support/go_storage_lens_controls.rs"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/format/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/format/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/foundation/result.json",
+        "sha256": "eba31c3b6a369658b2bae7415b933ed5762ef5b6a1512b8ff95f76b54414714e",
+        "bytes": 152598
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_storage_lens",
+        "lens_retains_complete_parent",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/foundation/stdout.log",
+        "sha256": "f17407a257670f8faf29f26c242dbce968482663274fe7a589aaa01749c173ee",
+        "bytes": 284
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/foundation/stderr.log",
+        "sha256": "54afa207d2e9d530ab14ad4f9864f746d5bbb21e59d3c0838bac8ebe8535562d",
+        "bytes": 249
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/laws/result.json",
+        "sha256": "dcc240c2e51537298ba80f4bdc34c53aeb81eef8fd0b273af98a7b483b181820",
+        "bytes": 152615
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_storage_lens",
+        "lens_laws_bind_conclusions_and_actual_domains",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/laws/stdout.log",
+        "sha256": "330df74b1656532e073c6520e431b0aee08e83111a848f1720bd1beab5937a41",
+        "bytes": 315
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/laws/stderr.log",
+        "sha256": "76c721862b2db828304cc4c886c7cc121bed8931a8fea1805397bd440d3bc271",
+        "bytes": 175
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/lint/result.json",
+        "sha256": "a091b0f5f579e18a733d87dcbde389417d0240597370daf76d1fd3288c540935",
+        "bytes": 152556
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "clippy",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_storage_lens",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/lint/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/lint/stderr.log",
+        "sha256": "554d5b122036ffcf671272a0fbdd8dd3796c8117fc150a3bba65c26e45d21032",
+        "bytes": 137
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/observations/result.json",
+        "sha256": "6d74c767d631738cdb46734feddd26c54ea34dbc30ca57deac61cf8cd32c3fa7",
+        "bytes": 152567
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_storage_lens",
+        "observations",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/observations/stdout.log",
+        "sha256": "c2ef19bb5a5b9beccc2e7990c512ca01340ef2b36cd14b71df64dc0be1437067",
+        "bytes": 233
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/observations/stderr.log",
+        "sha256": "a723d183baa42319eee83286994aa4922ada05314ae84d8e9915d901357d449a",
+        "bytes": 175
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness-raw/format-write/result.json",
+        "sha256": "970b8520a174fa8be193448e01b2f83ee4576a4cac8e09c9a8a3c20aea506967",
+        "bytes": 153326
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_ordinary.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/algebra.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/frames.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays/relations.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays/restoration.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/products.rs",
+        "crates/mpk-vc/tests/go_practical_storage_lens.rs",
+        "crates/mpk-vc/tests/support/go_storage_lens_observations.rs",
+        "crates/mpk-vc/tests/support/go_storage_lens_controls.rs"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness-raw/format-write/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness-raw/format-write/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "formatter_mutation_expected": true
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/construction-diagnostic/foundation/result.json",
+        "sha256": "8322fdd3cfd71bd31f3439663f755b2f111aa3a87a137e7df7b73a5ea62fdb86",
+        "bytes": 142112
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_storage_lens",
+        "lens_retains_complete_parent",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "exit_code": 101,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/construction-diagnostic/foundation/stdout.log",
+        "sha256": "2406ba4920632ba856294b56ed6d32f01b2f277e509672e426e2622185864413",
+        "bytes": 216
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/construction-diagnostic/foundation/stderr.log",
+        "sha256": "32336ede7a991369df69c1666cf541a520c1d8f9efd171f727daa39de255428c",
+        "bytes": 645
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/explicit-view-equations/format-write/result.json",
+        "sha256": "bf94715f183c1baed5acf8bcd39a352adf72a2015368d68ee69e7230af00315f",
+        "bytes": 147238
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_ordinary.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/algebra.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays/relations.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays/restoration.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/products.rs",
+        "crates/mpk-vc/tests/go_practical_storage_lens.rs"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/explicit-view-equations/format-write/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/explicit-view-equations/format-write/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "formatter_mutation_expected": true
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/explicit-view-equations-checked/foundation/result.json",
+        "sha256": "dd3dfb8d8f1e06cba6a570e1574e57bb2f35851dc8f20612e2f2e20db884aec1",
+        "bytes": 146978
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_storage_lens",
+        "lens_retains_complete_parent",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/explicit-view-equations-checked/foundation/stdout.log",
+        "sha256": "fd01b09e91359b52fb75d0d66640b430eea045178f01f9481ce2f3b197e40b6e",
+        "bytes": 284
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/explicit-view-equations-checked/foundation/stderr.log",
+        "sha256": "e0935652e12a6c97b5dce21811a2e9f0d8dda331f403c7c6610b15f4cd9a0e66",
+        "bytes": 250
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/fields-before-frames/foundation/result.json",
+        "sha256": "f7dfcb5d5e97b8f9e90620fa7114716a48f6dec0bb040863520375dad27ffd8f",
+        "bytes": 142088
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_storage_lens",
+        "lens_retains_complete_parent",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "exit_code": 101,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/fields-before-frames/foundation/stdout.log",
+        "sha256": "43aa979667ee69d4375745fbd67c3d2e2ee755a33f111c71468688b87a7c6bde",
+        "bytes": 217
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/fields-before-frames/foundation/stderr.log",
+        "sha256": "0678d1ca3848817c2f59a5791cda99d55bcb4980251408151f7010fefa6d7983",
+        "bytes": 1157
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/hygienic-transport/foundation/result.json",
+        "sha256": "8990c0a5b210500001b29d407161a0f77eb2d37314f2ca181a2aac8c0744b651",
+        "bytes": 146745
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_storage_lens",
+        "lens_retains_complete_parent",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "exit_code": 101,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/hygienic-transport/foundation/stdout.log",
+        "sha256": "b141c70d80f896d65cb477cb5b8f94c7e021643093c6c475e3ebc0bdc7bb92f0",
+        "bytes": 217
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/hygienic-transport/foundation/stderr.log",
+        "sha256": "1a7b8318e22fa33ffcf953661a3c426a25b9cacfe2840dee0800b0f2f0ea1c32",
+        "bytes": 1151
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/initial-foundation/foundation/result.json",
+        "sha256": "552f9364dd8801c5f831958f63ce9609ef04b255eb2f1bb0e0c89f7f705d09da",
+        "bytes": 142072
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_storage_lens",
+        "lens_retains_complete_parent",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "exit_code": 101,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/initial-foundation/foundation/stdout.log",
+        "sha256": "635a431c66a8b91009a2f05ab2ab0e26a72e34b40b8cbd692ec564c69a1c6926",
+        "bytes": 216
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/initial-foundation/foundation/stderr.log",
+        "sha256": "2273d6aa9a1dc9a1b463ff11831d77d09049a44bfe87a7c102fe268b850e914c",
+        "bytes": 578
+      },
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/raw-construction/format-write/result.json",
+        "sha256": "4b6ff650cc9b5e3e2f850bb4e3c141e00147559fa0d29552b422d7aa9ee6167f",
+        "bytes": 142455
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--config",
+        "skip_children=true",
+        "crates/mpk-vc/src/go_practical_ordinary.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/algebra.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays/relations.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays/restoration.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/arrays.rs",
+        "crates/mpk-vc/src/go_practical_ordinary/storage_lens/products.rs",
+        "crates/mpk-vc/tests/go_practical_storage_lens.rs"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/raw-construction/format-write/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/raw-construction/format-write/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "formatter_mutation_expected": true
+    }
+  ],
+  "original_Rust_failures": 4,
+  "original_failures_before_candidate": 2,
+  "original_full_type_mismatch_and_fuel_candidates": 2,
+  "original_native_JSON_tag_failure_retained": true,
+  "initial_native_binary_bytes_available": false,
+  "initial_native_binary_original_bytes_reconstructed": false,
+  "current_native_binary_fully_retained": true,
+  "all_limits_unchanged": true,
+  "core_or_observer_semantics_changed": false,
+  "source_type_path_owner_store_permission_or_lifetime_proof": false,
+  "public_profile_activated": false,
+  "native_release_acceptance": false,
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "full_T_gate_passed": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh"
+}

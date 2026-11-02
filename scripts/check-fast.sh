@@ -6,6 +6,11 @@ mpk_bin="$repo_root/target/debug/mpk"
 
 cd "$repo_root"
 
+if [[ $# -ne 0 ]]; then
+  printf 'usage: %s\n' "$0" >&2
+  exit 2
+fi
+
 run() {
   printf '\n==> %s\n' "$*"
   "$@"
@@ -69,7 +74,7 @@ run check_no_github_actions_workflows
 run cargo fmt --check
 run "$repo_root/scripts/check-no-active-gir.sh" --strict
 run cargo clippy --workspace --all-targets -- -D warnings
-run cargo test --workspace
+run cargo test --workspace --no-fail-fast
 run cargo build -p mpk-cli
 
 check_accepts fixtures/cert-basic/zero-axiom.hex

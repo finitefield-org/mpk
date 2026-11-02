@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "checks": "Compile all changed/new live Python helpers without creating bytecode; preserved original-driver.py remains historical evidence.",
+  "inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/portable-snapshots/check-controls.py",
+      "bytes": 4089,
+      "sha256": "94b490358072460f344e2024ae076afcd9aff7e57e1568aa1eda15d45e5271ae"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/portable-snapshots/run-rust.py",
+      "bytes": 5994,
+      "sha256": "d13e7d03472f5f8ee749e58f2530da3fcd9f81c8bec760f3dc76a88aad6ad09f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/portable-snapshots/run-relocated.py",
+      "bytes": 2298,
+      "sha256": "9142ba5d0ae0cf5042e71ea03c15315df0816871b871c88164b2deb92a8b9161"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/snapshot-inputs/preserve-originals.py",
+      "bytes": 6154,
+      "sha256": "b3b17178b80a4ad50780815aeb8109ccbf1e329796189ee6d432127ab4d88069"
+    }
+  ],
+  "selection_reason": "Only Python restoration/harness code changed. Go/Rust production and prior strict lint/format checks remain unchanged; the actual relocated direct Rust integration run exercises the changed helper.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

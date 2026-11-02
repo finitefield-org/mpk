@@ -1,0 +1,58 @@
+[
+  {
+    "case": {
+      "bytes": 2759,
+      "declarations": 25,
+      "expected": "accepted",
+      "family": "invariant-entry",
+      "frame_bits": 128,
+      "goal_debug": "Forall(\"next\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"invariant\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Constant(\"Std.Bool\")), Forall(\"initial\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"entry_proof\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Variable(\"initial\")]), Constant(\"Std.Bool.true\")]), Forall(\"body_proof\", Forall(\"__preservation_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__preservation_input\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Variable(\"__preservation_state\")]), Constant(\"Std.Bool.true\")]), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Apply(Variable(\"next\"), [Variable(\"__preservation_state\")])]), Constant(\"Std.Bool.true\")]))), Forall(\"n\", Constant(\"Std.Nat\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Apply(Constant(\"Probe.GoPractical.Word.LoopIterate\"), [Variable(\"next\"), Variable(\"n\"), Variable(\"initial\")])]), Constant(\"Std.Bool.true\")])))))))",
+      "id": "control-invariant-entry-valid",
+      "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+      "mutation": 0,
+      "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+      "terms": 275,
+      "theorem": "Probe.GoPractical.Word.ControlClaiminvariantentry"
+    },
+    "observations": {
+      "go": {
+        "cpu_system_seconds": 0.004541,
+        "cpu_user_seconds": 0.0019509999999999998,
+        "exit_code": 1,
+        "peak_rss_bytes": 5029888,
+        "report": {
+          "error_detail": "term 490 inferred pi but expected const",
+          "error_kind": "core_check",
+          "verdict": "rejected"
+        },
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "wall_seconds": 0.0628776250523515
+      },
+      "rust": {
+        "cpu_system_seconds": 0.00308,
+        "cpu_user_seconds": 0.0015329999999999999,
+        "exit_code": 1,
+        "peak_rss_bytes": 2834432,
+        "report": {
+          "axiom_count": null,
+          "axiom_report": null,
+          "declaration_count": null,
+          "error_code": "KERNEL_CORE_CHECK",
+          "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"const\",\"expected_term_index\":\"477\",\"inferred_kind\":\"pi\",\"inferred_term_index\":\"498\",\"kind\":\"check_type_mismatch\",\"term_index\":\"490\"}}",
+          "hashes": {
+            "axiom_report": null,
+            "certificate": "61f51b791399fc6be7a62c7e96c3aada31e37680c70c3ac31980b0ef4f5a4f92",
+            "export": null
+          },
+          "module": null,
+          "verdict": "rejected"
+        },
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "wall_seconds": 0.04106312501244247
+      }
+    },
+    "raw_sha256": "9fa1a5dd9be8bf6cd2dee902e8bfb1c7733ee27719a441a5235778ccf0f5aedf"
+  }
+]

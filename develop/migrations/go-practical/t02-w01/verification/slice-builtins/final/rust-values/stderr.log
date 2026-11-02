@@ -1,0 +1,9 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 12.73s
+     Running tests/go_practical_slice_builtins.rs (target/debug/deps/go_practical_slice_builtins-1a182f8cb62206f6)
+
+thread 'matches_original_go_slice_builtin_types' (49031054) panicked at crates/mpk-vc/tests/go_practical_slice_builtins.rs:153:5:
+case 1465 "copy-nil-bytes" expected {"accepted":true,"initializer_body_or_invocation_state_or_program_authority":false,"values":[{"addressable":false,"boolean":null,"bytes_hex":null,"constant":false,"integer_decimal":null,"type_key":{"id":"8ae14e0de1e75aadaf5ca75bf8e381701c5ffcbddd0de1b90207064002f04df8","kind":"builtin","name":"int","schema":"mpk.go.source_type.v2","signed":true,"width":64},"underlying_builtin":"int","untyped_nil":false}]} actual {"accepted":false,"error":"Type","initializer_body_or_invocation_state_or_program_authority":false}
+case 1466 "copy-nil-namedBytes" expected {"accepted":true,"initializer_body_or_invocation_state_or_program_authority":false,"values":[{"addressable":false,"boolean":null,"bytes_hex":null,"constant":false,"integer_decimal":null,"type_key":{"id":"8ae14e0de1e75aadaf5ca75bf8e381701c5ffcbddd0de1b90207064002f04df8","kind":"builtin","name":"int","schema":"mpk.go.source_type.v2","signed":true,"width":64},"underlying_builtin":"int","untyped_nil":false}]} actual {"accepted":false,"error":"Type","initializer_body_or_invocation_state_or_program_authority":false}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_slice_builtins`

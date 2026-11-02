@@ -1,0 +1,55 @@
+   Compiling mpk-vc v0.1.0 (/mpk/crates/mpk-vc)
+    Checking mpk-api v0.1.0 (/mpk/crates/mpk-api)
+    Checking mpk-linux-sandbox v0.1.0 (/mpk/crates/mpk-linux-sandbox)
+   Compiling mpk-cli v0.1.0 (/mpk/crates/mpk-cli)
+error: this `else` branch is empty
+    --> crates/mpk-cli/src/frontend_sandbox.rs:2620:11
+     |
+2620 |           } else {
+     |  ___________^
+2621 | |         }
+     | |_________^ help: you can remove it
+     |
+     = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#needless_else
+     = note: `-D clippy::needless-else` implied by `-D warnings`
+     = help: to override `-D warnings` add `#[allow(clippy::needless_else)]`
+
+error: unnecessary braces around function argument
+    --> crates/mpk-cli/src/frontend_sandbox.rs:2804:42
+     |
+2804 |         verify_resource_process_controls({ RESOURCE_ADDRESS_SPACE_LIMIT })?;
+     |                                          ^^                            ^^
+     |
+     = note: `-D unused-braces` implied by `-D warnings`
+     = help: to override `-D warnings` add `#[allow(unused_braces)]`
+help: remove these braces
+     |
+2804 -         verify_resource_process_controls({ RESOURCE_ADDRESS_SPACE_LIMIT })?;
+2804 +         verify_resource_process_controls(RESOURCE_ADDRESS_SPACE_LIMIT)?;
+     |
+
+error: unnecessary braces around function argument
+    --> crates/mpk-cli/src/frontend_sandbox.rs:2850:18
+     |
+2850 |             Some({ c"size=21474836480,nr_inodes=262144,noswap,mode=700" }),
+     |                  ^^                                                    ^^
+     |
+help: remove these braces
+     |
+2850 -             Some({ c"size=21474836480,nr_inodes=262144,noswap,mode=700" }),
+2850 +             Some(c"size=21474836480,nr_inodes=262144,noswap,mode=700"),
+     |
+
+error: unnecessary braces around function argument
+    --> crates/mpk-cli/src/frontend_sandbox.rs:2975:31
+     |
+2975 |     std::env::set_current_dir({ "/" }).map_err(|_| 125)?;
+     |                               ^^   ^^
+     |
+help: remove these braces
+     |
+2975 -     std::env::set_current_dir({ "/" }).map_err(|_| 125)?;
+2975 +     std::env::set_current_dir("/").map_err(|_| 125)?;
+     |
+
+error: could not compile `mpk-cli` (lib) due to 4 previous errors

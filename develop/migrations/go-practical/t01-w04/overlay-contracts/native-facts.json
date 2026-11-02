@@ -1,0 +1,646 @@
+{
+  "aliases": {
+    "byte": "uint8",
+    "fixture/policy.Money": "fixture/policy.Amount",
+    "fixture/policy.RejectAlias": "fixture/policy.RejectCode",
+    "rune": "int32"
+  },
+  "functions": [
+    {
+      "end_byte": 477,
+      "inputs": [
+        {
+          "id": "binding:423",
+          "name": "",
+          "type": "fixture/policy.RejectCode"
+        }
+      ],
+      "loops": [],
+      "name": "Error",
+      "receiver": "fixture/policy.RejectCode",
+      "results": [
+        {
+          "id": "binding:443",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "start_byte": 417
+    },
+    {
+      "end_byte": 569,
+      "inputs": [
+        {
+          "id": "binding:524",
+          "name": "",
+          "type": "fixture/policy.SliceError"
+        }
+      ],
+      "loops": [],
+      "name": "Error",
+      "receiver": "fixture/policy.SliceError",
+      "results": [
+        {
+          "id": "binding:544",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "start_byte": 518
+    },
+    {
+      "end_byte": 992,
+      "inputs": [
+        {
+          "id": "binding:582",
+          "name": "customerID",
+          "type": "string"
+        },
+        {
+          "id": "binding:601",
+          "name": "lines",
+          "type": "[]fixture/policy.Line"
+        },
+        {
+          "id": "binding:615",
+          "name": "limit",
+          "type": "fixture/policy.Amount"
+        }
+      ],
+      "loops": [
+        {
+          "bindings": [
+            {
+              "id": "binding:582",
+              "name": "customerID",
+              "type": "string"
+            },
+            {
+              "id": "binding:615",
+              "name": "limit",
+              "type": "fixture/policy.Amount"
+            },
+            {
+              "id": "binding:601",
+              "name": "lines",
+              "type": "[]fixture/policy.Line"
+            },
+            {
+              "id": "binding:727",
+              "name": "total",
+              "type": "fixture/policy.Amount"
+            }
+          ],
+          "end_byte": 951,
+          "kind": "range",
+          "ordinal": 0,
+          "start_byte": 750
+        }
+      ],
+      "name": "Quote",
+      "results": [
+        {
+          "id": "binding:630",
+          "name": "",
+          "type": "fixture/policy.Decision"
+        },
+        {
+          "id": "binding:640",
+          "name": "",
+          "type": "error"
+        }
+      ],
+      "start_byte": 571
+    },
+    {
+      "end_byte": 1563,
+      "inputs": [
+        {
+          "id": "binding:1006",
+          "name": "xs",
+          "type": "[]int64"
+        },
+        {
+          "id": "binding:1018",
+          "name": "other",
+          "type": "fixture/policy.OtherAmount"
+        },
+        {
+          "id": "binding:1037",
+          "name": "flag",
+          "type": "bool"
+        },
+        {
+          "id": "binding:1048",
+          "name": "bytes",
+          "type": "[]uint8"
+        },
+        {
+          "id": "binding:1063",
+          "name": "es",
+          "type": "[]error"
+        }
+      ],
+      "loops": [
+        {
+          "bindings": [
+            {
+              "id": "binding:1048",
+              "name": "bytes",
+              "type": "[]uint8"
+            },
+            {
+              "id": "binding:1090",
+              "name": "err",
+              "type": "error"
+            },
+            {
+              "id": "binding:1063",
+              "name": "es",
+              "type": "[]error"
+            },
+            {
+              "id": "binding:1037",
+              "name": "flag",
+              "type": "bool"
+            },
+            {
+              "id": "binding:1154",
+              "name": "i",
+              "type": "int"
+            },
+            {
+              "id": "binding:1018",
+              "name": "other",
+              "type": "fixture/policy.OtherAmount"
+            },
+            {
+              "id": "binding:1076",
+              "name": "total",
+              "type": "fixture/policy.Amount"
+            },
+            {
+              "id": "binding:1006",
+              "name": "xs",
+              "type": "[]int64"
+            }
+          ],
+          "end_byte": 1289,
+          "kind": "for",
+          "ordinal": 0,
+          "start_byte": 1150
+        },
+        {
+          "bindings": [
+            {
+              "id": "binding:1048",
+              "name": "bytes",
+              "type": "[]uint8"
+            },
+            {
+              "id": "binding:1090",
+              "name": "err",
+              "type": "error"
+            },
+            {
+              "id": "binding:1063",
+              "name": "es",
+              "type": "[]error"
+            },
+            {
+              "id": "binding:1037",
+              "name": "flag",
+              "type": "bool"
+            },
+            {
+              "id": "binding:1154",
+              "name": "i",
+              "type": "int"
+            },
+            {
+              "id": "binding:1224",
+              "name": "j",
+              "type": "int"
+            },
+            {
+              "id": "binding:1018",
+              "name": "other",
+              "type": "fixture/policy.OtherAmount"
+            },
+            {
+              "id": "binding:1189",
+              "name": "total",
+              "type": "fixture/policy.Amount"
+            },
+            {
+              "id": "binding:1006",
+              "name": "xs",
+              "type": "[]int64"
+            }
+          ],
+          "end_byte": 1265,
+          "kind": "for",
+          "ordinal": 1,
+          "start_byte": 1220
+        },
+        {
+          "bindings": [
+            {
+              "id": "binding:1048",
+              "name": "bytes",
+              "type": "[]uint8"
+            },
+            {
+              "id": "binding:1090",
+              "name": "err",
+              "type": "error"
+            },
+            {
+              "id": "binding:1063",
+              "name": "es",
+              "type": "[]error"
+            },
+            {
+              "id": "binding:1037",
+              "name": "flag",
+              "type": "bool"
+            },
+            {
+              "id": "binding:1018",
+              "name": "other",
+              "type": "fixture/policy.OtherAmount"
+            },
+            {
+              "id": "binding:1076",
+              "name": "total",
+              "type": "fixture/policy.Amount"
+            },
+            {
+              "id": "binding:1006",
+              "name": "xs",
+              "type": "[]int64"
+            }
+          ],
+          "end_byte": 1404,
+          "kind": "range",
+          "ordinal": 2,
+          "start_byte": 1294
+        },
+        {
+          "bindings": [
+            {
+              "id": "binding:1048",
+              "name": "bytes",
+              "type": "[]uint8"
+            },
+            {
+              "id": "binding:1090",
+              "name": "err",
+              "type": "error"
+            },
+            {
+              "id": "binding:1063",
+              "name": "es",
+              "type": "[]error"
+            },
+            {
+              "id": "binding:1037",
+              "name": "flag",
+              "type": "bool"
+            },
+            {
+              "id": "binding:1298",
+              "name": "index",
+              "type": "int"
+            },
+            {
+              "id": "binding:1337",
+              "name": "k",
+              "type": "int"
+            },
+            {
+              "id": "binding:1018",
+              "name": "other",
+              "type": "fixture/policy.OtherAmount"
+            },
+            {
+              "id": "binding:1076",
+              "name": "total",
+              "type": "fixture/policy.Amount"
+            },
+            {
+              "id": "binding:1305",
+              "name": "value",
+              "type": "int64"
+            },
+            {
+              "id": "binding:1006",
+              "name": "xs",
+              "type": "[]int64"
+            }
+          ],
+          "end_byte": 1398,
+          "kind": "for",
+          "ordinal": 3,
+          "start_byte": 1333
+        },
+        {
+          "bindings": [
+            {
+              "id": "binding:1048",
+              "name": "bytes",
+              "type": "[]uint8"
+            },
+            {
+              "id": "binding:1090",
+              "name": "err",
+              "type": "error"
+            },
+            {
+              "id": "binding:1063",
+              "name": "es",
+              "type": "[]error"
+            },
+            {
+              "id": "binding:1037",
+              "name": "flag",
+              "type": "bool"
+            },
+            {
+              "id": "binding:1413",
+              "name": "index",
+              "type": "int"
+            },
+            {
+              "id": "binding:1018",
+              "name": "other",
+              "type": "fixture/policy.OtherAmount"
+            },
+            {
+              "id": "binding:1076",
+              "name": "total",
+              "type": "fixture/policy.Amount"
+            },
+            {
+              "id": "binding:1431",
+              "name": "value",
+              "type": "int64"
+            },
+            {
+              "id": "binding:1006",
+              "name": "xs",
+              "type": "[]int64"
+            }
+          ],
+          "end_byte": 1517,
+          "kind": "range",
+          "ordinal": 4,
+          "start_byte": 1447
+        }
+      ],
+      "name": "Scopes",
+      "results": [
+        {
+          "id": "binding:1076",
+          "name": "total",
+          "type": "fixture/policy.Amount"
+        },
+        {
+          "id": "binding:1090",
+          "name": "err",
+          "type": "error"
+        }
+      ],
+      "start_byte": 994
+    },
+    {
+      "end_byte": 1789,
+      "inputs": [
+        {
+          "id": "binding:1738",
+          "name": "root",
+          "type": "fixture/policy.Root"
+        },
+        {
+          "id": "binding:1749",
+          "name": "errors",
+          "type": "[]error"
+        }
+      ],
+      "loops": [],
+      "name": "InputErrors",
+      "results": [],
+      "start_byte": 1721
+    }
+  ],
+  "language": "go1.25",
+  "path": "policy.go",
+  "source_sha256": "6cf82f7a5f7ce26c768989d91883cfdb2bacbecbfe5f164d08868070fe68b1ad",
+  "types": [
+    {
+      "element": "fixture/policy.Line",
+      "id": "[2]fixture/policy.Line",
+      "kind": "array",
+      "length": 2
+    },
+    {
+      "element": "error",
+      "id": "[]error",
+      "kind": "slice"
+    },
+    {
+      "element": "fixture/policy.Line",
+      "id": "[]fixture/policy.Line",
+      "kind": "slice"
+    },
+    {
+      "element": "int64",
+      "id": "[]int64",
+      "kind": "slice"
+    },
+    {
+      "element": "uint8",
+      "id": "[]uint8",
+      "kind": "slice"
+    },
+    {
+      "id": "bool",
+      "kind": "bool"
+    },
+    {
+      "id": "error",
+      "kind": "error"
+    },
+    {
+      "id": "fixture/policy.Amount",
+      "kind": "named",
+      "underlying": "int64"
+    },
+    {
+      "id": "fixture/policy.Blank",
+      "kind": "named",
+      "underlying": "struct{_ int64}"
+    },
+    {
+      "id": "fixture/policy.Decision",
+      "kind": "named",
+      "underlying": "struct{Total fixture/policy.Amount}"
+    },
+    {
+      "id": "fixture/policy.Flag",
+      "kind": "named",
+      "underlying": "bool"
+    },
+    {
+      "id": "fixture/policy.Line",
+      "kind": "named",
+      "underlying": "struct{Amount fixture/policy.Amount}"
+    },
+    {
+      "id": "fixture/policy.LineArray",
+      "kind": "named",
+      "underlying": "[2]fixture/policy.Line"
+    },
+    {
+      "id": "fixture/policy.OtherAmount",
+      "kind": "named",
+      "underlying": "int64"
+    },
+    {
+      "id": "fixture/policy.RejectCode",
+      "implements_error": true,
+      "kind": "named",
+      "underlying": "uint8"
+    },
+    {
+      "id": "fixture/policy.Root",
+      "kind": "named",
+      "underlying": "struct{List []fixture/policy.Line; Err error}"
+    },
+    {
+      "id": "fixture/policy.SliceError",
+      "implements_error": true,
+      "kind": "named",
+      "underlying": "struct{Data []uint8}"
+    },
+    {
+      "id": "int",
+      "kind": "word",
+      "signed": true,
+      "width": 64
+    },
+    {
+      "id": "int16",
+      "kind": "word",
+      "signed": true,
+      "width": 16
+    },
+    {
+      "id": "int32",
+      "kind": "word",
+      "signed": true,
+      "width": 32
+    },
+    {
+      "id": "int64",
+      "kind": "word",
+      "signed": true,
+      "width": 64
+    },
+    {
+      "id": "int8",
+      "kind": "word",
+      "signed": true,
+      "width": 8
+    },
+    {
+      "id": "string",
+      "kind": "string"
+    },
+    {
+      "fields": [
+        {
+          "key": "field:0",
+          "name": "Amount",
+          "type": "fixture/policy.Amount"
+        }
+      ],
+      "id": "struct{Amount fixture/policy.Amount}",
+      "kind": "struct"
+    },
+    {
+      "fields": [
+        {
+          "key": "field:0",
+          "name": "Data",
+          "type": "[]uint8"
+        }
+      ],
+      "id": "struct{Data []uint8}",
+      "kind": "struct"
+    },
+    {
+      "fields": [
+        {
+          "key": "field:0",
+          "name": "List",
+          "type": "[]fixture/policy.Line"
+        },
+        {
+          "key": "field:1",
+          "name": "Err",
+          "type": "error"
+        }
+      ],
+      "id": "struct{List []fixture/policy.Line; Err error}",
+      "kind": "struct"
+    },
+    {
+      "fields": [
+        {
+          "key": "field:0",
+          "name": "Total",
+          "type": "fixture/policy.Amount"
+        }
+      ],
+      "id": "struct{Total fixture/policy.Amount}",
+      "kind": "struct"
+    },
+    {
+      "fields": [
+        {
+          "key": "field:0",
+          "name": "_",
+          "type": "int64"
+        }
+      ],
+      "id": "struct{_ int64}",
+      "kind": "struct"
+    },
+    {
+      "id": "uint",
+      "kind": "word",
+      "width": 64
+    },
+    {
+      "id": "uint16",
+      "kind": "word",
+      "width": 16
+    },
+    {
+      "id": "uint32",
+      "kind": "word",
+      "width": 32
+    },
+    {
+      "id": "uint64",
+      "kind": "word",
+      "width": 64
+    },
+    {
+      "id": "uint8",
+      "kind": "word",
+      "width": 8
+    }
+  ]
+}

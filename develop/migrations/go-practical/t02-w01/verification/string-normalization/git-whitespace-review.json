@@ -1,0 +1,65 @@
+{
+  "status": "passed_with_original_output_retained",
+  "observed_at_utc": "2026-10-20T22:31:31.744979+00:00",
+  "actual_checks": [
+    {
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 2,
+      "stdout": "develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/contents-function/foundation/stdout.log:11: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/initial/foundation/stdout.log:11: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/size-congruence/foundation/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/trimmed-observer/observations/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/typed-controls/selected/stdout.log:20: new blank line at EOF.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--cached",
+        "--check",
+        "--",
+        ".",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/initial/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/contents-function/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/size-congruence/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/typed-controls/selected/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/trimmed-observer/observations/stdout.log"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "exact_raw_output_warnings": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/initial/foundation/stdout.log",
+      "sha256": "184c90289e44e13e950cd16cd38626e739bf334bc5041a3f2f8bb70bd232c301",
+      "bytes": 279
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/contents-function/foundation/stdout.log",
+      "sha256": "1015f007863202147910ebabbaa6a7bd666dfaf50c45acf2b5ca699cd322f14d",
+      "bytes": 279
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/size-congruence/foundation/stdout.log",
+      "sha256": "9de6cd0c4870f9c0567b5c777dbcd5125d1e8b31b3ec770ca0800862658c2769",
+      "bytes": 300
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/typed-controls/selected/stdout.log",
+      "sha256": "883458b1159794082c28585aa80e37910b7023a7cc2a9d24f10091b9e6cd353c",
+      "bytes": 1125
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/string-normalization/epochs/trimmed-observer/observations/stdout.log",
+      "sha256": "a4388cea3e43862daf66e7bae0bfd1e1aff0809b21fca8962298d8b055f42ac2",
+      "bytes": 405
+    }
+  ],
+  "all_other_staged_files_pass_whitespace_check": true,
+  "original_Cargo_output_bytes_modified": false,
+  "obsolete_IR_matcher_scope_seal_or_exclusion_changes": false
+}

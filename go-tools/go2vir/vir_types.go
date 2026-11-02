@@ -392,57 +392,56 @@ func defaultVIRContract(unitID, functionID string) virContract {
 	}
 }
 
-
 const (
-	successorProfileRegistrySchema = "mpk.semantic_profile.registry.v1"
-	successorProfileRegistryID = "mpk.semantic_profile.registry.v1"
-	successorProfileRegistryRevision = int64(3)
-	successorProfileRegistryRevisionArgument = "3"
-	successorProfileRegistrySHA256 = "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557"
-	successorGoProfileEntrySHA256 = "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96"
-	successorSemanticParametersSchema = "mpk.semantic_parameters.go_fixed.v0"
-	successorSelectionSchema = "mpk.selection.go_function.v0"
+	successorProfileRegistrySchema           = "mpk.semantic_profile.registry.v1"
+	successorProfileRegistryID               = "mpk.semantic_profile.registry.v1"
+	successorProfileRegistryRevision         = int64(4)
+	successorProfileRegistryRevisionArgument = "4"
+	successorProfileRegistrySHA256           = "25c92a9be951c91d0692aeb92003ae1d9fc5dd2d6a337c980ff6e681b222d2c0"
+	successorGoProfileEntrySHA256            = "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96"
+	successorSemanticParametersSchema        = "mpk.semantic_parameters.go_fixed.v0"
+	successorSelectionSchema                 = "mpk.selection.go_function.v0"
 )
 
 type successorProfileRegistryIdentity struct {
-	Schema string `json:"schema"`
-	ID string `json:"id"`
-	Revision int64 `json:"revision"`
+	Schema         string `json:"schema"`
+	ID             string `json:"id"`
+	Revision       int64  `json:"revision"`
 	RegistrySHA256 string `json:"registry_sha256"`
 }
 
 type successorSemanticParametersEnvelope struct {
-	Schema string `json:"schema"`
-	Value semanticParameters `json:"value"`
+	Schema string             `json:"schema"`
+	Value  semanticParameters `json:"value"`
 }
 
 type successorSemanticContext struct {
-	ProfileRegistry successorProfileRegistryIdentity `json:"profile_registry"`
-	ProfileEntrySHA256 string `json:"profile_entry_sha256"`
-	SourceLanguage string `json:"source_language"`
-	SemanticProfile string `json:"semantic_profile"`
+	ProfileRegistry    successorProfileRegistryIdentity    `json:"profile_registry"`
+	ProfileEntrySHA256 string                              `json:"profile_entry_sha256"`
+	SourceLanguage     string                              `json:"source_language"`
+	SemanticProfile    string                              `json:"semantic_profile"`
 	SemanticParameters successorSemanticParametersEnvelope `json:"semantic_parameters"`
 }
 
 type successorSelectionEnvelope struct {
-	Schema string `json:"schema"`
-	Value goSelection `json:"value"`
+	Schema string      `json:"schema"`
+	Value  goSelection `json:"value"`
 }
 
 func fixedSuccessorSemanticContext() successorSemanticContext {
 	return successorSemanticContext{
 		ProfileRegistry: successorProfileRegistryIdentity{
-			Schema: successorProfileRegistrySchema,
-			ID: successorProfileRegistryID,
-			Revision: successorProfileRegistryRevision,
+			Schema:         successorProfileRegistrySchema,
+			ID:             successorProfileRegistryID,
+			Revision:       successorProfileRegistryRevision,
 			RegistrySHA256: successorProfileRegistrySHA256,
 		},
 		ProfileEntrySHA256: successorGoProfileEntrySHA256,
-		SourceLanguage: "go",
-		SemanticProfile: goSemanticProfile,
+		SourceLanguage:     "go",
+		SemanticProfile:    goSemanticProfile,
 		SemanticParameters: successorSemanticParametersEnvelope{
 			Schema: successorSemanticParametersSchema,
-			Value: semanticParameters{TargetID: goTarget, PointerWidth: goPointerWidth},
+			Value:  semanticParameters{TargetID: goTarget, PointerWidth: goPointerWidth},
 		},
 	}
 }
@@ -457,61 +456,61 @@ func marshalSuccessor(value any) ([]byte, error) {
 
 func (value virModule) MarshalJSON() ([]byte, error) {
 	type successorVIR struct {
-		Schema string `json:"schema"`
+		Schema          string                   `json:"schema"`
 		SemanticContext successorSemanticContext `json:"semantic_context"`
-		Units []virUnit `json:"units"`
-		VIRHash string `json:"vir_hash"`
+		Units           []virUnit                `json:"units"`
+		VIRHash         string                   `json:"vir_hash"`
 	}
 	return marshalSuccessor(successorVIR{
-		Schema: value.Schema,
+		Schema:          value.Schema,
 		SemanticContext: fixedSuccessorSemanticContext(),
-		Units: value.Units,
-		VIRHash: value.VIRHash,
+		Units:           value.Units,
+		VIRHash:         value.VIRHash,
 	})
 }
 
 func (value virContract) MarshalJSON() ([]byte, error) {
 	type successorContract struct {
 		SemanticContext successorSemanticContext `json:"semantic_context"`
-		UnitID string `json:"unit_id"`
-		FunctionID string `json:"function_id"`
-		Requires []virContractExpr `json:"requires"`
-		Ensures []virContractExpr `json:"ensures"`
-		Modifies []string `json:"modifies"`
-		Panic string `json:"panic"`
-		Termination string `json:"termination"`
-		Loops []virLoopContract `json:"loops"`
-		ContractHash string `json:"contract_hash"`
+		UnitID          string                   `json:"unit_id"`
+		FunctionID      string                   `json:"function_id"`
+		Requires        []virContractExpr        `json:"requires"`
+		Ensures         []virContractExpr        `json:"ensures"`
+		Modifies        []string                 `json:"modifies"`
+		Panic           string                   `json:"panic"`
+		Termination     string                   `json:"termination"`
+		Loops           []virLoopContract        `json:"loops"`
+		ContractHash    string                   `json:"contract_hash"`
 	}
 	return marshalSuccessor(successorContract{
 		SemanticContext: fixedSuccessorSemanticContext(),
-		UnitID: value.UnitID,
-		FunctionID: value.FunctionID,
-		Requires: value.Requires,
-		Ensures: value.Ensures,
-		Modifies: value.Modifies,
-		Panic: value.Panic,
-		Termination: value.Termination,
-		Loops: value.Loops,
-		ContractHash: value.ContractHash,
+		UnitID:          value.UnitID,
+		FunctionID:      value.FunctionID,
+		Requires:        value.Requires,
+		Ensures:         value.Ensures,
+		Modifies:        value.Modifies,
+		Panic:           value.Panic,
+		Termination:     value.Termination,
+		Loops:           value.Loops,
+		ContractHash:    value.ContractHash,
 	})
 }
 
 func (value sourceMap) MarshalJSON() ([]byte, error) {
 	type successorMap struct {
-		Schema string `json:"schema"`
+		Schema          string                   `json:"schema"`
 		SemanticContext successorSemanticContext `json:"semantic_context"`
-		SourceIRSchema string `json:"source_ir_schema"`
-		SourceIRHash string `json:"source_ir_hash"`
-		Entries []sourceMapEntry `json:"entries"`
-		SourceMapHash string `json:"source_map_hash"`
+		SourceIRSchema  string                   `json:"source_ir_schema"`
+		SourceIRHash    string                   `json:"source_ir_hash"`
+		Entries         []sourceMapEntry         `json:"entries"`
+		SourceMapHash   string                   `json:"source_map_hash"`
 	}
 	return marshalSuccessor(successorMap{
-		Schema: value.Schema,
+		Schema:          value.Schema,
 		SemanticContext: fixedSuccessorSemanticContext(),
-		SourceIRSchema: value.SourceIRSchema,
-		SourceIRHash: value.SourceIRHash,
-		Entries: value.Entries,
-		SourceMapHash: value.SourceMapHash,
+		SourceIRSchema:  value.SourceIRSchema,
+		SourceIRHash:    value.SourceIRHash,
+		Entries:         value.Entries,
+		SourceMapHash:   value.SourceMapHash,
 	})
 }

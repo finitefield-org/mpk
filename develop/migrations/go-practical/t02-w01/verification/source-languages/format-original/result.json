@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_type_keys/source_languages/constraint.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_languages.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/source_inputs.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/contract_inputs.rs",
+    "crates/mpk-vc/tests/go_practical_source_languages.rs",
+    "crates/mpk-vc/src/go_practical_type_keys.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-languages/format-original/inputs.json",
+    "bytes": 320878,
+    "sha256": "5ddbc157f336ce060b2e0cfd7058175a2793743a3ff75d8f38a8f5736d6d857b",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-languages/run.py",
+    "bytes": 6929,
+    "sha256": "71df25c8e8a92265d30eeaff6d2d5dbf8a52fa8b4f83c37ea70505b848cff40f",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-24T17:05:52.118628+00:00",
+  "selection_reason": "Independently derive effective file languages from every original source/module, preserving full patch requirements and exact Go build-constraint minima. The owned contract consumer checks all selected/transitive bodies and retains older unselected originals. Compare pinned parser/types observations and an actual whole original package; recheck direct contract/source-input consumers without repeating unchanged kernels or unrelated frontends.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 0.2976622079950175,
+  "consumed_inputs_unchanged": false,
+  "expected_formatter_mutation": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-languages/format-original/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-languages/format-original/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-24T17:05:52.417176+00:00"
+}

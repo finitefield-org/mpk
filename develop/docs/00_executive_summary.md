@@ -1,7 +1,9 @@
 # Executive Summary
 
-Status: historical baseline. The active Go/Rust migration reference is
-`05_rust_frontend_design.md`; Certificate v0 and proof acceptance are unchanged.
+Status: historical MVP baseline with current Go/Rust-only scope.
+See [the language scope](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md) and
+[the practical Go plan](09_go_practical_subset_design-todo.md).
+Certificate v0 and proof acceptance are unchanged.
 
 ## Goal
 
@@ -72,42 +74,18 @@ stable deterministic hashes across machines
 zero trusted use of source text, tactics, AI traces, or solver yes/no answers
 ```
 
-## Post-Rust source-language direction
+## Current source-language direction
 
-C#, Java, Dart, TypeScript, and Python entered one post-Rust program after the
-scoped Rust v0 release. The Rust gate, shared feasibility/specification work,
-the C# scalar release, Java T10 release including its native x86-64 receipt,
-and `CSHARP-03-T01-W01` through W10 plus
-`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13/W14` are now complete. The
-practical C# profile/shared-artifact package and 705 vectors are normative but
-inactive; producer migration and consumer closure remain private and
-uninstalled. The source capture/closure gate is likewise private and
-uninstalled. Concise-syntax and exact-name normalization is likewise private
-and uninstalled. Immutable data declaration, enum, type-graph, and recursive-default
-validation is also private. Production behavior is unchanged.
-Shared structural equality and canonical ordering remain private.
-Array bounds, initialization and ownership plans remain private.
-Typed bounded-sequence construction and wrapper projection also remain private.
-Canonical ordered map/set projection and typed operation handoffs remain private.
-T03-W10 completed private UTF-16 string plans and the shared typed boundary codecs.
-T03-W11 completed exact float/double/decimal relations and typed numeric source plans.
-T03-W12 completed nullable relations and application outcome projections with pending binding obligations.
-T03-W13 completed calendar/time/GUID and bound instant/money relations with pending source, currency, and error-projection obligations.
-T03-W14 completed private data emission, strict contract/binding attachment and
-independent source import, with exhaustive T03 replay. `CSHARP-03-T04-W01` is ready.
-No production phases run in parallel.
+MPK supports Go and Rust only. The installed registry is revision 4 with the
+Go fixed and Rust checked profiles. Practical Go expansion follows its
+existing priority and serial T/W order; it is under development and does not
+activate a new profile here. The former other-language roadmap and release
+dependencies are retired.
 
-The continuation is strictly serial: `MLANG-00` research, `MLANG-01` successor
-contract and C# specification freeze, C# and Java release, the published
-`CSHARP-03` practical C# expansion, then Dart, TypeScript, and Python, one phase
-at a time. Each frontend remains untrusted, has a frozen language-specific
-subset and semantic profile, emits a language-isolated VIR module, and
-preserves the existing Certificate v0 and source-free checker boundary. No
-placeholder future-language value or dormant production hook is added to the
-Go/Rust path. See
-`06_multilanguage_frontend_design.md` and
-`06_multilanguage_frontend_design-todo.md`.
+Go and Rust share a language-isolated VIR pipeline, pinned frontend/toolchain
+identities and the unchanged Certificate v0 boundary. Source, compiler output,
+VIR, VC and release reports remain untrusted. Proof acceptance requires the
+configured source-free checkers over the actual certificate bytes.
 
 ## Main implementation risk
 

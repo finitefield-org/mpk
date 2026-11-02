@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "source_base_commit": "e8ceb3c1fd8501e1fe774289091f188cdc8fdc65",
+  "started_at_utc": "2026-10-18T16:13:26.436693+00:00",
+  "command": [
+    "rustfmt",
+    "--edition",
+    "2021",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "RUST_MIN_STACK": "unset",
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+      "sha256": "b7dd63d21d97a1b1ae05c3456395595f0a3626ef94f2710563092d08ae7b59b6",
+      "bytes": 151531
+    }
+  ],
+  "selection_reason": "The original control preservation helper compares metadata from different source epochs and five later alias-frame transitions. Change only its fixed historical after-input selection and add complete byte pins; retain all13 original owners, all228 program comparisons and the entire original assertion body. Build only the owning integration target.",
+  "exit_code": 0,
+  "wall_seconds": 0.48351520800497383,
+  "finished_at_utc": "2026-10-18T16:13:26.923924+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-repair/build/format.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-repair/build/format.stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "formatted_source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+    "sha256": "b7dd63d21d97a1b1ae05c3456395595f0a3626ef94f2710563092d08ae7b59b6",
+    "bytes": 151531
+  }
+}

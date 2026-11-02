@@ -1,0 +1,15 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1m 01s
+     Running tests/go_practical_error_values.rs (target/debug/deps/go_practical_error_values-0a827eb807866ef3)
+
+thread 'actual_nil_zero_high_tag_and_complete_payload_boundary_claims' (51882059) panicked at crates/mpk-vc/tests/go_practical_error_values.rs:49:5:
+assertion `left == right` failed: error-boundaries: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"140d59571da4d3deaa84955fd762e089061537a49b23744eee9cccc68794125a"},"axiom_report":null,"error_code":"KERNEL_CANONICAL_CERTIFICATE","error_detail":"name_table:INVALID_COMPONENT_START"}
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'complete_tags_payloads_and_nil_comparisons_cannot_be_replaced' (51882060) panicked at crates/mpk-vc/tests/go_practical_error_values.rs:58:9:
+assertion `left == right` failed: false-concrete-zero-is-nil
+  left: String("KERNEL_CANONICAL_CERTIFICATE")
+ right: "KERNEL_CORE_CHECK"
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_error_values`

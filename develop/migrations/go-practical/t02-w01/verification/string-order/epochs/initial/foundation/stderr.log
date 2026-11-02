@@ -1,0 +1,63 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0505]: cannot move out of `q` because it is borrowed
+   --> crates/mpk-vc/src/go_practical_ordinary/string/order.rs:624:22
+    |
+557 |         let branch = |query_high: bool| -> Result<Expr> {
+    |                      ---------------------------------- borrow of `q` occurs here
+558 |             let mut query = vec![bit(query_high)];
+559 |             query.extend(q.clone());
+    |                          - borrow occurs due to use in closure
+...
+624 |         query.extend(q);
+    |                      ^ move out of `q` occurs here
+...
+644 |                     branch(false)?,
+    |                     ------ borrow later used here
+
+error[E0505]: cannot move out of `witness` because it is borrowed
+   --> crates/mpk-vc/src/go_practical_ordinary/string/order.rs:638:74
+    |
+557 |         let branch = |query_high: bool| -> Result<Expr> {
+    |                      ---------------------------------- borrow of `witness` occurs here
+...
+560 |             let ty = truth(less(idx(d, query.clone()), idx(d, witness.clone())));
+    |                                                               ------- borrow occurs due to use in closure
+...
+638 |                                 truth(less(idx(d, query.clone()), idx(d, witness))),
+    |                                                                          ^^^^^^^ move out of `witness` occurs here
+...
+644 |                     branch(false)?,
+    |                     ------ borrow later used here
+
+error[E0505]: cannot move out of `f` because it is borrowed
+   --> crates/mpk-vc/src/go_practical_ordinary/string/order.rs:639:47
+    |
+557 |         let branch = |query_high: bool| -> Result<Expr> {
+    |                      ---------------------------------- borrow of `f` occurs here
+...
+561 |             let result = eq(nat(), app(f.clone(), query.clone()), app(g.clone(), query));
+    |                                        - borrow occurs due to use in closure
+...
+639 |                                 eq(nat(), app(f, query.clone()), app(g, query)),
+    |                                               ^ move out of `f` occurs here
+...
+644 |                     branch(false)?,
+    |                     ------ borrow later used here
+
+error[E0505]: cannot move out of `g` because it is borrowed
+   --> crates/mpk-vc/src/go_practical_ordinary/string/order.rs:639:70
+    |
+557 |         let branch = |query_high: bool| -> Result<Expr> {
+    |                      ---------------------------------- borrow of `g` occurs here
+...
+561 |             let result = eq(nat(), app(f.clone(), query.clone()), app(g.clone(), query));
+    |                                                                       - borrow occurs due to use in closure
+...
+639 |                                 eq(nat(), app(f, query.clone()), app(g, query)),
+    |                                                                      ^ move out of `g` occurs here
+...
+644 |                     branch(false)?,
+    |                     ------ borrow later used here
+
+For more information about this error, try `rustc --explain E0505`.
+error: could not compile `mpk-vc` (lib) due to 4 previous errors

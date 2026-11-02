@@ -1,0 +1,33 @@
+{
+  "status": "requirements_derived_from_complete_original_pinned_sources",
+  "exact_required_clone_flags": {
+    "runtime_thread": 331520,
+    "child_without_pidfd": 16657,
+    "child_with_pidfd": 20753,
+    "initial_pidfd_probe_without_exit_signal": 20736
+  },
+  "originals": [
+    {
+      "retained_path": "develop/migrations/go-practical/t02-w01/verification/native-host/pinned-go/src-syscall-exec_linux.go.bytes.json",
+      "original_path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/src/syscall/exec_linux.go",
+      "sha256": "3baba505f5403c1dd0e3ab375d0798773ebf7ccf6e066e9ce1c2bfddaa2f68c5",
+      "bytes": 27686
+    },
+    {
+      "retained_path": "develop/migrations/go-practical/t02-w01/verification/native-host/pinned-go/src-runtime-os_linux.go.bytes.json",
+      "original_path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/src/runtime/os_linux.go",
+      "sha256": "418af7f7c3407a99793f767c892dbb0a7a0995f817444e5f0b3e531753c4fd31",
+      "bytes": 27697
+    },
+    {
+      "retained_path": "develop/migrations/go-practical/t02-w01/verification/native-host/pinned-go/src-os-pidfd_linux.go.bytes.json",
+      "original_path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/src/os/pidfd_linux.go",
+      "sha256": "74c34719a5401965351520a838f2649ab692f5f95023ebb91fe2341943a4d2d9",
+      "bytes": 6020
+    }
+  ],
+  "original_source_members_equal_actual_Linux_compiler_inventory": true,
+  "original_Go_release": "go1.25.0",
+  "kernel_native_acceptance_or_source_program_proof_claimed": false,
+  "reason": "Go1.25 checks clone(CLONE_PIDFD) with no exit signal before enabling its pidfd process path. Denial would force an unintended no-pidfd fallback even on the required supported native host. Preserve that exact fourth combination, not arbitrary clone flags."
+}

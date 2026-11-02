@@ -1,0 +1,2086 @@
+{
+  "schema": "mpk.go_practical.decimal_clause_response_encoding_audit.v0",
+  "status": "passed",
+  "observed_at_utc": "2026-10-18T17:54:24.286532+00:00",
+  "failure_location": "csharp_practical_ordinary_decimal_clause_tests.rs:326:9 output responses.json",
+  "all_nine_contexts_passed_before_final_output": true,
+  "original_fixture": {
+    "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-clauses/responses.json",
+    "sha256": "f09de7776ffb91afc3b201214e2ded66b322cb19bd75ae18df8364d50141d5b2",
+    "bytes": 136077
+  },
+  "exact_assertion_operands": {
+    "left": {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-diagnosis/left-responses.json",
+      "sha256": "f09de7776ffb91afc3b201214e2ded66b322cb19bd75ae18df8364d50141d5b2",
+      "bytes": 136077
+    },
+    "right": {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-diagnosis/right-responses.json",
+      "sha256": "0f180550827736815730b25cc5c017bf4ab705ab19e61e193dfdf6e7c9ea8244",
+      "bytes": 136077
+    }
+  },
+  "left_is_original_fixture_bytes": true,
+  "complete_json_values_equal": true,
+  "metadata_fields_removed_or_normalized": false,
+  "context_count": 9,
+  "ids": [
+    "add",
+    "comparisons",
+    "conversions",
+    "divide",
+    "multiply",
+    "remainder",
+    "round",
+    "subtract",
+    "unary"
+  ],
+  "changed_object_key_orders": [
+    {
+      "path": "/0",
+      "original_keys": [
+        "id",
+        "facts"
+      ],
+      "serialized_keys": [
+        "facts",
+        "id"
+      ]
+    },
+    {
+      "path": "/0/facts",
+      "original_keys": [
+        "compilation_id",
+        "input_files",
+        "types",
+        "callables",
+        "source_obligations",
+        "source_containers",
+        "sources",
+        "selected_root_ids",
+        "reachable_declarations",
+        "exact_types"
+      ],
+      "serialized_keys": [
+        "callables",
+        "compilation_id",
+        "exact_types",
+        "input_files",
+        "reachable_declarations",
+        "selected_root_ids",
+        "source_containers",
+        "source_obligations",
+        "sources",
+        "types"
+      ]
+    },
+    {
+      "path": "/0/facts/callables/0",
+      "original_keys": [
+        "identity",
+        "is_static",
+        "is_property_getter",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "id",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte",
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "initialization_plans"
+      ],
+      "serialized_keys": [
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "end_byte",
+        "id",
+        "identity",
+        "initialization_plans",
+        "is_property_getter",
+        "is_static",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/0/facts/callables/0/data_steps/0",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/0/facts/callables/0/data_steps/1",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/0/facts/callables/0/data_steps/2",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/0/facts/source_containers/0",
+      "original_keys": [
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte"
+      ],
+      "serialized_keys": [
+        "end_byte",
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/1",
+      "original_keys": [
+        "id",
+        "facts"
+      ],
+      "serialized_keys": [
+        "facts",
+        "id"
+      ]
+    },
+    {
+      "path": "/1/facts",
+      "original_keys": [
+        "compilation_id",
+        "input_files",
+        "types",
+        "callables",
+        "source_obligations",
+        "source_containers",
+        "sources",
+        "selected_root_ids",
+        "reachable_declarations",
+        "exact_types"
+      ],
+      "serialized_keys": [
+        "callables",
+        "compilation_id",
+        "exact_types",
+        "input_files",
+        "reachable_declarations",
+        "selected_root_ids",
+        "source_containers",
+        "source_obligations",
+        "sources",
+        "types"
+      ]
+    },
+    {
+      "path": "/1/facts/callables/0",
+      "original_keys": [
+        "identity",
+        "is_static",
+        "is_property_getter",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "id",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte",
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "initialization_plans"
+      ],
+      "serialized_keys": [
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "end_byte",
+        "id",
+        "identity",
+        "initialization_plans",
+        "is_property_getter",
+        "is_static",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/1/facts/callables/0/data_steps/0",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/1/facts/callables/0/data_steps/1",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/1/facts/callables/0/data_steps/2",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/1/facts/callables/0/data_steps/3",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/1/facts/callables/0/data_steps/4",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/1/facts/callables/0/data_steps/5",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/1/facts/callables/0/data_steps/6",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/1/facts/callables/0/data_steps/7",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/1/facts/source_containers/0",
+      "original_keys": [
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte"
+      ],
+      "serialized_keys": [
+        "end_byte",
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/2",
+      "original_keys": [
+        "id",
+        "facts"
+      ],
+      "serialized_keys": [
+        "facts",
+        "id"
+      ]
+    },
+    {
+      "path": "/2/facts",
+      "original_keys": [
+        "compilation_id",
+        "input_files",
+        "types",
+        "callables",
+        "source_obligations",
+        "source_containers",
+        "sources",
+        "selected_root_ids",
+        "reachable_declarations",
+        "exact_types"
+      ],
+      "serialized_keys": [
+        "callables",
+        "compilation_id",
+        "exact_types",
+        "input_files",
+        "reachable_declarations",
+        "selected_root_ids",
+        "source_containers",
+        "source_obligations",
+        "sources",
+        "types"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0",
+      "original_keys": [
+        "identity",
+        "is_static",
+        "is_property_getter",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "id",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte",
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "initialization_plans"
+      ],
+      "serialized_keys": [
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "end_byte",
+        "id",
+        "identity",
+        "initialization_plans",
+        "is_property_getter",
+        "is_static",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/0",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/1",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/2",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/3",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/4",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/5",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/6",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/7",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/8",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/9",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/10",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/11",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/12",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/13",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/14",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/15",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/16",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/17",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/18",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/callables/0/data_steps/19",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/2/facts/source_containers/0",
+      "original_keys": [
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte"
+      ],
+      "serialized_keys": [
+        "end_byte",
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/3",
+      "original_keys": [
+        "id",
+        "facts"
+      ],
+      "serialized_keys": [
+        "facts",
+        "id"
+      ]
+    },
+    {
+      "path": "/3/facts",
+      "original_keys": [
+        "compilation_id",
+        "input_files",
+        "types",
+        "callables",
+        "source_obligations",
+        "source_containers",
+        "sources",
+        "selected_root_ids",
+        "reachable_declarations",
+        "exact_types"
+      ],
+      "serialized_keys": [
+        "callables",
+        "compilation_id",
+        "exact_types",
+        "input_files",
+        "reachable_declarations",
+        "selected_root_ids",
+        "source_containers",
+        "source_obligations",
+        "sources",
+        "types"
+      ]
+    },
+    {
+      "path": "/3/facts/callables/0",
+      "original_keys": [
+        "identity",
+        "is_static",
+        "is_property_getter",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "id",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte",
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "initialization_plans"
+      ],
+      "serialized_keys": [
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "end_byte",
+        "id",
+        "identity",
+        "initialization_plans",
+        "is_property_getter",
+        "is_static",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/3/facts/callables/0/data_steps/0",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/3/facts/callables/0/data_steps/1",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/3/facts/callables/0/data_steps/2",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/3/facts/source_containers/0",
+      "original_keys": [
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte"
+      ],
+      "serialized_keys": [
+        "end_byte",
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/4",
+      "original_keys": [
+        "id",
+        "facts"
+      ],
+      "serialized_keys": [
+        "facts",
+        "id"
+      ]
+    },
+    {
+      "path": "/4/facts",
+      "original_keys": [
+        "compilation_id",
+        "input_files",
+        "types",
+        "callables",
+        "source_obligations",
+        "source_containers",
+        "sources",
+        "selected_root_ids",
+        "reachable_declarations",
+        "exact_types"
+      ],
+      "serialized_keys": [
+        "callables",
+        "compilation_id",
+        "exact_types",
+        "input_files",
+        "reachable_declarations",
+        "selected_root_ids",
+        "source_containers",
+        "source_obligations",
+        "sources",
+        "types"
+      ]
+    },
+    {
+      "path": "/4/facts/callables/0",
+      "original_keys": [
+        "identity",
+        "is_static",
+        "is_property_getter",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "id",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte",
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "initialization_plans"
+      ],
+      "serialized_keys": [
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "end_byte",
+        "id",
+        "identity",
+        "initialization_plans",
+        "is_property_getter",
+        "is_static",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/4/facts/callables/0/data_steps/0",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/4/facts/callables/0/data_steps/1",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/4/facts/callables/0/data_steps/2",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/4/facts/source_containers/0",
+      "original_keys": [
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte"
+      ],
+      "serialized_keys": [
+        "end_byte",
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/5",
+      "original_keys": [
+        "id",
+        "facts"
+      ],
+      "serialized_keys": [
+        "facts",
+        "id"
+      ]
+    },
+    {
+      "path": "/5/facts",
+      "original_keys": [
+        "compilation_id",
+        "input_files",
+        "types",
+        "callables",
+        "source_obligations",
+        "source_containers",
+        "sources",
+        "selected_root_ids",
+        "reachable_declarations",
+        "exact_types"
+      ],
+      "serialized_keys": [
+        "callables",
+        "compilation_id",
+        "exact_types",
+        "input_files",
+        "reachable_declarations",
+        "selected_root_ids",
+        "source_containers",
+        "source_obligations",
+        "sources",
+        "types"
+      ]
+    },
+    {
+      "path": "/5/facts/callables/0",
+      "original_keys": [
+        "identity",
+        "is_static",
+        "is_property_getter",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "id",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte",
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "initialization_plans"
+      ],
+      "serialized_keys": [
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "end_byte",
+        "id",
+        "identity",
+        "initialization_plans",
+        "is_property_getter",
+        "is_static",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/5/facts/callables/0/data_steps/0",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/5/facts/callables/0/data_steps/1",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/5/facts/callables/0/data_steps/2",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/5/facts/source_containers/0",
+      "original_keys": [
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte"
+      ],
+      "serialized_keys": [
+        "end_byte",
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/6",
+      "original_keys": [
+        "id",
+        "facts"
+      ],
+      "serialized_keys": [
+        "facts",
+        "id"
+      ]
+    },
+    {
+      "path": "/6/facts",
+      "original_keys": [
+        "compilation_id",
+        "input_files",
+        "types",
+        "callables",
+        "source_obligations",
+        "source_containers",
+        "sources",
+        "selected_root_ids",
+        "reachable_declarations",
+        "exact_types"
+      ],
+      "serialized_keys": [
+        "callables",
+        "compilation_id",
+        "exact_types",
+        "input_files",
+        "reachable_declarations",
+        "selected_root_ids",
+        "source_containers",
+        "source_obligations",
+        "sources",
+        "types"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0",
+      "original_keys": [
+        "identity",
+        "is_static",
+        "is_property_getter",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "id",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte",
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "initialization_plans"
+      ],
+      "serialized_keys": [
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "end_byte",
+        "id",
+        "identity",
+        "initialization_plans",
+        "is_property_getter",
+        "is_static",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0/data_steps/0",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0/data_steps/1",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0/data_steps/2",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0/data_steps/3",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0/data_steps/4",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0/data_steps/5",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0/data_steps/6",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0/data_steps/7",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0/data_steps/8",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0/data_steps/9",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0/data_steps/10",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/6/facts/callables/0/data_steps/11",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/6/facts/source_containers/0",
+      "original_keys": [
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte"
+      ],
+      "serialized_keys": [
+        "end_byte",
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/7",
+      "original_keys": [
+        "id",
+        "facts"
+      ],
+      "serialized_keys": [
+        "facts",
+        "id"
+      ]
+    },
+    {
+      "path": "/7/facts",
+      "original_keys": [
+        "compilation_id",
+        "input_files",
+        "types",
+        "callables",
+        "source_obligations",
+        "source_containers",
+        "sources",
+        "selected_root_ids",
+        "reachable_declarations",
+        "exact_types"
+      ],
+      "serialized_keys": [
+        "callables",
+        "compilation_id",
+        "exact_types",
+        "input_files",
+        "reachable_declarations",
+        "selected_root_ids",
+        "source_containers",
+        "source_obligations",
+        "sources",
+        "types"
+      ]
+    },
+    {
+      "path": "/7/facts/callables/0",
+      "original_keys": [
+        "identity",
+        "is_static",
+        "is_property_getter",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "id",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte",
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "initialization_plans"
+      ],
+      "serialized_keys": [
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "end_byte",
+        "id",
+        "identity",
+        "initialization_plans",
+        "is_property_getter",
+        "is_static",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/7/facts/callables/0/data_steps/0",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/7/facts/callables/0/data_steps/1",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/7/facts/callables/0/data_steps/2",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/7/facts/source_containers/0",
+      "original_keys": [
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte"
+      ],
+      "serialized_keys": [
+        "end_byte",
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/8",
+      "original_keys": [
+        "id",
+        "facts"
+      ],
+      "serialized_keys": [
+        "facts",
+        "id"
+      ]
+    },
+    {
+      "path": "/8/facts",
+      "original_keys": [
+        "compilation_id",
+        "input_files",
+        "types",
+        "callables",
+        "source_obligations",
+        "source_containers",
+        "sources",
+        "selected_root_ids",
+        "reachable_declarations",
+        "exact_types"
+      ],
+      "serialized_keys": [
+        "callables",
+        "compilation_id",
+        "exact_types",
+        "input_files",
+        "reachable_declarations",
+        "selected_root_ids",
+        "source_containers",
+        "source_obligations",
+        "sources",
+        "types"
+      ]
+    },
+    {
+      "path": "/8/facts/callables/0",
+      "original_keys": [
+        "identity",
+        "is_static",
+        "is_property_getter",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "id",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte",
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "initialization_plans"
+      ],
+      "serialized_keys": [
+        "body_sha256",
+        "body_utf8",
+        "data_steps",
+        "end_byte",
+        "id",
+        "identity",
+        "initialization_plans",
+        "is_property_getter",
+        "is_static",
+        "is_synthesized_constructor",
+        "parameters",
+        "result",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    },
+    {
+      "path": "/8/facts/callables/0/data_steps/0",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/8/facts/callables/0/data_steps/1",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/8/facts/callables/0/data_steps/2",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/8/facts/callables/0/data_steps/3",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/8/facts/callables/0/data_steps/4",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/8/facts/callables/0/data_steps/5",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/8/facts/callables/0/data_steps/6",
+      "original_keys": [
+        "node_ordinal",
+        "family",
+        "operation",
+        "operand_ordinals",
+        "argument_ordinals",
+        "rounding"
+      ],
+      "serialized_keys": [
+        "argument_ordinals",
+        "family",
+        "node_ordinal",
+        "operand_ordinals",
+        "operation",
+        "rounding"
+      ]
+    },
+    {
+      "path": "/8/facts/source_containers/0",
+      "original_keys": [
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte",
+        "end_byte"
+      ],
+      "serialized_keys": [
+        "end_byte",
+        "id",
+        "name",
+        "namespace",
+        "source_path",
+        "source_sha256",
+        "start_byte"
+      ]
+    }
+  ],
+  "key_order_changes": 98,
+  "source320_fixture_byte_pin": "result.json inputs",
+  "classification": "All original context/closure/import/mutation/golden assertions pass; final input echo compares original response bytes to reserialized serde_json::Value bytes, which change object member ordering. No JSON value differs."
+}

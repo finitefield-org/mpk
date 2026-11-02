@@ -1,0 +1,80 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0277]: the trait bound `&str: Into<str>` is not satisfied
+   --> crates/mpk-vc/src/go_practical_type_keys/source_types.rs:467:51
+    |
+467 |             underlying.insert(id.clone(), current.into());
+    |                                                   ^^^^ the trait `From<&str>` is not implemented for `str`
+    |
+    = help: `std::string::String` implements trait `From<T>`:
+              From<&mut str>
+              From<&std::string::String>
+              From<&str>
+              From<Box<str>>
+              From<Cow<'_, str>>
+              From<char>
+    = note: required for `&str` to implement `Into<str>`
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+   --> crates/mpk-vc/src/go_practical_type_keys/source_types.rs:470:44
+    |
+470 |             if let Some(next) = underlying.get(id) {
+    |                                            ^^^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `str`
+note: required by a bound in `std::collections::BTreeMap::<K, V, A>::get`
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/alloc/src/collections/btree/map.rs:717:4
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+   --> crates/mpk-vc/src/go_practical_type_keys/source_types.rs:467:24
+    |
+467 |             underlying.insert(id.clone(), current.into());
+    |                        ^^^^^^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `str`
+note: required by a bound in `std::collections::BTreeMap::<K, V, A>::insert`
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/alloc/src/collections/btree/map.rs:1045:4
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+   --> crates/mpk-vc/src/go_practical_type_keys/source_types.rs:454:30
+    |
+454 |         let mut underlying = BTreeMap::new();
+    |                              ^^^^^^^^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `str`
+note: required by an implicit `Sized` bound in `std::collections::BTreeMap`
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/alloc/src/collections/btree/map.rs:189:0
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+   --> crates/mpk-vc/src/go_practical_type_keys/source_types.rs:454:30
+    |
+454 |         let mut underlying = BTreeMap::new();
+    |                              ^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `str`
+note: required by a bound in `std::collections::BTreeMap::<K, V>::new`
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/alloc/src/collections/btree/map.rs:651:4
+
+error[E0599]: the method `retain` exists for struct `std::collections::BTreeMap<std::string::String, str>`, but its trait bounds were not satisfied
+   --> crates/mpk-vc/src/go_practical_type_keys/source_types.rs:530:20
+    |
+530 |         underlying.retain(|id, _| reachable.contains(id));
+    |                    ^^^^^^ method cannot be called due to unsatisfied trait bounds
+    |
+    = note: the following trait bounds were not satisfied:
+            `str: Sized`
+
+error[E0308]: mismatched types
+   --> crates/mpk-vc/src/go_practical_type_keys/source_types.rs:536:13
+    |
+467 |             underlying.insert(id.clone(), current.into());
+    |             ---------- here the type of `underlying` is inferred to be `std::collections::BTreeMap<std::string::String, str>`
+...
+536 |             underlying,
+    |             ^^^^^^^^^^ expected `BTreeMap<String, String>`, found `BTreeMap<String, str>`
+    |
+    = note: expected struct `std::collections::BTreeMap<_, std::string::String>`
+               found struct `std::collections::BTreeMap<_, str>`
+
+Some errors have detailed explanations: E0277, E0308, E0599.
+For more information about an error, try `rustc --explain E0277`.
+error: could not compile `mpk-vc` (lib) due to 7 previous errors

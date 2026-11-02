@@ -1,0 +1,1051 @@
+{
+  "ceiling_scope": "private measurement setting, not normative profile limits",
+  "checker_binaries": {
+    "go": "bc21d279807f5994a16287a532db65cac3bbb170bfa4d0ca5c6729825e24c62c",
+    "rust": "4d717361f5010188a471f209dbe56e5438f89cf5809bbcdd67ea84681dc73fb9"
+  },
+  "child_ceiling_seconds": 60,
+  "complete_source_normalization_proved": false,
+  "direct_child_parallelism": 1,
+  "generations": [
+    {
+      "cpu_system_seconds": 0.0044069999999999995,
+      "cpu_user_seconds": 0.0056,
+      "exit_code": 0,
+      "peak_rss_bytes": 3538944,
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "stdout": "",
+      "wall_seconds": 0.6090770420269109
+    },
+    {
+      "cpu_system_seconds": 0.003388,
+      "cpu_user_seconds": 0.005208,
+      "exit_code": 0,
+      "peak_rss_bytes": 3457024,
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "stdout": "",
+      "wall_seconds": 0.014361249981448054
+    }
+  ],
+  "host_toolchain_inventory": {
+    "files": 14496,
+    "sha256": "85d1dd7ca77c9263d83e25f05e4c32105738fdc002434d61b27671aee4e259bc"
+  },
+  "inputs": [
+    {
+      "path": "Cargo.toml",
+      "sha256": "72e430895ee3fb12a4067714d819e0311ec7db7906215f6608bb4054652a2017"
+    },
+    {
+      "path": "crates/mpk-cert/Cargo.toml",
+      "sha256": "b99ff7fde6a4f0cb50a091eb02997c97d5f2e934b42eddfd375f53b96bfc3a47"
+    },
+    {
+      "path": "crates/mpk-cert/src/axiom_report.rs",
+      "sha256": "cae850ba9adf8f52485f25d3322a479e5effb3b5044c4998b8dbe10e395e9843"
+    },
+    {
+      "path": "crates/mpk-cert/src/binary_tags.rs",
+      "sha256": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b"
+    },
+    {
+      "path": "crates/mpk-cert/src/canonical.rs",
+      "sha256": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74"
+    },
+    {
+      "path": "crates/mpk-cert/src/cert_basic.rs",
+      "sha256": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295"
+    },
+    {
+      "path": "crates/mpk-cert/src/decode.rs",
+      "sha256": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13"
+    },
+    {
+      "path": "crates/mpk-cert/src/encode.rs",
+      "sha256": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf"
+    },
+    {
+      "path": "crates/mpk-cert/src/export.rs",
+      "sha256": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd"
+    },
+    {
+      "path": "crates/mpk-cert/src/hash.rs",
+      "sha256": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83"
+    },
+    {
+      "path": "crates/mpk-cert/src/imports.rs",
+      "sha256": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183"
+    },
+    {
+      "path": "crates/mpk-cert/src/lib.rs",
+      "sha256": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553"
+    },
+    {
+      "path": "crates/mpk-core/Cargo.toml",
+      "sha256": "7d23784732e23fd78029884f2b9a5bc6200e7192c31ae10ada567e61a15607a3"
+    },
+    {
+      "path": "crates/mpk-core/src/bool_cases.rs",
+      "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+    },
+    {
+      "path": "crates/mpk-core/src/context.rs",
+      "sha256": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d"
+    },
+    {
+      "path": "crates/mpk-core/src/decl_check.rs",
+      "sha256": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783"
+    },
+    {
+      "path": "crates/mpk-core/src/defeq.rs",
+      "sha256": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270"
+    },
+    {
+      "path": "crates/mpk-core/src/env.rs",
+      "sha256": "ed50466ecf9e1c6f1549022aa61812c1561cd725325633931a57efb1715ae5b8"
+    },
+    {
+      "path": "crates/mpk-core/src/error.rs",
+      "sha256": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive.rs",
+      "sha256": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive_gen.rs",
+      "sha256": "4758d3cf280f0d9c107e4af886f0880fd29670e9a23f2ddffa7728f958075cc2"
+    },
+    {
+      "path": "crates/mpk-core/src/infer.rs",
+      "sha256": "7cf169404b6fdd251e7884056c7204e285da904780d1e3ea9ca642d4c87991bd"
+    },
+    {
+      "path": "crates/mpk-core/src/level.rs",
+      "sha256": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad"
+    },
+    {
+      "path": "crates/mpk-core/src/lib.rs",
+      "sha256": "a0488ee47d656918dc05a7909bfb87a4ed970388600fced26e8eea5b73ba637f"
+    },
+    {
+      "path": "crates/mpk-core/src/name.rs",
+      "sha256": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99"
+    },
+    {
+      "path": "crates/mpk-core/src/positivity.rs",
+      "sha256": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce.rs",
+      "sha256": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce_inductive.rs",
+      "sha256": "123277c8989902c207d6b0fec994ff5c4223fe5bcc9a331bc381f7dc4412492f"
+    },
+    {
+      "path": "crates/mpk-core/src/subst.rs",
+      "sha256": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f"
+    },
+    {
+      "path": "crates/mpk-core/src/term.rs",
+      "sha256": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60"
+    },
+    {
+      "path": "crates/mpk-kernel/Cargo.toml",
+      "sha256": "3226dc567ef89c9488b61e6c79df2134eb7b1dd36c7cbe19abb3e3e7916ac826"
+    },
+    {
+      "path": "crates/mpk-kernel/src/bool_cases_tests.rs",
+      "sha256": "1ec5b21c3a581fcdd0fd234f7a25c26651958b1f9f96792061fd9936395ca460"
+    },
+    {
+      "path": "crates/mpk-kernel/src/cache.rs",
+      "sha256": "fb9bd805c365f6f614e2f0cb432bc92964e78faa4749df15ad62c4a82ed767ad"
+    },
+    {
+      "path": "crates/mpk-kernel/src/decl_driver.rs",
+      "sha256": "afe75c89bb7e43bb4a73c56aaa4a1bddc20c8ba789066fae5f0f27b7839278c3"
+    },
+    {
+      "path": "crates/mpk-kernel/src/json_output.rs",
+      "sha256": "82992d18824fd25f7c1fcd58d569e4e339bda8be2f60588bb20d2537b9b6cdb5"
+    },
+    {
+      "path": "crates/mpk-kernel/src/lib.rs",
+      "sha256": "ff4c1550532e2896bce4374145242f9a54d24502c8f2a79454067d664c383d72"
+    },
+    {
+      "path": "crates/mpk-kernel/src/profile.rs",
+      "sha256": "e44ce30ffbc29617073456ce8dd9bd46ce731549c423a01a747c82542cffc580"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_check.rs",
+      "sha256": "27e8f109d9241cee011984021d74f57088f4ebf30012a858e0fe6416cae96027"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_structural.rs",
+      "sha256": "6117063aa07e3ac5882ebba60ab907518a2c9844f96d35887f5a31c8d66906c0"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_theory.rs",
+      "sha256": "81d52c5be4e325c3cccb1d6e0096b0e118f245f53234d5496dfdac066fee95af"
+    },
+    {
+      "path": "crates/mpk-kernel/src/verifier.rs",
+      "sha256": "e8932a62713b8f8af18a980093a6ff162b3510b4b4e7da924d9b421552a9e3f2"
+    },
+    {
+      "path": "crates/mpk-theory/Cargo.toml",
+      "sha256": "120227c9b1a0bbbe48e146d6d2412793b9e357cb43e7d21585c760a268081908"
+    },
+    {
+      "path": "crates/mpk-theory/src/array_cert.rs",
+      "sha256": "7b6261cbedc9200ffe8ce5513374e2c14aa6b999926607e450440e26bb25cace"
+    },
+    {
+      "path": "crates/mpk-theory/src/bitvec_eval.rs",
+      "sha256": "3fa7578174f4e3a489d395653687899d1d06fc59780b9224d652638b7d589ac4"
+    },
+    {
+      "path": "crates/mpk-theory/src/bool_cert.rs",
+      "sha256": "17bcac0225e8281ecf754115734cf254addf87bc44a6da4fddaebabbea226c14"
+    },
+    {
+      "path": "crates/mpk-theory/src/lib.rs",
+      "sha256": "10719601e65de998218739cd2b5b61a6bf69df6692c1b829c307c6cf57d61ccd"
+    },
+    {
+      "path": "crates/mpk-theory/src/linarith_cert.rs",
+      "sha256": "3606832e69432a08295e014f0810e5f20aa7d10fdef2bc8789448ebf98d6895a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs",
+      "sha256": "dd3a7ec39bb7aa86663a71fdc9ff55197e5f64df86a9adfd3cac41b7c9d90db3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/Cargo.lock",
+      "sha256": "908d07d9ab55bf4923537df208e6e451d5573e1d5a3c0de03853b9efe8e241ae"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/Cargo.toml",
+      "sha256": "7b97e6284a5777e58aeff7c938ac9fa985a987961cf8b5fa52588aa18efcc66f"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/main.rs",
+      "sha256": "30f6276e54f49f6b6d51b04aeb42150f11ad42182a8b6d4a6d4d82af18fde257"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/natural.rs",
+      "sha256": "ab70591c8fcaacbe09b24776e95bc381055200ffd11e5d19c367fc2434d19e20"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word.rs",
+      "sha256": "d7c6bf2c68c4fcca0d9a111801d15cca64806cd4d4666c23b0b35cee1a547826"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced.rs",
+      "sha256": "613e28fd7c0188fc2ef49d8452610a1492a093d5cf4a99f4191fe3da25eb8313"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed.rs",
+      "sha256": "fe1a7afc6be4a264844101ef9c0cda781543c651b3b4242d17c94472273d2729"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes.rs",
+      "sha256": "66e3961995d9dc5dd836eefa1e3f762b7f8afbd825a49100a279ad78b221d959"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds.rs",
+      "sha256": "9ae75866e7315aca7bd531d09da4ccf4a24519a26c6cca172eb4fe77418906c1"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/coverage.rs",
+      "sha256": "5ce6eb686f3b2231fa650ef1495fc9ddef88d1165ec1562b196e5f10d8af1610"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices.rs",
+      "sha256": "63fe8df6b803f9d885ac9659e0915bf3dfbd3a6a0e4afebf1f63442ffa496784"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access.rs",
+      "sha256": "e33d56d0ef4c36f6219c5e05e3b467639e2c560889150f3535b06f3285db7962"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity.rs",
+      "sha256": "d7986e03fc3e5e90f595002c2e706d719568cc1c51df9d7d7751575d63c1380e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/embedding.rs",
+      "sha256": "39f3ef83ae8d1eb4916a4cef20403382ace335294ddd01678be906f4cceb7ff6"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice.rs",
+      "sha256": "c4c90026cd3b86873eeab2397ab9fd73ad66634ba76f2fc9354f8a76d04348f7"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/arith.rs",
+      "sha256": "903c68c44f93e3caf1ca2d8ca99a9d93bc42c64044b51c239d529a2a513c8c89"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/assoc.rs",
+      "sha256": "23f441a888c555b1ef335c28122366718b217681d3a98f645ed44cd89ba4106e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying.rs",
+      "sha256": "5523909155b80740f88bcac2eea910ca315013e9e2a1b608da43e56b3fc4006b"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction.rs",
+      "sha256": "6587ef8f5cd707e976218e7ed824f9c1a18c628c9c2e5bf7d565bb25154aba0d"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended.rs",
+      "sha256": "1be6f2e82e5062629b00489ae47c26232e83869b410e099bd1e67e53283f98c7"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/emit.rs",
+      "sha256": "f9e2763ad5463f4dee39394ff43b99d578fc08ab46bb7381fe372d113f65e95e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/indices.rs",
+      "sha256": "533049f98d496edb606f21ae4a1797227f2acf062ad493a950126b32845cf7f1"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/reads.rs",
+      "sha256": "26b111790fcde91173b6472269abed36efae0c6ac2d027460566fe26ecf5d736"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/validity.rs",
+      "sha256": "a730f529dd364f937c18195461ac92efe2c7f22d05ab9e42960e513082972f93"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/indexed.rs",
+      "sha256": "9a66489607c424c22ce00938431bad9b14a0c30a60b3e9238b0102fb4f3f79e3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/made.rs",
+      "sha256": "3dd38d9959d2d14094e8789fcfbccad47e01595efca5b8a5b29ab358bea00a0d"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/made/composed.rs",
+      "sha256": "1653576edab404256da3d1164746b79a4895a86339216c91f3b092e216a309b3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/counts.rs",
+      "sha256": "2ba520e731ae25b74b613603ee092ff3a6b407c714e3a49d4d77bce90e02f9a0"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/emit.rs",
+      "sha256": "966f336423d01e34efec46471d3347d64e2f155d5c68a91d492719a58e588fae"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/shift.rs",
+      "sha256": "dbf47196405be7975ae27d1b126a810e9a3591c34b6b7688dbac47193ad8a8e5"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/store.rs",
+      "sha256": "bb2dc947d6e6d2561ec1b74806f3c4a6c609fe8a4eb0dcdf3ec0be46214686ce"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/emit.rs",
+      "sha256": "d14ccac606a7565f60878730f799dbc9c8bd7915af044543fc0698d29f4e6603"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/model.rs",
+      "sha256": "dfebf52c56b1084669fa81ae353744c7847dc91551d4998e0a4f3d6239c5defc"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/numeric.rs",
+      "sha256": "4b55a2e36203e8bb69342e62c51008cf1f814952519b0b619d09cc56cde6b9c8"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/preservation.rs",
+      "sha256": "b2e28805ada6ee0f47b4dfda0c299706a2b788129b3e1a796f6acea5d6d941fa"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/readable.rs",
+      "sha256": "1abaa9ccc87de6d36451f0b77ebb70e2b65940cce14a49804086c5da584d8063"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/stringops.rs",
+      "sha256": "c559d9c5a9e6e9d9be6be51a4558faf717983ff97a601304a4dd1901b41143e2"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/stringops/emit.rs",
+      "sha256": "95c20db80309e146fb279fa7a0b195e1d054fc07ba1383e7d06c3706870415d0"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold.rs",
+      "sha256": "9bf23d6363dbcb9508607d381f48205e2b2228ca50d172f926632f65be8d8840"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation.rs",
+      "sha256": "aca248cc9693ec594ffa95df059dc42ea02e4ccc385a4f0b63f5f407f3a84af9"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned.rs",
+      "sha256": "9c4bdf37ba79d69568956629d588e2db679d6f3b99f3d62a7bc447429fcb3167"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/quote.rs",
+      "sha256": "c7deb1f6a2ea0de3b4a4b9000b4041fef49c405723c0863be506b2d2214b7552"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/run.rs",
+      "sha256": "f2f03b5069d4d9c9816ee179de737d7ddc881e49ea551b00b5d2df7609f481ab"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/signed_prefix.rs",
+      "sha256": "a58589540f394e72d216e985da8bb9daaa2d2b75c5bebcf51837651e7a404977"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order.rs",
+      "sha256": "52b24efd55c9d0df7397b0b9e21961dd15671322fd276ce15708c1eeef111582"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order/path.rs",
+      "sha256": "d92785a0ad8d1da68ddf398803a9e37a3f124b2e01aa52159ced339c99b2f860"
+    },
+    {
+      "path": "develop/probes/go-practical/check_lifetime_metadata.py",
+      "sha256": "8d75263b54ee31bee4dae3f64593198bf1ad3fa86d053db8690d056bae13fe75"
+    },
+    {
+      "path": "develop/probes/go-practical/check_proof_report.py",
+      "sha256": "182bbac0b4146329c9f951c1b34dbb97adef35d58bc67901c74c5a1229ea4ba2"
+    },
+    {
+      "path": "develop/probes/go-practical/entry_audit.py",
+      "sha256": "0730c5598b4e3c885ed1b59d8b5925f72e0c09c614261cf0a33189327dd6ef2a"
+    },
+    {
+      "path": "develop/probes/go-practical/host-toolchain.json",
+      "sha256": "1927d5c54d8e62d2e479e9b30969f4ff4d482163d1da11dce8c0595e0d060bb4"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime-certificates/Cargo.lock",
+      "sha256": "83ce4fd0a94762444e7debd399b7c9d7553788c7df9268df86d8edf9addbe9fb"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime-certificates/Cargo.toml",
+      "sha256": "dbd7cde689a30eca96b3d16fde227fa30c9d3ef8e6fa3052d86701adbca6f2e1"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime-certificates/build.rs",
+      "sha256": "94ff97019b43deda21bfd16b6efc7dc9ec509f81a63122464e942770532bb2b7"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime-certificates/src/lifetime.rs",
+      "sha256": "98f068b58ed04bf8c723af3a1c537baca146aeefd1b94720e5c7246c7313232f"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime-certificates/src/main.rs",
+      "sha256": "c80cf447351e15af8b4e76c1eea9b41ea21bfd3fd37ed0d9fb42dba8aeaf3968"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime_cases.py",
+      "sha256": "51bd2ce2b435259412fabb05eff1d01871af4d1108eaa4935c857645db06d4a8"
+    },
+    {
+      "path": "develop/probes/go-practical/lifetime_reference.go",
+      "sha256": "99ab801e5bb2680ee05007046ec787c014360234cd6e796f05d17255937746c0"
+    },
+    {
+      "path": "develop/probes/go-practical/provision_host_toolchain.py",
+      "sha256": "acde3a9d67daae64ac03f2695b14a90b5283d73b58d4a83b69cb564f4f613d81"
+    },
+    {
+      "path": "develop/probes/go-practical/run_lifetime_probes.py",
+      "sha256": "5672db249bf6a20aa0de6759c12e7c0137288b5506a883f31c801d7336bee119"
+    },
+    {
+      "path": "develop/probes/go-practical/run_module_probes.py",
+      "sha256": "95cf152ef7538f97e51f68831c2c7f9521445a18612d0bde0ba22d5b503d205c"
+    },
+    {
+      "path": "develop/probes/go-practical/run_proof_pilot.py",
+      "sha256": "3ddaffd920a0aada1c91678a7d35de9314b5009c15dbe05ca025256cfb22a1d5"
+    },
+    {
+      "path": "develop/probes/go-practical/run_storage_view_probes.py",
+      "sha256": "5a391c4b3b0cae6c5af8842c3e308f68a6eba48cf4bf6cb73a6cd630d3196a1d"
+    },
+    {
+      "path": "develop/probes/go-practical/storage_lifetimes.py",
+      "sha256": "e002eea79b9609ecb2f80b8b3a8bfea8ea7c1294fadfbd8baaabc8f5f7e3fb41"
+    },
+    {
+      "path": "develop/probes/go-practical/storage_view_cases.py",
+      "sha256": "c0af403b9c9dc31a91c38c46fb68554587c48ff45f07548a7c269e19c6a72e87"
+    },
+    {
+      "path": "develop/probes/go-practical/storage_views.py",
+      "sha256": "a6035a000b142f25bd83bcfee7fd47700c31376ad365bededf28e01ef51bfe58"
+    },
+    {
+      "path": "develop/probes/go-practical/test_storage_lifetimes.py",
+      "sha256": "093a9c50f9a1ceb04b041b46b5efd223fd4e714068056dda3b45d21c784fdbca"
+    },
+    {
+      "path": "develop/probes/go-practical/test_storage_views.py",
+      "sha256": "83636ce8e79a05608ac6a51ae73505751c12b418a4110ecf50b60d3ff80beaf2"
+    },
+    {
+      "path": "develop/probes/go-practical/view-certificates/Cargo.lock",
+      "sha256": "df1668230f2a16366062d745dcb26f147796b5b6869f0815c1f1e386f7f2596d"
+    },
+    {
+      "path": "develop/probes/go-practical/view-certificates/Cargo.toml",
+      "sha256": "754c3750a36fb2f81e0444fcfb8d21dd0ebed6280e642b87ceb89646dc7955a7"
+    },
+    {
+      "path": "develop/probes/go-practical/view-certificates/build.rs",
+      "sha256": "6c3ae4d217f9624c487b5d3e990be97f260e639f5dcc1885f5b17681d3d531b8"
+    },
+    {
+      "path": "develop/probes/go-practical/view-certificates/src/main.rs",
+      "sha256": "c80cf447351e15af8b4e76c1eea9b41ea21bfd3fd37ed0d9fb42dba8aeaf3968"
+    },
+    {
+      "path": "develop/probes/go-practical/view-certificates/src/views.rs",
+      "sha256": "1ac585f3faf623c0ac712d78ad86d725be1f2cfea5bdee9b25d48e829b38bcb3"
+    },
+    {
+      "path": "develop/probes/go-practical/view_reference.go",
+      "sha256": "3b7c58179f25758b9fa2dcb0740a88a80b8770c4f869819153635a9fc9ecd16f"
+    },
+    {
+      "path": "fixtures/core-bool-cases/right-identity.hex",
+      "sha256": "0232430bd7abff3b231b0898a512f85b4b4471906afc43e192c9407a6b414063"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "4e73baf6738ca272e34287440750f4a8f1df2aa6785dffd77be205b43cf70c85"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e"
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583"
+    }
+  ],
+  "legacy": [
+    {
+      "id": "legacy-bool",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001604,
+          "cpu_user_seconds": 0.00178,
+          "exit_code": 0,
+          "peak_rss_bytes": 5308416,
+          "report": {
+            "declaration_count": 18,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "119e1045e63e0b64a381da21f6d7747116dfa74e8e4673b09ee6196ea153b691",
+              "export": "bf392e0305cb52c10c48dc98e4e9145a1d65b14b44125fbe47c174ca3ce406fc"
+            },
+            "module": "Probe.Bool.Cases",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008059332962147892
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0013189999999999999,
+          "cpu_user_seconds": 0.0013549999999999999,
+          "exit_code": 0,
+          "peak_rss_bytes": 2801664,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 18,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "119e1045e63e0b64a381da21f6d7747116dfa74e8e4673b09ee6196ea153b691",
+              "export": "bf392e0305cb52c10c48dc98e4e9145a1d65b14b44125fbe47c174ca3ce406fc"
+            },
+            "module": "Probe.Bool.Cases",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.0061567920492962
+        }
+      },
+      "path": "fixtures/core-bool-cases/right-identity.hex",
+      "raw_sha256": "13b36cbcad82ecbd4e74b2f0f2c653c34f60fc07cf366729f0ab54c3df673e43"
+    },
+    {
+      "id": "legacy-nat",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001748,
+          "cpu_user_seconds": 0.001356,
+          "exit_code": 0,
+          "peak_rss_bytes": 4669440,
+          "report": {
+            "declaration_count": 4,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "6c0659df1debe8905c911aecf4e0b11e92ddb22f03ddb074966f1754401ddcd3",
+              "export": "d55736019ced0c81ce3756be26c824b4b91fe11dda69b25b6d90c31f3392110e"
+            },
+            "module": "Std.Nat",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.0083379169809632
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001322,
+          "cpu_user_seconds": 0.001057,
+          "exit_code": 0,
+          "peak_rss_bytes": 2424832,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 4,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "6c0659df1debe8905c911aecf4e0b11e92ddb22f03ddb074966f1754401ddcd3",
+              "export": "d55736019ced0c81ce3756be26c824b4b91fe11dda69b25b6d90c31f3392110e"
+            },
+            "module": "Std.Nat",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.0059447920066304505
+        }
+      },
+      "path": "proofs/std/nat/std-nat.hex",
+      "raw_sha256": "04dbbaf904d6b8c8c8dbfb226a20d28cda77d65e0254c7958645936d6e634358"
+    }
+  ],
+  "model_metrics": {
+    "captured_target_release_retires_old": true,
+    "iteration_allocations": 1000,
+    "iteration_peak_positive_slots": 1,
+    "iteration_reused_one_slot": true,
+    "overwrite_reused_slot": true,
+    "zero_access_retired_storage": true
+  },
+  "native_binary_sha256": "0f0cf8e1660d502aa679eb37c5e3fddb86c70e937c8f1010ef0ac5525eae16f4",
+  "native_runs": [
+    {
+      "cpu_system_seconds": 0.0033169999999999996,
+      "cpu_user_seconds": 0.0015689999999999999,
+      "exit_code": 0,
+      "peak_rss_bytes": 4603904,
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "stdout": "{\"array_descriptor_copy\":[8,2],\"byte_data\":\"00ff\",\"caller_scope_preserved\":[88,2],\"captured_assignment_target\":{\"current\":2,\"old\":9},\"error_nil_and_concrete_zero\":[true,false],\"error_result_payload\":{\"data\":[9,2,3,4],\"first\":7,\"message\":\"carried\",\"nil\":false},\"iteration_values\":499500,\"overwritten_reference\":[9],\"past_store_isolated\":{\"changed\":9,\"new\":11,\"old\":7},\"positive_capacity_empty\":{\"capacity\":2,\"values\":[7]},\"unsigned_word\":\"18446744073709551615\",\"zero_access_tag\":{\"capacity\":0,\"length\":0,\"nil\":false}}\n",
+      "wall_seconds": 0.7281894590123557
+    },
+    {
+      "cpu_system_seconds": 0.001908,
+      "cpu_user_seconds": 0.0014269999999999999,
+      "exit_code": 0,
+      "peak_rss_bytes": 4341760,
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "stdout": "{\"array_descriptor_copy\":[8,2],\"byte_data\":\"00ff\",\"caller_scope_preserved\":[88,2],\"captured_assignment_target\":{\"current\":2,\"old\":9},\"error_nil_and_concrete_zero\":[true,false],\"error_result_payload\":{\"data\":[9,2,3,4],\"first\":7,\"message\":\"carried\",\"nil\":false},\"iteration_values\":499500,\"overwritten_reference\":[9],\"past_store_isolated\":{\"changed\":9,\"new\":11,\"old\":7},\"positive_capacity_empty\":{\"capacity\":2,\"values\":[7]},\"unsigned_word\":\"18446744073709551615\",\"zero_access_tag\":{\"capacity\":0,\"length\":0,\"nil\":false}}\n",
+      "wall_seconds": 0.009525874978862703
+    }
+  ],
+  "ordinary_cases": [
+    {
+      "case": {
+        "address_enumeration": false,
+        "altered": false,
+        "bytes": 3234,
+        "declarations": 23,
+        "expected": "accepted",
+        "family": "dead-slot-guard",
+        "id": "dead-slot-guard-valid",
+        "scope": "ordinary arbitrary-Sort0 masked frame for two 128-cell slots and separate past store; reference-closure/source/allocator binding remains required",
+        "terms": 352,
+        "theorem": "Probe.GoPractical.LiveStorage.Claim",
+        "value_enumeration": false
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.005918,
+          "cpu_user_seconds": 0.009734,
+          "exit_code": 0,
+          "peak_rss_bytes": 7258112,
+          "report": {
+            "declaration_count": 23,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "a8f7b49cf40a166bf54a5dd6657a0f761ec423881e595a656bcd4f9a8797a238",
+              "export": "35c40240cb47ecda3fe24045e806f666717631cc69c9d66be8861faf6b50a766"
+            },
+            "module": "Probe.GoPractical.LiveStorage",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.7069743749452755
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0018989999999999999,
+          "cpu_user_seconds": 0.0042179999999999995,
+          "exit_code": 0,
+          "peak_rss_bytes": 3260416,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 23,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "a8f7b49cf40a166bf54a5dd6657a0f761ec423881e595a656bcd4f9a8797a238",
+              "export": "35c40240cb47ecda3fe24045e806f666717631cc69c9d66be8861faf6b50a766"
+            },
+            "module": "Probe.GoPractical.LiveStorage",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.010237624985165894
+        }
+      },
+      "raw_sha256": "52616ad7fbea00c74152d247106b8ea47e5d0a1a34a95707861d727aa736f5c2"
+    },
+    {
+      "case": {
+        "address_enumeration": false,
+        "altered": true,
+        "bytes": 3234,
+        "declarations": 23,
+        "expected": "rejected",
+        "family": "dead-slot-guard",
+        "id": "dead-slot-guard-altered",
+        "scope": "ordinary arbitrary-Sort0 masked frame for two 128-cell slots and separate past store; reference-closure/source/allocator binding remains required",
+        "terms": 352,
+        "theorem": "Probe.GoPractical.LiveStorage.Claim",
+        "value_enumeration": false
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0021579999999999998,
+          "cpu_user_seconds": 0.003665,
+          "exit_code": 1,
+          "peak_rss_bytes": 5750784,
+          "report": {
+            "error_detail": "term 109 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00930733303539455
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0019399999999999999,
+          "cpu_user_seconds": 0.003623,
+          "exit_code": 1,
+          "peak_rss_bytes": 3325952,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"1026\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"1033\",\"kind\":\"check_type_mismatch\",\"term_index\":\"109\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "e100705e9e821ccc6a30f2ff3cc663dc84ae9c4d0b4dd88765100cdf29a5a172",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.010643833025824279
+        }
+      },
+      "raw_sha256": "6db4d933454f3f517211757304557249625c4bf94c77e28debe5b92438e9f9fd"
+    },
+    {
+      "case": {
+        "address_enumeration": false,
+        "altered": true,
+        "bytes": 3222,
+        "declarations": 23,
+        "expected": "rejected",
+        "family": "masked-replacement-frame",
+        "id": "masked-replacement-frame-altered",
+        "scope": "ordinary arbitrary-Sort0 masked frame for two 128-cell slots and separate past store; reference-closure/source/allocator binding remains required",
+        "terms": 351,
+        "theorem": "Probe.GoPractical.LiveStorage.Claim",
+        "value_enumeration": false
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001836,
+          "cpu_user_seconds": 0.003747,
+          "exit_code": 1,
+          "peak_rss_bytes": 5980160,
+          "report": {
+            "error_detail": "term 600 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008671541989315301
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001514,
+          "cpu_user_seconds": 0.0045249999999999995,
+          "exit_code": 1,
+          "peak_rss_bytes": 3342336,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"518\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"1373\",\"kind\":\"check_type_mismatch\",\"term_index\":\"600\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "ee10aebaffe33b4da7e5985f5924bbf98bac8fac5051586fd3589e724ab1aa74",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.0097022500121966
+        }
+      },
+      "raw_sha256": "bce479f455b0eea4e581d9b2c3a66f11d91709d17bcd5172ebe0b9c948d3d7b1"
+    },
+    {
+      "case": {
+        "address_enumeration": false,
+        "altered": false,
+        "bytes": 2655,
+        "declarations": 23,
+        "expected": "accepted",
+        "family": "past-store-namespace",
+        "id": "past-store-namespace-valid",
+        "scope": "ordinary arbitrary-Sort0 masked frame for two 128-cell slots and separate past store; reference-closure/source/allocator binding remains required",
+        "terms": 294,
+        "theorem": "Probe.GoPractical.LiveStorage.Claim",
+        "value_enumeration": false
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001957,
+          "cpu_user_seconds": 0.002851,
+          "exit_code": 0,
+          "peak_rss_bytes": 5849088,
+          "report": {
+            "declaration_count": 23,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "8fb5c482271e51ffad65b7f5dfa868ce6d7c1931ccb8c46a78723b252d831e87",
+              "export": "b4eefa312dd8c12b13ea7db879e13c04a742e670ab10f5427f13d1ae42e9dd44"
+            },
+            "module": "Probe.GoPractical.LiveStorage",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.010385375004261732
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0014559999999999998,
+          "cpu_user_seconds": 0.001944,
+          "exit_code": 0,
+          "peak_rss_bytes": 3112960,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 23,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "8fb5c482271e51ffad65b7f5dfa868ce6d7c1931ccb8c46a78723b252d831e87",
+              "export": "b4eefa312dd8c12b13ea7db879e13c04a742e670ab10f5427f13d1ae42e9dd44"
+            },
+            "module": "Probe.GoPractical.LiveStorage",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009469208016525954
+        }
+      },
+      "raw_sha256": "4f35ccd8684bffc63a5ea7a6ef097f9825a117e71ef46faf36549b10a7301494"
+    },
+    {
+      "case": {
+        "address_enumeration": false,
+        "altered": true,
+        "bytes": 2667,
+        "declarations": 23,
+        "expected": "rejected",
+        "family": "past-store-namespace",
+        "id": "past-store-namespace-altered",
+        "scope": "ordinary arbitrary-Sort0 masked frame for two 128-cell slots and separate past store; reference-closure/source/allocator binding remains required",
+        "terms": 295,
+        "theorem": "Probe.GoPractical.LiveStorage.Claim",
+        "value_enumeration": false
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.00164,
+          "cpu_user_seconds": 0.002619,
+          "exit_code": 1,
+          "peak_rss_bytes": 5668864,
+          "report": {
+            "error_detail": "term 547 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.007370874984189868
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001413,
+          "cpu_user_seconds": 0.002571,
+          "exit_code": 1,
+          "peak_rss_bytes": 3276800,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"530\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"821\",\"kind\":\"check_type_mismatch\",\"term_index\":\"547\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "47dcc14dfddd49e3bc5d61446327ccbf05e980077f9df3d6bdeb4dc074957f46",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008760832948610187
+        }
+      },
+      "raw_sha256": "5a556313d2a7a8590350cf5866fdb121a24c06a515d2c2fdd308cfe29f4a1bf7"
+    }
+  ],
+  "outcomes": {
+    "legacy_regressions": 2,
+    "native_observations": 12,
+    "ordinary_accepted": 2,
+    "ordinary_type_mismatch": 3
+  },
+  "pending": [
+    "ordinary completeness/validity of typed root enumeration, escape rewrite and reusable-slot selection; exact source scope/evaluation/call binding",
+    "W04 complete source/limits/schemas/hash/migration freeze and independent import",
+    "W05 full T01 gate; complete T02\u2013T11 source/application/release scope"
+  ],
+  "production_checker_changed": false,
+  "schema": "mpk.go_practical.lifetime_probe.v0",
+  "scope": "private complete modeled-root closure/lifetime/slot-reuse design and 12 native/model values; 2 ordinary masked-frame/past-store laws in unchanged production checkers; no general source/closure/allocator/lifetime binding or profile proof"
+}

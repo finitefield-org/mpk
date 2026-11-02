@@ -1,0 +1,51 @@
+"""Check exactly the emitted ordinary range bytes with the unchanged Go core."""
+from pathlib import Path
+import datetime,hashlib,json,re,subprocess,sys,time
+
+repo=Path.cwd();root=Path(__file__).resolve().parent.relative_to(repo.resolve())
+attempt=sys.argv[1];assert attempt in ['initial','reviewed','final']
+out=root/('paired-'+attempt);out.mkdir(exist_ok=False)
+def seal(p):
+ p=Path(p);b=p.read_bytes();return {'path':str(p),'sha256':hashlib.sha256(b).hexdigest(),'bytes':len(b)}
+rust_path=root/attempt/'rust-tests/result.json';rust=json.loads(rust_path.read_text())
+assert rust['status']=='passed' and rust['tests_passed']==5
+for original in rust['sources']:
+ snapshot=root/attempt/'rust-tests/inputs'/original['path'];saved=seal(snapshot)
+ assert saved['sha256']==original['sha256'] and saved['bytes']==original['bytes']
+ if not original['path'].endswith('tests/go_practical_range_foundation.rs'):assert seal(original['path'])==original
+control_path=root/'final/rust-control/result.json';control=json.loads(control_path.read_text())
+assert control['status']=='passed' and control['tests_passed']==1
+for original in control['sources']:assert seal(original['path'])==original
+previous_path=root.parent/'core-interfaces/paired/result.json';previous=json.loads(previous_path.read_text())
+assert previous['status']=='passed'
+binary=previous['go_binary'];assert seal(binary['path'])==binary
+for source in previous['go_production_sources']:assert seal(source['path'])==source
+positive={'range-foundation','retained-integer-basis','honest-different-range-component','concrete-intervals','bounded-only-premise','typed-wrong-intsum-value'}
+certificates=sorted((root/attempt/'rust-tests/certificates').glob('*.mpcert'));assert len(certificates)==16
+assert [seal(p) for p in certificates]==rust['certificates']
+superseded=next(p for p in certificates if p.stem=='intsum-body')
+certificates=[p for p in certificates if p!=superseded]
+new_certificates=sorted((root/'final/rust-control/certificates').glob('*.mpcert'));assert len(new_certificates)==2
+assert [seal(p) for p in new_certificates]==control['certificates']
+certificates=sorted(certificates+new_certificates,key=lambda p:p.stem);assert len(certificates)==17 and len({p.stem for p in certificates})==17
+rows=[]
+for certificate in certificates:
+ name=certificate.stem;accepted=name in positive;rust_report=certificate.with_suffix('.rust.json');r=json.loads(rust_report.read_text())
+ assert r['verdict']==('accepted' if accepted else 'rejected')
+ command=[binary['path'],'verify',str(certificate)];start=time.monotonic()
+ run=subprocess.run(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=60,check=False)
+ stdout=out/(name+'.stdout.log');stderr=out/(name+'.stderr.log');stdout.write_bytes(run.stdout);stderr.write_bytes(run.stderr)
+ go=json.loads(run.stdout)
+ assert not run.stderr and run.returncode==(0 if accepted else 1) and go['verdict']==r['verdict'],(name,r,go)
+ if accepted:
+  assert r['axiom_count']==0 and go.get('axiom_count',0)==0 and go['hashes']==r['hashes'] and go['declaration_count']==r['declaration_count'],(name,r,go)
+ else:
+  detail=json.loads(r['error_detail']);assert r['error_code']=='KERNEL_CORE_CHECK' and detail['code']=='CORE_TYPE_MISMATCH',(name,r,go)
+  inferred=detail['details']['inferred_kind'];expected=detail['details']['expected_kind']
+  kinds={'sort','var','const','app','lam','pi','let'}
+  assert inferred in kinds and expected in kinds and detail['details']['kind']=='check_type_mismatch',(name,r,go)
+  assert go['error_kind']=='core_check' and re.fullmatch(r'term [0-9]+ inferred '+re.escape(inferred)+' but expected '+re.escape(expected),go['error_detail']),(name,r,go)
+ rows.append({'name':name,'certificate':seal(certificate),'rust_report':seal(rust_report),'command':command,'seconds':time.monotonic()-start,'exit_code':run.returncode,'stdout':seal(stdout),'stderr':seal(stderr),'rust_observation':r,'go_observation':go,'same_original_bytes':True})
+record={'schema':'mpk.go_practical.paired_range_foundation.v1','status':'passed','observed_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'rust_execution':seal(rust_path),'focused_typed_control_execution':seal(control_path),'superseded_extra_carrier_binder_control_retained':seal(superseded),'reused_unchanged_case_sources':'All original snapshots and all unchanged current production inputs rehashed. Only the one affected integer-fold control root reruns after exposing a fixture arity error; unchanged positive/other-negative original proof bytes remain authoritative.','unchanged_go_build_evidence':seal(previous_path),'go_binary':binary,'unchanged_go_production_sources':previous['go_production_sources'],'cases':rows,'accepted_zero_axiom':len(positive),'rejected_core_type_mismatch':len(rows)-len(positive),'selection_reason':'Both unchanged current checkers independently check the same freshly compiled half-open logical fold definitions, arbitrary-Nat zero/step/empty/bounded laws, concrete intervals and bodies differing outside the visited prefix and negative proof/definition controls. Separately accept a well-typed wrong constant integer-fold value, then reject its substitution into the actual fold step laws. Independent Go output must agree on full certificate/export/axiom hashes and declaration count for every acceptance. Each negative must be a core type mismatch with actual detailed term kinds agreeing, not a decoding/hash/resource failure.','CSharp_tests_executed':False,'T02_W01_complete':False,'public_profile_activated':False,'source_program_proof_claimed':False,'full_T02_gate':'deferred to W04: check-fast.sh --skip-csharp'}
+(out/'result.json').write_text(json.dumps(record,indent=2)+'\n')
+print(json.dumps({'status':'passed','same_byte_cases':len(rows),'accepted_zero_axiom':len(positive),'rejected_core_type_mismatch':len(rows)-len(positive)}))

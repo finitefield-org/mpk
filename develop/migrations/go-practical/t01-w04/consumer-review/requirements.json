@@ -1,0 +1,606 @@
+{
+  "requirements": [
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/capture-artifacts/README.md",
+          "sha256": "6909d0fa1f14942f77da4aedce51fcd9bdcd686f5a5fac700222d07d1d919da6"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/source-admission/README.md",
+          "sha256": "27809621c4e9f50e94e6cdb1f44888d1f64f0be69489495e3919ab43f8acf006"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/structural-limits/README.md",
+          "sha256": "f424605306f513922b992277904aeedd2cb68163edd248b8a1ec3f6d1eeb4ee2"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R001",
+      "implementation_verified": false,
+      "name": "original_package",
+      "negative_boundary": "original type error still rejects; no deleted declarations or stubs",
+      "primary_production_executor": "go-tools/go2vir/practical_capture.go",
+      "primary_test_owner": "go-tools/go2vir/practical_capture_test.go",
+      "required_meaning": "Original source/package type checks are retained; unused unsupported bodies can remain type-check-only.",
+      "work_item": "GO-PRAC-T02-W01"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/capture-artifacts/README.md",
+          "sha256": "6909d0fa1f14942f77da4aedce51fcd9bdcd686f5a5fac700222d07d1d919da6"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/identity-dag/README.md",
+          "sha256": "1fa5e63f0bc0e7587cb5eede67f194004a9016352922c5aaa52beb45f172b4e0"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R002",
+      "implementation_verified": false,
+      "name": "offline_modules",
+      "negative_boundary": "missing snapshot, path escape, VCS/network/generation/toolchain fallback rejects",
+      "primary_production_executor": "go-tools/go2vir/practical_capture.go",
+      "primary_test_owner": "go-tools/go2vir/practical_capture_test.go",
+      "required_meaning": "Allow require/go.sum and captured versioned/local replacements; retain resolved graph, tags and full compiler provenance.",
+      "work_item": "GO-PRAC-T02-W01"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/context-protocol/README.md",
+          "sha256": "e24b34a162680b37ce6a97b980e163b624b2b5caca9c24c416bd118c610bd191"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/source-admission/README.md",
+          "sha256": "27809621c4e9f50e94e6cdb1f44888d1f64f0be69489495e3919ab43f8acf006"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R003",
+      "implementation_verified": false,
+      "name": "versions",
+      "negative_boundary": "unsatisfied patch/toolchain requirement or effective go1.21 rejects",
+      "primary_production_executor": "go-tools/go2vir/practical_capture.go",
+      "primary_test_owner": "go-tools/go2vir/practical_capture_test.go",
+      "required_meaning": "Go1.25.0, linux/amd64, GOAMD64v1, 64-bit int/uint; effective language minors go1.22..go1.25.",
+      "work_item": "GO-PRAC-T02-W01"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/source-admission/README.md",
+          "sha256": "27809621c4e9f50e94e6cdb1f44888d1f64f0be69489495e3919ab43f8acf006"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/capture-artifacts/README.md",
+          "sha256": "6909d0fa1f14942f77da4aedce51fcd9bdcd686f5a5fac700222d07d1d919da6"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/shared-vir/README.md",
+          "sha256": "89ae852f7e174077e4315371ad159623df39cd608864d93661c15559c0f9cf4d"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R004",
+      "implementation_verified": false,
+      "name": "two_closures",
+      "negative_boundary": "reachable unsupported body or unknown/cyclic call rejects with a root path",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go",
+      "required_meaning": "Separate complete capture/type-check context from selected root fixed-point body/type/constant/contract closure.",
+      "work_item": "GO-PRAC-T02-W02"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/source-admission/README.md",
+          "sha256": "27809621c4e9f50e94e6cdb1f44888d1f64f0be69489495e3919ab43f8acf006"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/vir-body/README.md",
+          "sha256": "41d414f036bb2f5254f340c609cb393853f76b3a6cc4acba10432b062e2519dd"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R005",
+      "implementation_verified": false,
+      "name": "effects",
+      "negative_boundary": "unused handlers/init may exist but cannot hide a reachable effect",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go",
+      "required_meaning": "Function-entry theorem excludes initialization; reachable globals, I/O, clocks, randomness and concurrency reject.",
+      "work_item": "GO-PRAC-T02-W02"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/closed-carriers/README.md",
+          "sha256": "5846c74f3b42a387ba742dbc1dc2413d7b0cd5199e42c1c3a13c65540dd501af"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/operation-signatures/README.md",
+          "sha256": "5c4df2dc66b3aa5a314606d80c7bf66f41e6a9c941ccd2163bbe19bbf9c8321e"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/word-foundation/README.md",
+          "sha256": "abdcc3d1439458580ae4ac8ce7327c5c07e61ec770d246a67e9ec4154958f366"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R006",
+      "implementation_verified": false,
+      "name": "nominal",
+      "negative_boundary": "nominal assignment confusion, wrong width and constant overflow reject",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "required_meaning": "Target-sized ints, named scalar/array/string/slice/struct types and aliases preserve captured nominal identity.",
+      "work_item": "GO-PRAC-T03-W01"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/source-admission/README.md",
+          "sha256": "27809621c4e9f50e94e6cdb1f44888d1f64f0be69489495e3919ab43f8acf006"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/operation-signatures/README.md",
+          "sha256": "5c4df2dc66b3aa5a314606d80c7bf66f41e6a9c941ccd2163bbe19bbf9c8321e"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/vir-body/README.md",
+          "sha256": "41d414f036bb2f5254f340c609cb393853f76b3a6cc4acba10432b062e2519dd"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R007",
+      "implementation_verified": false,
+      "name": "ordinary_syntax",
+      "negative_boundary": "fallthrough/type-switch/labels/goto and duplicated target evaluation reject",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go",
+      "required_meaning": "Grouped/inferred constants/iota, partial zero-filled values, else-if, expression switch and local value updates retain Go evaluation.",
+      "work_item": "GO-PRAC-T03-W02"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/operation-signatures/README.md",
+          "sha256": "5c4df2dc66b3aa5a314606d80c7bf66f41e6a9c941ccd2163bbe19bbf9c8321e"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/vir-body/README.md",
+          "sha256": "41d414f036bb2f5254f340c609cb393853f76b3a6cc4acba10432b062e2519dd"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R008",
+      "implementation_verified": false,
+      "name": "joint_results",
+      "negative_boundary": "tuple permutation, repeated call and stale result/effect linkage reject",
+      "primary_production_executor": "go-tools/go2vir/practical_calls.go",
+      "primary_test_owner": "go-tools/go2vir/practical_calls_test.go",
+      "required_meaning": "Fixed products0..16, one call execution, two-phase/parallel assignment, shadowing, blank results and forwarded/named returns.",
+      "work_item": "GO-PRAC-T04-W01"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/closed-carriers/README.md",
+          "sha256": "5846c74f3b42a387ba742dbc1dc2413d7b0cd5199e42c1c3a13c65540dd501af"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/source-admission/README.md",
+          "sha256": "27809621c4e9f50e94e6cdb1f44888d1f64f0be69489495e3919ab43f8acf006"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R009",
+      "implementation_verified": false,
+      "name": "closed_errors",
+      "negative_boundary": "unlisted dynamic type, pointer error and concrete zero collapsed to nil reject",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "required_meaning": "NilInterface and concrete non-pointer application Bool/integer/struct errors remain distinct; Error signature alone does not call its body.",
+      "work_item": "GO-PRAC-T04-W02"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/word-foundation/README.md",
+          "sha256": "abdcc3d1439458580ae4ac8ce7327c5c07e61ec770d246a67e9ec4154958f366"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/README.md",
+          "sha256": "ddc4ed26c1add49018e649d4cf39ed9e44cd38c4dd8879641857928f1f08bf51"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/operation-signatures/README.md",
+          "sha256": "5c4df2dc66b3aa5a314606d80c7bf66f41e6a9c941ccd2163bbe19bbf9c8321e"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R010",
+      "implementation_verified": false,
+      "name": "complete_bytes",
+      "negative_boundary": "NUL/invalidUTF8 are admitted; low-bit or Unicode-character reinterpretation rejects",
+      "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+      "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "required_meaning": "Literal/zero/equality/bytewise order/len/index/substring/concat retain arbitrary8-bit bytes and full64 indexes.",
+      "work_item": "GO-PRAC-T05-W01"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/source-admission/README.md",
+          "sha256": "27809621c4e9f50e94e6cdb1f44888d1f64f0be69489495e3919ab43f8acf006"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R011",
+      "implementation_verified": false,
+      "name": "exact_adapters",
+      "negative_boundary": "package-name-only or caller-defined semantic adapters reject",
+      "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+      "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "required_meaning": "HasPrefix/HasSuffix need exact registered Go1.25.0 symbol/body bindings or verified captured source.",
+      "work_item": "GO-PRAC-T05-W01"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/structural-limits/README.md",
+          "sha256": "f424605306f513922b992277904aeedd2cb68163edd248b8a1ec3f6d1eeb4ee2"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/operation-signatures/README.md",
+          "sha256": "5c4df2dc66b3aa5a314606d80c7bf66f41e6a9c941ccd2163bbe19bbf9c8321e"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R012",
+      "implementation_verified": false,
+      "name": "string_domain",
+      "negative_boundary": "B+1 successful Go concat is not a fabricated runtime panic",
+      "primary_production_executor": "go-tools/go2vir/practical_strings.go",
+      "primary_test_owner": "go-tools/go2vir/practical_strings_test.go",
+      "required_meaning": "Entry bounds and concat result bounds are explicit profile-domain obligations, separate from index/substring panic safety.",
+      "work_item": "GO-PRAC-T05-W01"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/storage-views/README.md",
+          "sha256": "bd9671d062ff8537fe9361a41c74070b1d2fe8403c5ab51a8a7ae0490a714843"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/storage-lifetimes/README.md",
+          "sha256": "6a8663593c9d19f57412807672e88db4015dda81b537af207b144ad8c99320b3"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/closed-carriers/README.md",
+          "sha256": "5846c74f3b42a387ba742dbc1dc2413d7b0cd5199e42c1c3a13c65540dd501af"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R013",
+      "implementation_verified": false,
+      "name": "descriptor",
+      "negative_boundary": "fresh region per incoming slice or copied-list alias models reject",
+      "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+      "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "required_meaning": "Nil tag, typed region, offset/length/capacity and initialized backing retain aliasing, observable tails and array copy/view distinctions.",
+      "work_item": "GO-PRAC-T06-W01"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/README.md",
+          "sha256": "ddc4ed26c1add49018e649d4cf39ed9e44cd38c4dd8879641857928f1f08bf51"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/storage-views/README.md",
+          "sha256": "bd9671d062ff8537fe9361a41c74070b1d2fe8403c5ab51a8a7ae0490a714843"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/operation-signatures/README.md",
+          "sha256": "5c4df2dc66b3aa5a314606d80c7bf66f41e6a9c941ccd2163bbe19bbf9c8321e"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R014",
+      "implementation_verified": false,
+      "name": "access",
+      "negative_boundary": "caller fit/no-wrap oracle and low-address-only projection reject",
+      "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+      "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "required_meaning": "Computed validity and actual local guards derive complete absolute-address safety and finite reconstruction.",
+      "work_item": "GO-PRAC-T06-W01"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/storage-lifetimes/README.md",
+          "sha256": "6a8663593c9d19f57412807672e88db4015dda81b537af207b144ad8c99320b3"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/operation-signatures/README.md",
+          "sha256": "5c4df2dc66b3aa5a314606d80c7bf66f41e6a9c941ccd2163bbe19bbf9c8321e"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/vir-body/README.md",
+          "sha256": "41d414f036bb2f5254f340c609cb393853f76b3a6cc4acba10432b062e2519dd"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R015",
+      "implementation_verified": false,
+      "name": "fresh_updates",
+      "negative_boundary": "borrowed-input writes, naive forward overlap and reallocating append reject",
+      "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+      "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "required_meaning": "Fresh local storage, make, value writes, overlap-correct copy and append within existing capacity have checked effects/frames.",
+      "work_item": "GO-PRAC-T06-W02"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/vir-body/README.md",
+          "sha256": "41d414f036bb2f5254f340c609cb393853f76b3a6cc4acba10432b062e2519dd"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/source-admission/README.md",
+          "sha256": "27809621c4e9f50e94e6cdb1f44888d1f64f0be69489495e3919ab43f8acf006"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R016",
+      "implementation_verified": false,
+      "name": "control",
+      "negative_boundary": "continue skipping post, break assuming false test, early-return paths dropped and other range kinds reject",
+      "primary_production_executor": "go-tools/go2vir/practical_loops.go",
+      "primary_test_owner": "go-tools/go2vir/practical_loops_test.go",
+      "required_meaning": "Array/slice range, baseline loop forms, condition-only/nested loops and unlabeled abrupt exits bind exact source identities and effective versions.",
+      "work_item": "GO-PRAC-T06-W03"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/nat-termination/README.md",
+          "sha256": "78684f5b32e3829dc554af7148e58e3d3b5266fa8b9d34d1ed4c517fc9afdbd8"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/variant-termination/README.md",
+          "sha256": "ab74e6f38a6a5b7d6e5426f1117c2c8c1c51e274d98b20438ab3a9d5fe6d09a6"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R017",
+      "implementation_verified": false,
+      "name": "invariant_totality",
+      "negative_boundary": "inferred candidates are not assumptions; a finite slice bound alone does not prove arbitrary-loop termination",
+      "primary_production_executor": "go-tools/go2vir/practical_loops.go",
+      "primary_test_owner": "go-tools/go2vir/practical_loops_test.go",
+      "required_meaning": "Initialization/preservation/each exit/safety are proved; totality needs a checked well-founded variant.",
+      "work_item": "GO-PRAC-T06-W03"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/overlay-contracts/README.md",
+          "sha256": "4470b918576f15a2e74ca60de9020971e5c4dd92bd949b253cdebf5815629534"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/contract-wire/README.md",
+          "sha256": "bc911ab30e73e798a274e88dd767acc481a112f7341af150257e74b3d4248496"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R018",
+      "implementation_verified": false,
+      "name": "overlay",
+      "negative_boundary": "unknown forms, crossed bounds/nominal types and executable semantic adapters reject",
+      "primary_production_executor": "go-tools/go2vir/practical_contract.go",
+      "primary_test_owner": "go-tools/go2vir/practical_contract_test.go",
+      "required_meaning": "Closed typed overlays describe positional results, data bounds/observations, loops, checked calls and frames without an application MPK dependency.",
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/nat-termination/README.md",
+          "sha256": "78684f5b32e3829dc554af7148e58e3d3b5266fa8b9d34d1ed4c517fc9afdbd8"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/variant-termination/README.md",
+          "sha256": "ab74e6f38a6a5b7d6e5426f1117c2c8c1c51e274d98b20438ab3a9d5fe6d09a6"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/foundation-limits/README.md",
+          "sha256": "4378980b6bed602c0e6d5f6735d2fbf37a308df49701d6a660a84e0fb87f0452"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R019",
+      "implementation_verified": false,
+      "name": "nat_induction",
+      "negative_boundary": "malformed/late constructors and prior/neutral/partial universe arguments reject; legacy Nat/Bool remain unchanged",
+      "primary_production_executor": "crates/mpk-core/src/nat_induct.rs",
+      "primary_test_owner": "crates/mpk-core/src/nat_induct.rs",
+      "required_meaning": "Freeze the independently prototyped additive Sort0 Nat.induct signature, canonical declarations, monomorphism and iota equations.",
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/word-arithmetic/README.md",
+          "sha256": "ddc4ed26c1add49018e649d4cf39ed9e44cd38c4dd8879641857928f1f08bf51"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/closed-carriers/README.md",
+          "sha256": "5846c74f3b42a387ba742dbc1dc2413d7b0cd5199e42c1c3a13c65540dd501af"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/foundation-limits/README.md",
+          "sha256": "4378980b6bed602c0e6d5f6735d2fbf37a308df49701d6a660a84e0fb87f0452"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R020",
+      "implementation_verified": false,
+      "name": "ordinary_proofs",
+      "negative_boundary": "definition-only, unproved callee contracts, added axioms and fuel-as-false claims do not establish support",
+      "primary_production_executor": "crates/mpk-vc/src/go_practical_foundation.rs",
+      "primary_test_owner": "crates/mpk-vc/tests/go_practical_foundation.rs",
+      "required_meaning": "Closed zero-axiom ordinary definitions, full64/Nat bridges, byte/descriptor/control lemmas and required source-model obligations.",
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/context-protocol/README.md",
+          "sha256": "e24b34a162680b37ce6a97b980e163b624b2b5caca9c24c416bd118c610bd191"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/shared-vir/README.md",
+          "sha256": "89ae852f7e174077e4315371ad159623df39cd608864d93661c15559c0f9cf4d"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/proof-artifacts/README.md",
+          "sha256": "4c2f5321bd3cb37f6f60b5912272c2c7126db6d706ff84f40cf4670f5d1a0f54"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R021",
+      "implementation_verified": false,
+      "name": "shared_wire",
+      "negative_boundary": "mixed old/new context, schema/hash aliases and old schemas with new meaning reject",
+      "primary_production_executor": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_test_owner": "crates/mpk-vc/tests/go_practical_artifacts.rs",
+      "required_meaning": "New closed successor identities and complete typed context/source/contract/VIR/VC linkage are frozen before migration.",
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/operation-signatures/README.md",
+          "sha256": "5c4df2dc66b3aa5a314606d80c7bf66f41e6a9c941ccd2163bbe19bbf9c8321e"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/proof-artifacts/README.md",
+          "sha256": "4c2f5321bd3cb37f6f60b5912272c2c7126db6d706ff84f40cf4670f5d1a0f54"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R022",
+      "implementation_verified": false,
+      "name": "obligations",
+      "negative_boundary": "pending member, ignored failure path or crossed theorem is never fully proved",
+      "primary_production_executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "primary_test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "required_meaning": "Every operation/path/call/loop/result/effect obligation remains independently checked and scope-linked.",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/policy-api/README.md",
+          "sha256": "16dc274ae2e117254ac4ecf63d5cc7171c196de5ed92e70b305dd5fe333ba306"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/api-contracts/README.md",
+          "sha256": "6055f2ef2839d9ba2b45e27b9489a03aa0d1d78a4b29df1aa4f4cb0b3b4b01e6"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/ai-explanation/README.md",
+          "sha256": "3f38cfce986161d363a4ffd5863839c1b70b7d04bd7f526671d110dcee60effa"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R023",
+      "implementation_verified": false,
+      "name": "readiness",
+      "negative_boundary": "unknown/timeout/unsupported strategy is not success or a certified false claim",
+      "primary_production_executor": "crates/mpk-api/src/go_practical_policy.rs",
+      "primary_test_owner": "crates/mpk-api/tests/go_practical_policy.rs",
+      "required_meaning": "Distinguish source/config rejection, accepted model/pending proof, candidate failure and fully checked claim.",
+      "work_item": "GO-PRAC-T07-W01"
+    },
+    {
+      "design_evidence": [
+        {
+          "path": "develop/migrations/go-practical/t01-w04/release-contracts/README.md",
+          "sha256": "aba0ad871d7cbec18f55f1a3aac865eec29a45648d9ded12ef3ed71ae98265c0"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/program-binding/README.md",
+          "sha256": "798b0d412bb4e07aa82619c19602bafb2e9297b949caad50004db0b5116f7bba"
+        },
+        {
+          "path": "develop/migrations/go-practical/t01-w04/consumer-review/README.md",
+          "sha256": "c7b69a24a072d1e3f32a0b0323087d751446e85f77a401dc651be5d36e401e58"
+        }
+      ],
+      "design_status": "specified; production implementation/proofs and release checks remain at assigned work items",
+      "id": "GO-V1-R024",
+      "implementation_verified": false,
+      "name": "activation",
+      "negative_boundary": "inactive prototype evidence, C# status or host fallback cannot activate the Go profile",
+      "primary_production_executor": "crates/mpk-cli/src/go_practical_release.rs",
+      "primary_test_owner": "crates/mpk-cli/tests/go_practical_release.rs",
+      "required_meaning": "Keep current four profiles and installed roots unchanged until local Linux gates, both-checker application proofs and atomic release replay pass.",
+      "work_item": "GO-PRAC-T07-W02"
+    }
+  ],
+  "schema": "mpk.go_practical.requirement_handoff.v0",
+  "scope": "W04 design coverage and explicit implementation/test ownership, not source/application proof acceptance"
+}

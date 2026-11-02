@@ -1,0 +1,76 @@
+{
+  "selection_reason": "Format-check each changed source and directly affected PGO/root test; no workspace-wide gate is run during W01.",
+  "inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys.rs",
+      "bytes": 17365,
+      "sha256": "7b8587558e44845bedd126d06444ae8915f68002a4058d7f6f759f9cff68e6ec",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/analysis_vendor.rs",
+      "bytes": 5898,
+      "sha256": "3f0120d5db149a9f1e44ff62cfcd4fff84bb6fd4ba96d302465a9e0699543e45",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/source.rs",
+      "bytes": 9487,
+      "sha256": "bb8478e0b544fd165d69ae88fa3dbe596b558589bdf5f3997bc3c5676b073b9e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_analysis_pgo.rs",
+      "bytes": 7324,
+      "sha256": "8bb001099d52247c92396441e0ef013382d5d4e0bc413083f03560dd8668271f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_analysis_casefold.rs",
+      "bytes": 4339,
+      "sha256": "f695f244089900b3ace4e322e280bbdc80779772b0f34397d941707bf6a072f7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/src/go_practical_source_roots.rs",
+      "bytes": 14554,
+      "sha256": "5b332f095107de2874dda395ea72874b04c9ba47671f0a08fe72cadabba03be5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/src/go_practical_analysis_root_binding.rs",
+      "bytes": 1644,
+      "sha256": "d834a63c95e2f0fe7c70aadc43b23f17d397050a7ad0114b925a3c3ae5ec318c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/tests/go_practical_analysis_root_pgo.rs",
+      "bytes": 6723,
+      "sha256": "971ec1ebd78f02b58284e73f29ebc08acda09fbaaf537226df2e0dc7855e22fe",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/tests/go_practical_analysis_casefold.rs",
+      "bytes": 7649,
+      "sha256": "54027e5c9bbf31082d6000d3875e7fca19fa9b8d7c06960f3ea4c0c49619a5a9",
+      "mode": 420
+    }
+  ],
+  "command": [
+    "rustfmt",
+    "--edition",
+    "2021",
+    "--check",
+    "--config",
+    "skip_children=true",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys.rs",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/analysis_vendor.rs",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/source.rs",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_analysis_pgo.rs",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_analysis_casefold.rs",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/src/go_practical_source_roots.rs",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/src/go_practical_analysis_root_binding.rs",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/tests/go_practical_analysis_root_pgo.rs",
+    "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/tests/go_practical_analysis_casefold.rs"
+  ]
+}

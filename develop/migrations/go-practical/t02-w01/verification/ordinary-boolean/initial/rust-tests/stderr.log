@@ -1,0 +1,18 @@
+   Compiling mpk-core v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-core)
+   Compiling mpk-theory v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-theory)
+   Compiling mpk-cert v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cert)
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+   Compiling mpk-kernel v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-kernel)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1m 29s
+     Running tests/go_practical_ordinary.rs (target/debug/deps/go_practical_ordinary-306ceb57310e1dd5)
+
+thread 'an_incorrect_ordinary_boolean_claim_is_rejected' (35424637) panicked at crates/mpk-vc/tests/go_practical_ordinary.rs:75:65:
+called `Result::unwrap()` on an `Err` value: Linkage
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'exact_component_import_rejects_changed_certificate' (35424638) panicked at crates/mpk-vc/tests/go_practical_ordinary.rs:58:60:
+called `Result::unwrap()` on an `Err` value: Linkage
+
+thread 'ordinary_boolean_foundation_is_closed_and_zero_axiom' (35424639) panicked at crates/mpk-vc/tests/go_practical_ordinary.rs:40:65:
+called `Result::unwrap()` on an `Err` value: Linkage
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_ordinary`

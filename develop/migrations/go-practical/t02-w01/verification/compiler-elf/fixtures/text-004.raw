@@ -1,0 +1,9 @@
+path	cmd/compile
+build	GOOS=linux
+build	GOARCH=amd64
+build	CGO_ENABLED=0
+build	-compiler=gc
+build	-buildmode=exe
+build	GOAMD64=v1
+build	extra=x
+build	extra=y

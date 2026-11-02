@@ -1,0 +1,2131 @@
+{
+  "schema": "mpk.go_practical.t02_w01_verification.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T12:43:08.548215+00:00",
+  "entry_commit": "fe1b85cb70c7ea390c02469706d09cdc913f973f",
+  "component": "Final source-object identity and independently owned exact bytes",
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_source.go",
+      "sha256": "a6d1a5e93c682d698fcdf522e29e84cd1b502551922b850924eccc8fec60fbec",
+      "bytes": 5146
+    },
+    {
+      "path": "go-tools/go2vir/practical_source_test.go",
+      "sha256": "995a30a9343858bfc6c7dbcfd08875a504b389eaa52f4b011d6aa27663d88548",
+      "bytes": 8809
+    }
+  ],
+  "frozen_contract": {
+    "path": "develop/migrations/go-practical/t01-w05/source-kind/catalog.json",
+    "sha256": "1ddbd93204546f227c43dc7729d3547b56abe2a5870a4a418e1d424806b38219",
+    "bytes": 2858
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "selected_results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-object/final/selected/result.json",
+      "sha256": "d6cdac73b9b20177d0cf61b38285c350ef61e5591a22eee33839a064cf71465b",
+      "bytes": 5549,
+      "mode": "selected",
+      "status": "passed",
+      "seconds": 4.30182887497358
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-object/final/vet/result.json",
+      "sha256": "599573dfdd45ef3deb3070e4e9d3c66bc7f02100c07232ab0e36702f36005b4a",
+      "bytes": 2528,
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.9290449159452692
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-object/final/format/result.json",
+      "sha256": "e92f30eb20700c4c71d135d9116ff5d09cf37e1976f5ff28d172d7eb910d7c2e",
+      "bytes": 2569,
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.013754457933828235
+    }
+  ],
+  "root_tests_passed": 8,
+  "subtests_passed": 26,
+  "initial_setup_failure": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/source-object/initial-shared-cache-attempt.json",
+    "sha256": "4fce3f292581c2cbe7fbac76b0878bf7c205124839bcb37a9f10febdb0d69fdc",
+    "bytes": 1045
+  },
+  "CSharp_tests_executed": false,
+  "public_profile_activation": false,
+  "module_dependency_capture_implemented": false,
+  "source_semantics_proved": false,
+  "Go_demands_unelaborated": 169,
+  "work_item_complete": false,
+  "requirements": {
+    "path": "develop/migrations/go-practical/t02-w01/requirements.json",
+    "sha256": "a8984f267d5c0bc60746aa1da7ce7650c23dbf24f707c683d0af635200929fb3",
+    "bytes": 12091
+  },
+  "full_T02_gate": "deferred to T02-W04 under repository cadence; use check-fast.sh --skip-csharp",
+  "previous_selected_results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-object/selected/result.json",
+      "sha256": "6b73544009a23b9e306d05cf0d5c0eb98934fce1e3cd6d34605778af5003fe2a",
+      "bytes": 5537,
+      "mode": "selected",
+      "status": "passed",
+      "seconds": 2.62262987496797
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-object/vet/result.json",
+      "sha256": "d8390a71fbbdc2443b6255668683194960486065b79fd5cec8f31027923db67e",
+      "bytes": 2516,
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 1.5036643750499934
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-object/format/result.json",
+      "sha256": "348bccd2cd93a024d80a00017064bba06dbcb618c1b0b8e460455e24b87fb8c7",
+      "bytes": 2558,
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.0064744590781629086
+    }
+  ],
+  "source_review_followup": {
+    "initial_review": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/input-review/changed-inputs-review.json",
+      "sha256": "3bd8c1a65b410b50826f5e810a08610f49a7e662480785b88ba829d4aca99a35",
+      "bytes": 55689
+    },
+    "cause": "Two obsolete-kind literals in negative Go test source are rejected by the unchanged strict matcher.",
+    "correction": "Use the frozen original negative object and preserve three exact historical failed diagnostics. The changed-input reviewer now delegates the full existing scanner/fixture/retention policy after strict configuration and fixture validation. All127 matchers/four scopes remain; no production/directory or whitespace exclusion."
+  },
+  "scanner_seal_amendment": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/strict-diagnostics/seal-amendment.json",
+    "sha256": "cb37b5c7f3f9d420b926afe2805cdde43671482e5fc2a14963f5206ea3fd16c2",
+    "bytes": 1874
+  },
+  "scanner_targeted_controls": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/strict-diagnostics/final-result.json",
+    "sha256": "d1046634abd8c2939c3ba544aaa22e1911dbba98a4e834adec6e0d449a32653d",
+    "bytes": 3136
+  },
+  "scanner_shell_syntax": "passed",
+  "disk_cache_cleanup": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/strict-diagnostics/cache-cleanup.json",
+    "sha256": "6dd11311e97fab6cb85853d82c51641e7a808142ef5f889d581c3c66fd5302c2",
+    "bytes": 482
+  },
+  "scanner_targeted_controls_initial": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/strict-diagnostics/result.json",
+    "sha256": "61fc04c1b7bb77b114fef8276dc77e17a569df75ecb93b5ba5d6a15003d76e40",
+    "bytes": 2432
+  },
+  "additional_historical_fixture_review_diagnostic": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/strict-diagnostics/additional-review-fixture-seal.json",
+    "sha256": "e16189b25015650bf7882fbfd6d376bdd29df45e883e37b70899ded910754933",
+    "bytes": 836
+  },
+  "rooted_capture_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/verification.json",
+    "sha256": "9c14121590b3a3862cf1dfac8926b7ece363cfd9033b89076cbf0a20c035c9dc",
+    "bytes": 7368
+  },
+  "module_input_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-inputs/verification.json",
+    "sha256": "269ecaa04190a7940573a9f869346715ef9822feb8e24c50b5d47b6add33415f",
+    "bytes": 5466
+  },
+  "ordinary_boolean_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/verification.json",
+    "sha256": "ef52aa2f269ac766021814ac8aed6ecf6aea29d28ca9dbbc1fe08a0ac4101f6b",
+    "bytes": 6374
+  },
+  "module_archive_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-archives/verification.json",
+    "sha256": "9059f1ea4cbb736f302ae77797aadb237ce7a0e912629176d1867ba91c443990",
+    "bytes": 9117
+  },
+  "versioned_module_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-snapshots/verification.json",
+    "sha256": "421a969bd8c366b7673b78917cd036cbf544401800fd0df614bcf1bacc479ce8",
+    "bytes": 5128
+  },
+  "module_discovery_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/module-resolution/verification.json",
+    "sha256": "525da3ac0338fec6ea4db73b12d5cf8eb19fac2fb7dbb3bff421a378b9a8858d",
+    "bytes": 7511
+  },
+  "prepared_compiler_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/verification.json",
+    "sha256": "642fb8210e0a97825895a7ccb4c325c56282b450c05fab9655051fc857d1c044",
+    "bytes": 12376
+  },
+  "analysis_build_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-inputs/verification.json",
+    "sha256": "c704e6914e785b1bdcc7bf4be4c35e316781e6f915229435f4d7eec71ebcdd16",
+    "bytes": 22469
+  },
+  "actual_core_basis_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/verification.json",
+    "sha256": "f1195fe5748f8a353bfe3573d1a288bd51cd270a72140e0abfe5f5df21be1fa9",
+    "bytes": 17972
+  },
+  "actual_natural_foundation_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/verification.json",
+    "sha256": "7e550dfe10787bc943b3ace0ca1b2e9e1b939b4fafed60fc40558945cc4e73b7",
+    "bytes": 10465
+  },
+  "actual_integer_foundation_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/verification.json",
+    "sha256": "07731f53a2edeb1b36045d345d0deec4502f4230fd796d82d1f0c166cf5c625d",
+    "bytes": 10479
+  },
+  "actual_range_foundation_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/verification.json",
+    "sha256": "4bfb12eec19283f11928c6859f70cce51f26441f2c53e8984093f00ad3ea3bde",
+    "bytes": 15970
+  },
+  "actual_word_foundation_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/verification.json",
+    "sha256": "97aec81f6a0c833d656455a28d9643224b2961eb134035844df84afd3cb24337",
+    "bytes": 17062
+  },
+  "original_standard_source_export_checkpoint": {
+    "evidence": "verification/standard-sources/verification.json",
+    "status": "scoped_checks_passed",
+    "affected_Go_roots": 51,
+    "subtests": 325,
+    "original_source_objects": 5482,
+    "source_typed_packages": 178,
+    "native_packages": 179,
+    "export_objects": 178,
+    "export_bytes": 79390348,
+    "complete_syntax_nodes": 1472407,
+    "R06_status": "pending",
+    "W01_complete": false,
+    "authoritative_immutable_native_replay_claimed": false,
+    "CSharp_tests_executed": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp"
+  },
+  "original_replay_image_checkpoint": {
+    "evidence": "verification/replay-image/verification.json",
+    "status": "scoped_checks_passed",
+    "affected_Go_roots": 22,
+    "subtests": 177,
+    "native_modules": 4,
+    "native_packages": 182,
+    "whole_original_exports_each_replay": 181,
+    "whole_original_export_bytes_each_replay": 79406918,
+    "two_fresh_kernel_replays": true,
+    "x86_64_emulated": true,
+    "R06_status": "pending",
+    "W01_complete": false,
+    "production_general_context_or_source_proof_claimed": false,
+    "CSharp_tests_executed": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp"
+  },
+  "owned_original_namespace_view_checkpoint": {
+    "evidence": "verification/namespace-view/verification.json",
+    "status": "scoped_checks_passed",
+    "affected_Go_roots": 30,
+    "subtests": 192,
+    "original_failure_preserved_and_fixed": true,
+    "verified_materialized_files": 5590,
+    "reconciled_original_namespace_nodes": 6441,
+    "native_modules": 4,
+    "native_packages": 182,
+    "whole_original_exports_each_replay": 181,
+    "whole_original_export_bytes_each_replay": 79406918,
+    "two_fresh_kernel_replays": true,
+    "x86_64_emulated": true,
+    "R06_status": "pending",
+    "W01_complete": false,
+    "production_general_context_or_source_proof_claimed": false,
+    "CSharp_tests_executed": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp",
+    "Darwin_unmaterialized_special_mode_controls": 4,
+    "Linux_full_special_mode_controls_passed": 6,
+    "post_format_affected_roots": 2
+  },
+  "restored_original_source_export_consumer_checkpoint": {
+    "evidence": "verification/image-consumer/verification.json",
+    "status": "scoped_checks_passed",
+    "affected_Go_roots": 59,
+    "subtests": 290,
+    "Darwin_unmaterialized_special_mode_controls": 4,
+    "source_export_snapshot_components": 2,
+    "complete_original_objects_restored": 5674,
+    "source_typed_packages_after_original_roots_and_donor_retirement": 181,
+    "source_syntax_nodes": 1472495,
+    "full_native_module_objects_equal": 4,
+    "full_native_package_objects_equal_except_derived_export_locator": 182,
+    "whole_original_export_objects_equal_each_replay": 181,
+    "whole_original_export_bytes_equal_each_replay": 79406936,
+    "original_checksum_byte_map_aliases_reproduced_and_fixed": true,
+    "R06_status": "pending",
+    "W01_complete": false,
+    "registered_general_context_or_source_proof_claimed": false,
+    "CSharp_tests_executed": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp"
+  },
+  "complete_original_Go_observation_and_owned_comparison_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/native-observation/verification.json",
+    "sha256": "a286e6166f50197e0d563968bbb0d2e2307a5c2f8c58451405b1c1ba071fd7bc",
+    "bytes": 11637,
+    "status": "scoped_checks_passed",
+    "scope": "Actual controlled complete Go observations, same live original Go owner comparison of two independent fresh readonly executions, full4-module/182-package metadata and181 whole original archives per run. Complete original failed/fixed epochs, no-unsafe1/1 regression and exact single diagnostic restoration remain. Production kernel/context/general consulted namespace/selected closure/full56-all6-19 foundation/all169/T02-T11 remain due.",
+    "source_program_application_proof_claimed": false,
+    "R06_completed": false,
+    "W01_complete": false,
+    "CSharp_tests_executed": false
+  },
+  "installed_compiler_qemu_checkpoint": {
+    "status": "scoped_checks_passed",
+    "inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-qemu-inspection.json",
+      "sha256": "c79ab9506767c55546fa7afecfd285580b6832a15555ea7647c0b21de237368a",
+      "bytes": 1778
+    },
+    "installed_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-qemu-binding/result.json",
+      "sha256": "c92216725a42050f460ce69e6fa6e2f107c3f0ec7fb6eaddd4a55e05f115ae78",
+      "bytes": 23758
+    },
+    "test_only_snapshot": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-compiler/whole-snapshot-diagnostic/result.json",
+      "sha256": "e139f115e3521061812196512072aecc0a59e0ff7ec051f78c5573817e77fb04",
+      "bytes": 2232
+    },
+    "diagnostic_format_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-probe-check/result.json",
+      "sha256": "ab128792f7159ebaa9e870901dd2c60b8f758c494b5f47ff2009bc583769aa36",
+      "bytes": 1518
+    },
+    "selection_reason": "Check the changed private installed-SDK owner and its complete original Go/Rust bundle integration, source/export binding, host and namespace/registry controls; vet and format only the added diagnostic. No unrelated test roots or cumulative T02 gate are run.",
+    "go_toolchain_files": 5577,
+    "go_toolchain_bytes": 166354960,
+    "rust_toolchain_files": 360,
+    "rust_toolchain_bytes": 1467509632,
+    "original_packages": 182,
+    "original_source_objects": 5697,
+    "root_selections": 1,
+    "contract_overlays": 0,
+    "installed_checks": 9,
+    "actual_installed_root_exercised": true,
+    "native_Linux_release_acceptance": false,
+    "public_profile_activated": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "analysis_frontend_build_info_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare the changed Rust frontend metadata validator with complete native Go controls and the exact registered binary; run affected compiler/ELF/SDK and CLI tests plus targeted lint and formats. Preserve the complete original owners and defer the whole T02 gate.",
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/native/result.json",
+      "sha256": "ffc0741ccc3ea776c26656dcd6af680ab18d2f7cd49d271a887cfc5dbf1ab36e",
+      "bytes": 1082
+    },
+    "rust_affected_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/vc-selected/result.json",
+      "sha256": "ede6a4f6833e23989d68b70aa0eea683b6eaaa2ace7fd9766b540811c7e3f7f9",
+      "bytes": 2192
+    },
+    "cli_default_full_snapshot": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/whole-snapshot-host/result.json",
+      "sha256": "ca13487e3e1f89940b06af0857108c9c684456319cfc2a20b16eac160ada94d1",
+      "bytes": 2216
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/go-checks/result.json",
+      "sha256": "fef5e696b3cc4fe496b4b7b853fa86cdb324aba14a74b494837b558c96d5f47a",
+      "bytes": 1536
+    },
+    "vc_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/vc-clippy-check/result.json",
+      "sha256": "d80386b9b961d6b7cc8bb8600979e23c4aec08aa363b8d8b57cb6745c30b66ca",
+      "bytes": 2042
+    },
+    "cli_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/cli-clippy-check/result.json",
+      "sha256": "406065c56c31697c46a64cf24481e29ff7fd22bd364f6e692aa4f22810e669ab",
+      "bytes": 1895
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/rust-format-tests-check/result.json",
+      "sha256": "8973f26df37f5fb698c5cf7573ac9f0eaa78e0c694550efdd605b9d1739e6d1e",
+      "bytes": 2118
+    },
+    "source_generations": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-info/generation-diff.json",
+      "sha256": "fe93acc5b4afcf4a451a021f60a052dbd3a6a443f50f02a375852b34a2c49b7e",
+      "bytes": 135040
+    },
+    "native_go_rust_observations": 38,
+    "accepted": 4,
+    "rejected": 34,
+    "actual_installed_root_recheck": "passed_under_local_linux_user_mode_emulation",
+    "native_Linux_release_acceptance": false,
+    "source_to_binary_correspondence_proved": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "installed_root_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-compiler/installed-qemu-analysis-inspection.json",
+      "sha256": "c4d5f844b999944ecca7f9c147dd7b6a2a65c2935089f8d08db909c7009511cd",
+      "bytes": 1799
+    }
+  },
+  "analysis_vendor_manifest_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare the new Rust vendor manifest reader with the exact Go producer, preserve the full original manifest and byte-level boundary controls, run the affected source/type-key tests and scoped format/lint; defer the whole T02 gate.",
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-vendor/inspection.json",
+      "sha256": "82ee59d3a46b1379bb91978c48639bb3649e71ce671cb1222d30476dc7c9ffd8",
+      "bytes": 1917
+    },
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-vendor/native/result.json",
+      "sha256": "15c9b8d52cad3d352f7c2754e53a8c3734948c2da5ccd2a509ba78f1fcb52a84",
+      "bytes": 1071
+    },
+    "rust_affected_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-vendor/vendor-selected/result.json",
+      "sha256": "4d15c13186a9ff92de4494dbd027598c9f9712142b56d9ce00cccceccfcb7535",
+      "bytes": 2086
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-vendor/go-checks/result.json",
+      "sha256": "cab70f9adf1018b2c17bfa98a3b780d012ca5a21af3bb2dc91042639f3c62aa3",
+      "bytes": 1520
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-vendor/vendor-clippy-check/result.json",
+      "sha256": "6ded896f9e2e2dbc3450ad96cdb73cb6332a1146388ae520c5bf2602ce17b0ff",
+      "bytes": 1939
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-vendor/rust-format-check/result.json",
+      "sha256": "b34ba48a16dcdedab9408988e5ffdfec2df2e0d73f5ea017b0ab9a064a2fba68",
+      "bytes": 2272
+    },
+    "native_go_rust_observations": 36,
+    "accepted": 10,
+    "rejected": 26,
+    "original_packages": 29,
+    "maximum_packages": 32768,
+    "source_to_binary_correspondence_proved": false,
+    "native_Linux_release_acceptance": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "analysis_archive_vendor_bytes_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare all original analysis ZIP members and vendor source bytes with the actual Go capture, run six original-tree/archive controls and affected vendor/module-data tests, then rerun only the new error-class assertions; defer the T02-wide gate.",
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-archive/inspection.json",
+      "sha256": "845b7e1406b60d0775a12b6d1fd3dcc17146d1d9a26332fb778b2ffa90c5201a",
+      "bytes": 1947
+    },
+    "final_control_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-archive/control-inspection.json",
+      "sha256": "475eebc4cfe015ff8b10114511a5b98e33916e4e24c13c4a107b364bc7990594",
+      "bytes": 1789
+    },
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-archive/native/result.json",
+      "sha256": "a031d6fc694e0312191429703b77b5204fd05f0a7bc36d48e1828662a8c66cee",
+      "bytes": 73934
+    },
+    "rust_affected_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-archive/archive-selected/result.json",
+      "sha256": "b674a013274efe9ac17515e156bf08d843da6bc3791e171acc92d1b91f7d6cc7",
+      "bytes": 2211
+    },
+    "rust_final_controls": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-archive/archive-controls-final/result.json",
+      "sha256": "97741f370459da84c291846596f09fc42e3ace40c6f14ba8977ba6c54c7d2051",
+      "bytes": 2130
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-archive/go-checks/result.json",
+      "sha256": "aedb481295f3675e4946eb8ca7a6653d4322bfa4c9691edff1fcaa07578aa088",
+      "bytes": 1524
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-archive/archive-clippy-controls-final/result.json",
+      "sha256": "7131248464c7969bb65f1006b0673895b35337c1f96897cc34c3822bc74d265d",
+      "bytes": 1992
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-archive/rust-format-controls-check/result.json",
+      "sha256": "999e0e459216403478202b0617fe5acaa6b0c505d38360a5391ef84fad4a5771",
+      "bytes": 2500
+    },
+    "original_sources": 213,
+    "archives": 3,
+    "archive_members": 1751,
+    "vendor_files": 133,
+    "native_go_rust_controls": 6,
+    "supplied_files_prove_complete_namespace": false,
+    "source_to_binary_correspondence_proved": false,
+    "native_Linux_release_acceptance": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "analysis_namespace_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Test the new observed-namespace boundary and its immediate archive/snapshot consumers, compare native Go observations with full original bytes, and defer the T02-wide gate.",
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-namespace/inspection.json",
+      "sha256": "70dcaeb89b8f80eed0a96c0f1a2ecc8acc41b4dbf4f79dfa2f8e24f3dd3707f7",
+      "bytes": 2181
+    },
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-namespace/native/result.json",
+      "sha256": "f20f23c3ef7d10c59808fd17a29faf36c62586bfae2f4663608851bdd469e663",
+      "bytes": 73666
+    },
+    "rust_affected_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-namespace/namespace-tests/result.json",
+      "sha256": "331949e5e450ea91dfe6fab312d843e323763834dd438f1cf847728b3083a1a5",
+      "bytes": 2233
+    },
+    "rust_snapshot_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-namespace/snapshot-tests/result.json",
+      "sha256": "30b55f5019e2fee9873487aafddf62496e4978968a5fedfce749451cc15932f4",
+      "bytes": 2199
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-namespace/go-checks/result.json",
+      "sha256": "21b1a063433ad5125947676f68d174d6b01981943969d12c990cab8c6083ad21",
+      "bytes": 1531
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-namespace/namespace-clippy/result.json",
+      "sha256": "83a613b7f89536e4444f65cd0d63a0808de6562ad34018ce28e1de8fd352e62c",
+      "bytes": 2126
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-namespace/rust-format/result.json",
+      "sha256": "6a7af6ef1f7203a9db659b4352e8adb14b043b6ef30e00217326c8e55e94028b",
+      "bytes": 2246
+    },
+    "original_sources": 213,
+    "archives": 3,
+    "archive_members": 1751,
+    "vendor_files": 133,
+    "native_go_rust_observations": 6,
+    "snapshot_authenticates_original_root": false,
+    "source_to_binary_correspondence_proved": false,
+    "native_Linux_release_acceptance": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "analysis_budget_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare original, exact-limit and one-over Go/Rust analysis namespace budgets and rerun the affected namespace/archive tests; defer the T02-wide gate.",
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-budget/inspection.json",
+      "sha256": "4999a3b1ea70c44275a691eb5cef18b3362eeb022e4292b8314b8cc40c75315e",
+      "bytes": 1899
+    },
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-budget/native/result.json",
+      "sha256": "3b7ff5d48455ff4c1775cf6936a30097454f47276200819cf6c855cd636d5542",
+      "bytes": 1978
+    },
+    "rust_affected_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-budget/budget-tests/result.json",
+      "sha256": "ec30098b784c3d8fdd7635f7a33d9a6e5e9ce4d4c24d57add1901d2f9af3cfe8",
+      "bytes": 2278
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-budget/go-checks/result.json",
+      "sha256": "de874105c2a829e906f8945665422e7cc0ef5c46a571291ab007d12f9adef8a1",
+      "bytes": 1520
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-budget/budget-clippy/result.json",
+      "sha256": "08548884020b87d7b28d2eb5d75ab506bbb7d9c5200575f54d7871a6bc75586e",
+      "bytes": 2123
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-budget/rust-format/result.json",
+      "sha256": "afbc1d9deebaa1fd2698a3274245895cbc59f16bfdc2ff436132188fa0330acf",
+      "bytes": 2131
+    },
+    "original_sources": 213,
+    "vendor_files": 133,
+    "archives": 3,
+    "archive_namespace_entries": 2403,
+    "entry_limit": 131072,
+    "native_go_rust_observations": 3,
+    "all_other_capture_archive_budgets_proved": false,
+    "snapshot_authenticates_original_root": false,
+    "native_Linux_release_acceptance": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "analysis_module_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare full original and adversarial Go/Rust analysis module metadata, and test the directly consumed manifest, sum, vendor namespace and archive components; defer the T02-wide gate.",
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-module/inspection.json",
+      "sha256": "cefc3d70405df085dc69c9f840e0f799788b17c8f1b9d556b4d9d3d5d06193f1",
+      "bytes": 2164
+    },
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-module/native/result.json",
+      "sha256": "48726406ce5761f968f8382243189040ed7b2c5b4a1411cefb3c6b212566a936",
+      "bytes": 6916
+    },
+    "rust_affected_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-module/module-tests/result.json",
+      "sha256": "dbbde3d62fe86aaea15ead64a8bc944c43de58ade4d1f868a4314b42ef5b10f5",
+      "bytes": 2305
+    },
+    "rust_manifest_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-module/manifest-tests/result.json",
+      "sha256": "e4ef60e213657efa5a6eaa1a715a323b023b81d7e8c1f21518764bd81b97be62",
+      "bytes": 2249
+    },
+    "rust_sums_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-module/sums-tests/result.json",
+      "sha256": "f198e94208ffa21083da6a3a4d442a77f46881301114396a246f6198eb93bf55",
+      "bytes": 2230
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-module/go-checks/result.json",
+      "sha256": "a39ce2c91dda1c8cbfb70b3025772cab4d756950687397e228674a4fba8967fd",
+      "bytes": 1520
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-module/module-clippy/result.json",
+      "sha256": "d48509aa82557e9ae7aaea5d11f065e5c49f4ab7802eca815f6bd011c955937e",
+      "bytes": 2251
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-module/rust-format/result.json",
+      "sha256": "669122fe2321dbe261c46bf53be12acecee936005c91428386d81312c3e9ba28",
+      "bytes": 2351
+    },
+    "sdk_restore": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-module/sdk-restore/result.json",
+      "sha256": "80366bdf77ab8a21e255db42b51d68d0a8f8ff2966234c9dff5db3600abaef55",
+      "bytes": 1021
+    },
+    "prelaunch_initial_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-module/prelaunch/result.json",
+      "sha256": "e7f9f8ae35745ca8c837e60baf57c45860cddf7af445f19b9458a0d1a0b559c3",
+      "bytes": 699
+    },
+    "prelaunch_restored": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-module/prelaunch-restored/result.json",
+      "sha256": "15046bcf49fc525abac612ba5a068fb59479883e5051f75ed118b6840b6c1af9",
+      "bytes": 1715934
+    },
+    "original_sources": 213,
+    "vendor_files": 133,
+    "archives": 3,
+    "native_go_rust_observations": 20,
+    "accepted": 4,
+    "rejected": 16,
+    "cached_info_verified": false,
+    "snapshot_authenticates_original_root": false,
+    "source_to_binary_correspondence_proved": false,
+    "native_Linux_release_acceptance": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "analysis_info_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare the original and adversarial Go/Rust module-info records and five snapshot controls, and rerun direct module/namespace/archive and Unicode fold consumers; defer the T02-wide gate.",
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/inspection.json",
+      "sha256": "0492829d8a5f999bd8781a6d5b42e29a7fd592e8d97830154adb7f2616a47065",
+      "bytes": 2897
+    },
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/native/result.json",
+      "sha256": "9635514f24a2f5ad0b964c6c5f9c2eeadb6006002015e096b52c5755c333d8c8",
+      "bytes": 13382
+    },
+    "rust_affected_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/info-tests/result.json",
+      "sha256": "36da1cef80ae5fb5487918cb4024556107745262bfddcd2a8480349eb4afb1b8",
+      "bytes": 2369
+    },
+    "rust_unicode_fold": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/fold-tests/result.json",
+      "sha256": "ee18a210fae43acb8b91dd302c17e46bd9aecff7a119a86aac41665828f1be47",
+      "bytes": 2239
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/go-checks/result.json",
+      "sha256": "54dd5d8720d54aad631817d335f21943ee6ffa825a07dcd7719b1242510791d7",
+      "bytes": 1511
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/info-clippy/result.json",
+      "sha256": "5fb87b7bb5611c9f8b320ea4bdb0ca8b0606affdc764e1b5509aea1e86ff345a",
+      "bytes": 2213
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-info/rust-format/result.json",
+      "sha256": "5d19d6795f4144b21bcc3f97a34e786229d95a0bc018a2d29e2d08ca1bbf6581",
+      "bytes": 2577
+    },
+    "original_sources": 213,
+    "vendor_files": 133,
+    "cached_info_records": 3,
+    "native_go_rust_observations": 36,
+    "accepted": 15,
+    "rejected": 21,
+    "snapshot_controls": 5,
+    "exhaustive_json_time_equivalence_proved": false,
+    "original_root_or_vcs_authenticated": false,
+    "source_to_binary_correspondence_proved": false,
+    "native_Linux_release_acceptance": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "general_module_info_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare Go/Rust info behavior using the original application dependency, preserve full snapshot/SDK, and rerun the directly affected module-data and analysis consumers; defer the T02-wide gate.",
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-info/inspection.json",
+      "sha256": "f2b112662104dd49ca79f918821c31ee23ed2c65a83a05b124dcdcf283169032",
+      "bytes": 1860
+    },
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-info/native/result.json",
+      "sha256": "5260e9cd97bcd22989b86f03d7c28355fce6b1ffa1b8e840fe7b278e668a4b40",
+      "bytes": 5822
+    },
+    "rust_application_controls": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-info/generic-tests/result.json",
+      "sha256": "c3767017ce7781c4942fa39f1ab24c94c6cae1c2d3d3b7268dbed796085d0724",
+      "bytes": 2473
+    },
+    "rust_original_owners": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-info/owner-tests/result.json",
+      "sha256": "3b87e93e3c9582b441c5f61d5256544b49cd5d9e9de3a88a6b5ef3f484051a45",
+      "bytes": 2314
+    },
+    "rust_rebound_controls": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-info/rebind-tests/result.json",
+      "sha256": "f1e93d4543a9493a5563885bd58531bac51bc011e227ccbc242478f9a8f62f44",
+      "bytes": 2312
+    },
+    "rust_analysis_consumers": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-info/consumer-tests/result.json",
+      "sha256": "a7a4b27f1a206323275b7457f3cf4573e094f16239e9680b372dc293ae1a4d76",
+      "bytes": 2392
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-info/go-checks/result.json",
+      "sha256": "208653d3fbe993b09918c84fdc3654895fc355e5524f5e0e75a6595f479cbbea",
+      "bytes": 1503
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-info/generic-clippy/result.json",
+      "sha256": "fcddc875426022b5a490f4affe6c933cf562ddc4046c084db812f27952806ae1",
+      "bytes": 2278
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-info/rust-format/result.json",
+      "sha256": "3f47a49777ce81bda6d8d626eda9737c71b4883d93ad105a82e5c11d95abbabc",
+      "bytes": 2464
+    },
+    "original_application_and_sdk_files": 22323,
+    "original_versioned_source_objects": 5490,
+    "original_root_contracts": 1,
+    "native_go_rust_observations": 14,
+    "accepted": 7,
+    "rejected": 7,
+    "original_root_or_vcs_authenticated": false,
+    "source_to_binary_correspondence_proved": false,
+    "native_Linux_release_acceptance": false,
+    "R04_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "analysis_source_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare all original analysis Go sources and Go/Rust syntax, embed and namespace controls; test the directly consumed parser and lexer, and defer the T02-wide gate.",
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-source/inspection.json",
+      "sha256": "7a16112c41054f3efdbc5ff6a585ef58c96eed9c3e9115d7c50c7849d730540a",
+      "bytes": 2244
+    },
+    "native_go": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-source/native/result.json",
+      "sha256": "c993afa258d7c091690ee5b7259aa637a9b5588aa1f09663a255472982e5e5c0",
+      "bytes": 5233
+    },
+    "rust_affected_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-source/source-tests/result.json",
+      "sha256": "c81ded1d49d71d9749c3d5488b70fd580979a1878bc695b92b045d6c101074c4",
+      "bytes": 2233
+    },
+    "rust_parser_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-source/parse-tests/result.json",
+      "sha256": "465d03d86537e173a2bf3f7c319d560ea22e89f4435315ff34d1d67eaac6732e",
+      "bytes": 2257
+    },
+    "rust_lexer_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-source/lex-tests/result.json",
+      "sha256": "957c5723372827c2cf639d1ab4d11229eb4b9df325d42d48ff45f5f260de8df7",
+      "bytes": 2269
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-source/go-checks/result.json",
+      "sha256": "c9db3160ea57ddc173d3f2812af7ec3067afd73ee5125570e9543b3ba733a40c",
+      "bytes": 1520
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-source/source-clippy/result.json",
+      "sha256": "9f999c4132b43735fb9ffa05fddf8057f1fb37fe7b0d5cdcb3bdbcf3f1f5d711",
+      "bytes": 2153
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-source/rust-format/result.json",
+      "sha256": "fd1a0bb2796b896db29cb38e78efe76bcdd2a7ddb11e0eed54149b0f39d8b303",
+      "bytes": 2229
+    },
+    "original_sources": 213,
+    "frontend_go_files": 65,
+    "vendor_go_files": 126,
+    "native_go_rust_observations": 20,
+    "accepted": 9,
+    "rejected": 11,
+    "exhaustive_go_parser_equivalence_proved": false,
+    "snapshot_authenticates_original_root": false,
+    "source_to_binary_correspondence_proved": false,
+    "native_Linux_release_acceptance": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "analysis_build_list_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Compare complete Go/Rust analysis build inputs and two fresh offline builds, rerun the affected source owner and defer the T02-wide gate.",
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-list/inspection-stored.json",
+      "sha256": "70a2b0d9c9a15f6ef19b34c974094b95f74a71d157a5bf7c9eea741ec57fb32d",
+      "bytes": 2965
+    },
+    "native_go_and_builds": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-list/native/result.json",
+      "sha256": "c3a3739c153e51114644cf0f93ca92f5435a9b20cb37a12c24c96271b8b58e85",
+      "bytes": 2385
+    },
+    "rust_affected_tests": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-list/list-tests/result.json",
+      "sha256": "f8c630a176cc6149d53d3d7806e4a2f323e7b30fbafed05ae285ba6e14f6843f",
+      "bytes": 2452
+    },
+    "go_format_and_vet": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-list/go-checks/result.json",
+      "sha256": "773d769b823750a0f213b9ce4d38f750750bd7eb2df8656b4a1dc5de46fda46d",
+      "bytes": 1536
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-list/list-clippy/result.json",
+      "sha256": "984712e772a005fb2ef96f52137c04b4f98081f8668eda3f44bf65f4cb4ac4b0",
+      "bytes": 2115
+    },
+    "rust_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-list/rust-format/result.json",
+      "sha256": "fd90d1e007be9d5309e681530b923b455faf6f94b9a0abbcc44fa9c9ffd70106",
+      "bytes": 2165
+    },
+    "original_sources": 213,
+    "frontend_go_files": 65,
+    "vendor_files": 133,
+    "build_inputs": 201,
+    "independent_builds": 2,
+    "build_bytes": 9004678,
+    "build_sha256": "e24e92e2aec2dd70e5fdcc698ee868561566a13b73dc74f07e48d399c6ce58f0",
+    "built_binary_equals_registered_frontend": false,
+    "snapshot_authenticates_original_root": false,
+    "registered_source_to_binary_correspondence_proved": false,
+    "native_Linux_release_acceptance": false,
+    "R03_complete": false,
+    "R06_complete": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "initial_inspection_before_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-list/inspection.json",
+      "sha256": "5435f54717f2250443ce2301ef364fdf8651479dab2594ba211733e0a899cf70",
+      "bytes": 2200
+    },
+    "lossless_binary_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-list/binary-storage.json",
+      "sha256": "f0cccbc489252785b7746d9899fe8fbd06398e8cf28f0dceb6df440fcdf78f4a",
+      "bytes": 2218
+    },
+    "initial_binary_text_review": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-build-list/review-initial.json",
+      "sha256": "c195f2d3323f64362c92e582e450c70a92575a3f433b3b58749bdb1e59175c8f",
+      "bytes": 23879
+    },
+    "both_complete_binaries_recoverable": true,
+    "review_note": "The initial scan detected incidental text matches in ELF machine bytes. Both full outputs are preserved in separate, exactly reversible hex files; scanner rules and exclusions are unchanged."
+  },
+  "source_root_matching_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Exercise complete original analysis roots, source bytes and namespace, including mutation and native type controls; rerun directly affected snapshot importer, Linux-target Clippy and changed-file format.",
+    "original_snapshot_objects": 213,
+    "original_capabilities": 2,
+    "observed_directories": 52,
+    "observed_entries": 373,
+    "initial_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-matching/initial/result.json",
+      "sha256": "34ebd6909cfb7a72ad64daa7c9d5984385e0530a2736ef2e77a5334aa421abd1",
+      "bytes": 777
+    },
+    "expanded_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-matching/expanded/result.json",
+      "sha256": "e88fc083900961e8319629ea0e34703a2473631f2515f075db1189e92260a322",
+      "bytes": 777
+    },
+    "direct_snapshot_importer": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-matching/snapshot-regression/result.json",
+      "sha256": "3a9f469d65e0a4c203e8b3088a361170be0df80d47ed8ac60d68e11079c81c4a",
+      "bytes": 799
+    },
+    "linux_target_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-matching/clippy-linux-target-expanded/result.json",
+      "sha256": "813f6117c3078fae445f1a5ccce7ef82f47ea578f088335ed8689fc51a87e0eb",
+      "bytes": 810
+    },
+    "format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-matching/format.json",
+      "sha256": "a86d9d2f5996c040b601fea4418ccbc3294647bdb7d5d8bda2c0a1495153f17b",
+      "bytes": 1322
+    },
+    "clippy_availability": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-matching/clippy-availability.json",
+      "sha256": "e5b8b82fe70474872eef1b41af826203d067c03f5c567c07804670c52e635c33",
+      "bytes": 987
+    },
+    "initial_input_inventory_omitted_codec": true,
+    "expanded_input_inventory_includes_codec": true,
+    "launcher_authority": false,
+    "original_capture_epoch_bound": false,
+    "nested_mount_authority_proved": false,
+    "registered_source_binary_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "source_root_replay_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "A test-only correction restores all historical root inputs from their retained archive. Rerun the affected Linux root tests, cross-target Clippy and test format; the unchanged snapshot-importer regression is retained.",
+    "initial": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-replay/original/result.json",
+      "sha256": "bf3730e8738acf2270f77a65a97424e41069e62cef2724820957464e15b18281",
+      "bytes": 773
+    },
+    "detached_original_tree": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-replay/detached/result.json",
+      "sha256": "84602ab9b2c99c31d7d3ddc085205e53bd85729acef85b667f6a2e1ab25ce5c6",
+      "bytes": 774
+    },
+    "linux_target_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-replay/clippy-linux-target/result.json",
+      "sha256": "c3b37114c7b6a1af76ff95e6d228916cce0eb1f720126c0401867edf0c0d13fd",
+      "bytes": 793
+    },
+    "format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-replay/format.json",
+      "sha256": "40e5abe8dc5841a1c678d47878a2d658fadc38230f1a0a4107cd2c5d4668fc25",
+      "bytes": 498
+    },
+    "original_frontend_files": 328,
+    "snapshot_objects": 213,
+    "observed_directories": 52,
+    "observed_entries": 373,
+    "checkout_required": false,
+    "launcher_or_original_capture_authority_proved": false,
+    "registered_source_binary_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "historical_archive_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-replay/archive-storage.json",
+      "sha256": "e6f9be6be883d2fd28b3090eca689cfb4f5a90457df750cbd5a09ad67eedffab",
+      "bytes": 2383
+    },
+    "historical_archive_restore": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-replay/restore-check.json",
+      "sha256": "a43909f941198c4c603c3ffdaea2387bf83ef13f6306d444075e8c43e7ce642d",
+      "bytes": 622
+    },
+    "compressed_byte_scan_findings": 3,
+    "scanner_rules_changed": false,
+    "historical_archives_exactly_restorable": true
+  },
+  "live_root_comparison_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Run the original full multi-module application and registered SDK capture with Rust root handles opened before capture; compare the resulting complete source and namespace, rerun directly affected Go checks and Linux Rust observer checks, and independently rehash/recover all original evidence.",
+    "initial_preflight_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/preflight/result.json",
+      "sha256": "952c51b511afc70b4800ab6350afabaefad8aed260c042a868266a23919aefc3",
+      "bytes": 3769
+    },
+    "go_preflight_retry": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/preflight-go-retry/result.json",
+      "sha256": "ba06d7a22c777c61f6b2c9d2f6fcc8737ec36fdd92126824125ff4ba7bcbb601",
+      "bytes": 2373
+    },
+    "linux_target_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/clippy-linux-target/result.json",
+      "sha256": "ef60715f4ca530feb9da0fdbe41e357f18e9e48f17a5f9ec5d4290c010ee2701",
+      "bytes": 790
+    },
+    "forced_test_cfg_probe_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/clippy-linux-test-cfg/result.json",
+      "sha256": "76ab05da2506e2f45f19f54fc6b046633e7a6231acbc0bb28b9ba380012556ee",
+      "bytes": 797
+    },
+    "forced_harness_probe_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/clippy-example-test-harness/result.json",
+      "sha256": "77518976aa825b16fab33146a4af1d1f7e276969ec2e066cece80670ff489cd8",
+      "bytes": 808
+    },
+    "cargo_target_observation": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/cargo-target-observation/result.json",
+      "sha256": "ef1a813585d485212ebc9c971bab145e59f06b6e629617eff59c330ed67f9e5c",
+      "bytes": 784
+    },
+    "live_original_application": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/live-original/result.json",
+      "sha256": "2fd2728d74632c04942e3fefd1fc95162e16a39018b81b5da4f4471ac99a4b67",
+      "bytes": 2087
+    },
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/live-original/independent-inspection.json",
+      "sha256": "43e2670d767cbf93cc16257ed01ea9b2a3477c2659958f137e349576f4c5cb27",
+      "bytes": 2453
+    },
+    "complete_evidence_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/live-original/evidence-storage.json",
+      "sha256": "ccb0440fdfed6ebec1c8c4329e7cf73d20f162eaeb88b232d94c5f9fde6f3cf4",
+      "bytes": 13254
+    },
+    "complete_evidence_restore": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/live-original/restore-check.json",
+      "sha256": "74b5d2d8f069482fdefaaaa8b6f5f784feb04cbff0dcf6f150d56576fca21d6a",
+      "bytes": 1014
+    },
+    "original_objects_matched": 5516,
+    "original_directories_matched": 836,
+    "original_entries_matched": 6370,
+    "complete_application_objects": 5697,
+    "additional_export_objects": 181,
+    "registered_sdk_files": 5577,
+    "registered_sdk_bytes": 166354960,
+    "packages": 182,
+    "selected_root_functions": 1,
+    "contract_overlays": 0,
+    "original_evidence_files": 16880,
+    "original_evidence_bytes": 367714473,
+    "root_descriptors_opened_before_capture": true,
+    "launcher_authority_proved": false,
+    "export_root_authenticated": false,
+    "registered_source_binary_proved": false,
+    "application_proof_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "preflight_archive_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/preflight-archive-storage.json",
+      "sha256": "ec5022382f54166761c7b3bcdd3e6ab5acf3ede0b51781abebe9a8bcd8e418da",
+      "bytes": 1249
+    },
+    "preflight_archive_restore": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/preflight-restore-check.json",
+      "sha256": "30c176266a9d2e92cadb851e634f04e9913c1771bbdb06051c062ee1283530e8",
+      "bytes": 237
+    },
+    "preflight_compressed_byte_findings": 1,
+    "scanner_rules_changed": false,
+    "initial_review_aggregation_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/review-initial-error.json",
+      "sha256": "4d99353135bac362e76981ac8b78b70516776cd1e7254822a1531c773799c995",
+      "bytes": 1057
+    },
+    "corrected_full_review": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-root-live/review-final/result.json",
+      "sha256": "3e5c649df707a20d58390245194895ed56477a3b8d4ddb81b906e69222298591",
+      "bytes": 712
+    },
+    "reviewed_native_evidence_files": 16880,
+    "reviewed_zip_members": 837,
+    "active_review_findings": 0,
+    "archived_review_findings": 0
+  },
+  "root_compiler_capture_binding_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Run the new full-original compiler/root integration test and the directly affected source-root test, Linux-target compiler check/Clippy and changed-file format; independently recheck the prior original-root test fixture. Preserve all original data and failed diagnostics.",
+    "description": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/README.md",
+      "sha256": "218df60a06a8cf01efebff2f359447e56a8dc5da5aca76d94d8bd3a2d44a936e",
+      "bytes": 3160
+    },
+    "initial_linux_compilation": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/linux-check/result.json",
+      "sha256": "e886adad0438dc37755735bc22f4c7c2895b7dbfa342756550319d356f271a3a",
+      "bytes": 771
+    },
+    "full_fixture_restoration": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/fixture-original/result.json",
+      "sha256": "cb1a4a4672937895e36b0518b4f36b790668008e305f586bd84df5bfd46e4173",
+      "bytes": 1772
+    },
+    "test_compilation": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/test-compile-original/result.json",
+      "sha256": "fd88d87ef972720d9be947dcfd165ff95434afde84a2e2c4813dde30e7239b3d",
+      "bytes": 792
+    },
+    "affected_existing_root_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/roots-original/result.json",
+      "sha256": "8fb28b1f8bebc1c871c28638bf1839e1d8a3fd8c6bd3946976e3b8e0bb58e42b",
+      "bytes": 779
+    },
+    "initial_binding_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/binding-original/result.json",
+      "sha256": "2af78b57d5e5c9324d1a754df183aed84c100daa9af755f03b8960b5271f7dc3",
+      "bytes": 784
+    },
+    "initial_clippy_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/clippy-original/result.json",
+      "sha256": "8d5c348a8e3a619ec594857db3d2e34aa4631758085653d61b2bff2a43d98352",
+      "bytes": 783
+    },
+    "final_binding_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/binding-after-attribute/result.json",
+      "sha256": "0effbe287d6981668a05fd1b3e378c01bfcfaa1073d4ec5c60b2df45e570e53b",
+      "bytes": 798
+    },
+    "final_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/clippy-after-attribute/result.json",
+      "sha256": "1fb9e1d98a2b1e1af6939ab9205224fa9bdb105b7823c20f963080edd32b3ffd",
+      "bytes": 794
+    },
+    "initial_root_fixture_audit_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/root-fixture-initial.json",
+      "sha256": "3831c261c38220c8fc5722ad29ba5b3c193a0facdfe32cf52a5ae2e66c200f5a",
+      "bytes": 846
+    },
+    "corrected_root_fixture_audit": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/root-fixture-audit.json",
+      "sha256": "daa45df501afb987c1ab5d6183441eb1495c20a4df76a7961458a0c859c4ff8f",
+      "bytes": 74284
+    },
+    "final_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/format-after-clippy.json",
+      "sha256": "55a64344480fce13fd0a6dd8b34480160a972f5a3f9a8814810ddeffec60139b",
+      "bytes": 1665
+    },
+    "original_evidence_files": 16880,
+    "original_evidence_bytes": 367714473,
+    "original_application_entries": 74,
+    "registered_sdk_files": 5577,
+    "registered_sdk_bytes": 166354960,
+    "matched_objects": 5516,
+    "full_objects": 5697,
+    "additional_export_objects": 181,
+    "packages": 182,
+    "root_function_selections": 1,
+    "contract_overlays": 0,
+    "coherent_source_change_rejected": true,
+    "coherent_namespace_change_rejected": true,
+    "missing_required_capability_rejected": true,
+    "reclassified_unmatched_export_rejected": true,
+    "launcher_authority_proved": false,
+    "original_capture_epoch_authenticated": false,
+    "export_root_authenticated": false,
+    "registered_source_binary_proved": false,
+    "application_proof_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "scoped_review": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/capture-binding/review.json",
+      "sha256": "9ba6b536e392a18f9f97188ec99200c832d081a66298f2f2a9f26679858f1506",
+      "bytes": 18875,
+      "archive_members": 5239,
+      "zip_members": 10506,
+      "active_findings": 0,
+      "archived_findings": 0,
+      "prior_original_evidence_chunks_unchanged": 24,
+      "scanner_rules_changed": false
+    }
+  },
+  "registered_analysis_source_epoch_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Restore the entire registered Go source epoch, capture its complete actual namespace, compare original objects independently in Rust and against held roots, reproduce two full original binaries with pinned SDK/flags, and run only affected local tests, vet, lint and format.",
+    "description": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/README.md",
+      "sha256": "96465a4ebdc109ec98ae0bfe798f4685d7fe5b02ef5745fa4fd45a3479eb9a9c",
+      "bytes": 3935
+    },
+    "initial_pax_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/native-original/result.json",
+      "sha256": "d343fbfe59c2840e3bfbc8fdcacdeabe544156a929ff1a5504312ca8b342afd2",
+      "bytes": 834
+    },
+    "corrected_empty_cache_go_capture": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/native-fixed/result.json",
+      "sha256": "dacd06156e97e96c7c740b7781418d42a3cdf2587a9510306bab8824ce1e546f",
+      "bytes": 1125
+    },
+    "platform_path_rerun": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/native-after-path/result.json",
+      "sha256": "d954f2996b9614c062258e30b6cf961f8aecf63a5707b478ae7534054d209884",
+      "bytes": 1140
+    },
+    "exact_epoch_comparison": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/native-epochs-equal.json",
+      "sha256": "d9f31e7b30f2703ac1df58440f4891b69d8281b6f5c958115c1ebaf616be43ec",
+      "bytes": 39605
+    },
+    "independent_rust_owner": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/rust-original/result.json",
+      "sha256": "1a295eeeef505f292657d6dc5b62d47e6f8cf8af05c5e9052fabf9beb30ae348",
+      "bytes": 786
+    },
+    "independent_held_roots": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/roots-original/result.json",
+      "sha256": "639304f848fa90f103ae0497ac0812762901faaf0c995d589eae1e566f2f0afd",
+      "bytes": 787
+    },
+    "registered_binary_rebuild": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/rebuild-original/result.json",
+      "sha256": "54c95afa486438b5fd719e8eec8d1a9309df799414188e44f1f4b22efc1afcce",
+      "bytes": 1802
+    },
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/inspection.json",
+      "sha256": "f8b48287ca08217d8727feb92486e4aa0fd9325a2b7ba39ae627a897896336f4",
+      "bytes": 1107
+    },
+    "rust_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/rust-clippy-original/result.json",
+      "sha256": "957987ca8506b7761cce7005414ebdf592737205025999f0d9b8a361ba7114ad",
+      "bytes": 797
+    },
+    "linux_root_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/cli-clippy-original/result.json",
+      "sha256": "6599db9dff5ce4804974ba7416725c7c22ef950ede70501ec542dace11775be6",
+      "bytes": 796
+    },
+    "go_vet_final": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/go-vet-after-path/result.json",
+      "sha256": "c55a0e96526afff3fbf33a0c5c5ca3cee0bda7dd18be94816e9b263a652baeea",
+      "bytes": 789
+    },
+    "final_formats": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/formats-after-path.json",
+      "sha256": "099ee86e42f16ba7df59b59024d2614dfe3c608f86fe02db0c4209cd59a1c4e0",
+      "bytes": 2330
+    },
+    "exploratory_host_go_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/host-tar-probe.json",
+      "sha256": "43a95cc08de556c0a892bdb72dc5b305995506e180afd4a55d7d2d9181dd78b0",
+      "bytes": 880
+    },
+    "registered_source_epoch": "ed67a4c388defe8babdbc55f29851552562121d9",
+    "original_full_source_files": 269,
+    "frontend_tree_files": 242,
+    "captured_objects": 196,
+    "captured_directories": 52,
+    "captured_entries": 287,
+    "frontend_go_files": 48,
+    "vendor_files": 133,
+    "build_objects": 184,
+    "registered_sdk_files": 5577,
+    "registered_frontend_bytes": 9004378,
+    "registered_frontend_sha256": "ccc4a984d41b5da7b3a6838cbfaeee3eb23f675a2e4d7fb5d4f9fcd7e597d538",
+    "two_empty_cache_binaries_byte_equal_registered": true,
+    "all_capture_epoch_packets_and_raw_bytes_equal": true,
+    "archive_modes_distinct_from_extracted_receipt": 269,
+    "newer_source_generation_attributed_to_registered_binary": false,
+    "trusted_launcher_authority_proved": false,
+    "application_proof_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "initial_review_archive_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/archive-storage.json",
+      "sha256": "8f5d1fa87aa9de34494dda49e8f93447cf29398ff95793fca254ff3fcedb2b7f",
+      "bytes": 3023
+    },
+    "original_archives_restore": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/restore-check.json",
+      "sha256": "7cab598cbbc423a6cf8c4b23f3d44884579d43e132397e48f919b9722e322ce4",
+      "bytes": 831
+    },
+    "initial_compressed_byte_findings": 2,
+    "scanner_rules_changed": false,
+    "scoped_review": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/review.json",
+      "sha256": "e47560dd8576528de3239875f050c8e8c54730812032ab61714383996aed80a6",
+      "bytes": 164380,
+      "archive_members": 5492,
+      "zip_members": 26265,
+      "decoded_complete_binaries": 2,
+      "recovered_archives": 2,
+      "active_findings": 0,
+      "archived_findings": 0,
+      "scanner_rules_changed": false
+    }
+  },
+  "matched_analysis_root_owner_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Bind the independently parsed Go analysis source owner to independently held source roots; exercise both complete original source epochs and coherently resealed changes, with targeted Linux tests, lint and format.",
+    "description": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/README.md",
+      "sha256": "b4bb26fce293879f85fc0a038027e6f3529314077cba9dc1d90b6bd5843cf74e",
+      "bytes": 2566
+    },
+    "initial_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/test-original/result.json",
+      "sha256": "715b521efad3e7c69eb22c4e6251904a5519a6eaa982c082a94594d2da9fa9c2",
+      "bytes": 790
+    },
+    "initial_clippy_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/clippy-original/result.json",
+      "sha256": "a53b2049984ab5954834c49fea2ef63b5b581435854754704e80d68aa1425a85",
+      "bytes": 794
+    },
+    "final_test": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/test-after-import/result.json",
+      "sha256": "185cef03b8c4d444d3c5073b3c3657e3c0843b51900ade4eb92f9ee70213b5bc",
+      "bytes": 798
+    },
+    "final_clippy": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/clippy-after-import/result.json",
+      "sha256": "610bb95f4c3b4fa9c2cf778abca26c519531d1ede5756529c37bc3ac438e5156",
+      "bytes": 800
+    },
+    "final_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/format-after-import/result.json",
+      "sha256": "f47c1a3d538ee29e80caa124010895d30cee38268e0f444d325b4f979cec6896",
+      "bytes": 798
+    },
+    "registered_source_objects": 196,
+    "registered_build_inputs": 184,
+    "current_source_objects": 213,
+    "current_build_inputs": 201,
+    "cross_generation_rejected": true,
+    "coherent_source_change_rejected": true,
+    "coherent_namespace_change_rejected": true,
+    "test_only_restored_roots": true,
+    "trusted_launcher_authority_proved": false,
+    "capture_epoch_authority_proved": false,
+    "registered_source_binary_proved": false,
+    "application_proof_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "initial_review_archive_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/archive-storage.json",
+      "sha256": "fe18ac271c42a95a2a8648d11128db582e64138ffbc1e3e7425aa008e0eb0dc4",
+      "bytes": 6284
+    },
+    "original_archives_restore": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/restore-check.json",
+      "sha256": "7cac5e5c9e2947e9ebf60cfaf001bd7b91811bf22b9aa1e2f13fe48fc4359911",
+      "bytes": 1811
+    },
+    "initial_compressed_byte_findings": 6,
+    "scanner_rules_changed": false,
+    "scoped_review": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-root-binding/review.json",
+      "sha256": "c9294381fd5fcf18cd14d0f52677b8aea342f7b32c88b18a05f80f6a9be8f5bb",
+      "bytes": 14128,
+      "archive_members": 8820,
+      "zip_members": 42024,
+      "recovered_archives": 6,
+      "active_findings": 0,
+      "archived_findings": 0,
+      "scanner_rules_changed": false
+    }
+  },
+  "analysis_generations_same_recipe_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Restore the entire later recorded source epoch, rebuild it twice using the same registered SDK and exact release flags as the earlier epoch, and independently compare all original source buffers and build inputs.",
+    "description": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/README.md",
+      "sha256": "e81086088d47c6ad2a470a313b8b2547933c6221ef5ba35c8627ce1164804702",
+      "bytes": 2705
+    },
+    "two_full_rebuilds": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/same-flags-original/result.json",
+      "sha256": "3d4b9ff6744dae1a632a988398d6aba1654a07d2e4c2b2823ca628e0d878fd69",
+      "bytes": 1895
+    },
+    "initial_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/inspection.json",
+      "sha256": "333090aa31b94ee9b3ac5ceaf381969ad775146f31be90467d025c4e8a319e8d",
+      "bytes": 9726
+    },
+    "output_no_overwrite_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/inspect-output-exists.json",
+      "sha256": "8ecd87ccc0510fb02c20a4b2589dec304536ab647ee75464eccb8a923a1d3bd8",
+      "bytes": 938
+    },
+    "final_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/inspection-presence.json",
+      "sha256": "b02a8118780fd3fb30f2d82a77609136f44a5e087c23ccedf9927609f09c3f26",
+      "bytes": 9788
+    },
+    "registered_source_objects": 196,
+    "later_source_objects": 213,
+    "registered_build_inputs": 184,
+    "later_build_inputs": 201,
+    "common_byte_equal": 178,
+    "common_changed": 6,
+    "added": 17,
+    "removed": 0,
+    "registered_full_source_files": 269,
+    "later_full_archive_files": 331,
+    "registered_frontend_files": 242,
+    "later_frontend_files": 328,
+    "normalized_build_commands_equal": true,
+    "default_pgo_absent_in_both_observed_roots": true,
+    "each_epoch_two_full_binaries_equal": true,
+    "cross_epoch_binaries_equal": false,
+    "registered_binary_sha256": "ccc4a984d41b5da7b3a6838cbfaeee3eb23f675a2e4d7fb5d4f9fcd7e597d538",
+    "later_binary_sha256": "67b24a896ff32004cd71dabeee5e47c3e0475d5081973a63911d47d1c0e06c14",
+    "specific_causal_source_change_proved": false,
+    "trusted_launcher_authority_proved": false,
+    "application_proof_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "scoped_review": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/review.json",
+      "sha256": "c2e1c048b71bf6d4df8206617285f8fa87fdaa63abcc1ee551adc1fa745dd9d6",
+      "bytes": 9980,
+      "original_source_objects": 409,
+      "archive_members": 600,
+      "zip_members": 7004,
+      "decoded_complete_binaries": 2,
+      "active_findings": 0,
+      "archived_machine_byte_findings": 2,
+      "scanner_rules_changed": false
+    },
+    "initial_review_import_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/review-import-failure.json",
+      "sha256": "109cd5138cc7586357f88ef80c71bdeb4c089358b97f57ff41c155635c72710e",
+      "bytes": 1262
+    }
+  },
+  "analysis_pgo_mode_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Exercise the changed Go PGO input capture, the independent Rust importer, their build-list and matched-root consumers, and exact full offline frontend builds; preserve all original inputs and failure epochs.",
+    "description": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/README.md",
+      "sha256": "3dc436d644aa429df081959c9b2c837ea1eb1323fd14eddc3c553117ac46b42d",
+      "bytes": 4970
+    },
+    "independent_comparison": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/inspection.json",
+      "sha256": "4d90c08004d8821c74afa4f7f3595225cbae34fe58808ea86e2fc91676ddffe1",
+      "bytes": 2169
+    },
+    "requirements_metadata_initial_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/requirements-initial-failure.json",
+      "sha256": "83aea701887dc8349cef16e40041485ab5caa25e340dc19446e263e3b121f6f0",
+      "bytes": 566
+    },
+    "results": {
+      "native-before-fix": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-before-fix/result.json",
+        "sha256": "8ceb122f41ae2f033ef93571cc5c27f3818fccdeced8aa1cdbe5bdd9cddf03fe",
+        "bytes": 1120
+      },
+      "rust-before-fix": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-before-fix/result.json",
+        "sha256": "cb0db374bbbfc510c183edfe3fe371e66c3b912ea7a9b3e4d9f2d2f89302d54e",
+        "bytes": 777
+      },
+      "native-after-fix": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-after-fix/result.json",
+        "sha256": "1ba9225327eec5ad6a71c72595158e1aacce0207b417798c9b66afbd9fe481a7",
+        "bytes": 1116
+      },
+      "rust-negative-after-fix": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-negative-after-fix/result.json",
+        "sha256": "1a367c22e829e218e840a27c656ef7bbd373f8455921dcecad9d6e0f8b031bd5",
+        "bytes": 791
+      },
+      "cli-pgo-original": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-pgo-original/result.json",
+        "sha256": "b87276b64a347f1c1c5b4e4dfcaf03a1b21651aba4f3d52daf22b254bb408e1b",
+        "bytes": 778
+      },
+      "go-regression-original": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-regression-original/result.json",
+        "sha256": "12b00566542f5ec7d915f657e05c10ea0d332c6c51aa4a3f24059f7da45153ae",
+        "bytes": 3138
+      },
+      "actual-build-original": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/actual-build-original/result.json",
+        "sha256": "d5d178a3a61e24072f514b59a610487de49250289f3be614fb90e64a7ec6a8c7",
+        "bytes": 1978
+      },
+      "native-mode-aware": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-mode-aware/result.json",
+        "sha256": "88721361af58398578d9b507aa2294513082e41c6b265a3331b51f57b30a3651",
+        "bytes": 1597
+      },
+      "rust-mode-aware": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-mode-aware/result.json",
+        "sha256": "6ad0ea53cbd6abce763781110f8b35173dd44fc477a788872ac3c78e3f59c67c",
+        "bytes": 777
+      },
+      "cli-pgo-mode": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-pgo-mode/result.json",
+        "sha256": "00c9ba5b6baec2a891121c2a841e4b929ccd86cbb3ecb2fe6ab99a5cad43f69b",
+        "bytes": 769
+      },
+      "cli-baseline-mode": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-baseline-mode/result.json",
+        "sha256": "455ebbc8663e89f718f7505b74983b692ecb0acb2ec2cfc2c75126f606ab0207",
+        "bytes": 780
+      },
+      "cli-clippy-mode": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/cli-clippy-mode/result.json",
+        "sha256": "f6e53b320d3f48732f2be24005c4432dfa5de4e9ef6eb8d06141bf1ebc20f3cb",
+        "bytes": 774
+      },
+      "rust-format-mode": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-format-mode/result.json",
+        "sha256": "cf0fe6c941dd69921c1cc5af3a85730ea1de907d701977ab963fbb6f98e70b70",
+        "bytes": 774
+      },
+      "go-format-mode": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-format-mode/result.json",
+        "sha256": "e06e47f844b50c97524612ea9c5128d2f228a16d160fc9c52babff088768abbd",
+        "bytes": 769
+      },
+      "go-regression-mode": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-regression-mode/result.json",
+        "sha256": "9e4794f57f9ee365e10e60d8cde793d15a11076977d4352fbe5daf73e2ada11f",
+        "bytes": 3152
+      },
+      "rust-clippy-mode": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/rust-clippy-mode/result.json",
+        "sha256": "b43516417d518523572802af1e3249430dabb22a56731a4d71fa9e195c719df0",
+        "bytes": 775
+      }
+    },
+    "registered_original_objects": 196,
+    "registered_build_inputs": 184,
+    "automatic_profile_objects": 197,
+    "automatic_profile_build_inputs": 185,
+    "real_profile_bytes": 293923,
+    "real_profile_sha256": "d7355ec9e3c8bf05e214b202174ede4205092f852124e6f7f7287e22f6b5d980",
+    "complete_original_buffers_preserved": true,
+    "ignored_entry_controls": [
+      "regular",
+      "directory",
+      "symlink",
+      "oversized",
+      "absent"
+    ],
+    "disabled_mode_preserves_existing_capture": true,
+    "actual_auto_binary_rejected_by_build_info": true,
+    "actual_off_binary_matches_registered": true,
+    "trusted_build_mode_and_launcher_authority_proved": false,
+    "application_proof_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "analysis_pgo_filesystem_lookup_checkpoint": {
+    "status": "scoped_checks_passed_work_item_in_progress",
+    "selection_reason": "Reproduce actual filesystem lookup, preserve native source spelling and complete original bytes, reject false absence and different same-byte files with held roots, and rerun directly affected consumers.",
+    "description": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/README.md",
+      "sha256": "731abdb98601e6b17c9a7b2ddc5607be50a1cf740fb30f23e7932c0db3fca275",
+      "bytes": 4633
+    },
+    "complete_native_comparison": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/inspection.json",
+      "sha256": "c60d5c0c81395879a889fb52923400cb292ad9b86e311198f57b31204ee7cc9e",
+      "bytes": 954
+    },
+    "same_byte_crossed_control": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/crossed-inspection.json",
+      "sha256": "21486ae167b2cad64780b16fea4357fe302854dba7b61ee6abd9311b42c3decd",
+      "bytes": 659
+    },
+    "hardlink_and_unchanged_snapshot_comparison": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/hardlink-inspection.json",
+      "sha256": "c165a133cc48f9cac8120a6cc5cd0706bb6a8ec3370de53ee8e0e4818d4b55ed",
+      "bytes": 5243
+    },
+    "results": {
+      "casefold-original": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/casefold-original/result.json",
+        "sha256": "9d1c05ac919199fccfdaa772467341485b00e2e7f6eed5a069abd07c41bcfcf4",
+        "bytes": 1173
+      },
+      "casefold-fixed": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/casefold-fixed/result.json",
+        "sha256": "f310cefda2a9664cc98b773371b4a8cbe61d520db0cfc2b23777eb5f6cdf4851",
+        "bytes": 1167
+      },
+      "folded-final": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/folded-final/result.json",
+        "sha256": "c23d9aad3c57ca9a28468276201554ea455c03ba6f6b0670b3d24f6329d9218e",
+        "bytes": 894
+      },
+      "sensitive-final": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/sensitive-final/result.json",
+        "sha256": "3ad5d6a7a0f5356aa4f5ae076210bbc7ab74f47aed2f2766b5b7527c1f0201c1",
+        "bytes": 901
+      },
+      "crossed-final": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/crossed-final/result.json",
+        "sha256": "853183bb9ae6b2cefc89ae432f5b846ed579cd7a0a7079359c52e4bb064b2a27",
+        "bytes": 897
+      },
+      "hardlink-before-fix": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/hardlink-before-fix/result.json",
+        "sha256": "30375682872358a3818884c75a47f01f271ad7a3abde9e7b443f8a8cb7ff997a",
+        "bytes": 1240
+      },
+      "hardlink-after-fix": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/hardlink-after-fix/result.json",
+        "sha256": "011bd35a0b0a1a249cdbed31b2c53bfe5353673f4f31d680e15efaa67261272a",
+        "bytes": 1243
+      },
+      "folded-hardlink-final": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/folded-hardlink-final/result.json",
+        "sha256": "d9be6c209d120123ca687edc3741707f3604ba4cf8176dd29d799e0fbf5d4a2a",
+        "bytes": 913
+      },
+      "sensitive-hardlink-final": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/sensitive-hardlink-final/result.json",
+        "sha256": "d622fa1af36a3de22679bf3f6898fe5cff534abc98e597640de01428d97dd25d",
+        "bytes": 919
+      },
+      "crossed-hardlink-final": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/crossed-hardlink-final/result.json",
+        "sha256": "da9e9cf74b3d56b9a5f99a01a22cb950ef8d620c66d0afd194bd5939c360261a",
+        "bytes": 914
+      },
+      "rust-final": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/rust-final/result.json",
+        "sha256": "d3c3fbc5f35a9efe5c6ee8c773655508694ab8104e043d3a7071ca424a6a3a2d",
+        "bytes": 784
+      },
+      "rust-clippy-final": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/rust-clippy-final/result.json",
+        "sha256": "56d58f09546579e9014f36ab13b4f782031d5d7c9abebb214c97b64659a7f0ad",
+        "bytes": 795
+      },
+      "cli-final": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/cli-final/result.json",
+        "sha256": "946ff86240815df2927e4b5d902b2bf7a98c730728e633fbff5d19be7388771a",
+        "bytes": 783
+      },
+      "cli-crossed": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/cli-crossed/result.json",
+        "sha256": "b40b94a7ff9acc4a067ba8cbbcfd33b456cb3873a3c7e44fbdbe3d242f63082d",
+        "bytes": 787
+      },
+      "clippy-final": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/clippy-final/result.json",
+        "sha256": "b92527c0f3d021e94a126ed81ebf063265b2175a5b3e14c6e33a2a4b7fcdad6b",
+        "bytes": 789
+      },
+      "clippy-crossed": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/clippy-crossed/result.json",
+        "sha256": "01b45649a4424e030dd81cd209d13b54d7fdb8a6d06a7059e2c33f310933a236",
+        "bytes": 790
+      },
+      "format-crossed": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/format-crossed/result.json",
+        "sha256": "58d92dc842873a22c35bb30fb893d9395b5a1acc74d115fccb142bda16eb6a75",
+        "bytes": 788
+      }
+    },
+    "native_controls": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/native-hardlink-final/result.json",
+      "sha256": "3fe2c23da19a54fa94f183d4a54ab72944cca33f3ab447d401957b036f7e9202",
+      "bytes": 1664
+    },
+    "go_format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-format-hardlink-final/result.json",
+      "sha256": "c388db9026b3cb725e234d577c31494135302de1f933901cf17f49dd1a2241d2",
+      "bytes": 790
+    },
+    "original_objects": 196,
+    "original_build_inputs": 184,
+    "actual_profile_bytes": 293923,
+    "native_filesystem_cases": [
+      "case-sensitive",
+      "case-insensitive"
+    ],
+    "complete_capture_pairs_preserved": 9,
+    "false_absence_rejected": true,
+    "different_same_bytes_file_rejected": true,
+    "hardlink_original_name_preserved": true,
+    "verifier_tests_passed": 11,
+    "linux_root_consumer_tests_passed": 9,
+    "go_full_rebuild": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo/go-regression-hardlink-final/result.json",
+      "sha256": "ef50c49adc672a7bc5f6f8b8220f874b884b63e5f55e99d492d86fbc5f335a6c",
+      "bytes": 3232
+    },
+    "trusted_build_mode_and_launcher_authority_proved": false,
+    "application_proof_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh",
+    "archive_preflight": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/archive-preflight-storage.json",
+      "sha256": "ac6b619ddb8a9b37b3598eb50cbcd2e4d1a1d6b55205fda6c776780d8c0849b0",
+      "bytes": 7922
+    },
+    "archive_restoration": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/archive-restore-check.json",
+      "sha256": "315f80afc0be44579cf8834c32d1f90736f50ed5d1d35949adb18908d64a5a19",
+      "bytes": 513
+    },
+    "scoped_review": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/review-final.json",
+      "sha256": "9c7233fb9fd49a12abdbd525fb355987917505f48a1ca4b64f5c6caa2c08d430",
+      "bytes": 1505357,
+      "previous_unchanged_inputs": 1674,
+      "previous_archive_members": 18114,
+      "previous_zip_members": 119068,
+      "new_or_changed_files": 4169,
+      "archive_members": 24749,
+      "zip_members": 178602,
+      "active_findings": 0,
+      "archived_machine_byte_findings": 8,
+      "scanner_rules_changed": false
+    },
+    "staged_whitespace": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/analysis-pgo-casefold/staged-whitespace.json",
+      "sha256": "d354d87d729db8ca3a49509f6029146d1f3803fd9228f4149cfd5a0eeea98a9f",
+      "bytes": 5879,
+      "preserved_original_evidence_paths": 12
+    }
+  },
+  "live_export_root_checkpoint": {
+    "status": "scoped checks passed; T02-W01 remains in progress",
+    "go_observer_preflight": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/export-root-live/preflight-original/result.json",
+      "sha256": "05c5be3906ecc5e07d5e210208588e1f64056bdeecdb7b77b0f0c99485e34b0d",
+      "bytes": 3014
+    },
+    "live_actual_cache": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/export-root-live/live-original/result.json",
+      "sha256": "cf2aeae9ec92b695177277f87ef21545d56ad11902571b298dab6a4890d709f3",
+      "bytes": 2123
+    },
+    "lossless_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/export-root-live/live-original/evidence-storage.json",
+      "sha256": "5d086612634c14f0e35e6829697157e2f575dead59e0a984b603bcc80a4b8471",
+      "bytes": 13250
+    },
+    "restore_check": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/export-root-live/live-original/restore-check.json",
+      "sha256": "daa607b12f5f6d988f5f1bf539b37b036174bf5c2b26514321bcb4e961278169",
+      "bytes": 342
+    },
+    "independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/export-root-live/live-original/independent-inspection.json",
+      "sha256": "cfd61fdf3959a840c6b3c0f7a0b2c79c3a391389c3ca6f3d2019047abe361737",
+      "bytes": 2442
+    },
+    "rust_test_preflight": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/export-root-live/projection-preflight-original/result.json",
+      "sha256": "8627830c9e99fd839f964a54cf57a5ec569e5a0419bed075ea352bfe97d281a2",
+      "bytes": 1668
+    },
+    "complete_owner_projection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/export-root-live/projection-original/result.json",
+      "sha256": "73d18278aecb912f1aeb16a10d1aa7bcf5ddc364357ee811ca8003adde828445",
+      "bytes": 1847
+    },
+    "scoped_review": "develop/migrations/go-practical/t02-w01/verification/export-root-live/review-final.json",
+    "root_matched_export_objects": 181,
+    "observed_directories": 128,
+    "observed_entries": 959,
+    "complete_owner_source_objects": 5697,
+    "original_packages": 182,
+    "registered_sdk_files": 5577,
+    "registered_sdk_bytes": 166354960,
+    "losslessly_retained_original_files": 16880,
+    "coherent_changed_export_rejected": true,
+    "coherent_changed_namespace_rejected": true,
+    "both_held_root_sets_bound_to_same_owner": false,
+    "launcher_authority_proved": false,
+    "application_proof_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "combined_live_root_binding_checkpoint": {
+    "status": "scoped checks passed; T02-W01 remains in progress",
+    "initial_preflight": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-original/result.json",
+      "sha256": "38c6cef1ba65cf7a1ce327ddc0db5e28aee42fdc74325c875de97d89b37f4053",
+      "bytes": 3779
+    },
+    "repaired_preflight": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-final/result.json",
+      "sha256": "511e587399fbb04303a59d88c0031cfe51016c992fb772db27cd8c29cf06cdde",
+      "bytes": 2374
+    },
+    "missing_capability_control": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/result.json",
+      "sha256": "de6fb9ced7b1b6f365397f03949772b8999244f43dc1375628d67335ebf1b561",
+      "bytes": 3357
+    },
+    "existing_root_consumer": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/downstream-original/result.json",
+      "sha256": "d6df7bda36939295a0b20cc7fa896bd6e6b3680a42ab92b5c7b7392236630247",
+      "bytes": 1672
+    },
+    "retirement_preflight": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-retirement/result.json",
+      "sha256": "8ec9cd5b366e89e5be204507b2831817693f7d40d18a3d472a530b2f762ab98a",
+      "bytes": 3129
+    },
+    "initial_live_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-original/result.json",
+      "sha256": "c9f7ee3a8b11e71c21aaa4fd17cf796ec9867564ed5d3fb48f285c64c08b97af",
+      "bytes": 1885
+    },
+    "failure_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-original/failure-storage.json",
+      "sha256": "6bc7346412afff612015dfbc2c5d09cdaea7058fd0b1aa8ed14d5c155790a867",
+      "bytes": 1373
+    },
+    "failure_restoration": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-original/failure-restore-check.json",
+      "sha256": "26ae0fb0b940b30bdbbf16fe59cddb33ba04c33b412aadc7aa1b5f6bf5789f47",
+      "bytes": 172
+    },
+    "storage_measurement": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/storage-benchmark-original/result.json",
+      "sha256": "35591a68ba504e016372a43d0e4f4777592300581693c3f65b88fb773a397951",
+      "bytes": 1653
+    },
+    "first_live": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-volume/result.json",
+      "sha256": "d5353bd5cefe620331fc489df5a4c972a4c86c0ef17395202919f4518e52e332",
+      "bytes": 2203
+    },
+    "first_live_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-volume/evidence-storage.json",
+      "sha256": "ac1532fa39c0de69e8988e1633cd255b9ebe929c1e008f6ced5eccaa376b078e",
+      "bytes": 13251
+    },
+    "first_live_restore": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-volume/restore-check.json",
+      "sha256": "0414a315061a43e60567a4b733bce701e3889c1116d0f96c449b6ba5323f3fdc",
+      "bytes": 342
+    },
+    "first_live_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-volume/independent-inspection.json",
+      "sha256": "31018b9e337e9b215544398fd016bc689e58b1fc3ba7455503185118c7b870b2",
+      "bytes": 2837
+    },
+    "first_post_run_retirement": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-volume/retirement-check.json",
+      "sha256": "184d59483de5edad7683150ff00e84a373c9536d7f5f7b0090f0039ec4bbed1f",
+      "bytes": 2585
+    },
+    "final_live": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-retirement/result.json",
+      "sha256": "49f53ccff9977ad31fcfce9e134a5aa1eef62f3148d2602259d6df50635825df",
+      "bytes": 2282
+    },
+    "final_live_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-retirement/evidence-storage.json",
+      "sha256": "4d1aa7260592c357ba94e44ac0567f9d403166526ffee7edba501af7ec25cfcb",
+      "bytes": 13355
+    },
+    "final_live_restore": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-retirement/restore-check.json",
+      "sha256": "9f408d3b927d73b03cd5033a81ddc05cdb887855da7058bf5b8a79861a047631",
+      "bytes": 346
+    },
+    "final_live_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-retirement/independent-inspection.json",
+      "sha256": "d302f39074a63f6ca69aa50edf675a626f357d321326319c8412a32775a21721",
+      "bytes": 2916
+    },
+    "final_post_run_retirement": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/live-retirement/retirement-check.json",
+      "sha256": "3e4a5a68dc07e3b114e493b15ac7d1479dda158424355c5a2a45469656e547b5",
+      "bytes": 2573
+    },
+    "coordination_preservation": [
+      {
+        "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/prior-export-live-original-coord-preservation/receipt.json",
+        "sha256": "a0ab37328d2663bc2787e047bd6b72240a4a2c1f8b77332506ec674586ba2d37",
+        "bytes": 1224
+      },
+      {
+        "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/combined-live-original-coord-preservation/receipt.json",
+        "sha256": "c5e08088f9f4e16202dcdd8f8e979e9555180814fbaf6df64c37efebcae42b4a",
+        "bytes": 2469
+      },
+      {
+        "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/combined-live-volume-coord-preservation/receipt.json",
+        "sha256": "d7b28e8bfcb8022dec6c86b760c34cee76578167eb5643e5c8f65e04ded16cf4",
+        "bytes": 2479
+      },
+      {
+        "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/combined-live-retirement-coord-preservation/receipt.json",
+        "sha256": "008517d8efb8e74bb476b79c66f97535332c5d64492d10cca75e2e5345f25cbc",
+        "bytes": 2487
+      }
+    ],
+    "coordination_restorations": [
+      {
+        "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/prior-export-live-original-coord-preservation/restore-check.json",
+        "sha256": "d2c584c6ba1b945881fe7dcbee11a70fd1d616e8b2bc1b9d22e523a122ccfd51",
+        "bytes": 201
+      },
+      {
+        "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/combined-live-original-coord-preservation/restore-check.json",
+        "sha256": "053239dbca88dc4392b6ce2f51a010cde3fdf2869aa1dc703931e6a96932ac5f",
+        "bytes": 205
+      },
+      {
+        "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/combined-live-volume-coord-preservation/restore-check.json",
+        "sha256": "6339a5b42402e1a6fdb99093114d2ced51473b710e82f4d429021f916c92c818",
+        "bytes": 204
+      },
+      {
+        "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/combined-live-retirement-coord-preservation/restore-check.json",
+        "sha256": "58f34a73dd6077b79612d63e858c5b42d5a736b7312d9e6dd81275f7a85511a6",
+        "bytes": 204
+      }
+    ],
+    "exact_driver_history": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/runner-history/receipt.json",
+      "sha256": "a47372c68e1d54b915a20cf333c48f075f92e3221c6b8ea6849c61ef9c0f7c2f",
+      "bytes": 1371
+    },
+    "inspector_history": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/inspector-history/receipt.json",
+      "sha256": "218ec469719db9bbd803ffa4fcd6370780b5c8c64ae58d10a05aa54f46308c8a",
+      "bytes": 1071
+    },
+    "first_inspector_prior_source_hash_was_recorded": false,
+    "initial_review_lossless_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/review-initial-storage.json",
+      "sha256": "f3a8a8ea31bd9d3b019f10238799b2f7756b2886ac5a8d6bc5b15dc1b16a76f9",
+      "bytes": 1937
+    },
+    "initial_review_restoration": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/review-initial-restore.json",
+      "sha256": "a8d20ab616a437ed8d6e6969595755a9090faf606d9faa4b65873e18cb5b2f94",
+      "bytes": 171
+    },
+    "scoped_review": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/review-final.json",
+    "root_matched_source_objects": 5516,
+    "root_matched_export_objects": 181,
+    "complete_owner_source_objects": 5697,
+    "original_packages": 182,
+    "registered_sdk_files": 5577,
+    "registered_sdk_bytes": 166354960,
+    "coherent_changed_export_rejected": true,
+    "coherent_changed_namespace_rejected": true,
+    "coherent_missing_source_rejected": true,
+    "both_root_sets_retained_through_original_owner_binding": true,
+    "export_cache_retirement_checked_before_binding": true,
+    "original_go_timeout_seconds": 120,
+    "timeout_or_original_resource_caps_changed": false,
+    "installed_launcher_or_source_program_authority_proved": false,
+    "live_installed_wrapper_authority_proved": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  },
+  "test_only_installed_combined_checkpoint": {
+    "status": "scoped checks passed; T02-W01 remains in progress",
+    "test_cfg_probe": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/cfg-original/result.json",
+      "sha256": "494b6533a9207a64d1a4a10cee85a8e29e06a71dc2631be25c793dc7c7e90b09",
+      "bytes": 784
+    },
+    "initial_preflight_with_clippy_failure": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/preflight-original/result.json",
+      "sha256": "6d4b7025ff05c66989224d5312e5c307ff2f12a865d9c9de8c364f756caba7c2",
+      "bytes": 3117
+    },
+    "initial_clippy_scope_attempts": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/scope-original/result.json",
+      "sha256": "1853625a9fcceb564427a4ba062f1acfe3361dc0d4b8476029eceeafa8414af1",
+      "bytes": 1677
+    },
+    "target_scoped_checks": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/scoped-final/result.json",
+      "sha256": "dd14c57e6a1959758680569346e01d559c2e3919dc5d1e0f2255695bcad78d42",
+      "bytes": 4382
+    },
+    "target_scoped_lint_audit": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/lint-scope-audit.json",
+      "sha256": "a034a5c7e02c4146936217d3e2b1a277ce3ff5129e7a02dba53a2e17373b807a",
+      "bytes": 1296
+    },
+    "original_test_binary": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/binary-original/receipt.json",
+      "sha256": "a8a0316c7cc22f1742aa8a57982aadfbaa34ea5a5912201e76d0bd2676b8cc90",
+      "bytes": 1545
+    },
+    "original_test_binary_restoration": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/binary-original/restore-check.json",
+      "sha256": "2531371433580c2f19dbf2ce76f944d05d396fca75e1d3888bec4d8dc57fa393",
+      "bytes": 373
+    },
+    "final_test_binary": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/binary-final/receipt.json",
+      "sha256": "7438f2765acc830d3cb21120d23591641bdf7ee48499759fa079b9a632f3643d",
+      "bytes": 1533
+    },
+    "final_test_binary_restoration": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/binary-final/restore-check.json",
+      "sha256": "cbc3853c6399bbb33082939724d4f9b00a053ca7b46a0bea413750e38ee5d2e6",
+      "bytes": 374
+    },
+    "live_capture": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/live-original/result.json",
+      "sha256": "057625e03904ed901c37b557f9bd56b5947d202411cdbe42687c1dbbb1e0201c",
+      "bytes": 2309
+    },
+    "live_evidence_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/live-original/evidence-storage.json",
+      "sha256": "115cd40f85691de029a0bac836394af9bf0ce22650c1b3566682a4659c0d7f98",
+      "bytes": 13308
+    },
+    "live_evidence_restoration": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/live-original/restore-check.json",
+      "sha256": "f7f696a354a185d1447bed3e64e418be0ca7775dc06af7ea619e310945f68fc1",
+      "bytes": 354
+    },
+    "live_independent_inspection": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/live-original/independent-inspection.json",
+      "sha256": "54719226ac40c5805caf26b805fdd5b87b5b9e854b912d59e2d89750d78eb09c",
+      "bytes": 3692
+    },
+    "post_run_retirement": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/live-original/retirement-check.json",
+      "sha256": "6e98adec7413433aa4786f330515fa66a8decadc7c4e1b10d361db3ef5cc5385",
+      "bytes": 2581
+    },
+    "coordination_preservation": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/combined-live-original-coord-preservation/receipt.json",
+      "sha256": "f5272a274fad5bc11ce81cb801cfab302398cabe5a308ce60dcf7f3fe457532c",
+      "bytes": 2487
+    },
+    "coordination_restoration": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/combined-live-original-coord-preservation/restore-check.json",
+      "sha256": "9d81b8bf5fed6d743d9d0cefa4a258b2319f48a3749e8eb4c57f396980f73dd8",
+      "bytes": 208
+    },
+    "exact_live_driver": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/driver-history/receipt.json",
+      "sha256": "17cc6eb8a0268ef81e193757239c1350e02d1553eec9df1793406bc62b10e43a",
+      "bytes": 463
+    },
+    "exact_live_driver_restoration": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/driver-history/restore-check.json",
+      "sha256": "d81e205ad375ec0964b4d19de080a8a0c46d410251855970e2c680e665f6cf97",
+      "bytes": 366
+    },
+    "archive_precheck_storage": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/archive-precheck-storage.json",
+      "sha256": "bd7a494d0da5e17015a6d95b3086a5d70b3c85eb58a0eddf441f7e509c9e16e1",
+      "bytes": 1361
+    },
+    "archive_precheck_restoration": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/installed-combined/archive-precheck-restore.json",
+      "sha256": "c26a9cce54702431bc22c5e177ff1f971091b49137d3d2acf905f1afc1fdb818",
+      "bytes": 182
+    },
+    "scoped_review": "develop/migrations/go-practical/t02-w01/verification/installed-combined/review-final.json",
+    "root_matched_source_objects": 5516,
+    "root_matched_export_objects": 181,
+    "complete_owner_source_objects": 5697,
+    "original_packages": 182,
+    "registered_sdk_files": 5577,
+    "registered_sdk_bytes": 166354960,
+    "both_root_sets_retained_through_binding": true,
+    "test_only_installed_owner_bound": true,
+    "test_snapshot_is_production_installed_authority": false,
+    "launcher_or_source_program_authority_proved": false,
+    "final_scoped_test_cfg_applied_to_unrelated_dependencies": false,
+    "separate_clippy_control_rejected": true,
+    "original_go_timeout_seconds": 120,
+    "original_source_and_resource_caps_changed": false,
+    "W01_complete": false,
+    "public_profile_activated": false,
+    "native_Linux_release_acceptance": false,
+    "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh"
+  }
+}

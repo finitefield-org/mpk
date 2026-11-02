@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T12:15:00.180661+00:00",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-cli",
+    "--lib",
+    "--test",
+    "go_practical_installed_compiler",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/host-clippy-root-check/inputs.json",
+    "bytes": 189314,
+    "sha256": "985759a842c001306b7577d0c11b27bfcb472baae653201b99eddaed2b3a4f59",
+    "mode": 420
+  },
+  "selection_reason": "Compile and lint the new private installed-SDK owner and its real CLI consumers. The new native root retains the existing complete HTTP application, all dependencies, unused bodies, original init and Root selection, with no contract overlay; it creates original inputs with the actual registered Linux SDK identity. No narrowed fixtures, removed-language tests, practical profile activation, source/program proof or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 4.257403208997857,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/host-clippy-root-check/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/host-clippy-root-check/stderr.log",
+    "bytes": 136,
+    "sha256": "90807b8498983be72a411d286f1e4bea9bf7c43e9f095c6cd00502b27fff4637",
+    "mode": 420
+  }
+}

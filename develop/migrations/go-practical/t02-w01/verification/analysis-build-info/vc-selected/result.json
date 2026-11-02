@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T13:08:10.245524+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_analysis_build_info",
+    "--test",
+    "go_practical_compiler_build_info",
+    "--test",
+    "go_practical_compiler_elf",
+    "--test",
+    "go_practical_compiler_inputs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/vc-selected/inputs.json",
+    "bytes": 6875750,
+    "sha256": "06ee086aea094554570377d730facbfb985807e93b3c33db597ab8deb69bd853",
+    "mode": 420
+  },
+  "selection_reason": "Check the independently validated Go frontend build-info reader and its installed-SDK consumer. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 553.3050825410028,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/vc-selected/stdout.log",
+    "bytes": 1271,
+    "sha256": "642a564707c0c42aa2ca542b490efeae89fb2de5ed17c0871ce24943719b27e2",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/vc-selected/stderr.log",
+    "bytes": 918,
+    "sha256": "cfdc8be187397b7c99ead82b3a00f2ecd25e9b692c8fd4ad53f0e009ced56e96",
+    "mode": 420
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_contract_inputs",
+    "--test",
+    "go_practical_source_inputs",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_CONTRACT_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/observations"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/inputs.json",
+    "bytes": 318638,
+    "sha256": "d5ea086d9fcecab550971459a37351039bfd1f1c8bc913bd05a0c2217a3c593b",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/run.py",
+    "bytes": 6573,
+    "sha256": "4cdae721d7f08013f2c7d43afef79fcf00d647374f63f78da26787239dd29816",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-24T16:31:43.819563+00:00",
+  "selection_reason": "New same-owner complete source/contract handoff, strict independent import and direct contract derivation. Native whole original packages retain unselected bodies and sidecars after original paths/image retirement. Source-only component bytes are unchanged. Recheck its source-input and contract-module consumers; do not repeat unchanged kernels, mathematical proof matrices or unrelated frontends.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 24.051991542000906,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/stdout.log",
+    "bytes": 819,
+    "sha256": "01bb823c48001c98477a649783ce471a53d5c41b5b78bdbe8d316bb0379e50e4",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/rust/stderr.log",
+    "bytes": 375,
+    "sha256": "e43fe38ff16dc5e01e5d8bd0bb77d1add9b2db8d17a761810421e3972edc92fc",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-24T16:32:07.872500+00:00"
+}

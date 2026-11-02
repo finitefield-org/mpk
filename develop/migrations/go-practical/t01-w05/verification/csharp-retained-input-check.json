@@ -1,0 +1,31 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "-p",
+    "mpk-cli",
+    "--test",
+    "csharp_practical_boundary",
+    "csharp_03_t05_w01_retained_evidence_and_frozen_limits",
+    "--",
+    "--exact"
+  ],
+  "current_fixtures_modified": false,
+  "epoch_mapping": {
+    "path": "develop/migrations/csharp-03/boundary-attachment/retained-t05-w01/epochs.json",
+    "sha256": "4950bcb502538065337404c0658065c4c1843cc5909cb94c4b4b4b6fe933f333"
+  },
+  "initial_targeted_fix_finding": "Whole-sidecar JSON decoding rejected an intentionally malformed Unicode test. The corrected check parses metadata values only and retains all original malformed bytes.",
+  "observed_result": {
+    "exit_code": 0,
+    "failed": 0,
+    "filtered_out": 8,
+    "passed": 1
+  },
+  "original_conformance_modified": false,
+  "output_source": "direct tool result of the executed targeted command; complete full-gate output is recorded separately",
+  "reason": "Actual cumulative gate failure: T05-W01 record still names original inputs, while the approved Boolean-proof refreeze changed request/response metadata before this Go task. Preserve both epochs and validate current body/facts linkage.",
+  "runtime_language_or_profile_changed": false,
+  "schema": "mpk.go_practical.w05_csharp_epoch_check.v0",
+  "source_body_comparison": "all56 complete source inputs and sidecar bytes outside exact metadata values; no whole-input JSON decoding for deliberately malformed Unicode cases"
+}

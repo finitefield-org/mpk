@@ -1,0 +1,53 @@
+{
+  "inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/stage_installed.py",
+      "bytes": 6113,
+      "sha256": "d86210234198944ecee76e5a7049b973590841a36fe6112728af872a92252134",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/observer-build/observer.elf",
+      "bytes": 14908376,
+      "sha256": "b4becdb6f2e1efc3013fda7e655153cd2414f58dfbb152fffdcb8e3f316e391c",
+      "mode": 365
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-retained-environment/inputs.tar.gz",
+      "bytes": 6580279,
+      "sha256": "4b9b98c5c24d7f97274485b1946eb39ee1664dc76a0f456d24852a3f5fe5a215",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/observer-final/result.json",
+      "bytes": 2185,
+      "sha256": "3c94cfc7a5fb08740f6878880bf730045e79924d8744da60f94e96a371ba4448",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/rust-finalization/result.json",
+      "bytes": 93716,
+      "sha256": "e79130070f00e05c6f3c9a3f7af290372ca39c52177bc1da51dd292ac1ba6b81",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/release/bundles/bundle-registry.json",
+      "bytes": 1992254,
+      "sha256": "75ddf100d5ab9b14934aebf1a23ca849045e50623cbfc25c78e2086d03414165",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/release/bundles/semantic-profile-registry.json",
+      "bytes": 1633,
+      "sha256": "6b7d64f4d7cdd0579bd6f858bdb3a18ad32a141811b38f77ca4ade04e3275903",
+      "mode": 420
+    }
+  ],
+  "roots": {
+    "frontend.go.go2vir.candidate.v2": "/private/tmp/mpk-installed-compiler-205-original-go-output/frontend",
+    "toolchain.go.go1.25.0.linux-amd64.candidate.v1": "/private/tmp/mpk-installed-compiler-205-original-go-output/toolchain",
+    "frontend.rust.rust2vir.candidate.v3": "/private/tmp/mpk-go-combined-recovery-20261029-fs/registered-rust-finalized/frontend",
+    "toolchain.rust.nightly-2025-06-01.candidate.v1": "/private/tmp/mpk-go-combined-recovery-20261029-fs/registered-rust-finalized/toolchain"
+  },
+  "selection_reason": "Stage the original complete Go and Rust registered bundles and the pinned registries beside the test observer. Restore the retained QEMU runtime byte for byte. This exercises the actual loader in emulation, not a native Linux release or production CLI/launcher."
+}

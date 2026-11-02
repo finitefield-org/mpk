@@ -1,0 +1,20 @@
+{
+  "schema": "mpk.go_practical.raw_stdout_whitespace.v1",
+  "scope": "Preserve exact original libtest output bytes. Permit only the recorded end-of-file blank-line diagnostic at these2 exact hash-bound log files; no source, JSON, directory or scanner exemption.",
+  "observations": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/rust-tests/stdout.log",
+      "sha256": "350a4994ea7d6bbaa466f978949f3e89935400c948c13aa5c6d746de93be129c",
+      "bytes": 503,
+      "kind": "exact_original_libtest_stdout_EOF",
+      "git_whitespace_output_raw_utf8": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/rust-tests/stdout.log:15: new blank line at EOF.\n"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/rust-tests/stdout.log",
+      "sha256": "debfae4d67f8eabf7e298003a958bc8ea4cdb48df612a9225db26b62a7604cce",
+      "bytes": 1468,
+      "kind": "exact_original_libtest_stdout_EOF",
+      "git_whitespace_output_raw_utf8": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/final/rust-tests/stdout.log:11: new blank line at EOF.\n"
+    }
+  ]
+}

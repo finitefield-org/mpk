@@ -1,0 +1,35 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 37.21s
+     Running tests/go_practical_word_conversions.rs (target/debug/deps/go_practical_word_conversions-a5c81526e616bd47)
+conversion construction before W8To8 signed=false: declarations=1516 terms=23444
+conversion construction before W8To8 signed=true: declarations=1598 terms=24457
+conversion construction before W8To16 signed=false: declarations=1714 terms=25809
+conversion construction before W8To16 signed=true: declarations=1795 terms=26730
+conversion construction before W8To32 signed=false: declarations=1906 terms=28139
+conversion construction before W8To32 signed=true: declarations=1987 terms=29061
+conversion construction before W8To64 signed=false: declarations=2098 terms=30467
+conversion construction before W8To64 signed=true: declarations=2179 terms=31457
+conversion construction before W16To8 signed=false: declarations=2296 terms=32986
+conversion construction before W16To8 signed=true: declarations=2377 terms=33963
+conversion construction before W16To16 signed=false: declarations=2490 terms=35257
+conversion construction before W16To16 signed=true: declarations=2572 terms=36249
+conversion construction before W16To32 signed=false: declarations=2688 terms=37582
+conversion construction before W16To32 signed=true: declarations=2769 terms=38432
+conversion construction before W16To64 signed=false: declarations=2880 terms=39873
+conversion construction before W16To64 signed=true: declarations=2961 terms=40784
+conversion construction before W32To8 signed=false: declarations=3078 terms=42311
+conversion construction before W32To8 signed=true: declarations=3159 terms=43288
+conversion construction before W32To16 signed=false: declarations=3272 terms=44582
+conversion construction before W32To16 signed=true: declarations=3353 terms=45564
+conversion construction before W32To32 signed=false: declarations=3466 terms=46839
+conversion construction before W32To32 signed=true: declarations=3548 terms=47863
+conversion construction before W32To64 signed=false: declarations=3664 terms=49196
+conversion construction before W32To64 signed=true: declarations=3745 terms=50114
+conversion construction before W64To8 signed=false: declarations=3862 terms=51676
+conversion construction before W64To8 signed=true: declarations=3943 terms=52654
+conversion construction before W64To16 signed=false: declarations=4056 terms=53970
+
+thread 'actual_all_width_conversions_and_shift_count_normalization_exact_import' (37994473) panicked at crates/mpk-vc/tests/go_practical_word_conversions.rs:38:54:
+called `Result::unwrap()` on an `Err` value: Limit
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_word_conversions`

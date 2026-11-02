@@ -1,0 +1,608 @@
+{
+  "status": "scoped_checks_passed",
+  "basis_commit": "6769cb2a4858d416fe1aa4c6f819284cdfb666ee",
+  "observed_at_utc": "2026-10-21T20:29:56.059400+00:00",
+  "source_languages": [
+    "Go",
+    "Rust"
+  ],
+  "current_checks": {
+    "Go-native": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/import-fixed/go-oracle/result.json",
+      "bytes": 278417,
+      "sha256": "39969555a58ad75d78659acb09d8bcb93e022bee0b3a372eb2f705aadfb4e9f5"
+    },
+    "Go-vet": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/vet/result.json",
+      "bytes": 278478,
+      "sha256": "f6e20f6023c8a67aa5cb8c35f6f1c1010cc90fb515fc8d4c8f4a1179926a33cd"
+    },
+    "Go-format": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/go-format/result.json",
+      "bytes": 278529,
+      "sha256": "51dd5d3ed0ccf25ede242ac6a7a571f81ceb8f40951d1d3a7363c4c5733461e6"
+    },
+    "Rust-return-typing": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-values/result.json",
+      "bytes": 278236,
+      "sha256": "efac75392ce01e6eb3e26f454dd5f846134fb72b24c553ddebc165eb10ee8150"
+    },
+    "Rust-assignment-typing": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-assignments/result.json",
+      "bytes": 278260,
+      "sha256": "e4b97c637c1150646d77aa69b436fc43001c28601806f70aa0e3c3cef77cf230"
+    },
+    "Rust-scalar-typing": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-selected/result.json",
+      "bytes": 278243,
+      "sha256": "de7e2ccac2eb1ce6614be95daaa496496599001e5cadd74dd319f8612bec223b"
+    },
+    "Rust-aggregate-typing": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-aggregates/result.json",
+      "bytes": 278246,
+      "sha256": "4bb4fe4ad6f244e335b6c5449c4fd19861865e1f7493be1ccde99d5890a3b351"
+    },
+    "Rust-builtin-typing": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-builtins/result.json",
+      "bytes": 278244,
+      "sha256": "e84bed11783fbfe444bbd2dd122710b8e7d271be1e90107032bf72b409484a4f"
+    },
+    "Rust-method-typing": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-methods/result.json",
+      "bytes": 278239,
+      "sha256": "bb5382138b6ab39f3ec92d654172282e6d02568599a4fd50338018b8cd66f6c0"
+    },
+    "Clippy": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/clippy/result.json",
+      "bytes": 278383,
+      "sha256": "9fc0c0633728ad3aa3a7bd32266bc830388f2043dc0a96975c90413adb933d82"
+    },
+    "Rust-format": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-format/result.json",
+      "bytes": 278296,
+      "sha256": "114730471657e7fd6e55391a7409d0f908cb0041d5abcb9b34ee666d180285e3"
+    }
+  },
+  "actual_executions": [
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/corpus/rust-values/result.json",
+        "bytes": 277784,
+        "sha256": "d610bb6a1d141ee694d795bf3abf66e21d3f56a8cc34298dd326c84a5e81a990"
+      },
+      "status": "failed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_return_typing",
+        "--",
+        "--nocapture"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/corpus/vet/result.json",
+        "bytes": 278024,
+        "sha256": "50bafc4895d095a608e42fd644ac42d2ee02dd91f9599dfcff4922e62f1c821d"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "vet",
+        "./..."
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/clippy/result.json",
+        "bytes": 278383,
+        "sha256": "9fc0c0633728ad3aa3a7bd32266bc830388f2043dc0a96975c90413adb933d82"
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "clippy",
+        "--offline",
+        "-p",
+        "mpk-vc",
+        "--lib",
+        "--test",
+        "go_practical_scalar_typing",
+        "--test",
+        "go_practical_value_typing",
+        "--test",
+        "go_practical_slice_builtins",
+        "--test",
+        "go_practical_method_typing",
+        "--test",
+        "go_practical_assignment_typing",
+        "--test",
+        "go_practical_return_typing",
+        "--",
+        "-D",
+        "warnings"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/go-format/result.json",
+        "bytes": 278529,
+        "sha256": "51dd5d3ed0ccf25ede242ac6a7a571f81ceb8f40951d1d3a7363c4c5733461e6"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+        "-l",
+        "practical_return_typing_reference_test.go"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-aggregates/result.json",
+        "bytes": 278246,
+        "sha256": "4bb4fe4ad6f244e335b6c5449c4fd19861865e1f7493be1ccde99d5890a3b351"
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_value_typing",
+        "--",
+        "--nocapture"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-assignments/result.json",
+        "bytes": 278260,
+        "sha256": "e4b97c637c1150646d77aa69b436fc43001c28601806f70aa0e3c3cef77cf230"
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_assignment_typing",
+        "--",
+        "--nocapture"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-builtins/result.json",
+        "bytes": 278244,
+        "sha256": "e84bed11783fbfe444bbd2dd122710b8e7d271be1e90107032bf72b409484a4f"
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_slice_builtins",
+        "--",
+        "--nocapture"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-format/result.json",
+        "bytes": 278296,
+        "sha256": "114730471657e7fd6e55391a7409d0f908cb0041d5abcb9b34ee666d180285e3"
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition=2021",
+        "--check",
+        "crates/mpk-vc/src/go_practical_type_keys.rs",
+        "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing.rs",
+        "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/returns.rs",
+        "crates/mpk-vc/tests/go_practical_return_typing.rs"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-methods/result.json",
+        "bytes": 278239,
+        "sha256": "bb5382138b6ab39f3ec92d654172282e6d02568599a4fd50338018b8cd66f6c0"
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_method_typing",
+        "--",
+        "--nocapture"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-selected/result.json",
+        "bytes": 278243,
+        "sha256": "de7e2ccac2eb1ce6614be95daaa496496599001e5cadd74dd319f8612bec223b"
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_scalar_typing",
+        "--",
+        "--nocapture"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/rust-values/result.json",
+        "bytes": 278236,
+        "sha256": "efac75392ce01e6eb3e26f454dd5f846134fb72b24c553ddebc165eb10ee8150"
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "-p",
+        "mpk-vc",
+        "--test",
+        "go_practical_return_typing",
+        "--",
+        "--nocapture"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current/vet/result.json",
+        "bytes": 278478,
+        "sha256": "f6e20f6023c8a67aa5cb8c35f6f1c1010cc90fb515fc8d4c8f4a1179926a33cd"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "vet",
+        "./..."
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/current-unformatted/rust-format-write/result.json",
+        "bytes": 278424,
+        "sha256": "579b654d22153bd7bd5db3155c54454e1ec8ab2a1ea2f4d049c971664a512349"
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition=2021",
+        "crates/mpk-vc/src/go_practical_type_keys.rs",
+        "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing.rs",
+        "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/returns.rs",
+        "crates/mpk-vc/tests/go_practical_return_typing.rs"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/formatted/check/result.json",
+        "bytes": 277194,
+        "sha256": "6e7b1d07404766643375bc6efe6fd41182f0649c67071095a2da9bd8e30bb432"
+      },
+      "status": "passed",
+      "command": [
+        "cargo",
+        "check",
+        "--offline",
+        "-p",
+        "mpk-vc",
+        "--lib"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/formatted/go-oracle/result.json",
+        "bytes": 277899,
+        "sha256": "a5dcd45a74c765c49118b59920f7c58f21953270399803da952904f1c73065f0"
+      },
+      "status": "failed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^TestPracticalOriginalReturnTypingReference$"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/import-fixed/go-oracle/result.json",
+        "bytes": 278417,
+        "sha256": "39969555a58ad75d78659acb09d8bcb93e022bee0b3a372eb2f705aadfb4e9f5"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^TestPracticalOriginalReturnTypingReference$"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/initial/rust-format-write/result.json",
+        "bytes": 277417,
+        "sha256": "1b9ea2989e3ebbdf0385ccea75e0e19813a9663b3bfc3bffc0d5cd9d1fe99b9c"
+      },
+      "status": "passed",
+      "command": [
+        "rustfmt",
+        "--edition=2021",
+        "crates/mpk-vc/src/go_practical_type_keys.rs",
+        "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing.rs",
+        "crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/returns.rs",
+        "crates/mpk-vc/tests/go_practical_return_typing.rs"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/native-fixed/go-oracle/result.json",
+        "bytes": 277981,
+        "sha256": "551eb903e9a0cb1dcab47affa607c04aea4dc2aaa6d8f89efa0c4344783734ba"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^TestPracticalOriginalReturnTypingReference$"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/native-name-fix/go-format-write/result.json",
+        "bytes": 277739,
+        "sha256": "37c185f876143a6022b5ebc18d4701a50fb8e13239ca22ef274351fdf68b0a31"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+        "-w",
+        "practical_return_typing_reference_test.go"
+      ]
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/rust-formatted/go-format-write/result.json",
+        "bytes": 277728,
+        "sha256": "1d41c965be7cbbdaf54e34e5e11115e42855808f171cfb280d07b8324b978a24"
+      },
+      "status": "passed",
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+        "-w",
+        "practical_return_typing_reference_test.go"
+      ]
+    }
+  ],
+  "source_epochs": 9,
+  "whole_source_preimages": 7062,
+  "original_failed_scoped_checks": 2,
+  "initial_failures": [
+    "Reference test local variable name collision failed its first build before emitting any native cases; original Go inputs/driver/build output remain.",
+    "Initial native nil/error helper case had an unused import, a package error outside this partial return-type query. The single false whole-package comparison, all630 original observations and the failed Rust output remain. Corrected whole source adds an actual helper type reference; no production type rule changed. Only case583 native acceptance changes; source/hash/span changes remain original observed data."
+  ],
+  "actual_cases": 630,
+  "exact_positive_return_and_signature_provenance": 150,
+  "agreeing_actual_rejections": 470,
+  "explicit_valid_Go_outside_return_typing": 10,
+  "independent_observations": {
+    "supported": 150,
+    "rejected": 470,
+    "outside": 10,
+    "signature_slots": 2214,
+    "result_slots": 448,
+    "named_results": 205,
+    "implicit_returns": 39,
+    "nested_function_returns": 8,
+    "method_returns": 4,
+    "calls": 17,
+    "opaque_calls": 3,
+    "max_parameters": 70
+  },
+  "Rust_return_typing_roots": 3,
+  "affected_existing_scalar_roots": 3,
+  "affected_existing_aggregate_roots": 2,
+  "affected_existing_builtin_roots": 2,
+  "affected_existing_method_roots": 3,
+  "affected_existing_assignment_roots": 3,
+  "previous_scalar_cases": 4985,
+  "previous_aggregate_cases": 950,
+  "previous_builtin_cases": 1659,
+  "previous_method_cases": 461,
+  "previous_assignment_cases": 1433,
+  "previous_builtin_reference_checker_panics_not_rejections": 3,
+  "flat_contextual_unary_nodes": 20000,
+  "function_results_boundary16_and17": true,
+  "original_archives": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/native-original/manifest.json",
+      "bytes": 342494,
+      "sha256": "a4626c94c7b30c74182928192f47c0af5180ad36dd9030a5b6403354e155facf"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/native-import-original/manifest.json",
+      "bytes": 342509,
+      "sha256": "a387ffb16c54664e21c1ecc9f0168ebddee34e8ace724f809d6bc9341520d21a"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/rust-initial-original/manifest.json",
+      "bytes": 351960,
+      "sha256": "c0fcb592c6c6a90dec8ca6eca8ddf86542d9df8a9212f867e2a0dea363c91a43"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/rust-original/manifest.json",
+      "bytes": 353208,
+      "sha256": "66c88175ec14a0fa3ab997b4b520d0ec0d187763e0bd6eb52ad7738435f0b90f"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/scalar-original/manifest.json",
+      "bytes": 2799805,
+      "sha256": "00e5e2f11a0bbcc2fb58393dadec9eba51cb8c788767572189f062cf235a76c0"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/aggregate-original/manifest.json",
+      "bytes": 539147,
+      "sha256": "187c3ddcee6aa68cdfe996b9cf1b7cf75a0866c336de5d14c669fe46ac2c6d75"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/builtin-original/manifest.json",
+      "bytes": 933088,
+      "sha256": "394d2ea4578f98abdf3e1d7895765a59bb22e31eea2b6b271b53a5b6072d0a40"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/method-original/manifest.json",
+      "bytes": 260705,
+      "sha256": "13da518d5ea458e177d95b0b459c587aaee18d1c4134fc15c3ec330880c5d36c"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/assignment-original/manifest.json",
+      "bytes": 814268,
+      "sha256": "9fd5313d9f26e8801d8fca1dd71133f1fc21c46d5f6f7e4c1f9572e902b49909"
+    }
+  ],
+  "complete_original_files": 24054,
+  "complete_original_bytes": 78163074,
+  "literal_byte_mode_audit": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/original-byte-audit/result.json",
+    "bytes": 2438,
+    "sha256": "a11b57926219f9a468be24b3f5cb937ebc6db3a2bd1e80128e5b30944652efcc"
+  },
+  "derived_native_corpus": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/derived-import-native/result.json",
+    "bytes": 265599,
+    "sha256": "48f8734ecd833226478627336ec710f45b3f6225deae161cbcff826c23c5b302"
+  },
+  "initial_native_corpus": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/derived-native/result.json",
+    "bytes": 265584,
+    "sha256": "653d46cb731d4b2c9307ac53ce86368dc37ed6439e155251173bed84c4f06689"
+  },
+  "SDK_current_exact": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/return-typing/sdk-check/result.json",
+    "bytes": 714,
+    "sha256": "f778747b9858f8946258d68a55271dd0e5981dc456bc2e564cf63388223b7ca5"
+  },
+  "previous_assignment_typing_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/assignment-typing/verification.json",
+    "bytes": 19527,
+    "sha256": "c2d224d6f1447c2793fb5711e2fe5ff493a7348d6833c01ad51deaeb77ed720e"
+  },
+  "previous_method_typing_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/method-typing/verification.json",
+    "bytes": 26050,
+    "sha256": "f5f4d8b70385a3212687a6920378eb02c1b8385a3ab1c714b5b91dc7078cc5b0"
+  },
+  "previous_slice_builtin_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/slice-builtins/verification.json",
+    "bytes": 22521,
+    "sha256": "f674c6bd61f5ee995bcc9017f990b2dc7da5151c94f439b56f834a676357e585"
+  },
+  "previous_value_typing_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/value-typing/verification.json",
+    "bytes": 46794,
+    "sha256": "5e45952930fe29f44ccdbc731023a12699ef6ced50762cb4d6ab1230d834a586"
+  },
+  "previous_scalar_typing_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/scalar-typing/verification.json",
+    "bytes": 20467,
+    "sha256": "d95e1cadaa3d60a2561b5d0a6faea83169344505c2c8925252a3cde228b30e1c"
+  },
+  "previous_signature_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-signatures/verification.json",
+    "bytes": 22609,
+    "sha256": "3e168f3d41546d5549e802dfea73cf84d95754aedc7f7f7cc4b6ec81a365b6c7"
+  },
+  "previous_source_type_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-types/verification.json",
+    "bytes": 19047,
+    "sha256": "a7d298d32bfb357805b9e7f4ad2a4f75fdb50f2902f02ff0dfe41d42bf6b4b8a"
+  },
+  "previous_scalar_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-constants/verification.json",
+    "bytes": 18429,
+    "sha256": "259915c6686797f51060cba9374a4c1b0f0e3b2b9d5de40f423062f420231924"
+  },
+  "previous_scope_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-scopes/verification.json",
+    "bytes": 20041,
+    "sha256": "8372ef164369c54dc99ec97c8abd885a09770e1b49e950751959a0b48d3bfd3b"
+  },
+  "unchanged_parser_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/go-parse/verification.json",
+    "bytes": 29525,
+    "sha256": "c49b5c02029f5de25de25248e41d125ddda8f51f415ac273a1d1f2ef95361995"
+  },
+  "unchanged_lexer_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/go-lex/verification.json",
+    "bytes": 22103,
+    "sha256": "c5537e952a7ac8b756c039f3fe4971c26f8340a42ce7be80affc8ac315c66de7"
+  },
+  "unchanged_frontend_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/type-keys/corrected/analysis-inputs/captured-inputs.json",
+    "bytes": 84629,
+    "sha256": "c9eea2f85878380bef980183160c194216995c49171ece07bfaab570c2d6d56c"
+  },
+  "unchanged_ordinary_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/verification.json",
+    "bytes": 28277,
+    "sha256": "193d95380dd5571166e69fed096ab5182d9e7056cf3b81d84e6c1d4951d80969"
+  },
+  "unchanged_ordinary_paired_basis": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/paired/result.json",
+    "bytes": 1162607,
+    "sha256": "7f9b8802904abfc7f9a121d1413bad33a8d7ab7024ed28b4f804259e6e70cd83"
+  },
+  "actual_original_return_syntax_typing": true,
+  "original_AST_edge_nearest_function_and_complete_signature": true,
+  "original_named_blank_and_shadowed_result_scopes": true,
+  "original_call_locators_retained": true,
+  "closure_or_pointer_or_open_error_program_admission": false,
+  "runtime_evaluation_or_result_zero_initialization_or_return_payload_proof": false,
+  "complete_control_or_body_typechecking": false,
+  "source_evaluation_carrier_state_or_program_proof": false,
+  "allocation_alias_permission_lifetime_or_NoAccess_proof": false,
+  "complete_nominal_import_module_build_capture_context_authority": false,
+  "full_U_Plain_weights_or_final_counts_proved": false,
+  "public_profile_activated": false,
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh"
+}

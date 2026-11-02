@@ -1,0 +1,2767 @@
+{
+  "build": "private mirrored Rust release offline locked and Go1.25.0 trimpath; production unchanged",
+  "cases": [
+    {
+      "case": {
+        "bytes": 2869,
+        "declarations": 26,
+        "expected": "accepted",
+        "family": "invariant-entry",
+        "frame_bits": 128,
+        "goal_debug": "Forall(\"next\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"invariant\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Constant(\"Std.Bool\")), Forall(\"initial\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"entry_proof\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Variable(\"initial\")]), Constant(\"Std.Bool.true\")]), Forall(\"body_proof\", Forall(\"__preservation_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__preservation_input\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Variable(\"__preservation_state\")]), Constant(\"Std.Bool.true\")]), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Apply(Variable(\"next\"), [Variable(\"__preservation_state\")])]), Constant(\"Std.Bool.true\")]))), Forall(\"n\", Constant(\"Std.Nat\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Apply(Constant(\"Probe.GoPractical.Word.LoopIterate\"), [Variable(\"next\"), Variable(\"n\"), Variable(\"initial\")])]), Constant(\"Std.Bool.true\")])))))))",
+        "id": "control-invariant-entry-valid",
+        "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+        "mutation": 0,
+        "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+        "terms": 287,
+        "theorem": "Probe.GoPractical.Word.ControlClaiminvariantentry"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.00324,
+          "cpu_user_seconds": 0.002446,
+          "exit_code": 0,
+          "peak_rss_bytes": 5652480,
+          "report": {
+            "declaration_count": 26,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "079ff7f97411a72a464805774397243221a01cc45fde1362651a7b56b3d754cd",
+              "export": "5b1ad3933ffd40fb97f1953a76e33adc2eeb08a7a524cd817f7de41a7a313514"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.5824690419831313
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001402,
+          "cpu_user_seconds": 0.0016129999999999999,
+          "exit_code": 0,
+          "peak_rss_bytes": 2965504,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 26,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "079ff7f97411a72a464805774397243221a01cc45fde1362651a7b56b3d754cd",
+              "export": "5b1ad3933ffd40fb97f1953a76e33adc2eeb08a7a524cd817f7de41a7a313514"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.0063157909899018705
+        }
+      },
+      "raw_sha256": "d5a9ddf4358f576450ec6973968d975af51d8a5084080000c9a4c222742754ad"
+    },
+    {
+      "case": {
+        "bytes": 2868,
+        "declarations": 26,
+        "expected": "rejected",
+        "family": "invariant-entry",
+        "frame_bits": 128,
+        "goal_debug": "Forall(\"next\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"invariant\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Constant(\"Std.Bool\")), Forall(\"initial\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"entry_proof\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.true\")]), Forall(\"body_proof\", Forall(\"__preservation_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__preservation_input\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Variable(\"__preservation_state\")]), Constant(\"Std.Bool.true\")]), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Apply(Variable(\"next\"), [Variable(\"__preservation_state\")])]), Constant(\"Std.Bool.true\")]))), Forall(\"n\", Constant(\"Std.Nat\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Apply(Constant(\"Probe.GoPractical.Word.LoopIterate\"), [Variable(\"next\"), Variable(\"n\"), Variable(\"initial\")])]), Constant(\"Std.Bool.true\")])))))))",
+        "id": "control-invariant-entry-altered",
+        "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+        "mutation": 1,
+        "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+        "terms": 287,
+        "theorem": "Probe.GoPractical.Word.ControlClaiminvariantentry"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001981,
+          "cpu_user_seconds": 0.0018189999999999999,
+          "exit_code": 1,
+          "peak_rss_bytes": 5210112,
+          "report": {
+            "error_detail": "term 9 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00990654103225097
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001446,
+          "cpu_user_seconds": 0.001562,
+          "exit_code": 1,
+          "peak_rss_bytes": 2932736,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"566\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"9\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "794a06f9ecb083121a4c6c475e9dfa9b9c809e35b7812e508d59b8ad33cf587c",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.0071848329971544445
+        }
+      },
+      "raw_sha256": "0030d2dd57109744b78136ee566406d9351e991bab2cc66b05c0b87bac6cf90a"
+    },
+    {
+      "case": {
+        "bytes": 2868,
+        "declarations": 26,
+        "expected": "accepted",
+        "family": "invariant-step",
+        "frame_bits": 128,
+        "goal_debug": "Forall(\"next\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"invariant\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Constant(\"Std.Bool\")), Forall(\"initial\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"entry_proof\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Variable(\"initial\")]), Constant(\"Std.Bool.true\")]), Forall(\"body_proof\", Forall(\"__preservation_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__preservation_input\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Variable(\"__preservation_state\")]), Constant(\"Std.Bool.true\")]), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Apply(Variable(\"next\"), [Variable(\"__preservation_state\")])]), Constant(\"Std.Bool.true\")]))), Forall(\"n\", Constant(\"Std.Nat\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Apply(Constant(\"Probe.GoPractical.Word.LoopIterate\"), [Variable(\"next\"), Variable(\"n\"), Variable(\"initial\")])]), Constant(\"Std.Bool.true\")])))))))",
+        "id": "control-invariant-step-valid",
+        "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+        "mutation": 0,
+        "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+        "terms": 287,
+        "theorem": "Probe.GoPractical.Word.ControlClaiminvariantstep"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001731,
+          "cpu_user_seconds": 0.002281,
+          "exit_code": 0,
+          "peak_rss_bytes": 5472256,
+          "report": {
+            "declaration_count": 26,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "c24f77fa492d450f51b294fa2ed466abe890efbb8aea57a666655677e011e40f",
+              "export": "e363e486eab31d60ca62d8d0a97ac89cb3a07ed8871cc2c9214cf7590c194844"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008435625000856817
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001268,
+          "cpu_user_seconds": 0.001638,
+          "exit_code": 0,
+          "peak_rss_bytes": 3014656,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 26,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "c24f77fa492d450f51b294fa2ed466abe890efbb8aea57a666655677e011e40f",
+              "export": "e363e486eab31d60ca62d8d0a97ac89cb3a07ed8871cc2c9214cf7590c194844"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006217915972229093
+        }
+      },
+      "raw_sha256": "9f61f5b301ff8f15359a21508fec9081d14ff5c6a2f03090229f65f1a49d3ab0"
+    },
+    {
+      "case": {
+        "bytes": 2858,
+        "declarations": 26,
+        "expected": "rejected",
+        "family": "invariant-step",
+        "frame_bits": 128,
+        "goal_debug": "Forall(\"next\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"invariant\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Constant(\"Std.Bool\")), Forall(\"initial\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"entry_proof\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Variable(\"initial\")]), Constant(\"Std.Bool.true\")]), Forall(\"body_proof\", Forall(\"__preservation_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__preservation_input\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Variable(\"__preservation_state\")]), Constant(\"Std.Bool.true\")]), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.true\")]))), Forall(\"n\", Constant(\"Std.Nat\"), Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"invariant\"), [Apply(Constant(\"Probe.GoPractical.Word.LoopIterate\"), [Variable(\"next\"), Variable(\"n\"), Variable(\"initial\")])]), Constant(\"Std.Bool.true\")])))))))",
+        "id": "control-invariant-step-altered",
+        "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+        "mutation": 1,
+        "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+        "terms": 285,
+        "theorem": "Probe.GoPractical.Word.ControlClaiminvariantstep"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.002048,
+          "cpu_user_seconds": 0.001777,
+          "exit_code": 1,
+          "peak_rss_bytes": 5013504,
+          "report": {
+            "error_detail": "term 555 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008847958000842482
+        },
+        "rust": {
+          "cpu_system_seconds": 0.00129,
+          "cpu_user_seconds": 0.001506,
+          "exit_code": 1,
+          "peak_rss_bytes": 2965504,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"609\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"555\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "2763935009398cb46ccbad15dd8b8e35503193f2297b003692d7b85dcc683117",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.0061333749908953905
+        }
+      },
+      "raw_sha256": "3082ef05332a590bd4ef27df634461c91b75e8c2b8aa1c8da7827bfbf65ab21f"
+    },
+    {
+      "case": {
+        "bytes": 2939,
+        "declarations": 26,
+        "expected": "accepted",
+        "family": "absorbing-stop",
+        "frame_bits": 128,
+        "goal_debug": "Forall(\"halted\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Constant(\"Std.Bool\")), Forall(\"next\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"stopped\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Variable(\"halted\"), [Variable(\"state\")]), Constant(\"Std.Bool.true\")]), Forall(\"n\", Constant(\"Std.Nat\"), Apply(Constant(\"Std.Eq\"), [Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Constant(\"Probe.GoPractical.Word.LoopIterate\"), [Lambda(\"__halted_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Constant(\"Probe.GoPractical.Word.LoopHaltedStep\"), [Variable(\"halted\"), Variable(\"next\"), Variable(\"__halted_state\")])), Variable(\"n\"), Variable(\"state\")]), Variable(\"state\")]))))))",
+        "id": "control-absorbing-stop-valid",
+        "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+        "mutation": 0,
+        "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+        "terms": 293,
+        "theorem": "Probe.GoPractical.Word.ControlClaimabsorbingstop"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001609,
+          "cpu_user_seconds": 0.0027689999999999998,
+          "exit_code": 0,
+          "peak_rss_bytes": 5636096,
+          "report": {
+            "declaration_count": 26,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "7550a7eb3e87281aa1af023aa7fe673a46bc44f037a5f533e7c678d91a5503e4",
+              "export": "0f3706b3770b7fdc503f598aab9fce4b848f6dadfdba3926f7948b9a78050e61"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009527499962132424
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001413,
+          "cpu_user_seconds": 0.001878,
+          "exit_code": 0,
+          "peak_rss_bytes": 3031040,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 26,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "7550a7eb3e87281aa1af023aa7fe673a46bc44f037a5f533e7c678d91a5503e4",
+              "export": "0f3706b3770b7fdc503f598aab9fce4b848f6dadfdba3926f7948b9a78050e61"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009552041010465473
+        }
+      },
+      "raw_sha256": "cb3393127b3548bc98f94cead3c061d8fcb864cf5d7847b670a76828e29faf87"
+    },
+    {
+      "case": {
+        "bytes": 2938,
+        "declarations": 26,
+        "expected": "rejected",
+        "family": "absorbing-stop",
+        "frame_bits": 128,
+        "goal_debug": "Forall(\"halted\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Constant(\"Std.Bool\")), Forall(\"next\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"stopped\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.true\")]), Forall(\"n\", Constant(\"Std.Nat\"), Apply(Constant(\"Std.Eq\"), [Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Constant(\"Probe.GoPractical.Word.LoopIterate\"), [Lambda(\"__halted_state\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Constant(\"Probe.GoPractical.Word.LoopHaltedStep\"), [Variable(\"halted\"), Variable(\"next\"), Variable(\"__halted_state\")])), Variable(\"n\"), Variable(\"state\")]), Variable(\"state\")]))))))",
+        "id": "control-absorbing-stop-altered",
+        "iteration_domain": "arbitrary genuine Std.Nat; no finite unrolling",
+        "mutation": 1,
+        "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+        "terms": 293,
+        "theorem": "Probe.GoPractical.Word.ControlClaimabsorbingstop"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0017679999999999998,
+          "cpu_user_seconds": 0.0019429999999999998,
+          "exit_code": 1,
+          "peak_rss_bytes": 5292032,
+          "report": {
+            "error_detail": "term 39 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008628665993455797
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0012569999999999999,
+          "cpu_user_seconds": 0.001665,
+          "exit_code": 1,
+          "peak_rss_bytes": 2981888,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"742\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"39\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "65a24985572a056c8575fb6b7b7cebbcbc8ba454ad736f2c1c5c35f1aa15dc64",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00579845899483189
+        }
+      },
+      "raw_sha256": "3aa891db308695174e88539ea1c75918e5d331ec876a09cf8ee33207eb54ffe3"
+    },
+    {
+      "case": {
+        "bytes": 3155,
+        "declarations": 26,
+        "expected": "accepted",
+        "family": "continue-post",
+        "frame_bits": 128,
+        "goal_debug": "Forall(\"returned\", Constant(\"Std.Bool\"), Forall(\"broken\", Constant(\"Std.Bool\"), Forall(\"continued\", Constant(\"Std.Bool\"), Forall(\"body_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"return_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"break_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"rest\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"post\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"returned_guard\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Variable(\"returned\"), Constant(\"Std.Bool.false\")]), Forall(\"broken_guard\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Variable(\"broken\"), Constant(\"Std.Bool.false\")]), Forall(\"continued_guard\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Variable(\"continued\"), Constant(\"Std.Bool.true\")]), Apply(Constant(\"Std.Eq\"), [Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Variable(\"post\"), [Apply(Variable(\"rest\"), [Variable(\"body_frame\")])]), Apply(Variable(\"post\"), [Variable(\"body_frame\")]), Variable(\"continued\")]), Variable(\"break_frame\"), Variable(\"broken\")]), Variable(\"return_frame\"), Variable(\"returned\")]), Apply(Variable(\"post\"), [Variable(\"body_frame\")])]))))))))))))",
+        "id": "control-continue-post-valid",
+        "iteration_domain": "single source-shaped abrupt edge; no iteration-count premise",
+        "mutation": 0,
+        "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+        "terms": 318,
+        "theorem": "Probe.GoPractical.Word.ControlClaimcontinuepost"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001847,
+          "cpu_user_seconds": 0.004085,
+          "exit_code": 0,
+          "peak_rss_bytes": 6045696,
+          "report": {
+            "declaration_count": 26,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "1057212c6283403cf1e898094f0c34c47a59f90e12ca8394a0a4a2e17a1619ba",
+              "export": "4ce626fcd64892fd3fcf985d2db6fe7d7d5403379e12336d4a530e72d374264f"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.01181912497850135
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0013239999999999999,
+          "cpu_user_seconds": 0.002412,
+          "exit_code": 0,
+          "peak_rss_bytes": 3096576,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 26,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "1057212c6283403cf1e898094f0c34c47a59f90e12ca8394a0a4a2e17a1619ba",
+              "export": "4ce626fcd64892fd3fcf985d2db6fe7d7d5403379e12336d4a530e72d374264f"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009360541997011751
+        }
+      },
+      "raw_sha256": "4344c14d6763a4c573a622549b90e13d683655787193009dfce50efa74791de9"
+    },
+    {
+      "case": {
+        "bytes": 3155,
+        "declarations": 26,
+        "expected": "rejected",
+        "family": "continue-post",
+        "frame_bits": 128,
+        "goal_debug": "Forall(\"returned\", Constant(\"Std.Bool\"), Forall(\"broken\", Constant(\"Std.Bool\"), Forall(\"continued\", Constant(\"Std.Bool\"), Forall(\"body_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"return_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"break_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"rest\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"post\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"returned_guard\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Variable(\"returned\"), Constant(\"Std.Bool.false\")]), Forall(\"broken_guard\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Variable(\"broken\"), Constant(\"Std.Bool.false\")]), Forall(\"continued_guard\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Variable(\"continued\"), Constant(\"Std.Bool.true\")]), Apply(Constant(\"Std.Eq\"), [Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Variable(\"post\"), [Apply(Variable(\"rest\"), [Variable(\"body_frame\")])]), Apply(Variable(\"post\"), [Variable(\"body_frame\")]), Variable(\"continued\")]), Variable(\"break_frame\"), Variable(\"broken\")]), Variable(\"return_frame\"), Variable(\"returned\")]), Apply(Variable(\"post\"), [Apply(Variable(\"rest\"), [Variable(\"body_frame\")])])]))))))))))))",
+        "id": "control-continue-post-altered",
+        "iteration_domain": "single source-shaped abrupt edge; no iteration-count premise",
+        "mutation": 1,
+        "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+        "terms": 318,
+        "theorem": "Probe.GoPractical.Word.ControlClaimcontinuepost"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.00179,
+          "cpu_user_seconds": 0.0026579999999999998,
+          "exit_code": 1,
+          "peak_rss_bytes": 5406720,
+          "report": {
+            "error_detail": "term 584 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008675999997649342
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0013599999999999999,
+          "cpu_user_seconds": 0.002829,
+          "exit_code": 1,
+          "peak_rss_bytes": 3129344,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"544\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"792\",\"kind\":\"check_type_mismatch\",\"term_index\":\"584\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "c1ba73480e8e75df5671387f65e3fc56ad3a10640dc499337242521bdf34d41e",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009224917041137815
+        }
+      },
+      "raw_sha256": "370a024935cb6b1122f31eefdd5fa323f530e4ea1ba6acda7a62b10b927c816a"
+    },
+    {
+      "case": {
+        "bytes": 3039,
+        "declarations": 26,
+        "expected": "accepted",
+        "family": "break-exit",
+        "frame_bits": 128,
+        "goal_debug": "Forall(\"returned\", Constant(\"Std.Bool\"), Forall(\"broken\", Constant(\"Std.Bool\"), Forall(\"continued\", Constant(\"Std.Bool\"), Forall(\"body_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"return_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"break_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"rest\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"post\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"returned_guard\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Variable(\"returned\"), Constant(\"Std.Bool.false\")]), Forall(\"broken_guard\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Variable(\"broken\"), Constant(\"Std.Bool.true\")]), Apply(Constant(\"Std.Eq\"), [Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Variable(\"post\"), [Apply(Variable(\"rest\"), [Variable(\"body_frame\")])]), Apply(Variable(\"post\"), [Variable(\"body_frame\")]), Variable(\"continued\")]), Variable(\"break_frame\"), Variable(\"broken\")]), Variable(\"return_frame\"), Variable(\"returned\")]), Variable(\"break_frame\")])))))))))))",
+        "id": "control-break-exit-valid",
+        "iteration_domain": "single source-shaped abrupt edge; no iteration-count premise",
+        "mutation": 0,
+        "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+        "terms": 306,
+        "theorem": "Probe.GoPractical.Word.ControlClaimbreakexit"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0016769999999999999,
+          "cpu_user_seconds": 0.0035529999999999997,
+          "exit_code": 0,
+          "peak_rss_bytes": 6045696,
+          "report": {
+            "declaration_count": 26,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "ec077e2768b255cc7614427fb37b00ee35949b9f3807335ec8546573e0359034",
+              "export": "bafd42edb49bf3ecd5a0169fe89a8606a96750c8a34bb9ae480b6c9540ad498a"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.010806832986418158
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0013139999999999998,
+          "cpu_user_seconds": 0.00214,
+          "exit_code": 0,
+          "peak_rss_bytes": 3145728,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 26,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "ec077e2768b255cc7614427fb37b00ee35949b9f3807335ec8546573e0359034",
+              "export": "bafd42edb49bf3ecd5a0169fe89a8606a96750c8a34bb9ae480b6c9540ad498a"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009205917012877762
+        }
+      },
+      "raw_sha256": "4efd0afde8c4f3837654f54422142d14f6766eb661219e6902c0ed97af3b5b66"
+    },
+    {
+      "case": {
+        "bytes": 3040,
+        "declarations": 26,
+        "expected": "rejected",
+        "family": "break-exit",
+        "frame_bits": 128,
+        "goal_debug": "Forall(\"returned\", Constant(\"Std.Bool\"), Forall(\"broken\", Constant(\"Std.Bool\"), Forall(\"continued\", Constant(\"Std.Bool\"), Forall(\"body_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"return_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"break_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"rest\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"post\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"returned_guard\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Variable(\"returned\"), Constant(\"Std.Bool.false\")]), Forall(\"broken_guard\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Variable(\"broken\"), Constant(\"Std.Bool.true\")]), Apply(Constant(\"Std.Eq\"), [Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Variable(\"post\"), [Apply(Variable(\"rest\"), [Variable(\"body_frame\")])]), Apply(Variable(\"post\"), [Variable(\"body_frame\")]), Variable(\"continued\")]), Variable(\"break_frame\"), Variable(\"broken\")]), Variable(\"return_frame\"), Variable(\"returned\")]), Apply(Variable(\"post\"), [Variable(\"body_frame\")])])))))))))))",
+        "id": "control-break-exit-altered",
+        "iteration_domain": "single source-shaped abrupt edge; no iteration-count premise",
+        "mutation": 1,
+        "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+        "terms": 306,
+        "theorem": "Probe.GoPractical.Word.ControlClaimbreakexit"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001774,
+          "cpu_user_seconds": 0.002525,
+          "exit_code": 1,
+          "peak_rss_bytes": 5521408,
+          "report": {
+            "error_detail": "term 574 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008626667025964707
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0015099999999999998,
+          "cpu_user_seconds": 0.0024809999999999997,
+          "exit_code": 1,
+          "peak_rss_bytes": 3096576,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"544\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"730\",\"kind\":\"check_type_mismatch\",\"term_index\":\"574\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "4179a5c96e35a09bafdc5106f41f3672191da3131c8fc22b6053e11e6c0ad967",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00913774996297434
+        }
+      },
+      "raw_sha256": "fb226711b073396573f331ffd7fe12f451b7aadb79fe827e2eda483429578020"
+    },
+    {
+      "case": {
+        "bytes": 2953,
+        "declarations": 26,
+        "expected": "accepted",
+        "family": "return-precedence",
+        "frame_bits": 128,
+        "goal_debug": "Forall(\"returned\", Constant(\"Std.Bool\"), Forall(\"broken\", Constant(\"Std.Bool\"), Forall(\"continued\", Constant(\"Std.Bool\"), Forall(\"body_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"return_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"break_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"rest\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"post\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"returned_guard\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Variable(\"returned\"), Constant(\"Std.Bool.true\")]), Apply(Constant(\"Std.Eq\"), [Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Variable(\"post\"), [Apply(Variable(\"rest\"), [Variable(\"body_frame\")])]), Apply(Variable(\"post\"), [Variable(\"body_frame\")]), Variable(\"continued\")]), Variable(\"break_frame\"), Variable(\"broken\")]), Variable(\"return_frame\"), Variable(\"returned\")]), Variable(\"return_frame\")]))))))))))",
+        "id": "control-return-precedence-valid",
+        "iteration_domain": "single source-shaped abrupt edge; no iteration-count premise",
+        "mutation": 0,
+        "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+        "terms": 295,
+        "theorem": "Probe.GoPractical.Word.ControlClaimreturnprecedence"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001803,
+          "cpu_user_seconds": 0.00329,
+          "exit_code": 0,
+          "peak_rss_bytes": 5898240,
+          "report": {
+            "declaration_count": 26,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "ff67447ddcebcfebb59609ebdb5cad752da6a9a07286b1a013f476e50adedc77",
+              "export": "96130c877a3896c7ee20ebe877bc55fcddcc3b5ba8bb9dd149df7e30d7f6e301"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009224875015206635
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0013109999999999999,
+          "cpu_user_seconds": 0.002029,
+          "exit_code": 0,
+          "peak_rss_bytes": 3112960,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 26,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "ff67447ddcebcfebb59609ebdb5cad752da6a9a07286b1a013f476e50adedc77",
+              "export": "96130c877a3896c7ee20ebe877bc55fcddcc3b5ba8bb9dd149df7e30d7f6e301"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009058791969437152
+        }
+      },
+      "raw_sha256": "b522f10fec53c70965b45c4579d3def9a20d3ca7a19ce723c1ba3dad238e3a8d"
+    },
+    {
+      "case": {
+        "bytes": 2953,
+        "declarations": 26,
+        "expected": "rejected",
+        "family": "return-precedence",
+        "frame_bits": 128,
+        "goal_debug": "Forall(\"returned\", Constant(\"Std.Bool\"), Forall(\"broken\", Constant(\"Std.Bool\"), Forall(\"continued\", Constant(\"Std.Bool\"), Forall(\"body_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"return_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"break_frame\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"rest\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"post\", Forall(\"__frame_argument\", Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Forall(\"returned_guard\", Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Variable(\"returned\"), Constant(\"Std.Bool.true\")]), Apply(Constant(\"Std.Eq\"), [Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Forall(\"__type_addr_0\", Constant(\"Std.Bool\"), Forall(\"__type_addr_1\", Constant(\"Std.Bool\"), Forall(\"__type_addr_2\", Constant(\"Std.Bool\"), Forall(\"__type_addr_3\", Constant(\"Std.Bool\"), Forall(\"__type_addr_4\", Constant(\"Std.Bool\"), Forall(\"__type_addr_5\", Constant(\"Std.Bool\"), Forall(\"__type_addr_6\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\"))))))))), Apply(Variable(\"post\"), [Apply(Variable(\"rest\"), [Variable(\"body_frame\")])]), Apply(Variable(\"post\"), [Variable(\"body_frame\")]), Variable(\"continued\")]), Variable(\"break_frame\"), Variable(\"broken\")]), Variable(\"return_frame\"), Variable(\"returned\")]), Variable(\"break_frame\")]))))))))))",
+        "id": "control-return-precedence-altered",
+        "iteration_domain": "single source-shaped abrupt edge; no iteration-count premise",
+        "mutation": 1,
+        "scope": "ordinary loop/control proof schema; entry and body preservation are proof obligations, never caller entry assumptions; production source and variant bindings remain due in T06",
+        "terms": 295,
+        "theorem": "Probe.GoPractical.Word.ControlClaimreturnprecedence"
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0016439999999999998,
+          "cpu_user_seconds": 0.0022429999999999998,
+          "exit_code": 1,
+          "peak_rss_bytes": 5439488,
+          "report": {
+            "error_detail": "term 565 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00914933398598805
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0013809999999999998,
+          "cpu_user_seconds": 0.002237,
+          "exit_code": 1,
+          "peak_rss_bytes": 3031040,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"543\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"674\",\"kind\":\"check_type_mismatch\",\"term_index\":\"565\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "032875cf429dc019fbdbc876ae7cd40e2cedaba0f598839f3c07c83be891f8f3",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00909249996766448
+        }
+      },
+      "raw_sha256": "3e913ddd5902fd4393eff1c6b29dbbaad23bff23b33758ea5360eb16a8f5ebb8"
+    }
+  ],
+  "ceiling_scope": "private measurements, not profile budgets",
+  "checker_binaries": {
+    "go": "28f3e018bf6752286a1d3ab250bb73e4f05d1f3fa77a50d57454110c7bd0979c",
+    "rust": "d6950f75301f7e0d768e5ea94de55c1230816561529e53703bb873af00ae97d4"
+  },
+  "child_ceiling_seconds": 60,
+  "generated_producer_inputs": [
+    {
+      "path": "main.rs",
+      "sha256": "e22f480248b7c2fa7688d83f9cb8ca51959b0dc74a018531f30839e120f63ebf"
+    },
+    {
+      "path": "natural.rs",
+      "sha256": "ab70591c8fcaacbe09b24776e95bc381055200ffd11e5d19c367fc2434d19e20"
+    },
+    {
+      "path": "word.rs",
+      "sha256": "b52f28566dece2770c882f2ad9860f0797b3c87b6bba051d44cbf553ef546e0c"
+    },
+    {
+      "path": "word/balanced.rs",
+      "sha256": "613e28fd7c0188fc2ef49d8452610a1492a093d5cf4a99f4191fe3da25eb8313"
+    },
+    {
+      "path": "word/balanced/signed.rs",
+      "sha256": "fe1a7afc6be4a264844101ef9c0cda781543c651b3b4242d17c94472273d2729"
+    },
+    {
+      "path": "word/balanced/signed/bytes.rs",
+      "sha256": "66e3961995d9dc5dd836eefa1e3f762b7f8afbd825a49100a279ad78b221d959"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds.rs",
+      "sha256": "9ae75866e7315aca7bd531d09da4ccf4a24519a26c6cca172eb4fe77418906c1"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/coverage.rs",
+      "sha256": "5ce6eb686f3b2231fa650ef1495fc9ddef88d1165ec1562b196e5f10d8af1610"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices.rs",
+      "sha256": "63fe8df6b803f9d885ac9659e0915bf3dfbd3a6a0e4afebf1f63442ffa496784"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access.rs",
+      "sha256": "e33d56d0ef4c36f6219c5e05e3b467639e2c560889150f3535b06f3285db7962"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity.rs",
+      "sha256": "d7986e03fc3e5e90f595002c2e706d719568cc1c51df9d7d7751575d63c1380e"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/embedding.rs",
+      "sha256": "39f3ef83ae8d1eb4916a4cef20403382ace335294ddd01678be906f4cceb7ff6"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice.rs",
+      "sha256": "c4c90026cd3b86873eeab2397ab9fd73ad66634ba76f2fc9354f8a76d04348f7"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/arith.rs",
+      "sha256": "903c68c44f93e3caf1ca2d8ca99a9d93bc42c64044b51c239d529a2a513c8c89"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/assoc.rs",
+      "sha256": "23f441a888c555b1ef335c28122366718b217681d3a98f645ed44cd89ba4106e"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying.rs",
+      "sha256": "5523909155b80740f88bcac2eea910ca315013e9e2a1b608da43e56b3fc4006b"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction.rs",
+      "sha256": "6587ef8f5cd707e976218e7ed824f9c1a18c628c9c2e5bf7d565bb25154aba0d"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended.rs",
+      "sha256": "1be6f2e82e5062629b00489ae47c26232e83869b410e099bd1e67e53283f98c7"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/emit.rs",
+      "sha256": "f9e2763ad5463f4dee39394ff43b99d578fc08ab46bb7381fe372d113f65e95e"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/indices.rs",
+      "sha256": "533049f98d496edb606f21ae4a1797227f2acf062ad493a950126b32845cf7f1"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/reads.rs",
+      "sha256": "26b111790fcde91173b6472269abed36efae0c6ac2d027460566fe26ecf5d736"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/validity.rs",
+      "sha256": "a730f529dd364f937c18195461ac92efe2c7f22d05ab9e42960e513082972f93"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/indexed.rs",
+      "sha256": "9a66489607c424c22ce00938431bad9b14a0c30a60b3e9238b0102fb4f3f79e3"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/made.rs",
+      "sha256": "3dd38d9959d2d14094e8789fcfbccad47e01595efca5b8a5b29ab358bea00a0d"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/made/composed.rs",
+      "sha256": "1653576edab404256da3d1164746b79a4895a86339216c91f3b092e216a309b3"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/counts.rs",
+      "sha256": "2ba520e731ae25b74b613603ee092ff3a6b407c714e3a49d4d77bce90e02f9a0"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/emit.rs",
+      "sha256": "966f336423d01e34efec46471d3347d64e2f155d5c68a91d492719a58e588fae"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/shift.rs",
+      "sha256": "dbf47196405be7975ae27d1b126a810e9a3591c34b6b7688dbac47193ad8a8e5"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/store.rs",
+      "sha256": "bb2dc947d6e6d2561ec1b74806f3c4a6c609fe8a4eb0dcdf3ec0be46214686ce"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/emit.rs",
+      "sha256": "d14ccac606a7565f60878730f799dbc9c8bd7915af044543fc0698d29f4e6603"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/model.rs",
+      "sha256": "dfebf52c56b1084669fa81ae353744c7847dc91551d4998e0a4f3d6239c5defc"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/numeric.rs",
+      "sha256": "4b55a2e36203e8bb69342e62c51008cf1f814952519b0b619d09cc56cde6b9c8"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/preservation.rs",
+      "sha256": "b2e28805ada6ee0f47b4dfda0c299706a2b788129b3e1a796f6acea5d6d941fa"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/readable.rs",
+      "sha256": "1abaa9ccc87de6d36451f0b77ebb70e2b65940cce14a49804086c5da584d8063"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/stringops.rs",
+      "sha256": "c559d9c5a9e6e9d9be6be51a4558faf717983ff97a601304a4dd1901b41143e2"
+    },
+    {
+      "path": "word/balanced/signed/bytes/bounds/slices/access/validity/reslice/stringops/emit.rs",
+      "sha256": "95c20db80309e146fb279fa7a0b195e1d054fc07ba1383e7d06c3706870415d0"
+    },
+    {
+      "path": "word/balanced/signed/fold.rs",
+      "sha256": "9bf23d6363dbcb9508607d381f48205e2b2228ca50d172f926632f65be8d8840"
+    },
+    {
+      "path": "word/balanced/signed/fold/continuation.rs",
+      "sha256": "aca248cc9693ec594ffa95df059dc42ea02e4ccc385a4f0b63f5f407f3a84af9"
+    },
+    {
+      "path": "word/balanced/signed/fold/continuation/returned.rs",
+      "sha256": "9c4bdf37ba79d69568956629d588e2db679d6f3b99f3d62a7bc447429fcb3167"
+    },
+    {
+      "path": "word/balanced/signed/fold/continuation/returned/quote.rs",
+      "sha256": "c7deb1f6a2ea0de3b4a4b9000b4041fef49c405723c0863be506b2d2214b7552"
+    },
+    {
+      "path": "word/balanced/signed/fold/continuation/returned/run.rs",
+      "sha256": "f2f03b5069d4d9c9816ee179de737d7ddc881e49ea551b00b5d2df7609f481ab"
+    },
+    {
+      "path": "word/balanced/signed/fold/signed_prefix.rs",
+      "sha256": "a58589540f394e72d216e985da8bb9daaa2d2b75c5bebcf51837651e7a404977"
+    },
+    {
+      "path": "word/balanced/signed/order.rs",
+      "sha256": "52b24efd55c9d0df7397b0b9e21961dd15671322fd276ce15708c1eeef111582"
+    },
+    {
+      "path": "word/balanced/signed/order/path.rs",
+      "sha256": "d92785a0ad8d1da68ddf398803a9e37a3f124b2e01aa52159ced339c99b2f860"
+    },
+    {
+      "path": "word/control.rs",
+      "sha256": "e7ef8d9a08203ac80e9320ada553364c0df3f159023096fb2f1341f9c171fe42"
+    }
+  ],
+  "generations": [
+    {
+      "cpu_system_seconds": 0.004918,
+      "cpu_user_seconds": 0.007462,
+      "exit_code": 0,
+      "peak_rss_bytes": 4014080,
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "stdout": "",
+      "wall_seconds": 0.6042396670090966
+    },
+    {
+      "cpu_system_seconds": 0.004163,
+      "cpu_user_seconds": 0.0074129999999999995,
+      "exit_code": 0,
+      "peak_rss_bytes": 4030464,
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "stdout": "",
+      "wall_seconds": 0.01773437496740371
+    }
+  ],
+  "host": {
+    "cpu_count": 10,
+    "machine": "arm64",
+    "release": "27.0.0",
+    "system": "Darwin"
+  },
+  "host_toolchain_inventory": {
+    "files": 14496,
+    "sha256": "85d1dd7ca77c9263d83e25f05e4c32105738fdc002434d61b27671aee4e259bc"
+  },
+  "inputs": [
+    {
+      "path": "crates/mpk-cert/Cargo.toml",
+      "sha256": "b99ff7fde6a4f0cb50a091eb02997c97d5f2e934b42eddfd375f53b96bfc3a47"
+    },
+    {
+      "path": "crates/mpk-cert/src/axiom_report.rs",
+      "sha256": "cae850ba9adf8f52485f25d3322a479e5effb3b5044c4998b8dbe10e395e9843"
+    },
+    {
+      "path": "crates/mpk-cert/src/binary_tags.rs",
+      "sha256": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b"
+    },
+    {
+      "path": "crates/mpk-cert/src/canonical.rs",
+      "sha256": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74"
+    },
+    {
+      "path": "crates/mpk-cert/src/cert_basic.rs",
+      "sha256": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295"
+    },
+    {
+      "path": "crates/mpk-cert/src/decode.rs",
+      "sha256": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13"
+    },
+    {
+      "path": "crates/mpk-cert/src/encode.rs",
+      "sha256": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf"
+    },
+    {
+      "path": "crates/mpk-cert/src/export.rs",
+      "sha256": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd"
+    },
+    {
+      "path": "crates/mpk-cert/src/hash.rs",
+      "sha256": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83"
+    },
+    {
+      "path": "crates/mpk-cert/src/imports.rs",
+      "sha256": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183"
+    },
+    {
+      "path": "crates/mpk-cert/src/lib.rs",
+      "sha256": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553"
+    },
+    {
+      "path": "crates/mpk-core/Cargo.toml",
+      "sha256": "7d23784732e23fd78029884f2b9a5bc6200e7192c31ae10ada567e61a15607a3"
+    },
+    {
+      "path": "crates/mpk-core/src/bool_cases.rs",
+      "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+    },
+    {
+      "path": "crates/mpk-core/src/context.rs",
+      "sha256": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d"
+    },
+    {
+      "path": "crates/mpk-core/src/decl_check.rs",
+      "sha256": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783"
+    },
+    {
+      "path": "crates/mpk-core/src/defeq.rs",
+      "sha256": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270"
+    },
+    {
+      "path": "crates/mpk-core/src/env.rs",
+      "sha256": "ed50466ecf9e1c6f1549022aa61812c1561cd725325633931a57efb1715ae5b8"
+    },
+    {
+      "path": "crates/mpk-core/src/error.rs",
+      "sha256": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive.rs",
+      "sha256": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive_gen.rs",
+      "sha256": "4758d3cf280f0d9c107e4af886f0880fd29670e9a23f2ddffa7728f958075cc2"
+    },
+    {
+      "path": "crates/mpk-core/src/infer.rs",
+      "sha256": "7cf169404b6fdd251e7884056c7204e285da904780d1e3ea9ca642d4c87991bd"
+    },
+    {
+      "path": "crates/mpk-core/src/level.rs",
+      "sha256": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad"
+    },
+    {
+      "path": "crates/mpk-core/src/lib.rs",
+      "sha256": "a0488ee47d656918dc05a7909bfb87a4ed970388600fced26e8eea5b73ba637f"
+    },
+    {
+      "path": "crates/mpk-core/src/name.rs",
+      "sha256": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99"
+    },
+    {
+      "path": "crates/mpk-core/src/positivity.rs",
+      "sha256": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce.rs",
+      "sha256": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce_inductive.rs",
+      "sha256": "123277c8989902c207d6b0fec994ff5c4223fe5bcc9a331bc381f7dc4412492f"
+    },
+    {
+      "path": "crates/mpk-core/src/subst.rs",
+      "sha256": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f"
+    },
+    {
+      "path": "crates/mpk-core/src/term.rs",
+      "sha256": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60"
+    },
+    {
+      "path": "crates/mpk-kernel/Cargo.toml",
+      "sha256": "3226dc567ef89c9488b61e6c79df2134eb7b1dd36c7cbe19abb3e3e7916ac826"
+    },
+    {
+      "path": "crates/mpk-kernel/src/bool_cases_tests.rs",
+      "sha256": "1ec5b21c3a581fcdd0fd234f7a25c26651958b1f9f96792061fd9936395ca460"
+    },
+    {
+      "path": "crates/mpk-kernel/src/cache.rs",
+      "sha256": "fb9bd805c365f6f614e2f0cb432bc92964e78faa4749df15ad62c4a82ed767ad"
+    },
+    {
+      "path": "crates/mpk-kernel/src/decl_driver.rs",
+      "sha256": "afe75c89bb7e43bb4a73c56aaa4a1bddc20c8ba789066fae5f0f27b7839278c3"
+    },
+    {
+      "path": "crates/mpk-kernel/src/json_output.rs",
+      "sha256": "82992d18824fd25f7c1fcd58d569e4e339bda8be2f60588bb20d2537b9b6cdb5"
+    },
+    {
+      "path": "crates/mpk-kernel/src/lib.rs",
+      "sha256": "ff4c1550532e2896bce4374145242f9a54d24502c8f2a79454067d664c383d72"
+    },
+    {
+      "path": "crates/mpk-kernel/src/profile.rs",
+      "sha256": "e44ce30ffbc29617073456ce8dd9bd46ce731549c423a01a747c82542cffc580"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_check.rs",
+      "sha256": "27e8f109d9241cee011984021d74f57088f4ebf30012a858e0fe6416cae96027"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_structural.rs",
+      "sha256": "6117063aa07e3ac5882ebba60ab907518a2c9844f96d35887f5a31c8d66906c0"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_theory.rs",
+      "sha256": "81d52c5be4e325c3cccb1d6e0096b0e118f245f53234d5496dfdac066fee95af"
+    },
+    {
+      "path": "crates/mpk-kernel/src/verifier.rs",
+      "sha256": "e8932a62713b8f8af18a980093a6ff162b3510b4b4e7da924d9b421552a9e3f2"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/certificate_decoder_fuzz_smoke.rs",
+      "sha256": "bd7589eb77846f61a1958ce539e2edbace4d422aaaed096e3c12f49c7b2288e0"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/fast_kernel_profile.rs",
+      "sha256": "c8b68b7a4b22fbe9b23a02c5609cb083be7c843f3521f7e6f05f38c1caf06b88"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/theory_certificate_encoders.rs",
+      "sha256": "568342571c0d9971c4e2b2a6ce6c38d12e957a81e722e2962574088cb3968cc4"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/theory_certificate_fuzz_smoke.rs",
+      "sha256": "e793e24646335a47cba9465046835bed86ba413d7d5384a9cbc53f88c67e2cc1"
+    },
+    {
+      "path": "crates/mpk-theory/Cargo.toml",
+      "sha256": "120227c9b1a0bbbe48e146d6d2412793b9e357cb43e7d21585c760a268081908"
+    },
+    {
+      "path": "crates/mpk-theory/src/array_cert.rs",
+      "sha256": "7b6261cbedc9200ffe8ce5513374e2c14aa6b999926607e450440e26bb25cace"
+    },
+    {
+      "path": "crates/mpk-theory/src/bitvec_eval.rs",
+      "sha256": "3fa7578174f4e3a489d395653687899d1d06fc59780b9224d652638b7d589ac4"
+    },
+    {
+      "path": "crates/mpk-theory/src/bool_cert.rs",
+      "sha256": "17bcac0225e8281ecf754115734cf254addf87bc44a6da4fddaebabbea226c14"
+    },
+    {
+      "path": "crates/mpk-theory/src/lib.rs",
+      "sha256": "10719601e65de998218739cd2b5b61a6bf69df6692c1b829c307c6cf57d61ccd"
+    },
+    {
+      "path": "crates/mpk-theory/src/linarith_cert.rs",
+      "sha256": "3606832e69432a08295e014f0810e5f20aa7d10fdef2bc8789448ebf98d6895a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs",
+      "sha256": "dd3a7ec39bb7aa86663a71fdc9ff55197e5f64df86a9adfd3cac41b7c9d90db3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/main.rs",
+      "sha256": "30f6276e54f49f6b6d51b04aeb42150f11ad42182a8b6d4a6d4d82af18fde257"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/natural.rs",
+      "sha256": "ab70591c8fcaacbe09b24776e95bc381055200ffd11e5d19c367fc2434d19e20"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word.rs",
+      "sha256": "d7c6bf2c68c4fcca0d9a111801d15cca64806cd4d4666c23b0b35cee1a547826"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced.rs",
+      "sha256": "613e28fd7c0188fc2ef49d8452610a1492a093d5cf4a99f4191fe3da25eb8313"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed.rs",
+      "sha256": "fe1a7afc6be4a264844101ef9c0cda781543c651b3b4242d17c94472273d2729"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes.rs",
+      "sha256": "66e3961995d9dc5dd836eefa1e3f762b7f8afbd825a49100a279ad78b221d959"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds.rs",
+      "sha256": "9ae75866e7315aca7bd531d09da4ccf4a24519a26c6cca172eb4fe77418906c1"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/coverage.rs",
+      "sha256": "5ce6eb686f3b2231fa650ef1495fc9ddef88d1165ec1562b196e5f10d8af1610"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices.rs",
+      "sha256": "63fe8df6b803f9d885ac9659e0915bf3dfbd3a6a0e4afebf1f63442ffa496784"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access.rs",
+      "sha256": "e33d56d0ef4c36f6219c5e05e3b467639e2c560889150f3535b06f3285db7962"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity.rs",
+      "sha256": "d7986e03fc3e5e90f595002c2e706d719568cc1c51df9d7d7751575d63c1380e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/embedding.rs",
+      "sha256": "39f3ef83ae8d1eb4916a4cef20403382ace335294ddd01678be906f4cceb7ff6"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice.rs",
+      "sha256": "c4c90026cd3b86873eeab2397ab9fd73ad66634ba76f2fc9354f8a76d04348f7"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/arith.rs",
+      "sha256": "903c68c44f93e3caf1ca2d8ca99a9d93bc42c64044b51c239d529a2a513c8c89"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/assoc.rs",
+      "sha256": "23f441a888c555b1ef335c28122366718b217681d3a98f645ed44cd89ba4106e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying.rs",
+      "sha256": "5523909155b80740f88bcac2eea910ca315013e9e2a1b608da43e56b3fc4006b"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction.rs",
+      "sha256": "6587ef8f5cd707e976218e7ed824f9c1a18c628c9c2e5bf7d565bb25154aba0d"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended.rs",
+      "sha256": "1be6f2e82e5062629b00489ae47c26232e83869b410e099bd1e67e53283f98c7"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/emit.rs",
+      "sha256": "f9e2763ad5463f4dee39394ff43b99d578fc08ab46bb7381fe372d113f65e95e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/indices.rs",
+      "sha256": "533049f98d496edb606f21ae4a1797227f2acf062ad493a950126b32845cf7f1"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/reads.rs",
+      "sha256": "26b111790fcde91173b6472269abed36efae0c6ac2d027460566fe26ecf5d736"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/validity.rs",
+      "sha256": "a730f529dd364f937c18195461ac92efe2c7f22d05ab9e42960e513082972f93"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/indexed.rs",
+      "sha256": "9a66489607c424c22ce00938431bad9b14a0c30a60b3e9238b0102fb4f3f79e3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/made.rs",
+      "sha256": "3dd38d9959d2d14094e8789fcfbccad47e01595efca5b8a5b29ab358bea00a0d"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/made/composed.rs",
+      "sha256": "1653576edab404256da3d1164746b79a4895a86339216c91f3b092e216a309b3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/counts.rs",
+      "sha256": "2ba520e731ae25b74b613603ee092ff3a6b407c714e3a49d4d77bce90e02f9a0"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/emit.rs",
+      "sha256": "966f336423d01e34efec46471d3347d64e2f155d5c68a91d492719a58e588fae"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/shift.rs",
+      "sha256": "dbf47196405be7975ae27d1b126a810e9a3591c34b6b7688dbac47193ad8a8e5"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/store.rs",
+      "sha256": "bb2dc947d6e6d2561ec1b74806f3c4a6c609fe8a4eb0dcdf3ec0be46214686ce"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/emit.rs",
+      "sha256": "d14ccac606a7565f60878730f799dbc9c8bd7915af044543fc0698d29f4e6603"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/model.rs",
+      "sha256": "dfebf52c56b1084669fa81ae353744c7847dc91551d4998e0a4f3d6239c5defc"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/numeric.rs",
+      "sha256": "4b55a2e36203e8bb69342e62c51008cf1f814952519b0b619d09cc56cde6b9c8"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/preservation.rs",
+      "sha256": "b2e28805ada6ee0f47b4dfda0c299706a2b788129b3e1a796f6acea5d6d941fa"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/readable.rs",
+      "sha256": "1abaa9ccc87de6d36451f0b77ebb70e2b65940cce14a49804086c5da584d8063"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/stringops.rs",
+      "sha256": "c559d9c5a9e6e9d9be6be51a4558faf717983ff97a601304a4dd1901b41143e2"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/stringops/emit.rs",
+      "sha256": "95c20db80309e146fb279fa7a0b195e1d054fc07ba1383e7d06c3706870415d0"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold.rs",
+      "sha256": "9bf23d6363dbcb9508607d381f48205e2b2228ca50d172f926632f65be8d8840"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation.rs",
+      "sha256": "aca248cc9693ec594ffa95df059dc42ea02e4ccc385a4f0b63f5f407f3a84af9"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned.rs",
+      "sha256": "9c4bdf37ba79d69568956629d588e2db679d6f3b99f3d62a7bc447429fcb3167"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/quote.rs",
+      "sha256": "c7deb1f6a2ea0de3b4a4b9000b4041fef49c405723c0863be506b2d2214b7552"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/run.rs",
+      "sha256": "f2f03b5069d4d9c9816ee179de737d7ddc881e49ea551b00b5d2df7609f481ab"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/signed_prefix.rs",
+      "sha256": "a58589540f394e72d216e985da8bb9daaa2d2b75c5bebcf51837651e7a404977"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order.rs",
+      "sha256": "52b24efd55c9d0df7397b0b9e21961dd15671322fd276ce15708c1eeef111582"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order/path.rs",
+      "sha256": "d92785a0ad8d1da68ddf398803a9e37a3f124b2e01aa52159ced339c99b2f860"
+    },
+    {
+      "path": "develop/probes/go-practical/check_balanced_report.py",
+      "sha256": "204916b16372e177035dff92e9b78a129f7129d0a532b393c7e4aa603cc4ea25"
+    },
+    {
+      "path": "develop/probes/go-practical/check_control_report.py",
+      "sha256": "3006308160979241915872469c4c609f66f9d418805e8e611e03a2fc27d0ea2b"
+    },
+    {
+      "path": "develop/probes/go-practical/control-certificates/Cargo.lock",
+      "sha256": "d3d41f4ee34f3ec4c1dd7b8dc7b181098d2a6191057c097bf1d9ca5bb6176cb4"
+    },
+    {
+      "path": "develop/probes/go-practical/control-certificates/Cargo.toml",
+      "sha256": "54d8f52fe3af7d58f28c2756ffe4cfac9e73f6e19c933950a412268ff6a575f8"
+    },
+    {
+      "path": "develop/probes/go-practical/control-certificates/build.rs",
+      "sha256": "df23671295eb1b4fe49af6ab996bf8575eaa1ea3ac8a5cb3c923266b24fec142"
+    },
+    {
+      "path": "develop/probes/go-practical/control-certificates/src/control.rs",
+      "sha256": "e7ef8d9a08203ac80e9320ada553364c0df3f159023096fb2f1341f9c171fe42"
+    },
+    {
+      "path": "develop/probes/go-practical/control-certificates/src/main.rs",
+      "sha256": "c80cf447351e15af8b4e76c1eea9b41ea21bfd3fd37ed0d9fb42dba8aeaf3968"
+    },
+    {
+      "path": "develop/probes/go-practical/control-foundation/Cargo.lock",
+      "sha256": "3f36d81ffd725e16a3b20828331625fd7e3108e928371790fcc95eae731f9070"
+    },
+    {
+      "path": "develop/probes/go-practical/control-foundation/go/nat_induct.go",
+      "sha256": "c11b4a95db2d988c6efde61cfc472698c975d273af67c6b8d4b85193261d5b36"
+    },
+    {
+      "path": "develop/probes/go-practical/control-foundation/go/nat_induct_test.go",
+      "sha256": "7e9331ba6ac8f0c1da9d7d35eede58eb324018b0207124ad6f88c56f57777726"
+    },
+    {
+      "path": "develop/probes/go-practical/control-foundation/rust/nat_induct.rs",
+      "sha256": "730a8d6e56d08a8873e9d052351ea41810eef26da0af5369d34b6c8879de48c6"
+    },
+    {
+      "path": "develop/probes/go-practical/control_differential.py",
+      "sha256": "3253742d307591a2b044534f0f7f9b890ff5c46d32307e4058fa0b94ab988f5d"
+    },
+    {
+      "path": "develop/probes/go-practical/control_foundation_build.py",
+      "sha256": "79d6bb234224755fe8499ca74e6f67a7e5a1a60f1b0eb236ef54bd7a9440119d"
+    },
+    {
+      "path": "develop/probes/go-practical/control_reference.go",
+      "sha256": "f3ceefe0f4f66b6037128eb906d968c2e43a8912152c1f1d406403d96cf6dfa9"
+    },
+    {
+      "path": "develop/probes/go-practical/order_differential.py",
+      "sha256": "396772db3d137a9c5091713a02646abfb4f586914a00e6219a9e8ff95696b59c"
+    },
+    {
+      "path": "develop/probes/go-practical/run_control_probes.py",
+      "sha256": "dc155276d902d4e18463a7e5942566fbfc225a6b28aa84d0c99c92b6ede8fc8b"
+    },
+    {
+      "path": "develop/probes/go-practical/run_proof_pilot.py",
+      "sha256": "3ddaffd920a0aada1c91678a7d35de9314b5009c15dbe05ca025256cfb22a1d5"
+    },
+    {
+      "path": "fixtures/core-bool-cases/right-identity.hex",
+      "sha256": "0232430bd7abff3b231b0898a512f85b4b4471906afc43e192c9407a6b414063"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report_test.go",
+      "sha256": "d0b81bf2605439ccca678118c5074e0193a217cc372d12a41e2ad148c6ec6b8a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases_test.go",
+      "sha256": "c2f1f22c035fcd8640ee7f697820c7c7a258b09c3ed6add072eef1978a79fa1c"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "415db8d600819882fde6e705a06f141c3c5d76836b6d0271a8970f6182a55f3e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main_test.go",
+      "sha256": "6496a4642d47c4cddabad6a9074f62516184978f88bb3043b3253518c0c635e4"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check_test.go",
+      "sha256": "ea726b6f4ecba51dd003e5acdda995f14cd9544e00fd0b6de5bcace599d1493a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_term_intern_test.go",
+      "sha256": "1703507c1036e184508a0a4a082173414f10f01688b20b9ffdb2a3ddc2d24fde"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder_test.go",
+      "sha256": "b9b6bc2753dc513cfc45ca1efe1cff2bca031791dd8293fa6a2873ef3d61c01e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "4e73baf6738ca272e34287440750f4a8f1df2aa6785dffd77be205b43cf70c85"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq_test.go",
+      "sha256": "f199578a7845974c785a2d4da64d8b995d67fc0ef763a628aab6a6f3bf14a3d8"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash_test.go",
+      "sha256": "922bf39c91f2e715526dd6277939aa324e53809466fa053b2d35ab55ed540b86"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check_test.go",
+      "sha256": "5f29b974ebb641f59723eba732c6b2ec227c52b7ff871a7ce470050a94c1cc18"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify_test.go",
+      "sha256": "eb287ff774bb5415b4f4b9bfa0d2510203da6cd857f613aa0a8fe11802f68bd3"
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583"
+    }
+  ],
+  "interface_cases": [
+    {
+      "case": {
+        "bytes": 2478,
+        "declarations": 22,
+        "expected": "accepted",
+        "id": "induction-interface-legacy-no-induct",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 255,
+        "variant": "legacy-no-induct"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0016829999999999998,
+          "cpu_user_seconds": 0.001847,
+          "exit_code": 0,
+          "peak_rss_bytes": 5324800,
+          "report": {
+            "declaration_count": 22,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "df6e4ff568de8e713be0c4b6dbacbcf7ec136b35aaaf9f49aafedadcfe43af4c",
+              "export": "1ed4f6e31513201916430c2d93c916716129bbc3a4245d3f86f2dd8fb26f3b17"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008701665967237204
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001266,
+          "cpu_user_seconds": 0.001406,
+          "exit_code": 0,
+          "peak_rss_bytes": 2867200,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 22,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "df6e4ff568de8e713be0c4b6dbacbcf7ec136b35aaaf9f49aafedadcfe43af4c",
+              "export": "1ed4f6e31513201916430c2d93c916716129bbc3a4245d3f86f2dd8fb26f3b17"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.0061380830011330545
+        }
+      },
+      "raw_sha256": "2f4f3ee10d6afdfe11557cd09ba488e3f9a9f0109005cff9c6272d38e7e93f4c"
+    },
+    {
+      "case": {
+        "bytes": 2600,
+        "declarations": 25,
+        "expected": "rejected",
+        "id": "induction-interface-wrong-interface",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 255,
+        "variant": "wrong-interface"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0015,
+          "cpu_user_seconds": 0.001475,
+          "exit_code": 1,
+          "peak_rss_bytes": 4947968,
+          "report": {
+            "error_detail": "Nat induction eliminator type is not canonical",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.007835500000510365
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001222,
+          "cpu_user_seconds": 0.001294,
+          "exit_code": 1,
+          "peak_rss_bytes": 2785280,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_nat_induct_interface\",\"reason\":\"noncanonical_eliminator_type\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "86b42eb8f064e286e721c6a2ef61e91ee88e8a370398f42b6cb3f983c3e7121d",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006019834021572024
+        }
+      },
+      "raw_sha256": "e319e8de581bed2d74f92606a49cbdd4483307a73cf6415df99f7719ae78e262"
+    },
+    {
+      "case": {
+        "bytes": 2600,
+        "declarations": 25,
+        "expected": "rejected",
+        "id": "induction-interface-nongenerated",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 255,
+        "variant": "nongenerated"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001555,
+          "cpu_user_seconds": 0.001509,
+          "exit_code": 1,
+          "peak_rss_bytes": 4947968,
+          "report": {
+            "error_detail": "Nat induction must be generated",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.007944917015265673
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001202,
+          "cpu_user_seconds": 0.001299,
+          "exit_code": 1,
+          "peak_rss_bytes": 2785280,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_nat_induct_interface\",\"reason\":\"nongenerated_induction\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "6633e3ceb5fb5dfeccb102578dd5b36809c95e74887ebba98ffb10efd7483887",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008364040986634791
+        }
+      },
+      "raw_sha256": "a00fd9d4a638494e5060ed2f96b773dfb3032df75327229b32cfefa76526e545"
+    },
+    {
+      "case": {
+        "bytes": 2616,
+        "declarations": 25,
+        "expected": "rejected",
+        "id": "induction-interface-wrong-zero-name",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 255,
+        "variant": "wrong-zero-name"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0016309999999999999,
+          "cpu_user_seconds": 0.001571,
+          "exit_code": 1,
+          "peak_rss_bytes": 4947968,
+          "report": {
+            "error_detail": "Nat induction constructor is not canonical",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.022275333001744002
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0013499999999999999,
+          "cpu_user_seconds": 0.001334,
+          "exit_code": 1,
+          "peak_rss_bytes": 2768896,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_nat_induct_interface\",\"reason\":\"noncanonical_constructor\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "714a4164e7451f68a16725fea8f0c64a2bc042f26fcb21cdbd348c2db49672c9",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008370042021851987
+        }
+      },
+      "raw_sha256": "7e013478722b5b6efcdaa875c05d07dd3e231b8a14c2b39a52510d1710a20d2d"
+    },
+    {
+      "case": {
+        "bytes": 2600,
+        "declarations": 25,
+        "expected": "rejected",
+        "id": "induction-interface-wrong-succ-type",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 255,
+        "variant": "wrong-succ-type"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0016279999999999999,
+          "cpu_user_seconds": 0.001499,
+          "exit_code": 1,
+          "peak_rss_bytes": 4931584,
+          "report": {
+            "error_detail": "application 487 argument 0 has non-pi function type const",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006507999962195754
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001343,
+          "cpu_user_seconds": 0.001364,
+          "exit_code": 1,
+          "peak_rss_bytes": 2785280,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_NOT_A_FUNCTION\",\"location\":[{\"field\":\"infer\"},{\"field\":\"app\"},{\"index\":0}],\"details\":{\"actual\":\"const\",\"argument_index\":\"0\",\"argument_term_index\":\"8\",\"function_term_index\":\"486\",\"function_type_index\":\"477\",\"kind\":\"app_function_type_not_pi\",\"term_index\":\"487\",\"whnf_type_index\":\"477\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "261e959dd1a5178acf1687050a2356ac2b1bcbad03a434814a0c4f6924f3e461",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.013190499972552061
+        }
+      },
+      "raw_sha256": "55fe879763ebd3fd3ba5b347eece8793d36ebb33dc5b548fa8fb060aa0b75faf"
+    },
+    {
+      "case": {
+        "bytes": 2600,
+        "declarations": 25,
+        "expected": "rejected",
+        "id": "induction-interface-nongenerated-zero",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 255,
+        "variant": "nongenerated-zero"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001764,
+          "cpu_user_seconds": 0.0015689999999999999,
+          "exit_code": 1,
+          "peak_rss_bytes": 5095424,
+          "report": {
+            "error_detail": "Nat induction constructor is not canonical",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008383125008549541
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001289,
+          "cpu_user_seconds": 0.001353,
+          "exit_code": 1,
+          "peak_rss_bytes": 2768896,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_nat_induct_interface\",\"reason\":\"noncanonical_constructor\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "a0a6b904c18d0f67e8543b311e3f3dcf1ae0571e80048abddc36d7cd29c1ff74",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005828834022395313
+        }
+      },
+      "raw_sha256": "2434c7bebf4798820f68ce53c4a156d383ffdb191879a487811fd7b8c1596847"
+    },
+    {
+      "case": {
+        "bytes": 2572,
+        "declarations": 24,
+        "expected": "rejected",
+        "id": "induction-interface-extra-constructor-before",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 255,
+        "variant": "extra-constructor-before"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001898,
+          "cpu_user_seconds": 0.0015789999999999999,
+          "exit_code": 1,
+          "peak_rss_bytes": 4947968,
+          "report": {
+            "error_detail": "Nat induction requires exactly two constructors",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008940165978856385
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0014629999999999999,
+          "cpu_user_seconds": 0.001433,
+          "exit_code": 1,
+          "peak_rss_bytes": 2768896,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_nat_induct_interface\",\"reason\":\"constructor_count\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "384a6e8109fc04c5832016f9a433bec0cf09e04c3e1ecd8331002a4eee965040",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006394250027369708
+        }
+      },
+      "raw_sha256": "db6ec099a4cf16b0398cd02eb02e6c180437d28120e2498b4e2ea03ce00ae54b"
+    },
+    {
+      "case": {
+        "bytes": 2572,
+        "declarations": 24,
+        "expected": "rejected",
+        "id": "induction-interface-extra-constructor-after",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 255,
+        "variant": "extra-constructor-after"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001738,
+          "cpu_user_seconds": 0.0015849999999999998,
+          "exit_code": 1,
+          "peak_rss_bytes": 4964352,
+          "report": {
+            "error_detail": "constructor added to closed Nat induction family",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009213499957695603
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001387,
+          "cpu_user_seconds": 0.001414,
+          "exit_code": 1,
+          "peak_rss_bytes": 2785280,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[{\"field\":\"declarations\"}],\"details\":{\"inductive\":\"18\",\"kind\":\"closed_nat_induct_family\",\"name\":\"Std.Nat.extra\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "759e6a090fa3e46dd4f216d0be4b4e19341c96e4b5d801716fc2c6bc4518e170",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.0063053329940885305
+        }
+      },
+      "raw_sha256": "aaaa882b5be0dca5e8889d6a62b3f0847cd21575190fe4a5c438c68dc0b921a9"
+    },
+    {
+      "case": {
+        "bytes": 2604,
+        "declarations": 25,
+        "expected": "rejected",
+        "id": "induction-interface-higher-universe-family",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 256,
+        "variant": "higher-universe-family"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.0016409999999999999,
+          "cpu_user_seconds": 0.00154,
+          "exit_code": 1,
+          "peak_rss_bytes": 5111808,
+          "report": {
+            "error_detail": "Nat induction family must be Sort0",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008513999986462295
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001338,
+          "cpu_user_seconds": 0.001375,
+          "exit_code": 1,
+          "peak_rss_bytes": 2785280,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_nat_induct_interface\",\"reason\":\"family_is_not_sort_zero\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "c50380223ef872d237eaaacb898ff7d64a38af57d21f2c3926780a0335a71cfe",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.007252292009070516
+        }
+      },
+      "raw_sha256": "a0de00ada5f558ff9f8e140fbae957eeb3f11e4c27eb033faa181e4672d4932d"
+    },
+    {
+      "case": {
+        "bytes": 2599,
+        "declarations": 24,
+        "expected": "rejected",
+        "id": "induction-interface-induct-levels-partial",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 256,
+        "variant": "induct-levels-partial"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.002286,
+          "cpu_user_seconds": 0.001588,
+          "exit_code": 1,
+          "peak_rss_bytes": 5111808,
+          "report": {
+            "error_detail": "Nat induction interface has no universe arguments",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009256416000425816
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001291,
+          "cpu_user_seconds": 0.00134,
+          "exit_code": 1,
+          "peak_rss_bytes": 2801664,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_nat_induct_interface\",\"reason\":\"nonempty_universe_arguments\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "418299aabcad6820284308100ed5538311dd3659531ec5c8068c68655c5071ee",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.005961041955742985
+        }
+      },
+      "raw_sha256": "cccda94cc4cc73cca66cf171772614092d624bc53a02afc807f7a2a0cada05d2"
+    },
+    {
+      "case": {
+        "bytes": 2603,
+        "declarations": 24,
+        "expected": "rejected",
+        "id": "induction-interface-family-levels",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 257,
+        "variant": "family-levels"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.00153,
+          "cpu_user_seconds": 0.0015199999999999999,
+          "exit_code": 1,
+          "peak_rss_bytes": 4947968,
+          "report": {
+            "error_detail": "Nat induction interface has no universe arguments",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006190665997564793
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0013599999999999999,
+          "cpu_user_seconds": 0.001393,
+          "exit_code": 1,
+          "peak_rss_bytes": 2768896,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_nat_induct_interface\",\"reason\":\"nonempty_universe_arguments\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "ae2113761cb7a1b37321b38fd9c677242b0ed7af68103d9c92511c09e0f369d7",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.0063606249750591815
+        }
+      },
+      "raw_sha256": "199959a9c375e0a4d4af6a3886c0da0f5e827328c3503bde6599712c1efe7cf6"
+    },
+    {
+      "case": {
+        "bytes": 2599,
+        "declarations": 24,
+        "expected": "rejected",
+        "id": "induction-interface-constructor-levels",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 256,
+        "variant": "constructor-levels"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001624,
+          "cpu_user_seconds": 0.0015819999999999999,
+          "exit_code": 1,
+          "peak_rss_bytes": 5079040,
+          "report": {
+            "error_detail": "Nat induction interface has no universe arguments",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.00817995797842741
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001238,
+          "cpu_user_seconds": 0.001322,
+          "exit_code": 1,
+          "peak_rss_bytes": 2785280,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_nat_induct_interface\",\"reason\":\"nonempty_universe_arguments\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "69e984defc3795d3c75232b476d2d2864096b56062846e7807d42bc92b60be83",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008050625037867576
+        }
+      },
+      "raw_sha256": "c4debdc98c44f0c4cc21b065c861ea8df2dcbb0d4c651eaf94047553c43375da"
+    },
+    {
+      "case": {
+        "bytes": 2599,
+        "declarations": 24,
+        "expected": "rejected",
+        "id": "induction-interface-prior-opaque-levels",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 256,
+        "variant": "prior-opaque-levels"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001597,
+          "cpu_user_seconds": 0.001519,
+          "exit_code": 1,
+          "peak_rss_bytes": 5062656,
+          "report": {
+            "error_detail": "universe argument in declaration preceding Nat induction",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008777332957834005
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001272,
+          "cpu_user_seconds": 0.001353,
+          "exit_code": 1,
+          "peak_rss_bytes": 2768896,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_nat_induct_interface\",\"reason\":\"prior_nonempty_universe_arguments\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "a7c33db85a925e9b443d847e8aa74f9278c6c6dcb8dd27315bf1657ba0515853",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.0060446669813245535
+        }
+      },
+      "raw_sha256": "98c8aa7a731866a696b1917cf80b4828974b517d1fa57df7d12bdfad9fcb7537"
+    },
+    {
+      "case": {
+        "bytes": 2598,
+        "declarations": 24,
+        "expected": "rejected",
+        "id": "induction-interface-prior-theorem-levels",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 256,
+        "variant": "prior-theorem-levels"
+      },
+      "classification": "malformed_interface_rejection",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.00158,
+          "cpu_user_seconds": 0.001542,
+          "exit_code": 1,
+          "peak_rss_bytes": 5062656,
+          "report": {
+            "error_detail": "universe argument in declaration preceding Nat induction",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.008327250019647181
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001272,
+          "cpu_user_seconds": 0.001352,
+          "exit_code": 1,
+          "peak_rss_bytes": 2785280,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[],\"details\":{\"kind\":\"invalid_nat_induct_interface\",\"reason\":\"prior_nonempty_universe_arguments\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "045fb63d71aa7cefbb6a627c8fe7e34036db1725cb11dcabc3169322a93849cd",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006240041984710842
+        }
+      },
+      "raw_sha256": "d79722a57e9ffbb8a69bf562048d203909fa94d6d4da51947a68553ad909f42a"
+    },
+    {
+      "case": {
+        "bytes": 2604,
+        "declarations": 25,
+        "expected": "accepted",
+        "id": "induction-interface-unused-term-levels",
+        "scope": "private proposed Nat.induct interface validation; malformed declaration rejection is distinct from semantic false-claim rejection",
+        "terms": 256,
+        "variant": "unused-term-levels"
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.001691,
+          "cpu_user_seconds": 0.001908,
+          "exit_code": 0,
+          "peak_rss_bytes": 5308416,
+          "report": {
+            "declaration_count": 25,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "8e7d9ae12e85b5b2b76012dd6d9f0f4f088eedfc044cf713f2dd8721dd05effe",
+              "export": "98121559d8cd85a457f431d9ddcca16ddf999d723e8959f05348b01381cecd36"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.009132249979302287
+        },
+        "rust": {
+          "cpu_system_seconds": 0.001197,
+          "cpu_user_seconds": 0.001416,
+          "exit_code": 0,
+          "peak_rss_bytes": 2981888,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 25,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "8e7d9ae12e85b5b2b76012dd6d9f0f4f088eedfc044cf713f2dd8721dd05effe",
+              "export": "98121559d8cd85a457f431d9ddcca16ddf999d723e8959f05348b01381cecd36"
+            },
+            "module": "Probe.GoPractical.ControlInduction",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.006110457994509488
+        }
+      },
+      "raw_sha256": "0e5cebc4e694e0ebe643f6eb6ab224b57436b89751a3f178fddbad7dac0d3def"
+    }
+  ],
+  "mirrored_checker_inputs": [
+    {
+      "path": "crates/mpk-cert/Cargo.toml",
+      "sha256": "b99ff7fde6a4f0cb50a091eb02997c97d5f2e934b42eddfd375f53b96bfc3a47"
+    },
+    {
+      "path": "crates/mpk-cert/src/axiom_report.rs",
+      "sha256": "cae850ba9adf8f52485f25d3322a479e5effb3b5044c4998b8dbe10e395e9843"
+    },
+    {
+      "path": "crates/mpk-cert/src/binary_tags.rs",
+      "sha256": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b"
+    },
+    {
+      "path": "crates/mpk-cert/src/canonical.rs",
+      "sha256": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74"
+    },
+    {
+      "path": "crates/mpk-cert/src/cert_basic.rs",
+      "sha256": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295"
+    },
+    {
+      "path": "crates/mpk-cert/src/decode.rs",
+      "sha256": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13"
+    },
+    {
+      "path": "crates/mpk-cert/src/encode.rs",
+      "sha256": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf"
+    },
+    {
+      "path": "crates/mpk-cert/src/export.rs",
+      "sha256": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd"
+    },
+    {
+      "path": "crates/mpk-cert/src/hash.rs",
+      "sha256": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83"
+    },
+    {
+      "path": "crates/mpk-cert/src/imports.rs",
+      "sha256": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183"
+    },
+    {
+      "path": "crates/mpk-cert/src/lib.rs",
+      "sha256": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553"
+    },
+    {
+      "path": "crates/mpk-core/Cargo.toml",
+      "sha256": "7d23784732e23fd78029884f2b9a5bc6200e7192c31ae10ada567e61a15607a3"
+    },
+    {
+      "path": "crates/mpk-core/src/bool_cases.rs",
+      "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+    },
+    {
+      "path": "crates/mpk-core/src/context.rs",
+      "sha256": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d"
+    },
+    {
+      "path": "crates/mpk-core/src/decl_check.rs",
+      "sha256": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783"
+    },
+    {
+      "path": "crates/mpk-core/src/defeq.rs",
+      "sha256": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270"
+    },
+    {
+      "path": "crates/mpk-core/src/env.rs",
+      "sha256": "ee641b1d1a6b08603e72f9f27d17433404d564a66cdb67020ceaef67ac68cc4f"
+    },
+    {
+      "path": "crates/mpk-core/src/error.rs",
+      "sha256": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive.rs",
+      "sha256": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive_gen.rs",
+      "sha256": "4758d3cf280f0d9c107e4af886f0880fd29670e9a23f2ddffa7728f958075cc2"
+    },
+    {
+      "path": "crates/mpk-core/src/infer.rs",
+      "sha256": "e5dac6b16ff8474dbb2e06ff5df005dadac12740fc1dc44d6aa4c5409d0916e7"
+    },
+    {
+      "path": "crates/mpk-core/src/level.rs",
+      "sha256": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad"
+    },
+    {
+      "path": "crates/mpk-core/src/lib.rs",
+      "sha256": "b8df13d6556658a910c508e0e7c601f6366c2bbca74993a2d2165e8a382c2085"
+    },
+    {
+      "path": "crates/mpk-core/src/name.rs",
+      "sha256": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99"
+    },
+    {
+      "path": "crates/mpk-core/src/nat_induct.rs",
+      "sha256": "730a8d6e56d08a8873e9d052351ea41810eef26da0af5369d34b6c8879de48c6"
+    },
+    {
+      "path": "crates/mpk-core/src/positivity.rs",
+      "sha256": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce.rs",
+      "sha256": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce_inductive.rs",
+      "sha256": "f1148824aaecd88a9d671c693ff011c7b63d4eabc2d4e0b8d9341c516481f8e1"
+    },
+    {
+      "path": "crates/mpk-core/src/subst.rs",
+      "sha256": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f"
+    },
+    {
+      "path": "crates/mpk-core/src/term.rs",
+      "sha256": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60"
+    },
+    {
+      "path": "crates/mpk-kernel/Cargo.toml",
+      "sha256": "3226dc567ef89c9488b61e6c79df2134eb7b1dd36c7cbe19abb3e3e7916ac826"
+    },
+    {
+      "path": "crates/mpk-kernel/src/bool_cases_tests.rs",
+      "sha256": "1ec5b21c3a581fcdd0fd234f7a25c26651958b1f9f96792061fd9936395ca460"
+    },
+    {
+      "path": "crates/mpk-kernel/src/cache.rs",
+      "sha256": "fb9bd805c365f6f614e2f0cb432bc92964e78faa4749df15ad62c4a82ed767ad"
+    },
+    {
+      "path": "crates/mpk-kernel/src/decl_driver.rs",
+      "sha256": "496eeb1ade17f8f5186092669988bbdd476a9ce47512e538609ade9ba7004147"
+    },
+    {
+      "path": "crates/mpk-kernel/src/json_output.rs",
+      "sha256": "82992d18824fd25f7c1fcd58d569e4e339bda8be2f60588bb20d2537b9b6cdb5"
+    },
+    {
+      "path": "crates/mpk-kernel/src/lib.rs",
+      "sha256": "ff4c1550532e2896bce4374145242f9a54d24502c8f2a79454067d664c383d72"
+    },
+    {
+      "path": "crates/mpk-kernel/src/profile.rs",
+      "sha256": "e44ce30ffbc29617073456ce8dd9bd46ce731549c423a01a747c82542cffc580"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_check.rs",
+      "sha256": "27e8f109d9241cee011984021d74f57088f4ebf30012a858e0fe6416cae96027"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_structural.rs",
+      "sha256": "6117063aa07e3ac5882ebba60ab907518a2c9844f96d35887f5a31c8d66906c0"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_theory.rs",
+      "sha256": "81d52c5be4e325c3cccb1d6e0096b0e118f245f53234d5496dfdac066fee95af"
+    },
+    {
+      "path": "crates/mpk-kernel/src/verifier.rs",
+      "sha256": "e8932a62713b8f8af18a980093a6ff162b3510b4b4e7da924d9b421552a9e3f2"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/certificate_decoder_fuzz_smoke.rs",
+      "sha256": "bd7589eb77846f61a1958ce539e2edbace4d422aaaed096e3c12f49c7b2288e0"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/fast_kernel_profile.rs",
+      "sha256": "c8b68b7a4b22fbe9b23a02c5609cb083be7c843f3521f7e6f05f38c1caf06b88"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/theory_certificate_encoders.rs",
+      "sha256": "568342571c0d9971c4e2b2a6ce6c38d12e957a81e722e2962574088cb3968cc4"
+    },
+    {
+      "path": "crates/mpk-kernel/tests/theory_certificate_fuzz_smoke.rs",
+      "sha256": "e793e24646335a47cba9465046835bed86ba413d7d5384a9cbc53f88c67e2cc1"
+    },
+    {
+      "path": "crates/mpk-theory/Cargo.toml",
+      "sha256": "120227c9b1a0bbbe48e146d6d2412793b9e357cb43e7d21585c760a268081908"
+    },
+    {
+      "path": "crates/mpk-theory/src/array_cert.rs",
+      "sha256": "7b6261cbedc9200ffe8ce5513374e2c14aa6b999926607e450440e26bb25cace"
+    },
+    {
+      "path": "crates/mpk-theory/src/bitvec_eval.rs",
+      "sha256": "3fa7578174f4e3a489d395653687899d1d06fc59780b9224d652638b7d589ac4"
+    },
+    {
+      "path": "crates/mpk-theory/src/bool_cert.rs",
+      "sha256": "17bcac0225e8281ecf754115734cf254addf87bc44a6da4fddaebabbea226c14"
+    },
+    {
+      "path": "crates/mpk-theory/src/lib.rs",
+      "sha256": "10719601e65de998218739cd2b5b61a6bf69df6692c1b829c307c6cf57d61ccd"
+    },
+    {
+      "path": "crates/mpk-theory/src/linarith_cert.rs",
+      "sha256": "3606832e69432a08295e014f0810e5f20aa7d10fdef2bc8789448ebf98d6895a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report_test.go",
+      "sha256": "d0b81bf2605439ccca678118c5074e0193a217cc372d12a41e2ad148c6ec6b8a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases_test.go",
+      "sha256": "c2f1f22c035fcd8640ee7f697820c7c7a258b09c3ed6add072eef1978a79fa1c"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "415db8d600819882fde6e705a06f141c3c5d76836b6d0271a8970f6182a55f3e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main_test.go",
+      "sha256": "6496a4642d47c4cddabad6a9074f62516184978f88bb3043b3253518c0c635e4"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "6f27dd0fa813e381dd4fdac9da3560469f90ab26d6fdabc1d93cf8f876712caa"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check_test.go",
+      "sha256": "ea726b6f4ecba51dd003e5acdda995f14cd9544e00fd0b6de5bcace599d1493a"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_term_intern_test.go",
+      "sha256": "1703507c1036e184508a0a4a082173414f10f01688b20b9ffdb2a3ddc2d24fde"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder_test.go",
+      "sha256": "b9b6bc2753dc513cfc45ca1efe1cff2bca031791dd8293fa6a2873ef3d61c01e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "733b4dee87b2fdb75e20d423aa032fa4abd7db748cbe187a2a9663f9bfbf01f2"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq_test.go",
+      "sha256": "f199578a7845974c785a2d4da64d8b995d67fc0ef763a628aab6a6f3bf14a3d8"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash_test.go",
+      "sha256": "922bf39c91f2e715526dd6277939aa324e53809466fa053b2d35ab55ed540b86"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "c11b4a95db2d988c6efde61cfc472698c975d273af67c6b8d4b85193261d5b36"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct_test.go",
+      "sha256": "7e9331ba6ac8f0c1da9d7d35eede58eb324018b0207124ad6f88c56f57777726"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check_test.go",
+      "sha256": "5f29b974ebb641f59723eba732c6b2ec227c52b7ff871a7ce470050a94c1cc18"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify_test.go",
+      "sha256": "eb287ff774bb5415b4f4b9bfa0d2510203da6cd857f613aa0a8fe11802f68bd3"
+    }
+  ],
+  "native_observations": {
+    "cases": 576,
+    "counts": {
+      "bad_entry_refutations": 32,
+      "bad_step_refutations": 16,
+      "break_exits": 144,
+      "continue_posts": 72,
+      "invariant_preserved": 144,
+      "return_precedence": 144,
+      "stopped_frames": 288
+    },
+    "false_claim_witnesses": [
+      {
+        "actual": false,
+        "altered": true,
+        "case_id": "control-invariant-entry-altered",
+        "input_index": 32,
+        "input_sha256": "64dbc0c273560ec936613822f97b07086d15cdd7a37a547eb8c53004767680da"
+      },
+      {
+        "actual": false,
+        "altered": true,
+        "case_id": "control-invariant-step-altered",
+        "input_index": 65,
+        "input_sha256": "f55772b0620b4bc55983955499ea81b3028b75b013bdb1a797caced154109316"
+      },
+      {
+        "actual": {
+          "high": "9223372036854775809",
+          "low": "130"
+        },
+        "altered": {
+          "high": "0",
+          "low": "0"
+        },
+        "case_id": "control-absorbing-stop-altered",
+        "input_index": 64,
+        "input_sha256": "34531e29c259f786b7401421bb1180f90829cd7e2cabc4ed910c325c5a7c5d2e"
+      },
+      {
+        "actual": {
+          "high": "9223372036854775808",
+          "low": "2"
+        },
+        "altered": {
+          "high": "9223372036854775809",
+          "low": "130"
+        },
+        "case_id": "control-continue-post-altered",
+        "input_index": 2,
+        "input_sha256": "6b43457a02a8bad00392da0538b7b68018caa2b6f285251a8143e7322a544bb2"
+      },
+      {
+        "actual": {
+          "high": "9223372036854775808",
+          "low": "2"
+        },
+        "altered": {
+          "high": "9223372036854775807",
+          "low": "0"
+        },
+        "case_id": "control-break-exit-altered",
+        "input_index": 20,
+        "input_sha256": "44597ccd77c025c5e77d94dfc751269bfe996e95f8a7cafe953bf934a62ac074"
+      },
+      {
+        "actual": {
+          "high": "7",
+          "low": "18446744073709551615"
+        },
+        "altered": {
+          "high": "9223372036854775808",
+          "low": "2"
+        },
+        "case_id": "control-return-precedence-altered",
+        "input_index": 12,
+        "input_sha256": "8ddfc557765a747094555ec2ae8fb1040b42a55b1dc1f3aa0b53fd0e1c4cf211"
+      }
+    ],
+    "go_binary_sha256": "1132d2dc476ee4b07fb172802dc9fa6cfac1fa92000a7858488a4ccdd61a9ffb",
+    "go_measurement": {
+      "cpu_system_seconds": 0.0031019999999999997,
+      "cpu_user_seconds": 0.0036309999999999997,
+      "exit_code": 0,
+      "peak_rss_bytes": 5718016,
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "wall_seconds": 0.6529287499724887
+    },
+    "input_sha256": "776f00989b2002f0ab662d76ac848f7805d1dc9012a969e1d5eb935ff815bd0a",
+    "output_sha256": "b4043071a952ee0b6a6c7fdb3ea1c86203f174b357fb775aefcf2e06b0810ab6",
+    "scope": "original Go for/continue/break/return and full128 frames versus independent bit arithmetic; runtime observations are not arbitrary-Nat induction or production source binding"
+  },
+  "outcomes": {
+    "accepted_zero_axiom": 6,
+    "core_type_mismatch": 6,
+    "interface_accepted": 2,
+    "malformed_interface_rejection": 13
+  },
+  "pending": [
+    "W03 isolated resource envelope and cumulative exit review",
+    "freeze the additive core/foundation interface and executor/migration ownership in W04",
+    "production Go source/loop/variant/operation bindings in T02\u2013T06"
+  ],
+  "schema": "mpk.go_practical.control_report.v0",
+  "scope": "private proposed additive monomorphic Sort0 Nat.induct; independently extended mirrored Rust/Go checkers; arbitrary-Nat full-frame invariant/control proof schemas; production checkers and public profile unchanged",
+  "status": "private proposed induction/control feasibility measured; W03 cumulative exit review remains open",
+  "work_item": "GO-PRAC-T01-W03"
+}

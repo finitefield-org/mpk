@@ -76,7 +76,7 @@ Only these artifacts can support proof acceptance:
 The following artifacts are helper analysis only and must not be treated as
 proof evidence:
 
-- Go, Rust, or C# source;
+- Go or Rust source;
 - contract JSON;
 - frontend or compiler output;
 - VIR JSON;

@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "mode": "literal",
+  "started_at_utc": "2026-10-18T20:08:42.304097+00:00",
+  "command": [
+    "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "--exact",
+    "ordinary_carriers::public_domain_tests::literal_clause_tests::csharp_03_t06_w09_literal_clauses_original_source",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS",
+    "MPK_W09_TRANSITION_CLAUSES_OUT",
+    "MPK_W09_TRANSITION_CLAUSE_RESPONSES",
+    "MPK_W09_TRANSITION_CLAUSE_REQUESTS_OUT",
+    "MPK_W09_LITERAL_CLAUSES_OUT",
+    "MPK_W09_LITERAL_CLAUSE_RESPONSES",
+    "MPK_W09_LITERAL_CLAUSE_REQUESTS_OUT"
+  ],
+  "prior_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null,
+    "MPK_W09_TRANSITION_CLAUSES_OUT": null,
+    "MPK_W09_TRANSITION_CLAUSE_RESPONSES": null,
+    "MPK_W09_TRANSITION_CLAUSE_REQUESTS_OUT": null,
+    "MPK_W09_LITERAL_CLAUSES_OUT": null,
+    "MPK_W09_LITERAL_CLAUSE_RESPONSES": null,
+    "MPK_W09_LITERAL_CLAUSE_REQUESTS_OUT": null
+  },
+  "test_sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs",
+      "sha256": "cae1aa8a75c32f755ad9e3ce429828a291c497474e8f0b98ac58859d5bdaa401",
+      "bytes": 17872
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_clause_tests.rs",
+      "sha256": "3c068a816c030526f24929aa201220de516de630fab8bd6ab5d42fcf465ca539",
+      "bytes": 17744
+    }
+  ],
+  "build": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/build/result.json",
+    "sha256": "2a60d3b8a4dc1b3b71f30e14a33d9e90dfdf6b77ec05865f47d69e818db499f2",
+    "bytes": 2353
+  },
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "fafbe139d1296cd6da2c1ed9260dbdfed37ea70b62d4aa97ca72cd50c653e5c0",
+    "bytes": 41037496
+  },
+  "selection_reason": "The actual original owner fails only at its final request echo. Execute every original rich-literal case, full/sparse/adjacent/tail packet probe, standalone/source/integrated/public definition closure comparison, strict import and complete current byte golden. No filters or output flags.",
+  "full_gate": "The entire committed repaired T01 gate remains mandatory; selected owner checks do not complete W05/T01 or permit T02.",
+  "pid": 57276,
+  "exit_code": 0,
+  "wall_seconds": 2.9066727499011904,
+  "finished_at_utc": "2026-10-18T20:08:45.212330+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/literal/stdout.log",
+    "sha256": "008f4bd6987c771247558fa8f8308ab7f26b81e25a86458f20a2fe4528a6b840",
+    "bytes": 238
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/literal/stderr.log",
+    "sha256": "35ddd46be8248bc4c0d7022e88707b073a809bbc5e18ff21fae7bc41842a6baa",
+    "bytes": 151
+  },
+  "expected_one_test_passed": true
+}

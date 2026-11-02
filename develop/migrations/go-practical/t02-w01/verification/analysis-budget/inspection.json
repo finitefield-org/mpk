@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-budget/inspect_budget.py",
+    "bytes": 4541,
+    "sha256": "84cf10aaa0bd524bf617d98efa3cd539a65786f379de9fee1c896490ae98663f"
+  },
+  "native": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-budget/native/native.json",
+    "bytes": 16043,
+    "sha256": "4eb7f6701c37673944d6b0489526e8b10466352eae48549d0d35754161d45117"
+  },
+  "go_result": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-budget/native/result.json",
+    "bytes": 1978,
+    "sha256": "3b7ff5d48455ff4c1775cf6936a30097454f47276200819cf6c855cd636d5542"
+  },
+  "rust_result": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-budget/budget-tests/result.json",
+    "bytes": 2278,
+    "sha256": "ec30098b784c3d8fdd7635f7a33d9a6e5e9ce4d4c24d57add1901d2f9af3cfe8"
+  },
+  "original_sources": 213,
+  "vendor_files": 133,
+  "archive_namespace_entries": 2403,
+  "controls": {
+    "original": {
+      "directory_entries": 368,
+      "archive_entries": 2403,
+      "accepted": true
+    },
+    "exact-shared-limit": {
+      "directory_entries": 128669,
+      "archive_entries": 2403,
+      "accepted": true
+    },
+    "one-over-shared-limit": {
+      "directory_entries": 128670,
+      "archive_entries": 2403,
+      "accepted": false
+    }
+  },
+  "all_snapshot_digests_recomputed": true,
+  "all_original_source_objects_retained": true,
+  "extra_padding_is_control_only": true,
+  "all_other_capture_archive_budgets_proved": false,
+  "original_root_authenticated": false,
+  "native_Linux_release_acceptance": false,
+  "whole_repository_gate_run": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

@@ -1,0 +1,235 @@
+{
+  "actual_AST_observations": 139,
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_ordinary_arithmetic"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "unit.log",
+      "reason": "All16 affected tests: paired arithmetic proof cases,27 logical heads,complete component reconstruction,integer representatives,bounded ranges,nested binders,large literals and unproved/source boundaries",
+      "sha256": "508ec75deb64b76cc777051ad10882a59e32f16a8985a76a0331eb72d021150d",
+      "wall_seconds": 3.0852914579445496
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "develop/probes/go-practical/run_ordinary_arithmetic.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh unchanged77-source checker build,two byte-identical emissions for10 paired native cases,all149 closed logical components,Go/big.Int/integer/actual-AST comparison and exact binary/source/toolchain replay",
+      "sha256": "1d8278a6b4308c1e74e5f4013c3ea00987aeb573c8aee4a1716fec212f75b800",
+      "wall_seconds": 144.46898879099172
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "develop/probes/go-practical/check_arithmetic_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Complete arithmetic/component reconstruction,714 input pins,retained numeric/word/proof evidence,143 predecessor paths,strict JSONs,document links and ordered ledger1–51; no historical native matrices rerun",
+      "sha256": "159ad40f18130b27a9ae9cc4aa00d7d1deee3e32db60a5f7b1423601fb92ce06",
+      "wall_seconds": 101.90908029198181
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+        "-l",
+        "develop/probes/go-practical/arithmetic_observer.go"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "gofmt.log",
+      "reason": "Only the new independent Go arithmetic observer; prior/private/production sources unchanged",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.09463729104027152
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-c",
+        "from pathlib import Path;p=Path('develop/probes/go-practical');names=('arithmetic_terms.py','ordinary_arithmetic.py','ordinary_integers.py','ordinary_ranges.py','logical_elaboration.py','arithmetic_cases.py','run_ordinary_arithmetic.py','test_ordinary_arithmetic.py','check_arithmetic_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: nine new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "All nine new arithmetic/compiler/case/replay/test/metadata Python sources",
+      "sha256": "790c0da65fba14cfcd4b6047c66a4cf1d865209c86ed3f831d99682e15f0cbd6",
+      "wall_seconds": 0.13043804198969156
+    }
+  ],
+  "complete_go_elaboration": false,
+  "component_outcomes": {
+    "configuration_rejection": 19,
+    "ordinary_component_pending": 2,
+    "typed_logical_unproved": 1
+  },
+  "document_links": 447,
+  "documents": 26,
+  "elaborator_correctness_proved": false,
+  "entry_commit": "61c8569f7ad0b3b6e3f31089f90b9432b9a11046",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; final W05 owns cumulative whole T01 gate",
+    "status": "deferred"
+  },
+  "host_toolchain_inventory": {
+    "files": 14496,
+    "sha256": "85d1dd7ca77c9263d83e25f05e4c32105738fdc002434d61b27671aee4e259bc"
+  },
+  "initial_repaired_findings": [
+    {
+      "finding": "local proof variable neg shadows the negative-projection constructor",
+      "record": "initial-shadowed-projection/diagnostic.json",
+      "repair": "rename the local proof variable negative_proof",
+      "scope": "untrusted producer construction error; no certificate or source claim",
+      "sha256": "63485cab3dd05aa66fc1a55331dd879c7ada3da105c512888e32392319f2e047"
+    }
+  ],
+  "logical_heads": 27,
+  "materialization": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+      "-B",
+      "develop/probes/go-practical/run_ordinary_arithmetic.py",
+      "--write"
+    ],
+    "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+    "environment": {
+      "PYTHONPATH": "develop/probes/go-practical"
+    },
+    "exit_code": 0,
+    "log": "initial-materialization.log",
+    "reason": "Materialize the complete unbounded ordinary library,149 closed logical components,10 paired native cases and independent Go/integer/AST observations; model pending remains separate",
+    "sha256": "1d8278a6b4308c1e74e5f4013c3ea00987aeb573c8aee4a1716fec212f75b800",
+    "wall_seconds": 101.07065024995245
+  },
+  "maximum_direct_proof_child_rss_bytes": 299302912,
+  "maximum_direct_proof_child_wall_seconds": 1.3477999169845134,
+  "metadata_checker_sha256": "33a653fb24e99bd795b44596d2f9a4c75d3f640601d0eaeed332da6ffdbd42bc",
+  "model_pending_evidence": {
+    "cases": [
+      "logical-139",
+      "logical-140",
+      "logical-141",
+      "logical-142",
+      "logical-143",
+      "logical-144",
+      "logical-145",
+      "logical-146",
+      "logical-147",
+      "logical-148"
+    ],
+    "meaning": "private512 unary-loop ceiling only; all149 logical components typecheck and native Go/big.Int results agree with independent integer oracle; no semantic Nat/Int bound or failed ordinary proof",
+    "status": "private ordinary-AST observation resource pending"
+  },
+  "model_resource_pending": 10,
+  "native_observations": 149,
+  "new_theory_definitions": 36,
+  "new_theory_theorems": 563,
+  "not_repeated": [
+    "unaffected historical native/ordinary matrices; every new certificate rechecks the relevant35-declaration seed,and predecessor/source evidence remains checked",
+    "formatting unchanged old/private/production files; only new Go observer checked; no new Rust files introduced"
+  ],
+  "observed_tests": 16,
+  "ordinary_cases": 10,
+  "ordinary_library_checked": true,
+  "outcomes": {
+    "accepted_zero_axiom": 2,
+    "ordinary_type_mismatch": 8
+  },
+  "output_scope": "complete raw combined stdout/stderr of selected local subprocesses; original failed producer sources/traceback preserved separately",
+  "positive_certificates": [
+    {
+      "bytes": 153208,
+      "declarations": 634,
+      "expected": "accepted",
+      "id": "theory",
+      "module": "Probe.GoPractical.Arithmetic",
+      "new_definitions": 36,
+      "new_theorems": 563,
+      "terms": 11424
+    },
+    {
+      "bytes": 247334,
+      "declarations": 1230,
+      "expected": "accepted",
+      "id": "closed-logical",
+      "module": "Probe.GoPractical.Arithmetic.ClosedLogical",
+      "new_definitions": 632,
+      "new_theorems": 563,
+      "terms": 12238
+    }
+  ],
+  "profile_activated": false,
+  "proof_resource_scope": "60s/1GiB per direct proof child; Darwin measurement,not Linux release/process-tree evidence",
+  "remaining": [
+    "connection of actual word denotations to this general Nat/Int library and remaining word/source arithmetic correctness",
+    "source/storage/partial expressions,bounded definedness and independent elaborator/source correctness; all169 retained complete Go requests remain unelaborated",
+    "remaining ordinary state/permission/frame/control/totality and complete Go statement/program/skeleton assembly",
+    "frontend-envelope/policy/API/release roots,reviewed migrations,W04 freeze,W05 inactive publication/T01 gate and full T02–T11"
+  ],
+  "retained_seed_declarations": 35,
+  "review": {
+    "checked": [
+      "unbounded Nat arithmetic proofs use ordinary induction and explicit equality steps; small checkpoints preserve existing parser/conversion budgets",
+      "integer operations and Bool comparisons respect semantic cross sums; pair-function core equality and normalization are never assumed",
+      "half-open folds cover reversed bounds and use actual bounded equality premises; total logical bodies are distinct from partial source definedness",
+      "all27 existing logical heads independently infer types and lexical binder depth; exact binary literal DAGs avoid machine narrowing",
+      "typed Boolean statements remain unproved and source flags false; caller proof overrides and forged false-clause proof reject",
+      "two positive sets pass both checkers at zero axioms and matching hashes; eight controls fail by paired type mismatch; every artifact emits twice identically",
+      "149 exact independent native/integer observations and139 actual ordinary-AST observations agree; ten private model-resource cases remain explicit",
+      "preceding697-input numeric evidence,143 predecessor paths and unchanged77-source private checker are retained; no production/default profile change"
+    ],
+    "kind": "local manual review of genuine Nat induction,balanced-pair equivalence/ring laws,bounded-fold preservation,whole logical-component reconstruction,independent observations and source/proof boundaries",
+    "remaining_requirements": [
+      "connection of actual word denotations to this general Nat/Int library and remaining word/source arithmetic correctness",
+      "source/storage/partial expressions,bounded definedness and independent elaborator/source correctness; all169 retained complete Go requests remain unelaborated",
+      "remaining ordinary state/permission/frame/control/totality and complete Go statement/program/skeleton assembly",
+      "frontend-envelope/policy/API/release roots,reviewed migrations,W04 freeze,W05 inactive publication/T01 gate and full T02–T11"
+    ],
+    "resolved_findings": [
+      "rename the local proof variable negative_proof"
+    ]
+  },
+  "schema": "mpk.go_practical.w04_ordinary_arithmetic_verification.v0",
+  "scope": "ordinary unbounded Nat algebra,balanced-pair Int algebra/equality/order independence,half-open logical folds and typed closed logical components; no source or complete Go elaboration proof",
+  "source_evaluation_proved": false,
+  "source_inputs": 714,
+  "status": "W04 in progress; five selected local checks passed; ten private-model observations remain pending; no T complete",
+  "strict_jsons": 152,
+  "unchanged_private_checker_sources": 77,
+  "unit_execution": {
+    "failed": 0,
+    "passed": 16,
+    "record": "unit.json",
+    "selection": "All16 affected tests: paired arithmetic proof cases,27 logical heads,complete component reconstruction,integer representatives,bounded ranges,nested binders,large literals and unproved/source boundaries",
+    "tests": 16
+  },
+  "word_library_connection_proved": false,
+  "work_item": "GO-PRAC-T01-W04"
+}

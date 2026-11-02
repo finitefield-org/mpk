@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-cli",
+    "--test",
+    "go_practical_installed_compiler"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/whole-snapshot-host/inputs.json",
+    "bytes": 13392262,
+    "sha256": "2e57f82d34d895aa3540b404022c038ac5badb2267a6331ffcd68fe39c2c54d6",
+    "mode": 420
+  },
+  "started_at_utc": "2026-10-28T13:15:54.057327+00:00",
+  "installed_root_exercised": false,
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 187.3692982920038,
+  "consumed_sources_unchanged": true,
+  "whole_originals_unchanged": true,
+  "observation": {
+    "coherently_rehashed_host_rejected": true,
+    "complete_darwin_owner_crossed_with_linux_snapshot_rejected": true,
+    "contract_overlays": 0,
+    "installed_root_exercised": false,
+    "method": "test-only-sealed-snapshot",
+    "original_objects": 5697,
+    "original_packages": 182,
+    "registered_sdk_bytes": 166354960,
+    "registered_sdk_files": 5577,
+    "root_selections": 1,
+    "same_selected_original_source_and_root": true,
+    "sdk_source_directories": 715,
+    "sdk_sources": 5480,
+    "status": "passed"
+  },
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/whole-snapshot-host/stdout.log",
+    "bytes": 442,
+    "sha256": "5870cd2ea3af0e9ec8e9e939862944f9122733bcb7b501bdaa9b16e911472bc0",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-build-info/whole-snapshot-host/stderr.log",
+    "bytes": 409,
+    "sha256": "551e5dd82b67d3a492fae6b9053373d0e29951a18412703d040a165af69cb324",
+    "mode": 420
+  }
+}

@@ -1,0 +1,7 @@
+    Finished `test` profile [optimized + debuginfo] target(s) in 0.34s
+     Running tests/go_practical_source_value_relations.rs (target/debug/deps/go_practical_source_value_relations-d9b46e74a77037b9)
+
+thread 'closed_source_relations_heterogeneous_full_payloads' (56889120) panicked at crates/mpk-vc/tests/go_practical_source_value_relations.rs:215:9:
+heterogeneous-payloads-nil: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"f883aed187aadb91e68ad234e8b6c2df1cd2c77eaf618fbb2d363e686daf957c"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"rhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"36824\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"36854\",\"side\":\"rhs\",\"term_index\":\"36954\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_value_relations`

@@ -1,0 +1,51 @@
+{
+  "finding": "computed Bool-to-Nat literals and nested Int projections cannot silently normalize through outer Nat recursor majors",
+  "scope": "positive proof construction failure; not false source evidence; initial incorrect Go CLI invocation retained separately from proper core result",
+  "inputs": [
+    {
+      "path": "candidate.mpcert",
+      "sha256": "686f6f7121bb93cf7f2b633fe441de8901951d916b97169f41539854c8cee582"
+    },
+    {
+      "path": "go-cli-invocation.json",
+      "sha256": "870f5903542ccce6d982e63652df91ff3a16d09ec748f99754d72297477fdc5c"
+    },
+    {
+      "path": "go.json",
+      "sha256": "fa6bfb0a853bf58e4151eb16d160ca9385ab208717ac5892f05b07782fcc1649"
+    },
+    {
+      "path": "literal-leaf-repaired/candidate.mpcert",
+      "sha256": "32cc2bebd64e7f04d510f0243e7b0c6253d28ec20178e0164db6a38f4e3499bb"
+    },
+    {
+      "path": "literal-leaf-repaired/go.json",
+      "sha256": "4e53ae3edf2574331681567c90190114a20b1d57fcc486f7142fbb2bfd987d96"
+    },
+    {
+      "path": "literal-leaf-repaired/plan.json",
+      "sha256": "47790e9453e3f7edf40aac9d23cb1299d5cbd97b9192345d7a8ac2cf7377a91d"
+    },
+    {
+      "path": "literal-leaf-repaired/rust.json",
+      "sha256": "a9d1bb0590fb14333ffdfac1d9046306c3417fea2cdd52bb4a85e381c26ee63a"
+    },
+    {
+      "path": "literal-leaf-repaired/word_arithmetic.py.txt",
+      "sha256": "cd45db9a3f09eeb0be9e25f329891c87543180ed73e78131528d9cd092e93a52"
+    },
+    {
+      "path": "plan.json",
+      "sha256": "ef791407b0fed13b2f93620b7be0201c9a1dcc4e837c6d2284860de0785846cd"
+    },
+    {
+      "path": "rust.json",
+      "sha256": "e7b566dbfb6fdbd7e3cf36b2979ac608c19320e5490669becb64d0a8df239e56"
+    },
+    {
+      "path": "word_arithmetic.py.txt",
+      "sha256": "ef404dd21c1ef220011bfdce47b58f8799553a2695d22d019631e1367446df71"
+    }
+  ],
+  "repair": "explicit Eq.congr lifts for computed literals,Positive/Negative computation laws for composed Int values,and exact zero-incoming specializations"
+}

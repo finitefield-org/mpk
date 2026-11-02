@@ -1,0 +1,51 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0603]: function `expression_raw` is private
+   --> crates/mpk-vc/src/go_practical_type_keys/source_dependencies.rs:89:63
+    |
+ 89 | ...   Kind::Expression(node) => source_constants::evaluate::expression_raw(scopes, &q.source, *node).map(Value::Constant).map_err(F...
+    |                                                             ^^^^^^^^^^^^^^ private function
+    |
+note: the function `expression_raw` is defined here
+   --> crates/mpk-vc/src/go_practical_type_keys/source_constants/evaluate.rs:446:1
+    |
+446 | pub(super) fn expression_raw(scopes: &GoSourceScopes, source: &str, node: usize) -> Result<GoEvaluatedConstant> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0603]: function `binding_raw` is private
+   --> crates/mpk-vc/src/go_practical_type_keys/source_dependencies.rs:90:155
+    |
+ 90 | ...ocator)).and_then(|b| source_constants::evaluate::binding_raw(scopes, b).map(Value::Constant).map_err(Failure::Constant)),
+    |                                                      ^^^^^^^^^^^ private function
+    |
+note: the function `binding_raw` is defined here
+   --> crates/mpk-vc/src/go_practical_type_keys/source_constants/evaluate.rs:459:1
+    |
+459 | pub(super) fn binding_raw(scopes: &GoSourceScopes, binding: &GoSourceNameBinding) -> Result<GoEvaluatedConstant> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0603]: function `declaration_raw` is private
+   --> crates/mpk-vc/src/go_practical_type_keys/source_dependencies.rs:91:57
+    |
+ 91 | ...   Kind::Spec(node) => source_constants::evaluate::declaration_raw(scopes, &q.source, *node).map(Value::Constants).map_err(Failu...
+    |                                                       ^^^^^^^^^^^^^^^ private function
+    |
+note: the function `declaration_raw` is defined here
+   --> crates/mpk-vc/src/go_practical_type_keys/source_constants/evaluate.rs:474:1
+    |
+474 | pub(super) fn declaration_raw(scopes: &GoSourceScopes, source: &str, spec: usize) -> Result<Vec<GoEvaluatedConstant>> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0603]: function `context_nodes` is private
+   --> crates/mpk-vc/src/go_practical_type_keys/source_dependencies.rs:117:57
+    |
+117 |                 let nodes = source_constants::evaluate::context_nodes(scopes, source, spec)?;
+    |                                                         ^^^^^^^^^^^^^ private function
+    |
+note: the function `context_nodes` is defined here
+   --> crates/mpk-vc/src/go_practical_type_keys/source_constants/evaluate.rs:496:1
+    |
+496 | pub(super) fn context_nodes(scopes: &GoSourceScopes, source: &str, spec: usize) -> Result<BTreeSet<usize>> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0603`.
+error: could not compile `mpk-vc` (lib) due to 4 previous errors

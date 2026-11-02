@@ -1,0 +1,95 @@
+{
+  "inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/run_qemu_probe.py",
+      "bytes": 2392,
+      "sha256": "8c07125ee24f1a3aff0d05f80395489c3f1a01ebf306233147a109312fcd3ab3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/run_scoped.py",
+      "bytes": 7491,
+      "sha256": "1241cd1f3783ad10e04b4cb6c869def38df8dabaf5667bbe1aab0c159e9a1a89",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu_openat2.go",
+      "bytes": 1035,
+      "sha256": "6f0e0b3b2729fbf784416c2980fbdb56e588c7b2767433b656232aa971b2ac67",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-probe-build/result.json",
+      "bytes": 2539,
+      "sha256": "292c4655a0615d2cf866af9cdf20e08027a768f65d0dacd5f83bfa775555dec0",
+      "mode": 420
+    },
+    {
+      "path": "/private/tmp/mpk-go-installed-205-fs/qemu-user/qemu-x86_64-static",
+      "bytes": 10624760,
+      "sha256": "16ce7dbb6626f3c0e1f932f831817dbf3b506c848a168d16f2172151e9666594",
+      "mode": 493
+    },
+    {
+      "path": "/private/tmp/mpk-go-installed-205-fs/qemu-probe/probe",
+      "bytes": 2629773,
+      "sha256": "013f20081c1c2f0479ad26727d71cff4bbf7e1e10561dda407af735bd4b5250f",
+      "mode": 493
+    }
+  ],
+  "commands": [
+    [
+      "/usr/local/bin/docker",
+      "run",
+      "--pull=never",
+      "--rm",
+      "--platform",
+      "linux/arm64",
+      "--network",
+      "none",
+      "--read-only",
+      "--cap-drop",
+      "ALL",
+      "--security-opt",
+      "no-new-privileges",
+      "--user",
+      "501:20",
+      "--mount",
+      "type=bind,src=/private/tmp/mpk-go-installed-205-fs/qemu-user/qemu-x86_64-static,dst=/qemu,readonly",
+      "--mount",
+      "type=bind,src=/private/tmp/mpk-go-installed-205-fs/qemu-probe/probe,dst=/probe,readonly",
+      "--mount",
+      "type=bind,src=/private/tmp/mpk-go-installed-205-fs/installed-diagnostic,dst=/installed,readonly",
+      "rust:1.95-bookworm-arm64-mpk",
+      "/qemu",
+      "--version"
+    ],
+    [
+      "/usr/local/bin/docker",
+      "run",
+      "--pull=never",
+      "--rm",
+      "--platform",
+      "linux/arm64",
+      "--network",
+      "none",
+      "--read-only",
+      "--cap-drop",
+      "ALL",
+      "--security-opt",
+      "no-new-privileges",
+      "--user",
+      "501:20",
+      "--mount",
+      "type=bind,src=/private/tmp/mpk-go-installed-205-fs/qemu-user/qemu-x86_64-static,dst=/qemu,readonly",
+      "--mount",
+      "type=bind,src=/private/tmp/mpk-go-installed-205-fs/qemu-probe/probe,dst=/probe,readonly",
+      "--mount",
+      "type=bind,src=/private/tmp/mpk-go-installed-205-fs/installed-diagnostic,dst=/installed,readonly",
+      "rust:1.95-bookworm-arm64-mpk",
+      "/qemu",
+      "/probe"
+    ]
+  ],
+  "scope": "Observe the same openat2 flags and /proc/self/exe from a separate user-mode emulator against the complete copied installed root and /tmp. This is not native Linux release acceptance."
+}

@@ -1,0 +1,81 @@
+{
+  "additional_observed_checks": [
+    {
+      "command": "cargo test --offline --locked --manifest-path /private/tmp/mpk-go-termination-unit-workspace/Cargo.toml -p mpk-core --lib nat_induct::tests",
+      "env": "CARGO_TARGET_DIR=/private/tmp/mpk-go-practical-termination-test-target",
+      "exit_code": 0,
+      "reason": "Retained Nat.induct canonical interface/monomorphism and legacy reduction equations",
+      "tests": 7
+    },
+    {
+      "command": "go test -count=1 -run 'Test(NatInduct|BoolCases(Closes|Open|Rejects))' -v .",
+      "cwd": "/private/tmp/mpk-go-termination-unit-workspace/go-tools/mpk-checker-ref",
+      "exit_code": 0,
+      "observed_seconds": 1.232,
+      "reason": "Four existing Bool-case API and five retained Nat.induct tests; source/type/constructor and neutral/partial guards",
+      "tests": 9,
+      "toolchain": "pinned Go1.25.0 with offline/local/no-vcs settings"
+    }
+  ],
+  "checks": [
+    {
+      "captured_text_sha256": "dabc46cfedc5dd1a1f41155c78fda0f734842c4589fab061488218c194970357",
+      "command": "python3 -m unittest -v test_termination_report",
+      "eof_newlines_removed": 0,
+      "exit_code": 0,
+      "log": "unittest-report.log",
+      "reason": "21 private evidence/adversarial checks",
+      "retained_sha256": "dabc46cfedc5dd1a1f41155c78fda0f734842c4589fab061488218c194970357"
+    },
+    {
+      "captured_text_sha256": "ccf69eb494e642eba5bd567fcbd4ef4712dd1c1ce51d74a377bc9f0306f4b7e0",
+      "command": "python3 develop/probes/go-practical/run_termination_probes.py --check",
+      "eof_newlines_removed": 0,
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh source/toolchain/binary/candidate replay; 16 ordinary,20 interface and3 legacy cases in both private checkers",
+      "retained_sha256": "ccf69eb494e642eba5bd567fcbd4ef4712dd1c1ce51d74a377bc9f0306f4b7e0"
+    },
+    {
+      "captured_text_sha256": "aebdca2349caa5bb74421ee8b3cb74805984c17aff3bebbbe9c0b2a1b010495c",
+      "command": "cargo test --offline --locked --manifest-path /private/tmp/mpk-go-termination-unit-workspace/Cargo.toml -p mpk-core --lib bool_cases::tests",
+      "eof_newlines_removed": 1,
+      "exit_code": 0,
+      "log": "rust-bool-cases.log",
+      "reason": "7 existing Bool-case API regressions in the new private kernel",
+      "retained_sha256": "bea27a014432ef4b129d616a80f328794045d3b550581b2cbefcc5afc99fc1a1"
+    },
+    {
+      "captured_text_sha256": "4b1e132c3149ad2182d7d4781ee43e0d0be0075fb2d7f343df7f87cf1dde22c6",
+      "command": "python3 develop/probes/go-practical/check_termination_metadata.py; compile five new Python sources; rustfmt --check --config skip_children=true four current sources; pinned gofmt -l bool_rec_type.go",
+      "eof_newlines_removed": 0,
+      "exit_code": 0,
+      "log": "metadata-format.log",
+      "reason": "New proposal/snapshot/source/owner/link/format checks; archived snapshots preserved",
+      "retained_sha256": "4b1e132c3149ad2182d7d4781ee43e0d0be0075fb2d7f343df7f87cf1dde22c6"
+    }
+  ],
+  "entry_commit": "b728e0f2543a894efb0b1039b4676126bbe6067a",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative gate reserved for final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "5a74fb5c6548cf20242471c5be9ac1c5b9837ec32ee73ae5150f72186b03d3d3",
+  "not_repeated": [
+    "unchanged production/kernel/frontend suites",
+    "unaffected collection proof matrices",
+    "old native source observations"
+  ],
+  "output_scope": "UTF-8 completion text returned by exec tools; not separately captured complete raw process streams",
+  "remaining": [
+    "exact joint core/foundation/overlay/wire/hash/limit/migration freeze",
+    "complete source variant/range/word/frame/application binding and both-checker proofs",
+    "inactive publication and local release gates"
+  ],
+  "schema": "mpk.go_practical.w04_nat_foundation_verification.v0",
+  "scope": "private core/type/order/strong-induction proposal; no production/public/source-variant completion",
+  "status": "W04 in progress; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

@@ -1,0 +1,16 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+warning: field `nat` is never read
+   --> crates/mpk-vc/tests/go_practical_range_foundation.rs:218:5
+    |
+216 | struct ConstantFold<'a> {
+    |        ------------ field in this struct
+217 |     family: &'a str,
+218 |     nat: u32,
+    |     ^^^
+    |
+    = note: `ConstantFold` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mpk-vc` (test "go_practical_range_foundation") generated 1 warning
+    Finished `test` profile [optimized + debuginfo] target(s) in 1.92s
+     Running tests/go_practical_range_foundation.rs (target/debug/deps/go_practical_range_foundation-82a317b545f017e0)

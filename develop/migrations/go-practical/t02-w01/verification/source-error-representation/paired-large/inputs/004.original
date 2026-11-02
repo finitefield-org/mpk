@@ -1,0 +1,57 @@
+{
+  "status": "running",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_source_error_representation",
+    "all_seventy",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_SOURCE_ERROR_REPRESENTATION_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/first-large/certificates"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/first-large/inputs.json",
+    "bytes": 323769,
+    "sha256": "31ef4558f271f41c5c3e2545760e9dfdb001eca4b038aee6c2f8e2df4a0f5302"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-representation/first-large/driver.py",
+    "bytes": 7413,
+    "sha256": "32c9395a2b9159df80c241da39665de19b88c1416e48b27e17ef4b8cabf012cb"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Concrete closed representation predicate over the full original receiver: exact same-U source tag and equality of every inactive payload to its original source zero. Check projections, actual full Box/Nil witnesses, copy preservation and selection/nil consequences, retaining all source and previous receiver/selector identities. No arbitrary active-payload validity or canonical capture/source-execution authority is inferred; no funext, axiom, reduced U or case/root/helper/parameter cap. Full21 small and71 large rows, prior92 literal-byte replay, genuine false inactive/tag/copy/target controls and independent exact predicate/statements/actual observation checks in both complete cores. Native budgets and Go/Rust-only scope unchanged; scoped checks only.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T19:53:16.966354+00:00"
+}

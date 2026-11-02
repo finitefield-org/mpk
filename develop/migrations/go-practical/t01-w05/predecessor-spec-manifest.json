@@ -1,0 +1,292 @@
+{
+  "schema": "mpk.spec.vector_manifest.v0",
+  "vectors": [
+    {
+      "schema_id": "mpk.ai.api.conformance.v1",
+      "path": "develop/specs/vectors/ai-api-v1.json",
+      "sha256": "03e7e7c08a897bcc8524f7285306ac11243701293abe80676088a294f7cc2352",
+      "owning_spec": "develop/specs/AI_API_V1.md",
+      "implementation_test_owners": [
+        "crates/mpk-api/src/v1_tests.rs",
+        "crates/mpk-api/src/v2_tests.rs",
+        "crates/mpk-cli/tests/java_policy_verify.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.ai.explain.conformance.v1",
+      "path": "develop/specs/vectors/ai-explain-v1.json",
+      "sha256": "a63197d0b841adbdd6bfe3ed21b2ac41aca7365ecc521f8b125e79bc6b94f66c",
+      "owning_spec": "develop/specs/AI_EXPLAIN_V1.md",
+      "implementation_test_owners": [
+        "crates/mpk-cli/tests/ai_explain_v1.rs",
+        "crates/mpk-cli/tests/csharp_ai_explain.rs",
+        "crates/mpk-cli/tests/java_policy_verify.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.csharp.practical.foundation.conformance.v1",
+      "path": "develop/specs/vectors/csharp-practical-foundation-v1.json",
+      "sha256": "05faabe132256a9051164214b8c4726856f62e5767c4fcd41b01f1ffd8a86988",
+      "owning_spec": "develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/csharp_practical_spec.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.csharp.practical.profile.conformance.v1",
+      "path": "develop/specs/vectors/csharp-practical-profile-v1.json",
+      "sha256": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6",
+      "owning_spec": "develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/csharp_practical_spec.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.csharp.profile.conformance.v0",
+      "path": "develop/specs/vectors/csharp-profile-v0.json",
+      "sha256": "8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8",
+      "owning_spec": "develop/specs/CSHARP_PROFILE_V0.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/csharp_profile_spec.rs",
+        "crates/mpk-cli/tests/csharp_capture.rs",
+        "crates/mpk-cli/tests/csharp_roslyn_session.rs",
+        "crates/mpk-cli/tests/csharp_subset.rs",
+        "crates/mpk-cli/tests/csharp_contracts.rs",
+        "crates/mpk-cli/tests/csharp_lowering.rs",
+        "crates/mpk-cli/tests/csharp_emission.rs",
+        "crates/mpk-cli/tests/csharp_frontend_vectors.rs",
+        "crates/mpk-cli/tests/csharp_frontend_runner.rs",
+        "crates/mpk-vc/tests/successor_vc.rs",
+        "crates/mpk-cli/tests/csharp_policy_verify.rs",
+        "crates/mpk-cli/tests/csharp_ai_explain.rs",
+        "crates/mpk-api/src/v2_tests.rs",
+        "crates/mpk-cli/tests/csharp_profile_vectors.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.frontend.protocol.conformance.v0",
+      "path": "develop/specs/vectors/frontend-protocol-v0.json",
+      "sha256": "51a7ebc35be85ff21fe489f18d178c9962120f23b74cd40fe56431974af15974",
+      "owning_spec": "develop/specs/FRONTEND_PROTOCOL_V0.md",
+      "implementation_test_owners": [
+        "crates/mpk-cli/tests/frontend_runner.rs",
+        "go-tools/go2vir/main_test.go",
+        "rust-tools/rust2vir/tests/frontend_envelope.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.go.vir_profile.conformance.v0",
+      "path": "develop/specs/vectors/go-vir-profile-v0.json",
+      "sha256": "1b408f57739eff2f053ea2c9e13fc7e78ee15ab72388b56e3f251fc1cf700dab",
+      "owning_spec": "develop/specs/GO_VIR_PROFILE_V0.md",
+      "implementation_test_owners": [
+        "go-tools/go2vir/profile_v0_test.go",
+        "go-tools/go2vir/profile_v0_vectors_test.go",
+        "crates/mpk-vc/tests/go_profile_vectors.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.java.profile.conformance.v0",
+      "path": "develop/specs/vectors/java-profile-v0.json",
+      "sha256": "6d5b467efd44cdf044f21e34adf53a87c9c06ede78f664107b5e246794e1aea0",
+      "owning_spec": "develop/specs/JAVA_PROFILE_V0.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/java_profile_spec.rs",
+        "crates/mpk-cli/tests/java_build_inputs.rs",
+        "crates/mpk-vc/tests/java_profile_vectors.rs",
+        "crates/mpk-cli/tests/java_frontend_vectors.rs",
+        "crates/mpk-cli/tests/java_subset.rs",
+        "crates/mpk-cli/tests/java_contracts.rs",
+        "crates/mpk-cli/tests/java_lowering.rs",
+        "crates/mpk-cli/tests/java_source_maps.rs",
+        "crates/mpk-cli/tests/java_frontend_runner.rs",
+        "crates/mpk-cli/tests/java_policy_verify.rs",
+        "crates/mpk-cli/tests/java_release_gate.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.java.t09.corpus.v0",
+      "path": "develop/specs/vectors/java-t09-corpus.json",
+      "sha256": "870071158bffb23ca08a71a33aa9632030a6c38cfb67bc2ca7c4bd9d154f6938",
+      "owning_spec": "develop/specs/JAVA_PROFILE_V0.md",
+      "implementation_test_owners": [
+        "crates/mpk-cli/tests/java_release_gate.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.policy.evidence.conformance.v1",
+      "path": "develop/specs/vectors/policy-evidence-v1.json",
+      "sha256": "5fe3024ab6341a10dfb0517076ac2a0ce5fd44f3f46ef64642933ba1e5789b0f",
+      "owning_spec": "develop/specs/POLICY_V1.md",
+      "implementation_test_owners": [
+        "crates/mpk-cli/tests/policy_schema_v1.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.policy.recipes.conformance.v1",
+      "path": "develop/specs/vectors/policy-recipes-v1.json",
+      "sha256": "d6950f1247ba3ec56bf1e35ee59daef8a43af9188d19a89518dd047fc8a2989d",
+      "owning_spec": "develop/specs/POLICY_V1.md",
+      "implementation_test_owners": [
+        "crates/mpk-cli/tests/policy_recipes_v1.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.policy.scan.conformance.v1",
+      "path": "develop/specs/vectors/policy-scan-v1.json",
+      "sha256": "12860777607c23692021a325fec7adffdbed78f48eca85d8183c793c29c3e557",
+      "owning_spec": "develop/specs/POLICY_V1.md",
+      "implementation_test_owners": [
+        "crates/mpk-cli/tests/policy_schema_v1.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.release.bundle_conformance.v0",
+      "path": "develop/specs/vectors/release-bundles-v0.json",
+      "sha256": "f1bb4d6ad4bdf420f78e7da01206d9b95d397708180ce6ee1af8957f6e9ab5df",
+      "owning_spec": "develop/specs/RELEASE_BUNDLES_V0.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/release_bundle.rs",
+        "crates/mpk-cli/tests/frontend_runner.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.rust.build_inputs.conformance.v0",
+      "path": "develop/specs/vectors/rust-build-inputs-v0.json",
+      "sha256": "148702b7494d133f2547a598fbf7f95aab5a37240de790c99ec37757462b1bf7",
+      "owning_spec": "develop/specs/RUST_SUBSET_V0.md",
+      "implementation_test_owners": [
+        "crates/mpk-cli/tests/frontend_runner.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.rust.driver.conformance.v0",
+      "path": "develop/specs/vectors/rust-driver-v0.json",
+      "sha256": "c126a970fdd72eaee41d19fd521a7387c075f3e3779a6d3136cbfaf7856ce640",
+      "owning_spec": "develop/specs/RUST_DRIVER_PROTOCOL_V0.md",
+      "implementation_test_owners": [
+        "rust-tools/rust2vir/tests/driver_protocol.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.rust.subset.conformance.v0",
+      "path": "develop/specs/vectors/rust-subset-v0.json",
+      "sha256": "bcd95ff8767b7f19b994adc131f8efc2ea683ef95c77ce74e8862fc4613f9181",
+      "owning_spec": "develop/specs/RUST_SUBSET_V0.md",
+      "implementation_test_owners": [
+        "rust-tools/rust2vir/tests/subset_conformance.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.semantic_profile.registry.conformance.v1",
+      "path": "develop/specs/vectors/semantic-profile-registry-v1.json",
+      "sha256": "f7007417279f5173d0102ec2833095f2d97f271e1cdf2622d381d31e6ab86ae7",
+      "owning_spec": "develop/specs/SEMANTIC_PROFILE_REGISTRY_V1.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/semantic_profile_registry.rs",
+        "crates/mpk-vc/tests/semantic_profile_registry_runtime.rs",
+        "crates/mpk-vc/tests/successor_source_artifacts.rs",
+        "crates/mpk-vc/tests/successor_vc.rs",
+        "crates/mpk-cli/tests/csharp_policy_verify.rs",
+        "crates/mpk-cli/tests/csharp_ai_explain.rs",
+        "crates/mpk-api/src/v2_tests.rs",
+        "crates/mpk-cli/tests/successor_atomic_cutover.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.semantic_profile.registry.conformance.v2",
+      "path": "develop/specs/vectors/semantic-profile-registry-v2.json",
+      "sha256": "19c657283836cb920f5c971f9c84ab267d48ea724c05bc1628de4889b4dd059f",
+      "owning_spec": "develop/specs/CSHARP_PROFILE_V0.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/csharp_profile_spec.rs",
+        "crates/mpk-vc/tests/semantic_profile_registry_runtime.rs",
+        "crates/mpk-vc/tests/successor_vc.rs",
+        "crates/mpk-cli/tests/csharp_policy_verify.rs",
+        "crates/mpk-cli/tests/csharp_ai_explain.rs",
+        "crates/mpk-api/src/v2_tests.rs",
+        "crates/mpk-cli/tests/successor_atomic_cutover.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.semantic_profile.registry.conformance.v3",
+      "path": "develop/specs/vectors/semantic-profile-registry-v3.json",
+      "sha256": "fde7ed93585f6d3f9772f2703d3bdd3f87793520981d4472a8673101fdb24c4b",
+      "owning_spec": "develop/specs/JAVA_PROFILE_V0.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/java_profile_spec.rs",
+        "crates/mpk-vc/tests/java_profile_vectors.rs",
+        "crates/mpk-cli/tests/java_policy_verify.rs",
+        "crates/mpk-cli/tests/java_release_gate.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.source_manifest.conformance.v0",
+      "path": "develop/specs/vectors/source-manifest-v0.json",
+      "sha256": "a1772bdf453995fd92cbc3ed89b9562dd665c1e65aeb14939c3bb51e8bfb1309",
+      "owning_spec": "develop/specs/SOURCE_MANIFEST_V0.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/source_manifest.rs",
+        "go-tools/go2vir/bundle_candidate_test.go",
+        "rust-tools/rust2vir/tests/frontend_envelope.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.source_map.conformance.v0",
+      "path": "develop/specs/vectors/source-map-v0.json",
+      "sha256": "f873fa4a1397ce6dd8eb5fc353a41f0c2274e67d7a38acea37ef4d36b63cc602",
+      "owning_spec": "develop/specs/SOURCE_MAP_V0.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/source_map.rs",
+        "go-tools/go2vir/corpus_test.go",
+        "rust-tools/rust2vir/tests/frontend_envelope.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.vc.hash_vectors.v1",
+      "path": "develop/specs/vectors/vc-hash-v1.json",
+      "sha256": "dfcd7584c597783a9172c765e3d7f9b2648bc1b0e1d8be232d2468f445422cb2",
+      "owning_spec": "develop/specs/VC_V1.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/vc_hash_v1.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.vc.cert_skeleton.conformance.v1",
+      "path": "develop/specs/vectors/vc-skeleton-v1.json",
+      "sha256": "23e9b8eb19f66843b0feb4bbb4d8fcc0f8d508377671bfe59c96226656bfec89",
+      "owning_spec": "develop/specs/VC_V1.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/vc_skeleton_v1.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.vc.conformance.v1",
+      "path": "develop/specs/vectors/vc-v1.json",
+      "sha256": "4b1c2dd7cd64c0ed73bc5aaba26f0e5e897c07729cf555aaeca91294656b8c13",
+      "owning_spec": "develop/specs/VC_V1.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/vc_v1.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.vir.hash_vectors.v0",
+      "path": "develop/specs/vectors/vir-hash-v0.json",
+      "sha256": "64913766562d09054666fc99db2406b2bad3711b21b756493dc69ec1460496c7",
+      "owning_spec": "develop/specs/VIR_V0.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/vir_hash.rs"
+      ]
+    },
+    {
+      "schema_id": "mpk.vir.conformance.v0",
+      "path": "develop/specs/vectors/vir-v0.json",
+      "sha256": "2810cc0d6f1d9bb7c1fc837c96d69980e7180108c31c8ab6f0f8a351bedc18f2",
+      "owning_spec": "develop/specs/VIR_V0.md",
+      "implementation_test_owners": [
+        "crates/mpk-vc/tests/vir_model.rs",
+        "crates/mpk-vc/tests/vir_validation.rs"
+      ]
+    }
+  ]
+}

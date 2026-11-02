@@ -1,0 +1,667 @@
+{
+  "cases": [
+    {
+      "expected_status": "candidate_unproved",
+      "id": "ordinary-domain",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Amount int64; type Decision struct {OK bool; Sum Amount}; const (No = iota; Yes); func Root(n Amount) Decision {switch {case n>0:return Decision{OK:true,Sum:n}; default:return Decision{}}}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "aliases-constants",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Amount int64; type Alias = Amount; const (A = 1<<60; B = A+1); func Root(x Alias) Amount {return x+Amount(B)}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "exact-untyped-constant",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nconst C = 1.5+0.5; func Root() int {return int(C)}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "string-bytes",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(s string) bool {return len(s)==0 || s[0]==255 && s[1:]<\"x\\x00\"}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "fresh-slice-builtins",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(s string) []byte {d:=make([]byte,0,8); d=append(d,s...); n:=copy(d,d); _=n; return d[:len(d):cap(d)]}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "root-aggregate-descriptors",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Bundle struct {Data []int; Groups [2][]int}; func Root(b Bundle) []int {c:=b;return c.Groups[0]}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "named-naked-results",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(n int) (x int,ok bool) {x=n;ok=true;return}\n"
+    },
+    {
+      "expected_closure": [
+        "Root",
+        "Pair"
+      ],
+      "expected_status": "candidate_unproved",
+      "id": "forwarded-product",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Pair(n int)(int,bool){return n,true};func Root(n int)(int,bool){return Pair(n)}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "discarded-product",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Pair(n int)(int,bool){return n,true};func Root(n int)int{x,_:=Pair(n);return x}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "mixed-declaration",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(x int)int{x,y:=x+1,x;x,y=y,x; x+=y; x++; x--;return x}\n"
+    },
+    {
+      "expected_closure": [
+        "Root",
+        "fixture/policy.Code.Add"
+      ],
+      "expected_status": "candidate_unproved",
+      "id": "direct-value-method",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Code int;func(c Code) Add(n int)int{return int(c)+n};func Root(c Code)int{return c.Add(2)}\n"
+    },
+    {
+      "expected_closure": [
+        "Root",
+        "fixture/policy.Code.Add"
+      ],
+      "expected_status": "candidate_unproved",
+      "id": "method-expression",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Code int;func(c Code) Add(n int)int{return int(c)+n};func Root(c Code)int{return Code.Add(c,2)}\n"
+    },
+    {
+      "expected_closure": [
+        "Root"
+      ],
+      "expected_status": "candidate_unproved",
+      "expected_typecheck_only": [
+        "fixture/policy.Code.Error"
+      ],
+      "id": "error-box-signature-only",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Code int;func(Code)Error()string{panic(\"must stay outside proof\")};func Root()error{return Code(0)}\n"
+    },
+    {
+      "expected_closure": [
+        "Root",
+        "fixture/policy.Code.Error"
+      ],
+      "expected_status": "candidate_unproved",
+      "id": "called-concrete-error-method",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Code int;func(Code)Error()string{return \"code\"};func Root()string{return Code(0).Error()}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "error-nil",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(e error)bool{return e==nil || e!=nil}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "array-local-views",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root()int{a:=[3]int{1,2,3};s:=a[:];a[0]=4;s[1]=5;return s[0]+a[1]}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "array-range",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(a [3]int)int{n:=0;for i,x:=range a {if i==0 {continue};n+=x};return n}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "slice-range",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(a []int)int{n:=0;for _,x:=range a {n+=x};return n}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "nested-control",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(a []int)int{n:=0;for i:=0;i<len(a);i++ {for {switch a[i] {case 0:break;default:n++};break};if n>4 {break}};return n}\n"
+    },
+    {
+      "expected_closure": [
+        "Root"
+      ],
+      "expected_status": "candidate_unproved",
+      "expected_typecheck_only": [
+        "init",
+        "Other"
+      ],
+      "id": "unselected-map-and-init",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nvar ambient int;func init(){panic(\"application init must never execute\")};func Other(){m:=make(map[string]int);m[\"x\"]=1};func Root(n int)int{return n+1}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "struct-tag-conversion",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype A struct {N int `json:\"a\"`};type B struct {N int `json:\"b\"`};func Root(a A)B{return B(a)}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "nil-slice-conversion",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Values []int;func Root()Values{return Values(nil)}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "error-entry-needs-universe",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(e error)error{return e}\n"
+    },
+    {
+      "expected_closure": [
+        "Root",
+        "Helper"
+      ],
+      "expected_status": "candidate_unproved",
+      "id": "zero-arity-call",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Helper(){};func Root(){Helper()}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "inferred-keyed-array",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root()int{a:=[...]int{2:7};return a[2]}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "local-type-constant",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(n int)int{type Local int;const K=2;var x Local=Local(n);return int(x)+K}\n"
+    },
+    {
+      "expected_closure": [
+        "Root",
+        "Helper"
+      ],
+      "expected_status": "candidate_unproved",
+      "id": "parenthesized-call",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Helper(n int)int{return n};func Root(n int)int{return ((Helper))(n)}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "utf8-physical-span",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\n// \u65e5\u672c\u8a9e\u306e\u8b58\u5225\u5b50\u3068\u7269\u7406\u30d0\u30a4\u30c8\u4f4d\u7f6e\nfunc Root(\u984d int)int{return \u984d+1}\n"
+    },
+    {
+      "expected_code": "TYPE_NOT_ROOT",
+      "expected_status": "rejected_candidate",
+      "id": "map-root",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(m map[int]int)int{return len(m)}\n"
+    },
+    {
+      "expected_code": "TYPE_NOT_ROOT",
+      "expected_status": "rejected_candidate",
+      "id": "pointer-root",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(p *int)int{return *p}\n"
+    },
+    {
+      "expected_code": "TYPE_NOT_ROOT",
+      "expected_status": "rejected_candidate",
+      "id": "float-root",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(x float64)float64{return x+1}\n"
+    },
+    {
+      "expected_code": "TYPE_NOT_ROOT",
+      "expected_status": "rejected_candidate",
+      "id": "uintptr-root",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(x uintptr)uintptr{return x}\n"
+    },
+    {
+      "expected_code": "TYPE_NOT_ROOT",
+      "expected_status": "rejected_candidate",
+      "id": "complex-root",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(x complex128)complex128{return x}\n"
+    },
+    {
+      "expected_code": "TYPE_NOT_ROOT",
+      "expected_status": "rejected_candidate",
+      "id": "open-interface",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(x any)any{return x}\n"
+    },
+    {
+      "expected_code": "TYPE_NOT_ROOT",
+      "expected_status": "rejected_candidate",
+      "id": "nonplain-slice-cell",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Row struct {Data []int};func Root(x []Row)int{return len(x)}\n"
+    },
+    {
+      "expected_code": "TYPE_NOT_ROOT",
+      "expected_status": "rejected_candidate",
+      "id": "recursive-slice-type",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Node struct {Next []Node};func Root(n Node)int{return len(n.Next)}\n"
+    },
+    {
+      "expected_code": "SELECTOR_PATH",
+      "expected_status": "rejected_candidate",
+      "id": "embedded-field",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Base struct{N int};type Outer struct{Base};func Root(x Outer)int{return x.N}\n"
+    },
+    {
+      "expected_code": "RANGE_KIND",
+      "expected_status": "rejected_candidate",
+      "id": "string-range",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(s string)int{n:=0;for range s {n++};return n}\n"
+    },
+    {
+      "expected_code": "RANGE_KIND",
+      "expected_status": "rejected_candidate",
+      "id": "integer-range",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(n int)int{v:=0;for range n{v++};return v}\n"
+    },
+    {
+      "expected_code": "RANGE_KIND",
+      "expected_status": "rejected_candidate",
+      "id": "pointer-array-range",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(a *[2]int)int{n:=0;for _,x:=range a {n+=x};return n}\n"
+    },
+    {
+      "expected_code": "RANGE_KIND",
+      "expected_status": "rejected_candidate",
+      "id": "iterator-range",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Iter(y func(int)bool){y(1)};func Root()int{n:=0;for x:=range Iter{n+=x};return n}\n"
+    },
+    {
+      "expected_code": "SYNTAX_TypeAssertExpr",
+      "expected_status": "rejected_candidate",
+      "id": "type-assertion",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(e error)bool{_,ok:=e.(interface{Error()string});return ok}\n"
+    },
+    {
+      "expected_code": "SYNTAX_TypeSwitchStmt",
+      "expected_status": "rejected_candidate",
+      "id": "type-switch",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(e error)int{switch e.(type){case nil:return 0;default:return 1}}\n"
+    },
+    {
+      "expected_code": "SYNTAX_FuncLit",
+      "expected_status": "rejected_candidate",
+      "id": "function-literal",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root()int{return func()int{return 1}()}\n"
+    },
+    {
+      "expected_code": "FUNCTION_VALUE",
+      "expected_status": "rejected_candidate",
+      "id": "function-value",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Helper()int{return 1};func Root()int{f:=Helper;return f()}\n"
+    },
+    {
+      "expected_code": "INDIRECT_CALL",
+      "expected_status": "rejected_candidate",
+      "id": "indirect-parameter",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(f func()int)int{return f()}\n"
+    },
+    {
+      "expected_closure": [
+        "Root",
+        "Helper"
+      ],
+      "expected_code": "GENERIC_CALL",
+      "expected_status": "rejected_candidate",
+      "id": "generic-function",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Helper[T ~int](x T)T{return x};func Root(x int)int{return Helper[int](x)}\n"
+    },
+    {
+      "expected_code": "TYPE_NOT_ROOT",
+      "expected_status": "rejected_candidate",
+      "id": "generic-type",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Box[T any]struct{N T};func Root(b Box[int])int{return b.N}\n"
+    },
+    {
+      "expected_code": "SYNTAX_DeferStmt",
+      "expected_status": "rejected_candidate",
+      "id": "defer",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Helper(){};func Root(){defer Helper()}\n"
+    },
+    {
+      "expected_code": "SYNTAX_GoStmt",
+      "expected_status": "rejected_candidate",
+      "id": "goroutine",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Helper(){};func Root(){go Helper()}\n"
+    },
+    {
+      "expected_code": "SYNTAX_SelectStmt",
+      "expected_status": "rejected_candidate",
+      "id": "select-channel",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(ch chan int)int{select{case n:=<-ch:return n;default:return 0}}\n"
+    },
+    {
+      "expected_code": "SYNTAX_SendStmt",
+      "expected_status": "rejected_candidate",
+      "id": "send-channel",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(ch chan int){ch<-1}\n"
+    },
+    {
+      "expected_code": "SYNTAX_LabeledStmt",
+      "expected_status": "rejected_candidate",
+      "id": "labeled-goto",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root()int{L:return 0;goto L}\n"
+    },
+    {
+      "expected_code": "BRANCH_KIND",
+      "expected_status": "rejected_candidate",
+      "id": "fallthrough",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(n int)int{switch n{case 0:n++;fallthrough;default:n++};return n}\n"
+    },
+    {
+      "expected_code": "BUILTIN_panic",
+      "expected_status": "rejected_candidate",
+      "id": "panic-builtin",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(){panic(\"no\")}\n"
+    },
+    {
+      "expected_code": "BUILTIN_min",
+      "expected_status": "rejected_candidate",
+      "id": "min-builtin",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(n int)int{return min(n,1)}\n"
+    },
+    {
+      "expected_code": "BUILTIN_clear",
+      "expected_status": "rejected_candidate",
+      "id": "clear-builtin",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(s []int){clear(s)}\n"
+    },
+    {
+      "expected_code": "BUILTIN_new",
+      "expected_status": "rejected_candidate",
+      "id": "new-builtin",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(){_=new(int)}\n"
+    },
+    {
+      "expected_code": "CONVERSION_KIND",
+      "expected_status": "rejected_candidate",
+      "id": "constant-integer-to-string",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root()string{return string(65)}\n"
+    },
+    {
+      "expected_code": "CONVERSION_KIND",
+      "expected_status": "rejected_candidate",
+      "id": "slice-to-array",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(s []int)[2]int{return [2]int(s)}\n"
+    },
+    {
+      "expected_code": "CONVERSION_KIND",
+      "expected_status": "rejected_candidate",
+      "id": "string-to-bytes",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(s string)[]byte{return []byte(s)}\n"
+    },
+    {
+      "expected_code": "AMBIENT_STATE",
+      "expected_status": "rejected_candidate",
+      "id": "ambient-read",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nvar counter int;func Root()int{return counter}\n"
+    },
+    {
+      "expected_code": "AMBIENT_STATE",
+      "expected_status": "rejected_candidate",
+      "id": "ambient-write",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nvar counter int;func Root(){counter++}\n"
+    },
+    {
+      "expected_closure": [
+        "Root",
+        "Helper"
+      ],
+      "expected_code": "AMBIENT_STATE",
+      "expected_status": "rejected_candidate",
+      "id": "helper-ambient",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nvar counter int;func Helper()int{return counter};func Root()int{return Helper()}\n"
+    },
+    {
+      "expected_code": "CALL_CYCLE",
+      "expected_status": "rejected_candidate",
+      "id": "call-cycle",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root()int{return Helper()};func Helper()int{return Root()}\n"
+    },
+    {
+      "expected_code": "CALL_CYCLE",
+      "expected_status": "rejected_candidate",
+      "id": "unreachable-cycle",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root()int{if false{return Helper()};return 0};func Helper()int{return Helper()}\n"
+    },
+    {
+      "expected_code": "INTERFACE_DISPATCH",
+      "expected_status": "rejected_candidate",
+      "id": "interface-error-dispatch",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(e error)string{return e.Error()}\n"
+    },
+    {
+      "expected_closure": [
+        "Root",
+        "fixture/policy.Code.Error"
+      ],
+      "expected_code": "BUILTIN_panic",
+      "expected_status": "rejected_candidate",
+      "id": "called-error-panic",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype Code int;func(Code)Error()string{panic(\"selected\")};func Root()string{return Code(0).Error()}\n"
+    },
+    {
+      "expected_code": "RESULT_ARITY",
+      "expected_status": "rejected_candidate",
+      "id": "arity-seventeen",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root()(int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int){return 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}\n"
+    },
+    {
+      "expected_code": "FUNCTION_SIGNATURE",
+      "expected_status": "rejected_candidate",
+      "id": "variadic-function",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(xs ...int)int{return len(xs)}\n"
+    },
+    {
+      "expected_code": "MISSING_BODY",
+      "expected_status": "rejected_candidate",
+      "id": "missing-callee-body",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Helper()int;func Root()int{return Helper()}\n"
+    },
+    {
+      "expected_code": "ERROR_COMPARISON",
+      "expected_status": "rejected_candidate",
+      "id": "error-value-comparison",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(a,b error)bool{return a==b}\n"
+    },
+    {
+      "expected_code": "UNARY_KIND",
+      "expected_status": "rejected_candidate",
+      "id": "address-taking",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(n int){_=&n}\n"
+    },
+    {
+      "expected_code": "UNARY_KIND",
+      "expected_status": "rejected_candidate",
+      "id": "receive",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root(ch chan int)int{return <-ch}\n"
+    },
+    {
+      "expected_status": "type_error",
+      "id": "unselected-type-error",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Other()int{return \"bad\"};func Root()int{return 1}\n"
+    },
+    {
+      "expected_status": "source_error",
+      "id": "unselected-syntax-error",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Other(){if };func Root()int{return 1}\n"
+    },
+    {
+      "expected_status": "type_error",
+      "id": "constant-overflow",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\nfunc Root()uint8{return uint8(256)}\n"
+    },
+    {
+      "expected_status": "type_error",
+      "id": "nominal-type-error",
+      "language": "go1.25",
+      "root": "Root",
+      "source": "package policy\ntype A int;type B int;func Root(a A)B{return a}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "effective-go1.22",
+      "language": "go1.22",
+      "root": "Root",
+      "source": "package policy\nfunc Root(a [2]int)int{n:=0;for i:=range a {n+=i};return n}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "effective-go1.23",
+      "language": "go1.23",
+      "root": "Root",
+      "source": "package policy\nfunc Root(a [2]int)int{n:=0;for i:=range a {n+=i};return n}\n"
+    },
+    {
+      "expected_status": "candidate_unproved",
+      "id": "effective-go1.24",
+      "language": "go1.24",
+      "root": "Root",
+      "source": "package policy\nfunc Root(a [2]int)int{n:=0;for i:=range a {n+=i};return n}\n"
+    }
+  ],
+  "schema": "mpk.go_practical.source_admission_vectors.v0"
+}

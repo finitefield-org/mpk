@@ -162,11 +162,33 @@ func (s *coreState) tryReduceGeneratedRecursor(term coreTermID, fuel *uint32) (c
 		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor references missing family")
 	}
 	isCases := recursorDecl.name == familyDecl.name+".cases"
-	if recursorDecl.name != familyDecl.name+".rec" && !isCases {
+	isInduct := recursorDecl.name == familyDecl.name+".induct"
+	isTypeRec := recursorDecl.name == familyDecl.name+".recType"
+	if recursorDecl.name != familyDecl.name+".rec" && !isCases && !isInduct && !isTypeRec {
 		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor name does not match family")
 	}
 	arity := 3
 	branchOffset := 0
+	if isInduct {
+		if err := s.checkNatInductDeclaration(recursorDecl.name, recursorDecl.ty, recursorDecl.inductive, true); err != nil {
+			return 0, true, err
+		}
+		if len(function.Levels) != 0 {
+			return 0, true, newCoreError(CoreCheckInvalidDeclaration, "Nat induction is monomorphic")
+		}
+		arity, branchOffset = 4, 1
+		if len(node.Arguments) < arity {
+			return term, false, nil
+		}
+	}
+	if isTypeRec {
+		if err := s.checkBoolRecTypeDeclaration(recursorDecl.name, recursorDecl.ty, recursorDecl.inductive, true); err != nil {
+			return 0, true, err
+		}
+		if len(function.Levels) != 0 {
+			return 0, true, newCoreError(CoreCheckInvalidDeclaration, "Bool type selection is monomorphic")
+		}
+	}
 	if isCases {
 		if err := s.checkBoolCasesDeclaration(recursorDecl.name, recursorDecl.ty, recursorDecl.inductive, true); err != nil {
 			return 0, true, err
@@ -206,7 +228,7 @@ func (s *coreState) tryReduceGeneratedRecursor(term coreTermID, fuel *uint32) (c
 	if majorDecl.inductive != recursorDecl.inductive || !majorDecl.generated {
 		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor has unknown major constructor")
 	}
-	if isCases && len(s.terms.node(node.Arguments[arity-1]).Levels) != 0 {
+	if (isCases || isInduct || isTypeRec) && len(s.terms.node(node.Arguments[arity-1]).Levels) != 0 {
 		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "Bool cases constructor is monomorphic")
 	}
 
@@ -229,12 +251,12 @@ func (s *coreState) tryReduceGeneratedRecursor(term coreTermID, fuel *uint32) (c
 			if len(majorArgs) != 0 {
 				return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated Nat zero equation has unexpected arguments")
 			}
-			reduced = node.Arguments[0]
+			reduced = node.Arguments[branchOffset]
 		case constructors[1].global:
 			if len(majorArgs) != 1 {
 				return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated Nat succ equation has unexpected predecessor count")
 			}
-			reduced = s.reduceGeneratedNatSuccRecursor(recursor, function.Levels, node.Arguments, majorArgs[0])
+			reduced = s.reduceGeneratedNatSuccRecursor(recursor, function.Levels, node.Arguments, majorArgs[0], branchOffset)
 		default:
 			return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor has unknown major constructor")
 		}
@@ -249,14 +271,12 @@ func (s *coreState) tryReduceGeneratedRecursor(term coreTermID, fuel *uint32) (c
 	return reduced, true, nil
 }
 
-func (s *coreState) reduceGeneratedNatSuccRecursor(recursor coreGlobalID, levels []coreLevelID, recursorArgs []coreTermID, predecessor coreTermID) coreTermID {
+func (s *coreState) reduceGeneratedNatSuccRecursor(recursor coreGlobalID, levels []coreLevelID, recursorArgs []coreTermID, predecessor coreTermID, offset int) coreTermID {
 	recursorConst := s.terms.constant(recursor, levels)
-	recursiveResult := s.terms.app(recursorConst, []coreTermID{
-		recursorArgs[0],
-		recursorArgs[1],
-		predecessor,
-	})
-	return s.terms.app(recursorArgs[1], []coreTermID{predecessor, recursiveResult})
+	arguments := append([]coreTermID(nil), recursorArgs[:2+offset]...)
+	arguments = append(arguments, predecessor)
+	recursiveResult := s.terms.app(recursorConst, arguments)
+	return s.terms.app(recursorArgs[1+offset], []coreTermID{predecessor, recursiveResult})
 }
 
 type generatedConstructor struct {

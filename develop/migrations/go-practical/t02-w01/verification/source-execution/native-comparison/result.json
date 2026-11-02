@@ -1,0 +1,1053 @@
+{
+  "status": "passed",
+  "complete_prelaunch_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/native-comparison/prelaunch-inputs.json",
+    "bytes": 10915,
+    "sha256": "c4c8502a5406e7f5c4aedc2321ff74f327f190f34e19d287c121f3e23bdd4a7d"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-execution/native-comparison/driver.py",
+    "bytes": 6017,
+    "sha256": "9d34b6c30c119bc9b1c4092b2402bced60dd3a023b1f647da97c62c0ad86ce87"
+  },
+  "started_at_utc": "2026-10-23T04:05:20.729259+00:00",
+  "whole_inputs_unchanged": true,
+  "cases": 127,
+  "source_return_cases": 117,
+  "source_faults": {
+    "IndexBounds": 5,
+    "DivideByZero": 1,
+    "SliceBounds": 1,
+    "MakeBounds": 1,
+    "NegativeShift": 1,
+    "NilInterfaceCall": 1
+  },
+  "source_invocations": 202,
+  "max_observed_steps": 151,
+  "complete_original_source_packages": 3,
+  "error_cases_executed": 70,
+  "wide_257_byte_length_observed": true,
+  "one_joint_call_observed": true,
+  "observation_budget_not_a_Go_or_kernel_limit": true,
+  "source_ir_program_or_context_proof_authority": false,
+  "native_type_facts_or_results_used_as_constructor_inputs": false,
+  "comparisons": [
+    {
+      "name": "empty-length",
+      "entry": "Length",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "raw-length",
+      "entry": "Length",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "wide-length",
+      "entry": "Length",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "nominal-index",
+      "entry": "At",
+      "steps": 7,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "huge-index",
+      "entry": "At",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": "IndexBounds",
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "negative-index",
+      "entry": "Signed",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": "IndexBounds",
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "signed-index",
+      "entry": "Signed",
+      "steps": 7,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "literal-0",
+      "entry": "Literal",
+      "steps": 7,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "literal-1",
+      "entry": "Literal",
+      "steps": 7,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "literal-2",
+      "entry": "Literal",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": "IndexBounds",
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "constant-len",
+      "entry": "Constant",
+      "steps": 5,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "call-index",
+      "entry": "FromCall",
+      "steps": 12,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "call-length",
+      "entry": "CallLength",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "ordinary-len",
+      "entry": "Shadow",
+      "steps": 17,
+      "actual_invocations": 3,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "arithmetic-14",
+      "entry": "Compute",
+      "steps": 25,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "arithmetic-15",
+      "entry": "Compute",
+      "steps": 25,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "arithmetic-16",
+      "entry": "Compute",
+      "steps": 25,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "arithmetic-17",
+      "entry": "Compute",
+      "steps": 25,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "arithmetic-18",
+      "entry": "Compute",
+      "steps": 15,
+      "actual_invocations": 1,
+      "fault": "DivideByZero",
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "full64",
+      "entry": "Overflow64",
+      "steps": 10,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "rune--1",
+      "entry": "Convert",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "rune-0",
+      "entry": "Convert",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "rune-128578",
+      "entry": "Convert",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "rune-55296",
+      "entry": "Convert",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "rune-1114112",
+      "entry": "Convert",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "RoundBytes",
+      "entry": "RoundBytes",
+      "steps": 7,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "RoundRunes",
+      "entry": "RoundRunes",
+      "steps": 7,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "short-False",
+      "entry": "Choices",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "short-True",
+      "entry": "Choices",
+      "steps": 9,
+      "actual_invocations": 1,
+      "fault": "IndexBounds",
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "two-phase",
+      "entry": "Swap",
+      "steps": 12,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "assignment-fault",
+      "entry": "Swap",
+      "steps": 8,
+      "actual_invocations": 1,
+      "fault": "IndexBounds",
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "parallel",
+      "entry": "Both",
+      "steps": 16,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "named",
+      "entry": "Named",
+      "steps": 7,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "joint-once",
+      "entry": "Once",
+      "steps": 20,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "loop-0",
+      "entry": "Loop",
+      "steps": 16,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "loop-3",
+      "entry": "Loop",
+      "steps": 65,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "loop-100",
+      "entry": "Loop",
+      "steps": 151,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "switch--1",
+      "entry": "Switch",
+      "steps": 15,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "switch-0",
+      "entry": "Switch",
+      "steps": 13,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "switch-1",
+      "entry": "Switch",
+      "steps": 14,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "switch-2",
+      "entry": "Switch",
+      "steps": 15,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "switch-3",
+      "entry": "Switch",
+      "steps": 15,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "range",
+      "entry": "Range",
+      "steps": 31,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "overlap-copy",
+      "entry": "Update",
+      "steps": 39,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "nil-slice",
+      "entry": "SliceLenCap",
+      "steps": 11,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "empty-slice",
+      "entry": "SliceLenCap",
+      "steps": 11,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "slice-tail",
+      "entry": "SliceLenCap",
+      "steps": 11,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "aliased",
+      "entry": "Aliased",
+      "steps": 12,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "array-view",
+      "entry": "ArrayView",
+      "steps": 15,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "field-update",
+      "entry": "FieldView",
+      "steps": 14,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "substring",
+      "entry": "Bounds",
+      "steps": 8,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "bad-substring",
+      "entry": "Bounds",
+      "steps": 7,
+      "actual_invocations": 1,
+      "fault": "SliceBounds",
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "make",
+      "entry": "Make",
+      "steps": 7,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "bad-make",
+      "entry": "Make",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": "MakeBounds",
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "negative-shift",
+      "entry": "Shift",
+      "steps": 6,
+      "actual_invocations": 1,
+      "fault": "NegativeShift",
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "huge-shift",
+      "entry": "Shift",
+      "steps": 7,
+      "actual_invocations": 1,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "nil-error",
+      "entry": "Entry",
+      "steps": 5,
+      "actual_invocations": 1,
+      "fault": "NilInterfaceCall",
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-00",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-01",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-02",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-03",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-04",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-05",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-06",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-07",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-08",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-09",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-10",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-11",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-12",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-13",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-14",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-15",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-16",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-17",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-18",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-19",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-20",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-21",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-22",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-23",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-24",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-25",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-26",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-27",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-28",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-29",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-30",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-31",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-32",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-33",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-34",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-35",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-36",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-37",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-38",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-39",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-40",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-41",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-42",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-43",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-44",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-45",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-46",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-47",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-48",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-49",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-50",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-51",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-52",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-53",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-54",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-55",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-56",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-57",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-58",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-59",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-60",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-61",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-62",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-63",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-64",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-65",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-66",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-67",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-68",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    },
+    {
+      "name": "error-69",
+      "entry": "Entry",
+      "steps": 11,
+      "actual_invocations": 2,
+      "fault": null,
+      "return_values_and_argument_updates_match": true
+    }
+  ],
+  "finished_at_utc": "2026-10-23T04:05:25.394252+00:00"
+}

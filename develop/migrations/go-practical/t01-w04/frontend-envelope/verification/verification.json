@@ -1,0 +1,207 @@
+{
+  "T01_W04_complete": false,
+  "T01_complete": false,
+  "actual_native_observer_setup_failures": 0,
+  "branch": "codex/go-practical",
+  "commands": [
+    {
+      "command": "python3 -B develop/probes/go-practical/run_frontend_wire.py --write",
+      "exit_code": 0,
+      "log": "materialize.log"
+    },
+    {
+      "command": "PYTHONPATH=develop/probes/go-practical python3 -B -m unittest test_frontend_wire -v",
+      "exit_code": 0,
+      "log": "targeted-tests.log",
+      "tests": 18
+    },
+    {
+      "command": "python3 -B develop/probes/go-practical/check_frontend_metadata.py",
+      "exit_code": 0,
+      "log": "metadata.log",
+      "results": {
+        "documents": 28,
+        "links": 487,
+        "predecessors": 143,
+        "source_inputs": 810,
+        "strict_JSONs": 173
+      }
+    },
+    {
+      "command": "rustfmt --check --edition 2021 develop/probes/go-practical/frontend-native/src/main.rs",
+      "exit_code": 0,
+      "log": "rustfmt.log"
+    },
+    {
+      "command": "Python AST/final-LF/trailing-whitespace checks of six new modules",
+      "exit_code": 0,
+      "log": "source-format.log"
+    },
+    {
+      "command": "/usr/bin/git diff --cached --check and /usr/bin/git diff --check (outside sandbox)",
+      "exit_code": 0
+    }
+  ],
+  "entry_commit": "b76e65ec96ef6da05e44153569a33808185e02e4",
+  "frontend_invoked": false,
+  "guard_review": "guard-review.json",
+  "initial_findings": [
+    {
+      "classification": "probe_context_generation_mismatch",
+      "inputs": [
+        {
+          "path": "frontend_wire.py",
+          "sha256": "143e8d02d5047b366b72f0be889d72141149be47591cf2915436a81e77bc0969"
+        },
+        {
+          "path": "frontend_vectors.py",
+          "sha256": "ee0bde0df7ed178c9acff1fda4d74559ce91709b2792dbbf8b92537d0dc5961a"
+        },
+        {
+          "path": "frontend-native/src/main.rs",
+          "sha256": "7b3e93f3ac745e0091cfcd76603bf7383afd1b50f9ffde75d98015dee56bf755"
+        }
+      ],
+      "meaning": "The new native request oracle was bound to the preceding registry generation instead of the source bundles current foundation-linked registry. Rejection occurred before native queries or artifact validation.",
+      "record": "initial-context-generation",
+      "repair": "Instantiate the retained FoundationProtocol with the new actual native legacy-policy callback; its current exact context identities remain authoritative."
+    },
+    {
+      "classification": "probe_request_oracle_coverage_failure",
+      "inputs": [
+        {
+          "path": "frontend_wire.py",
+          "sha256": "bd0fdd9d5ef9a3543e7df6a046d49200f846170775565032706225477d3fbf61"
+        },
+        {
+          "path": "frontend_native_build.py",
+          "sha256": "84a12091c60ddeecae3edf62026e9fe30efe9cd18498077a4b7999376ef49b8e"
+        },
+        {
+          "path": "frontend-native/src/main.rs",
+          "sha256": "d11e7e4bc8ddfcccc8c46b47a32fd06b615bd848a657dfd4c4116404ebfec8c6"
+        },
+        {
+          "path": "frontend-native/Cargo.toml",
+          "sha256": "00ca41dfc6b9cbffa3b84adc7606950a584ce735917b75be307810878bfd99b2"
+        },
+        {
+          "path": "frontend-native/Cargo.lock",
+          "sha256": "ac136ea484aafe4be107172a8e3d4b04f873c8410ca49f1dcd5183a34fa43ce9"
+        }
+      ],
+      "meaning": "A retained source-fixture selection is absent from the older closed context-query cache; no candidate or semantic rejection was observed.",
+      "record": "initial-request-oracle",
+      "repair": "Use a new observer mode calling unchanged actual public context/selection APIs for every needed request; preserve the older cache and helpers."
+    },
+    {
+      "classification": "probe_runner_syntax_failure",
+      "inputs": [
+        {
+          "path": "run_frontend_wire.py",
+          "sha256": "412835efd8c01bd1f15cac52714bfac4c028fcadb7b4be6f239079114716d4f9"
+        }
+      ],
+      "meaning": "AST parse found a closing parenthesis where the new hash-query list required a bracket. No native replay or proof executed.",
+      "record": "initial-runner-syntax",
+      "repair": "Close the list comprehension before the tuple."
+    },
+    {
+      "classification": "probe_unobserved_query_failure_class",
+      "inputs": [
+        {
+          "path": "run_frontend_wire.py",
+          "sha256": "5ecdc64512597e982a0431a7493017bc7e5da4fc311554bd9e97d85fda98a4c8"
+        },
+        {
+          "path": "test_frontend_wire.py",
+          "sha256": "9f82685f7b49844374675c7e82c40f4b9ed0913603065fd8b28074033aab08ea"
+        }
+      ],
+      "meaning": "Missing cached query raises ValueError,which a caller configuration-rejection classifier can catch. No actual registered query/output or semantic evidence is affected.",
+      "record": "initial-unobserved-query",
+      "repair": "Raise AssertionError explicitly for an absent oracle query so it cannot become assumed rejection."
+    }
+  ],
+  "invalid_trusted_fact_types_rejected": 5,
+  "linked_public_inputs": 310,
+  "log_hashes": [
+    {
+      "path": "materialize.log",
+      "sha256": "ab809ac0715f3d6d766fb6255b167900c4da780f5735e8ddc34fd7ff698b030b"
+    },
+    {
+      "path": "targeted-tests.log",
+      "sha256": "c4bb3c64ec1a717d6323e975cd6d7a1cb7af8e06b0851e2f14863bf2c0b48f63"
+    },
+    {
+      "path": "metadata.log",
+      "sha256": "83f9c1beb02495771efc637cae0b8c9a2eddc41e5348e83344efda93f77eb923"
+    },
+    {
+      "path": "rustfmt.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "source-format.log",
+      "sha256": "b0087ff9cfd2f4e3cbb6bdf6dfeb06a3359a46ba467d4a9a9973a6ca07044b00"
+    },
+    {
+      "path": "replay-comparison.json",
+      "sha256": "1fe7e5886dc7e32c8bc6870368693b4399226fcc4322d06bc54aebc2f4758df6"
+    },
+    {
+      "path": "guard-review.json",
+      "sha256": "66557437f05e2235329e07b328230f296bbd705dac8dd2743108fa37489c196e"
+    }
+  ],
+  "main_commit": "1c34ed5701df2e53fd515d49ad4d158cc728cb4b",
+  "model_guard_boundary_order_cases": 7,
+  "observations": {
+    "cases": 611,
+    "go_codebook_entries": 33,
+    "go_model_bundles": 2,
+    "hash_vectors": 165,
+    "native_queries": 142,
+    "outcomes": {
+      "FRONTEND_PROCESS_KILLED": 16,
+      "FRONTEND_PROTOCOL_LIMIT": 16,
+      "FRONTEND_PROTOCOL_MISSING": 8,
+      "FRONTEND_PROTOCOL_TRUNCATED": 8,
+      "FRONTEND_PROTOCOL_UNEXPECTED_USAGE": 8,
+      "configuration_rejection": 404,
+      "go_diagnostic_model_unregistered": 118,
+      "go_lowered_model_unregistered": 2,
+      "retained_diagnostic_protocol_valid": 19,
+      "retained_process_protocol_valid": 12
+    },
+    "retained_context_baselines": 5,
+    "retained_success_bundles": 6
+  },
+  "profile_activated": false,
+  "registered_execution": false,
+  "remaining": [
+    "policy/API/release roots and complete reviewed producer/consumer migrations; W04 freeze and W05 inactive publication/cumulative T01 gate",
+    "remaining word/source/partial/definedness/elaborator,state/permission/frame/control/totality proofs and complete Go statement/program/skeleton assembly;169 complete Go requests remain unelaborated",
+    "full T02–T11 implementation,application proofs and local Linux release gates before activation"
+  ],
+  "replay_comparison": "replay-comparison.json",
+  "review": [
+    "All required common root fields and own-hash exclusions are closed; complete request/context/selection/artifact links are checked before acceptance.",
+    "Retained projections use unchanged actual public CLI/VC APIs and complete independent source-artifact baselines,not an assumed round-trip or a copied codebook.",
+    "Missing native queries raise a probe assertion; malformed inputs,codebook/shape failures,transport/process/resource outcomes and construction failures retain separate evidence classes.",
+    "New Go messages are fixed; byte spans resolve captured object identity including EOF and optional captured declaration/source agreement.",
+    "Protocol validation supplies no frontend-execution,registered-run or source-proof authority. Go source models remain independently validated but all169 complete theorem requests remain unelaborated.",
+    "No production source,old helper,installed profile,core rule or certificate meaning changes. Migration completeness,whole-program/source correctness and general compiler correctness are not claimed."
+  ],
+  "schema": "mpk.go_practical.frontend_envelope_verification.v0",
+  "scope": "private common request/success/diagnostic/CLI draft; actual unchanged retained process/source validators; source-bound unregistered Go model diagnostics and lowering fixtures; no frontend execution,source proof or profile activation",
+  "selection_reason": "Request/response canonical roots,actual public retained context/source/process consumers,new Go model diagnostics,capture subset binding and unregistered/proof boundaries changed. Run their complete conformance matrix and18 targeted tests plus the preceding word-arithmetic retained-evidence and143-file metadata closure. Unaffected numeric/core/native matrices are preserved by exact pins rather than rerun.",
+  "source_inputs": 810,
+  "source_semantics_proved": false,
+  "status": "passed: targeted frontend design/conformance and retained-evidence metadata closure; W04 remains in progress",
+  "whole_gate": {
+    "reason": "AGENTS.md requires check-fast only at the final W of T01; this remains intermediate W04. No equivalent broad gate was decomposed or run.",
+    "status": "deferred to T01-W05"
+  }
+}

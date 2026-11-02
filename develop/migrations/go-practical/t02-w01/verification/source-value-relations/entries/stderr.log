@@ -1,0 +1,17 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+warning: function `all_seventy_closed_source_relations_keep_full_U` should have a snake case name
+   --> crates/mpk-vc/tests/go_practical_source_value_relations.rs:229:4
+    |
+229 | fn all_seventy_closed_source_relations_keep_full_U() {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: convert the identifier to snake case (notice the capitalization): `all_seventy_closed_source_relations_keep_full_u`
+    |
+    = note: `#[warn(non_snake_case)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: `mpk-vc` (test "go_practical_source_value_relations") generated 1 warning
+    Finished `test` profile [optimized + debuginfo] target(s) in 1m 40s
+     Running tests/go_practical_source_value_relations.rs (target/debug/deps/go_practical_source_value_relations-d9b46e74a77037b9)
+
+thread 'closed_source_relations_empty_and_small_all_fields' (56823204) panicked at crates/mpk-vc/tests/go_practical_source_value_relations.rs:137:83:
+called `Result::unwrap()` on an `Err` value: Linkage
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_value_relations`

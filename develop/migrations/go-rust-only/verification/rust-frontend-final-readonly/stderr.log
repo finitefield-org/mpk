@@ -1,0 +1,10 @@
+   Compiling rust2vir v0.1.0 (/mpk/frontend)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.51s
+     Running tests/driver_protocol.rs (/mpk/target/x86_64-unknown-linux-gnu/debug/deps/driver_protocol-59fecef15887d66e)
+
+thread 'normative_vector_request_and_every_status_are_byte_exact' panicked at tests/driver_protocol.rs:43:5:
+assertion `left == right` failed
+  left: "5efb683f4a80eb8e2b34bafb3f90f2ac5278d53c082df4cb8b6f923670d01c8f"
+ right: "617a473f748153aa160a089823d537c5a6acfe453acc93089315014597afa895"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `--test driver_protocol`

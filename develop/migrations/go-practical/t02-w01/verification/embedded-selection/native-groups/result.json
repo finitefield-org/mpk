@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "test",
+    "-json",
+    "-count=1",
+    "-timeout=40m",
+    "-run",
+    "^TestPracticalEmbeddedPatternGroupsOriginalBuild$"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "GOROOT": "/private/tmp/mpk-go125-20261025-download/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-embedded-selection-189-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-embedded-selection-189-mod",
+    "MPK_GO_PRACTICAL_SYNTAX_EVIDENCE": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/native-groups/native-originals"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/native-groups/inputs.json",
+    "bytes": 20298821,
+    "sha256": "1a6b2faef6a9cc1b6747762da7a5ea2ca0161f445cd766eaedb868796ce9bab5",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/run.py",
+    "bytes": 12543,
+    "sha256": "7ebc97ae5b586bc69103eb5ce1f3872f980cdabc178eb705b06ba97ffcc64a5e",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T07:55:07.847099+00:00",
+  "selection_reason": "Independently derive original Go embed pattern bytes and non-test resource selection from the complete immutable snapshot, without caller-supplied patterns or filesystem fallback. Compare all54 unchanged original native cases including all27 rejections; preserve complete candidate namespaces/buffers before resource failure. Compare original pragma/comment/literal/raw-byte cases, the entire pinned path.Match corpus plus raw-byte vectors, and every2003 original package directory. Exercise the full5535-object native owner, exact resources and coherent omission/unknown-directory controls with the identical original Root contract. Compare nonempty internal/external test patterns and verify that invalid/missing test-resource patterns do not contaminate ordinary production resource selection. Run the new native observations and affected Rust capture/package/auxiliary/cgo/source consumers, strict Clippy, vet and changed-file formats; untouched lexer/parser/build/language/kernel/foundation matrices and original Go owner/export/invocation production retain prior full evidence without repeat. Keep both43-root/zero-or70-error units/type domains/all32 proof streams/frozen limits intact. Canonical source/compiler/root/context/program authority remains due.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "go_tool": {
+    "path": "/private/tmp/mpk-go125-20261025-download/go/bin/go",
+    "bytes": 14117888,
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "mode": 493
+  },
+  "exit_code": 0,
+  "seconds": 25.525706249987707,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "external_originals_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/native-groups/stdout.log",
+    "bytes": 1461,
+    "sha256": "0ec2d1a79064b3ebb66a1f896f3b7abd77ee9587d783748ef3504191e257e0ef",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/embedded-selection/native-groups/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T07:55:33.387894+00:00"
+}

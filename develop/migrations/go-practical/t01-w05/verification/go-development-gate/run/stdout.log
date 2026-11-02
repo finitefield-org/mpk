@@ -1,0 +1,1628 @@
+
+==> check_no_github_actions_workflows
+
+==> cargo fmt --check
+
+==> /Users/kazuyoshitoshiya/ff/mpk/scripts/check-no-active-gir.sh --strict
+Obsolete-interface self-test: ok (30428 active files scanned; 48 retained records excluded)
+No active obsolete interfaces found.
+
+==> cargo clippy --workspace --all-targets -- -D warnings
+
+==> python3 /Users/kazuyoshitoshiya/ff/mpk/scripts/cargo-test-without-csharp.py
+{
+  "commands": [
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-core",
+      "--no-fail-fast",
+      "--lib",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-core",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-cert",
+      "--no-fail-fast",
+      "--lib",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-cert",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-kernel",
+      "--no-fail-fast",
+      "--lib",
+      "--test",
+      "certificate_decoder_fuzz_smoke",
+      "--test",
+      "fast_kernel_profile",
+      "--test",
+      "theory_certificate_encoders",
+      "--test",
+      "theory_certificate_fuzz_smoke",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-kernel",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-theory",
+      "--no-fail-fast",
+      "--lib",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-theory",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-cli",
+      "--no-fail-fast",
+      "--lib",
+      "--bin",
+      "mpk",
+      "--test",
+      "ai_explain_v1",
+      "--test",
+      "ai_foundation",
+      "--test",
+      "frontend_limits",
+      "--test",
+      "frontend_runner",
+      "--test",
+      "java_activation",
+      "--test",
+      "java_build_inputs",
+      "--test",
+      "java_contracts",
+      "--test",
+      "java_frontend_runner",
+      "--test",
+      "java_frontend_vectors",
+      "--test",
+      "java_lowering",
+      "--test",
+      "java_policy_verify",
+      "--test",
+      "java_release_gate",
+      "--test",
+      "java_source_maps",
+      "--test",
+      "java_subset",
+      "--test",
+      "policy_cli",
+      "--test",
+      "policy_profiles",
+      "--test",
+      "policy_scan",
+      "--test",
+      "policy_schema_v1",
+      "--test",
+      "program_certificate",
+      "--test",
+      "successor_atomic_cutover",
+      "--test",
+      "successor_frontend_protocol",
+      "--test",
+      "successor_go_protocol",
+      "--test",
+      "successor_go_release",
+      "--test",
+      "successor_rust_protocol",
+      "--test",
+      "successor_rust_release",
+      "--test",
+      "verify",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-cli",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-api",
+      "--no-fail-fast",
+      "--lib",
+      "--test",
+      "batch",
+      "--test",
+      "check_api",
+      "--test",
+      "diagnostics",
+      "--test",
+      "invalid_candidates_benchmark",
+      "--test",
+      "jsonl",
+      "--test",
+      "policy_strategy",
+      "--test",
+      "proof_api",
+      "--test",
+      "strategies",
+      "--test",
+      "term_api",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-api",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-vc",
+      "--no-fail-fast",
+      "--lib",
+      "--test",
+      "call_wp",
+      "--test",
+      "canonical_json",
+      "--test",
+      "go_profile_vectors",
+      "--test",
+      "go_vir_corpus",
+      "--test",
+      "java_profile_spec",
+      "--test",
+      "java_profile_vectors",
+      "--test",
+      "program_encoding",
+      "--test",
+      "program_wp",
+      "--test",
+      "release_bundle",
+      "--test",
+      "rust_calls",
+      "--test",
+      "rust_positive_corpus",
+      "--test",
+      "rust_runtime_safety",
+      "--test",
+      "safety_profiles",
+      "--test",
+      "semantic_profile_registry",
+      "--test",
+      "semantic_profile_registry_runtime",
+      "--test",
+      "source_manifest",
+      "--test",
+      "source_map",
+      "--test",
+      "successor_go_migration",
+      "--test",
+      "successor_rust_migration",
+      "--test",
+      "successor_source_artifacts",
+      "--test",
+      "successor_vc",
+      "--test",
+      "vc_hash_v1",
+      "--test",
+      "vc_skeleton_v1",
+      "--test",
+      "vc_v1",
+      "--test",
+      "verification_limits",
+      "--test",
+      "vir_differential",
+      "--test",
+      "vir_hash",
+      "--test",
+      "vir_loops",
+      "--test",
+      "vir_model",
+      "--test",
+      "vir_semantics_gate",
+      "--test",
+      "vir_validation",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-vc",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-linux-sandbox",
+      "--no-fail-fast",
+      "--lib",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ],
+    [
+      "cargo",
+      "test",
+      "--package",
+      "mpk-linux-sandbox",
+      "--no-fail-fast",
+      "--doc",
+      "--",
+      "--skip",
+      "csharp",
+      "--skip",
+      "CSharp",
+      "--skip",
+      "CSHARP"
+    ]
+  ],
+  "omitted_integration_targets": [
+    {
+      "package": "mpk-cli",
+      "target": "csharp_ai_explain"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_build_inputs"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_capture"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_contracts"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_emission"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_frontend_runner"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_frontend_vectors"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_lowering"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_policy_verify"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_boundary"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_boundary_transition"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_build_inputs"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_capture"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_codecs"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_collections"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_control"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_domain"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_frontend_protocol"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_migration"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_numbers"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_probes"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_syntax"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_transition"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_practical_types"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_profile_vectors"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_release_gate"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_roslyn_session"
+    },
+    {
+      "package": "mpk-cli",
+      "target": "csharp_subset"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_inventory"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_registry"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_source_artifacts"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_spec"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_vc"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_vc_model"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_vir_model"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_practical_vir_validation"
+    },
+    {
+      "package": "mpk-vc",
+      "target": "csharp_profile_spec"
+    }
+  ],
+  "test_name_filters": [
+    "csharp",
+    "CSharp",
+    "CSHARP"
+  ],
+  "scope": "Go development; C# validation deferred by user instruction"
+}
+
+==> cargo test --package mpk-core --no-fail-fast --lib -- --skip csharp --skip CSharp --skip CSHARP
+
+running 130 tests
+test bool_cases::tests::bool_cases_infers_open_dependent_result_without_reducing_neutral_major ... ok
+test bool_cases::tests::bool_cases_closes_constructor_registration_without_changing_legacy_families ... ok
+test bool_cases::tests::bool_cases_checks_both_equations_and_preserves_legacy_recursor ... ok
+test bool_cases::tests::bool_cases_generation_rejects_prior_checked_uses_without_registering_cases ... ok
+test bool_cases::tests::bool_cases_rejects_higher_universe_family ... ok
+test bool_cases::tests::bool_cases_rejects_universe_arguments_without_needing_an_iota_redex ... ok
+test bool_cases::tests::bool_cases_rejects_wrong_type_nongenerated_and_extra_constructor ... ok
+test context::tests::local_definition_lookup_returns_value_and_type ... ok
+test context::tests::popping_context_restores_outer_variable_index ... ok
+test context::tests::var_lookup_uses_de_bruijn_order ... ok
+test decl_check::tests::checked_theorem_proof_never_unfolds_in_downstream_defeq ... ok
+test decl_check::tests::registers_checked_theorem_after_type_and_proof_check ... ok
+test decl_check::tests::rejects_bad_theorem_proof_without_mutating_environment ... ok
+test decl_check::tests::rejects_theorem_type_that_does_not_infer_to_sort ... ok
+test defeq::tests::defeq_fuel_exhaustion_returns_stable_error ... ok
+test defeq::tests::defeq_never_unfolds_opaque_definition ... ok
+test defeq::tests::defeq_never_unfolds_opaque_function_head ... ok
+test defeq::tests::defeq_reduces_beta_and_zeta_at_whnf ... ok
+test defeq::tests::defeq_reduces_under_matching_binders ... ok
+test defeq::tests::defeq_returns_false_for_distinct_neutral_terms ... ok
+test defeq::tests::defeq_unfolds_reducible_definition ... ok
+test defeq::tests::defeq_unfolds_reducible_function_head_before_beta ... ok
+test defeq::tests::core_negative_fixtures_reject_forbidden_conversions ... ok
+test env::tests::cache_keys_are_environment_local_and_revisioned ... ok
+test env::tests::constructor_rejects_non_inductive_dependency ... ok
+test env::tests::declarations_iterate_in_registration_order ... ok
+test env::tests::duplicate_declarations_reject_deterministically ... ok
+test env::tests::generated_constructor_and_recursor_are_marked ... ok
+test env::tests::invalid_declaration_names_reject_deterministically ... ok
+test env::tests::registers_and_looks_up_axiom_declarations ... ok
+test env::tests::registers_constructor_and_recursor_against_inductive ... ok
+test env::tests::registers_definition_with_reducibility_metadata ... ok
+test env::tests::registers_theorem_as_opaque_declaration_skeleton ... ok
+test error::tests::escapes_json_strings_deterministically ... ok
+test error::tests::location_parts_preserve_path_order ... ok
+test error::tests::reduce_errors_convert_to_core_errors ... ok
+test error::tests::serializes_error_json_with_stable_key_order ... ok
+test error::tests::sorts_details_by_key_for_deterministic_output ... ok
+test error::tests::stable_error_codes_are_exposed_as_strings ... ok
+test error::tests::subst_errors_convert_to_sorted_core_error_details ... ok
+test inductive::tests::registers_and_exports_bool_shape_in_dependency_order ... ok
+test inductive::tests::registers_and_exports_eq_shape_with_universe_params ... ok
+test inductive::tests::registers_and_exports_nat_shape ... ok
+test inductive::tests::rejects_duplicate_artifact_names_without_mutating_environment ... ok
+test inductive::tests::rejects_duplicate_universe_params_without_mutating_environment ... ok
+test inductive::tests::rejects_mvp_shape_with_wrong_constructor_count ... ok
+test inductive_gen::tests::duplicate_generated_names_reject_before_mutating_environment ... ok
+test inductive_gen::tests::generated_hashes_are_stable_for_fresh_runs ... ok
+test inductive_gen::tests::generates_bool_constructor_and_recursor_declarations_in_dependency_order ... ok
+test inductive_gen::tests::generates_eq_with_universe_parameter_in_signature_hash ... ok
+test inductive_gen::tests::generates_nat_succ_as_direct_recursive_constructor ... ok
+test infer::tests::application_rejects_argument_type_mismatch_deterministically ... ok
+test infer::tests::application_rejects_non_function_type_deterministically ... ok
+test infer::tests::check_by_inference_accepts_definitionally_equal_expected_type ... ok
+test infer::tests::check_by_inference_accepts_reducible_definition_expected_type ... ok
+test infer::tests::checks_lambda_against_expected_pi ... ok
+test infer::tests::infer_sort_reuses_interned_successor_sort ... ok
+test infer::tests::infers_application_after_whnf_function_type_to_pi ... ok
+test infer::tests::infers_application_by_checking_argument_against_pi_domain ... ok
+test infer::tests::infers_application_substitutes_dependent_result_type ... ok
+test infer::tests::infers_const_from_environment ... ok
+test infer::tests::infers_dependent_pi_body_in_extended_context ... ok
+test infer::tests::infers_lambda_as_pi_type ... ok
+test infer::tests::infers_lambda_with_dependent_domain_lifted_under_body_binder ... ok
+test infer::tests::infers_let_body_type_after_discharging_local_definition ... ok
+test infer::tests::infers_let_body_with_local_definition ... ok
+test infer::tests::infers_multi_argument_application_spine ... ok
+test infer::tests::infers_non_dependent_pi_sort_from_domain_and_body_sorts ... ok
+test infer::tests::infers_sort_successor_type ... ok
+test infer::tests::infers_sort_zero_as_sort_succ_zero ... ok
+test infer::tests::infers_var_from_local_context ... ok
+test infer::tests::infers_var_from_local_definition_type ... ok
+test infer::tests::infers_var_lifts_dependent_local_type ... ok
+test infer::tests::lambda_check_accepts_definitionally_equal_domain ... ok
+test infer::tests::lambda_check_rejects_body_mismatch_deterministically ... ok
+test infer::tests::lambda_check_rejects_domain_mismatch_deterministically ... ok
+test infer::tests::lambda_check_rejects_non_pi_expected_deterministically ... ok
+test infer::tests::lambda_domain_must_infer_to_sort_deterministically ... ok
+test infer::tests::let_type_must_infer_to_sort_deterministically ... ok
+test infer::tests::let_value_must_check_against_annotation_deterministically ... ok
+test infer::tests::pi_domain_must_infer_to_sort_deterministically ... ok
+test infer::tests::unbound_var_inference_rejects_deterministically ... ok
+test infer::tests::unknown_const_inference_rejects_deterministically ... ok
+test infer::tests::pi_body_must_infer_to_sort_deterministically ... ok
+test level::tests::max_drops_zero_and_deduplicates_terms ... ok
+test level::tests::max_normalization_is_order_independent ... ok
+test level::tests::nested_max_flattens_and_sorts_terms ... ok
+test level::tests::stable_hash_uses_normal_form ... ok
+test level::tests::succ_normalizes_its_inner_level ... ok
+test level::tests::zero_is_canonical ... ok
+test name::tests::parses_canonical_dotted_names ... ok
+test name::tests::rejects_empty_names_and_components ... ok
+test name::tests::rejects_invalid_component_starts_and_chars ... ok
+test name::tests::rejects_non_ascii_names ... ok
+test name::tests::resolver_rejects_invalid_lookup_names ... ok
+test name::tests::resolver_reuses_existing_global_ids ... ok
+test positivity::tests::mvp_inductive_positivity_accepts_documented_shapes ... ok
+test positivity::tests::mvp_inductive_positivity_rejects_negative_occurrences ... ok
+test positivity::tests::mvp_inductive_positivity_rejects_non_family_results ... ok
+test positivity::tests::mvp_inductive_positivity_rejects_undocumented_shape_patterns ... ok
+test positivity::tests::mvp_inductive_positivity_rejects_unknown_nested_functors ... ok
+test reduce::tests::whnf_beta_preserves_remaining_spine_arguments ... ok
+test reduce::tests::whnf_beta_reduces_lambda_application ... ok
+test reduce::tests::whnf_continues_after_spine_beta_exposes_lambda ... ok
+test reduce::tests::whnf_does_not_reduce_under_lambda ... ok
+test reduce::tests::whnf_fuel_exhaustion_is_deterministic ... ok
+test positivity::tests::core_inductive_fixtures_are_deterministic ... ok
+test reduce::tests::whnf_leaves_neutral_app_head_in_whnf ... ok
+test reduce::tests::whnf_reduces_function_head_before_beta ... ok
+test reduce::tests::whnf_zeta_reduces_let ... ok
+test reduce_inductive::tests::generated_bool_recursor_iota_reduces_by_constructor ... ok
+test reduce_inductive::tests::generated_eq_recursor_iota_reduces_refl ... ok
+test reduce_inductive::tests::generated_iota_participates_in_definitional_equality ... ok
+test reduce_inductive::tests::generated_nat_recursor_iota_reduces_zero_and_succ ... ok
+test reduce_inductive::tests::iota_fuel_exhaustion_rejects_deterministically ... ok
+test reduce_inductive::tests::non_generated_recursor_equation_rejects ... ok
+test reduce_inductive::tests::unknown_generated_recursor_equation_rejects ... ok
+test subst::tests::beta_substitution_avoids_capture_under_nested_binder ... ok
+test subst::tests::beta_substitution_decrements_outer_free_variables ... ok
+test subst::tests::beta_substitution_replaces_bound_variable ... ok
+test reduce_inductive::tests::core_recursor_fixtures_are_deterministic ... ok
+test subst::tests::lift_respects_binders ... ok
+test subst::tests::lift_shifts_free_variables_at_or_above_cutoff ... ok
+test subst::tests::substitute_lifts_replacement_under_binders ... ok
+test term::tests::application_uses_spine_form ... ok
+test term::tests::const_hash_includes_level_arguments ... ok
+test term::tests::empty_application_returns_function ... ok
+test term::tests::interns_identical_terms ... ok
+test term::tests::structural_hash_is_stable_for_interned_terms ... ok
+test term::tests::terms_are_topologically_inspectable ... ok
+
+test result: ok. 130 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+==> cargo test --package mpk-core --no-fail-fast --doc -- --skip csharp --skip CSharp --skip CSHARP
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo test --package mpk-cert --no-fail-fast --lib -- --skip csharp --skip CSharp --skip CSHARP
+
+running 47 tests
+test axiom_report::tests::future_declaration_references_reject ... ok
+test axiom_report::tests::direct_and_transitive_dependencies_are_computed ... ok
+test axiom_report::tests::axiom_report_hash_uses_encoded_report_payload ... ok
+test axiom_report::tests::axiom_fixture_matches_expected_report ... ok
+test axiom_report::tests::shared_proof_dag_has_the_same_axiom_dependencies ... ok
+test axiom_report::tests::shared_term_memoization_still_rejects_cycles ... ok
+test axiom_report::tests::theory_primitives_are_reported_as_builtin_theory_axioms ... ok
+test binary_tags::tests::declaration_tags_match_core_v0 ... ok
+test binary_tags::tests::level_tags_match_certificate_v0 ... ok
+test binary_tags::tests::proof_node_tags_match_certificate_v0 ... ok
+test binary_tags::tests::term_tags_match_certificate_v0 ... ok
+test canonical::tests::canonical_golden_fixture_accepts ... ok
+test canonical::tests::unsorted_name_table_decodes_but_fails_canonical_check ... ok
+test decode::tests::decoder_rejects_non_minimal_varint ... ok
+test canonical::tests::noncanonical_fixtures_reject ... ok
+test cert_basic::cert_basic_fixture_shapes_are_minimal ... ok
+test decode::tests::decoder_round_trips_structural_certificate ... ok
+test decode::tests::golden_minimal_certificate_decodes ... ok
+test cert_basic::cert_basic_fixtures_decode_and_hash ... ok
+test encode::tests::bounded_certificate_encoder_accepts_at_and_refuses_before_excess_allocation ... ok
+test encode::tests::certificate_sections_follow_fixed_order ... ok
+test encode::tests::encoder_uses_tags_for_core_nodes_and_declarations ... ok
+test encode::tests::unsigned_varints_are_minimal_leb128 ... ok
+test encode::tests::minimal_certificate_matches_golden_fixture ... ok
+test export::tests::declaration_name_is_included_in_interface_hash ... ok
+test export::tests::definition_body_visibility_matches_reducibility ... ok
+test export::tests::export_block_derives_entries_for_public_declarations ... ok
+test export::tests::export_block_hash_uses_export_domain ... ok
+test export::tests::missing_declaration_name_rejects ... ok
+test decode::tests::invalid_byte_fixtures_reject ... ok
+test export::tests::theorem_proof_body_is_excluded_from_export_hash ... ok
+test export::tests::theorem_type_is_included_in_export_hash ... ok
+test hash::tests::domain_separator_changes_hashes ... ok
+test hash::tests::hash_domain_tags_match_cert_v0 ... ok
+test hash::tests::hash_hex_renders_lowercase_hex ... ok
+test hash::tests::named_hash_helpers_use_their_domains ... ok
+test hash::tests::hash_vectors_are_stable ... ok
+test imports::tests::all_zero_certificate_hash_rejects ... ok
+test imports::tests::all_zero_export_hash_rejects ... ok
+test imports::tests::bad_import_hash_rejects_through_canonical_decoder ... ok
+test imports::tests::certificate_imports_api_rejects_bad_hashes ... ok
+test imports::tests::certificate_imports_validate_through_canonical_decoder ... ok
+test imports::tests::duplicate_module_export_identity_rejects ... ok
+test imports::tests::import_table_sorts_by_module_export_and_certificate_hash ... ok
+test imports::tests::invalid_module_name_rejects_direct_validation ... ok
+test imports::tests::noncanonical_import_order_rejects ... ok
+test imports::tests::sorted_hash_pinned_imports_validate ... ok
+
+test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo test --package mpk-cert --no-fail-fast --doc -- --skip csharp --skip CSharp --skip CSHARP
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo test --package mpk-kernel --no-fail-fast --lib --test certificate_decoder_fuzz_smoke --test fast_kernel_profile --test theory_certificate_encoders --test theory_certificate_fuzz_smoke -- --skip csharp --skip CSharp --skip CSHARP
+
+running 35 tests
+test cache::tests::cached_defeq_matches_core_and_reuses_entry ... ok
+test cache::tests::cached_check_matches_core_for_successes_and_failures ... ok
+test cache::tests::cached_infer_matches_core_and_reuses_entry ... ok
+test cache::tests::cached_whnf_matches_core_and_reuses_entry ... ok
+test cache::tests::inferred_type_cache_keys_include_environment_identity ... ok
+test cache::tests::inferred_type_cache_keys_include_environment_revision ... ok
+test cache::tests::inferred_type_cache_keys_include_term_arena_identity ... ok
+test decl_driver::tests::checks_declarations_in_dependency_order ... ok
+test decl_driver::tests::rejects_missing_declaration_dependency ... ok
+test decl_driver::tests::rejects_out_of_order_declaration_dependency ... ok
+test json_output::tests::accepted_output_matches_snapshot ... ok
+test json_output::tests::axiom_report_command_output_matches_snapshot ... ok
+test json_output::tests::axiom_report_output_includes_entries_and_dependencies_snapshot ... ok
+test json_output::tests::rejected_output_matches_snapshot ... ok
+test proof_check::tests::checks_core_bootstrap_nodes_with_local_intro_body ... ok
+test proof_check::tests::core_bootstrap_profile_rejects_structural_node ... ok
+test proof_check::tests::checks_structural_nodes_under_mvp_structural_profile ... ok
+test proof_check::tests::core_bootstrap_profile_still_rejects_structural_nodes ... ok
+test proof_check::tests::mvp_strict_profile_checks_theory_nodes ... ok
+test proof_check::tests::mvp_strict_profile_rejects_unreferenced_theory_certificates ... ok
+test proof_check::tests::rejects_bad_exact_node ... ok
+test proof_check::tests::structural_constructor_node_requires_generated_constructor ... ok
+test proof_check::tests::structural_profile_rejects_theory_nodes ... ok
+test proof_theory::tests::rejects_unknown_theory_certificate_format ... ok
+test proof_theory::tests::dispatches_supported_theory_certificate_formats ... ok
+test verifier::tests::rejects_noncanonical_certificate_bytes ... ok
+test verifier::tests::rejects_malformed_theory_proof_node_fixture ... ok
+test verifier::tests::rejects_nonzero_embedded_certificate_hash ... ok
+test verifier::tests::rejects_out_of_order_declaration_dependencies_before_report_recompute ... ok
+test verifier::tests::rejects_theorem_that_fails_core_checking ... ok
+test verifier::tests::verifies_basic_certificate_fixtures ... ok
+test verifier::tests::verifies_core_bootstrap_proof_nodes ... ok
+test verifier::tests::verifies_theory_proof_node_fixture ... ok
+test bool_cases_tests::bool_cases_accepts_universal_proofs_and_constructor_equations ... ok
+test bool_cases_tests::bool_cases_rejects_mutated_interfaces_proofs_and_universe_arguments ... ok
+
+test result: ok. 35 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 1 test
+test certificate_decoder_boundary_inputs_do_not_panic ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test alpha004_fast_kernel_profile_report_identifies_hotspots ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test bool_theory_certificate_encoder_payload_is_accepted_by_kernel ... ok
+test linarith_theory_certificate_encoder_payload_is_accepted_by_kernel ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test malformed_theory_certificate_payloads_reject_deterministically_without_panics ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo test --package mpk-kernel --no-fail-fast --doc -- --skip csharp --skip CSharp --skip CSHARP
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo test --package mpk-theory --no-fail-fast --lib -- --skip csharp --skip CSharp --skip CSHARP
+
+running 40 tests
+test array_cert::tests::accepts_nested_write_read_normalization ... ok
+test array_cert::tests::accepts_different_index_read_after_write ... ok
+test array_cert::tests::accepts_length_preserved_by_write ... ok
+test array_cert::tests::accepts_last_write_for_same_index ... ok
+test array_cert::tests::accepts_same_index_read_after_write ... ok
+test array_cert::tests::rejects_claimed_element_mismatch ... ok
+test array_cert::tests::rejects_duplicate_base_array ... ok
+test array_cert::tests::rejects_out_of_bounds_read ... ok
+test array_cert::tests::rejects_out_of_bounds_write ... ok
+test array_cert::tests::rejects_oversized_expression ... ok
+test array_cert::tests::rejects_result_kind_mismatch ... ok
+test array_cert::tests::rejects_unknown_base_array ... ok
+test bitvec_eval::tests::arithmetic_wraps_to_width ... ok
+test bitvec_eval::tests::evaluates_documented_ground_bitvec_fixtures ... ok
+test bitvec_eval::tests::rejects_bool_result_as_bitvector_operand ... ok
+test bitvec_eval::tests::rejects_oversized_expression ... ok
+test bitvec_eval::tests::rejects_unsupported_width ... ok
+test bitvec_eval::tests::rejects_width_mismatch ... ok
+test bitvec_eval::tests::shifts_follow_fixed_width_bitvector_semantics ... ok
+test bitvec_eval::tests::signed_and_unsigned_comparisons_are_distinct ... ok
+test bool_cert::tests::accepts_small_bool_tautology_certificate ... ok
+test bool_cert::tests::decodes_and_checks_payload_certificate ... ok
+test bool_cert::tests::encodes_and_decodes_all_bool_expression_tags ... ok
+test bool_cert::tests::encodes_bool_static_tautology_payload ... ok
+test bool_cert::tests::rejects_duplicate_assignment ... ok
+test bool_cert::tests::rejects_invalid_variable_reference ... ok
+test bool_cert::tests::rejects_malformed_payloads ... ok
+test bool_cert::tests::rejects_non_tautology_certificate ... ok
+test linarith_cert::tests::checks_constant_slack_fixture ... ok
+test linarith_cert::tests::checks_scaled_premise_fixture ... ok
+test linarith_cert::tests::checks_transitive_non_strict_linear_fixture ... ok
+test linarith_cert::tests::checks_trivial_constant_goal_without_premises ... ok
+test bool_cert::tests::rejects_claimed_result_mismatch ... ok
+test linarith_cert::tests::encodes_linarith_static_strategy_payload ... ok
+test linarith_cert::tests::normalizes_duplicate_terms ... ok
+test linarith_cert::tests::rejects_arithmetic_overflow ... ok
+test linarith_cert::tests::rejects_invalid_premise_index ... ok
+test linarith_cert::tests::rejects_negative_constant_slack ... ok
+test linarith_cert::tests::rejects_unproven_variable_residual ... ok
+test linarith_cert::tests::rejects_zero_multiplier ... ok
+
+test result: ok. 40 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo test --package mpk-theory --no-fail-fast --doc -- --skip csharp --skip CSharp --skip CSHARP
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo test --package mpk-cli --no-fail-fast --lib --bin mpk --test ai_explain_v1 --test ai_foundation --test frontend_limits --test frontend_runner --test java_activation --test java_build_inputs --test java_contracts --test java_frontend_runner --test java_frontend_vectors --test java_lowering --test java_policy_verify --test java_release_gate --test java_source_maps --test java_subset --test policy_cli --test policy_profiles --test policy_scan --test policy_schema_v1 --test program_certificate --test successor_atomic_cutover --test successor_frontend_protocol --test successor_go_protocol --test successor_go_release --test successor_rust_protocol --test successor_rust_release --test verify -- --skip csharp --skip CSharp --skip CSHARP
+
+running 31 tests
+test frontend_protocol::tests::public_path_scan_rejects_embedded_absolute_path_families ... ok
+test frontend_runner::tests::registered_contract_arguments_are_sorted_and_closed ... ok
+test frontend_runner::tests::registered_rust_selection_uses_the_frontend_identifier_grammar ... ok
+test frontend_protocol::tests::non_success_transport_is_exact_and_identity_pinned ... ok
+test frontend_runner::tests::registry_assertions_reject_before_installed_release_access ... ok
+test frontend_sandbox::tests::cgroup_event_observation_is_strict_and_peak_is_inclusive ... ok
+test frontend_sandbox::tests::execution_host_profile_selects_one_closed_sandbox_contract ... ok
+test frontend_sandbox::tests::frontend_runner_freezes_the_first_kill_cause ... ok
+test frontend_sandbox::tests::frontend_runner_stream_capture_marks_the_first_excess_byte ... ok
+test frontend_registry::tests::test_resolver_accepts_only_complete_sealed_objects ... ok
+test frontend_sandbox::tests::memory_discharge_uses_byte_gauges_instead_of_per_cpu_stock ... ok
+test frontend_sandbox::tests::rust_resource_profile_constants_match_the_frozen_units ... ok
+test policy_scan::v1::tests::policy_scan_v1_executes_every_normative_scan_cli_case ... ok
+test frontend_sandbox::tests::java_resource_profile_is_distinct_and_matches_its_frozen_probe ... ok
+test policy_scan::v1::tests::policy_scan_v1_malformed_or_partial_success_cannot_become_ready ... ok
+test policy_scan::v1::tests::policy_scan_v1_parser_accepts_both_registered_rust_targets ... ok
+test policy_scan::v1::tests::policy_scan_v1_parser_help_is_side_effect_free ... ok
+test policy_scan::v1::tests::policy_scan_v1_parser_normalizes_contract_order_and_forbids_old_locators ... ok
+test policy_scan::v1::tests::policy_scan_v1_parser_rejects_unknown_and_crossed_profiles_before_release_selection ... ok
+test policy_scan::v1::tests::policy_scan_v1_ready_pipeline_is_single_launch_canonical_and_safe_write ... ok
+test policy_scan::v1::tests::policy_scan_v1_rejects_directory_output_before_launch ... ok
+test policy_scan::v1::tests::policy_scan_v1_release_preflight_precedes_output_and_launch ... ok
+test policy_scan::v1::tests::policy_scan_v1_non_success_statuses_map_to_deterministic_readiness ... ok
+test policy_scan::v1::tests::rust_contract_helper_identity_never_applies_go_whitespace_normalization ... ok
+test program_certificate::tests::accepted_reference_report_is_bound_to_the_submitted_candidate_bytes ... ok
+test program_certificate::tests::alpha_shape_rejects_reserved_tables_theory_primitives_and_raw_bool_types ... ok
+test policy_scan::v1::tests::private_java_capture_preserves_source_contract_and_unlisted_inventory ... ok
+test program_certificate::tests::reference_checker_protocol_is_verdict_discriminated_and_zero_count_compatible ... ok
+test program_certificate::tests::checker_acceptance_pairs_have_distinct_fail_closed_classifications ... ok
+test frontend_registry::tests::embedded_registry_constants_match_the_reviewed_registry ... ok
+test frontend_runner::tests::validated_executable_bytes_are_snapshotted_before_launch ... ok
+
+test result: ok. 31 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.46s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test successor_explanation_only_emits_a_sanitized_request ... ok
+test predecessor_explanation_provider_and_evidence_routes_are_absent ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.56s
+
+
+running 3 tests
+test top_level_help_exposes_no_provider_or_predecessor_route ... ok
+test explain_is_the_offline_successor_route_in_every_build ... ok
+test explain_requires_a_successor_source_request ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 7 tests
+test frontend_protocol_limit_families_have_derived_boundaries ... ok
+test release_registry_limits_have_exact_closed_boundaries ... ok
+test stream_limit_precedes_kill_and_non_success_has_no_artifacts ... ok
+test normalized_issue_count_and_message_boundaries_preserve_status ... ok
+test strict_json_limit_failures_remain_malformed ... ok
+test shape_precedes_noncanonical_transport_and_lexical_errors_precede_issue_limits ... ok
+test normalized_combined_message_boundary_preserves_status ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+
+
+running 5 tests
+test released_cli_help_exposes_only_successor_semantic_selection ... ok
+test frontend_protocol_vectors_are_closed_unique_and_executed ... ok
+test assembler_rejects_unknown_argv_without_writes ... ok
+test stable_root_workspace_explicitly_excludes_standalone_rust_packages ... ok
+test release_installation_selection_and_assembler_vectors_are_all_owned ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+
+running 5 tests
+test checked_in_java_example_is_a_revision_3_selection_owned_request ... ok
+test activation_vector_is_owned_and_revision_3_is_the_only_installed_registry ... ok
+test java_uses_all_nine_compiled_contracts_and_certificate_v0_is_unchanged ... ok
+test old_crossed_and_partial_release_contexts_reject_atomically ... ok
+test active_release_is_the_exact_union_of_four_candidates_and_five_tuples ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.78s
+
+
+running 5 tests
+test java_build_descriptor_binds_sources_recipe_and_measured_candidate ... ok
+test offline_java_candidate_builds_twice_and_refuses_ambient_options ... ignored, requires the provisioned fixed JDK archive and local pinned Docker image; never downloads
+test active_java_route_rejects_revision_2_before_reading_source ... ok
+test active_java_candidate_is_installed_without_toolchain_override_inputs ... ok
+test java_offline_input_owner_executes_hostile_input_tests_without_ambient_configuration ... ok
+
+test result: ok. 4 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.64s
+
+
+running 2 tests
+test pinned_contract_executor_matches_independent_normalized_hashes_and_all_refusals ... ignored, requires the provisioned pinned JDK cache and local Linux amd64 image; runs offline
+test strict_contract_fixtures_cover_frozen_hashes_and_executable_boundaries ... ok
+
+test result: ok. 1 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 1.10s
+
+
+running 2 tests
+test active_java_candidate_and_launcher_are_exact ... ok
+test java_release_bytes_cannot_be_crossed_or_caller_replaced ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.62s
+
+
+running 4 tests
+test pinned_java_capture_compiler_and_diagnostic_vectors_execute ... ignored, requires the provisioned pinned JDK cache and local Linux amd64 image; runs offline
+test java_failure_transport_is_bounded_canonical_and_identity_linked ... ok
+test every_java_diagnostic_has_exact_code_phase_status_message_and_exit ... ok
+test private_adapter_fixture_ownership_is_closed_and_requires_an_explicit_run ... ok
+
+test result: ok. 3 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.74s
+
+
+running 3 tests
+test pinned_lowering_emits_complete_deterministic_artifacts_and_preserves_java_evaluation ... ignored, requires the provisioned pinned JDK cache and local Linux amd64 image; runs offline
+test shared_validators_reject_rehashed_java_check_shift_and_scope_mutations ... ignored, requires the provisioned pinned JDK cache and local Linux amd64 image; runs offline
+test all_frozen_operations_cfgs_cases_and_emission_counters_have_private_fixtures ... ok
+
+test result: ok. 1 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.33s
+
+
+running 1 test
+test t08_vectors_remain_owned_after_t10_installed_activation ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test t09_corpus_is_preserved_and_t10_installs_the_exact_reviewed_candidate ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+
+
+running 3 tests
+test pinned_maps_cover_every_node_with_exact_original_byte_origins_and_no_partial_failure ... ignored, requires the provisioned pinned JDK cache and local Linux amd64 image; runs offline
+test shared_validators_reject_rehashed_map_and_manifest_linkage_mutations ... ignored, requires the provisioned pinned JDK cache and local Linux amd64 image; runs offline
+test all_original_source_boundary_vectors_have_private_fixtures ... ok
+
+test result: ok. 1 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.45s
+
+
+running 2 tests
+test pinned_source_admission_executes_every_owned_case_and_preserves_full_closure ... ignored, requires the provisioned pinned JDK cache and local Linux amd64 image; runs offline
+test frozen_source_matrix_and_all_conversion_contexts_have_executable_fixtures ... ok
+
+test result: ok. 1 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.73s
+
+
+running 4 tests
+test successor_policy_help_returns_success ... ok
+test successor_policy_requires_context_and_selection ... ok
+test predecessor_semantic_context_rejects_before_source_capture_or_output ... ok
+test predecessor_identity_and_bundle_flags_are_not_routes ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 10 tests
+test mvp_theory_adds_no_category_and_approves_no_unreviewed_identity ... ok
+test every_crossed_known_strategy_tuple_rejects_as_crossed ... ok
+test package_axiom_allowlists_are_closed_and_evidence_cannot_broaden_them ... ok
+test explainer_only_sanitizes_a_genuinely_unknown_authorized_strategy ... ok
+test policy_profile_registry_has_exact_go_then_rust_rows ... ok
+test package_template_selects_only_the_rust_axiom_profile ... ok
+test unknown_profile_values_are_not_normalized ... ok
+test rust_package_gate_rejects_active_evidence_and_manifest_mismatches ... ok
+test rust_package_and_release_fixtures_admit_exact_evidence_selection ... ok
+test package_check_accepts_rust_policy_manifest_fixture ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test successor_scan_help_has_no_caller_selected_identity_or_locator ... ok
+test duplicate_json_members_reject_before_source_capture ... ok
+test successor_scan_rejects_raw_locators_as_unknown_arguments ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.02s
+
+
+running 2 tests
+test successor_context_and_selection_are_the_only_public_policy_inputs ... ok
+test predecessor_policy_schema_and_identity_flags_are_not_public_routes ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 4 tests
+test successor_error_envelopes_keep_the_typed_request_identity ... ok
+test successor_frontend_parser_rejects_dual_identity ... ok
+test successor_success_envelope_is_canonical_and_artifact_linked ... ok
+test protocol_and_artifact_identity_mismatches_fail_at_the_staged_boundary ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.01s
+
+
+running 1 test
+test active_go_envelopes_use_the_successor_protocol_family ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+
+running 2 tests
+test active_go_candidate_and_registry_resolve_the_successor_tuple ... ok
+test predecessor_and_crossed_go_release_shapes_fail_closed ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.40s
+
+
+running 1 test
+test active_rust_envelopes_use_the_successor_protocol_family ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 2 tests
+test predecessor_and_crossed_rust_release_shapes_fail_closed ... ok
+test active_rust_candidate_and_registry_resolve_the_two_successor_targets ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+
+running 9 tests
+test axiom_report_prints_recomputed_report_for_valid_certificate_fixture ... ok
+test check_accepts_valid_certificate_fixture ... ok
+test check_rejects_invalid_certificate_fixture_with_json ... ok
+test axiom_report_rejects_invalid_certificate_fixture_with_json ... ok
+test legacy_verify_still_accepts_valid_certificate_fixture ... ok
+test package_check_accepts_valid_manifest_fixture ... ok
+test package_check_rejects_duplicate_import_manifest_fixture ... ok
+test package_check_rejects_invalid_manifest_fixture ... ok
+test package_verify_certs_rejects_invalid_manifest_fixture ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+==> cargo test --package mpk-cli --no-fail-fast --doc -- --skip csharp --skip CSharp --skip CSHARP
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo test --package mpk-api --no-fail-fast --lib --test batch --test check_api --test diagnostics --test invalid_candidates_benchmark --test jsonl --test policy_strategy --test proof_api --test strategies --test term_api -- --skip csharp --skip CSharp --skip CSHARP
+
+running 15 tests
+test session::tests::rejects_module_names_with_outer_whitespace ... ok
+test session::tests::session_counter_overflow_returns_structured_error ... ok
+test session::tests::rejects_invalid_module_names ... ok
+test session::tests::maps_profiles_to_kernel_profiles ... ok
+test session::tests::list_sessions_uses_creation_order_after_double_digit_ids ... ok
+test session::tests::starts_multiple_sessions_with_deterministic_ids ... ok
+test session::tests::start_session_response_serializes_stably ... ok
+test session::tests::starts_session_with_default_profile ... ok
+test session::tests::unknown_session_returns_structured_error ... ok
+test v2_tests::failed_target_materialization_does_not_leave_partial_helper_state ... ok
+test v2_tests::installed_java_profile_starts_only_with_the_revision_three_root ... ok
+test v2_tests::helper_candidate_success_does_not_change_certificate_acceptance_authority ... ok
+test v2_tests::v2_routes_and_transports_are_closed_against_both_generations ... ok
+test v2_tests::crossed_old_stale_and_noncanonical_operations_reject_atomically ... ok
+test v2_tests::all_three_profiles_produce_deterministic_bound_successor_sessions_and_vcs ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+
+running 3 tests
+test batch_response_serializes_stably ... ok
+test batch_returns_per_candidate_verdicts_in_order ... ok
+test batch_handles_ten_thousand_fake_candidates ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test check_node_response_serializes_stably ... ok
+test check_node_error_serializes_stably ... ok
+test check_node_accepts_simple_exact_proof ... ok
+test bad_nodes_return_structured_errors_without_mutating_proof_table ... ok
+test check_node_validates_core_bootstrap_proofs_recursively ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test unknown_proof_diagnostic_serializes_stably ... ok
+test rejected_intro_body_diagnostic_includes_local_context ... ok
+test rejected_exact_diagnostic_serializes_stably ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test invalid_candidate_benchmark_imports_and_rejects_deterministically ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 4 tests
+test jsonl_import_skips_blank_lines ... ok
+test jsonl_import_rejects_invalid_records_structurally ... ok
+test jsonl_export_response_serializes_stably ... ok
+test jsonl_round_trip_feeds_batch_candidate_checking ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 8 tests
+test obligation_outside_strategy_profile_has_deterministic_reason ... ok
+test payment_policy_alpha_profile_metadata_is_stable ... ok
+test payment_policy_alpha_reserve_theory_fails_under_non_theory_profile ... ok
+test profile_metadata_does_not_weaken_mvp_strict_theory_requirement ... ok
+test rust_strategy_reuses_neutral_patterns_with_rust_specific_readiness ... ok
+test payment_policy_alpha_closes_first_reserve_nonnegative_with_checked_linarith ... ok
+test strategy_registry_binds_exact_go_and_rust_tuples_in_stable_order ... ok
+test unknown_strategy_profile_rejects_deterministically ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test proof_api_returns_structured_errors_without_mutating_table ... ok
+test constructs_core_bootstrap_proofs_over_ids ... ok
+test proof_error_serializes_stably ... ok
+test proof_api_builds_simple_theorem_root ... ok
+test proof_response_serializes_stably ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 7 tests
+test split_reports_not_applicable_for_non_pi_goal ... ok
+test split_strategy_proves_simple_propositional_fixture ... ok
+test apply_strategy_proves_simple_application_fixture ... ok
+test strategies_try_exact_then_refl_in_safe_order ... ok
+test theory_strategy_proves_max64_simple_vc_through_checked_certificate ... ok
+test theory_strategy_builds_all_checked_certificate_kinds ... ok
+test theory_strategy_requires_mvp_strict_profile ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test term_api_returns_structured_errors ... ok
+test term_error_serializes_stably ... ok
+test term_app_with_no_arguments_returns_function_id ... ok
+test constructs_terms_over_interned_ids ... ok
+test term_response_serializes_stably ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo test --package mpk-api --no-fail-fast --doc -- --skip csharp --skip CSharp --skip CSHARP
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo test --package mpk-vc --no-fail-fast --lib --test call_wp --test canonical_json --test go_profile_vectors --test go_vir_corpus --test java_profile_spec --test java_profile_vectors --test program_encoding --test program_wp --test release_bundle --test rust_calls --test rust_positive_corpus --test rust_runtime_safety --test safety_profiles --test semantic_profile_registry --test semantic_profile_registry_runtime --test source_manifest --test source_map --test successor_go_migration --test successor_rust_migration --test successor_source_artifacts --test successor_vc --test vc_hash_v1 --test vc_skeleton_v1 --test vc_v1 --test verification_limits --test vir_differential --test vir_hash --test vir_loops --test vir_model --test vir_semantics_gate --test vir_validation -- --skip csharp --skip CSharp --skip CSHARP
+
+running 6 tests
+test program_wp::tests::program_wp_budget_reserves_member_before_conclusion ... ok
+test program_wp::tests::program_wp_budget_rejects_document_assumptions_before_reserving_member ... ok
+test program_wp::tests::program_wp_budget_enforces_assumption_member_and_depth_limits ... ok
+test program_wp::tests::program_wp_budget_reports_cumulative_node_limit_for_projected_conclusion ... ok
+test verification_limits::tests::every_registered_limit_accepts_its_inclusive_maximum ... ok
+test program_wp::tests::program_wp_substitution_rejects_projected_growth_before_building ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 177 filtered out; finished in 0.00s
+
+
+running 7 tests
+test forall_term_serializes_with_the_vc_v1_shape ... ok
+test branch_join_keeps_call_and_non_call_continuations_separate ... ok
+test hash_signature_and_recursive_calls_reject_before_wp_artifact_generation ... ok
+test direct_call_generates_contract_bound_members_and_fresh_result_continuation ... ok
+test branched_call_members_retain_the_call_path_guard ... ok
+test source_dead_callee_remains_standalone_without_reachable_call_dependency ... ok
+test repeated_reachable_calls_keep_members_but_deduplicate_dependencies_and_nest_results ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 8 tests
+test canonical_json_encoder_uses_utf16_key_order_and_exact_string_escaping ... ok
+test canonical_json_hash_api_separates_domains_and_raw_preimages ... ok
+test canonical_json_unordered_set_normalization_is_explicit ... ok
+test canonical_json_strict_parser_rejects_lexical_and_limit_violations ... ok
+test canonical_json_duplicate_vector_case_rejects_before_typed_deserialization ... ok
+test canonical_json_vir_hash_canonical_cases_and_equivalences_match_vectors ... ok
+test canonical_json_vir_hash_raw_ordered_and_mutation_cases_match_vectors ... ok
+test canonical_json_every_frozen_vector_container_is_loaded_and_digest_matched ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+
+running 2 tests
+test every_go_profile_vector_has_a_unique_owned_outcome ... ok
+test shared_go_identity_is_accepted_by_the_rust_vir_importer ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test regenerated_go_successor_corpus_is_linked_deterministic_and_active ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.82s
+
+
+running 10 tests
+test java_frozen_toolchain_inventory_and_host_closure_are_bound ... ok
+test java_cfg_goldens_have_explicit_forward_edges_and_join_arguments ... ok
+test java_compiler_and_launcher_observations_are_scoped_and_closed ... ok
+test java_profile_is_compiled_and_installed_in_revision_3 ... ok
+test java_registry_hashes_preserve_every_predecessor_entry ... ok
+test java_semantic_partition_cases_checks_and_diagnostics_are_closed ... ok
+test java_source_map_goldens_use_original_utf8_boundaries ... ok
+test java_profile_context_and_nine_closed_payloads_are_consistent ... ok
+test java_specification_mutations_are_owned_and_rejected_by_fixture_invariants ... ok
+test java_common_envelope_limits_count_schema_and_value ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+
+running 12 tests
+test acyclic_branch_joins_preserve_types_and_branch_local_checks ... ok
+test frozen_identity_payload_registry_hash_and_limit_mutations_reject ... ok
+test frozen_registry_and_all_nine_contracts_execute_compiled_dispatch ... ok
+test maps_bind_utf8_origins_helpers_and_captured_bytes_to_manifest_selection ... ok
+test repaired_hashes_cannot_admit_bad_types_flow_names_or_normalized_contracts ... ok
+test every_shift_requires_its_exact_linked_mask_and_closed_unsigned_pattern ... ok
+test shift_helpers_cannot_be_reordered_interleaved_or_reused ... ok
+test static_calls_are_typed_acyclic_and_entirely_owned_by_the_selection ... ok
+test strict_transport_source_bytes_and_origin_boundaries_fail_closed ... ok
+test java_vc_regenerates_only_divisor_obligations_and_preserves_java_context ... ok
+test java_vir_admits_exact_scalar_operations_conversions_and_check_sequences ... ok
+test selection_validates_names_paths_order_aliases_and_closed_values ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.64s
+
+
+running 12 tests
+test fixed_array_index_value_waits_for_the_checked_array_read_foundation ... ok
+test contract_boolean_tree_rejects_oversized_input_before_visiting_arguments ... ok
+test cross_width_shifts_guard_before_count_conversion ... ok
+test constants_aggregate_equality_and_boolean_tree_are_canonical ... ok
+test go_contract_division_uses_total_hook_and_rust_contract_rejects_it ... ok
+test go_and_rust_share_value_encoding_after_check_metadata_validation ... ok
+test program_type_encoder_rejects_forward_nominal_references ... ok
+test total_bitvector_equations_cover_shift_division_and_comparison_corners ... ok
+test vir_types_and_target_sized_integers_use_program_base ... ok
+test foundation_fixture_manifest_matches_canonical_certificates ... ok
+test rust_nominal_struct_golden_imports_and_generates_stable_contract_groups ... ok
+test rust_constant_array_golden_imports_and_generates_stable_vcs ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 8 tests
+test empty_safety_paths_are_identical_for_go_and_rust ... ok
+test direct_struct_field_read_defers_only_unavailable_value_semantics ... ok
+test constructed_array_read_produces_stable_bounds_and_tautology_vcs ... ok
+test invalid_unreachable_block_never_produces_a_partial_artifact ... ok
+test diamond_join_substitutes_block_parameters_into_one_postcondition ... ok
+test symbolic_go_safety_uses_grouped_certificate_without_changing_value_semantics ... ok
+test nested_short_circuit_and_early_returns_keep_guard_order ... ok
+test mutable_local_reassignment_merges_at_join_deterministically ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 10 tests
+test release_bundle_limit_vectors_match_all_boundaries ... ok
+test release_bundle_hash_vectors_match_every_payload_and_domain ... ok
+test cgroup2_tmpfs_execution_host_profile_is_closed_and_versioned ... ok
+test release_bundle_model_vector_records_are_closed_and_case_ids_are_global ... ok
+test release_bundle_portable_paths_and_ambiguous_selection_keys_reject ... ok
+test release_bundle_selection_vectors_are_exact_and_have_no_default ... ok
+test release_bundle_reviewed_scalar_runtime_and_content_edges_are_enforced ... ok
+test release_bundle_registry_and_inventory_vectors_match_all_model_outcomes ... ok
+test registry_shape_precedes_streamed_scalar_count_limits_without_full_vectors ... ok
+test tracked_successor_release_registry_is_valid_and_build_inputs_are_derived ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+
+running 5 tests
+test public_and_frontend_call_graph_fixtures_are_identical ... ok
+test repeated_calls_keep_distinct_members_but_deduplicate_declaration_edges ... ok
+test policy_members_bind_to_one_containing_declaration_name_hash_and_full_closure ... ok
+test missing_reversed_duplicate_and_extra_edges_reject_with_stable_codes ... ok
+test diamond_calls_generate_path_bound_members_and_minimal_topological_dependencies ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 1 test
+test active_rust_positive_corpus_is_successor_only_and_byte_mirrored ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+
+running 5 tests
+test public_and_frontend_runtime_safety_fixtures_are_identical ... ok
+test runtime_safety_foundations_have_no_rust_semantic_axiom ... ok
+test array_index_value_use_remains_fail_closed_without_array_read_semantics ... ok
+test removing_or_changing_each_frontend_check_fails_independent_validation ... ok
+test all_lowered_runtime_safety_instructions_reach_vc_v1_and_grouped_skeletons ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 13 tests
+test handwritten_div_rem_vectors_follow_total_vir_equations ... ok
+test handwritten_cross_width_shift_vectors_preserve_full_counts_and_profile_differences ... ok
+test malformed_metadata_and_operand_shapes_fail_closed ... ok
+test division_shift_and_index_predicates_cover_total_corner_cases ... ok
+test overflow_predicates_match_exact_boundaries_at_every_width ... ok
+test required_check_matrix_is_exact_at_every_width ... ok
+test division_shift_and_index_predicates_match_boundaries_at_every_width ... ok
+test rust_frontend_cross_width_shift_fixture_imports_and_emits_pending_safety_vcs ... ok
+test safety_path_ledger_covers_every_check_without_unchecked_axioms ... ok
+test symbolic_predicates_use_the_grouped_checked_certificate_path ... ok
+test rust_frontend_div_rem_fixture_imports_and_emits_pending_safety_vcs ... ok
+test rust_frontend_dual_target_array_fixture_imports_exact_bounds_checks ... ok
+test rust_frontend_checked_arithmetic_fixture_is_profile_complete ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 7 tests
+test semantic_profile_limits_and_atomic_migration_are_frozen ... ok
+test compiled_profile_envelopes_match_vectors ... ok
+test semantic_profile_registry_hash_vectors_are_exact ... ok
+test semantic_context_selection_and_precedence_match_vectors ... ok
+test semantic_profile_registry_vectors_are_closed_and_owned ... ok
+test semantic_profile_registry_transport_vectors_are_exact ... ok
+test semantic_profile_registry_validation_and_precedence_match_vectors ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 3 tests
+test context_profile_envelope_and_limit_vectors_execute_runtime_dispatch ... ok
+test runtime_ownership_is_appended_and_the_successor_is_the_only_active_importer ... ok
+test revision_one_transport_hash_and_registry_vectors_execute_runtime_validation ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.02s
+
+
+running 1 test
+test source_manifest_vectors_are_exhaustive_and_match_normative_outcomes ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 1 test
+test source_map_vectors_are_exhaustive_and_match_normative_outcomes ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 1 test
+test active_go_producer_is_successor_only_and_semantically_equal_to_the_complete_baseline ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+
+running 1 test
+test active_rust_producer_and_driver_are_successor_only_and_semantically_equal ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 4 tests
+test current_and_successor_artifact_parsers_reject_each_other_without_adapters ... ok
+test successor_static_calls_use_callee_first_order_and_new_contract_hashes ... ok
+test successor_artifacts_round_trip_and_use_the_frozen_domains ... ok
+test every_context_member_and_cross_artifact_link_is_fail_closed ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 4 tests
+test successor_vc_test_owns_each_consumed_frozen_vector_set ... ok
+test go_and_rust_obligations_are_active_and_deterministic ... ok
+test all_three_profiles_generate_canonical_successor_vc_and_skeleton_bytes ... ok
+test successor_linkage_and_old_new_boundaries_fail_closed ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.28s
+
+
+running 1 test
+test vc_hash_v1_executes_every_vector_case ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 4 tests
+test executes_every_skeleton_limit_vector ... ok
+test policy_member_binding_names_the_checked_containing_declaration ... ok
+test emits_every_canonical_skeleton_vector ... ok
+test rejects_every_skeleton_mutation_at_the_owned_phase ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 4 tests
+test verification_limits_execute_every_below_at_above_case ... ok
+test generation_reports_the_earliest_limit_without_returning_a_partial_document ... ok
+test member_expression_depth_accepts_the_real_serialized_boundary ... ok
+test vc_v1_executes_every_conformance_case ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 9 tests
+test every_registered_counter_overflow_uses_its_owner_code ... ok
+test closed_registry_matches_profile_and_derived_boundaries ... ok
+test bounded_canonical_writer_accepts_maximum_supported_depth ... ok
+test bounded_json_writers_enforce_encoded_byte_ceiling ... ok
+test unknown_limit_id_is_rejected_by_the_closed_registry ... ok
+test strict_json_scanner_counts_escaped_bytes_and_stops_at_tighter_limit ... ok
+test vc_parameter_overflow_keeps_exact_scalar_context_precedence ... ok
+test vc_import_stream_rejects_assumption_limit_before_typed_allocation ... ok
+test skeleton_import_stream_limit_preserves_shape_and_scalar_precedence ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s
+
+
+running 7 tests
+test intentional_go_rust_differences_match_the_frozen_profile_vectors ... ok
+test native_rust_panics_on_the_same_guarded_edges ... ok
+test interpreter_remains_unreachable_from_production_sources ... ok
+test every_rust_positive_category_matches_values_and_modeled_panics ... ok
+test total_bitvector_equations_match_exhaustively_at_eight_bits ... ok
+test rust_checked_u8_addition_and_signed_division_match_exhaustively ... ok
+test migrated_go_operations_branches_and_aggregates_match ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+
+
+running 5 tests
+test domain_separator_is_exactly_one_zero_byte ... ok
+test hash_domains_and_equivalence_controls_match_all_vectors ... ok
+test raw_ordered_and_every_semantic_mutation_vector_match ... ok
+test typed_vir_and_contract_hash_apis_match_every_canonical_vector ... ok
+test hash_vector_container_has_exact_frozen_shape ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 10 tests
+test bound_term_serializes_with_the_vc_v1_discriminator ... ok
+test partial_loop_generates_initialization_preservation_and_exit_members ... ok
+test multiple_return_blocks_share_one_exit_member_per_header_and_ensure ... ok
+test every_ordered_loop_clause_generates_exactly_one_member_per_required_origin ... ok
+test every_backedge_generates_one_preservation_and_strict_decrease_member_in_block_order ... ok
+test rust_profile_rejects_the_identical_cyclic_cfg_before_wp_generation ... ok
+test total_signed_loop_orders_nonnegative_before_strict_decrease ... ok
+test total_unsigned_loop_adds_one_strict_decrease_member ... ok
+test safety_inside_loop_uses_the_same_cutpoint_scope_and_path_guards ... ok
+test validation_rejects_uncovered_loop_and_partial_decreases_without_artifact ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 6 tests
+test profile_parameters_are_closed_and_language_pairing_is_explicit ... ok
+test structure_vectors_cover_all_instruction_variants_and_forbidden_fields ... ok
+test safety_check_and_contract_expression_unions_fail_closed ... ok
+test structure_vectors_cover_types_declarations_and_terminators ... ok
+test unknown_document_and_wrong_language_module_do_not_convert_to_vir ... ok
+test imports_valid_module_vectors_and_rejects_every_structural_module_case ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test shared_foundation_gate_is_closed_and_executable ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 6 tests
+test every_type_declaration_and_constant_vector_reaches_its_owned_validation_layer ... ok
+test every_shared_limit_vector_freezes_the_validator_boundary ... ok
+test every_contract_and_safety_check_vector_is_executed ... ok
+test profiles_graphs_and_minimum_collections_are_validated_end_to_end ... ok
+test identity_reference_cfg_call_and_hash_mutations_fail_closed ... ok
+test every_instruction_and_terminator_vector_is_executed ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+==> cargo test --package mpk-vc --no-fail-fast --doc -- --skip csharp --skip CSharp --skip CSHARP
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo test --package mpk-linux-sandbox --no-fail-fast --lib -- --skip csharp --skip CSharp --skip CSHARP
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo test --package mpk-linux-sandbox --no-fail-fast --doc -- --skip csharp --skip CSharp --skip CSHARP
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+==> cargo build -p mpk-cli
+
+==> mpk check accepts fixtures/cert-basic/zero-axiom.hex
+
+==> mpk check accepts fixtures/cert-basic/one-theorem.hex
+
+==> mpk check rejects fixtures/cert-decode/invalid/bad-magic.hex
+
+==> mpk check rejects fixtures/cert-canonical/non-canonical/unsorted-name-table.hex

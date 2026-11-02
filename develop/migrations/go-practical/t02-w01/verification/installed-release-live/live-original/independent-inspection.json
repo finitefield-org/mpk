@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "selection_reason": "Independently recompute every source object and SDK file and verify both capture-time root matches and the staged installed-root compiler binding.",
+  "inspector": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/inspect_live.py",
+    "bytes": 9526,
+    "sha256": "bddba306e79e2c680ad37c0067ecd29ac391a9cd4a96acd5e89b719605e3ae2c"
+  },
+  "live_driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/run_live.py",
+    "bytes": 12603,
+    "sha256": "06930ef69e508b8edea226352f20ee7c3d3cb00138248fb896c249cc63b3e886"
+  },
+  "installed_stage": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/installed-stage-retry/result.json",
+    "bytes": 874,
+    "sha256": "5c73731bfe9acac27f0f03ed0b4cd99421326b3434a26ec4c994e76bd1d741be"
+  },
+  "live_result": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/live-original/result.json",
+    "bytes": 2428,
+    "sha256": "b1b63ff2f926dfb4ccae6fd4d62564391058f05d276fba984a72ff41bd86c070"
+  },
+  "source_snapshot": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/live-original/source-coord/snapshot-ready.json",
+    "bytes": 6874256,
+    "sha256": "bdb792223f62a378a194bd5671c03e40b99a26741e5a236fc9340554094ec680"
+  },
+  "export_snapshot": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/live-original/export-coord/snapshot-ready.json",
+    "bytes": 486714,
+    "sha256": "fbfbf48564df4881d72a2a75ad6b56f57e4f2edb75976a7633e66aaee94a8460"
+  },
+  "complete_owner": {
+    "path": "/private/tmp/mpk-installed-release-live-evidence-restored-20261102/originals/versioned-owned/complete-original-module-graph-inputs.json",
+    "bytes": 37193873,
+    "sha256": "48d03e6513b19389c99f88caf6a82b8ccb0fcb726ac73db76ab3a1bc52283b2d"
+  },
+  "evidence_storage": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/live-original/evidence-storage.json",
+    "bytes": 13416,
+    "sha256": "91bc5468901a3f0a56e98ff417b8317c7394383a153146fb296818ed45e66d9c"
+  },
+  "restoration": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/live-original/restore-check.json",
+    "bytes": 362,
+    "sha256": "f28c8cc3a7e5336c4fdccc7c3947560eae475cd8dc67b2c98c8d3ae8abbd5f0a"
+  },
+  "post_run_retirement": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-release-live/live-original/retirement-check.json",
+    "bytes": 2585,
+    "sha256": "6791f84dfbcd8e50818c505c4052e2b8c145bbd68aea93c1d7d12be2ca3722b6"
+  },
+  "source_objects": 5516,
+  "export_objects": 181,
+  "complete_original_objects": 5697,
+  "original_source_bytes": 164764487,
+  "original_packages": 182,
+  "registered_sdk_files": 5577,
+  "registered_sdk_bytes": 166354960,
+  "both_matched_root_handles_retained_through_binding": true,
+  "staged_installed_root_opened": true,
+  "staged_test_executable": true,
+  "root_matches_are_capture_time_observations": true,
+  "cache_retirement_checked_before_binding": true,
+  "original_paths_absent_after_run": true,
+  "launcher_authority_proved": false,
+  "application_proof_claimed": false,
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

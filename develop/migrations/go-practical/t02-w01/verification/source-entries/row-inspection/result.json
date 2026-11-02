@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "-B",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/review-rows.py",
+    "--worker"
+  ],
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/row-inspection/inputs.json",
+    "bytes": 447944,
+    "sha256": "27640d8e1af289895a3f3210a0e8569d1dc9f693fc832d17f3fd4034d0dc4e69",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/review-rows.py",
+    "bytes": 7042,
+    "sha256": "1bf4a6af5863d8971759dab2fd71bd22dd3c35a9aeb8370414066239179b328f",
+    "mode": 420
+  },
+  "started_at_utc": "2026-10-23T09:20:19.214644+00:00",
+  "expected_formatter_mutation": false,
+  "selection_reason": "Inspect all complete emitted source rows independently while the unchanged Rust whole-part verifier remains live; no consumed production source or original input is edited.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "consumed_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/row-inspection/stdout.log",
+    "bytes": 68,
+    "sha256": "2ee4bd38eb05644ea1e62b212550b12ef44ab1154250217b0023b6cafc8a0677",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/row-inspection/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "seconds": 451.61547279090155,
+  "finished_at_utc": "2026-10-23T09:27:50.832439+00:00"
+}

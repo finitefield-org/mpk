@@ -1,0 +1,18 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0505]: cannot move out of `a` because it is borrowed
+   --> crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:359:66
+    |
+261 |         let property = |address: &[Expr]| {
+    |                        ------------------ borrow of `a` occurs here
+262 |             eq(
+263 |                 a.clone(),
+    |                 - borrow occurs due to use in closure
+...
+359 |         let mut args = vec![("A", Expr::Sort0), ("data", cube(d, a))];
+    |                                                                  ^ move out of `a` occurs here
+360 |         args.extend(bit_args(d));
+361 |         self.emit(d, "LookupIndex", &args, property(&address), proof, true)
+    |                                            -------- borrow later used here
+
+For more information about this error, try `rustc --explain E0505`.
+error: could not compile `mpk-vc` (lib) due to 1 previous error

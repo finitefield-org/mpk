@@ -1,0 +1,11 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.42s
+     Running tests/go_practical_word_index_foundation.rs (target/debug/deps/go_practical_word_index_foundation-2a60fef8dfedf40f)
+
+thread 'actual_full64_guard_boundaries_keep_high32_and_high63' (43564572) panicked at crates/mpk-vc/tests/go_practical_word_index_foundation.rs:42:9:
+guard-D0.maximum: first declaration type-check failure Mpk.Go.Practical.Word.Index.TestGuard.D0.maximum: full verdict {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"757e54161240e9782eca82810b5d5a08b183e4abe63ea3a3d451123e3ab2fa5c"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"226675\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"465\",\"kind\":\"check_type_mismatch\",\"term_index\":\"405\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_word_index_foundation`
+
+Caused by:
+  process didn't exit successfully: `/Users/kazuyoshitoshiya/ff/mpk/target/debug/deps/go_practical_word_index_foundation-2a60fef8dfedf40f --nocapture` (signal: 2, SIGINT: terminal interrupt signal)

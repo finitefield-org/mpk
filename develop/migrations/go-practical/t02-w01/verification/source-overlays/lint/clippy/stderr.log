@@ -1,0 +1,21 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: this `if` can be collapsed into the outer `match`
+   --> crates/mpk-vc/src/go_practical_type_keys/source_overlays/syntax.rs:188:25
+    |
+188 | /                         if text(e, "case")?.is_empty() {
+189 | |                             return Err(bad());
+190 | |                         }
+    | |_________________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_match
+    = note: `-D clippy::collapsible-match` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::collapsible_match)]`
+help: collapse nested if block
+    |
+187 ~                     "error.is" | "error.payload"
+188 ~                         if text(e, "case")?.is_empty() => {
+189 |                             return Err(bad());
+190 ~                         }
+    |
+
+error: could not compile `mpk-vc` (lib) due to 1 previous error

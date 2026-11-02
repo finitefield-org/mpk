@@ -1,0 +1,414 @@
+{
+  "status": "passed",
+  "basis_commit": "528b599aacfe439d4abd8f50e046a754c9a24435",
+  "changed": [
+    {
+      "path": "fixtures/go-alpha/manifest.json",
+      "sha256": "4f3371e0bc768724cab86831b3daa24c76d64cf926284fee72c571160399aed7",
+      "bytes": 886
+    },
+    {
+      "path": "fixtures/go-basic/manifest.json",
+      "sha256": "512c522568a44b930dcd1ddbccc6d5203231a09d5eaf3f428ff47bf673097fc1",
+      "bytes": 1392
+    },
+    {
+      "path": "fixtures/package-lock/invalid/import-hash-mismatch.json",
+      "sha256": "7192fce011a75c761f5b0b4dedd91e544179b5f668d734d8df0ddc03f12832d8",
+      "bytes": 704
+    },
+    {
+      "path": "fixtures/package-lock/invalid/policy-mismatch.json",
+      "sha256": "d22d8fe342edfe72345d24b2149497b080b48ffc66c9f2bf6f4e00152fecb060",
+      "bytes": 705
+    },
+    {
+      "path": "fixtures/package-lock/valid/basic-package-lock.json",
+      "sha256": "f27f64a8adf8b002317906d774813ae0a93cdd4996004307ceb032d8e02bcc85",
+      "bytes": 704
+    },
+    {
+      "path": "fixtures/package-manifest/invalid/duplicate-import.json",
+      "sha256": "4fc0d652eecf39582249c94c96cd4909f83fc35705964b962861ebf3d8471189",
+      "bytes": 1192
+    },
+    {
+      "path": "fixtures/package-manifest/invalid/missing-certificate-hash.json",
+      "sha256": "08843676d6f8ba08640a29b1e2723ac219b142297b0686868001380f102e7ef1",
+      "bytes": 851
+    },
+    {
+      "path": "fixtures/package-manifest/valid/basic-package.json",
+      "sha256": "c6f23347d7177171b8f1b14df8c9601aeff91e10c03d20c9058cc63fb8fce9bd",
+      "bytes": 954
+    },
+    {
+      "path": "fixtures/package-manifest/valid/rust-policy-package.json",
+      "sha256": "9cba1face41f43ab2007fea6703b6bde3ef6fd87861a9f811fc9ea676da8181f",
+      "bytes": 961
+    },
+    {
+      "path": "fixtures/policy-profiles/rust-release-policy.json",
+      "sha256": "15fde218d7d8bb8df9079454fcf29420e9c9002dceee6c3f7e3e8e8028c713d3",
+      "bytes": 196
+    },
+    {
+      "path": "fixtures/program-base/expected.json",
+      "sha256": "92cf84ff6561a500eb55cf70952134177bae327677d78c82188b517f424f220d",
+      "bytes": 1780
+    },
+    {
+      "path": "fixtures/program-safety/expected.json",
+      "sha256": "2c3b94d025fd46065959c2956dc032217f70c0e34c43d0b2e838cbfd61257ebe",
+      "bytes": 1475
+    },
+    {
+      "path": "fixtures/rust-basic/adversarial/manifest.json",
+      "sha256": "1a837a87deee49f2d0be7d801d9790633855daf1ac96b6c66febb7132399ce63",
+      "bytes": 24856
+    },
+    {
+      "path": "fixtures/rust-basic/negative/manifest.json",
+      "sha256": "7aa696366be797e963cd5af03b7d72547de665867a8bf7b3ead95eeb97fe25a9",
+      "bytes": 18626
+    },
+    {
+      "path": "fixtures/rust-basic/positive/array-bounds/artifacts/driver-request.json",
+      "sha256": "954fcb41d81e470bac2c5a890c0409388f3ac3f186e1f3553f8e43b77ec9438d",
+      "bytes": 3970
+    },
+    {
+      "path": "fixtures/rust-basic/positive/array-bounds/artifacts/driver-result.json",
+      "sha256": "0e06b1ab279dd95bf85ffe23426f3aa87809fa06831e069155078b57a1b5ef96",
+      "bytes": 7709
+    },
+    {
+      "path": "fixtures/rust-basic/positive/boolean-short-circuit/artifacts/driver-request.json",
+      "sha256": "1d7ae1370afbd12ac307acb26033f2f775aaf646216d5598b88f74d77f85e5a9",
+      "bytes": 4614
+    },
+    {
+      "path": "fixtures/rust-basic/positive/boolean-short-circuit/artifacts/driver-result.json",
+      "sha256": "381d0c6f3d133e34b331945556e7a3a4bc0e51da9c5e63e8caaca247dfb25fef",
+      "bytes": 24428
+    },
+    {
+      "path": "fixtures/rust-basic/positive/checked-addition/artifacts/driver-request.json",
+      "sha256": "16d62fda8030fda33cb250daea91b17635b9d8aa0a3bbd50b2655047842cdcfa",
+      "bytes": 3974
+    },
+    {
+      "path": "fixtures/rust-basic/positive/checked-addition/artifacts/driver-result.json",
+      "sha256": "cc1d5b7db00c84f25bc2d2d98a0430f5e102de8a3b9fdf235c39b399cc6a586a",
+      "bytes": 7741
+    },
+    {
+      "path": "fixtures/rust-basic/positive/cross-width-shifts/artifacts/driver-request.json",
+      "sha256": "c5292df4dcba03aadf1c8932cad26f4c136a2ecefa38ecdbe063c099bc5fe4c1",
+      "bytes": 3978
+    },
+    {
+      "path": "fixtures/rust-basic/positive/cross-width-shifts/artifacts/driver-result.json",
+      "sha256": "e91f3f6f87126487469f794506f7ce7c8dcaef9c6bac269d78322c647ac307bf",
+      "bytes": 12263
+    },
+    {
+      "path": "fixtures/rust-basic/positive/early-return/artifacts/driver-request.json",
+      "sha256": "ec73fd8a17d24ac65724ad905c4246f45d434fd516703167829a8cacf2a57c34",
+      "bytes": 3972
+    },
+    {
+      "path": "fixtures/rust-basic/positive/early-return/artifacts/driver-result.json",
+      "sha256": "460efcc4ca3317513dbb9249652197ace666d1aa1e1114247c6d0b7601acda76",
+      "bytes": 8766
+    },
+    {
+      "path": "fixtures/rust-basic/positive/frontend-index.json",
+      "sha256": "22b99f146e685735d56cb68c57d20a7bf305284af1caf8e3aa8c772175a27b29",
+      "bytes": 36920
+    },
+    {
+      "path": "fixtures/rust-basic/positive/minimum-negation/artifacts/driver-request.json",
+      "sha256": "649eaecd958b14a510b8e73869434fe0819903f6f14c80dfda5181c6fda63609",
+      "bytes": 3977
+    },
+    {
+      "path": "fixtures/rust-basic/positive/minimum-negation/artifacts/driver-result.json",
+      "sha256": "5918a6f24641934ec168270ab32eb400155c15f976397a28be4e8ef1aa8dfc56",
+      "bytes": 9195
+    },
+    {
+      "path": "fixtures/rust-basic/positive/module-calls/artifacts/driver-request.json",
+      "sha256": "b8c33671b0d2406e5bb384e2de3c492633dc82e40bf2a06e14cacf5cea01b5f2",
+      "bytes": 4283
+    },
+    {
+      "path": "fixtures/rust-basic/positive/module-calls/artifacts/driver-result.json",
+      "sha256": "8a734f3f8b80eca5bdd8ff80f4b0ba1fd102e0531229c74dec6fba41495ecbc1",
+      "bytes": 11851
+    },
+    {
+      "path": "fixtures/rust-basic/positive/multi-file-closure/artifacts/driver-request.json",
+      "sha256": "bd1f56473f038069e6fc43577987dfaca7d7e152591b1892a6fe0324159d555b",
+      "bytes": 4555
+    },
+    {
+      "path": "fixtures/rust-basic/positive/multi-file-closure/artifacts/driver-result.json",
+      "sha256": "322f8eb942a176c736690cec6b18b41852ad3c505040f5077d3e63f2552ce1c7",
+      "bytes": 11976
+    },
+    {
+      "path": "fixtures/rust-basic/positive/signed-division/artifacts/driver-request.json",
+      "sha256": "734c4b2f5f116b2c5a0beddfbf1970b8fb451327737af766586f2edaee1f222a",
+      "bytes": 3973
+    },
+    {
+      "path": "fixtures/rust-basic/positive/signed-division/artifacts/driver-result.json",
+      "sha256": "698b9750fe45f7c7386b34c515cdf31573ad7c986e6c0ed4c6ba5aab41c695e8",
+      "bytes": 8489
+    },
+    {
+      "path": "fixtures/rust-basic/positive/signed-unsigned-max/artifacts/driver-request.json",
+      "sha256": "6866d7fc859cb915051aad0eedd6df2019625ccee3b69ee2064335468d15559c",
+      "bytes": 4125
+    },
+    {
+      "path": "fixtures/rust-basic/positive/signed-unsigned-max/artifacts/driver-result.json",
+      "sha256": "dd60d7af5af23f2f6cd26fff53d9b935014b44cd1ee793cf611766384319e658",
+      "bytes": 15590
+    },
+    {
+      "path": "fixtures/rust-basic/positive/struct-move/artifacts/driver-request.json",
+      "sha256": "98a35561c01633f2da44afa5a1d62ae4a746415b43518bbfa50141ec77851c46",
+      "bytes": 3979
+    },
+    {
+      "path": "fixtures/rust-basic/positive/struct-move/artifacts/driver-result.json",
+      "sha256": "133f2923bde24db1595b83b23d9a26baf85e3a064922c9d5adf23305fc03d1b3",
+      "bytes": 10027
+    },
+    {
+      "path": "fixtures/rust-basic/positive/usize-targets/artifacts/i686/driver-request.json",
+      "sha256": "74a9c38f4cac896a3159a16ae1143a6170cd89e70b14a53502ec3e41444e7c2b",
+      "bytes": 3961
+    },
+    {
+      "path": "fixtures/rust-basic/positive/usize-targets/artifacts/i686/driver-result.json",
+      "sha256": "581911c3181b236a38195a67e015f171fc4e96377a71c651d314ff6dbe87d591",
+      "bytes": 7691
+    },
+    {
+      "path": "fixtures/rust-basic/positive/usize-targets/artifacts/x86_64/driver-request.json",
+      "sha256": "5446ea9406b3ec4c39bdca4de9e783e40d9d383c1e6f15570a4452ad808a76a3",
+      "bytes": 3967
+    },
+    {
+      "path": "fixtures/rust-basic/positive/usize-targets/artifacts/x86_64/driver-result.json",
+      "sha256": "a2c1492796681a9d273229f61c48a16af3a5c2b54b1f52b4b7f4fa8fa8eb06cc",
+      "bytes": 7701
+    },
+    {
+      "path": "fixtures/vir-semantics/expected.json",
+      "sha256": "ea8af914ed1faa46f12948cbaedb5f13f8911de9f78053d2ccbd90c5c09ecfa8",
+      "bytes": 4968
+    },
+    {
+      "path": "go-tools/go2vir/testdata/practical-analysis-cache/PROVENANCE.json",
+      "sha256": "75ac0bc56d42c580d1888ac3ebf0bb2d84c1e0b6869bbadfbb2709188eab641e",
+      "bytes": 4652
+    },
+    {
+      "path": "go-tools/go2vir/testdata/preflight/valid/identity_contract.json",
+      "sha256": "ddfafe866f187501b19a19b0e89106361db7401d160195c652c162a876c80ba4",
+      "bytes": 181
+    },
+    {
+      "path": "go-tools/go2vir/testdata/valid-invocation.json",
+      "sha256": "08a86088626f70d0140e82b177b64a48a7b61965c47fd044430306086ce17cfb",
+      "bytes": 1651
+    },
+    {
+      "path": "rust-tools/rust2vir/fuzz/seeds/driver_protocol/valid-lowered.json",
+      "sha256": "e6f65d2066290b1a95c94edccdb6c085ecbabdf7992dc108f48d0d704d97a408",
+      "bytes": 6728
+    },
+    {
+      "path": "rust-tools/rust2vir/fuzz/seeds/driver_protocol/valid-request.json",
+      "sha256": "c248761cd97538f8f535705138e30f6e7312e3f7858ae18e3f21177d870bb969",
+      "bytes": 3965
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/contracts/identity-whitespace.json",
+      "sha256": "2cbce2bc89aa490db1505d6f80d77bde081bc0ea64a04af53288144e40ff8331",
+      "bytes": 377
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/array-bounds/artifacts/driver-request.json",
+      "sha256": "954fcb41d81e470bac2c5a890c0409388f3ac3f186e1f3553f8e43b77ec9438d",
+      "bytes": 3970
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/array-bounds/artifacts/driver-result.json",
+      "sha256": "0e06b1ab279dd95bf85ffe23426f3aa87809fa06831e069155078b57a1b5ef96",
+      "bytes": 7709
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/boolean-short-circuit/artifacts/driver-request.json",
+      "sha256": "1d7ae1370afbd12ac307acb26033f2f775aaf646216d5598b88f74d77f85e5a9",
+      "bytes": 4614
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/boolean-short-circuit/artifacts/driver-result.json",
+      "sha256": "381d0c6f3d133e34b331945556e7a3a4bc0e51da9c5e63e8caaca247dfb25fef",
+      "bytes": 24428
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/checked-addition/artifacts/driver-request.json",
+      "sha256": "16d62fda8030fda33cb250daea91b17635b9d8aa0a3bbd50b2655047842cdcfa",
+      "bytes": 3974
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/checked-addition/artifacts/driver-result.json",
+      "sha256": "cc1d5b7db00c84f25bc2d2d98a0430f5e102de8a3b9fdf235c39b399cc6a586a",
+      "bytes": 7741
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/cross-width-shifts/artifacts/driver-request.json",
+      "sha256": "c5292df4dcba03aadf1c8932cad26f4c136a2ecefa38ecdbe063c099bc5fe4c1",
+      "bytes": 3978
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/cross-width-shifts/artifacts/driver-result.json",
+      "sha256": "e91f3f6f87126487469f794506f7ce7c8dcaef9c6bac269d78322c647ac307bf",
+      "bytes": 12263
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/early-return/artifacts/driver-request.json",
+      "sha256": "ec73fd8a17d24ac65724ad905c4246f45d434fd516703167829a8cacf2a57c34",
+      "bytes": 3972
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/early-return/artifacts/driver-result.json",
+      "sha256": "460efcc4ca3317513dbb9249652197ace666d1aa1e1114247c6d0b7601acda76",
+      "bytes": 8766
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/frontend-index.json",
+      "sha256": "22b99f146e685735d56cb68c57d20a7bf305284af1caf8e3aa8c772175a27b29",
+      "bytes": 36920
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/minimum-negation/artifacts/driver-request.json",
+      "sha256": "649eaecd958b14a510b8e73869434fe0819903f6f14c80dfda5181c6fda63609",
+      "bytes": 3977
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/minimum-negation/artifacts/driver-result.json",
+      "sha256": "5918a6f24641934ec168270ab32eb400155c15f976397a28be4e8ef1aa8dfc56",
+      "bytes": 9195
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/module-calls/artifacts/driver-request.json",
+      "sha256": "b8c33671b0d2406e5bb384e2de3c492633dc82e40bf2a06e14cacf5cea01b5f2",
+      "bytes": 4283
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/module-calls/artifacts/driver-result.json",
+      "sha256": "8a734f3f8b80eca5bdd8ff80f4b0ba1fd102e0531229c74dec6fba41495ecbc1",
+      "bytes": 11851
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/multi-file-closure/artifacts/driver-request.json",
+      "sha256": "bd1f56473f038069e6fc43577987dfaca7d7e152591b1892a6fe0324159d555b",
+      "bytes": 4555
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/multi-file-closure/artifacts/driver-result.json",
+      "sha256": "322f8eb942a176c736690cec6b18b41852ad3c505040f5077d3e63f2552ce1c7",
+      "bytes": 11976
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/signed-division/artifacts/driver-request.json",
+      "sha256": "734c4b2f5f116b2c5a0beddfbf1970b8fb451327737af766586f2edaee1f222a",
+      "bytes": 3973
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/signed-division/artifacts/driver-result.json",
+      "sha256": "698b9750fe45f7c7386b34c515cdf31573ad7c986e6c0ed4c6ba5aab41c695e8",
+      "bytes": 8489
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/signed-unsigned-max/artifacts/driver-request.json",
+      "sha256": "6866d7fc859cb915051aad0eedd6df2019625ccee3b69ee2064335468d15559c",
+      "bytes": 4125
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/signed-unsigned-max/artifacts/driver-result.json",
+      "sha256": "dd60d7af5af23f2f6cd26fff53d9b935014b44cd1ee793cf611766384319e658",
+      "bytes": 15590
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/struct-move/artifacts/driver-request.json",
+      "sha256": "98a35561c01633f2da44afa5a1d62ae4a746415b43518bbfa50141ec77851c46",
+      "bytes": 3979
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/struct-move/artifacts/driver-result.json",
+      "sha256": "133f2923bde24db1595b83b23d9a26baf85e3a064922c9d5adf23305fc03d1b3",
+      "bytes": 10027
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/usize-targets/artifacts/i686/driver-request.json",
+      "sha256": "74a9c38f4cac896a3159a16ae1143a6170cd89e70b14a53502ec3e41444e7c2b",
+      "bytes": 3961
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/usize-targets/artifacts/i686/driver-result.json",
+      "sha256": "581911c3181b236a38195a67e015f171fc4e96377a71c651d314ff6dbe87d591",
+      "bytes": 7691
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/usize-targets/artifacts/x86_64/driver-request.json",
+      "sha256": "5446ea9406b3ec4c39bdca4de9e783e40d9d383c1e6f15570a4452ad808a76a3",
+      "bytes": 3967
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/positive/usize-targets/artifacts/x86_64/driver-result.json",
+      "sha256": "a2c1492796681a9d273229f61c48a16af3a5c2b54b1f52b4b7f4fa8fa8eb06cc",
+      "bytes": 7701
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/rust-driver-v0.json",
+      "sha256": "c126a970fdd72eaee41d19fd521a7387c075f3e3779a6d3136cbfaf7856ce640",
+      "bytes": 62320
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/rust-driver-v1.json",
+      "sha256": "7aa80c757932b535b2ce4d9ab6f52d2578144982c30d7356747087d19e8534f1",
+      "bytes": 62017
+    },
+    {
+      "path": "rust-tools/rust2vir/testdata/rust-subset-v0.json",
+      "sha256": "bcd95ff8767b7f19b994adc131f8efc2ea683ef95c77ce74e8862fc4613f9181",
+      "bytes": 37719
+    }
+  ],
+  "valid_typed_hashes": 798,
+  "invalid_typed_hashes_preserved": 0,
+  "complete_canonical_transports_rebound": 10,
+  "valid_preimage_lengths_rebound": 4,
+  "valid_raw_references": 398,
+  "typed_rounds": [
+    63,
+    32,
+    0
+  ],
+  "raw_rounds": [
+    52,
+    0
+  ],
+  "selection_reason": "Registry/binary identity changes require full typed/transport/raw dependency rebinding. Immutable original masks preserve adversarial invalid hashes; semantically unchanged inputs retain exact original formatting, including whitespace conformance controls. Actual frontend corpus execution is a separate subsequent check.",
+  "frontend_execution_claimed": false,
+  "program_proof_claimed": false,
+  "finished_at_utc": "2026-10-20T14:57:08.901029+00:00"
+}

@@ -1,0 +1,5 @@
+//go:build go1.21
+
+package policy
+func Unused(c chan int,f func(int)int)int{return f(<-c)}
+func init(){panic("not executed")}

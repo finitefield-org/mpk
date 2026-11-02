@@ -1,0 +1,270 @@
+{
+  "schema": "mpk.go_practical.native_string_constant_checkpoint.v1",
+  "status": "scoped_checks_passed",
+  "entry_commit": "8b54c50c3c917baff244fd0f8f6102d6e83d8230",
+  "observed_at_utc": "2026-10-20T20:33:18.184643+00:00",
+  "source_language_scope": [
+    "Go",
+    "Rust"
+  ],
+  "affected_checks": [
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-constants/complete-outputs/selected/result.json",
+        "sha256": "87baf886401e218170ec0a3e130919c7561f641a581e45a021ab0c64476f720b",
+        "bytes": 88778
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^TestPracticalStringConstant"
+      ],
+      "passed_roots": 2,
+      "passed_subtests": 42
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-constants/alias-display/owner/result.json",
+        "sha256": "afbeec42273c5c5ac81b6ccd995d8931fa9bd886931857fd0314287fb88984df",
+        "bytes": 86299
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^TestPracticalOriginalPackages"
+      ],
+      "passed_roots": 2,
+      "passed_subtests": 15
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-constants/complete-outputs/image/result.json",
+        "sha256": "b3762092c6ae0bc05a1b6a4aac0c212b1f91714c6fc26b205db7480bec64dee3",
+        "bytes": 85091
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage$"
+      ],
+      "passed_roots": 1,
+      "passed_subtests": 0
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-constants/alias-display/analysis-inputs/result.json",
+        "sha256": "e3fb985306bc6cfe96dad1ef95e8981d68b13a03c16edb5497ec36a149b26c0c",
+        "bytes": 85886
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^(TestPracticalAnalysisCapturedInputsRebuildTheSameActualFrontend|TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs)$"
+      ],
+      "passed_roots": 2,
+      "passed_subtests": 9
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-constants/initial/public-boundary/result.json",
+        "sha256": "2330f9ed8ea5f6df58da20c51c0cf422ad8529336ddf71d469485e9e4832471f",
+        "bytes": 85989
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-run",
+        "^(TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads|TestGoProfileIdentityIsClosed|TestPracticalSourceDoesNotActivateInstalledProfile)$"
+      ],
+      "passed_roots": 3,
+      "passed_subtests": 11
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-constants/initial/legacy/result.json",
+        "sha256": "2f7a86175eac8ec248f74cfcafa24e1ebf1541e3eb7286811369f9b73599f428",
+        "bytes": 84489
+      },
+      "command": [
+        "/usr/local/go/bin/go",
+        "test",
+        "-json",
+        "-run",
+        "^$",
+        "./..."
+      ],
+      "passed_roots": 0,
+      "passed_subtests": 0
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-constants/complete-outputs/vet/result.json",
+        "sha256": "d9725f184b71dba8b056bfa2bc7f800c8cb1664c8c6ac8d4b825be0c0cfcb542",
+        "bytes": 84592
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+        "vet",
+        "./..."
+      ],
+      "passed_roots": 0,
+      "passed_subtests": 0
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-constants/complete-outputs/format/result.json",
+        "sha256": "0c6d28ed5af2ead828507f503466a6110e19f1d9e5532c0405ee71b1fccfcb92",
+        "bytes": 84697
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/gofmt",
+        "-l",
+        "practical_string_constant.go",
+        "practical_string_constant_test.go",
+        "practical_replay_test.go"
+      ],
+      "passed_roots": 0,
+      "passed_subtests": 0
+    }
+  ],
+  "affected_test_roots": [
+    "TestPracticalStringConstantRequiresAnOriginalObservation",
+    "TestPracticalStringConstantsOwnOriginalBytesAndCompleteFrozenCarrier",
+    "TestPracticalOriginalPackagesRequireAnOwnedCompilerImage",
+    "TestPracticalOriginalPackagesRetainWholePackagesAndRejectCrossedOwners",
+    "TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage",
+    "TestPracticalAnalysisCapturedInputsRebuildTheSameActualFrontend",
+    "TestPracticalAnalysisCaptureRejectsAlteredAndUnclosedInputs",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads",
+    "TestPracticalSourceDoesNotActivateInstalledProfile",
+    "TestGoProfileIdentityIsClosed"
+  ],
+  "passed_root_count": 10,
+  "passed_subtest_count": 77,
+  "new_string_subtests": 42,
+  "retained_owner_subtests": 15,
+  "retained_analysis_rejection_subtests": 9,
+  "retained_public_argument_subtests": 11,
+  "legacy_tests_executed": 0,
+  "current_vet_and_changed_file_format": "passed",
+  "selection_reason": "Private native string observations add one production Go file and a changed whole-module replay consumer. Select the string, original owner, module/replacement/HTTP image, actual build-input/reproduction and closed public consumers. Preserve earlier passing public/legacy/build/owner outcomes after later edits confined to Go1.25 test expectations and diagnostics records; the production186 build inputs remain exact. Final selected/image/vet/format checks cover the actual last source epoch. Unchanged Rust mathematics/core/protocol and unrelated workspace suites are not repeated.",
+  "final_source_epoch": "complete-outputs/inputs.json",
+  "original_source_epochs": [
+    "initial/inputs.json",
+    "alias-display/inputs.json",
+    "complete-outputs/inputs.json"
+  ],
+  "actual_drivers_saved_before_launch": true,
+  "all_original_test_stdout_and_stderr_retained": true,
+  "failure_history": [
+    {
+      "result": "initial/selected/result.json",
+      "cause": "The test expected a canonical target display for a native Go type alias. Actual types.TypeString preserves example.com/policy.AliasText; the display-only expectation is corrected without granting nominal/source identity authority.",
+      "original_native_and_source_bytes_retained": true
+    }
+  ],
+  "earlier_observation_retention_limit": "Initial and alias-display successful child module observations did not separately archive module diagnostics. Their complete original outer test outputs and recorded native/source bytes remain; the complete-outputs epoch archives actual successful module/package stdout/stderr. No later run supplies missing earlier diagnostics.",
+  "full_original_byte_evidence_directories": [
+    "/private/tmp/mpk-go-practical-string-constants-initial-selected-evidence",
+    "/private/tmp/mpk-go-practical-string-constants-alias-display-selected-evidence",
+    "/private/tmp/mpk-go-practical-string-constants-complete-outputs-selected-evidence",
+    "/private/tmp/mpk-go-practical-string-constants-alias-display-replay/evidence",
+    "/private/tmp/mpk-go-practical-string-constants-complete-outputs-replay/evidence"
+  ],
+  "final_multi_module_observation": {
+    "file": {
+      "path": "/private/tmp/mpk-go-practical-string-constants-complete-outputs-replay/replay-image.json",
+      "sha256": "2096f2a5eb437a9de5d75f09b2e694cd39df0e2254751f65a247903b4a33d176",
+      "bytes": 8461089
+    },
+    "modules": 4,
+    "typed_packages": 181,
+    "syntax_nodes": 1472495,
+    "source_and_export_objects": 5674,
+    "verified_materialized_files": 5771,
+    "observed_namespace_nodes": 7421,
+    "native_string_constants": 2
+  },
+  "original_roots_and_donor_buffers_retired_before_consumer": true,
+  "returned_observations_survive_owner_close": true,
+  "modeled_shape": {
+    "length_bits": 64,
+    "byte_slots": 256,
+    "bits_per_byte": 8,
+    "unoccupied_slots": "all zero",
+    "native_value_outside_modeled_domain": "retain every original byte; return distinct practicalStringDomainError"
+  },
+  "fresh_linux_development_builds": [
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-constants/build/first/result.json",
+        "sha256": "2450502c2294aeb326db4d99c71f99a14c29caf0630c3de62be77d5d960b8a0a",
+        "bytes": 84557
+      },
+      "binary": {
+        "path": "/private/tmp/mpk-go-practical-string-constants-build-first/go2vir",
+        "sha256": "8eb9e81d1be647a0814ffbb81ce94050b73c161cb726b10c60758e2d48cee2ec",
+        "bytes": 9004162
+      }
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-constants/build/second/result.json",
+        "sha256": "7f1c33830177f55b68f24b5ec6ed8b143ab2c3d87b03e3fd21526d093801ac33",
+        "bytes": 84561
+      },
+      "binary": {
+        "path": "/private/tmp/mpk-go-practical-string-constants-build-second/go2vir",
+        "sha256": "8eb9e81d1be647a0814ffbb81ce94050b73c161cb726b10c60758e2d48cee2ec",
+        "bytes": 9004162
+      }
+    }
+  ],
+  "fresh_linux_development_builds_byte_identical": true,
+  "actual_captured_build_inputs": 186,
+  "actual_captured_frontend_sources": 50,
+  "actual_captured_vendor_files": 133,
+  "captured_host_reproductions": {
+    "result": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/string-constants/alias-display/analysis-inputs/reproduced-builds.json",
+      "sha256": "2d5f6ca1cdd0911860a86c6176bfb79ed051d119437b48e16acb0579ff6dca4b",
+      "bytes": 4759
+    },
+    "binary_sha256": "4c9c0cfd4f42e26a995b69e41591c6fc0857b1fffc6762782fad191d930f30f8",
+    "bytes": 8592898,
+    "independent_empty_cache_builds": 2,
+    "byte_exact_equal": true
+  },
+  "frozen_design_inputs_unchanged": 255,
+  "prior_frontend_inputs_unchanged": 185,
+  "registered_binary_or_bundle_changed": false,
+  "registered_frontend_identity_reused_for_development_binary": false,
+  "ordinary_source_evaluation_or_nominal_identity_proof": false,
+  "registered_context_or_source_program_proof": false,
+  "public_practical_profile_activated": false,
+  "native_release_acceptance": false,
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "full_T_gate_passed": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "remaining": "Actual ordinary source/constant evaluation, exact curried frozen carrier construction and guarded signed index/nominal-array/padding/empty-dummy/storage/state/program proofs; complete ordinary foundation/private registry/context; production native kernel lifecycle, complete general consulted namespace and selected closure; all169 demands/T02-T11."
+}

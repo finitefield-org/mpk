@@ -66,15 +66,17 @@ never provisions or invokes rustup implicitly.
 
 ## 3. Rebuild every registered release root
 
-Follow Execution Rule 11 as one atomic registered update:
+Allocate new immutable bundle identities for changed bytes, then rebuild and
+review the Go/Rust registry projections as one atomic registered update:
 
 ```sh
-./scripts/build-release-bundles.sh --update all
-./scripts/build-release-bundles.sh --check all
+python3 scripts/successor_release_bundles.py update-rust-candidate
+python3 scripts/successor_release_bundles.py update-descriptors
+./scripts/build-release-bundles.sh --check successor
 cargo build -p mpk-cli
-./scripts/check-release-bundles.sh --fixture all
+./scripts/check-release-bundles.sh --fixture successor
 cargo test -p mpk-cli --test frontend_runner
-cargo test -p mpk-cli --test rust_frontend_runner
+cargo test -p mpk-cli --test successor_rust_protocol
 ```
 
 Review the complete frontend, subordinate-driver, compiler, toolchain,
@@ -109,14 +111,14 @@ Run the differential, two-clean-build, path, limit, fuzz, obsolete-interface,
 checker, and complete release gates:
 
 ```sh
-sudo ./scripts/check-java-frontend.sh
+sudo ./scripts/check-go-rust-frontend.sh
 ./scripts/check-no-active-gir.sh --strict
 sudo ./scripts/check-all.sh
 cargo test --workspace
 (cd go-tools/go2vir && go test -count=1 ./...)
 ./scripts/run-rust2vir-toolchain.sh cargo test --locked
 python3 scripts/generate-release-report.py --check
-git diff --check
+/usr/bin/git diff --check
 ```
 
 The aggregate successor gate requires root in the initial cgroup namespace only to

@@ -1,0 +1,81 @@
+{
+  "schema": "mpk.go_practical.natural_foundation_check.v1",
+  "status": "failed",
+  "started_at_utc": "2026-10-19T11:12:55.719629+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_natural_foundation",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_NATURAL_FOUNDATION_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/natural-foundation/initial/rust-tests/certificates"
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "a8de5001e342ef509e97a4c4e206c7ba9558f2aee0bd83a9e7163b7c0f96b85e",
+      "bytes": 25995
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "1ed774607a64284a60dfe66c2663d5f4e491e84ee64578d7d73990f185e5af96",
+      "bytes": 7783
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "5a23bdf0faa3d2c9990b6adc632661b384ae3994891f28189f16b6f42739c167",
+      "bytes": 47302
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_natural_foundation.rs",
+      "sha256": "d04f95cfec89c2e684bda06c6935ab8051f4bed0a25d949abbd2103b82390adc",
+      "bytes": 13510
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "selection_reason": "Fresh compiled ordinary unbounded Nat operations and universal laws, exact full-byte reconstruction, retained core basis, concrete asymmetric/zero/reversed subtraction computations, eight fully reencoded wrong definitions/proofs, and distinction between typed Boolean value and proof of its truth. New named construction syntax is private and consumes only compiled recipes. No kernel/checker code changes, source-program claim or complete foundation/context registration. Only affected isolated Rust integration target, strict Clippy and format; retain passing unchanged core/Go/legacy matrices.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "exit_code": 101,
+  "wall_seconds": 16.923522541997954,
+  "finished_at_utc": "2026-10-19T11:13:12.643805+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/initial/rust-tests/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/initial/rust-tests/stderr.log",
+    "sha256": "5f1356d9b0e8b2c9ad598a552e7fa2cdb380b1e256b43d08fb5eda15b3f376ea",
+    "bytes": 1375
+  }
+}

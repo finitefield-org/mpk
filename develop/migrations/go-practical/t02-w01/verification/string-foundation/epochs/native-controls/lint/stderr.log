@@ -1,0 +1,14 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: useless use of `format!`
+   --> crates/mpk-vc/tests/go_practical_string_foundation.rs:278:17
+    |
+278 | /                 format!(
+279 | |                     "{{\"bytes\":257,\"modeled_domain_error\":true,\"semantic_falsity\":false}}\n"
+280 | |                 )
+    | |_________________^ help: consider using `.to_string()`: `"{\"bytes\":257,\"modeled_domain_error\":true,\"semantic_falsity\":false}\n".to_string()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#useless_format
+    = note: `-D clippy::useless-format` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::useless_format)]`
+
+error: could not compile `mpk-vc` (test "go_practical_string_foundation") due to 1 previous error

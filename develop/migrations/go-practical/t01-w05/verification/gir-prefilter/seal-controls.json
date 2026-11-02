@@ -1,0 +1,59 @@
+{
+  "cases": [
+    {
+      "case": "new_production_path",
+      "error": "sealed_records[0] has a duplicate or unreviewed historical path",
+      "rejected": true
+    },
+    {
+      "case": "wrong_hash",
+      "error": "sealed_records[0] does not match the reviewed historical seal",
+      "rejected": true
+    },
+    {
+      "case": "wrong_size",
+      "error": "sealed_records[0] does not match the reviewed historical seal",
+      "rejected": true
+    },
+    {
+      "case": "wrong_class",
+      "error": "sealed_records[0] does not match the reviewed historical seal",
+      "rejected": true
+    },
+    {
+      "case": "wrong_epoch",
+      "error": "sealed_records[0] does not match the reviewed historical seal",
+      "rejected": true
+    },
+    {
+      "case": "missing",
+      "error": "sealed_records must equal the reviewed exact-file set",
+      "rejected": true
+    },
+    {
+      "case": "duplicate",
+      "error": "sealed_records[36] has a duplicate or unreviewed historical path",
+      "rejected": true
+    },
+    {
+      "case": "escape",
+      "error": "sealed_records[0].path must be repository-relative and normalized: '../outside'",
+      "rejected": true
+    },
+    {
+      "case": "old_manifest_schema",
+      "error": "fixture manifest schema must be 'mpk.gir_to_vir.search_fixtures.v1'",
+      "rejected": true
+    },
+    {
+      "case": "same_size_changed_actual_bytes",
+      "error": "sealed_records[27] historical bytes changed",
+      "rejected": true
+    }
+  ],
+  "original_repository_files_modified_by_test": false,
+  "production_seal_paths": [],
+  "schema": "mpk.obsolete_interface.seal_controls.v0",
+  "sealed_records": 36,
+  "total_retained_records": 48
+}

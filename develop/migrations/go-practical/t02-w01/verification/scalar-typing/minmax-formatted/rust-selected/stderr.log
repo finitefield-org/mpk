@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.67s
+     Running tests/go_practical_scalar_typing.rs (target/debug/deps/go_practical_scalar_typing-9a71fcf0a22d0b1c)
+
+thread 'matches_original_go_scalar_expression_and_binding_types' (48524795) panicked at crates/mpk-vc/tests/go_practical_scalar_typing.rs:124:13:
+case 4748 "edge-Pair(x)-" falsely accepted: {"accepted":true,"initializer_body_or_invocation_state_or_program_authority":false,"values":[{"addressable":false,"boolean":null,"bytes_hex":null,"constant":false,"integer_decimal":null,"type_key":{"declaration_id":"bd81e47f7c16ea7dd02f73353eb50120cc0bd62ca2b5bf0bfe19faf2f55edd83","id":"1e773bee2c6c5192a9bf7f25939374d9f36a70c14728c61441afe466d7d68148","kind":"nominal","schema":"mpk.go.source_type.v2"},"underlying_builtin":"uint16"},{"addressable":false,"boolean":null,"bytes_hex":null,"constant":false,"integer_decimal":null,"type_key":{"id":"9259dd6c4c5c8a37b6299c83a676d1467fee75ce0bc75c27f4639863c1b7dc87","kind":"builtin","name":"uint64","schema":"mpk.go.source_type.v2","signed":false,"width":64},"underlying_builtin":"uint64"}]}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_scalar_typing`

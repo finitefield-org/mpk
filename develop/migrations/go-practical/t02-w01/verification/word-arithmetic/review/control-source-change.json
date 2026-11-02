@@ -1,0 +1,51 @@
+{
+  "status": "reviewed",
+  "before": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/final/rust-tests/inputs/crates/mpk-vc/tests/support/go_word_arithmetic_controls.rs",
+    "sha256": "cb239c82e9b70f6392668c3cd4bd60b6190a2a697213ec93794c058c3c9a6ab2",
+    "bytes": 9676
+  },
+  "after": {
+    "path": "crates/mpk-vc/tests/support/go_word_arithmetic_controls.rs",
+    "sha256": "ce1b5dc35692b1e1f05dfaa0bb8cf8c373f79c5623a273c2393990737228bf56",
+    "bytes": 10457
+  },
+  "diff": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/review/control-source-change.diff",
+    "sha256": "abc3e067cf877e806d71d7ecc711c51a5139a75721253eb52718df547924ec8d",
+    "bytes": 1643
+  },
+  "change_scope": "Add a test-only constant-zero-body mutation for the four WrongMulDiscard cases and an exact optional five-case selector for the four changed witness controls plus previously unreached64-bit WrongShiftDiscard. Every other mutation/encoder, all production/component/model/native/standard sources and all limits remain unchanged. Preserve original drop-final-addend64-bit fuel failure without counting it as semantic negative.",
+  "retained_unchanged_typed_rejections": 18,
+  "corrective_cases": 5,
+  "CSharp_tests_executed": false,
+  "diff_format": "zero context; every changed source line retained",
+  "diff_command": [
+    "/usr/bin/git",
+    "diff",
+    "--no-index",
+    "--unified=0",
+    "--",
+    "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/final/rust-tests/inputs/crates/mpk-vc/tests/support/go_word_arithmetic_controls.rs",
+    "crates/mpk-vc/tests/support/go_word_arithmetic_controls.rs"
+  ],
+  "original_context_diff": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/review/control-source-change.diff",
+    "sha256": "e1a4fe152725a757bf82d0f0103d657b606e6eb1df563e2481067433be45a09f",
+    "bytes": 2504
+  },
+  "original_context_diff_reconstruction_command": [
+    "/usr/bin/git",
+    "diff",
+    "--no-index",
+    "--",
+    "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/final/rust-tests/inputs/crates/mpk-vc/tests/support/go_word_arithmetic_controls.rs",
+    "crates/mpk-vc/tests/support/go_word_arithmetic_controls.rs"
+  ],
+  "first_whitespace_review": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-arithmetic/input-review/initial-input-review.json",
+    "sha256": "c679dee36d27148e56e8346fda95cce7feb544554260c7bd4aa659a72f292ade",
+    "bytes": 204517
+  },
+  "original_test_checker_logs_and_source_snapshots_unchanged": true
+}

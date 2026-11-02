@@ -1,0 +1,157 @@
+{
+  "schema": "mpk.go_practical.rooted_capture_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T08:11:57.816614+00:00",
+  "entry_commit": "2de5a51de7aaa4a9f639eaf4133b5dc6de332713",
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_source.go",
+      "sha256": "25d90659622e069862524c3c8b997d505e811de51e38aa76124503ca47952360",
+      "bytes": 5269
+    },
+    {
+      "path": "go-tools/go2vir/practical_source_test.go",
+      "sha256": "995a30a9343858bfc6c7dbcfd08875a504b389eaa52f4b011d6aa27663d88548",
+      "bytes": 8809
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture.go",
+      "sha256": "dfb29be212671afa07acf284ad8239d8cf4da260f07b32db30e5e08391cc0696",
+      "bytes": 15359
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture_test.go",
+      "sha256": "56c4da448eebebde85e6c9e541a4041ad016d0da8f6306b74d28bea95367e227",
+      "bytes": 15313
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_go125.go",
+      "sha256": "0df55c7d98a83359e5a3b662bd28348c9f970a653a248bfc5dfdb1c8d216bc16",
+      "bytes": 519
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable.go",
+      "sha256": "3dc114afa98fcb7cf17dad7cc66b8fbb282bc5b87d201d534c9c44ceb74eaed9",
+      "bytes": 247
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable_test.go",
+      "sha256": "5e3b451ac8b686110a6eefaa21cb97b9d9da53866beee63e35c6d4884ad497c1",
+      "bytes": 300
+    }
+  ],
+  "selected_results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/reviewed/rooted/result.json",
+      "sha256": "3c6e75af9a23ff6f8c01bb13ae16eb9994c031d23a738899765c28fd77a3ac66",
+      "bytes": 5434,
+      "mode": "rooted",
+      "status": "passed",
+      "seconds": 2.082929583033547
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/reviewed/vet/result.json",
+      "sha256": "6543f3b20fce95ab60ddbc297939b5fa8013e26e13035d52021cbe5c4772eacb",
+      "bytes": 3540,
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.459094375022687
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/reviewed/format/result.json",
+      "sha256": "b3ea53492f16e6346c9f0ebf0d3b527c5bc33d791646bb4353184b5c14b7b182",
+      "bytes": 3754,
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.0066940829856321216
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/reviewed/legacy/result.json",
+      "sha256": "30a3e5e2647766c43390e4396212452e148ef4ebd4926429bc0baf5a26202ddf",
+      "bytes": 4719,
+      "mode": "legacy",
+      "status": "passed",
+      "seconds": 2.033715791068971
+    }
+  ],
+  "root_tests_passed": 8,
+  "subtests_passed": 17,
+  "legacy_build_root_tests": 3,
+  "legacy_build_subtests": 11,
+  "legacy_build_scope": "Go1.23 frontend package build and closed arguments only; unavailable rooted capture must return an error, not a supported practical compiler or target.",
+  "initial_fixture_failure": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/initial/result.json",
+    "sha256": "cb16fc3c0c2cc82ba4ffbfc96a312419bf378af0d39f6af43b896de245e28e75",
+    "bytes": 1848
+  },
+  "reproduced_namespace_spelling_regression": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/initial/namespace-alias-result.json",
+    "sha256": "b48ca9945d23263c8969eb39961faecec6c8e9e8ea11282a7cf49bee2cdebedb",
+    "bytes": 1601
+  },
+  "implemented": [
+    "On-demand reads from multiple explicitly bound directory capabilities, preserving unrelated unvisited assets.",
+    "Go1.25 rooted read-only interface and nonblocking descriptor opens; reject leaf/ancestor links, special files and stat/open identity swaps.",
+    "Exact captured namespace names, including hosts that accept case aliases; ASCII-only identity collision checks.",
+    "Global file/input/byte/contract/directory/entry accounting across capabilities and sticky transaction failures.",
+    "Recheck visited namespaces, root/file identity and complete original/owned byte hashes before sealing.",
+    "Immutable snapshot buffers and source-ID order; getter copies and no further reads after sealing."
+  ],
+  "remaining": [
+    "Private compiled context/registry/foundation authority and target/compiler inventories.",
+    "Materialize exact multi-root original-package loading namespace and complete module/replacement/archive/Go sum/export metadata.",
+    "Independent production importer and actual source/IR/ordinary application bindings in the assigned T02 work items."
+  ],
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "native_Linux_acceptance_claimed": false,
+  "source_program_proof_claimed": false,
+  "T02_W01_complete": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "previous_selected_results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/final/selected/result.json",
+      "sha256": "9e21597e835dea27d4a2c48d34a0612bff2a41aaa4950d8d76b79b92c56b7ad5",
+      "bytes": 8569,
+      "mode": "selected",
+      "status": "passed",
+      "seconds": 2.1836164999986067
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/final/vet/result.json",
+      "sha256": "301d9445e8cfc1be01cbaa13a095327d15afcb9776cf4eda52ba33b54c5ddab0",
+      "bytes": 3536,
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.39774850010871887
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/final/format/result.json",
+      "sha256": "1f4f1355e68fc410cd9af6d453b67a84e8a0e7aba53b4462d50f480dfb513225",
+      "bytes": 3747,
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.006977458018809557
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/final/legacy/result.json",
+      "sha256": "97ae30d2bfeb0613514b4f1fec1433d0649ce84336bbd7e50e0cc2f4228cb52b",
+      "bytes": 4713,
+      "mode": "legacy",
+      "status": "passed",
+      "seconds": 5.618923333007842
+    }
+  ],
+  "prior_affected_consumer_baseline": {
+    "root_tests_passed": 20,
+    "subtests_passed": 43,
+    "record": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/final/selected/result.json",
+    "scope": "All source-object, rooted-capture, prior snapshot, shared JSON/hash and closed-argument consumers. Subsequent production edits affect only rooted capture; rerun all8 rooted tests plus vet, format and legacy compilation."
+  },
+  "reproduced_unrelated_native_asset_regression": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/initial/unvisited-assets-result.json",
+    "sha256": "4b40fd1d10df04fc66a8f2be262366ebd80761771c28bfe01f73a49b81b2020e",
+    "bytes": 1501
+  },
+  "source_review_followup": "Preserve native names of unrequested directory entries without applying logical source-path validation. Actual requested sources and their parent components still require strict paths and exact original namespace membership. Strengthened positive test checks every full original module input, kind and bytes, including empty go.sum and unread native asset names."
+}

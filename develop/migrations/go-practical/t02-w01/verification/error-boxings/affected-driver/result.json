@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "children": [
+    {
+      "mode": "rust-scalar",
+      "exit_code": 0
+    },
+    {
+      "mode": "rust-aggregates",
+      "exit_code": 0
+    },
+    {
+      "mode": "rust-methods",
+      "exit_code": 0
+    },
+    {
+      "mode": "rust-assignments",
+      "exit_code": 0
+    },
+    {
+      "mode": "rust-returns",
+      "exit_code": 0
+    },
+    {
+      "mode": "rust-builtins",
+      "exit_code": 0
+    },
+    {
+      "mode": "rust-bodies",
+      "exit_code": 0
+    },
+    {
+      "mode": "rust-selection",
+      "exit_code": 0
+    },
+    {
+      "mode": "clippy",
+      "exit_code": 0
+    },
+    {
+      "mode": "rust-format",
+      "exit_code": 0
+    },
+    {
+      "mode": "go-format",
+      "exit_code": 0
+    },
+    {
+      "mode": "vet",
+      "exit_code": 0
+    }
+  ],
+  "selection_reason": "Shared value engine context records and body range handling affect these consumers. Parser/scopes/constants/source-type algorithms, core/ordinary and unrelated languages are unchanged. Full T02 gate remains W04."
+}

@@ -1,0 +1,10 @@
+    Finished `test` profile [optimized + debuginfo] target(s) in 0.37s
+     Running tests/go_practical_source_execution.rs (target/debug/deps/go_practical_source_execution-6f3c2091d31150c8)
+
+thread 'original_source_execution_matches_complete_native_matrix' (58592050) panicked at crates/mpk-vc/tests/go_practical_source_execution.rs:77:6:
+called `Result::unwrap()` on an `Err` value: Selection(GoSourceSelectionError { source: "325cef37d4d6392bc22badd246dddeefd1067489095e7f416ca6c276044a7518", node: 242, kind: Unsupported, path: [GoSourceSelectionRef { source: "325cef37d4d6392bc22badd246dddeefd1067489095e7f416ca6c276044a7518", node: 238 }] })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'source_execution_observation_limit_and_input_rejections_are_distinct' (58592071) panicked at crates/mpk-vc/tests/go_practical_source_execution.rs:77:6:
+called `Result::unwrap()` on an `Err` value: Selection(GoSourceSelectionError { source: "325cef37d4d6392bc22badd246dddeefd1067489095e7f416ca6c276044a7518", node: 242, kind: Unsupported, path: [GoSourceSelectionRef { source: "325cef37d4d6392bc22badd246dddeefd1067489095e7f416ca6c276044a7518", node: 238 }] })
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_execution`

@@ -1,0 +1,80 @@
+{
+  "status": "passed",
+  "mode": "format",
+  "started_at_utc": "2026-10-18T20:08:42.320442+00:00",
+  "command": [
+    "cargo",
+    "fmt",
+    "--package",
+    "mpk-vc",
+    "--",
+    "--check"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS",
+    "MPK_W09_TRANSITION_CLAUSES_OUT",
+    "MPK_W09_TRANSITION_CLAUSE_RESPONSES",
+    "MPK_W09_TRANSITION_CLAUSE_REQUESTS_OUT",
+    "MPK_W09_LITERAL_CLAUSES_OUT",
+    "MPK_W09_LITERAL_CLAUSE_RESPONSES",
+    "MPK_W09_LITERAL_CLAUSE_REQUESTS_OUT"
+  ],
+  "prior_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null,
+    "MPK_W09_TRANSITION_CLAUSES_OUT": null,
+    "MPK_W09_TRANSITION_CLAUSE_RESPONSES": null,
+    "MPK_W09_TRANSITION_CLAUSE_REQUESTS_OUT": null,
+    "MPK_W09_LITERAL_CLAUSES_OUT": null,
+    "MPK_W09_LITERAL_CLAUSE_RESPONSES": null,
+    "MPK_W09_LITERAL_CLAUSE_REQUESTS_OUT": null
+  },
+  "test_sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs",
+      "sha256": "cae1aa8a75c32f755ad9e3ce429828a291c497474e8f0b98ac58859d5bdaa401",
+      "bytes": 17872
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_clause_tests.rs",
+      "sha256": "3c068a816c030526f24929aa201220de516de630fab8bd6ab5d42fcf465ca539",
+      "bytes": 17744
+    }
+  ],
+  "build": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/build/result.json",
+    "sha256": "2a60d3b8a4dc1b3b71f30e14a33d9e90dfdf6b77ec05865f47d69e818db499f2",
+    "bytes": 2353
+  },
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "fafbe139d1296cd6da2c1ed9260dbdfed37ea70b62d4aa97ca72cd50c653e5c0",
+    "bytes": 41037496
+  },
+  "selection_reason": "The only two new Rust changes are private test input-reference selectors and their strict byte/value guards; check mpk-vc formatting.",
+  "full_gate": "The entire committed repaired T01 gate remains mandatory; selected owner checks do not complete W05/T01 or permit T02.",
+  "pid": 57277,
+  "exit_code": 0,
+  "wall_seconds": 4.002209959086031,
+  "finished_at_utc": "2026-10-18T20:08:46.323229+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/format/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/format/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

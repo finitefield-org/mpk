@@ -1,0 +1,15 @@
+{
+  "classification": "probe_certificate_report_binding_gap",
+  "meaning": "All authoritative native observations remain valid. A standalone adapter trial appended a byte while retaining copied valid reports and source sidecar; the adapter did not independently recompute the certificate domain hash over its supplied byte carrier.",
+  "repair": "Compare both checker certificate hashes to the existing Certificate v0 domain hash of the exact byte carrier; retain the source-manifest and ordinary-interface checks.",
+  "inputs": [
+    {
+      "path": "policy_roots.py",
+      "sha256": "3c0ef8adf7e2f0e030b642416a84dbb48ab326d29afb308479d72f4cd5e79263"
+    },
+    {
+      "path": "test_policy_roots.py",
+      "sha256": "7ad842ad76e77985b3ed4515edcfdc42c67ad27a2901356efd96e2ffd00565f9"
+    }
+  ]
+}

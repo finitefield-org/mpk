@@ -1,0 +1,205 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-21T09:45:42.305576+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/original-failures/check-original-failures.py",
+    "sha256": "ec613011cff32a472fb5270555200fd2c926c5419ef6c4b241093786ea0db4d9",
+    "bytes": 2630
+  },
+  "go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "go_production_sources": [
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57",
+      "bytes": 23259
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432",
+      "bytes": 5272
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type.go",
+      "sha256": "d5d3e93ab336e8686092547579f0d76640d280a6b347691890e6b63aeec13a0e",
+      "bytes": 4986
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0",
+      "bytes": 2893
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "1fe9acc0f8277c1290dd24ff4af0cde526e9e0e283026192af4c0bd671331a0a",
+      "bytes": 32802
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02",
+      "bytes": 38400
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "a951f73a15315ed34c38829dfab819d34aa947b8050e3b097adb81bf37f65e0c",
+      "bytes": 10399
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75",
+      "bytes": 112
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41",
+      "bytes": 7917
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "72b3fff34b37f57dde648735a4ba1f6191f11253394f71cd30566a23e578e8bb",
+      "bytes": 5751
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996",
+      "bytes": 17766
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e",
+      "bytes": 10238
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250",
+      "bytes": 72
+    }
+  ],
+  "cases": [
+    {
+      "epoch": "fields-before-frames",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/fields-before-frames/foundation/candidates/lens-foundation.mpcert",
+        "sha256": "5b6381aaf35540e654d9c00d5120d1f3829be8802ab50ad1db042a0c62940fa0",
+        "bytes": 1100945
+      },
+      "original_Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/fields-before-frames/foundation/candidates/lens-foundation.rust.json",
+        "sha256": "d6e5eb1ec3265c26d3b91579138efd54eb31d4cc434e8164079eee1573a784b3",
+        "bytes": 534
+      },
+      "original_source_inputs": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/fields-before-frames/inputs.json",
+        "sha256": "069e8c4907f46c29be01bab349b40b3d62aa4827796b28ba8e08020d1bbe73ac",
+        "bytes": 140991
+      },
+      "original_Rust_execution": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/fields-before-frames/foundation/result.json",
+        "sha256": "f7dfcb5d5e97b8f9e90620fa7114716a48f6dec0bb040863520375dad27ffd8f",
+        "bytes": 142088
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "b61cbe71f8831e7a1178d1b3cb25cb42aefbb4558160e62fefc59bfb5e94293a"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"var\",\"expected_term_index\":\"7886\",\"inferred_kind\":\"var\",\"inferred_term_index\":\"7885\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 7 inferred var but expected var"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/fields-before-frames/foundation/candidates/lens-foundation.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 5.238769708084874,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/original-failures/fields-before-frames.stdout.log",
+        "sha256": "e7b2156e3c7de39f8fe025a1f75784563a38bccc742c3ee66e47803af2c8dcdf",
+        "bytes": 103
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/original-failures/fields-before-frames.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "epoch": "hygienic-transport",
+      "input": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/hygienic-transport/foundation/candidates/lens-foundation.mpcert",
+        "sha256": "1e069c583000a10c3678f72cbec0a8b6489c350b432ee00c5cbb391ba0b87012",
+        "bytes": 1100700
+      },
+      "original_Rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/hygienic-transport/foundation/candidates/lens-foundation.rust.json",
+        "sha256": "a759ae118a50ee9cebdf41f8034df49246845013d74c99528d28854f41bbf8e4",
+        "bytes": 521
+      },
+      "original_source_inputs": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/hygienic-transport/inputs.json",
+        "sha256": "7142ce003e16aa5c495e34d792c23c7599ac67dfa2bddc75b3a6b30493006667",
+        "bytes": 145648
+      },
+      "original_Rust_execution": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/hygienic-transport/foundation/result.json",
+        "sha256": "8990c0a5b210500001b29d407161a0f77eb2d37314f2ca181a2aac8c0744b651",
+        "bytes": 146745
+      },
+      "Rust": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "56be85e364cf6dcaff8ef775cf47ffa940fb022c8109fca5d322da1699a38c6f"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"}],\"details\":{\"constant_term_index\":\"15550\",\"kind\":\"defeq_fuel_exhausted\",\"lhs_term_index\":\"530963\",\"operation\":\"defeq_delta\",\"rhs_term_index\":\"530992\"}}"
+      },
+      "Go": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "core reduction fuel exhausted"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/hygienic-transport/foundation/candidates/lens-foundation.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 3.357371958089061,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/original-failures/hygienic-transport.stdout.log",
+        "sha256": "c3207805e8a0989459deb8ce0f2840f2feee0a3758885bbd424e7cca805ee7e7",
+        "bytes": 96
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/storage-lens/original-failures/hygienic-transport.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "original_Rust_outputs_reconstructed": false,
+  "current_resource_limits_changed": false,
+  "original_inputs_rejected": 2,
+  "finished_at_utc": "2026-10-21T09:45:50.906789+00:00"
+}

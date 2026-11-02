@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T16:10:44.611132+00:00",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+    "-l",
+    "develop/probes/go-practical/signed_product_observer.go"
+  ],
+  "source": {
+    "path": "develop/probes/go-practical/signed_product_observer.go",
+    "sha256": "1c1f5882b3cf2f47fdd44261b0610958ad188bfd2bf259c021bb63d862b9ffed",
+    "bytes": 4454
+  },
+  "formatter": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+    "sha256": "f8c812fc7e22867e5970a687898cd62d8c15561ccc6800c84ac9fdc6583e4b03",
+    "bytes": 2914768
+  },
+  "exit_code": 0,
+  "seconds": 0.036407416919246316,
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/go-format/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/go-format/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "selection_reason": "Only the new independently built signed-product native Go observer changes. Prior Go frontend/observer sources and all CSharp test targets remain unchanged.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

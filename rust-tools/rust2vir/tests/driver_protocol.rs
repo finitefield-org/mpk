@@ -16,7 +16,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 
 const VECTOR_BYTES: &[u8] = include_bytes!("../testdata/rust-driver-v1.json");
-const VECTOR_SHA256: &str = "617a473f748153aa160a089823d537c5a6acfe453acc93089315014597afa895";
+const VECTOR_SHA256: &str = "5efb683f4a80eb8e2b34bafb3f90f2ac5278d53c082df4cb8b6f923670d01c8f";
 static NEXT_TEMP: AtomicU64 = AtomicU64::new(0);
 
 #[test]
@@ -59,7 +59,7 @@ fn normative_vector_request_and_every_status_are_byte_exact() {
     assert_eq!(request.transport(), request_transport);
     assert_eq!(
         request.request_fingerprint(),
-        "b1555586fb8446f20be31a1e4b836b7def9754bfbf1d422f692d81c36e9e6546"
+        "279b95b647923d7b1f2954fdb0d41c643756571b223b9ee925c9e2f1f4f02a50"
     );
 
     let lowered = root["valid_lowered"].as_object().unwrap();

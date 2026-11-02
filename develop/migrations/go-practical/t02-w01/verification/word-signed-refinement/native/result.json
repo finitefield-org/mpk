@@ -1,0 +1,142 @@
+{
+  "schema": "mpk.go_practical.fresh_signed_refinement_native_observation.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T18:38:06.547814+00:00",
+  "original_source": {
+    "path": "develop/probes/go-practical/signed_refinement_observer.go",
+    "sha256": "670fa45be201fa4ac76077251bc5aca03e447e13ce2d5f404602daf35133ca75",
+    "bytes": 4766
+  },
+  "owned_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/native/inputs/signed_refinement_observer.go",
+    "sha256": "670fa45be201fa4ac76077251bc5aca03e447e13ce2d5f404602daf35133ca75",
+    "bytes": 4766
+  },
+  "original_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/queries.json",
+    "sha256": "75a2c0637e44db76f756254210ff1932a2e55b113d288f04c9895fe0765e6792",
+    "bytes": 27171
+  },
+  "owned_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/native/inputs/queries.json",
+    "sha256": "75a2c0637e44db76f756254210ff1932a2e55b113d288f04c9895fe0765e6792",
+    "bytes": 27171
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "complete_original_prepared_image": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json",
+    "sha256": "c6bcb748bf728a999d4edd56fb4cd390f9c1134671990dfd4e35e0c1086cc75d",
+    "bytes": 2574682
+  },
+  "complete_original_image_checks": [
+    {
+      "label": "before fresh empty-cache native compilation",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 3.1140448750229552,
+      "status": "passed"
+    },
+    {
+      "label": "after native compilation and both executions",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 3.1229163329117,
+      "status": "passed"
+    }
+  ],
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-signed-refinement-native-zy8vij81/image/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "observer_binary": {
+    "path": "/private/tmp/mpk-go-practical-signed-refinement-native-zy8vij81/signed-refinement-observer",
+    "sha256": "f0ce74c249a85bdc1bd1f63373ea04a35277590c71d546acbe168aa8390c1ce6",
+    "bytes": 3141010
+  },
+  "build_cache_initially_empty": true,
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-signed-refinement-native-zy8vij81/image/go",
+    "GOCACHE": "/private/tmp/mpk-go-practical-signed-refinement-native-zy8vij81/cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-signed-refinement-native-zy8vij81/gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-signed-refinement-native-zy8vij81/mod",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GO111MODULE": "off",
+    "CGO_ENABLED": "0",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": ""
+  },
+  "commands": [
+    {
+      "name": "build",
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-refinement-native-zy8vij81/image/go/bin/go",
+        "build",
+        "-trimpath",
+        "-buildvcs=false",
+        "-o",
+        "/private/tmp/mpk-go-practical-signed-refinement-native-zy8vij81/signed-refinement-observer",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/native/inputs/signed_refinement_observer.go"
+      ],
+      "exit_code": 0,
+      "seconds": 15.479186833952554,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/native/build.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/native/build.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run1",
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-refinement-native-zy8vij81/signed-refinement-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.5267182909883559,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/native/run1.stdout.log",
+        "sha256": "05db8ebc626d820ed791033e99b3dd33d9f849b0d1d422802d309b47ba466e25",
+        "bytes": 48425
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/native/run1.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run2",
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-refinement-native-zy8vij81/signed-refinement-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.013743125018663704,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/native/run2.stdout.log",
+        "sha256": "05db8ebc626d820ed791033e99b3dd33d9f849b0d1d422802d309b47ba466e25",
+        "bytes": 48425
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-refinement/native/run2.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "two_native_outputs_byte_identical": true,
+  "native_rows": 160,
+  "scope": "Actual typed Go arbitrary unsigned-word sign selection and source SignedDiv/SignedRem over128 original complete rows yield160 observations. Mathematical results/corrections independently use math/big, including negative generic corrections and normal minimum/-one wrap. Eight source zero-divisor faults are recovered without a value observation. Exact fresh prepared image/empty cache/two identical runs. No universal correction classification, complete source/application or Linux gate claim.",
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

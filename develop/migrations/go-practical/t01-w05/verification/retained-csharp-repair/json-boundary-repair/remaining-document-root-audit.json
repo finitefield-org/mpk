@@ -1,0 +1,1260 @@
+{
+  "schema": "mpk-go-practical-t01-w05-document-root-reference-review-1.0",
+  "observed_at_utc": "2026-10-18T08:30:47.882070+00:00",
+  "source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "scope": "Read-only file/reference audit of the three current document source IDs and eleven ordinary golden families sharing them. Source files and tests are unchanged.",
+  "selection_reason": "Same current boundary source IDs as the repaired JSON archive and ordinary document golden lookups; check remaining consumers for missing current-ID files before their full-gate execution.",
+  "status": "passed_file_reference_audit_full_gate_pending",
+  "source_inputs": [
+    {
+      "path": "develop/migrations/csharp-03/boundary-output/source-requests.json",
+      "sha256": "5109bc2080b918dd5142c87ad674472f5febf9d6754d74ec8f80dd0fa3bac415",
+      "bytes": 14521
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-output/source-responses.json",
+      "sha256": "1fdc9ee087f9be53df58a0c6d36f5f2e95e0c36103f2124ed2198eed9c9bf5b8",
+      "bytes": 602878
+    }
+  ],
+  "families_checked": 11,
+  "current_hex_members_checked": 33,
+  "observations": [
+    {
+      "family": "boundary-documents/boolean-refreeze",
+      "test_source": {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs",
+        "sha256": "8bd171f333e445fd1afd11669440b3a1856ca7dded9525993bd4e1ef1ca657b2",
+        "bytes": 10804
+      },
+      "metadata": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-documents/boolean-refreeze/certificates.json",
+        "sha256": "cd65b74f00ffa1b2ad64e9f0e4164b7244da0b39060d731a6b539074a99edcbc",
+        "bytes": 4173
+      },
+      "current_members": [
+        {
+          "id": "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-documents/boolean-refreeze/document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6.hex",
+            "sha256": "71d325cc2d4bfaa5b11d407c6a5dfbfb021f5b6a87027231a879a312234f99c8",
+            "bytes": 47035
+          },
+          "decoded_bytes": 23517,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-documents/boolean-refreeze/document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19.hex",
+            "sha256": "71d325cc2d4bfaa5b11d407c6a5dfbfb021f5b6a87027231a879a312234f99c8",
+            "bytes": 47035
+          },
+          "decoded_bytes": 23517,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-documents/boolean-refreeze/document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf.hex",
+            "sha256": "71d325cc2d4bfaa5b11d407c6a5dfbfb021f5b6a87027231a879a312234f99c8",
+            "bytes": 47035
+          },
+          "decoded_bytes": 23517,
+          "metadata_id_occurrences": 1
+        }
+      ]
+    },
+    {
+      "family": "boundary-fragments/boolean-refreeze",
+      "test_source": {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_fragment_tests.rs",
+        "sha256": "ee712666ddb28409ed9520f972f04ff8db1a5c7c84b31d48ca6612e5ccd196ed",
+        "bytes": 14628
+      },
+      "metadata": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-fragments/boolean-refreeze/certificates.json",
+        "sha256": "a4bc6aa0e484db6ef47b997ae7c85b4d028fafefd644f844204563f8e78ecb18",
+        "bytes": 5139
+      },
+      "current_members": [
+        {
+          "id": "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-fragments/boolean-refreeze/document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6.hex",
+            "sha256": "56cacf4f9d51b4aebfef62f06a06d31d21a2aff99115e2b7ffaa1f3d066117da",
+            "bytes": 166767
+          },
+          "decoded_bytes": 83383,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-fragments/boolean-refreeze/document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19.hex",
+            "sha256": "56cacf4f9d51b4aebfef62f06a06d31d21a2aff99115e2b7ffaa1f3d066117da",
+            "bytes": 166767
+          },
+          "decoded_bytes": 83383,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-fragments/boolean-refreeze/document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf.hex",
+            "sha256": "56cacf4f9d51b4aebfef62f06a06d31d21a2aff99115e2b7ffaa1f3d066117da",
+            "bytes": 166767
+          },
+          "decoded_bytes": 83383,
+          "metadata_id_occurrences": 1
+        }
+      ]
+    },
+    {
+      "family": "boundary-utf8/boolean-refreeze",
+      "test_source": {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_utf8_tests.rs",
+        "sha256": "74db6e92d26ee3cbc7d3bbbde30239ca28e2ec87bc3fdf8afdea1fd5a453cb73",
+        "bytes": 14309
+      },
+      "metadata": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-utf8/boolean-refreeze/certificates.json",
+        "sha256": "a2c51ed2688b73dca1f492edb61d92db66b80b3685baeacff87529a72286ce37",
+        "bytes": 4914
+      },
+      "current_members": [
+        {
+          "id": "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-utf8/boolean-refreeze/document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6.hex",
+            "sha256": "25952660038b35231b99c2d273c6ffcc26fe085f8e93c3e6ef05cc5646d40600",
+            "bytes": 2026391
+          },
+          "decoded_bytes": 1013195,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-utf8/boolean-refreeze/document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19.hex",
+            "sha256": "25952660038b35231b99c2d273c6ffcc26fe085f8e93c3e6ef05cc5646d40600",
+            "bytes": 2026391
+          },
+          "decoded_bytes": 1013195,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/boundary-utf8/boolean-refreeze/document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf.hex",
+            "sha256": "25952660038b35231b99c2d273c6ffcc26fe085f8e93c3e6ef05cc5646d40600",
+            "bytes": 2026391
+          },
+          "decoded_bytes": 1013195,
+          "metadata_id_occurrences": 1
+        }
+      ]
+    },
+    {
+      "family": "json-string-parsers/boolean-refreeze",
+      "test_source": {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs",
+        "sha256": "bcd516ee31d7e403bd09e63249ecbfdf00ef4f8ed318c5d8345ed5d294b2c874",
+        "bytes": 23973
+      },
+      "metadata": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/json-string-parsers/boolean-refreeze/certificates.json",
+        "sha256": "2837399e1f3248112d0a64a698d4311c8d5b122d6c65b1633639c4916e255b5e",
+        "bytes": 8958
+      },
+      "current_members": [
+        {
+          "id": "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-string-parsers/boolean-refreeze/document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6.hex",
+            "sha256": "dce4595f878fa9e9514ad12a1fdfedbb4fdecc90376a1b1e1383875b5388a3ca",
+            "bytes": 521031
+          },
+          "decoded_bytes": 260515,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-string-parsers/boolean-refreeze/document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19.hex",
+            "sha256": "dce4595f878fa9e9514ad12a1fdfedbb4fdecc90376a1b1e1383875b5388a3ca",
+            "bytes": 521031
+          },
+          "decoded_bytes": 260515,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-string-parsers/boolean-refreeze/document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf.hex",
+            "sha256": "dce4595f878fa9e9514ad12a1fdfedbb4fdecc90376a1b1e1383875b5388a3ca",
+            "bytes": 521031
+          },
+          "decoded_bytes": 260515,
+          "metadata_id_occurrences": 1
+        }
+      ]
+    },
+    {
+      "family": "json-tokens/boolean-refreeze",
+      "test_source": {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+        "sha256": "8057a5f6b568cb1f8bab8a957c7456c0502c0786f6bf2b5410dbbb320114aab9",
+        "bytes": 65033
+      },
+      "metadata": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/json-tokens/boolean-refreeze/certificates.json",
+        "sha256": "5e85214f9c08779fd0d0802569f03ddafade5fcebd8018ec6a728a820bd62859",
+        "bytes": 710679
+      },
+      "current_members": [
+        {
+          "id": "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-tokens/boolean-refreeze/document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6.hex",
+            "sha256": "410cf9dd5cc96ca06293088194b42f66d48d1e2731cf7a8c3d1d360510d03947",
+            "bytes": 2660221
+          },
+          "decoded_bytes": 1330110,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-tokens/boolean-refreeze/document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19.hex",
+            "sha256": "410cf9dd5cc96ca06293088194b42f66d48d1e2731cf7a8c3d1d360510d03947",
+            "bytes": 2660221
+          },
+          "decoded_bytes": 1330110,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-tokens/boolean-refreeze/document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf.hex",
+            "sha256": "410cf9dd5cc96ca06293088194b42f66d48d1e2731cf7a8c3d1d360510d03947",
+            "bytes": 2660221
+          },
+          "decoded_bytes": 1330110,
+          "metadata_id_occurrences": 1
+        }
+      ]
+    },
+    {
+      "family": "json-keywords",
+      "test_source": {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_keyword_tests.rs",
+        "sha256": "0e245cc1342b2201f9fe27fde550edcaa196082772699eb60c0011a161c32b21",
+        "bytes": 11774
+      },
+      "metadata": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/json-keywords/certificates.json",
+        "sha256": "fd0db2c98475ca0e5dc1a7555754ead3ac9e12d2b1c30be2b34cc54155f959c0",
+        "bytes": 7668
+      },
+      "current_members": [
+        {
+          "id": "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-keywords/document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6.hex",
+            "sha256": "fd64997fc82b068b9df560e0fe0bd3b376adb2c9ef4a3625740e2bcf0e812059",
+            "bytes": 222161
+          },
+          "decoded_bytes": 111080,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-keywords/document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19.hex",
+            "sha256": "fd64997fc82b068b9df560e0fe0bd3b376adb2c9ef4a3625740e2bcf0e812059",
+            "bytes": 222161
+          },
+          "decoded_bytes": 111080,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-keywords/document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf.hex",
+            "sha256": "fd64997fc82b068b9df560e0fe0bd3b376adb2c9ef4a3625740e2bcf0e812059",
+            "bytes": 222161
+          },
+          "decoded_bytes": 111080,
+          "metadata_id_occurrences": 1
+        }
+      ]
+    },
+    {
+      "family": "json-raw-limits",
+      "test_source": {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_raw_limit_tests.rs",
+        "sha256": "51a64623607f63c761049809c32f1cd2a5b3a01dd2edfdc9d5c688a457e899c9",
+        "bytes": 7461
+      },
+      "metadata": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/json-raw-limits/certificates.json",
+        "sha256": "034edcef6774ca4c98c231fdba5ce22e570c5c563b4345aaf99f0e0703073891",
+        "bytes": 5409
+      },
+      "current_members": [
+        {
+          "id": "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-raw-limits/document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6.hex",
+            "sha256": "71ed5a1c05dbae0db0be30887236c5f4d410048d262b358847681eb42bd9fea3",
+            "bytes": 1235683
+          },
+          "decoded_bytes": 617841,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-raw-limits/document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19.hex",
+            "sha256": "71ed5a1c05dbae0db0be30887236c5f4d410048d262b358847681eb42bd9fea3",
+            "bytes": 1235683
+          },
+          "decoded_bytes": 617841,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-raw-limits/document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf.hex",
+            "sha256": "71ed5a1c05dbae0db0be30887236c5f4d410048d262b358847681eb42bd9fea3",
+            "bytes": 1235683
+          },
+          "decoded_bytes": 617841,
+          "metadata_id_occurrences": 1
+        }
+      ]
+    },
+    {
+      "family": "json-syntax",
+      "test_source": {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_syntax_tests.rs",
+        "sha256": "0767fc42b6d0d68e4b5befca9438dd3d261c6d4ee6effd557a50b5d90ec48993",
+        "bytes": 7774
+      },
+      "metadata": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/json-syntax/certificates.json",
+        "sha256": "d2bc70a6e3513b713fca730310b5fa7944cb71d102da829b1c4b1494b9d3b28e",
+        "bytes": 39062
+      },
+      "current_members": [
+        {
+          "id": "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-syntax/document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6.hex",
+            "sha256": "d1171e23aa33f7b14276e7b0ecb43585b341b8749ac4cecedfb2679647a378e9",
+            "bytes": 319789
+          },
+          "decoded_bytes": 159894,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-syntax/document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19.hex",
+            "sha256": "340702dc49bc82cafdeaad6c2845288253c87be3c4a45e2e0e49dedca134528a",
+            "bytes": 410833
+          },
+          "decoded_bytes": 205416,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-syntax/document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf.hex",
+            "sha256": "3f3e7907f5f4c9fbcec2c392b0839168d63b8f2254a09cc184fe87d50f71f2f1",
+            "bytes": 272061
+          },
+          "decoded_bytes": 136030,
+          "metadata_id_occurrences": 1
+        }
+      ]
+    },
+    {
+      "family": "json-values",
+      "test_source": {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_value_tests.rs",
+        "sha256": "9006fb96e9969018e4223a2418b136049810c2f67136afecb58c10ccebd55f9e",
+        "bytes": 8876
+      },
+      "metadata": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/json-values/certificates.json",
+        "sha256": "64a2bf3743319bb0396e45d0e1c6df508039580036773944b001fb8a4dd6daa8",
+        "bytes": 417035
+      },
+      "current_members": [
+        {
+          "id": "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-values/document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6.hex",
+            "sha256": "cf2d9d58bec9fbf8760c5d41514db3e0ffa7dc6a924fa9c7535d6e8404a315d2",
+            "bytes": 2903887
+          },
+          "decoded_bytes": 1451943,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-values/document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19.hex",
+            "sha256": "8d023bc0f84f9f3ae1fb664c53d724f4a07708fe3cebd4e258169cda6092222b",
+            "bytes": 2729281
+          },
+          "decoded_bytes": 1364640,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-values/document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf.hex",
+            "sha256": "43a003d24d96ded9beb799b0adde7e29f74ae3ad1443a518b7eab762e9f1a4c0",
+            "bytes": 2674139
+          },
+          "decoded_bytes": 1337069,
+          "metadata_id_occurrences": 1
+        }
+      ]
+    },
+    {
+      "family": "json-strings",
+      "test_source": {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_tests.rs",
+        "sha256": "32c45f906089131ccfcd907958fe9ff4d1a4bfd837025c1e7362cfb681b18180",
+        "bytes": 12264
+      },
+      "metadata": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/json-strings/certificates.json",
+        "sha256": "46048f9368f8ee44ca6b4067f7f7d169a26d57f387375dcd16baf305b6df0830",
+        "bytes": 5277
+      },
+      "current_members": [
+        {
+          "id": "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-strings/document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6.hex",
+            "sha256": "413d21c4ca63acdabd59d324958643ca924b6af28c808e593f6eedd7c769a9a3",
+            "bytes": 251533
+          },
+          "decoded_bytes": 125766,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-strings/document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19.hex",
+            "sha256": "413d21c4ca63acdabd59d324958643ca924b6af28c808e593f6eedd7c769a9a3",
+            "bytes": 251533
+          },
+          "decoded_bytes": 125766,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/json-strings/document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf.hex",
+            "sha256": "413d21c4ca63acdabd59d324958643ca924b6af28c808e593f6eedd7c769a9a3",
+            "bytes": 251533
+          },
+          "decoded_bytes": 125766,
+          "metadata_id_occurrences": 1
+        }
+      ]
+    },
+    {
+      "family": "structural-boundary",
+      "test_source": {
+        "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+        "sha256": "8057a5f6b568cb1f8bab8a957c7456c0502c0786f6bf2b5410dbbb320114aab9",
+        "bytes": 65033
+      },
+      "metadata": {
+        "path": "develop/migrations/csharp-03/ordinary-foundation/structural-boundary/certificates.json",
+        "sha256": "452eeac6be0a8674b8038bff613e4bb4fe15e5fb83b22f21b08dce5ee04e2d90",
+        "bytes": 940246
+      },
+      "current_members": [
+        {
+          "id": "document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/structural-boundary/document-41dc96a4a1a5d49fa3ad6bb9e9408db0403bb5ac9ac63f7b6b6977745f0375f6.hex",
+            "sha256": "d5e71e56b35ba0c55e6bacb0412d75884ad641301a5eae277cdbec35652719f9",
+            "bytes": 3573285
+          },
+          "decoded_bytes": 1786642,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/structural-boundary/document-7d781ce1b08e716daf1b4a733544c5a6750b27a35b938ca49d4c5b77c0619f19.hex",
+            "sha256": "6e2b663d9231b58120566b14fb8a7c2f92b9ba1319d7213ac837a7172d5c6a0f",
+            "bytes": 2986415
+          },
+          "decoded_bytes": 1493207,
+          "metadata_id_occurrences": 1
+        },
+        {
+          "id": "document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf",
+          "hex_file": {
+            "path": "develop/migrations/csharp-03/ordinary-foundation/structural-boundary/document-265f119153aca465971812118cea36c2be23c80779917cc99817c9fa1f972edf.hex",
+            "sha256": "e043351cca73d235db96f8befc4ebe040ff31ddc367894484bbfae70fe84089a",
+            "bytes": 2675197
+          },
+          "decoded_bytes": 1337598,
+          "metadata_id_occurrences": 1
+        }
+      ]
+    }
+  ],
+  "literal_foundation_references_checked": 146,
+  "literal_references": [
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_clause_tests.rs",
+      "line": 153,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/binding-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_condition_tests.rs",
+      "line": 21,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/binding-conditions"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_default_tests.rs",
+      "line": 203,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/binding-defaults"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_default_tests.rs",
+      "line": 602,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/binding-defaults/closed-proofs"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_guard_tests.rs",
+      "line": 23,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/binding-guards"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_order_tests.rs",
+      "line": 12,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/binding-orders"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_rebuild_tests.rs",
+      "line": 15,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/binding-rebuilds"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_reconstruction_tests.rs",
+      "line": 61,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/binding-reconstruction"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_reconstruction_tests.rs",
+      "line": 129,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/binding-reconstruction"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_relation_tests.rs",
+      "line": 12,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/binding-relations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_binding_relation_tests.rs",
+      "line": 522,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/binding-result-sources/requests.json"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs",
+      "line": 180,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/boundary-documents/boolean-refreeze"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_fragment_tests.rs",
+      "line": 281,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/boundary-fragments/boolean-refreeze"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_literal_tests.rs",
+      "line": 31,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/boundary-literals"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_rule_tests.rs",
+      "line": 25,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/boundary-rules"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_utf8_tests.rs",
+      "line": 183,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/boundary-utf8/boolean-refreeze"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_clause_tests.rs",
+      "line": 390,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/calendar-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_codec_tests.rs",
+      "line": 375,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/calendar-codecs"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_codec_tests.rs",
+      "line": 516,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/calendar-codecs"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_calendar_data_tests.rs",
+      "line": 15,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/calendar-data"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_clause_tests.rs",
+      "line": 298,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/collection-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_clause_tests.rs",
+      "line": 515,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/collection-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_tests.rs",
+      "line": 108,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/collection-sources/requests.json"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_collection_tests.rs",
+      "line": 212,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/collection-operations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_operation_tests.rs",
+      "line": 476,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/concrete-operations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_concrete_type_tests.rs",
+      "line": 299,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/concrete-types"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_construction_data_tests.rs",
+      "line": 9,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/construction-data"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_construction_tests.rs",
+      "line": 124,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/construction-operations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_contract_expression_tests.rs",
+      "line": 176,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/contract-expressions"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+      "line": 944,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/control-edges"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+      "line": 1814,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/control-edges"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_pattern_capture_tests.rs",
+      "line": 51,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/control-predicates/with-pattern-scopes"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_pattern_source_tests.rs",
+      "line": 219,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/control-predicates/with-pattern-captures"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_pattern_source_tests.rs",
+      "line": 248,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/control-predicates/with-pattern-observations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_pattern_source_tests.rs",
+      "line": 541,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/control-predicates/with-pattern-primitives"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_predicate_tests.rs",
+      "line": 31,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/control-predicates"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_predicate_tests.rs",
+      "line": 268,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/control-edges"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_predicate_tests.rs",
+      "line": 341,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/control-predicates/with-execution"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_slot_tests.rs",
+      "line": 27,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/control-slots"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs",
+      "line": 325,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/decimal-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_codec_clause_tests.rs",
+      "line": 187,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/decimal-codec-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_data_tests.rs",
+      "line": 20,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/decimal-data"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_fixed_format_tests.rs",
+      "line": 31,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/decimal-fixed-formats"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_fixed_format_tests.rs",
+      "line": 265,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/decimal-fixed-formats"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_format_tests.rs",
+      "line": 31,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/decimal-formats"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_format_tests.rs",
+      "line": 239,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/decimal-formats"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_parse_tests.rs",
+      "line": 223,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/decimal-parsers"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_default_proof_tests.rs",
+      "line": 20,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/verification-logs"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_default_tests.rs",
+      "line": 126,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/defaults"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_definedness_clause_tests.rs",
+      "line": 300,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/definedness-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_definedness_clause_tests.rs",
+      "line": 382,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/definedness-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_domain_tests.rs",
+      "line": 424,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/domains"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_entry_tests.rs",
+      "line": 51,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/entry-sources/requests.json"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_entry_tests.rs",
+      "line": 94,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/entry-operations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_exception_clause_tests.rs",
+      "line": 163,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/exception-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_finite_tests.rs",
+      "line": 29,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/finite-operations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs",
+      "line": 180,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/fixed-codec-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs",
+      "line": 578,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/fixed-codec-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_clause_tests.rs",
+      "line": 314,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/floating-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_clause_tests.rs",
+      "line": 543,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/floating-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_floating_data_tests.rs",
+      "line": 20,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/floating-data"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_hex_codec_tests.rs",
+      "line": 11,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/hex-codecs"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_hex_codec_tests.rs",
+      "line": 208,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/hex-codecs"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_identity_proof_tests.rs",
+      "line": 30,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/foundation-proofs/local/certificates"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_codec_clause_tests.rs",
+      "line": 178,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/integer-codec-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_codec_clause_tests.rs",
+      "line": 411,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/integer-codec-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_data_tests.rs",
+      "line": 20,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/integer-data"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_format_tests.rs",
+      "line": 28,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/integer-formats"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_format_tests.rs",
+      "line": 183,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/integer-formats"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_parse_tests.rs",
+      "line": 94,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/integer-parsers"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_integer_parse_tests.rs",
+      "line": 328,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/integer-parsers"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_boundary_field_tests.rs",
+      "line": 307,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-boundary-fields"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_builtin_tests.rs",
+      "line": 7,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-builtin-sources"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_calendar_tests.rs",
+      "line": 8,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-calendar-sources"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_depth_compound_tests.rs",
+      "line": 218,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-depth-compound"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_enum_tests.rs",
+      "line": 6,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-enum-sources"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_envelope_tests.rs",
+      "line": 528,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-envelopes/required.hex"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_envelope_tests.rs",
+      "line": 543,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-depth-guarded-envelopes/required.hex"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_keyword_tests.rs",
+      "line": 209,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-keywords"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_ordered_tests.rs",
+      "line": 7,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-ordered-sources"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_product_source_tests.rs",
+      "line": 95,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-product-sources/requests.json"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_product_source_tests.rs",
+      "line": 104,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-product-nested"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_product_tests.rs",
+      "line": 28,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-products"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_product_tests.rs",
+      "line": 239,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-products"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_raw_limit_tests.rs",
+      "line": 34,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-raw-limits"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_semantic_product_tests.rs",
+      "line": 8,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-semantic-product-sources"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_semantic_root_tests.rs",
+      "line": 401,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-semantic-root"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_sequence_tests.rs",
+      "line": 7,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-sequence-sources"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_sequence_tests.rs",
+      "line": 14,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-sequences"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs",
+      "line": 278,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-string-parsers"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_tests.rs",
+      "line": 248,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-strings"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_sum_source_tests.rs",
+      "line": 6,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-sum-sources"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_sum_tests.rs",
+      "line": 14,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-products"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_syntax_tests.rs",
+      "line": 11,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-syntax"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "line": 175,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-tokens/previous-pair-pipeline/document-6b96fc4eed95a1d33fa5784b9062f02fa07ac65b6aef2b4100bb91e9c2f1a613.hex"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "line": 1363,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/structural-boundary"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "line": 1521,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-tokens"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_transition_tests.rs",
+      "line": 7,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-transition-sources"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_typed_depth_tests.rs",
+      "line": 157,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-typed-depth"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_typed_node_tests.rs",
+      "line": 161,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-typed-nodes"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_typed_node_tests.rs",
+      "line": 345,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-typed-nodes"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_value_tests.rs",
+      "line": 29,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/json-values"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_lifted_data_tests.rs",
+      "line": 30,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/lifted-data"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_clause_tests.rs",
+      "line": 384,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/literal-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs",
+      "line": 9,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/literal-definitions"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_tests.rs",
+      "line": 251,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/literal-sources/requests.json"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_money_tests.rs",
+      "line": 26,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/money-operations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_money_tests.rs",
+      "line": 560,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/money-sources/requests.json"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_observation_tests.rs",
+      "line": 22,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/observation-sources/requests.json"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_observation_tests.rs",
+      "line": 56,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/source-observations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_option_data_tests.rs",
+      "line": 18,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/option-data"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_outcome_tests.rs",
+      "line": 143,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/outcome-sources/requests.json"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_outcome_tests.rs",
+      "line": 183,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_ownership_flow_tests.rs",
+      "line": 369,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/ownership-equations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_ownership_flow_tests.rs",
+      "line": 643,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/construction-ownership-records"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_ownership_flow_tests.rs",
+      "line": 750,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/ownership-proofs"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_ownership_flow_tests.rs",
+      "line": 865,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/ownership-proofs"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_partial_read_clause_tests.rs",
+      "line": 328,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/partial-read-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_projection_tests.rs",
+      "line": 26,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/binding-projections"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_projection_tests.rs",
+      "line": 751,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/projection-sources/requests.json"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_public_domain_tests.rs",
+      "line": 306,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/public-domains"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_public_domain_tests.rs",
+      "line": 335,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/domains"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_public_domain_tests.rs",
+      "line": 741,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/public-defaults"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_public_domain_tests.rs",
+      "line": 876,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/structural-public"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_public_domain_tests.rs",
+      "line": 1004,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/conditional-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_public_domain_tests.rs",
+      "line": 1188,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/structural-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_quantifier_tests.rs",
+      "line": 202,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/quantifiers"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_reference_data_tests.rs",
+      "line": 18,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/reference-data"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_relation_tests.rs",
+      "line": 723,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/relations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_sequence_data_tests.rs",
+      "line": 18,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/sequence-data"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_sequence_tests.rs",
+      "line": 269,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_source_clause_tests.rs",
+      "line": 136,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/source-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_source_invariant_tests.rs",
+      "line": 202,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/source-invariants"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_source_value_data_tests.rs",
+      "line": 19,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/source-value-data"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_string_clause_tests.rs",
+      "line": 448,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/string-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_string_data_tests.rs",
+      "line": 29,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/string-data"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_data_tests.rs",
+      "line": 22,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/structural-data"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs",
+      "line": 442,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/structural-boundary"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_foundation_tests.rs",
+      "line": 131,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_tagged_make_tests.rs",
+      "line": 178,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/tagged-make"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_total_clause_tests.rs",
+      "line": 384,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/total-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs",
+      "line": 184,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/transition-clauses"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_ops_tests.rs",
+      "line": 33,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/transition-operations"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_ops_tests.rs",
+      "line": 349,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/transition-integrated"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_ops_tests.rs",
+      "line": 395,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/transition-operations/before-integration/binding-vc-transition.hex"
+    },
+    {
+      "test": "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_snapshot_tests.rs",
+      "line": 76,
+      "reference": "develop/migrations/csharp-03/ordinary-foundation/transition-snapshots"
+    }
+  ],
+  "dynamic_literal_templates_excluded": [
+    "decimal-data/{context_id}.hex"
+  ],
+  "limitations": [
+    "File existence, valid nonempty hex encoding, byte identity pins and unique current-ID metadata lookup only.",
+    "No metadata regeneration, historical-ID rebinding, source/ordinary/application theorem proof, checker acceptance or test completion is inferred.",
+    "The cumulative gate remains mandatory. T01/W05 are incomplete and T02 is unstarted."
+  ]
+}

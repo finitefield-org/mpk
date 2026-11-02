@@ -1,0 +1,11 @@
+module example.com/policy
+go 1.25.0
+require (
+example.com/alias v1.0.0
+example.com/shared v1.0.0
+)
+replace (
+example.com/alias => ./wildcard
+example.com/alias v1.0.0 => ./local-a
+example.com/shared => ./local-b
+)

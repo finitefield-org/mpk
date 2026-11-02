@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--check",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_ordinary.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_error_operations.rs",
+    "crates/mpk-vc/src/go_practical_ordinary/source_error_cases.rs",
+    "crates/mpk-vc/tests/go_practical_source_error_cases.rs",
+    "crates/mpk-vc/tests/go_practical_source_error_case_controls.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-cases/final-format/inputs.json",
+    "bytes": 190649,
+    "sha256": "37f5e55f68df0b97312c399e48f40cf35f8e981e30943567bb4af5e51062fc68"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-cases/final-format/driver.py",
+    "bytes": 6893,
+    "sha256": "74cd5b73e37c3f2cf15e4f9ba49d02f8858d9427e9495d7fea9d7b8b079e34d5"
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "Complete finite source-U tag separation and HasCase for every target on every boxed source type, universally over its entire payload. All original source-specific types, zeros, constructors, nil/copy/tag/payload proofs are roots; unrelated general math remains unchanged in its own full artifacts. A private immutable catalogue amortizes compiled dependency closure without narrowing U. Check all small-source rows and all70 large rows/all4900 pairs, old5 complete operations streams literally, source ownership, exact frozen structures/statements and both full cores. Native limits, checker/axiom/compiler/Go-Rust scope unchanged; source validity, canonical context, receiver-once/call/runtime/program proofs remain due. No intermediate whole gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "formatter_mutation_expected": false,
+  "started_at_utc": "2026-10-22T12:29:31.662905+00:00",
+  "exit_code": 0,
+  "seconds": 0.1350382079835981,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-cases/final-format/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-cases/final-format/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "certificates": [],
+  "finished_at_utc": "2026-10-22T12:29:31.799333+00:00"
+}

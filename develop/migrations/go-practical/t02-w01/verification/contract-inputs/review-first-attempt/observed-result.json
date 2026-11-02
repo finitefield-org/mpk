@@ -1,0 +1,13 @@
+{
+  "status": "failed",
+  "command": [
+    "python3",
+    "-B",
+    "develop/migrations/go-practical/t02-w01/verification/contract-inputs/review-inputs.py"
+  ],
+  "driver_sha256": "27a84da4049ae1610dcaa40b05b962be98a83f465a9cc2bdee378fab40a2d748",
+  "observed_exception": "AttributeError: module 'inspect' has no attribute 'get_annotations'",
+  "reason": "The local independent inspect.py shadowed the Python standard inspect module loaded by dataclasses while importing the unchanged scanner.",
+  "production_or_test_failure": false,
+  "correction": "Resolve scanner standard-library imports without the local evidence-script directory on sys.path. Original driver remains complete."
+}

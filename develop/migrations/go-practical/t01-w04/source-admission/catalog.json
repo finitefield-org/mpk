@@ -1,0 +1,657 @@
+{
+  "ast_nodes": [
+    {
+      "ast_kind": "ArrayType",
+      "condition": "fixed array or slice with complete Root/Plain/type/length validation; inferred literal extent only in its Go context",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-ArrayType",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go"
+    },
+    {
+      "ast_kind": "AssignStmt",
+      "condition": "Go assignability, short declaration/shadowing; each location/operand/call once, two-phase stores and compound operation checks",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-AssignStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "BadDecl",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-BadDecl",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "BadExpr",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-BadExpr",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "BadStmt",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-BadStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "BasicLit",
+      "condition": "compiler-resolved exact constants; runtime materialization only in admitted carriers",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-BasicLit",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go"
+    },
+    {
+      "ast_kind": "BinaryExpr",
+      "condition": "closed Bool/word/string operations and nil-only slice/error comparisons; actual guards and full-width operands",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-BinaryExpr",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "BlockStmt",
+      "condition": "original lexical scope and exact activation/lifetime; structured sequential execution",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-BlockStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "BranchStmt",
+      "condition": "unlabeled break/continue with exact structured target; goto/fallthrough reject",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-BranchStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "CallExpr",
+      "condition": "direct captured acyclic source call/method, exact checked registered adapter, whitelisted builtin or GP-OP-03 conversion; one joint invocation",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-CallExpr",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "CaseClause",
+      "condition": "expression switch case/default only, source-order selection",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-CaseClause",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "ChanType",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-ChanType",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "CommClause",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-CommClause",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "Comment",
+      "condition": "captured original structure; does not authorize body execution",
+      "disposition": "capture_only_structure",
+      "id": "GA-AST-Comment",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "CommentGroup",
+      "condition": "captured original structure; does not authorize body execution",
+      "disposition": "capture_only_structure",
+      "id": "GA-AST-CommentGroup",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "CompositeLit",
+      "condition": "acyclic admitted array/slice/struct layout; keyed or positional Go initialization, omitted-field zeroes and checked freshness",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-CompositeLit",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "DeclStmt",
+      "condition": "local var/const/type declarations of admitted types; compiler scopes and no hidden global effects",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-DeclStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "DeferStmt",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-DeferStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "Ellipsis",
+      "condition": "inferred array literal extent; no variadic function declarations/arbitrary spread calls; append spread is CallExpr metadata",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-Ellipsis",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go"
+    },
+    {
+      "ast_kind": "EmptyStmt",
+      "condition": "no operation; preserve control/source identity",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-EmptyStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "ExprStmt",
+      "condition": "admitted call with all result/effect/dependency members, including arity zero",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-ExprStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "Field",
+      "condition": "captured original structure; does not authorize body execution",
+      "disposition": "capture_only_structure",
+      "id": "GA-AST-Field",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "FieldList",
+      "condition": "captured original structure; does not authorize body execution",
+      "disposition": "capture_only_structure",
+      "id": "GA-AST-FieldList",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "File",
+      "condition": "captured original structure; does not authorize body execution",
+      "disposition": "capture_only_structure",
+      "id": "GA-AST-File",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "ForStmt",
+      "condition": "exact init/test/body/binding/post/abrupt paths; LC01\u2013LC12 and partial/total mode",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-ForStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "FuncDecl",
+      "condition": "captured nongeneric nonvariadic source body; value receiver, exact Root signature, results arity 0..16",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-FuncDecl",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "FuncLit",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-FuncLit",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "FuncType",
+      "condition": "declared direct function/method signature only; function-valued fields/parameters/results/locals reject",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-FuncType",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "GenDecl",
+      "condition": "referenced types/constants and local declarations; package var initialization never becomes a theorem assumption",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-GenDecl",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "GoStmt",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-GoStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "Ident",
+      "condition": "compiler object/alias/nominal/constant/lexical identity; mutable package state and function values reject",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-Ident",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "IfStmt",
+      "condition": "Go init/scope/short circuit; all branches in closure unless accepted unreachability evidence exists",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-IfStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "ImportSpec",
+      "condition": "captured original structure; does not authorize body execution",
+      "disposition": "capture_only_structure",
+      "id": "GA-AST-ImportSpec",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "IncDecStmt",
+      "condition": "word target evaluated once, wrapping operation, permissions/source frame checked",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-IncDecStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "IndexExpr",
+      "condition": "array/slice/string full-index checks; generic instantiation and map indexing reject",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-IndexExpr",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "IndexListExpr",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-IndexListExpr",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "InterfaceType",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-InterfaceType",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "KeyValueExpr",
+      "condition": "Go composite field/index key, exact assignability and constant extent",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-KeyValueExpr",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "LabeledStmt",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-LabeledStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "MapType",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-MapType",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "Package",
+      "condition": "captured original structure; does not authorize body execution",
+      "disposition": "capture_only_structure",
+      "id": "GA-AST-Package",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "ParenExpr",
+      "condition": "preserve operand context/type/evaluation",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-ParenExpr",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "RangeStmt",
+      "condition": "array/slice only, captured expression and effective-version bindings; pointer-array/string/integer/map/channel/function range reject",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-RangeStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "ReturnStmt",
+      "condition": "explicit/naked/forwarding return, same-invocation ordered results/post-state, enclosing posts skipped",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-ReturnStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "SelectStmt",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-SelectStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "SelectorExpr",
+      "condition": "direct nonpromoted field/value-method or exact captured package object; no pointer/interface dispatch or ambient state",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-SelectorExpr",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "SendStmt",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-SendStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "SliceExpr",
+      "condition": "array/slice two/three-index view or string two-index substring; exact bounds/capacity/alias/source checks",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-SliceExpr",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "StarExpr",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-StarExpr",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "StructType",
+      "condition": "acyclic direct-field Root aggregate and Go tags; embedded fields and nonplain backing cells reject",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-StructType",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go"
+    },
+    {
+      "ast_kind": "SwitchStmt",
+      "condition": "expression/tagless switch, one tag evaluation, ordered cases/default, correct break target",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-SwitchStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "TypeAssertExpr",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-TypeAssertExpr",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "TypeSpec",
+      "condition": "captured nongeneric nominal or alias identity; complete expanded Root/Plain/error graph",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-TypeSpec",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go"
+    },
+    {
+      "ast_kind": "TypeSwitchStmt",
+      "condition": "outside v1 selected verification closure",
+      "disposition": "reject_in_verification",
+      "id": "GA-AST-TypeSwitchStmt",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "ast_kind": "UnaryExpr",
+      "condition": "Go + - ! ^ only, preserved type/width/evaluation; address-taking and receive reject",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-UnaryExpr",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_lower.go",
+      "primary_test_owner": "go-tools/go2vir/practical_lower_test.go"
+    },
+    {
+      "ast_kind": "ValueSpec",
+      "condition": "exact constants and admitted local value storage; referenced mutable package state rejects",
+      "disposition": "conditional_candidate",
+      "id": "GA-AST-ValueSpec",
+      "independent_validator": "crates/mpk-vc/src/go_practical_artifacts.rs",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go"
+    }
+  ],
+  "builtins": [
+    {
+      "condition": "Go-compatible values/spread/string-byte special form; fresh positive writes and proved no-reallocation/domain bound",
+      "disposition": "conditional_candidate",
+      "name": "append",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "array/slice only, constant-evaluation exception and complete descriptor validity",
+      "disposition": "conditional_candidate",
+      "name": "cap",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "clear",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "close",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "complex",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "identical slice elements or byte/string special form; snapshot overlap and fresh positive writes",
+      "disposition": "conditional_candidate",
+      "name": "copy",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "delete",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "imag",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "array/slice/byte-string only with constant-evaluation exception",
+      "disposition": "conditional_candidate",
+      "name": "len",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "slice only; executed integer checks, bounds, initialized fresh storage and allocation/frame proofs",
+      "disposition": "conditional_candidate",
+      "name": "make",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "max",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "min",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "new",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "panic",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "print",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "println",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "real",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    },
+    {
+      "condition": "outside v1 builtin whitelist",
+      "disposition": "reject_in_verification",
+      "name": "recover",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go"
+    }
+  ],
+  "effective_languages": [
+    "go1.22",
+    "go1.23",
+    "go1.24",
+    "go1.25"
+  ],
+  "pending": [
+    "complete source/type/constant/effect predicates and source/VC/ordinary proof composition",
+    "all numeric/structural/capture/resource limits and exact successor schemas/hashes/migrations"
+  ],
+  "pinned_ast_source": {
+    "extraction": "all concrete pointer receiver Pos methods in pinned go/ast/ast.go",
+    "sha256": "552657e53d8b2b6efd3195f49884ac9408b7d19325c3424cd61247f2710057f2",
+    "toolchain_relative_path": "src/go/ast/ast.go"
+  },
+  "pinned_compiler": "go1.25.0",
+  "schema": "mpk.go_practical.source_admission_catalog.v0",
+  "semantic_profile": "mpk.go.practical.v1",
+  "status": "private closed draft; not a published freeze or production admission",
+  "target": "linux/amd64",
+  "target_integer_bits": 64
+}

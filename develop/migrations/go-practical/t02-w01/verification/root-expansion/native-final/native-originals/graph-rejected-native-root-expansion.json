@@ -1,0 +1,96 @@
+{
+  "accepted_owner": false,
+  "independent_MVS_or_source_proof": false,
+  "initial": [
+    {
+      "go_version": "1.16",
+      "identity": {
+        "Path": "example.com/alias",
+        "Version": "v1.0.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": null,
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "870ad4e05c7ff0916710b7e3b32d0ac983d463e16b5b01cd0a18f0dd36c01008",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/alias/@v/v1.0.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "a2e91991f90c8037f32f733bf3929f838c7760d6f7062a83cffd5ccf20646572",
+          "bytes": 58
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2FsaWFzCmdvIDEuMTYKZnV0dXJlX2RpcmVjdGl2ZSBpZ25vcmVkCg=="
+      }
+    },
+    {
+      "go_version": "1.22",
+      "identity": {
+        "Path": "example.com/b",
+        "Version": "v1.0.0"
+      },
+      "pruned": true,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "example.com/alias",
+          "Version": "v1.1.0"
+        },
+        {
+          "Path": "go",
+          "Version": "1.22"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "fd898750e2c5798c48bdd7b39f9988951c7849a26e2754625214d4430cf485cf",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/b/@v/v1.0.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "e6cfd711c9a4fd42559267741a457a17272be29ff890bd7d49b5ecf67c042130",
+          "bytes": 62
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2IKZ28gMS4yMgpyZXF1aXJlIGV4YW1wbGUuY29tL2FsaWFzIHYxLjEuMAo="
+      }
+    },
+    {
+      "go_version": "",
+      "identity": {
+        "Path": "go",
+        "Version": "1.25.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "toolchain",
+          "Version": "go1.25.0"
+        }
+      ],
+      "source": null
+    },
+    {
+      "go_version": "",
+      "identity": {
+        "Path": "toolchain",
+        "Version": "go1.25.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": null,
+      "source": null
+    }
+  ],
+  "stderr": "",
+  "stdout": "ZXhhbXBsZS5jb20vYXBwIGV4YW1wbGUuY29tL2FsaWFzQHYxLjEuMApleGFtcGxlLmNvbS9hcHAgZXhhbXBsZS5jb20vYkB2MS4wLjAKZXhhbXBsZS5jb20vYXBwIGdvQDEuMjUuMApleGFtcGxlLmNvbS9hbGlhc0B2MS4xLjAgZ29AMS4yMgpleGFtcGxlLmNvbS9iQHYxLjAuMCBleGFtcGxlLmNvbS9hbGlhc0B2MS4xLjAKZXhhbXBsZS5jb20vYkB2MS4wLjAgZ29AMS4yMgpnb0AxLjI1LjAgdG9vbGNoYWluQGdvMS4yNS4wCg=="
+}

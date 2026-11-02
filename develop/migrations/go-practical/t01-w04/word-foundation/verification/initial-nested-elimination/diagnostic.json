@@ -1,0 +1,23 @@
+{
+  "finding": "Bool iota requires a direct constructor discriminant; nested ordinary definition applications do not normalize as a discriminant automatically",
+  "inputs": [
+    {
+      "path": "word_foundation.py.txt",
+      "sha256": "dd71a5ca6167a3d447daced2958de5220b490717bcd7003d5b43bc777d76454a"
+    },
+    {
+      "path": "plan.json",
+      "sha256": "6b5ab0cd14f583f9a351023507e71748b07b3c9ca5f910039f484b63ede0b1d9"
+    },
+    {
+      "path": "candidate.mpcert",
+      "sha256": "501a473113f0ae876691fc2f884bcc5c3436b94921f048f884d16921d451e241"
+    },
+    {
+      "path": "results.json",
+      "sha256": "9c89cd3699aa4b2f8c075e1f0f5b59a1161c19ad843b443e09c7f649a37ba056"
+    }
+  ],
+  "repair": "construct ordinary Eq.congr/trans/symm evaluation proofs; retain all77 private checker source bytes",
+  "scope": "retained definitional-equality boundary,not source rejection or a checker extension"
+}

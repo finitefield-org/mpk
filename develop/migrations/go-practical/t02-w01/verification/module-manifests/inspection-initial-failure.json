@@ -1,0 +1,14 @@
+{
+  "status": "failed",
+  "driver_sha256": "13051dc0b05e6ed0c66b9d24ceee79ca88e45de25344eac9009effa567ab5fe1",
+  "command": [
+    "python3",
+    "-B",
+    "develop/migrations/go-practical/t02-w01/verification/module-manifests/inspect.py"
+  ],
+  "exit_code": 1,
+  "failed_assertion": "inspect.py line20: expected the original unused-import compiler diagnostic in native/stderr.log",
+  "available_output": "AssertionError at original native/vet diagnostic location check.",
+  "cause": "Pinned go test -json records compilation diagnostics as build-output JSON on stdout. The original complete stdout/stderr/result epoch remains unchanged.",
+  "correction": "Decode the original native stdout JSON and inspect its Output strings. Vet retains its original stderr. No matcher, proof scope, runtime code, source or test verdict changes."
+}

@@ -1,0 +1,209 @@
+{
+  "schema": "mpk.go_practical.actual_natural_foundation_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T11:21:04.193605+00:00",
+  "entry_commit": "d66024024d8da5a206571c5152e86441353a60b7",
+  "production_sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "a8de5001e342ef509e97a4c4e206c7ba9558f2aee0bd83a9e7163b7c0f96b85e",
+      "bytes": 25995
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "2e1e90424056f214bb7463edd5bfd5bf7ee6c68405d5149152009719a17604eb",
+      "bytes": 7661
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    }
+  ],
+  "test_source": {
+    "path": "crates/mpk-vc/tests/go_practical_natural_foundation.rs",
+    "sha256": "61664d6f3b41614cc7777da6cd6a10e4719584e9f5270aa5063f346233ce604d",
+    "bytes": 22119
+  },
+  "exact_standard_inputs": [
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "predecessor_ordinary_producer": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/predecessor-inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+    "sha256": "59109819397a15ffb721f72d52ccf8d85289feb5da684a5b0259da3e3b41ecac",
+    "bytes": 24851
+  },
+  "fresh_component": {
+    "certificate": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/final/rust-tests/certificates/natural-foundation.mpcert",
+      "sha256": "252e78ffa4d8025eeba88fc42e23f6e565454369c8b3f8f71585ce32b18cedf4",
+      "bytes": 16469
+    },
+    "hashes": {
+      "export": "b7a52449cc8e3dd908accf6d08e0f94eaef88095a15ac202177819b55c334095",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "ca12c603ca781b1ea72ac3c65830bc40dcb205111957714621a62f987e2ae4a5"
+    },
+    "total_declarations": 88,
+    "terms": 1536,
+    "new_definitions": 8,
+    "new_ordinary_laws": 45,
+    "axioms": 0,
+    "ordinary_operations": [
+      "Pred",
+      "Add",
+      "Mul",
+      "Sub",
+      "IsZero",
+      "Equal",
+      "Less",
+      "LessEqual"
+    ],
+    "meaning": "Genuine unbounded Std.Nat. Pred/Add/Mul/truncated-Sub are existing ordinary Nat.rec definitions. Comparisons and general theorem proofs use exact frozen Nat.induct. No finite unrolling or integer-width assumption establishes a general law.",
+    "law_groups": [
+      "arithmetic computation laws",
+      "addition identity, successor, associativity, commutativity and interchange",
+      "multiplication identity, associativity, commutativity and both distributive laws",
+      "right cancellation through ordinary Pred congruence",
+      "Boolean equality completeness and reflection",
+      "equality/order simultaneous translation and strict-order irreflexivity",
+      "truncated subtraction predecessor/successor/zero/cancellation/translation laws",
+      "conditional difference decomposition and empty half-open length"
+    ],
+    "exact_import": "Regenerate all ordinary component bytes. Reject changed valid components and all altered/rehashed definitions or proofs; no caller receipt/hash-only authority."
+  },
+  "results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/initial/rust-tests/result.json",
+      "sha256": "065dfc158e413c330699bc945e34abeda6c98b1c39065b90ac8f6c61807ecf8f",
+      "bytes": 3368,
+      "status": "failed",
+      "seconds": 16.923522541997954,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/reviewed/rust-tests/result.json",
+      "sha256": "9853066dfeb127dc850aa60a59def9712adfec4e675a6de4540b0b88ba55467c",
+      "bytes": 3371,
+      "status": "failed",
+      "seconds": 82.9517039579805,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/final/rust-tests/result.json",
+      "sha256": "c7dbac39abe09082a8abccf5358a029498b2b83872e57279742ae49aba5484b5",
+      "bytes": 7313,
+      "status": "passed",
+      "seconds": 1.7901381250703707,
+      "tests_passed": 5
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/final/clippy/result.json",
+      "sha256": "33d0284ec6f13ef853d50087f52dd45543998462a9670de493891830dc27d2a0",
+      "bytes": 3168,
+      "status": "passed",
+      "seconds": 20.093045499990694,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/final/format/result.json",
+      "sha256": "5eee22842370ef931cc43dbe53bd4f70d062691bebcdbf98d7e2437b994d69ca",
+      "bytes": 3310,
+      "status": "passed",
+      "seconds": 0.060549415997229517,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/paired-final/result.json",
+      "sha256": "76c253e8e2c9638c6c94836c6d9943c2ec934bc4a7f6359b3f5623f221aaf907",
+      "bytes": 41591,
+      "status": "passed",
+      "seconds": null,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/review/negative-classification.json",
+      "sha256": "4fd0733f9ea6d251e9e1c129b1fd5f24ae6a0c7c76be618da7326c7c7a3f5d14",
+      "bytes": 2976,
+      "status": "passed",
+      "seconds": null,
+      "tests_passed": null
+    }
+  ],
+  "rust_integration_roots": 5,
+  "same_byte_paired_cases": 15,
+  "accepted_zero_axiom": 5,
+  "wrong_definition_or_proof_type_rejections": 9,
+  "insufficient_direct_reflexivity_recipe_rejections": 1,
+  "concrete_computations": 20,
+  "review_findings_resolved": [
+    {
+      "kind": "Rust ownership compiler error",
+      "original_result": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/initial/rust-tests/result.json",
+      "original_sources_and_diagnostic_retained": true,
+      "correction": "Clone the reused construction expression; remove two unused new helpers/test locals before strict lint."
+    },
+    {
+      "kind": "Insufficient observation proof recipe",
+      "original_result": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/reviewed/rust-tests/result.json",
+      "original_sources_and_diagnostic_retained": true,
+      "original_raw_certificate_emitted_before_assertion": false,
+      "reconstruction": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/final/rust-tests/certificates/direct-refl-stuck-major.mpcert",
+        "sha256": "9b68169f878dbf24bb043d33c979df82469715728484eb9ce08fbe9bbfb2d70c",
+        "bytes": 20457
+      },
+      "reconstruction_matches_exact_original_diagnostic_certificate_hash": "f9a756ab530b152d9335e651901f1e7906a54903d1e395037a00d22e8135bae9",
+      "correction": "Compose checked computation laws with Eq.congr/Eq.trans for each concrete computation. Both kernels and their conversion/fuel strategy remain unchanged.",
+      "source_counterexample_claimed": false
+    }
+  ],
+  "manual_review": {
+    "private_syntax_consumes_only_compiled_recipes": true,
+    "binder_lowering_requires_lexical_binding": true,
+    "earlier_global_linkage_and_generation_limits_enforced": true,
+    "equality_chain_endpoints_checked_before_lowering": true,
+    "ordinary_proof_types_independently_checked": true,
+    "conditional_laws_retain_actual_premises": true,
+    "typed_false_value_does_not_claim_truth": true,
+    "unchanged_core_basis_exact_hash_checked": true,
+    "Go_negative_actual_type_messages_checked": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/review/negative-classification.json",
+    "no_new_opcodes_axioms_eta_or_conversion_rules": true
+  },
+  "selection_reason": "Fresh compiled ordinary unbounded Nat operations and universal laws, exact full-byte reconstruction, retained core basis, concrete asymmetric/zero/reversed subtraction computations, eight fully reencoded wrong definitions/proofs, and distinction between typed Boolean value and proof of its truth. New named construction syntax is private and consumes only compiled recipes. No kernel/checker code changes, source-program claim or complete foundation/context registration. Only affected isolated Rust integration target, strict Clippy and format; retain passing unchanged core/Go/legacy matrices.",
+  "unchanged_tests_not_repeated": "Kernel/core/Go/legacy matrices already passed for the exact unchanged checker inputs at the preceding core checkpoint. Rehash unchanged Go binary and complete sources, exercise its actual affected new certificates. Scope Rust tests to new ordinary integration target and lint/format to changed producer/consumer sources.",
+  "frozen_design_preservation": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/frozen-design-preservation.json",
+    "sha256": "c1a99c92ce47413ae2294e47f2ea805c9cecf02e2703cc95e301b2000c2d1350",
+    "bytes": 633
+  },
+  "changed_input_review": "develop/migrations/go-practical/t02-w01/verification/natural-foundation/input-review/changed-inputs-review.json",
+  "CSharp_tests_executed": false,
+  "Go_application_theorem_demands_unelaborated": 169,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "source_program_proof_claimed": false,
+  "native_Linux_acceptance_claimed": false,
+  "remaining": [
+    "balanced mathematical integer representation, equivalence and representative-independent operations/observations",
+    "half-open bounded logical folds and definedness",
+    "complete word/carrier/source/operation/storage/lifetime/program laws",
+    "full56-family foundation descriptor/private registry/context and authority binding",
+    "authoritative immutable application capture/replay and source/export/closure mapping"
+  ]
+}

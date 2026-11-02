@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/word_arithmetic.py", line 189, in build
+    self.successor_laws();self.conservation();self.source_values()
+                          ^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/word_arithmetic.py", line 153, in conservation
+    p=self.translate(lhs,zero());p=p.then(AddNormalizer().prove(p.right,left))
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/word_arithmetic.py", line 133, in translate
+    e=e.then(p);return e.then(on_left(q,p.right['arguments'][1]))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/arithmetic_terms.py", line 32, in then
+    assert self.ty==other.ty and self.right==other.left,'explicit equality endpoints'
+AssertionError: explicit equality endpoints

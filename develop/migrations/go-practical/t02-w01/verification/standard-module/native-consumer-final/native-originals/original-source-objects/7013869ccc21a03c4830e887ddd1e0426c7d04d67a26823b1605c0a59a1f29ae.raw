@@ -1,0 +1,5 @@
+package policy
+import ("fmt";"strings";"net/http")
+func Root(s string) bool {return strings.HasPrefix(s,"pay:")}
+func Unused(x any) string {return fmt.Sprint(x)}
+func UnusedHandler(w http.ResponseWriter,r *http.Request) {fmt.Fprint(w,r.URL)}

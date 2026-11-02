@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/inspection/prelaunch.json",
+    "bytes": 20789425,
+    "sha256": "59b03514066bcb0da5751cced52ed3fb7fd123c236e58a00424ecbb0a8563082",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/inspection/driver.py",
+    "bytes": 7867,
+    "sha256": "c0033b96e82e7c0de053847d1244270244ff1090a1dad0355fff4f9c2e646f08",
+    "mode": 420
+  },
+  "seconds": 4.606214625004213,
+  "consumed_inputs_unchanged": true,
+  "packets": [
+    {
+      "packet": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/owned/contract-inputs.json",
+        "bytes": 11801,
+        "sha256": "492dc6ac4222852a56b3dd43b934c77b5b4cc5b894bd0e3503ad190e51705d26",
+        "mode": 384
+      },
+      "complete_original_objects": 5488,
+      "complete_original_bytes": 85381696,
+      "source_objects": 3,
+      "packages": 2,
+      "complete_captured_overlays": 3,
+      "native_package_membership_exact": true,
+      "raw_source_and_contract_bytes_exact": true
+    },
+    {
+      "packet": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/contract-inputs/native-final/native-originals/empty/contract-inputs-empty.json",
+        "bytes": 5127,
+        "sha256": "6c34ad7ee0868695b8ee4ffb3d866d11a168af48b9c13accc049849cddb9d568",
+        "mode": 384
+      },
+      "complete_original_objects": 5483,
+      "complete_original_bytes": 85370121,
+      "source_objects": 2,
+      "packages": 1,
+      "complete_captured_overlays": 0,
+      "native_package_membership_exact": true,
+      "raw_source_and_contract_bytes_exact": true
+    }
+  ],
+  "native_passed_roots": [
+    "TestPracticalContractInputsRequireOriginalOwner",
+    "TestPracticalContractInputsOwnEveryCapturedSidecar",
+    "TestPracticalContractInputsRejectDamagedSidecar",
+    "TestPracticalContractInputsNoAnnotationsKeepDefaults",
+    "TestPracticalSourceInputsRequireOriginalOwner",
+    "TestPracticalSourceInputsKeepOriginalReplacementPackage"
+  ],
+  "initial_and_final_complete_source_and_overlay_bytes_equal": true,
+  "damaged_inventory_controls": 4,
+  "scope": "Independent original byte/object/hash checks and complete actual Go package/overlay membership. Private input linkage only; not launcher, capture-context or source/program authority."
+}

@@ -1,0 +1,45 @@
+package policy
+type Word uint16
+type Text string
+type Byte uint8
+type Rune int32
+type Array [3]Word
+type OtherArray [3]Word
+type AliasVec=Vec
+type Bytes []byte
+type Vec []Word
+type OtherVec []Word
+type Record struct{X Word;Y uint64}
+type OtherRecord struct{X Word;Y uint64}
+type Tagged struct{X Word `json:"x"`;Y uint64}
+type DifferentInner struct{X uint16;Y uint64}
+type Inner struct{X Word;hidden uint64}
+func (Inner) Method()Word{return 0}
+type MethodLeft struct{Inner}
+func (MethodLeft) X()Word{return 0}
+type Left struct{Inner}
+type Right struct{Inner}
+type Diamond struct{Left;Right}
+type Direct struct{Left;X uint64}
+type Rival struct{Inner;X uint64}
+type Blank struct{X Word;_ uint8}
+type HasSlice struct{S []Word}
+type EmbedA struct{Inner}
+type EmbedB struct{Inner Inner}
+func Id(x Word)Word{return x}
+func GetArray()Array{return Array{}}
+func GetSlice()Vec{return nil}
+func GetRecord()Record{return Record{}}
+func TakeArray(x Array)Array{return x}
+func TakeSlice(x Vec)Vec{return x}
+func TakeRecord(x Record)Record{return x}
+func PairAggregate()(Array,Vec){return Array{},nil}
+func PairSizes()(int,int){return 1,2}
+func PairSliceWord()(Vec,Word){return nil,1}
+func PairSlices()(Vec,OtherVec){return nil,nil}
+func PairBytesString()(Bytes,Text){return nil,"a"}
+func PairSliceThree()(Vec,Word,Word){return nil,1,2}
+func VoidAggregate(){}
+func Probe(a Array,raw [3]Word,other OtherArray,sl Vec,words []Word,nums []uint16,i int,u uint64,text Text,str string,rec Record,direct Direct,diamond Diamond,rival Rival,private Inner,bad HasSlice,err error,otherSl OtherVec,bytes []byte,namedBytes Bytes,definedBytes []Byte,records []Record,slices [][]Word,errs []error,x Word){
+var Result  = append(PairBytesString()...);_ = Result
+}

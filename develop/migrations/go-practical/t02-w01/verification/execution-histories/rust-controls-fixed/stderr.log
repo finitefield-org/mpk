@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 4.88s
+     Running tests/go_practical_execution_history.rs (target/debug/deps/go_practical_execution_history-459754e5c38121a5)
+
+thread 'invalid_edges_initial_safety_and_missing_normal_completion_reject' (59267147) panicked at crates/mpk-vc/tests/go_practical_execution_history.rs:178:5:
+assertion `left == right` failed: unsafe-path-witness: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"e061ba22ef143fcbf1b1606bd7b8bc5cede622fe57fc081cc1f138f20bbbe639"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"11583\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"482\",\"kind\":\"check_type_mismatch\",\"term_index\":\"11585\"}}"}
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_execution_history`

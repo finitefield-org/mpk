@@ -1,0 +1,136 @@
+{
+  "status": "scoped_checks_passed_work_item_in_progress",
+  "basis_commit": "e20c93d4be21f6ef392170f3082992902e06f48b",
+  "observed_at_utc": "2026-10-26T05:23:00.791961+00:00",
+  "component": "Independent selection of original auxiliary Go build inputs and ignored-other files from complete immutable native namespace and source buffers.",
+  "checks": {
+    "build-original": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/build-original/result.json",
+      "bytes": 3442,
+      "sha256": "24661429eb9b0560844e202db010bf416759a61b0c1b6cc36952823c8dcb92fa",
+      "mode": 420
+    },
+    "clippy": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/clippy/result.json",
+      "bytes": 3453,
+      "sha256": "478baf13b24a0572b150e1518eab77eded965ee9e7e667a7152d3da282abdc1d",
+      "mode": 420
+    },
+    "format-check": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/format-check/result.json",
+      "bytes": 3574,
+      "sha256": "f091780c8f28d499e796403d3ba172eef30afa0fb6e56170770c0144820e5b8e",
+      "mode": 420
+    },
+    "go-format": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/go-format/result.json",
+      "bytes": 3802,
+      "sha256": "60ab9542998532c308500644475908f1cf7f8b9548b9d135d3617c7f76427f04",
+      "mode": 420
+    },
+    "go-format-check": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/go-format-check/result.json",
+      "bytes": 3819,
+      "sha256": "751f25eb6d41a92566746f127920aecb98e9a6fcd0679e5dc3aec9ae55c76bd0",
+      "mode": 420
+    },
+    "go-vet": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/go-vet/result.json",
+      "bytes": 3740,
+      "sha256": "6c0121abce2cfc2817649593bf724948881236ce238eb9044fec3a8e61ca1dfa",
+      "mode": 420
+    },
+    "native": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/native/result.json",
+      "bytes": 4040,
+      "sha256": "405055496a0649e9bb436c9d1b680936c1aece258207841d57a5a84d3944aeec",
+      "mode": 420
+    },
+    "rust-format": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/rust-format/result.json",
+      "bytes": 3557,
+      "sha256": "e297421a8307a7735fb1a57a403c4d414f20b6a52e3f8f64c66eeabeff4fa3c7",
+      "mode": 420
+    },
+    "rust-original": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/rust-original/result.json",
+      "bytes": 4527,
+      "sha256": "0a1e63bc979451d2be624994c6d99c005bd33d2c386ac3c63d92ee32cfe3173e",
+      "mode": 420
+    }
+  },
+  "independent_inspection": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/auxiliary-inputs/inspection.json",
+    "bytes": 5689,
+    "sha256": "20ece003decaeed1b541327419ced4c3ea2a78578ac7fd3054bdba3f1dd2a1ec",
+    "mode": 420
+  },
+  "affected_rust_roots": 18,
+  "actual_go_oracle_roots": 2,
+  "original_boundary_cases": 178,
+  "recognized_extensions": [
+    "F",
+    "S",
+    "c",
+    "cc",
+    "cpp",
+    "cxx",
+    "f",
+    "f90",
+    "for",
+    "h",
+    "hh",
+    "hpp",
+    "hxx",
+    "m",
+    "s",
+    "swig",
+    "swigcxx",
+    "sx",
+    "syso"
+  ],
+  "auxiliary_classes": [
+    "c",
+    "cxx",
+    "objective_c",
+    "headers",
+    "fortran",
+    "assembly",
+    "swig",
+    "swig_cxx",
+    "system_objects"
+  ],
+  "complete_original_package_directories": 2003,
+  "all_original_selected_auxiliary_counts": {
+    "c": 93,
+    "cxx": 0,
+    "objective_c": 0,
+    "headers": 36,
+    "fortran": 0,
+    "assembly": 186,
+    "swig": 0,
+    "swig_cxx": 0,
+    "system_objects": 3
+  },
+  "all_original_ignored_auxiliary_count": 1600,
+  "closed_original_buffer_controls": 2,
+  "original_proof_byte_streams": 32,
+  "original_error_case_universes": [
+    0,
+    70
+  ],
+  "original_roots_per_complete_source_unit": 43,
+  "language_scope": [
+    "Go",
+    "Rust"
+  ],
+  "additional_program_language_semantics": false,
+  "selection_reason": "Only auxiliary selection, its fixed-target build-comment consumer and complete package-file consumer changed. Compare all178 original native extension/target/header/read-error/binary cases and all2003 package directories in the three complete unchanged original universes. Run all18 affected Rust roots, two native Go oracle roots, strict Clippy, Go vet and explicit changed-file formats. Preserve previous39-header/182-build-case/13853-source observations and43-root/zero-or70-error/type domains and32 proof bytes. Full lexer/parser/language/kernel/foundation tests are unchanged and retained without repetition.",
+  "remaining": "Auxiliary input selection is not C/assembly or another program-language frontend. Cgo directive/embed selection, canonical module/build/compiler/export/capture/context/descriptor/registry and launcher authority, full56 foundation/all169 source/program demands, native Linux gates and remaining T02-T11 stay due.",
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "public_profile_activated": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "whole_T_gate_run": false
+}

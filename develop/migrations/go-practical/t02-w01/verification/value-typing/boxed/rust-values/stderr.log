@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 22.95s
+     Running tests/go_practical_value_typing.rs (target/debug/deps/go_practical_value_typing-c881a2be29c80335)
+
+thread 'matches_original_go_value_expression_and_binding_types' (48741071) panicked at crates/mpk-vc/tests/go_practical_value_typing.rs:125:13:
+case 573 "edge-Direct{Left:{Inner:{X:1}}}" falsely accepted: {"accepted":true,"initializer_body_or_invocation_state_or_program_authority":false,"values":[{"addressable":false,"boolean":null,"bytes_hex":null,"constant":false,"integer_decimal":null,"type_key":{"declaration_id":"32aef5a4f0ffed1cfb1cb98d9dff298004db021fb7cf731269a33c087b861123","id":"cd6c23f6523b721c493620267a5b7b3ade5a0ac315932c7d52b14512fc1aec89","kind":"nominal","schema":"mpk.go.source_type.v2"},"underlying_builtin":null}]}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_value_typing`

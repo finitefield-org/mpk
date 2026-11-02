@@ -636,9 +636,9 @@ fn semantic_registry(root: &Path) -> ValidatedSemanticProfileRegistry {
     validate_semantic_profile_registry(
         &fs::read(root.join("release/bundles/semantic-profile-registry.json"))
             .expect("semantic registry"),
-        RegistryRevision::Revision3,
+        RegistryRevision::Revision4,
     )
-    .expect("active revision-3 semantic registry")
+    .expect("active revision-4 semantic registry")
 }
 
 fn canonical(value: &impl Serialize) -> Vec<u8> {

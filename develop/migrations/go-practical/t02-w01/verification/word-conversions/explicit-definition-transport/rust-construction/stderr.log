@@ -1,0 +1,73 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0382]: borrow of moved value: `x`
+   --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/conversions/cubes.rs:272:47
+    |
+199 |         let x = var("x");
+    |             - move occurs because `x` has type `syntax::Expr`, which does not implement the `Copy` trait
+...
+269 |             mul(weight(t), quotient(s, t, x)),
+    |                                           - value moved here
+...
+272 |         let low_def = cube_value(t, low(s, t, x.clone()), l.clone());
+    |                                               ^ value borrowed here after move
+    |
+note: consider changing this parameter type in function `quotient` to borrow instead if owning the value isn't necessary
+   --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/conversions.rs:27:36
+    |
+ 27 | fn quotient(s: usize, t: usize, x: Expr) -> Expr {
+    |    -------- in this function       ^^^^ this parameter takes ownership of the value
+help: consider cloning the value if the performance cost is acceptable
+    |
+269 |             mul(weight(t), quotient(s, t, x.clone())),
+    |                                            ++++++++
+
+error[E0382]: borrow of moved value: `l`
+   --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/conversions/cubes.rs:272:59
+    |
+201 |         let (l, q, r) = if s == t {
+    |              - move occurs because `l` has type `syntax::Expr`, which does not implement the `Copy` trait
+...
+266 |         let expanded = add(value(t, l), mul(weight(t), q));
+    |                                     - value moved here
+...
+272 |         let low_def = cube_value(t, low(s, t, x.clone()), l.clone());
+    |                                                           ^ value borrowed here after move
+    |
+note: consider changing this parameter type in function `value` to borrow instead if owning the value isn't necessary
+   --> crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs:40:23
+    |
+ 40 | fn value(d: usize, x: Expr) -> Expr {
+    |    -----              ^^^^ this parameter takes ownership of the value
+    |    |
+    |    in this function
+help: consider cloning the value if the performance cost is acceptable
+    |
+266 |         let expanded = add(value(t, l.clone()), mul(weight(t), q));
+    |                                      ++++++++
+
+error[E0382]: borrow of moved value: `q`
+   --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/conversions/cubes.rs:273:66
+    |
+201 |         let (l, q, r) = if s == t {
+    |                 - move occurs because `q` has type `syntax::Expr`, which does not implement the `Copy` trait
+...
+266 |         let expanded = add(value(t, l), mul(weight(t), q));
+    |                                                        - value moved here
+...
+273 |         let q_def = Equality::natural(quotient(s, t, x.clone()), q.clone(), refl(nat(), q));
+    |                                                                  ^ value borrowed here after move
+    |
+note: consider changing this parameter type in function `mul` to borrow instead if owning the value isn't necessary
+   --> crates/mpk-vc/src/go_practical_ordinary/syntax.rs:70:31
+    |
+ 70 | pub(super) fn mul(a: Expr, b: Expr) -> Expr {
+    |               ---             ^^^^ this parameter takes ownership of the value
+    |               |
+    |               in this function
+help: consider cloning the value if the performance cost is acceptable
+    |
+266 |         let expanded = add(value(t, l), mul(weight(t), q.clone()));
+    |                                                         ++++++++
+
+For more information about this error, try `rustc --explain E0382`.
+error: could not compile `mpk-vc` (lib) due to 3 previous errors

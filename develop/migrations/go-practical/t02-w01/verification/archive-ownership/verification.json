@@ -1,0 +1,126 @@
+{
+  "status": "scoped_checks_passed",
+  "entry_commit": "7154ec0b2ac2ab56ac21e87e018d2f2c02545366",
+  "observed_at_utc": "2026-10-20T03:20:50.502641+00:00",
+  "production_source": {
+    "path": "go-tools/go2vir/practical_archive.go",
+    "sha256": "f8bc2ce51592797e9c9afe78a564e40c3524893aeb350824e78d46ca9620f8b3",
+    "bytes": 10962
+  },
+  "regression_source": {
+    "path": "go-tools/go2vir/practical_archive_ownership_test.go",
+    "sha256": "45ae78138bcfc8cdcf9eee55eeeaa0d778dcfb8c13215b53ee2f3a3d8a6104e4",
+    "bytes": 3634
+  },
+  "actual_bug": "The first parsed result and every cached result shared member-map/source-byte allocations with the private transaction cache. A returned map could authorize changed member bytes through a later fresh cache lookup, and returned bytes could change captured original buffers. Each side now owns independent exact raw bytes/member maps.",
+  "checks": {
+    "original/regression": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/original/regression/result.json",
+        "sha256": "c39bb2ef4d8ccfa636f64f89286dee308cee8197c201fc6d1f85de8a77ad46a0",
+        "bytes": 14468
+      },
+      "seconds": 3.9826220830436796
+    },
+    "reviewed/regression": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/reviewed/regression/result.json",
+        "sha256": "e69a26397419bb0eaae5bec684198a504e6508e3d1a95f4aefa39170db643ce6",
+        "bytes": 14468
+      },
+      "seconds": 4.016074041952379
+    },
+    "final/selected": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/final/selected/result.json",
+        "sha256": "cab8a249f57933010d3d5c3d59606bf9cd648aebd64ea7e0f1b4f272333d3833",
+        "bytes": 20420
+      },
+      "seconds": 54.1661652920302
+    },
+    "final/format": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/final/format/result.json",
+        "sha256": "8eed6b5356a3aab7f2409d80b75d796b4cb9090b5d60046dede8afd724d0a5bc",
+        "bytes": 14199
+      },
+      "seconds": 0.046860083006322384
+    },
+    "final/vet": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/final/vet/result.json",
+        "sha256": "36e7c1b2a17528b26b256ba3ca5b8c98b22d6ad2437c3a95ad3d359578042498",
+        "bytes": 14146
+      },
+      "seconds": 1.0404762499965727
+    },
+    "final/legacy": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/final/legacy/result.json",
+        "sha256": "d4cbf86bc4a82679a4c68aba9c8a12a01636a1ee5d1f3c038a027fd967919b57",
+        "bytes": 14130
+      },
+      "seconds": 3.516580125084147
+    }
+  },
+  "affected_Go_roots": 14,
+  "subtests": 45,
+  "actual_original_ownership_regressions": 4,
+  "independent_logged_original_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/observed-inputs/result.json",
+    "sha256": "320b9326a1af6f32c1530e787ed0a2719802fe0beba9baf132f3d196cdb55507",
+    "bytes": 3417
+  },
+  "independent_full_current_build_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/build-input-observation.json",
+    "sha256": "13bafc992a5465a506dc7ea02a7ae45c9fcd10e44d3a7edac0486ce440a3d256",
+    "bytes": 160806
+  },
+  "current_frontend_reproduction": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/final/selected/reproduced-builds.json",
+    "sha256": "869079e2bdd8add92a8fce8a5cc6717bd1f558689739d21568b7bb101bb2c335",
+    "bytes": 4759
+  },
+  "current_frontend_sha256": "7a8a86f713dbc1e0098db6af12f5b24134f5603466e59dfc9cf25edabea2142a",
+  "current_frontend_bytes": 8592898,
+  "frozen_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/frozen-design-preservation.json",
+    "sha256": "1a021cc42bb26993803e751c4b39e8c052916b3910e0b712b0510fd2b951a902",
+    "bytes": 52919
+  },
+  "observer_failure": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/observer-failures/result.json",
+    "sha256": "7e0061d2a79fddbd07e180f581f2a5f264c9343999005e1d44914a2830397ad6",
+    "bytes": 1126
+  },
+  "observer_repair": "Losslessly concatenate all original Go JSON Output fragments in recorded order, then inspect complete logged payload lines. Initial line-fragment observer source/stdout/stderr remains. No source/input/JSON normalization or record exclusion.",
+  "all_archive_validation_handles_terminal": true,
+  "unrelated_ordinary_product_handles_still_running": false,
+  "staged_or_committed": false,
+  "strict_changed_input_review": "../product-foundation/input-review/changed-inputs-review.json",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "native_Linux_acceptance_claimed": false,
+  "immutable_original_application_replay_claimed": false,
+  "remaining_application_demands": 169,
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp",
+  "remaining_scope": "Full56family foundation/descriptor/private context/registry and source/carrier/type/operation/state/program bindings, original package/export/selected-closure immutable capture/loading/replay, all169 application demands and original T02-T11 work/gates remain required. Archive/private buffer ownership is an input-integrity prerequisite, not original application verification authority.",
+  "initial_scoped_receipt": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/archive-ownership/verification-before-final-product-consolidation.json",
+    "sha256": "4a9deacf6047e9f4fa55de945a3aa4c9499fe1e428569bd9a00e6ece87ef3b22",
+    "bytes": 5601
+  },
+  "final_state_observed_at_utc": "2026-10-20T05:03:34.940757+00:00",
+  "finalization_runner": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/archive-ownership/finalize-checkpoint.py",
+    "sha256": "deb6154497e1ebb141245105caa3116c8c38e3d6afe67c840a85c516231cd28e",
+    "bytes": 2291
+  },
+  "related_final_product_checkpoint": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/verification.json",
+    "sha256": "08c3b28e1c6e4580efc91ac9204c8fdf4331df6d3d8f8f2804f1f65ac24d76fe",
+    "bytes": 11739
+  },
+  "all_related_product_validation_handles_terminal": true
+}

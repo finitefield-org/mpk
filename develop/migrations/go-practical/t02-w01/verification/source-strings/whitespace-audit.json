@@ -1,0 +1,54 @@
+{
+  "status": "passed_with_exact_preserved_native_stdout_EOF_exceptions",
+  "initial_default_check": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "exit_code": 2,
+    "stdout": "develop/migrations/go-practical/t02-w01/verification/source-strings/empty-size-transport/stdout.log:12: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-strings/first/stdout.log:14: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-strings/validity-parts/stdout.log:23: new blank line at EOF.\n",
+    "stderr": ""
+  },
+  "all_other_staged_files_default_check": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      ".",
+      ":(exclude)develop/migrations/go-practical/t02-w01/verification/source-strings/empty-size-transport/stdout.log",
+      ":(exclude)develop/migrations/go-practical/t02-w01/verification/source-strings/first/stdout.log",
+      ":(exclude)develop/migrations/go-practical/t02-w01/verification/source-strings/validity-parts/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "native_stdout_only_EOF_check": {
+    "command": [
+      "/usr/bin/git",
+      "-c",
+      "core.whitespace=-blank-at-eof",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      "develop/migrations/go-practical/t02-w01/verification/source-strings/empty-size-transport/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-strings/first/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-strings/validity-parts/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "exact_original_stdout_paths": [
+    "develop/migrations/go-practical/t02-w01/verification/source-strings/empty-size-transport/stdout.log",
+    "develop/migrations/go-practical/t02-w01/verification/source-strings/first/stdout.log",
+    "develop/migrations/go-practical/t02-w01/verification/source-strings/validity-parts/stdout.log"
+  ],
+  "no_stored_Git_configuration_change": true,
+  "source_or_proof_whitespace_exceptions": false
+}

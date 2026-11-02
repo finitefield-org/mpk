@@ -1,0 +1,153 @@
+{
+  "schema": "mpk.go_practical.t01_completion_audit.v1",
+  "status": "complete_under_explicit_CSharp_test_deferral",
+  "observed_at_utc": "2026-10-19T06:59:45.648195+00:00",
+  "stage": "GO-PRAC-T01",
+  "reviewed_implementation_commit": "4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1",
+  "reviewed_implementation_tree": "076e02b74b41b6cf9222f97765b414ee9ff0824c",
+  "requirements_source": "develop/docs/09_go_practical_subset_design-todo.md#3-go-prac-t01--feasibility-and-v1-freeze",
+  "user_amendment": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/amendment.json",
+    "sha256": "37649f9e0ba525205ea98ae02b0afa83fda07ae4ce69ea38ec3cecd7da38a251",
+    "bytes": 1666
+  },
+  "work_items": [
+    {
+      "id": "GO-PRAC-T01-W01",
+      "status": "complete",
+      "reviewed_commit": "bd5ee8047d8925f9c9d0f7502627fca33bb2c836",
+      "evidence": "develop/docs/go-practical-implementation-traceability-ledger.md"
+    },
+    {
+      "id": "GO-PRAC-T01-W02",
+      "status": "complete",
+      "reviewed_commit": "fed1cf6047f97b1f73c0fc37c5023e19f4f9f035",
+      "evidence": "develop/docs/go-practical-implementation-traceability-ledger.md"
+    },
+    {
+      "id": "GO-PRAC-T01-W03",
+      "status": "complete",
+      "reviewed_commit": "9d4e6fb7855a66d9fff309e6dbd9143652ee6e21",
+      "evidence": "develop/migrations/go-practical/t01-w03/completion-audit.json"
+    },
+    {
+      "id": "GO-PRAC-T01-W04",
+      "status": "design_complete_inactive",
+      "reviewed_commit": "68a44416e1b1a6dc3a84587cca784fc4b3a2b862",
+      "evidence": "develop/migrations/go-practical/t01-w04/completion-audit.json"
+    },
+    {
+      "id": "GO-PRAC-T01-W05",
+      "status": "complete_under_user_amendment",
+      "requirements": [
+        {
+          "id": "W05-publication",
+          "status": "met",
+          "evidence": {
+            "path": "develop/migrations/go-practical/t01-w05/publication-audit.json",
+            "sha256": "853363a5e7ec30de01d96674ec7571fa992ebbfcb95b61bdeeb0bc2b994db7e5",
+            "bytes": 2473
+          },
+          "current_checked_specifications": 5,
+          "new_vector_sets": 5,
+          "manifest_vector_sets": 31,
+          "retained_vector_sets": 26
+        },
+        {
+          "id": "W05-source_model_and_proof_feasibility_review",
+          "status": "met_as_design",
+          "evidence": {
+            "path": "develop/migrations/go-practical/t01-w05/source-feasibility-review.json",
+            "sha256": "4221cf828a330eb6dc9a0ae351ba6483a53f4a9758a7533077c2009a457d76f2",
+            "bytes": 4057
+          },
+          "undefined_semantic_decisions": 0,
+          "ordinary_source_operation_application_proofs": "Required in T02–T06; not claimed here."
+        },
+        {
+          "id": "W05-targeted_publication_checks",
+          "status": "met",
+          "evidence": {
+            "path": "develop/migrations/go-practical/t01-w05/verification/targeted-results.json",
+            "sha256": "ea675b508555ed889741c5e47bdfc54a02e05f1b258b7b4c26c5d2a446a8ab6a",
+            "bytes": 615
+          }
+        },
+        {
+          "id": "W05-frozen_inputs_and_installed_registry",
+          "status": "met",
+          "evidence": {
+            "path": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/static-completion-preflight.json",
+            "sha256": "d695e6d029efcbbf94624cdb49965bd752aef7af0149a53edef5c8fd7292c6d8",
+            "bytes": 59749
+          },
+          "frozen_design_members_checked": 255,
+          "current_registries_unchanged": 2
+        },
+        {
+          "id": "W05-final_source_review",
+          "status": "met",
+          "evidence": {
+            "path": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/input-review/changed-inputs-review.json",
+            "sha256": "cbf9d69b251b3415c4a4a6014816ac06ff9ed99e1c2cd2d86958d4372f43c1d9",
+            "bytes": 106343
+          },
+          "reviewed_inputs": 133,
+          "committed_files": 134,
+          "scanner_matchers": 127,
+          "scanner_scopes": 4,
+          "findings": 0,
+          "local_links_checked": 345
+        },
+        {
+          "id": "W05-cumulative_Go_development_gate",
+          "status": "passed",
+          "evidence": {
+            "path": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/run/result.json",
+            "sha256": "4f59dacb4efdaa60631be2761ef6822c30b0715c3d32f21643909b8a30f9048b",
+            "bytes": 2318
+          },
+          "raw_stdout": {
+            "path": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/run/stdout.log",
+            "sha256": "e251c570f823a8c7bf16c127c6827a72ec040302e1d0ad7ce4fd4393769aedb3",
+            "bytes": 68610
+          },
+          "raw_stderr": {
+            "path": "develop/migrations/go-practical/t01-w05/verification/go-development-gate/run/stderr.log",
+            "sha256": "bc97e7d1a97fbf5f070d225bcf6c006077d5bc38d38e92bfdcabdf4769e9b1bb",
+            "bytes": 10262
+          },
+          "command": [
+            "./scripts/check-fast.sh",
+            "--skip-csharp"
+          ],
+          "tests_passed": 594,
+          "failures": 0,
+          "selected_non_CSharp_integration_targets": 70,
+          "deferred_CSharp_integration_targets": 37,
+          "all16_Cargo_test_commands_observed": true,
+          "format_Clippy_strict_scanner_no_workflows_CLI_build": "passed",
+          "CLI_accepting_fixtures": 2,
+          "CLI_rejecting_fixtures": 2,
+          "wall_seconds": 598.1708976250375
+        }
+      ]
+    }
+  ],
+  "source_kind_amendment": {
+    "path": "develop/migrations/go-practical/t01-w05/source-kind/catalog.json",
+    "sha256": "1ddbd93204546f227c43dc7729d3547b56abe2a5870a4a418e1d424806b38219",
+    "bytes": 2858
+  },
+  "T01_complete": true,
+  "T02_started": false,
+  "next_work_item": "GO-PRAC-T02-W01",
+  "public_profile_activated": false,
+  "native_Linux_release_acceptance_claimed": false,
+  "complete_Go_source_semantics_claimed": false,
+  "Go_demands_still_unelaborated": 169,
+  "CSharp_application_ids_still_pending": 987,
+  "CSharp_validation_deferred_by_user": true,
+  "default_all_language_gate_passed": false,
+  "full_Go_T01_to_T11_objective_complete": false
+}

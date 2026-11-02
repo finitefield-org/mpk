@@ -1,0 +1,142 @@
+{
+  "schema": "mpk.go_practical.fresh_word_shifts_native_observation.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T21:13:08.353203+00:00",
+  "original_source": {
+    "path": "develop/probes/go-practical/shift_observer.go",
+    "sha256": "96a2e514184a301eeb00da7ca89d6b8e1619b9443fa84c351448abef502c2bd6",
+    "bytes": 3472
+  },
+  "owned_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/native/inputs/shift_observer.go",
+    "sha256": "96a2e514184a301eeb00da7ca89d6b8e1619b9443fa84c351448abef502c2bd6",
+    "bytes": 3472
+  },
+  "original_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/queries.json",
+    "sha256": "f5f75d2eedb6cfe7283a0bf24e0cf4b5bc78b4068a5a242c6b7de557252240da",
+    "bytes": 108396
+  },
+  "owned_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/native/inputs/queries.json",
+    "sha256": "f5f75d2eedb6cfe7283a0bf24e0cf4b5bc78b4068a5a242c6b7de557252240da",
+    "bytes": 108396
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "complete_original_prepared_image": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json",
+    "sha256": "c6bcb748bf728a999d4edd56fb4cd390f9c1134671990dfd4e35e0c1086cc75d",
+    "bytes": 2574682
+  },
+  "complete_original_image_checks": [
+    {
+      "label": "before fresh empty-cache native compilation",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 0.5205930829979479,
+      "status": "passed"
+    },
+    {
+      "label": "after native compilation and both executions",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 0.5621590000810102,
+      "status": "passed"
+    }
+  ],
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-word-shifts-native-aomhw1wu/image/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "observer_binary": {
+    "path": "/private/tmp/mpk-go-practical-word-shifts-native-aomhw1wu/word-shifts-observer",
+    "sha256": "c1dc951c4d72152675346ca076ebeef805b54ac6994e72129847f121f2543cd9",
+    "bytes": 2988626
+  },
+  "build_cache_initially_empty": true,
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-word-shifts-native-aomhw1wu/image/go",
+    "GOCACHE": "/private/tmp/mpk-go-practical-word-shifts-native-aomhw1wu/cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-word-shifts-native-aomhw1wu/gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-word-shifts-native-aomhw1wu/mod",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GO111MODULE": "off",
+    "CGO_ENABLED": "0",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": ""
+  },
+  "commands": [
+    {
+      "name": "build",
+      "command": [
+        "/private/tmp/mpk-go-practical-word-shifts-native-aomhw1wu/image/go/bin/go",
+        "build",
+        "-trimpath",
+        "-buildvcs=false",
+        "-o",
+        "/private/tmp/mpk-go-practical-word-shifts-native-aomhw1wu/word-shifts-observer",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-shifts/native/inputs/shift_observer.go"
+      ],
+      "exit_code": 0,
+      "seconds": 3.247099500033073,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/native/build.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/native/build.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run1",
+      "command": [
+        "/private/tmp/mpk-go-practical-word-shifts-native-aomhw1wu/word-shifts-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.4719800000311807,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/native/run1.stdout.log",
+        "sha256": "0568150cc9075a9a2909140c8697dc1dff88176ee1f180470243a20a472250d5",
+        "bytes": 154314
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/native/run1.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run2",
+      "command": [
+        "/private/tmp/mpk-go-practical-word-shifts-native-aomhw1wu/word-shifts-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.008230875013396144,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/native/run2.stdout.log",
+        "sha256": "0568150cc9075a9a2909140c8697dc1dff88176ee1f180470243a20a472250d5",
+        "bytes": 154314
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-shifts/native/run2.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "two_native_outputs_byte_identical": true,
+  "native_rows": 504,
+  "scope": "All504 original complete shift rows with actual typed Go left, unsigned-right and signed-right shifts; the signed and unsigned count routes retain all64 count bits and real negative-count panics. Actual selected fixed-shift stages, high-bit saturation and signed-left bit equality are observed. No giant power or unary count is materialized. Exact fresh5577-file prepared compiler image, empty cache and two byte-identical outputs. Finite observations supply no universal proof, source/application binding or Linux release gate.",
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

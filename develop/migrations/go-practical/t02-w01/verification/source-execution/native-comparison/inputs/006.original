@@ -1,0 +1,50 @@
+package main
+import (
+ "encoding/hex"
+ "encoding/json"
+ "fmt"
+ "os"
+ "reflect"
+ "strconv"
+ "strings"
+ p "example.com/policy"
+)
+func value(v reflect.Value)any{
+ switch v.Kind(){
+ case reflect.Interface:if v.IsNil(){return map[string]any{"kind":"error","nil":true}};return value(v.Elem())
+ case reflect.Bool:return map[string]any{"kind":"bool","value":v.Bool()}
+ case reflect.String:return map[string]any{"kind":"bytes","hex":hex.EncodeToString([]byte(v.String()))}
+ case reflect.Int,reflect.Int8,reflect.Int16,reflect.Int32,reflect.Int64:
+  width:=v.Type().Bits();bits:=uint64(v.Int());if width<64{bits&=(uint64(1)<<width)-1};return map[string]any{"kind":"word","bits":strconv.FormatUint(bits,10),"width":width}
+ case reflect.Uint,reflect.Uint8,reflect.Uint16,reflect.Uint32,reflect.Uint64:return map[string]any{"kind":"word","bits":strconv.FormatUint(v.Uint(),10),"width":v.Type().Bits()}
+ case reflect.Array,reflect.Struct:
+  count:=v.Len;get:=v.Index;if v.Kind()==reflect.Struct{count=v.NumField;get=v.Field};out:=[]any{};for i:=0;i<count();i++{out=append(out,value(get(i)))};return map[string]any{"kind":"aggregate","items":out}
+ case reflect.Slice:
+  out:=[]any{};for i:=0;i<v.Len();i++{out=append(out,value(v.Index(i)))};return map[string]any{"kind":"slice","nil":v.IsNil(),"length":v.Len(),"capacity":v.Cap(),"items":out}
+ };panic("observer kind")
+}
+func input(t reflect.Type,x map[string]any,previous []reflect.Value)reflect.Value{
+ if alias,ok:=x["alias"];ok{return previous[int(alias.(float64))]}
+ v:=reflect.New(t).Elem()
+ if nilValue,ok:=x["nil"];ok&&nilValue.(bool){return v}
+ if e,ok:=x["error"];ok{e:=e.(map[string]any);n,_:=strconv.ParseInt(e["word"].(string),10,64);v.Set(reflect.ValueOf(cases[e["case"].(string)](int16(n))));return v}
+ switch t.Kind(){
+ case reflect.Bool:v.SetBool(x["bool"].(bool))
+ case reflect.String:b,err:=hex.DecodeString(x["bytes"].(string));if err!=nil{panic(err)};v.SetString(string(b))
+ case reflect.Int,reflect.Int8,reflect.Int16,reflect.Int32,reflect.Int64:n,err:=strconv.ParseInt(x["word"].(string),10,64);if err!=nil{panic(err)};v.SetInt(n)
+ case reflect.Uint,reflect.Uint8,reflect.Uint16,reflect.Uint32,reflect.Uint64:n,err:=strconv.ParseUint(x["word"].(string),10,64);if err!=nil{panic(err)};v.SetUint(n)
+ case reflect.Array,reflect.Struct:xs:=x["items"].([]any);for i,x:=range xs{var d reflect.Value;if t.Kind()==reflect.Array{d=v.Index(i)}else{d=v.Field(i)};d.Set(input(d.Type(),x.(map[string]any),nil))}
+ case reflect.Slice:s:=x["slice"].(map[string]any);xs:=s["items"].([]any);v=reflect.MakeSlice(t,len(xs),len(xs));for i,x:=range xs{v.Index(i).Set(input(t.Elem(),x.(map[string]any),nil))};v=v.Slice(0,int(s["length"].(float64)))
+ default:panic("input kind")
+ };return v
+}
+func run(row map[string]any) (out map[string]any){
+ name,entry:=row["name"].(string),row["entry"].(string);f:=reflect.ValueOf(functions[entry]);args:=[]reflect.Value{};for i,x:=range row["args"].([]any){args=append(args,input(f.Type().In(i),x.(map[string]any),args))}
+ out=map[string]any{"name":name,"entry":entry,"result":[]any{},"fault":nil}
+ defer func(){if failure:=recover();failure!=nil{message:=fmt.Sprint(failure);kind:="unknown";switch{case strings.Contains(message,"index out of range"):kind="IndexBounds";case strings.Contains(message,"slice bounds"):kind="SliceBounds";case strings.Contains(message,"divide by zero"):kind="DivideByZero";case strings.Contains(message,"negative shift"):kind="NegativeShift";case strings.Contains(message,"makeslice"):kind="MakeBounds";case entry=="Entry":kind="NilInterfaceCall"};out["fault"]=kind;out["original_panic"]=message};after:=[]any{};for _,v:=range args{after=append(after,value(v))};out["after"]=after}()
+ values:=f.Call(args);result:=[]any{};for _,v:=range values{result=append(result,value(v))};out["result"]=result;return out
+}
+func main(){raw,err:=os.ReadFile(os.Args[1]);if err!=nil{panic(err)};var vectors map[string]any;if err=json.Unmarshal(raw,&vectors);err!=nil{panic(err)};out:=[]any{};for _,row:=range vectors["cases"].([]any){out=append(out,run(row.(map[string]any)))};if err=json.NewEncoder(os.Stdout).Encode(out);err!=nil{panic(err)}}
+
+var functions=map[string]any{"Aliased":p.Aliased,"ArrayView":p.ArrayView,"At":p.At,"Both":p.Both,"Bounds":p.Bounds,"CallLength":p.CallLength,"Choices":p.Choices,"Compute":p.Compute,"Constant":p.Constant,"Convert":p.Convert,"Entry":p.Entry,"FieldView":p.FieldView,"FromCall":p.FromCall,"Length":p.Length,"Literal":p.Literal,"Loop":p.Loop,"Make":p.Make,"Named":p.Named,"Once":p.Once,"Overflow64":p.Overflow64,"Range":p.Range,"RoundBytes":p.RoundBytes,"RoundRunes":p.RoundRunes,"Shadow":p.Shadow,"Shift":p.Shift,"Signed":p.Signed,"SliceLenCap":p.SliceLenCap,"Swap":p.Swap,"Switch":p.Switch,"Update":p.Update}
+var cases=map[string]func(int16)error{"Case00":func(n int16)error{return p.Case00(n)},"Case01":func(n int16)error{return p.Case01(n)},"Case02":func(n int16)error{return p.Case02(n)},"Case03":func(n int16)error{return p.Case03(n)},"Case04":func(n int16)error{return p.Case04(n)},"Case05":func(n int16)error{return p.Case05(n)},"Case06":func(n int16)error{return p.Case06(n)},"Case07":func(n int16)error{return p.Case07(n)},"Case08":func(n int16)error{return p.Case08(n)},"Case09":func(n int16)error{return p.Case09(n)},"Case10":func(n int16)error{return p.Case10(n)},"Case11":func(n int16)error{return p.Case11(n)},"Case12":func(n int16)error{return p.Case12(n)},"Case13":func(n int16)error{return p.Case13(n)},"Case14":func(n int16)error{return p.Case14(n)},"Case15":func(n int16)error{return p.Case15(n)},"Case16":func(n int16)error{return p.Case16(n)},"Case17":func(n int16)error{return p.Case17(n)},"Case18":func(n int16)error{return p.Case18(n)},"Case19":func(n int16)error{return p.Case19(n)},"Case20":func(n int16)error{return p.Case20(n)},"Case21":func(n int16)error{return p.Case21(n)},"Case22":func(n int16)error{return p.Case22(n)},"Case23":func(n int16)error{return p.Case23(n)},"Case24":func(n int16)error{return p.Case24(n)},"Case25":func(n int16)error{return p.Case25(n)},"Case26":func(n int16)error{return p.Case26(n)},"Case27":func(n int16)error{return p.Case27(n)},"Case28":func(n int16)error{return p.Case28(n)},"Case29":func(n int16)error{return p.Case29(n)},"Case30":func(n int16)error{return p.Case30(n)},"Case31":func(n int16)error{return p.Case31(n)},"Case32":func(n int16)error{return p.Case32(n)},"Case33":func(n int16)error{return p.Case33(n)},"Case34":func(n int16)error{return p.Case34(n)},"Case35":func(n int16)error{return p.Case35(n)},"Case36":func(n int16)error{return p.Case36(n)},"Case37":func(n int16)error{return p.Case37(n)},"Case38":func(n int16)error{return p.Case38(n)},"Case39":func(n int16)error{return p.Case39(n)},"Case40":func(n int16)error{return p.Case40(n)},"Case41":func(n int16)error{return p.Case41(n)},"Case42":func(n int16)error{return p.Case42(n)},"Case43":func(n int16)error{return p.Case43(n)},"Case44":func(n int16)error{return p.Case44(n)},"Case45":func(n int16)error{return p.Case45(n)},"Case46":func(n int16)error{return p.Case46(n)},"Case47":func(n int16)error{return p.Case47(n)},"Case48":func(n int16)error{return p.Case48(n)},"Case49":func(n int16)error{return p.Case49(n)},"Case50":func(n int16)error{return p.Case50(n)},"Case51":func(n int16)error{return p.Case51(n)},"Case52":func(n int16)error{return p.Case52(n)},"Case53":func(n int16)error{return p.Case53(n)},"Case54":func(n int16)error{return p.Case54(n)},"Case55":func(n int16)error{return p.Case55(n)},"Case56":func(n int16)error{return p.Case56(n)},"Case57":func(n int16)error{return p.Case57(n)},"Case58":func(n int16)error{return p.Case58(n)},"Case59":func(n int16)error{return p.Case59(n)},"Case60":func(n int16)error{return p.Case60(n)},"Case61":func(n int16)error{return p.Case61(n)},"Case62":func(n int16)error{return p.Case62(n)},"Case63":func(n int16)error{return p.Case63(n)},"Case64":func(n int16)error{return p.Case64(n)},"Case65":func(n int16)error{return p.Case65(n)},"Case66":func(n int16)error{return p.Case66(n)},"Case67":func(n int16)error{return p.Case67(n)},"Case68":func(n int16)error{return p.Case68(n)},"Case69":func(n int16)error{return p.Case69(n)}}

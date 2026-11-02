@@ -1,0 +1,61 @@
+{
+  "status": "failed",
+  "compiled_source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "started_at_utc": "2026-10-18T14:59:49.292635+00:00",
+  "command": [
+    "/private/tmp/mpk-t01-w05-calendar-original-test-binary",
+    "--exact",
+    "ordinary_carriers::projection_tests::binding_relation_tests::identity_proof_tests::csharp_03_t06_w09_identity_projection_proofs_original_source",
+    "--nocapture"
+  ],
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-calendar-original-test-binary",
+    "sha256": "53da17280f5e86f1aeee4737592031f4b70d1fc5632f403e7512b4c12ee23656",
+    "bytes": 40911640
+  },
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_identity_proof_tests.rs",
+      "sha256": "37e1a93de1168f52ded8a5398ad0e450b48167fe0af1d818d2ae020f4a6729d9",
+      "bytes": 9242
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/foundation-proofs/local/certificates/binding-vc-boundary_field.hex",
+      "sha256": "d29307a20389f649e5231e93e906d7fc5ebaec1eef9065dfcb7be21662c26ff8",
+      "bytes": 181331
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/verification-logs/foundation-proofs/local/certificates/binding-vc-boundary_field.json",
+      "sha256": "b4beb28c1f05aed68d55295fe3083acdff4b83f96a2823199f1dd5155127d617",
+      "bytes": 47682
+    }
+  ],
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_W09_IDENTITY_PROOFS_OUT",
+    "MPK_W09_IDENTITY_SOURCE_FILTER",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS"
+  ],
+  "prior_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_W09_IDENTITY_PROOFS_OUT": null,
+    "MPK_W09_IDENTITY_SOURCE_FILTER": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null
+  },
+  "scope": "Exact related original identity-owner test before edits; preserve all source contexts and original assertions.",
+  "exit_code": 101,
+  "wall_seconds": 0.703824833035469,
+  "finished_at_utc": "2026-10-18T14:59:50.056092+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/identity.stdout.log",
+    "sha256": "0e9f5fd0bcd9d83819433d5633ba1f24347694aecb87ed89a6b1583cba70b1f9",
+    "bytes": 448
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/identity.stderr.log",
+    "sha256": "9d2198968a5e77679ba65134b3ad18b3fb3467b242587c108130df6e58e002e4",
+    "bytes": 746891
+  }
+}

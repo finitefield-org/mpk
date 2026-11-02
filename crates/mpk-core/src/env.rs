@@ -314,12 +314,21 @@ impl Environment {
         }
 
         if let DeclarationKind::Constructor { inductive, .. } = kind {
-            if self.has_bool_cases(inductive) {
+            let closed_kind = if self.has_bool_cases(inductive) {
+                Some("closed_bool_cases_family")
+            } else if crate::nat_induct::has_nat_induct(self, inductive) {
+                Some("closed_nat_induct_family")
+            } else if crate::bool_rec_type::has_bool_rec_type(self, inductive) {
+                Some("closed_bool_type_recursion_family")
+            } else {
+                None
+            };
+            if let Some(closed_kind) = closed_kind {
                 return Err(CoreError::new(
                     CoreErrorCode::InvalidDeclaration,
                     declarations_location(),
                 )
-                .with_detail("kind", "closed_bool_cases_family")
+                .with_detail("kind", closed_kind)
                 .with_detail("name", name.as_str())
                 .with_detail("inductive", inductive.as_u32().to_string()));
             }

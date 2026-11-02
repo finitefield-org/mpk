@@ -1,0 +1,35 @@
+package policy
+import h "example.com/policy/helper"
+const (Size=1<<iota; Size2; Size4)
+type Word uint16
+type Alias=Word
+type Base [Size2]Alias
+type Wrap Base
+type Chain=Wrap
+type Anon=struct{ private Word "\xff"; É byte; ǅ byte; ᴬ byte; _ bool; _ bool }
+type ArrayAlias=[2]Word
+type SliceAlias=[]Word
+type Empty struct{}
+type Composite struct{
+ GroupA,GroupB Alias "\000"
+ Anon
+ ArrayAlias
+ SliceAlias
+ E error
+ Foreign h.Record
+ Folded [(1<<100)>>99]Word
+ Imported [h.Size]byte
+ Zero [0]Empty
+ Tags struct{ Raw string `line
+next`; Empty string ""; Missing string }
+}
+func Observe(root Composite, wrap Wrap, chain Chain, array ArrayAlias, view SliceAlias, empty Empty, builtin error){
+ _ = root
+ _ = wrap
+ _ = chain
+ _ = array
+ _ = view
+ _ = empty
+ _ = builtin
+}
+func init(){panic("application must not execute")}

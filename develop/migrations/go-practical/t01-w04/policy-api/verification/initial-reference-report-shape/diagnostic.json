@@ -1,0 +1,11 @@
+{
+  "classification": "probe_reference_report_shape_failure",
+  "meaning": "Both actual checkers accepted the rebound certificate at zero axioms. The observer expected verbose hash names and an explicit zero axiom_count; the pinned Go checker uses short hash keys and omits zero count. The existing production parser explicitly supports that protocol.",
+  "repair": "Validate the actual accepted-report field set,short hash keys and documented absent-zero count; preserve exact full source bytes and compare all three hashes to Rust.",
+  "inputs": [
+    {
+      "path": "policy_roots.py",
+      "sha256": "5f4004d6bb075f6e8565c4b9191e95f5bd1beba5e627af7b7a2a649e5f5e6abe"
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "schema": "mpk.go_practical.input_echo_followup_repair.v0",
+  "status": "all_selected_checks_passed_final_input_review_and_full_gate_pending",
+  "observed_at_utc": "2026-10-18T20:15:25.447605+00:00",
+  "source_base_commit": "145675b6d362035ae717af82006d3d622f8aa1a0",
+  "compiled_original_source": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "original_failures": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/transition-clauses-diagnosis/result.json",
+      "sha256": "0c6a9c4f21b4bb9b69be6704bf24a0dcc205e91f595b9a1a3926bfafdf4b9385",
+      "bytes": 5290
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/literal-clauses-diagnosis/result.json",
+      "sha256": "307825f56f5b11c566fc83e6333ae9aaad1fcede28068ef89ba520eee046ec35",
+      "bytes": 4914
+    }
+  ],
+  "exact_assertion_audits": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/transition-clauses-diagnosis/exact-request-operands-audit.json",
+      "sha256": "ea25c4873ae4204e97164b2db60ec145a19e874a12a0bc16589bb05bd42aba5d",
+      "bytes": 1520
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/literal-clauses-diagnosis/exact-request-operands-audit.json",
+      "sha256": "4289eadf6249fc8235c80b4456c983b6ea829e74943ae7ad57706b4c8b6be9c5",
+      "bytes": 1558
+    }
+  ],
+  "input_manifest": {
+    "path": "develop/migrations/go-practical/t01-w05/retained-csharp/input-echo-followup/manifest.json",
+    "sha256": "19c73aee2d771b2cfebec5b535cbf5300a4aac6bc2fdb0a000b1ffb420f46be9",
+    "bytes": 2815
+  },
+  "source_preservation": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/source-preservation-audit.json",
+    "sha256": "23e2ebd6f9a1e7acad0407dd08db6108032a0f6110545490479ab18a192d799a",
+    "bytes": 1767
+  },
+  "selected": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/build/result.json",
+      "sha256": "2a60d3b8a4dc1b3b71f30e14a33d9e90dfdf6b77ec05865f47d69e818db499f2",
+      "bytes": 2353,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 41.52243445802014
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/transition/result.json",
+      "sha256": "d8224e03f10027c4b0d6ea748bdfbe49335511c5c07325719eddfc3f58f068b7",
+      "bytes": 3510,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 1.7240284170256928
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/literal/result.json",
+      "sha256": "94120eb8e73f0bd6c9b398aab5365cc6c5e353b63e77184c3888b7a82700b280",
+      "bytes": 3459,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 2.9066727499011904
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/format/result.json",
+      "sha256": "1ccafd64a6ab523f6921a269844d05b265bc710158755336ab41397046cc35f6",
+      "bytes": 3088,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 4.002209959086031
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/clippy/result.json",
+      "sha256": "8df9b9b8dab0aeca9de4dcd8a31a31b086670d40c6b4d58cf6c17859d23373dc",
+      "bytes": 3220,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 5.643417833023705
+    }
+  ],
+  "cases": {
+    "transition": {
+      "contexts": 2,
+      "projection_observations": 999,
+      "original_assertions": 11,
+      "normal_seconds": 1.7240284170256928
+    },
+    "literal": {
+      "contexts": 1,
+      "literal_constants": 18,
+      "packet_observations": 1414,
+      "original_assertions": 11,
+      "normal_seconds": 2.9066727499011904,
+      "standalone_terms": 58042,
+      "standalone_declarations": 713,
+      "integrated_terms": 61724,
+      "integrated_declarations": 1033
+    }
+  },
+  "three_added_input_guards_per_owner": true,
+  "all_original_cases_selector_packet_loops_strict_imports_definition_closures_mutations_component_goldens_preserved": true,
+  "all_original_fixture_bytes_and_nested_UTF8_source_values_unchanged": true,
+  "representation_difference": "Original ASCII-escaped outer request JSON versus actual UTF8 pretty serialization; complete JSON values and every nested sidecar/source string remain equal. The actual original failed right operands are fixed separately.",
+  "previous_passing_binary_snapshot": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/input-echo-followup-repair/prior-passing-binary-snapshot.json",
+    "sha256": "c7717e39dfa2b0d9e6c42e87a671023ace256dc91b17c9f7e7072fbb9625ad60",
+    "bytes": 794
+  },
+  "production_interpreter_kernel_checker_changes": false,
+  "application_proofs_discharged": false,
+  "profiles_activated": false,
+  "CSharp_application_ids_pending": 987,
+  "Go_demands_unelaborated": 169,
+  "remaining_original_whole_finding": "The original control source-step count omission is diagnosed. The first additive observer runtime attempt failed at its new SSA use-site/definition-point comparison; exact8 bindings/source/binary/logs are preserved. Independent original VIR origin restoration and both shared metadata owners pass all18 contexts/582 steps plus the constructor context. The full original runtime retry is running.",
+  "full_gate": "The original source320 diagnostic still runs; the entire committed repaired gate remains mandatory before completing W05/T01 or starting T02.",
+  "T01_complete": false,
+  "T02_started": false,
+  "remaining_original_whole_finding_verification": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/verification.json"
+}

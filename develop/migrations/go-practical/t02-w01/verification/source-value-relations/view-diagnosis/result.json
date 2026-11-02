@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "scope": "Diagnostic removal of only nonvector identity views in the complete original failed stream; native caps and every source type/case/field remain. Not an exact source-factory import or normal row.",
+  "started_at_utc": "2026-10-22T21:35:04.459924+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/view-diagnosis/driver.py",
+    "bytes": 3823,
+    "sha256": "2c9bfd5f025025aae274d3cf8b282a40e79eb13be271c5e1491e6c67bc3adc0f"
+  },
+  "complete_prelaunch_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/view-diagnosis/prelaunch-inputs.json",
+    "bytes": 9475,
+    "sha256": "8d663e8c8f114d71872a4a7144abfba19f08082041ba546a4e3e99ad727c3db1"
+  },
+  "commands": [
+    [
+      "rustc",
+      "--edition=2021",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/diagnose-view.rs",
+      "-L",
+      "dependency=target/debug/deps",
+      "-o",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/view-diagnosis/diagnosis",
+      "--extern",
+      "mpk_cert=target/debug/deps/libmpk_cert-56581625005ce3b7.rlib",
+      "--extern",
+      "mpk_kernel=target/debug/deps/libmpk_kernel-0d580f7bf4ab7bf5.rlib"
+    ],
+    [
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/view-diagnosis/diagnosis",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/heterogeneous-fields/certificates/heterogeneous-payloads-nil.mpcert",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/redundant-views.txt",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/view-diagnosis/candidate.mpcert"
+    ]
+  ],
+  "tools": {
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "compiled_diagnostic_binary_before_execution": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/view-diagnosis/diagnosis",
+    "bytes": 1523480,
+    "sha256": "b843a3e5407ec05796739cbb7e61a721d9eb2eddb3db1858b6a284ecbbde3b6a"
+  },
+  "whole_inputs_unchanged": true,
+  "exit_code": 0,
+  "seconds": 3.6003021670039743,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/view-diagnosis/stdout.log",
+    "bytes": 700,
+    "sha256": "bbd8396c2f909beed5a27436565a8568f1003ebfc71536bc92547c5f4b12c9c8"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/view-diagnosis/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "finished_at_utc": "2026-10-22T21:35:08.106432+00:00"
+}

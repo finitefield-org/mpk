@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T13:40:12.421052+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_analysis_vendor",
+    "--test",
+    "go_practical_type_keys"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-vendor/vendor-selected/inputs.json",
+    "bytes": 212939,
+    "sha256": "d49cdbc1b5c35f7e66c956d24646fa85603566518d1bf8070cdc3971dd98359c",
+    "mode": 420
+  },
+  "selection_reason": "Check independent parsing of the complete original Go analysis-vendor manifest and affected consumers. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 68.15881854199688,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-vendor/vendor-selected/stdout.log",
+    "bytes": 818,
+    "sha256": "edc1a675bd0e27eba30b19a6a6d06a9e23a898b882f5a01be903dbf75b46bee7",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-vendor/vendor-selected/stderr.log",
+    "bytes": 356,
+    "sha256": "1709683bcb713f6f43bae2ba921f46b16a604bd7c838bf7d4c6c7d46a53818fa",
+    "mode": 420
+  }
+}

@@ -160,6 +160,18 @@ func (c *coreCheckContext) checkDeclarations() error {
 				return err
 			}
 			if declaration.Tag == DeclRecursor {
+				if err := c.state.checkNatInductDeclaration(name, ty, inductive, declaration.Generated); err != nil {
+					return err
+				}
+				if err := c.state.checkPriorNatInductUses(name, inductive); err != nil {
+					return err
+				}
+				if err := c.state.checkBoolRecTypeDeclaration(name, ty, inductive, declaration.Generated); err != nil {
+					return err
+				}
+				if err := c.state.checkPriorBoolRecTypeUses(name, inductive); err != nil {
+					return err
+				}
 				if err := c.state.checkBoolCasesDeclaration(name, ty, inductive, declaration.Generated); err != nil {
 					return err
 				}
@@ -386,6 +398,12 @@ func (s *coreState) infer(term coreTermID, context coreLocalContext) (coreTermID
 		}
 		return s.lift(ty, amount)
 	case TermConst:
+		if err := s.checkNatInductConstantLevels(coreGlobalID(node.A), len(node.Levels) != 0); err != nil {
+			return 0, err
+		}
+		if err := s.checkBoolRecTypeConstantLevels(coreGlobalID(node.A), len(node.Levels) != 0); err != nil {
+			return 0, err
+		}
 		if err := s.checkBoolCasesConstantLevels(coreGlobalID(node.A), len(node.Levels) != 0); err != nil {
 			return 0, err
 		}
@@ -803,6 +821,12 @@ func (e *coreEnvironment) registerGenerated(name string, tag DeclarationTag, ty 
 func (e *coreEnvironment) register(name string, declaration coreDeclaration) (coreGlobalID, error) {
 	if declaration.tag == DeclConstructor && e.hasBoolCases(declaration.inductive) {
 		return 0, newCoreError(CoreCheckInvalidDeclaration, "constructor added to closed Bool cases family")
+	}
+	if declaration.tag == DeclConstructor && e.hasNatInduct(declaration.inductive) {
+		return 0, newCoreError(CoreCheckInvalidDeclaration, "constructor added to closed Nat induction family")
+	}
+	if declaration.tag == DeclConstructor && e.hasBoolRecType(declaration.inductive) {
+		return 0, newCoreError(CoreCheckInvalidDeclaration, "constructor added to closed Bool type selection family")
 	}
 	for _, existing := range e.declarations {
 		if existing.name == name {

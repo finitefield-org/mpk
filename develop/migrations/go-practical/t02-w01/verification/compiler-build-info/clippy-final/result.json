@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_compiler_inputs",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/clippy-final/inputs.json",
+    "bytes": 81603809,
+    "sha256": "f769e0755d37e732c7dd867983d950b09db7c70fcf499a24160c798f1c5784e5",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/run.py",
+    "bytes": 9481,
+    "sha256": "9e4101332ee2fac84f8b2a96b0a7ad5e4039fdf91be02d0c3e8f58dadf6690ea",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T18:49:43.609203+00:00",
+  "selection_reason": "Independently read all nine actual original SDK executables and compare pinned Go native build-info facts, byte strings, legacy/inline object mappings and binding decisions. Keep complete original182-package/5697-object source/one-Root-contract and all5577 actual SDK files. Run all five compiler ownership/control roots, one byte-exact native comparison root and all six affected export roots, strict affected Clippy, new native test vet and changed formats. Three fully resealed actual gofmt executable mutations change release/tool/CGO settings while preserving every original source/Root contract and compiler file membership. Existing whole source/type/error/proof universes, source/bundle/kernel/certificate caps and scanner rules stay fixed. No full gate or removed-language tests.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 58.39093683299143,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/clippy-final/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/clippy-final/stderr.log",
+    "bytes": 200,
+    "sha256": "50108b8ba63dd0cc3b0947a4bff81a49686c718ca149755a4832566efe0520f0",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T18:50:42.001726+00:00"
+}

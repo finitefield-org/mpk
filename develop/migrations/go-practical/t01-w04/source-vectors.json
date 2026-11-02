@@ -1,0 +1,1055 @@
+{
+  "cases": [
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "root-aggregate",
+      "id": "root-slice-aggregate",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {
+          "Root": {
+            "alias": false
+          },
+          "Rows": {
+            "alias": false
+          }
+        }
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R006",
+      "selected_root": "F",
+      "source": "package p\ntype Line struct { Amount int64; SKU string }\ntype Rows []Line\ntype Root struct { Lines Rows; Nested [2]Rows }\nfunc F(r Root) int { c := r; a := c.Nested; return len(c.Lines)+cap(a[0]) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "root-aggregate",
+      "id": "root-descriptor-rebind",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R006",
+      "selected_root": "F",
+      "source": "package p\ntype Root struct { Values []int64 }\nfunc F(r Root) Root { c := r; c.Values = []int64{23}; return c }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "root-aggregate",
+      "id": "root-fixed-array-of-slices",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R006",
+      "selected_root": "F",
+      "source": "package p\nfunc F(r [2][]int64) int { c := r; return len(c[0])+cap(c[1]) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "plain-cell",
+      "id": "plain-struct-slice-cell",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R013",
+      "selected_root": "F",
+      "source": "package p\ntype Line struct { Amount int64; SKU string; Flags [2]bool }\nfunc F(s []Line) int64 { if len(s)==0 { return 0 }; return s[0].Amount }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "plain-cell",
+      "id": "nested-slice-cell",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R013",
+      "selected_root": "F",
+      "source": "package p\nfunc F(s [][]int64) int { return len(s) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "plain-cell",
+      "id": "nested-struct-slice-cell",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R013",
+      "selected_root": "F",
+      "source": "package p\ntype Box struct { Values []int64 }\nfunc F(s []Box) int { return len(s) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "plain-cell",
+      "id": "nested-array-slice-cell",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R013",
+      "selected_root": "F",
+      "source": "package p\nfunc F(s [][2][]int64) int { return len(s) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "closed-type-graph",
+      "id": "recursive-slice-element",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R006",
+      "selected_root": "F",
+      "source": "package p\ntype Node struct { Children []Node }\nfunc F(n Node) int { return len(n.Children) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "nominal",
+      "id": "named-and-alias-types",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {
+          "Alias": {
+            "alias": true,
+            "underlying": "int"
+          },
+          "Amount": {
+            "alias": false,
+            "underlying": "int"
+          },
+          "Bytes": {
+            "alias": true,
+            "underlying": "[]byte"
+          },
+          "Label": {
+            "alias": false,
+            "underlying": "string"
+          },
+          "Status": {
+            "alias": false,
+            "underlying": "bool"
+          }
+        }
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R006",
+      "selected_root": "F",
+      "source": "package p\ntype Amount int\ntype Status bool\ntype Label string\ntype Rows []Amount\ntype Alias = Amount\ntype Bytes = []byte\nfunc F(n Alias, r Rows, b Bytes, label Label, ok Status) (Amount, Rows) {\n    if ok && len(label)>0 && len(b)>0 { return Amount(n)+Amount(b[0]), append(r, Rows{}...) }\n    return n, r\n}\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "nominal",
+      "id": "nominal-assignment-confusion",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": "cannot use a",
+        "status": "source_type_error",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R006",
+      "selected_root": "F",
+      "source": "package p\ntype A int64\ntype B int64\nfunc F(a A) B { return a }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "nominal",
+      "id": "integer-constant-overflow",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": "overflows",
+        "status": "source_type_error",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R006",
+      "selected_root": "F",
+      "source": "package p\nfunc F() int8 { return 128 }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "excluded-type",
+      "id": "uintptr-is-outside-v1",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R006",
+      "selected_root": "F",
+      "source": "package p\nfunc F(n uintptr) uintptr { return n }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "excluded-type",
+      "id": "float-is-outside-v1",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R006",
+      "selected_root": "F",
+      "source": "package p\nfunc F(n float64) float64 { return n }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "closed-error",
+      "id": "bool-value-error",
+      "native_expectation": {
+        "call_assertions": [
+          {
+            "kind": "conversion",
+            "target": "mpk.private.w04/bool-value-error.Flag",
+            "text": "Flag(false)"
+          }
+        ],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {
+          "Flag": {
+            "pointer_error": true,
+            "value_error": true
+          }
+        }
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Flag bool\nfunc (Flag) Error() string { return \"flag\" }\nfunc F() error { return Flag(false) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "closed-error",
+      "id": "integer-value-error",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {
+          "Code": {
+            "pointer_error": true,
+            "value_error": true
+          }
+        }
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F() (int64, error) { return 7, Code(0) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "closed-error",
+      "id": "plain-struct-error",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {
+          "Failure": {
+            "pointer_error": true,
+            "value_error": true
+          }
+        }
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Failure struct { Code int64; Message string }\nfunc (Failure) Error() string { return \"failure\" }\nfunc F() error { return Failure{} }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "closed-error-root-payload",
+      "id": "root-slice-error",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {
+          "Failure": {
+            "pointer_error": true,
+            "value_error": true
+          }
+        }
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Failure struct { Values []int64 }\nfunc (Failure) Error() string { return \"failure\" }\nfunc F(s []int64) error { return Failure{Values:s} }\n"
+    },
+    {
+      "contract_context": {
+        "entry_error_types": [
+          "Code"
+        ]
+      },
+      "draft_outcome": "accepted_model",
+      "draft_rule": "plain-closed-error-cell",
+      "id": "plain-closed-error-cells",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F(s []error) int { return len(s) }\n"
+    },
+    {
+      "contract_context": {
+        "entry_error_types": [
+          "Failure"
+        ]
+      },
+      "draft_outcome": "source_rejection",
+      "draft_rule": "plain-closed-error-cell",
+      "id": "reference-closed-error-cells",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Failure struct { Values []int64 }\nfunc (Failure) Error() string { return \"failure\" }\nfunc F(s []error) int { return len(s) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "closed-type-graph",
+      "id": "recursive-error-payload",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R006",
+      "selected_root": "F",
+      "source": "package p\ntype Failure struct { Cause error }\nfunc (Failure) Error() string { return \"failure\" }\nfunc F() error { return Failure{} }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "closed-error-kind",
+      "id": "string-concrete-error",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {
+          "Failure": {
+            "pointer_error": true,
+            "value_error": true
+          }
+        }
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Failure string\nfunc (Failure) Error() string { return string(Failure(\"\")) }\nfunc F() error { return Failure(\"\") }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "pointer-error",
+      "id": "pointer-concrete-error",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F() error { var p *Code; return p }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "closed-error",
+      "id": "wrong-error-result-type",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": "does not implement error",
+        "status": "source_type_error",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Message string\ntype Code int64\nfunc (Code) Error() Message { return \"\" }\nfunc F() error { return Code(0) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "signature-versus-body",
+      "id": "boxing-signature-only",
+      "native_expectation": {
+        "call_assertions": [
+          {
+            "kind": "conversion",
+            "target": "mpk.private.w04/boxing-signature-only.Code",
+            "text": "Code(0)"
+          }
+        ],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "closure",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go",
+      "requirement": "GO-V1-R004",
+      "selected_root": "F",
+      "source": "package p\ntype Code int64\nvar calls int\nfunc (Code) Error() string { calls++; return \"code\" }\nfunc F() error { return Code(0) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "direct-error-call",
+      "id": "direct-error-body-call",
+      "native_expectation": {
+        "call_assertions": [
+          {
+            "kind": "direct_method",
+            "target": "(mpk.private.w04/direct-error-body-call.Code).Error",
+            "text": "c.Error()"
+          }
+        ],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F(c Code) string { return c.Error() }\n"
+    },
+    {
+      "contract_context": {
+        "entry_error_types": [
+          "Code",
+          "Flag"
+        ]
+      },
+      "draft_outcome": "accepted_model",
+      "draft_rule": "closed-error-call",
+      "id": "closed-error-body-call",
+      "native_expectation": {
+        "call_assertions": [
+          {
+            "kind": "interface_invoke",
+            "target": "(error).Error",
+            "text": "e.Error()"
+          }
+        ],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Code int64\ntype Flag bool\nfunc (Code) Error() string { return \"code\" }\nfunc (Flag) Error() string { return \"flag\" }\nfunc F(e error) string { if e == nil { return \"\" }; return e.Error() }\n"
+    },
+    {
+      "contract_context": {
+        "entry_allows_nil": true,
+        "entry_error_types": [
+          "Code"
+        ]
+      },
+      "draft_outcome": "accepted_model_pending_safety",
+      "draft_rule": "closed-error-call",
+      "id": "closed-error-call-without-nil-guard",
+      "native_expectation": {
+        "call_assertions": [
+          {
+            "kind": "interface_invoke",
+            "target": "(error).Error",
+            "text": "e.Error()"
+          }
+        ],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F(e error) string { return e.Error() }\n"
+    },
+    {
+      "contract_context": {
+        "entry_error_types": [
+          "Code"
+        ]
+      },
+      "draft_outcome": "source_rejection",
+      "draft_rule": "signature-versus-body",
+      "id": "closed-error-body-global-effect",
+      "native_expectation": {
+        "call_assertions": [
+          {
+            "kind": "interface_invoke",
+            "target": "(error).Error",
+            "text": "e.Error()"
+          }
+        ],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "closure",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go",
+      "requirement": "GO-V1-R004",
+      "selected_root": "F",
+      "source": "package p\ntype Code int64\nvar calls int\nfunc (Code) Error() string { calls++; return \"code\" }\nfunc F(e error) string { if e == nil { return \"\" }; return e.Error() }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "configuration_rejection",
+      "draft_rule": "closed-error-universe",
+      "id": "unclosed-error-input",
+      "native_expectation": {
+        "call_assertions": [
+          {
+            "kind": "interface_invoke",
+            "target": "(error).Error",
+            "text": "e.Error()"
+          }
+        ],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\nfunc F(e error) string { if e == nil { return \"\" }; return e.Error() }\n"
+    },
+    {
+      "contract_context": {
+        "entry_error_types": [
+          "Code"
+        ]
+      },
+      "draft_outcome": "accepted_model",
+      "draft_rule": "closed-error-call",
+      "id": "error-alias-input",
+      "native_expectation": {
+        "call_assertions": [
+          {
+            "kind": "interface_invoke",
+            "target": "(error).Error",
+            "text": "e.Error()"
+          }
+        ],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {
+          "Alias": {
+            "alias": true,
+            "value_error": true
+          }
+        }
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Code int64\ntype Alias = error\nfunc (Code) Error() string { return \"code\" }\nfunc F(e Alias) string { if e == nil { return \"\" }; return e.Error() }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "open-interface",
+      "id": "defined-error-interface",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {
+          "Other": {
+            "alias": false,
+            "value_error": true
+          }
+        }
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Other error\nfunc F(e Other) bool { return e==nil }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "open-interface",
+      "id": "anonymous-error-interface",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\nfunc F(e interface { Error() string }) bool { return e==nil }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "closed-error-kind",
+      "id": "array-concrete-error",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {
+          "Failure": {
+            "pointer_error": true,
+            "value_error": true
+          }
+        }
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Failure [1]int64\nfunc (Failure) Error() string { return \"failure\" }\nfunc F() error { return Failure{} }\n"
+    },
+    {
+      "contract_context": {
+        "entry_error_types": []
+      },
+      "draft_outcome": "accepted_model",
+      "draft_rule": "closed-error-universe",
+      "id": "empty-error-entry-universe",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\nfunc F(e error) bool { return e==nil }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "open-interface",
+      "id": "open-interface-call",
+      "native_expectation": {
+        "call_assertions": [
+          {
+            "kind": "interface_invoke",
+            "target": "(mpk.private.w04/open-interface-call.Message).Text",
+            "text": "m.Text()"
+          }
+        ],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Message interface { Text() string }\nfunc F(m Message) string { return m.Text() }\n"
+    },
+    {
+      "contract_context": {
+        "entry_error_types": [
+          "Code"
+        ]
+      },
+      "draft_outcome": "source_rejection",
+      "draft_rule": "error-comparison",
+      "id": "error-to-error-comparison",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F(a,b error) bool { return a==b }\n"
+    },
+    {
+      "contract_context": {
+        "entry_error_types": [
+          "Code"
+        ]
+      },
+      "draft_outcome": "source_rejection",
+      "draft_rule": "error-comparison",
+      "id": "error-comparison-to-typed-nil",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "errors",
+      "primary_production_executor": "go-tools/go2vir/practical_errors.go",
+      "primary_test_owner": "go-tools/go2vir/practical_errors_test.go",
+      "requirement": "GO-V1-R009",
+      "selected_root": "F",
+      "source": "package p\ntype Code int64\nfunc (Code) Error() string { return \"code\" }\nfunc F(e error) bool { return e==error(nil) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "source-comparability",
+      "id": "root-slice-struct-comparison",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": "cannot be compared",
+        "status": "source_type_error",
+        "type_assertions": {}
+      },
+      "primary_component": "types",
+      "primary_production_executor": "go-tools/go2vir/practical_types.go",
+      "primary_test_owner": "go-tools/go2vir/practical_types_test.go",
+      "requirement": "GO-V1-R006",
+      "selected_root": "F",
+      "source": "package p\ntype Root struct { Values []int64 }\nfunc F(a,b Root) bool { return a==b }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "zero-capacity",
+      "id": "zero-slice-nil-test",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "slices",
+      "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+      "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "requirement": "GO-V1-R013",
+      "selected_root": "F",
+      "source": "package p\nfunc F(s []int64) (bool,int,int) { return s==nil,len(s),cap(s) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "zero-capacity",
+      "id": "zero-slice-construction",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "slices",
+      "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+      "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "requirement": "GO-V1-R013",
+      "selected_root": "F",
+      "source": "package p\ntype Rows []int64\nfunc F() (Rows, bool) { s:=make(Rows,0,0); return s,s==nil }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "zero-capacity",
+      "id": "zero-slice-tail-view",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "slices",
+      "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+      "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "requirement": "GO-V1-R013",
+      "selected_root": "F",
+      "source": "package p\nfunc F(s []int64) []int64 { return s[len(s):len(s):len(s)] }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "positive-capacity-empty",
+      "id": "positive-capacity-empty-view",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "slices",
+      "primary_production_executor": "go-tools/go2vir/practical_slices.go",
+      "primary_test_owner": "go-tools/go2vir/practical_slices_test.go",
+      "requirement": "GO-V1-R013",
+      "selected_root": "F",
+      "source": "package p\nfunc F(s []int64) int64 {\n    t := s[:0:cap(s)]\n    if cap(t)==0 { return 0 }\n    return t[:1][0]\n}\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "zero-count-effects",
+      "id": "zero-count-borrowed-copy",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "construction",
+      "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+      "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "requirement": "GO-V1-R015",
+      "selected_root": "F",
+      "source": "package p\nfunc F(dst,src []int64) int { return copy(dst[:0:0],src) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "zero-count-effects",
+      "id": "zero-count-named-append",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "construction",
+      "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+      "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "requirement": "GO-V1-R015",
+      "selected_root": "F",
+      "source": "package p\ntype Rows []int64\nfunc F(s Rows) Rows { return append(s,Rows{}...) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model_pending_domain",
+      "draft_rule": "append-domain",
+      "id": "positive-append-to-zero",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "construction",
+      "primary_production_executor": "go-tools/go2vir/practical_construction.go",
+      "primary_test_owner": "go-tools/go2vir/practical_construction_test.go",
+      "requirement": "GO-V1-R015",
+      "selected_root": "F",
+      "source": "package p\nfunc F() []int64 { return append(make([]int64,0,0),41) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "accepted_model",
+      "draft_rule": "two-closures",
+      "id": "unused-unsupported-body",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "closure",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go",
+      "requirement": "GO-V1-R004",
+      "selected_root": "F",
+      "source": "package p\nfunc unused() map[string]int { return map[string]int{\"a\":1} }\nfunc F(n int64) int64 { return n }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "two-closures",
+      "id": "reachable-unsupported-body",
+      "native_expectation": {
+        "call_assertions": [
+          {
+            "kind": "static_function",
+            "occurrence": 1,
+            "target": "mpk.private.w04/reachable-unsupported-body.helper",
+            "text": "helper()"
+          }
+        ],
+        "error_contains": null,
+        "status": "ok",
+        "type_assertions": {}
+      },
+      "primary_component": "closure",
+      "primary_production_executor": "go-tools/go2vir/practical_closure.go",
+      "primary_test_owner": "go-tools/go2vir/practical_closure_test.go",
+      "requirement": "GO-V1-R004",
+      "selected_root": "F",
+      "source": "package p\nfunc helper() map[string]int { return map[string]int{\"a\":1} }\nfunc F() int { return len(helper()) }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "original-type-check",
+      "id": "unused-type-error",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": "cannot use",
+        "status": "source_type_error",
+        "type_assertions": {}
+      },
+      "primary_component": "capture",
+      "primary_production_executor": "go-tools/go2vir/practical_capture.go",
+      "primary_test_owner": "go-tools/go2vir/practical_capture_test.go",
+      "requirement": "GO-V1-R001",
+      "selected_root": "F",
+      "source": "package p\nfunc unused() int { return \"wrong\" }\nfunc F(n int64) int64 { return n }\n"
+    },
+    {
+      "contract_context": {},
+      "draft_outcome": "source_rejection",
+      "draft_rule": "original-type-check",
+      "id": "source-parse-error",
+      "native_expectation": {
+        "call_assertions": [],
+        "error_contains": "expected",
+        "status": "source_parse_error",
+        "type_assertions": {}
+      },
+      "primary_component": "capture",
+      "primary_production_executor": "go-tools/go2vir/practical_capture.go",
+      "primary_test_owner": "go-tools/go2vir/practical_capture_test.go",
+      "requirement": "GO-V1-R001",
+      "selected_root": "F",
+      "source": "package p\nfunc F( { }\n"
+    }
+  ],
+  "native_scope": "intact original snippets under Go1.25.0 go/types with gc/amd64 sizes; no imports in these snippets",
+  "schema": "mpk.go_practical.w04_source_vectors_draft.v0",
+  "status": "draft design expectations; not executed practical-profile admission",
+  "work_item": "GO-PRAC-T01-W04"
+}

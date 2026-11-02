@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "source_base_commit": "e8ceb3c1fd8501e1fe774289091f188cdc8fdc65",
+  "started_at_utc": "2026-10-18T15:19:33.933357+00:00",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_foundation_proof_tests.rs",
+      "sha256": "7d6cb52ea13a6bb0d1f2b4990ffd416d621c0f8f8a934516e9ea532a8a92e016",
+      "bytes": 13931
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_identity_proof_tests.rs",
+      "sha256": "0f3421a487dac88a069017ebfbe18e5484f17296463d39d2d065d738aa39592f",
+      "bytes": 9486
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_default_proof_tests.rs",
+      "sha256": "ef59c70eb4eaa939fc90c843c8e2702e272ffb585b89e83273dc1e111eedd78e",
+      "bytes": 8189
+    }
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "selection_reason": "Exactly the three changed proof-owner sources for formatting and their single CSharp VC integration consumer for Clippy. Production sources are unchanged; complete gate remains pending.",
+  "exit_code": 0,
+  "finished_at_utc": "2026-10-18T15:19:42.554332+00:00",
+  "wall_seconds": 8.620426499983296,
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/lint/clippy.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/lint/clippy.stderr.log",
+    "sha256": "21d78e63c0fc5f8073509ae9ca7dd15c54f075d077d66f025bfdf560c1e1fca4",
+    "bytes": 146
+  }
+}

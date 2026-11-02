@@ -1,0 +1,186 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "mod",
+    "download",
+    "-json",
+    "golang.org/x/mod@v0.27.0",
+    "golang.org/x/sync@v0.16.0",
+    "golang.org/x/tools@v0.36.0"
+  ],
+  "cwd": "/private/tmp/mpk-go-practical-analysis-provision/module",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOPROXY": "https://proxy.golang.org",
+    "GOSUMDB": "off",
+    "GONOPROXY": "",
+    "GONOSUMDB": "",
+    "GOPRIVATE": "",
+    "GOVCS": "*:off",
+    "GOTELEMETRY": "off",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-analysis-provision/cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-analysis-provision/gopath",
+    "HOME": "/private/tmp/mpk-go-practical-analysis-provision/home",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOFLAGS": "",
+    "CGO_ENABLED": "0",
+    "GOOS": "darwin",
+    "GOARCH": "arm64",
+    "PATH": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin",
+    "TMPDIR": "/private/tmp/mpk-go-practical-analysis-provision/tmp",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "TZ": "UTC"
+  },
+  "started_at_utc": "2026-10-19T10:01:02.962341+00:00",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "originals": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/go.mod",
+      "sha256": "b90bfc21fd7a30139ab5852b895e0e1fcb7f8442d01ca4e2463c2ad1cfd15af3",
+      "bytes": 179
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/go.sum",
+      "sha256": "3b423539c29460b977ec958cd53a84c813d2c15a3d2cdfb841f07f3ef7a6104c",
+      "bytes": 632
+    }
+  ],
+  "scope": "Separate explicit prepared-dependency provisioning, not verifier execution. Fixed existing three analysis-library versions use the original copied go.sum; no dependency version changes or source generation. Later verification is offline.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to W04",
+  "exit_code": 0,
+  "original_copied_manifests_unchanged": true,
+  "wall_seconds": 3.012199833057821,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-inputs/provision/stdout.log",
+    "sha256": "f5b764d75e8d6cc208bbab8829ef42a8778b71d7a2c3907d61e571f9253fb588",
+    "bytes": 2334
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-inputs/provision/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "finished_at_utc": "2026-10-19T10:01:05.984098+00:00",
+  "downloaded_modules": [
+    {
+      "Path": "golang.org/x/mod",
+      "Version": "v0.27.0",
+      "Info": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/mod/@v/v0.27.0.info",
+      "GoMod": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/mod/@v/v0.27.0.mod",
+      "Zip": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/mod/@v/v0.27.0.zip",
+      "Dir": "/private/tmp/mpk-go-practical-analysis-provision/cache/golang.org/x/mod@v0.27.0",
+      "Sum": "h1:kb+q2PyFnEADO2IEF935ehFUXlWiNjJWtRNgBLSfbxQ=",
+      "GoModSum": "h1:rWI627Fq0DEoudcK+MBkNkCe0EetEaDSwJJkCcjpazc=",
+      "Origin": {
+        "VCS": "git",
+        "URL": "https://go.googlesource.com/mod",
+        "Hash": "f8a9fe217cff893cb67f4acad96a0021c13ee6e7",
+        "Ref": "refs/tags/v0.27.0"
+      }
+    },
+    {
+      "Path": "golang.org/x/sync",
+      "Version": "v0.16.0",
+      "Info": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/sync/@v/v0.16.0.info",
+      "GoMod": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/sync/@v/v0.16.0.mod",
+      "Zip": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/sync/@v/v0.16.0.zip",
+      "Dir": "/private/tmp/mpk-go-practical-analysis-provision/cache/golang.org/x/sync@v0.16.0",
+      "Sum": "h1:ycBJEhp9p4vXvUZNszeOq0kGTPghopOL8q0fq3vstxw=",
+      "GoModSum": "h1:1dzgHSNfp02xaA81J2MS99Qcpr2w7fw1gpm99rleRqA=",
+      "Origin": {
+        "VCS": "git",
+        "URL": "https://go.googlesource.com/sync",
+        "Hash": "7fad2c9213e0821bd78435a9c106806f2fc383f1",
+        "Ref": "refs/tags/v0.16.0"
+      }
+    },
+    {
+      "Path": "golang.org/x/tools",
+      "Version": "v0.36.0",
+      "Info": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/tools/@v/v0.36.0.info",
+      "GoMod": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/tools/@v/v0.36.0.mod",
+      "Zip": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/tools/@v/v0.36.0.zip",
+      "Dir": "/private/tmp/mpk-go-practical-analysis-provision/cache/golang.org/x/tools@v0.36.0",
+      "Sum": "h1:kWS0uv/zsvHEle1LbV5LE8QujrxB3wfQyxHfhOk0Qkg=",
+      "GoModSum": "h1:WBDiHKJK8YgLHlcQPYQzNCkUxUypCaa5ZegCVutKm+s=",
+      "Origin": {
+        "VCS": "git",
+        "URL": "https://go.googlesource.com/tools",
+        "Hash": "44d18e11572cd133e1eec6811ba57d78ff20addf",
+        "Ref": "refs/tags/v0.36.0"
+      }
+    }
+  ],
+  "prepared_inputs": [
+    {
+      "path": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/mod/@v/v0.27.0.info",
+      "sha256": "04349209629977dda443e3693aac2e1fe69e4ec11f9e2394abd7964562081f77",
+      "bytes": 190
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/mod/@v/v0.27.0.mod",
+      "sha256": "b20d6c1f4b46742e6af828327160346aeb3e622ab1780ad51b80e1d67adfe95b",
+      "bytes": 86
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/mod/@v/v0.27.0.zip",
+      "sha256": "19fb241d46e4397d3193b5fa899e2a9d62bb5d1c41f73d09d29c17c3c0d3953c",
+      "bytes": 172649
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/sync/@v/v0.16.0.info",
+      "sha256": "fd24e5454141026609d9f4fc219860cf6b35ba6755d18fea1bb0f8c57a5c21a7",
+      "bytes": 191
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/sync/@v/v0.16.0.mod",
+      "sha256": "720b98f1bf033d6b64a454ca8c29cdca6e9265ab7d70db3b834dff49560f1587",
+      "bytes": 36
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/sync/@v/v0.16.0.zip",
+      "sha256": "ca43984183eb14f7f50d33da350312fed1c42e106dceac2437bfd5084b497dcd",
+      "bytes": 25707
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/tools/@v/v0.36.0.info",
+      "sha256": "e216832347c36cd14aef42dc5fc33f5a1cc8715533297beec84806513c697f2a",
+      "bytes": 192
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/tools/@v/v0.36.0.mod",
+      "sha256": "53792e623827ef40be8f1af36dcf12790e82780b3d33b4b0944f56a3584bc429",
+      "bytes": 301
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/tools/@v/v0.36.0.zip",
+      "sha256": "85b486030e995cd5b4d56dea92f247b32bf4e0ae2fe6816b29d4514b5a43fec8",
+      "bytes": 3553586
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/mod/@v/v0.27.0.ziphash",
+      "sha256": "04a0868750aac8cda3b141d56dea66c9318dd4c42abaadc9344dd4a79564b3c2",
+      "bytes": 47
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/sync/@v/v0.16.0.ziphash",
+      "sha256": "82dbee1faf4eaddc4edf8ec0f5e4c0ccb68b2aa6b5dba7d1f65784726a79f0c4",
+      "bytes": 47
+    },
+    {
+      "path": "/private/tmp/mpk-go-practical-analysis-provision/cache/cache/download/golang.org/x/tools/@v/v0.36.0.ziphash",
+      "sha256": "fa7366314a5fe810f1d06b864d5d388acc909a7184235e16996f86a26484b368",
+      "bytes": 47
+    }
+  ]
+}

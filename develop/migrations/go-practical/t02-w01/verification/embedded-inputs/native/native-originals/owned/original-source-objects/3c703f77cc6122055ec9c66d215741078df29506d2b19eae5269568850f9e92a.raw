@@ -1,0 +1,5 @@
+package policy
+import "embed"
+//go:embed all:assets
+var Unused embed.FS
+func Root(x uint16)uint16{return x+1}

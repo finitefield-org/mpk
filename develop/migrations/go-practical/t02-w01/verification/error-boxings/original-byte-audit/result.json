@@ -1,0 +1,475 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-21T23:55:05.089486+00:00",
+  "actual_driver_prelaunch_sha256": "1e2a2eda9afbcedbb3d7ebc9f2e9690f440e099e893ddf0009572573fd1e4450",
+  "archives": [
+    {
+      "name": "assignment-original",
+      "files": 2871,
+      "bytes": 8972367
+    },
+    {
+      "name": "body-original",
+      "files": 1005,
+      "bytes": 3687700
+    },
+    {
+      "name": "builtin-original",
+      "files": 3322,
+      "bytes": 12553721
+    },
+    {
+      "name": "first-rust-original",
+      "files": 33,
+      "bytes": 32913
+    },
+    {
+      "name": "frontend-original",
+      "files": 4,
+      "bytes": 93277
+    },
+    {
+      "name": "initial-native-original",
+      "files": 11077,
+      "bytes": 106834748
+    },
+    {
+      "name": "isolated-native-original",
+      "files": 11077,
+      "bytes": 106834744
+    },
+    {
+      "name": "method-original",
+      "files": 928,
+      "bytes": 4134560
+    },
+    {
+      "name": "native-original",
+      "files": 11067,
+      "bytes": 89466700
+    },
+    {
+      "name": "return-original",
+      "files": 1265,
+      "bytes": 4496008
+    },
+    {
+      "name": "rust-original",
+      "files": 49,
+      "bytes": 75982
+    },
+    {
+      "name": "scalar-original",
+      "files": 9977,
+      "bytes": 26537358
+    },
+    {
+      "name": "selection-original",
+      "files": 174,
+      "bytes": 15052108
+    },
+    {
+      "name": "value-original",
+      "files": 1904,
+      "bytes": 6665786
+    }
+  ],
+  "actual_original_files_compared_literally": 54753,
+  "actual_original_bytes_compared_literally": 385437972,
+  "all_original_modes_compared": true,
+  "original_cases": 46,
+  "checked_value_sites": 128,
+  "original_compiler_typed_sites": 129,
+  "exact_body_sites": 125,
+  "typed_evidence_difference": "ConstLen is delegated to the separate constant reader. Its compile-only site is not emitted by value-engine evidence. All128 emitted sites are original Go typed sites; all125 body sites and every body type union match completely.",
+  "cases": [
+    {
+      "name": "Basic",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "Aliased",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "Constant",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "Nil",
+      "checked_value_sites": 0,
+      "compiler_typed_sites": 0,
+      "body_sites": 0,
+      "body_types": 0
+    },
+    {
+      "name": "Convert",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "Rebox",
+      "checked_value_sites": 0,
+      "compiler_typed_sites": 0,
+      "body_sites": 0,
+      "body_types": 0
+    },
+    {
+      "name": "Assign",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "Declared",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "Named",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "TupleReturn",
+      "checked_value_sites": 2,
+      "compiler_typed_sites": 2,
+      "body_sites": 2,
+      "body_types": 1
+    },
+    {
+      "name": "TupleDeclared",
+      "checked_value_sites": 2,
+      "compiler_typed_sites": 2,
+      "body_sites": 2,
+      "body_types": 1
+    },
+    {
+      "name": "TupleAssign",
+      "checked_value_sites": 2,
+      "compiler_typed_sites": 2,
+      "body_sites": 2,
+      "body_types": 1
+    },
+    {
+      "name": "TupleCall",
+      "checked_value_sites": 2,
+      "compiler_typed_sites": 2,
+      "body_sites": 2,
+      "body_types": 1
+    },
+    {
+      "name": "SingleCall",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "Method",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "MethodExpression",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "MethodTuple",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "Append",
+      "checked_value_sites": 2,
+      "compiler_typed_sites": 2,
+      "body_sites": 2,
+      "body_types": 1
+    },
+    {
+      "name": "AppendTuple",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "Spread",
+      "checked_value_sites": 0,
+      "compiler_typed_sites": 0,
+      "body_sites": 0,
+      "body_types": 0
+    },
+    {
+      "name": "StructLit",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "ArrayLit",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "SliceLit",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "Nested",
+      "checked_value_sites": 2,
+      "compiler_typed_sites": 2,
+      "body_sites": 2,
+      "body_types": 1
+    },
+    {
+      "name": "FieldAssign",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "IndexAssign",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "ReusedShort",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "BlankTyped",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "BlankDefault",
+      "checked_value_sites": 0,
+      "compiler_typed_sites": 0,
+      "body_sites": 0,
+      "body_types": 0
+    },
+    {
+      "name": "BlankTuple",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "ConstLen",
+      "checked_value_sites": 0,
+      "compiler_typed_sites": 1,
+      "body_sites": 0,
+      "body_types": 0
+    },
+    {
+      "name": "DirectLen",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 0,
+      "body_types": 0
+    },
+    {
+      "name": "NonconstantLen",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "TypeLength",
+      "checked_value_sites": 0,
+      "compiler_typed_sites": 0,
+      "body_sites": 0,
+      "body_types": 0
+    },
+    {
+      "name": "GlobalLen",
+      "checked_value_sites": 0,
+      "compiler_typed_sites": 0,
+      "body_sites": 0,
+      "body_types": 0
+    },
+    {
+      "name": "Branches",
+      "checked_value_sites": 2,
+      "compiler_typed_sites": 2,
+      "body_sites": 2,
+      "body_types": 2
+    },
+    {
+      "name": "HelperOnly",
+      "checked_value_sites": 0,
+      "compiler_typed_sites": 0,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "Unreachable",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "RangeZero",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 0,
+      "body_types": 0
+    },
+    {
+      "name": "RangeOne",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 0,
+      "body_types": 0
+    },
+    {
+      "name": "RangeBlank",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 0,
+      "body_types": 0
+    },
+    {
+      "name": "RangeTwo",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "RangeAssign",
+      "checked_value_sites": 1,
+      "compiler_typed_sites": 1,
+      "body_sites": 1,
+      "body_types": 1
+    },
+    {
+      "name": "GlobalRange",
+      "checked_value_sites": 0,
+      "compiler_typed_sites": 0,
+      "body_sites": 0,
+      "body_types": 0
+    },
+    {
+      "name": "ManyCaller",
+      "checked_value_sites": 70,
+      "compiler_typed_sites": 70,
+      "body_sites": 70,
+      "body_types": 1
+    },
+    {
+      "name": "Wide",
+      "checked_value_sites": 16,
+      "compiler_typed_sites": 16,
+      "body_sites": 16,
+      "body_types": 1
+    }
+  ],
+  "prior_original_selection_cases": 84,
+  "prior_selection_exact_graphs": 39,
+  "prior_selection_rejections": 45,
+  "legacy_native_source_closure_passes": [
+    "TestPracticalSourceClosureRequiresOriginalOwner",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/Pure",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/ErrorOnly",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/Method",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/MethodExpression",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/GlobalConstant",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/GlobalIgnoredElement",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/Local",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/Slice",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/Spread",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/Context",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/ContextBlank",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/InferredLen",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/InferredLocal",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/ManyRoot",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/Chain0",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/CallError",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/Dispatch",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/Promoted",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/PointerCall",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/MethodValue",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/Indirect",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/GlobalRead",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/GlobalWrite",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/GlobalNonconstant",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/BranchRoot",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/Self",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/CycleRoot",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/OpaqueRoot",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/GenericRoot",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/Min",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/TooMany",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/StringRange",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/init",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DirectiveRoot",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DirectiveCaller",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DirectiveBox",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DirectiveType",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocBlank",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocBlock",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocSpaced",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocLiteral",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocTrailing",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocSameLine",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocLaterGroup",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocAfterBlock",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocRaw",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocBlockBridge",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocFollowingBlock",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocCR",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocIndented",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths/DocLine",
+    "TestPracticalSourceClosureOriginalPackagesAndStaticPaths"
+  ],
+  "legacy_native_run_overall_status": "failed due exclusively to new observer output-directory setup; not a whole-run pass",
+  "fresh_native_boxing_passes": 47,
+  "empty_cache_frontend_builds": 2,
+  "frontend_inputs": 190,
+  "frontend_binary_bytes": 8592898,
+  "frontend_binary_sha256": "cf8dc06b5f000f8256f481c82135713e89a93876e420014485b4893846f97121",
+  "registered_capture_full_error_universe_Root_Plain_or_source_program_proof": false,
+  "not_recreated_or_recompiled": true
+}

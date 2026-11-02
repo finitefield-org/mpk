@@ -1,0 +1,199 @@
+{
+  "schema": "mpk.go_practical.actual_integer_foundation_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T11:36:49.909623+00:00",
+  "entry_commit": "4b10216e775baa0aa6ce11719e1b93fe7d421b22",
+  "production_sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "bfd0f06c0747d2dc33bf4507562a5540570f3255e581eac25701d46c0c25de1a",
+      "bytes": 27140
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    }
+  ],
+  "test_source": {
+    "path": "crates/mpk-vc/tests/go_practical_integer_foundation.rs",
+    "sha256": "43ef93f5bd3ffd95be6e7055d9d3abd14e27110b871a21ddeceab07f6878197a",
+    "bytes": 14939
+  },
+  "standard_raw_inputs": [
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "predecessor_changed_producers": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/predecessor-inputs/crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "a8de5001e342ef509e97a4c4e206c7ba9558f2aee0bd83a9e7163b7c0f96b85e",
+      "bytes": 25995
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/predecessor-inputs/crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "2e1e90424056f214bb7463edd5bfd5bf7ee6c68405d5149152009719a17604eb",
+      "bytes": 7661
+    }
+  ],
+  "fresh_component": {
+    "certificate": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/certificates/integer-foundation.mpcert",
+      "sha256": "4da7c73b83dd1209c5712ea031daf013093022fc4cd76ea828b1c8c9632ec625",
+      "bytes": 160569
+    },
+    "hashes": {
+      "export": "35c27aaefec11291044585663e5f00510a416329dec23d6049066fae3cbb8f69",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "20336bfcfe4ad0e03c81bf38f35d2af86b5cf669496064387d70d58ae1a152e5"
+    },
+    "declarations": 709,
+    "terms": 11994,
+    "bytes": 160569,
+    "axioms": 0,
+    "new_definitions": 13,
+    "named_library_laws": 42,
+    "checked_Nat_equality_checkpoints": 566,
+    "retained_Nat_declarations": 88,
+    "representation": "Full Bool -> unbounded Std.Nat function, denoting positive-negative; redundant representatives remain allowed.",
+    "semantic_equality": "Ordinary genuine Nat equality of cross sums, never equality of the functions.",
+    "laws": [
+      "fourteen arbitrary-value projection laws",
+      "equivalence relation and representation shift",
+      "additive inverse and ring laws",
+      "arithmetic congruence under actual representative-equivalence premises",
+      "Boolean equality reflection/completeness",
+      "representative-independent Equal/Less/LessEqual observations",
+      "injective natural embedding with explicit checked projection/additive rewrites"
+    ],
+    "exact_import": "Regenerate all complete bytes and reject even independently valid different components. No caller hash/receipt, function extensionality, normalized representative assumption or new trusted arithmetic rule."
+  },
+  "rust_integration_roots": 4,
+  "same_byte_paired_cases": 15,
+  "zero_axiom_acceptances_with_exact_three_hashes": 4,
+  "reencoded_core_type_mismatch_rejections": 11,
+  "semantic_redundant_representative_instances": 3,
+  "false_function_equality_rejected": true,
+  "results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/result.json",
+      "sha256": "3c9cc5eea19a75d640d2378a376086264b820725b5d28a1504951e90ffc90b21",
+      "bytes": 3752,
+      "status": "failed",
+      "seconds": 153.64476795797236,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/format/result.json",
+      "sha256": "1d249d24c2e24df8541a4d9b5bef59ac8e8b4e93001bad2e581096b25f7591d9",
+      "bytes": 3814,
+      "status": "passed",
+      "seconds": 0.08144037495367229,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/rust-tests/result.json",
+      "sha256": "952b912219ca9a0429aeedfd8862faa781be690a1d329ca53971370845d0f271",
+      "bytes": 7797,
+      "status": "passed",
+      "seconds": 86.52358070900664,
+      "tests_passed": 4
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/clippy/result.json",
+      "sha256": "f65b5480caac5ae3893403178eb7d949db97d56cda19915704f9cc615cdcec72",
+      "bytes": 3549,
+      "status": "passed",
+      "seconds": 21.03741191595327,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/final/format/result.json",
+      "sha256": "d67446ce386adb72d7fbce21440db4226d7d2f01c0009ef69de207f1160634c1",
+      "bytes": 3810,
+      "status": "passed",
+      "seconds": 0.20213820808567107,
+      "tests_passed": null
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/paired-final/result.json",
+      "sha256": "b23c416eb0ad0aa48913a6e65661a16da40fadc3036dd9c19777344bcc3282d6",
+      "bytes": 41695,
+      "status": "passed",
+      "seconds": null,
+      "tests_passed": null
+    }
+  ],
+  "initial_proof_failure": {
+    "result": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/result.json",
+    "failed_certificate_hash": "ba160a286356ecdf3bb2a99cf7b26c33b9814a274c232a0c52dc6452885d0e70",
+    "failed_original_candidate": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/initial/rust-tests/certificates/integer-foundation.mpcert",
+      "sha256": "fc61a77ca7e1d87aeea8e2f86fc527bbe7c904d45d476b317d0a27e0c72c800c",
+      "bytes": 159239
+    },
+    "original_sources_and_raw_diagnostics_retained": true,
+    "cause": "The natural embedding injection proof used its cross-sum premise directly, relying on automatic conversion of computed zero projections inside Nat addition. Existing core conversion does not normalize a computed recursor major.",
+    "correction": "Explicitly compose checked integer projection laws, Nat additive identity, congruence, symmetry and transitivity. No checker/primitive/conversion/fuel change.",
+    "initial_negative_test_passes_counted": false,
+    "reason_not_counted": "The initial baseline itself failed. All eleven final altered candidates are regenerated and checked only after the complete corrected baseline passes."
+  },
+  "manual_review": {
+    "private_named_syntax_addition": "Sort0 only; lexical binding and prior-global linkage still enforced for compiled-in recipes. Existing Nat complete bytes/hash remain unchanged.",
+    "normalization_is_untrusted": "Every swap/reassociation/distribution/identity produces an ordinary checked Nat theorem application; matching host normal forms are not evidence. Checkpoints include all actual local variables and equality premises.",
+    "no_function_equality_substitution": true,
+    "full_zero_negative_positive_representatives_retained": true,
+    "actual_premises_preserved": true,
+    "Go_rejections_require_exact_type_mismatch_message": true,
+    "no_axioms_opcodes_core_or_fuel_changes": true
+  },
+  "selection_reason": "Fresh ordinary balanced integer representation, cross-sum equivalence and ring/representative-independent operations and observations. Every polynomial rewrite composes checked Nat laws in ordinary proof terms. Scope tests to new actual component, exact import, retained complete Nat hash, redundant representatives and ten fully reencoded wrong definitions or ignored premises plus false function equality. Private compiled syntax/polynomial construction is not a trusted evaluator or caller proof. Run no CSharp test target or broad/intermediate gate; unchanged core/Go/legacy matrices remain retained.",
+  "unchanged_checks_not_repeated": "Keep preceding passing core/kernel/Go/legacy unit matrices; rehash unchanged current Go binary and all checker inputs, then check the actual affected new certificate bytes. New isolated Rust integration target and strict lib/target Clippy plus changed-file format cover the changed compiler/consumer code.",
+  "frozen_design_preservation": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/frozen-design-preservation.json",
+    "sha256": "760f30424a99e891c71328c5d54f43e9004a2ffe2dae5bf9d605197e637dcbfc",
+    "bytes": 662
+  },
+  "changed_input_review": "develop/migrations/go-practical/t02-w01/verification/integer-foundation/input-review/changed-inputs-review.json",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "Go_application_theorem_demands_unelaborated": 169,
+  "source_program_proof_claimed": false,
+  "native_Linux_acceptance_claimed": false,
+  "remaining": [
+    "half-open bounded logical range folds and body definedness",
+    "full word/carrier bridges and operation/source/storage/lifetime/program foundation",
+    "complete56-family foundation descriptor/private context/registry authority",
+    "authoritative immutable application capture/replay and complete source/export/closure mapping"
+  ]
+}

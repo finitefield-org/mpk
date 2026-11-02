@@ -1,0 +1,110 @@
+{
+  "schema": "mpk.go_practical.range_foundation_check.v1",
+  "status": "passed",
+  "started_at_utc": "2026-10-19T11:55:06.021461+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_range_foundation",
+    "--",
+    "typed_wrong_integer_sum_value_cannot_satisfy_its_step_law",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_RANGE_FOUNDATION_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-control/certificates"
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "80cb1cc5f6f31d96208d90cfe46b901254a7cbe3ee33d20dd92e5169a79f5744",
+      "bytes": 28259
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "8b1032155302ecb6814b25a5644ec8d469b891a4416f9380127d680c4226f3d6",
+      "bytes": 7852
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_range_foundation.rs",
+      "sha256": "290872726a2054eda37a2b03166953de0ae2e286e56e57acd4ea2dfa6d839650",
+      "bytes": 29925
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "selection_reason": "Strengthen only the affected integer-fold negative control: separately check the wrong three-argument constant-zero fold as a well-typed value, then show it fails the actual step law when substituted for FoldIntSum. The old control incorrectly included the exposed result-carrier Pi as an extra binder. Run this single new Rust integration root only; retain earlier passing five roots and unchanged production/candidate evidence. No CSharp tests or intermediate full gate.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "exit_code": 0,
+  "wall_seconds": 9.182085165986791,
+  "finished_at_utc": "2026-10-19T11:55:15.205200+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-control/stdout.log",
+    "sha256": "9228e1a8ed8c4bb308c8fce97da36b3d8364d8251f83482943d5ea5e7d5e6617",
+    "bytes": 182
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-control/stderr.log",
+    "sha256": "14cb1936a7945a3c3c6cce62491c11cf797ccb24d332661e795b68c5760bbaa4",
+    "bytes": 264
+  },
+  "tests_passed": 1,
+  "certificates": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-control/certificates/intsum-body.mpcert",
+      "sha256": "fab20ce1243bbcad0b286b7caecfa157ac53205fe61631e3bf89e683ae3f7f24",
+      "bytes": 169154
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/range-foundation/final/rust-control/certificates/typed-wrong-intsum-value.mpcert",
+      "sha256": "807e9ce74fd4c4cac9b8103b7705c9567e8f8afecc2c083f2b4063cde219a53e",
+      "bytes": 169154
+    }
+  ]
+}

@@ -1,0 +1,820 @@
+{
+  "status": "failed",
+  "error": "AssertionError(('cargo-fuzz-0', 101, \"   Compiling proc-macro2 v1.0.70\\nerror: failed to run custom build command for `proc-macro2 v1.0.70`\\n\\nCaused by:\\n  process didn't exit successfully: `/mpk/target/release/build/proc-macro2-eb48162af26dca87/build-script-build` (exit status: 1)\\n  --- stderr\\n  init mmap: Out of memory\\n\"))",
+  "code": null,
+  "finished_at_utc": "2026-10-20T15:32:22.492212+00:00",
+  "phases": [
+    {
+      "name": "frozen-rust-distribution",
+      "seconds": 43.557936906814575
+    },
+    {
+      "name": "frozen-llvm",
+      "seconds": 127.43961215019226
+    },
+    {
+      "name": "frozen-native-sysroot",
+      "seconds": 11.121631860733032
+    },
+    {
+      "name": "frozen-sources-and-vendor",
+      "seconds": 6.762917757034302
+    },
+    {
+      "name": "frozen-cargo-home-seed",
+      "seconds": 0.00025010108947753906
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "/usr/local/bin/docker",
+        "image",
+        "inspect",
+        "docker.io/library/buildpack-deps@sha256:816cb0d4a26fd8584b27d190bdd57ba7048be4fc20c259e60a985bec812887dc"
+      ],
+      "exit_code": 0,
+      "seconds": 0.15421795845031738,
+      "label": null
+    },
+    {
+      "command": [
+        "/usr/local/bin/docker",
+        "rm",
+        "-f",
+        "efd3b8e526e5ae28fd81ca4f66b498ff69f02ca6df89cf40c4372327cccc90b9"
+      ],
+      "exit_code": 0,
+      "seconds": 0.04756975173950195,
+      "label": null
+    },
+    {
+      "command": [
+        "/usr/local/bin/docker",
+        "rm",
+        "--force",
+        "mpk-sdk-bytes-cargo-fuzz-0"
+      ],
+      "exit_code": 0,
+      "seconds": 0.07345199584960938,
+      "label": null
+    },
+    {
+      "command": [
+        "/usr/local/bin/docker",
+        "run",
+        "--name=mpk-sdk-bytes-cargo-fuzz-0",
+        "--pull=never",
+        "--platform=linux/amd64",
+        "--network=none",
+        "--ipc=none",
+        "--read-only",
+        "--user=65534:65534",
+        "--hostname=mpk-build",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--security-opt=seccomp=unconfined",
+        "--pids-limit=256",
+        "--memory=34359738368",
+        "--memory-swap=34359738368",
+        "--ulimit=nofile=1024:1024",
+        "--ulimit=fsize=-1:-1",
+        "--ulimit=nproc=-1:-1",
+        "--tmpfs=/mpk:rw,exec,nosuid,nodev,size=21474836480,nr_inodes=262144,mode=1777",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/.portable-sdk-stage-go-rust/toolchain,dst=/mpk/toolchain,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/.portable-sdk-stage-go-rust/native-sysroot,dst=/mpk/native-sysroot,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/.portable-sdk-stage-go-rust/vendor,dst=/mpk/vendor,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/.portable-sdk-stage-go-rust/cargo-home-seed/config.toml,dst=/mpk/cargo-home-seed.toml,readonly",
+        "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/.portable-sdk-stage-go-rust/tool-sources/cargo-fuzz,dst=/mpk/frontend,readonly",
+        "--workdir=/mpk/frontend",
+        "docker.io/library/ubuntu@sha256:dca176c9663a7ba4c1f0e710986f5a25e672842963d95b960191e2d9f7185ebe",
+        "/bin/sh",
+        "-ceu",
+        "ulimit -v 16777216; umask 022; mkdir -p /mpk/home /mpk/cargo-home /mpk/tmp /mpk/target /mpk/work; cp /mpk/cargo-home-seed.toml /mpk/cargo-home/config.toml\n/usr/bin/env -i AR=/mpk/toolchain/bin/llvm-ar CARGO_BUILD_JOBS=1 'CARGO_ENCODED_RUSTFLAGS=-Clinker=/mpk/toolchain/bin/clang\u001f-Clink-arg=--sysroot=/mpk/native-sysroot\u001f-Clink-arg=-fuse-ld=lld\u001f--remap-path-prefix=/mpk/frontend=.' CARGO_HOME=/mpk/cargo-home CARGO_INCREMENTAL=0 CARGO_NET_OFFLINE=true CARGO_TARGET_DIR=/mpk/target CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=/mpk/toolchain/bin/clang CARGO_TERM_COLOR=never CC=/mpk/toolchain/bin/clang 'CFLAGS=--sysroot=/mpk/native-sysroot -fdebug-prefix-map=/mpk/frontend=.' CXX=/mpk/toolchain/bin/clang++ 'CXXFLAGS=--sysroot=/mpk/native-sysroot -fdebug-prefix-map=/mpk/frontend=.' HOME=/mpk/home LANG=C LC_ALL=C LD_LIBRARY_PATH=/mpk/toolchain/lib PATH=/mpk/toolchain/bin RANLIB=/mpk/toolchain/bin/llvm-ranlib RUSTC=/mpk/toolchain/bin/rustc RUST_BACKTRACE=0 SOURCE_DATE_EPOCH=1748736000 TERM=dumb TMPDIR=/mpk/tmp TZ=UTC cargo build --locked --offline --release --target x86_64-unknown-linux-gnu --jobs 1 > /mpk/tmp/build.stdout\ntest ! -s /mpk/tmp/build.stdout\ntar -C /mpk -cf - target/x86_64-unknown-linux-gnu/release/cargo-fuzz cargo-home\n"
+      ],
+      "exit_code": 101,
+      "seconds": 5.373859167098999,
+      "label": "cargo-fuzz-0",
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust/.portable-sdk-work-go-rust/command-003.stdout.tar",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-rust-only/verification/sdk-portable-bytes/command-003.stderr.log",
+        "sha256": "ead84b92e49f0b95e82c2e5ec4e972baf762f3535736451070c0af7274ea56ba",
+        "bytes": 282
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "url": "https://static.rust-lang.org/dist/2025-06-01/cargo-nightly-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "f8eab4d8201709489b1a51125dab3121ff49b41a928a31f459d4c680e60eb0df",
+      "expected_sha256": "f8eab4d8201709489b1a51125dab3121ff49b41a928a31f459d4c680e60eb0df",
+      "bytes": 10188316,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/cargo-nightly-x86_64-unknown-linux-gnu.tar.xz"
+    },
+    {
+      "url": "https://static.rust-lang.org/dist/2025-06-01/clippy-nightly-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "e5d5446b82cc3604e239ed2ba27e4540eb7566822980e2ce47744fa614f05691",
+      "expected_sha256": "e5d5446b82cc3604e239ed2ba27e4540eb7566822980e2ce47744fa614f05691",
+      "bytes": 3156136,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/clippy-nightly-x86_64-unknown-linux-gnu.tar.xz"
+    },
+    {
+      "url": "https://static.rust-lang.org/dist/2025-06-01/llvm-tools-nightly-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "08a251f5622d5b7f78a80049e3d0547ff471ce400a976db9174696140b9c7fbe",
+      "expected_sha256": "08a251f5622d5b7f78a80049e3d0547ff471ce400a976db9174696140b9c7fbe",
+      "bytes": 39163880,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/llvm-tools-nightly-x86_64-unknown-linux-gnu.tar.xz"
+    },
+    {
+      "url": "https://static.rust-lang.org/dist/2025-06-01/rust-std-nightly-i686-unknown-linux-gnu.tar.xz",
+      "sha256": "999fe513b92f562f90e10b555d25f62d169938e9847dc1167d592820a3f4e332",
+      "expected_sha256": "999fe513b92f562f90e10b555d25f62d169938e9847dc1167d592820a3f4e332",
+      "bytes": 29051892,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/rust-std-nightly-i686-unknown-linux-gnu.tar.xz"
+    },
+    {
+      "url": "https://static.rust-lang.org/dist/2025-06-01/rust-std-nightly-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "8e365e30adeb0f7a1162fdf57dbc697a822f87d15e814e1f005dc40750d64269",
+      "expected_sha256": "8e365e30adeb0f7a1162fdf57dbc697a822f87d15e814e1f005dc40750d64269",
+      "bytes": 31077976,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/rust-std-nightly-x86_64-unknown-linux-gnu.tar.xz"
+    },
+    {
+      "url": "https://static.rust-lang.org/dist/2025-06-01/rustc-nightly-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "5b07912c2b8c5162fab56171b4bf3323db25c5f3b94c5a570d1f5e077056f6ae",
+      "expected_sha256": "5b07912c2b8c5162fab56171b4bf3323db25c5f3b94c5a570d1f5e077056f6ae",
+      "bytes": 81607112,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/rustc-nightly-x86_64-unknown-linux-gnu.tar.xz"
+    },
+    {
+      "url": "https://static.rust-lang.org/dist/2025-06-01/rustc-dev-nightly-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "89b142f4d82e6cfeebefb0a2cf646cc33e12a522be8b3e2256e4fff587b409ed",
+      "expected_sha256": "89b142f4d82e6cfeebefb0a2cf646cc33e12a522be8b3e2256e4fff587b409ed",
+      "bytes": 117560020,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/rustc-dev-nightly-x86_64-unknown-linux-gnu.tar.xz"
+    },
+    {
+      "url": "https://static.rust-lang.org/dist/2025-06-01/rustfmt-nightly-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "c4a275c7924f2a2bf89ee3369291d8a2fa2d22e30ceb8191429cc1f88db57685",
+      "expected_sha256": "c4a275c7924f2a2bf89ee3369291d8a2fa2d22e30ceb8191429cc1f88db57685",
+      "bytes": 2273304,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/rustfmt-nightly-x86_64-unknown-linux-gnu.tar.xz"
+    },
+    {
+      "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/clang%2Bllvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04.tar.xz",
+      "sha256": "54ec30358afcc9fb8aa74307db3046f5187f9fb89fb37064cdde906e062ebf36",
+      "expected_sha256": "54ec30358afcc9fb8aa74307db3046f5187f9fb89fb37064cdde906e062ebf36",
+      "bytes": 1044930068,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/clang+llvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04.tar.xz"
+    },
+    {
+      "url": "https://github.com/rust-fuzz/cargo-fuzz/archive/refs/tags/0.13.1.tar.gz",
+      "sha256": "3dae1ab57e738c1059635eb824062e4de79474080612f60a0ec0decf455d9e65",
+      "expected_sha256": "3dae1ab57e738c1059635eb824062e4de79474080612f60a0ec0decf455d9e65",
+      "bytes": 39421,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/cargo-fuzz-0.13.1.tar.gz"
+    },
+    {
+      "url": "https://static.crates.io/crates/aho-corasick/aho-corasick-0.7.20.crate",
+      "sha256": "cc936419f96fa211c1b9166887b38e5e40b19958e5b895be7c1f93adec7071ac",
+      "expected_sha256": "cc936419f96fa211c1b9166887b38e5e40b19958e5b895be7c1f93adec7071ac",
+      "bytes": 111440,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/aho-corasick-0.7.20.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/anyhow/anyhow-1.0.66.crate",
+      "sha256": "216261ddc8289130e551ddcd5ce8a064710c0d064a4d2895c67151c92b5443f6",
+      "expected_sha256": "216261ddc8289130e551ddcd5ce8a064710c0d064a4d2895c67151c92b5443f6",
+      "bytes": 43770,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/anyhow-1.0.66.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/arbitrary/arbitrary-1.4.2.crate",
+      "sha256": "c3d036a3c4ab069c7b410a2ce876bd74808d2d0888a82667669f8e783a898bf1",
+      "expected_sha256": "c3d036a3c4ab069c7b410a2ce876bd74808d2d0888a82667669f8e783a898bf1",
+      "bytes": 38307,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/arbitrary-1.4.2.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/assert_cmd/assert_cmd-2.0.7.crate",
+      "sha256": "fa3d466004a8b4cb1bc34044240a2fd29d17607e2e3bd613eb44fd48e8100da3",
+      "expected_sha256": "fa3d466004a8b4cb1bc34044240a2fd29d17607e2e3bd613eb44fd48e8100da3",
+      "bytes": 23600,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/assert_cmd-2.0.7.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/autocfg/autocfg-1.1.0.crate",
+      "sha256": "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa",
+      "expected_sha256": "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa",
+      "bytes": 13272,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/autocfg-1.1.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/bitflags/bitflags-1.3.2.crate",
+      "sha256": "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a",
+      "expected_sha256": "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a",
+      "bytes": 23021,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/bitflags-1.3.2.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/bstr/bstr-1.0.1.crate",
+      "sha256": "fca0852af221f458706eb0725c03e4ed6c46af9ac98e6a689d5e634215d594dd",
+      "expected_sha256": "fca0852af221f458706eb0725c03e4ed6c46af9ac98e6a689d5e634215d594dd",
+      "bytes": 340636,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/bstr-1.0.1.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/camino/camino-1.1.6.crate",
+      "sha256": "c59e92b5a388f549b863a7bea62612c09f24c8393560709a54558a9abdfb3b9c",
+      "expected_sha256": "c59e92b5a388f549b863a7bea62612c09f24c8393560709a54558a9abdfb3b9c",
+      "bytes": 30519,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/camino-1.1.6.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/cargo-platform/cargo-platform-0.1.5.crate",
+      "sha256": "e34637b3140142bdf929fb439e8aa4ebad7651ebf7b1080b3930aa16ac1459ff",
+      "expected_sha256": "e34637b3140142bdf929fb439e8aa4ebad7651ebf7b1080b3930aa16ac1459ff",
+      "bytes": 11638,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/cargo-platform-0.1.5.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/cargo_metadata/cargo_metadata-0.18.1.crate",
+      "sha256": "2d886547e41f740c616ae73108f6eb70afe6d940c7bc697cb30f13daec073037",
+      "expected_sha256": "2d886547e41f740c616ae73108f6eb70afe6d940c7bc697cb30f13daec073037",
+      "bytes": 24535,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/cargo_metadata-0.18.1.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/cc/cc-1.0.77.crate",
+      "sha256": "e9f73505338f7d905b19d18738976aae232eb46b8efc15554ffc56deb5d9ebe4",
+      "expected_sha256": "e9f73505338f7d905b19d18738976aae232eb46b8efc15554ffc56deb5d9ebe4",
+      "bytes": 60723,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/cc-1.0.77.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/cc/cc-1.4.3.crate",
+      "sha256": "509591b7bcd67f4ef775afad7662703b4935daaa6ec0e5605cfb1090b32a2b6d",
+      "expected_sha256": "509591b7bcd67f4ef775afad7662703b4935daaa6ec0e5605cfb1090b32a2b6d",
+      "bytes": 98480,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/cc-1.4.3.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/cfg-if/cfg-if-1.0.0.crate",
+      "sha256": "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd",
+      "expected_sha256": "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd",
+      "bytes": 7934,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/cfg-if-1.0.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/cfg-if/cfg-if-1.0.4.crate",
+      "sha256": "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801",
+      "expected_sha256": "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801",
+      "bytes": 9360,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/cfg-if-1.0.4.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/clap/clap-4.0.29.crate",
+      "sha256": "4d63b9e9c07271b9957ad22c173bae2a4d9a81127680962039296abcd2f8251d",
+      "expected_sha256": "4d63b9e9c07271b9957ad22c173bae2a4d9a81127680962039296abcd2f8251d",
+      "bytes": 205982,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/clap-4.0.29.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/clap_derive/clap_derive-4.0.21.crate",
+      "sha256": "0177313f9f02afc995627906bbd8967e2be069f5261954222dac78290c2b9014",
+      "expected_sha256": "0177313f9f02afc995627906bbd8967e2be069f5261954222dac78290c2b9014",
+      "bytes": 27567,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/clap_derive-4.0.21.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/clap_lex/clap_lex-0.3.0.crate",
+      "sha256": "0d4198f73e42b4936b35b5bb248d81d2b595ecb170da0bac7655c54eedfa8da8",
+      "expected_sha256": "0d4198f73e42b4936b35b5bb248d81d2b595ecb170da0bac7655c54eedfa8da8",
+      "bytes": 9671,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/clap_lex-0.3.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/current_platform/current_platform-0.2.0.crate",
+      "sha256": "a74858bcfe44b22016cb49337d7b6f04618c58e5dbfdef61b06b8c434324a0bc",
+      "expected_sha256": "a74858bcfe44b22016cb49337d7b6f04618c58e5dbfdef61b06b8c434324a0bc",
+      "bytes": 6697,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/current_platform-0.2.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/difflib/difflib-0.4.0.crate",
+      "sha256": "6184e33543162437515c2e2b48714794e37845ec9851711914eec9d308f6ebe8",
+      "expected_sha256": "6184e33543162437515c2e2b48714794e37845ec9851711914eec9d308f6ebe8",
+      "bytes": 7638,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/difflib-0.4.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/doc-comment/doc-comment-0.3.3.crate",
+      "sha256": "fea41bba32d969b513997752735605054bc0dfa92b4c56bf1189f2e174be7a10",
+      "expected_sha256": "fea41bba32d969b513997752735605054bc0dfa92b4c56bf1189f2e174be7a10",
+      "bytes": 4123,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/doc-comment-0.3.3.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/either/either-1.8.0.crate",
+      "sha256": "90e5c1c8368803113bf0c9584fc495a58b86dc8a29edbf8fe877d21d9507e797",
+      "expected_sha256": "90e5c1c8368803113bf0c9584fc495a58b86dc8a29edbf8fe877d21d9507e797",
+      "bytes": 15992,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/either-1.8.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/errno/errno-0.2.8.crate",
+      "sha256": "f639046355ee4f37944e44f60642c6f3a7efa3cf6b78c78a0d989a8ce6c396a1",
+      "expected_sha256": "f639046355ee4f37944e44f60642c6f3a7efa3cf6b78c78a0d989a8ce6c396a1",
+      "bytes": 9276,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/errno-0.2.8.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/errno-dragonfly/errno-dragonfly-0.1.2.crate",
+      "sha256": "aa68f1b12764fab894d2755d2518754e71b4fd80ecfb822714a1206c2aab39bf",
+      "expected_sha256": "aa68f1b12764fab894d2755d2518754e71b4fd80ecfb822714a1206c2aab39bf",
+      "bytes": 1810,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/errno-dragonfly-0.1.2.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/fastrand/fastrand-1.8.0.crate",
+      "sha256": "a7a407cfaa3385c4ae6b23e84623d48c2798d06e3e6a1878f7f59f17b3f86499",
+      "expected_sha256": "a7a407cfaa3385c4ae6b23e84623d48c2798d06e3e6a1878f7f59f17b3f86499",
+      "bytes": 11369,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/fastrand-1.8.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/find-msvc-tools/find-msvc-tools-0.1.11.crate",
+      "sha256": "d45db016d36b838f563236e9193d0ee6ce38f3f68b6c94e914b4929c96bbb890",
+      "expected_sha256": "d45db016d36b838f563236e9193d0ee6ce38f3f68b6c94e914b4929c96bbb890",
+      "bytes": 31517,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/find-msvc-tools-0.1.11.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/float-cmp/float-cmp-0.9.0.crate",
+      "sha256": "98de4bbd547a563b716d8dfa9aad1cb19bfab00f4fa09a6a4ed21dbcf44ce9c4",
+      "expected_sha256": "98de4bbd547a563b716d8dfa9aad1cb19bfab00f4fa09a6a4ed21dbcf44ce9c4",
+      "bytes": 10102,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/float-cmp-0.9.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/getrandom/getrandom-0.4.3.crate",
+      "sha256": "300e883d756b2e4ec94e02791f39b04b522276138852cfc41d9fb7e904106099",
+      "expected_sha256": "300e883d756b2e4ec94e02791f39b04b522276138852cfc41d9fb7e904106099",
+      "bytes": 52437,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/getrandom-0.4.3.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/heck/heck-0.4.0.crate",
+      "sha256": "2540771e65fc8cb83cd6e8a237f70c319bd5c29f78ed1084ba5d50eeac86f7f9",
+      "expected_sha256": "2540771e65fc8cb83cd6e8a237f70c319bd5c29f78ed1084ba5d50eeac86f7f9",
+      "bytes": 11161,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/heck-0.4.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/hermit-abi/hermit-abi-0.2.6.crate",
+      "sha256": "ee512640fe35acbfb4bb779db6f0d80704c2cacfa2e39b601ef3e3f47d1ae4c7",
+      "expected_sha256": "ee512640fe35acbfb4bb779db6f0d80704c2cacfa2e39b601ef3e3f47d1ae4c7",
+      "bytes": 13027,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/hermit-abi-0.2.6.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/instant/instant-0.1.12.crate",
+      "sha256": "7a5bbe824c507c5da5956355e86a746d82e0e1464f65d862cc5e71da70e94b2c",
+      "expected_sha256": "7a5bbe824c507c5da5956355e86a746d82e0e1464f65d862cc5e71da70e94b2c",
+      "bytes": 6128,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/instant-0.1.12.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/io-lifetimes/io-lifetimes-1.0.3.crate",
+      "sha256": "46112a93252b123d31a119a8d1a1ac19deac4fac6e0e8b0df58f0d4e5870e63c",
+      "expected_sha256": "46112a93252b123d31a119a8d1a1ac19deac4fac6e0e8b0df58f0d4e5870e63c",
+      "bytes": 35650,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/io-lifetimes-1.0.3.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/is-terminal/is-terminal-0.4.1.crate",
+      "sha256": "927609f78c2913a6f6ac3c27a4fe87f43e2a35367c0c4b0f8265e8f49a104330",
+      "expected_sha256": "927609f78c2913a6f6ac3c27a4fe87f43e2a35367c0c4b0f8265e8f49a104330",
+      "bytes": 6892,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/is-terminal-0.4.1.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/itertools/itertools-0.10.5.crate",
+      "sha256": "b0fd2260e829bddf4cb6ea802289de2f86d6a7a690192fbe91b3f46e0f2c8473",
+      "expected_sha256": "b0fd2260e829bddf4cb6ea802289de2f86d6a7a690192fbe91b3f46e0f2c8473",
+      "bytes": 115354,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/itertools-0.10.5.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/itoa/itoa-1.0.9.crate",
+      "sha256": "af150ab688ff2122fcef229be89cb50dd66af9e01a4ff320cc137eecc9bacc38",
+      "expected_sha256": "af150ab688ff2122fcef229be89cb50dd66af9e01a4ff320cc137eecc9bacc38",
+      "bytes": 10492,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/itoa-1.0.9.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/jobserver/jobserver-0.1.35.crate",
+      "sha256": "1c00acbd29eabad4a2392fa0e921c874934dbbf4194312ad20f04a0ed67a3cb3",
+      "expected_sha256": "1c00acbd29eabad4a2392fa0e921c874934dbbf4194312ad20f04a0ed67a3cb3",
+      "bytes": 28890,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/jobserver-0.1.35.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/libc/libc-0.2.138.crate",
+      "sha256": "db6d7e329c562c5dfab7a46a2afabc8b987ab9a4834c9d1ca04dc54c1546cef8",
+      "expected_sha256": "db6d7e329c562c5dfab7a46a2afabc8b987ab9a4834c9d1ca04dc54c1546cef8",
+      "bytes": 609081,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/libc-0.2.138.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/libc/libc-0.2.189.crate",
+      "sha256": "3eaf3ede3fee6db1a4c2ee091bf8a8b4dccdc6d17f656fb07896ee72867612f2",
+      "expected_sha256": "3eaf3ede3fee6db1a4c2ee091bf8a8b4dccdc6d17f656fb07896ee72867612f2",
+      "bytes": 851502,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/libc-0.2.189.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/libfuzzer-sys/libfuzzer-sys-0.4.9.crate",
+      "sha256": "cf78f52d400cf2d84a3a973a78a592b4adc535739e0a5597a0da6f0c357adc75",
+      "expected_sha256": "cf78f52d400cf2d84a3a973a78a592b4adc535739e0a5597a0da6f0c357adc75",
+      "bytes": 133299,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/libfuzzer-sys-0.4.9.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/linux-raw-sys/linux-raw-sys-0.1.3.crate",
+      "sha256": "8f9f08d8963a6c613f4b1a78f4f4a4dbfadf8e6545b2d72861731e4858b8b47f",
+      "expected_sha256": "8f9f08d8963a6c613f4b1a78f4f4a4dbfadf8e6545b2d72861731e4858b8b47f",
+      "bytes": 878488,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/linux-raw-sys-0.1.3.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/memchr/memchr-2.5.0.crate",
+      "sha256": "2dffe52ecf27772e601905b7522cb4ef790d2cc203488bbd0e2fe85fcb74566d",
+      "expected_sha256": "2dffe52ecf27772e601905b7522cb4ef790d2cc203488bbd0e2fe85fcb74566d",
+      "bytes": 65812,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/memchr-2.5.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/normalize-line-endings/normalize-line-endings-0.3.0.crate",
+      "sha256": "61807f77802ff30975e01f4f071c8ba10c022052f98b3294119f3e615d13e5be",
+      "expected_sha256": "61807f77802ff30975e01f4f071c8ba10c022052f98b3294119f3e615d13e5be",
+      "bytes": 5737,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/normalize-line-endings-0.3.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/num-traits/num-traits-0.2.15.crate",
+      "sha256": "578ede34cf02f8924ab9447f50c28075b4d3e5b269972345e7e0372b38c6cdcd",
+      "expected_sha256": "578ede34cf02f8924ab9447f50c28075b4d3e5b269972345e7e0372b38c6cdcd",
+      "bytes": 49262,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/num-traits-0.2.15.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/once_cell/once_cell-1.16.0.crate",
+      "sha256": "86f0b0d4bf799edbc74508c1e8bf170ff5f41238e5f8225603ca7caaae2b7860",
+      "expected_sha256": "86f0b0d4bf799edbc74508c1e8bf170ff5f41238e5f8225603ca7caaae2b7860",
+      "bytes": 32120,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/once_cell-1.16.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/os_str_bytes/os_str_bytes-6.4.1.crate",
+      "sha256": "9b7820b9daea5457c9f21c69448905d723fbd21136ccf521748f23fd49e723ee",
+      "expected_sha256": "9b7820b9daea5457c9f21c69448905d723fbd21136ccf521748f23fd49e723ee",
+      "bytes": 23101,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/os_str_bytes-6.4.1.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/predicates/predicates-2.1.4.crate",
+      "sha256": "f54fc5dc63ed3bbf19494623db4f3af16842c0d975818e469022d09e53f0aa05",
+      "expected_sha256": "f54fc5dc63ed3bbf19494623db4f3af16842c0d975818e469022d09e53f0aa05",
+      "bytes": 24140,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/predicates-2.1.4.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/predicates-core/predicates-core-1.0.5.crate",
+      "sha256": "72f883590242d3c6fc5bf50299011695fa6590c2c70eac95ee1bdb9a733ad1a2",
+      "expected_sha256": "72f883590242d3c6fc5bf50299011695fa6590c2c70eac95ee1bdb9a733ad1a2",
+      "bytes": 7773,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/predicates-core-1.0.5.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/predicates-tree/predicates-tree-1.0.7.crate",
+      "sha256": "54ff541861505aabf6ea722d2131ee980b8276e10a1297b94e896dd8b621850d",
+      "expected_sha256": "54ff541861505aabf6ea722d2131ee980b8276e10a1297b94e896dd8b621850d",
+      "bytes": 8145,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/predicates-tree-1.0.7.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/proc-macro-error/proc-macro-error-1.0.4.crate",
+      "sha256": "da25490ff9892aab3fcf7c36f08cfb902dd3e71ca0f9f9517bea02a73a5ce38c",
+      "expected_sha256": "da25490ff9892aab3fcf7c36f08cfb902dd3e71ca0f9f9517bea02a73a5ce38c",
+      "bytes": 25293,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/proc-macro-error-1.0.4.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/proc-macro-error-attr/proc-macro-error-attr-1.0.4.crate",
+      "sha256": "a1be40180e52ecc98ad80b184934baf3d0d29f979574e439af5a55274b35f869",
+      "expected_sha256": "a1be40180e52ecc98ad80b184934baf3d0d29f979574e439af5a55274b35f869",
+      "bytes": 7971,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/proc-macro-error-attr-1.0.4.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/proc-macro2/proc-macro2-1.0.70.crate",
+      "sha256": "39278fbbf5fb4f646ce651690877f89d1c5811a3d4acb27700c1cb3cdb78fd3b",
+      "expected_sha256": "39278fbbf5fb4f646ce651690877f89d1c5811a3d4acb27700c1cb3cdb78fd3b",
+      "bytes": 44343,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/proc-macro2-1.0.70.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/quote/quote-1.0.33.crate",
+      "sha256": "5267fca4496028628a95160fc423a33e8b2e6af8a5302579e322e4b520293cae",
+      "expected_sha256": "5267fca4496028628a95160fc423a33e8b2e6af8a5302579e322e4b520293cae",
+      "bytes": 28090,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/quote-1.0.33.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/r-efi/r-efi-6.0.0.crate",
+      "sha256": "f8dcc9c7d52a811697d2151c701e0d08956f92b0e24136cf4cf27b57a6a0d9bf",
+      "expected_sha256": "f8dcc9c7d52a811697d2151c701e0d08956f92b0e24136cf4cf27b57a6a0d9bf",
+      "bytes": 65303,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/r-efi-6.0.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/redox_syscall/redox_syscall-0.2.16.crate",
+      "sha256": "fb5a58c1855b4b6819d59012155603f0b22ad30cad752600aadfcb695265519a",
+      "expected_sha256": "fb5a58c1855b4b6819d59012155603f0b22ad30cad752600aadfcb695265519a",
+      "bytes": 24012,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/redox_syscall-0.2.16.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/regex/regex-1.7.0.crate",
+      "sha256": "e076559ef8e241f2ae3479e36f97bd5741c0330689e217ad51ce2c76808b868a",
+      "expected_sha256": "e076559ef8e241f2ae3479e36f97bd5741c0330689e217ad51ce2c76808b868a",
+      "bytes": 239421,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/regex-1.7.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/regex-automata/regex-automata-0.1.10.crate",
+      "sha256": "6c230d73fb8d8c1b9c0b3135c5142a8acee3a0558fb8db5cf1cb65f8d7862132",
+      "expected_sha256": "6c230d73fb8d8c1b9c0b3135c5142a8acee3a0558fb8db5cf1cb65f8d7862132",
+      "bytes": 114533,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/regex-automata-0.1.10.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/regex-syntax/regex-syntax-0.6.28.crate",
+      "sha256": "456c603be3e8d448b072f410900c09faf164fbce2d480456f50eea6e25f9c848",
+      "expected_sha256": "456c603be3e8d448b072f410900c09faf164fbce2d480456f50eea6e25f9c848",
+      "bytes": 299288,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/regex-syntax-0.6.28.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/remove_dir_all/remove_dir_all-0.5.3.crate",
+      "sha256": "3acd125665422973a33ac9d3dd2df85edad0f4ae9b00dafb1a05e43a9f5ef8e7",
+      "expected_sha256": "3acd125665422973a33ac9d3dd2df85edad0f4ae9b00dafb1a05e43a9f5ef8e7",
+      "bytes": 9184,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/remove_dir_all-0.5.3.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/rustc_version/rustc_version-0.4.0.crate",
+      "sha256": "bfa0f585226d2e68097d4f95d113b15b83a82e819ab25717ec0590d9584ef366",
+      "expected_sha256": "bfa0f585226d2e68097d4f95d113b15b83a82e819ab25717ec0590d9584ef366",
+      "bytes": 12175,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/rustc_version-0.4.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/rustix/rustix-0.36.5.crate",
+      "sha256": "a3807b5d10909833d3e9acd1eb5fb988f79376ff10fce42937de71a449c4c588",
+      "expected_sha256": "a3807b5d10909833d3e9acd1eb5fb988f79376ff10fce42937de71a449c4c588",
+      "bytes": 287459,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/rustix-0.36.5.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/ryu/ryu-1.0.15.crate",
+      "sha256": "1ad4cc8da4ef723ed60bced201181d83791ad433213d8c24efffda1eec85d741",
+      "expected_sha256": "1ad4cc8da4ef723ed60bced201181d83791ad433213d8c24efffda1eec85d741",
+      "bytes": 46906,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/ryu-1.0.15.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/semver/semver-1.0.14.crate",
+      "sha256": "e25dfac463d778e353db5be2449d1cce89bd6fd23c9f1ea21310ce6e5a1b29c4",
+      "expected_sha256": "e25dfac463d778e353db5be2449d1cce89bd6fd23c9f1ea21310ce6e5a1b29c4",
+      "bytes": 29813,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/semver-1.0.14.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/serde/serde-1.0.193.crate",
+      "sha256": "25dd9975e68d0cb5aa1120c288333fc98731bd1dd12f561e468ea4728c042b89",
+      "expected_sha256": "25dd9975e68d0cb5aa1120c288333fc98731bd1dd12f561e468ea4728c042b89",
+      "bytes": 76863,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/serde-1.0.193.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/serde_derive/serde_derive-1.0.193.crate",
+      "sha256": "43576ca501357b9b071ac53cdc7da8ef0cbd9493d8df094cd821777ea6e894d3",
+      "expected_sha256": "43576ca501357b9b071ac53cdc7da8ef0cbd9493d8df094cd821777ea6e894d3",
+      "bytes": 55692,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/serde_derive-1.0.193.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/serde_json/serde_json-1.0.108.crate",
+      "sha256": "3d1c7e3eac408d115102c4c24ad393e0821bb3a5df4d506a80f85f7a742a526b",
+      "expected_sha256": "3d1c7e3eac408d115102c4c24ad393e0821bb3a5df4d506a80f85f7a742a526b",
+      "bytes": 146476,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/serde_json-1.0.108.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/shlex/shlex-2.0.1.crate",
+      "sha256": "f8fadd59c855ef2080decdef8ff161eb6661b86933c9d82e5ba29dc602a55aba",
+      "expected_sha256": "f8fadd59c855ef2080decdef8ff161eb6661b86933c9d82e5ba29dc602a55aba",
+      "bytes": 19332,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/shlex-2.0.1.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/strsim/strsim-0.10.0.crate",
+      "sha256": "73473c0e59e6d5812c5dfe2a064a6444949f089e20eec9a2e5506596494e4623",
+      "expected_sha256": "73473c0e59e6d5812c5dfe2a064a6444949f089e20eec9a2e5506596494e4623",
+      "bytes": 11355,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/strsim-0.10.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/syn/syn-1.0.105.crate",
+      "sha256": "60b9b43d45702de4c839cb9b51d9f529c5dd26a4aff255b42b1ebc03e88ee908",
+      "expected_sha256": "60b9b43d45702de4c839cb9b51d9f529c5dd26a4aff255b42b1ebc03e88ee908",
+      "bytes": 237549,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/syn-1.0.105.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/syn/syn-2.0.39.crate",
+      "sha256": "23e78b90f2fcf45d3e842032ce32e3f2d1545ba6636271dcbf24fa306d87be7a",
+      "expected_sha256": "23e78b90f2fcf45d3e842032ce32e3f2d1545ba6636271dcbf24fa306d87be7a",
+      "bytes": 244129,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/syn-2.0.39.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/tempfile/tempfile-3.3.0.crate",
+      "sha256": "5cdb1ef4eaeeaddc8fbd371e5017057064af0911902ef36b39801f67cc6d79e4",
+      "expected_sha256": "5cdb1ef4eaeeaddc8fbd371e5017057064af0911902ef36b39801f67cc6d79e4",
+      "bytes": 27578,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/tempfile-3.3.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/termcolor/termcolor-1.1.3.crate",
+      "sha256": "bab24d30b911b2376f3a13cc2cd443142f0c81dda04c118693e35b3835757755",
+      "expected_sha256": "bab24d30b911b2376f3a13cc2cd443142f0c81dda04c118693e35b3835757755",
+      "bytes": 17242,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/termcolor-1.1.3.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/termtree/termtree-0.4.0.crate",
+      "sha256": "95059e91184749cb66be6dc994f67f182b6d897cb3df74a5bf66b5e709295fd8",
+      "expected_sha256": "95059e91184749cb66be6dc994f67f182b6d897cb3df74a5bf66b5e709295fd8",
+      "bytes": 4449,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/termtree-0.4.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/thiserror/thiserror-1.0.50.crate",
+      "sha256": "f9a7210f5c9a7156bb50aa36aed4c95afb51df0df00713949448cf9e97d382d2",
+      "expected_sha256": "f9a7210f5c9a7156bb50aa36aed4c95afb51df0df00713949448cf9e97d382d2",
+      "bytes": 19414,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/thiserror-1.0.50.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/thiserror-impl/thiserror-impl-1.0.50.crate",
+      "sha256": "266b2e40bc00e5a6c09c3584011e08b06f123c00362c92b975ba9843aaaa14b8",
+      "expected_sha256": "266b2e40bc00e5a6c09c3584011e08b06f123c00362c92b975ba9843aaaa14b8",
+      "bytes": 15357,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/thiserror-impl-1.0.50.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/toml/toml-0.5.9.crate",
+      "sha256": "8d82e1a7758622a465f8cee077614c73484dac5b836c02ff6a40d5d1010324d7",
+      "expected_sha256": "8d82e1a7758622a465f8cee077614c73484dac5b836c02ff6a40d5d1010324d7",
+      "bytes": 55667,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/toml-0.5.9.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/unicode-ident/unicode-ident-1.0.5.crate",
+      "sha256": "6ceab39d59e4c9499d4e5a8ee0e2735b891bb7308ac83dfb4e80cad195c9f6f3",
+      "expected_sha256": "6ceab39d59e4c9499d4e5a8ee0e2735b891bb7308ac83dfb4e80cad195c9f6f3",
+      "bytes": 35455,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/unicode-ident-1.0.5.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/version_check/version_check-0.9.4.crate",
+      "sha256": "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f",
+      "expected_sha256": "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f",
+      "bytes": 14895,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/version_check-0.9.4.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/wait-timeout/wait-timeout-0.2.0.crate",
+      "sha256": "9f200f5b12eb75f8c1ed65abd4b2db8a6e1b138a20de009dacee265a2498f3f6",
+      "expected_sha256": "9f200f5b12eb75f8c1ed65abd4b2db8a6e1b138a20de009dacee265a2498f3f6",
+      "bytes": 12441,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/wait-timeout-0.2.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/winapi/winapi-0.3.9.crate",
+      "sha256": "5c839a674fcd7a98952e593242ea400abe93992746761e38641405d28b00f419",
+      "expected_sha256": "5c839a674fcd7a98952e593242ea400abe93992746761e38641405d28b00f419",
+      "bytes": 1200382,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/winapi-0.3.9.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/winapi-i686-pc-windows-gnu/winapi-i686-pc-windows-gnu-0.4.0.crate",
+      "sha256": "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6",
+      "expected_sha256": "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6",
+      "bytes": 2918815,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/winapi-i686-pc-windows-gnu-0.4.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/winapi-util/winapi-util-0.1.5.crate",
+      "sha256": "70ec6ce85bb158151cae5e5c87f95a8e97d2c0c4b001223f33a334e3ce5de178",
+      "expected_sha256": "70ec6ce85bb158151cae5e5c87f95a8e97d2c0c4b001223f33a334e3ce5de178",
+      "bytes": 10164,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/winapi-util-0.1.5.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/winapi-x86_64-pc-windows-gnu/winapi-x86_64-pc-windows-gnu-0.4.0.crate",
+      "sha256": "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f",
+      "expected_sha256": "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f",
+      "bytes": 2947998,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/winapi-x86_64-pc-windows-gnu-0.4.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/windows-sys/windows-sys-0.42.0.crate",
+      "sha256": "5a3e1820f08b8513f676f7ab6c1f99ff312fb97b553d30ff4dd86f9f15728aa7",
+      "expected_sha256": "5a3e1820f08b8513f676f7ab6c1f99ff312fb97b553d30ff4dd86f9f15728aa7",
+      "bytes": 3006791,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/windows-sys-0.42.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/windows_aarch64_gnullvm/windows_aarch64_gnullvm-0.42.0.crate",
+      "sha256": "41d2aa71f6f0cbe00ae5167d90ef3cfe66527d6f613ca78ac8024c3ccab9a19e",
+      "expected_sha256": "41d2aa71f6f0cbe00ae5167d90ef3cfe66527d6f613ca78ac8024c3ccab9a19e",
+      "bytes": 357917,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/windows_aarch64_gnullvm-0.42.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/windows_aarch64_msvc/windows_aarch64_msvc-0.42.0.crate",
+      "sha256": "dd0f252f5a35cac83d6311b2e795981f5ee6e67eb1f9a7f64eb4500fbc4dcdb4",
+      "expected_sha256": "dd0f252f5a35cac83d6311b2e795981f5ee6e67eb1f9a7f64eb4500fbc4dcdb4",
+      "bytes": 659424,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/windows_aarch64_msvc-0.42.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/windows_i686_gnu/windows_i686_gnu-0.42.0.crate",
+      "sha256": "fbeae19f6716841636c28d695375df17562ca208b2b7d0dc47635a50ae6c5de7",
+      "expected_sha256": "fbeae19f6716841636c28d695375df17562ca208b2b7d0dc47635a50ae6c5de7",
+      "bytes": 728570,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/windows_i686_gnu-0.42.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/windows_i686_msvc/windows_i686_msvc-0.42.0.crate",
+      "sha256": "84c12f65daa39dd2babe6e442988fc329d6243fdce47d7d2d155b8d874862246",
+      "expected_sha256": "84c12f65daa39dd2babe6e442988fc329d6243fdce47d7d2d155b8d874862246",
+      "bytes": 717477,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/windows_i686_msvc-0.42.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/windows_x86_64_gnu/windows_x86_64_gnu-0.42.0.crate",
+      "sha256": "bf7b1b21b5362cbc318f686150e5bcea75ecedc74dd157d874d754a2ca44b0ed",
+      "expected_sha256": "bf7b1b21b5362cbc318f686150e5bcea75ecedc74dd157d874d754a2ca44b0ed",
+      "bytes": 692493,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/windows_x86_64_gnu-0.42.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/windows_x86_64_gnullvm/windows_x86_64_gnullvm-0.42.0.crate",
+      "sha256": "09d525d2ba30eeb3297665bd434a54297e4170c7f1a44cad4ef58095b4cd2028",
+      "expected_sha256": "09d525d2ba30eeb3297665bd434a54297e4170c7f1a44cad4ef58095b4cd2028",
+      "bytes": 357906,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/windows_x86_64_gnullvm-0.42.0.crate"
+    },
+    {
+      "url": "https://static.crates.io/crates/windows_x86_64_msvc/windows_x86_64_msvc-0.42.0.crate",
+      "sha256": "f40009d85759725a34da6d89a94e63d7bdc50a862acf0dbc7c8e488f1edcb6f5",
+      "expected_sha256": "f40009d85759725a34da6d89a94e63d7bdc50a862acf0dbc7c8e488f1edcb6f5",
+      "bytes": 659377,
+      "reused_complete_original_archive": "/private/tmp/mpk-go-rust-scope/download-archive-backup/windows_x86_64_msvc-0.42.0.crate"
+    }
+  ],
+  "resource_limits": {
+    "cgroup_tasks": 256,
+    "open_files_per_process": 1024,
+    "virtual_memory_bytes_per_process": 17179869184,
+    "cgroup_memory_bytes": 34359738368,
+    "cgroup_swap_bytes": 0,
+    "writable_allocated_bytes": 21474836480,
+    "writable_inodes": 262144,
+    "stdout_bytes": 67108864,
+    "stderr_bytes": 2097152
+  },
+  "source_inputs_unchanged": true,
+  "native_guards_changed": false,
+  "descriptor_or_hash_pins_changed": false,
+  "scope": "Portable reconstruction authenticates exact SDK bytes only; native host, separate noexec tmpfs views, cgroup delegation and source-execution isolation acceptance remain pending. This does not replace the official native provision/gate result."
+}

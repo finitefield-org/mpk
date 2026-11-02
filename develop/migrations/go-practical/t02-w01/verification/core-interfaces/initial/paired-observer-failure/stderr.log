@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/core-interfaces/run-paired.py", line 21, in <module>
+    assert go['error_kind']=='core_check' and r['error_code'].startswith('CORE_'),(name,r,go)
+AssertionError: ('bool-alias', {'verdict': 'rejected', 'module': None, 'declaration_count': None, 'axiom_count': None, 'hashes': {'export': None, 'axiom_report': None, 'certificate': '32d44fade3ab65a42488f32d6a49d6ba0f2e6c2070f77bce99e6eb8c3080c177'}, 'axiom_report': None, 'error_code': 'KERNEL_CORE_CHECK', 'error_detail': '{"code":"CORE_INVALID_DECLARATION","location":[],"details":{"kind":"invalid_bool_rec_type_interface","reason":"reserved_name_for_different_family"}}'}, {'verdict': 'rejected', 'error_kind': 'core_check', 'error_detail': 'reserved eliminator name belongs to another family'})

@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "source_base_commit": "0a68bf007146910dfd3a710a993626ec480ff860",
+  "started_at_utc": "2026-10-18T11:25:54.520043+00:00",
+  "command": [
+    "rustfmt",
+    "--edition",
+    "2021",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "RUST_MIN_STACK": "unset",
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs",
+      "sha256": "4250c4213cf455cce6f67f3d006708900d52a300c69d7ec5d0a4a0a7f9e240c8",
+      "bytes": 47086
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/retained-csharp/aggregate-preservation-epochs/manifest.json",
+      "sha256": "b75cd0713d0d45b91d6985b7ccc567f67cf2cd83bd693945827792f4942281fb",
+      "bytes": 477701
+    }
+  ],
+  "selection_reason": "Two reproduced aggregate historical comparisons; preserve all225 vectors, every original dependency, exact8192-StepTwo audit,12 non-cost metadata pairs and the unchanged current component closure. Build only their owning integration target.",
+  "exit_code": 0,
+  "wall_seconds": 0.2391770000103861,
+  "finished_at_utc": "2026-10-18T11:25:54.764998+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/format.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-repair/format.stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "formatted_source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs",
+    "sha256": "b3699b45b29fb6ea9396975c8f39546fb9b50ebf9c16abd2a10905c9f16086f0",
+    "bytes": 47071
+  }
+}

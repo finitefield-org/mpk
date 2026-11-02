@@ -332,7 +332,7 @@ fn structural_rejection_uses_the_exact_path_free_envelope() {
         "\"semantic_context\":{",
         "\"profile_entry_sha256\":\"1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057\",",
         "\"profile_registry\":{\"id\":\"mpk.semantic_profile.registry.v1\",",
-        "\"registry_sha256\":\"fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557\",",
+        "\"registry_sha256\":\"25c92a9be951c91d0692aeb92003ae1d9fc5dd2d6a337c980ff6e681b222d2c0\",",
         "\"revision\":3,\"schema\":\"mpk.semantic_profile.registry.v1\"},",
         "\"semantic_parameters\":{\"schema\":\"mpk.semantic_parameters.rust_checked.v0\",",
         "\"value\":{\"overflow_mode\":\"checked\",",

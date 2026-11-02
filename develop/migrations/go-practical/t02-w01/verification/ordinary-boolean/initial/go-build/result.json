@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-19T08:29:03.525912+00:00",
+  "selection_reason": "Only the new ordinary Boolean foundation generator/importer, its source-free positive/incorrect-claim/determinism tests, strict source formatting/lint and current independent checker build. No CSharp test target, intermediate check-fast or source/application proof claim.",
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "21d3a0b22ddc39e7e316583146b7f0f54832160e67df4f9c0e9fa86bd59ffcac",
+      "bytes": 13873
+    },
+    {
+      "path": "crates/mpk-vc/src/lib.rs",
+      "sha256": "b5f86ab1e9f76e7c9a7087fc88e3b6e1b47d1dda7d956fe97efc2a08623d74f1",
+      "bytes": 9634
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_ordinary.rs",
+      "sha256": "d19e36e1ea8ce0d469a0facad884c8364d9bf9c2c62c6910b2534b85994611a7",
+      "bytes": 4659
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    }
+  ],
+  "checker_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/checker-inputs.json",
+    "sha256": "6296d74c1a85126a9f8d39b73419e2caa9b6a69fee9ff8ee53f28fec4ddca323",
+    "bytes": 12794
+  },
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "CGO_ENABLED": "0",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": "",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache"
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "build",
+    "-trimpath",
+    "-buildvcs=false",
+    "-o",
+    "/private/tmp/mpk-go-practical-t02-ordinary-boolean/checker-ref",
+    "./cmd/mpk-checker-ref"
+  ],
+  "cwd": "go-tools/mpk-checker-ref",
+  "exit_code": 0,
+  "wall_seconds": 3.6498891670489684,
+  "finished_at_utc": "2026-10-19T08:29:07.246001+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/go-build/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/ordinary-boolean/initial/go-build/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "checker_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-ordinary-boolean/checker-ref",
+    "sha256": "bc21d279807f5994a16287a532db65cac3bbb170bfa4d0ca5c6729825e24c62c",
+    "bytes": 3222018
+  }
+}

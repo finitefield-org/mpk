@@ -1,0 +1,46 @@
+{
+  "schema": "mpk.go_practical.signed_product_native_comparison.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T16:11:01.656437+00:00",
+  "native_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native/result.json",
+    "sha256": "606433791006b95d83fa083f8fb7d1e76684a3b4d27f5f0f6ffa3c977911cd81",
+    "bytes": 5916
+  },
+  "query_origins": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/query-origins.json",
+    "sha256": "9e245ebf1c978320cd8246ddcb29acef32e4fe63fd0624ba2ea26343b3aeb93d",
+    "bytes": 1275
+  },
+  "actual_certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/model/certificate.mpcert",
+    "sha256": "5b0d67641b9a4c5de86a32411a29f00d6ebdd5cdb049f1b21839e79526a66eda",
+    "bytes": 1032832
+  },
+  "actual_Boolean_model": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/model/model.json",
+    "sha256": "306682ca4b96ee0b4a0702bdd545d85265b049de58d5adf6c748a59c9eb2ba5a",
+    "bytes": 160236
+  },
+  "model_metrics": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/final/rust-tests/model/metrics.json",
+    "sha256": "9db63979468846ad13c7c3599d8d01041dbbb32d9da4682a833ab4df9d282f3b",
+    "bytes": 905
+  },
+  "independent_integer_oracle": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-product/native-comparison-final/independent-integer-oracle.json",
+    "sha256": "3a33ab49ceaf55f0090d1d1fd7099ea9d91876edba7b656e78b14ffb73c19848",
+    "bytes": 256669
+  },
+  "selected_original_queries": 48,
+  "actual_stages": 1440,
+  "actual_true_carries": 107,
+  "exact_signed_products": 21,
+  "overflowed_signed_products": 27,
+  "minimum_times_minus_one_cases": 4,
+  "scope": "Actual decoded Boolean multiplication/fixed shifts/carries/sign bits agree with two identical fresh typed signed/unsigned Go runs, math/big products/corrections and independent Python exact integers. Host derives the ordinary unsigned-discard recurrence and both correction parts from actual bits/carries. The Nat witness/correction/guard or theorem bodies are not executed by the Bool-only model; universal actual guard equivalence checks separately in both cores. Minimum signed value times minus one wraps in Go, has correction1 and false exact-result guard. No source-program, authoritative immutable application replay or native Linux release claim.",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "source_base_commit": "e8ceb3c1fd8501e1fe774289091f188cdc8fdc65",
+  "started_at_utc": "2026-10-18T16:22:04.132712+00:00",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+    "sha256": "b7dd63d21d97a1b1ae05c3456395595f0a3626ef94f2710563092d08ae7b59b6",
+    "bytes": 151531
+  },
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "selection_reason": "Only the newly edited control history selector/pin loader and its owning integration target. All existing test assertion bodies and current-source producer code remain byte-identical; no unrelated tests or whole gate rerun.",
+  "exit_code": 0,
+  "finished_at_utc": "2026-10-18T16:22:13.542695+00:00",
+  "wall_seconds": 9.409412457956932,
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-repair/lint/clippy.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-repair/lint/clippy.stderr.log",
+    "sha256": "868f4d1f13bca19fa71308a9455511a40634fda95eaca7615556f33b256c59a6",
+    "bytes": 146
+  }
+}

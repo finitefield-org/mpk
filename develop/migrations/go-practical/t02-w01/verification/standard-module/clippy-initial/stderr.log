@@ -1,0 +1,22 @@
+    Blocking waiting for file lock on build directory
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0382]: borrow of moved value: `identity`
+   --> crates/mpk-vc/tests/go_practical_compiler_inputs.rs:274:19
+    |
+269 |         let identity = component["identity"].clone();
+    |             -------- move occurs because `identity` has type `serde_json::Value`, which does not implement the `Copy` trait
+...
+274 |             .find(|c| c["name"] == identity["name"])
+    |                   ^^^              -------- borrow occurs due to use in closure
+    |                   |
+    |                   value borrowed here after move
+275 |             .unwrap() = identity;
+    |                         -------- value moved here
+    |
+help: consider cloning the value if the performance cost is acceptable
+    |
+275 |             .unwrap() = identity.clone();
+    |                                 ++++++++
+
+For more information about this error, try `rustc --explain E0382`.
+error: could not compile `mpk-vc` (test "go_practical_compiler_inputs") due to 1 previous error

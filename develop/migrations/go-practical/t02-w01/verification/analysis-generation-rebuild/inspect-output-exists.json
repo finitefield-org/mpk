@@ -1,0 +1,19 @@
+{
+  "status": "failed",
+  "selection_reason": "An additional PGO-absence inspection attempted to use the immutable first inspection output path. All earlier assertions had passed; the existing record was not overwritten.",
+  "command": [
+    "python3",
+    "-B",
+    "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/inspect.py"
+  ],
+  "exit_code": 1,
+  "error": "AssertionError: inspection.json already exists",
+  "driver": "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/inspect-output-exists.py",
+  "driver_sha256": "2597a4fd4d81b6e8e52751d6e9fc20aac3a07ea63f30c9da778629287468bf47",
+  "existing_inspection_unchanged": true,
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/analysis-generation-rebuild/inspect-output-exists.stderr",
+    "bytes": 835,
+    "sha256": "739c2cd9a8221a75993adcbcfb96823b5beba65fd60e04e5c727167ae2560bc0"
+  }
+}

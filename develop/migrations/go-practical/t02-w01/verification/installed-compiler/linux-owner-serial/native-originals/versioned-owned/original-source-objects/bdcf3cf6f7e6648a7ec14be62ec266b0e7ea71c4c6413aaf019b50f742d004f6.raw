@@ -1,0 +1,5 @@
+package policy
+import(a "example.com/a";c "example.com/c";alias "example.com/alias";"net/http")
+func Root(x uint16)uint16{return x+1}
+func Unused(r *http.Request,x int64)int64{go func(){select{}}();return a.Identity(c.Identity(alias.Identity(x)))}
+func init(){panic("original init must never execute")}

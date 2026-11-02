@@ -1,0 +1,111 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-m",
+        "unittest",
+        "-v",
+        "test_identity_wire"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical",
+      "exit_code": 0,
+      "log": "unittest-identity.log",
+      "reason": "19 identity/preimage/DAG/Unicode/alias/nominal/source/method/result/U/loop/context crossing and migration-scope tests",
+      "sha256": "49c4da91be036aba741dc4d2d59479f56a500d80ef096eec14123372ff628e59",
+      "wall_seconds": 0.16762141598155722
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_identity_dag.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh untrusted Rust/Go hash helper rebuild;44 canonical/digest/negative vectors and two exact runs each;26-node DAG,101/41 identities/domains and143 proposal routes with pinned inputs",
+      "sha256": "a011b1f2e6952b0c7d5d234eab77d269946b498df331560accf167e6bc51ae99",
+      "wall_seconds": 6.720771084015723
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_identity_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Current identity scope and reserved C# names, retained counter/admission/lifetime/view/overlay/Nat evidence,143 predecessor pins,two diagnostics,links/ledger",
+      "sha256": "0f4f97729ac9324e03e86a9ce4f4042a3992a0e14903d14e2702373663cdf10d",
+      "wall_seconds": 3.3592008749837987
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+        "-l",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/identity_hashes.go"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "gofmt.log",
+      "reason": "Only the new independent Go canonical/hash observer",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.02553325000917539
+    },
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "--config",
+        "skip_children=true",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/identity-hashes/src/main.rs"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "rustfmt.log",
+      "reason": "Only the new Rust hash observer; unchanged imported canonicalizer and all retained source snapshots excluded",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.12440362497000024
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-c",
+        "import pathlib;p=pathlib.Path('develop/probes/go-practical');names=('identity_catalog.py','identity_wire.py','identity_vectors.py','identity_migration.py','test_identity_wire.py','run_identity_dag.py','check_identity_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: seven new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "Syntax compilation of seven new private identity/catalog/fixture/migration/replay/test/metadata sources",
+      "sha256": "e4df2efa2dfb72a9d50afd17f0b66f9e2d048c04d71549f84108eced152ce344",
+      "wall_seconds": 0.03504470799816772
+    }
+  ],
+  "entry_commit": "47b2a5e9846b5200ca1106ab9407de310af6e169",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative gate reserved for final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "ef0b973dd284eea65056e644ca5d73ad04d21014fab408680227b00184925da7",
+  "not_repeated": [
+    "unchanged production/kernel unit suites",
+    "older module/operator/overlay/counter/proof/native matrices; retained source/receipt integrity checked"
+  ],
+  "observed_tests": 19,
+  "output_scope": "complete raw combined stdout/stderr captured from local subprocesses",
+  "python_sources_compiled": 7,
+  "remaining": [
+    "complete all shared/Go root/nested/tagged-union/operation/expression/binding/call schemas and hash/context/foundation predicates",
+    "independent source/registry/compiler/type/U/loop/import/ordinary proof reconstruction",
+    "full symbol/preimage producer/consumer review, four-profile preservation, atomic migration/activation/rollback, W05/T01 gate and all T02–T11 application/releases"
+  ],
+  "schema": "mpk.go_practical.w04_identity_dag_verification.v0",
+  "scope": "private source identity/hash/DAG and per-file candidate migration; not source/import/proof/full-schema/profile completion",
+  "status": "W04 in progress; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

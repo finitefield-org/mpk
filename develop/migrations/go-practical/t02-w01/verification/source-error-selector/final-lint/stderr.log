@@ -1,0 +1,12 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: unused import: `json`
+ --> crates/mpk-vc/tests/go_practical_source_error_selector_controls.rs:3:18
+  |
+3 | use serde_json::{json, Value};
+  |                  ^^^^
+  |
+  = note: `-D unused-imports` implied by `-D warnings`
+  = help: to override `-D warnings` add `#[allow(unused_imports)]`
+
+error: could not compile `mpk-vc` (test "go_practical_source_error_selector_controls") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

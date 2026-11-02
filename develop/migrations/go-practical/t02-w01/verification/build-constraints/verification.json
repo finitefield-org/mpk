@@ -1,0 +1,140 @@
+{
+  "status": "scoped_checks_passed_work_item_in_progress",
+  "basis_commit": "7d2fa25c3a4ed6c4f142ea9c0bcd7195bbd14541",
+  "observed_at_utc": "2026-10-24T19:47:15.057842+00:00",
+  "component": "Independent fixed Go1.25.0 Linux/amd64 filename/header eligibility guard on every claimed active Go source in complete capture inputs; complete original snapshots remain unchanged.",
+  "checks": {
+    "build-original": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/build-original/result.json",
+      "bytes": 3347,
+      "sha256": "79e0dbc6ad141fdf578e24a557a6df1bcc5c12ad7a416ab336fe7b017ab42361",
+      "mode": 420
+    },
+    "clippy": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/clippy/result.json",
+      "bytes": 3358,
+      "sha256": "4f184228cbdb22aefe3a9cc5f78a23fa886ee14e97c9a4d59e89997aeb9e8649",
+      "mode": 420
+    },
+    "format": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/format/result.json",
+      "bytes": 3563,
+      "sha256": "52d8a2b4c9d83b722a4f13089b3a55ccdd2529af5f4688c8caea560ecd044ec9",
+      "mode": 420
+    },
+    "go-format": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/go-format/result.json",
+      "bytes": 3752,
+      "sha256": "6359183e5907353aa330f3eee470eb2021f816693d5dc9b58951fbfa1a50b1cf",
+      "mode": 420
+    },
+    "go-format-final": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/go-format-final/result.json",
+      "bytes": 3771,
+      "sha256": "8823d1493215565bd970089b00a2d0256b260d7612b2b417902aa0ea776f9e26",
+      "mode": 420
+    },
+    "go-vet": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/go-vet/result.json",
+      "bytes": 3692,
+      "sha256": "31f70bf52073684a89af66a502ba1c40ea072d796b1335db609141a545f0b1c9",
+      "mode": 420
+    },
+    "native": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/native/result.json",
+      "bytes": 4002,
+      "sha256": "80101db2e09ff92e7b32af76beb256c5ed2dfd382daaac1345272b8a9213bdc0",
+      "mode": 420
+    },
+    "rust": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/rust/result.json",
+      "bytes": 4025,
+      "sha256": "d02450e2906f13517b117e75afe8e34049bf64c36a9bead646df2caa353337d5",
+      "mode": 420
+    },
+    "rust-format": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/rust-format/result.json",
+      "bytes": 3563,
+      "sha256": "62816a8e4464d9d8d24bf779893208a4d33a21c2c670758c9f3b34fa6b3a6096",
+      "mode": 420
+    }
+  },
+  "independent_inspection": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/inspection.json",
+    "bytes": 218425,
+    "sha256": "e13a94fdd72045377b004f965d48d127287d8f97ca4974bb85afc93daac82fe4",
+    "mode": 420
+  },
+  "native_oracle_roots": 2,
+  "affected_rust_roots": 15,
+  "native_boundary_cases": 182,
+  "native_constraint_rejections": 7,
+  "actual_known_os": 18,
+  "actual_known_arch": 24,
+  "all_original_go_candidates": 13853,
+  "complete_original_snapshot_objects": {
+    "pure": 5487,
+    "wide": 5487,
+    "owned": 5490
+  },
+  "coherent_complete_source_rebinding_controls": 4,
+  "original_call_contracts_per_control": 2,
+  "original_roots_per_complete_source_unit": 43,
+  "previous_file_language_cases": 150,
+  "original_error_case_universes": [
+    0,
+    70
+  ],
+  "complete_original_proof_byte_streams": 32,
+  "language_scope": [
+    "Go",
+    "Rust"
+  ],
+  "selection_reason": "Only the new independent source build guard, shared expression parser, its complete-capture consumer and direct original-source consumers changed. Run all new Go native oracle roots, all15 affected Rust roots, strict affected Clippy, Go vet and explicit changed-file formats. Preserve and inspect full raw inputs from the three existing complete source snapshots and every prior32 proof stream. Retain unaffected native compiler/kernel/foundation matrices without repetition.",
+  "remaining": "Necessary filename/header/binary/test eligibility only. Full import/cgo/package selection and module/build/compiler/export roles, canonical capture/context/descriptor/registry and launcher authority, source/IR/state/storage/frame/callee/program proofs, all56 foundation families/all169 demands, native Linux gates and remaining T02-T11 stay open.",
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "public_profile_activated": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "whole_T_gate_run": false,
+  "standalone_consumer_repair": {
+    "original_failure": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/standalone/old/result.json",
+      "bytes": 1070,
+      "sha256": "5a310c14091797172f6e0ffa207194c6ec7e1af559f2e4e14ddc1e5df863292d",
+      "mode": 420
+    },
+    "final_two_roots_from_zero_original_snapshots": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/standalone/fixed/result.json",
+      "bytes": 1038,
+      "sha256": "2f5674f2556d37f1a8d31033adef572595f14e4337a2a4be8c636252d2700822",
+      "mode": 420
+    },
+    "all77162_original_files_and_bytes_modes_verified": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/standalone/result.json",
+      "bytes": 1550,
+      "sha256": "57dcb655b453e155c4797fc23e62812171e9f4b898d17a3dc8c6cbdd882c1d4a",
+      "mode": 420
+    },
+    "final_affected_format_and_clippy": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/final-consumer-checks/result.json",
+      "bytes": 1552,
+      "sha256": "dcce519ff27caf4520e5d3f19eb488fb7df97d97bdc5459e4a2a4e2e3c39a114",
+      "mode": 420
+    },
+    "pre_fix_review_preserved": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/build-constraints/review-before-standalone-fix.json",
+      "bytes": 123500,
+      "sha256": "0bd3233283a373417b184904a13f9cca29ae2ba051201fdb12c2e02193d7c638",
+      "mode": 420
+    },
+    "initial_restored_files": 0,
+    "final_restored_files": 77162,
+    "final_restored_bytes": 696793808,
+    "old_failure_status_retained": true,
+    "only_test_reader_changed_after_the15_root_production_check": true,
+    "unchanged13_rust_roots_and_both_go_oracles_reused_without_repetition": true,
+    "both_final_standalone_observation_files_equal_original_successful_comparisons": true
+  }
+}

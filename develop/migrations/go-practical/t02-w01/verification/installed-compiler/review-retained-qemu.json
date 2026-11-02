@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "selection_reason": "Review the exact retained emulator, diagnostic and pinned-image runtime bytes added after the main scoped review; preserve all original scanner matchers and archive members.",
+  "inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/review_retained_qemu.py",
+      "bytes": 3398,
+      "sha256": "1f711b32ead1c3241464357b9a4952ad1307f6c43c148eb8162aa9e8df92f09e"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/retain_qemu_inputs.py",
+      "bytes": 2277,
+      "sha256": "ace78a687d71312a6b09b54737722cecf5ef03e14bacfa646d160f157d157a65"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-retained-environment/result.json",
+      "bytes": 2634,
+      "sha256": "57551fe8cb2c5f1c54cb0b23cb531d13451b932fa3375638ee7e95ff6917af23"
+    }
+  ],
+  "archive": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-retained-environment/inputs.tar.gz",
+    "bytes": 6580279,
+    "sha256": "4b9b98c5c24d7f97274485b1946eb39ee1664dc76a0f456d24852a3f5fe5a215",
+    "mode": 420
+  },
+  "archive_members": 6,
+  "findings": [],
+  "matcher_count": 127,
+  "scopes": 4,
+  "seals": 39,
+  "exclusions": 51,
+  "native_Linux_release_acceptance": false,
+  "whole_repository_gate_run": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

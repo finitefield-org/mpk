@@ -1,0 +1,3402 @@
+{
+  "build": "Rust release offline locked; Go 1.25.0 pinned host trimpath",
+  "cargo": "cargo 1.97.1 (c980f4866 2026-06-30)",
+  "cases": [
+    {
+      "case": {
+        "bytes": 88175,
+        "declarations": 78,
+        "depth": 0,
+        "expected": "accepted",
+        "family": "carry",
+        "id": "order-1-carry-conservation",
+        "initial_natural_quantified": false,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 3,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 8169,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 1
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.034945,
+          "cpu_user_seconds": 1.9728539999999999,
+          "exit_code": 0,
+          "peak_rss_bytes": 29048832,
+          "report": {
+            "declaration_count": 78,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "2dc8c7e8e4d2aee8198217c75cc74e71c343de15e842830e3fa2af90c441e3f0",
+              "export": "c2eaa82c9a275120f245406a5b489b7d9a02c1a6bda0d59252a76f0b6e7f1609"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth0",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 2.4890222079702653
+        },
+        "rust": {
+          "cpu_system_seconds": 0.005992,
+          "cpu_user_seconds": 0.86188,
+          "exit_code": 0,
+          "peak_rss_bytes": 10928128,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 78,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "2dc8c7e8e4d2aee8198217c75cc74e71c343de15e842830e3fa2af90c441e3f0",
+              "export": "c2eaa82c9a275120f245406a5b489b7d9a02c1a6bda0d59252a76f0b6e7f1609"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth0",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.9303827079711482
+        }
+      },
+      "raw_sha256": "ba05858f3e98bf0578cd899a738b691dc18ae59136eb0ecf9504f476ef22202d"
+    },
+    {
+      "case": {
+        "bytes": 88214,
+        "declarations": 78,
+        "depth": 0,
+        "expected": "rejected",
+        "family": "carry",
+        "id": "order-1-unrelated-carry-premise",
+        "initial_natural_quantified": false,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 3,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 8178,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 1
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.016574,
+          "cpu_user_seconds": 0.936031,
+          "exit_code": 1,
+          "peak_rss_bytes": 30081024,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.9893586250254884
+        },
+        "rust": {
+          "cpu_system_seconds": 0.006684,
+          "cpu_user_seconds": 0.848093,
+          "exit_code": 1,
+          "peak_rss_bytes": 10354688,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"36707\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "c5d00c9912507ec40781ae904fe42ed7b83d1bee79ff8fd807102020e32d3908",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.8950711250072345
+        }
+      },
+      "raw_sha256": "d3f18d8a6989692ee8e53bf65ed93b49306b299ba288fc6f0cfb15e41ae3afed"
+    },
+    {
+      "case": {
+        "bytes": 110665,
+        "declarations": 115,
+        "depth": 1,
+        "expected": "accepted",
+        "family": "carry",
+        "id": "order-2-carry-conservation",
+        "initial_natural_quantified": false,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 6,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 10222,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 2
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.04017,
+          "cpu_user_seconds": 2.060168,
+          "exit_code": 0,
+          "peak_rss_bytes": 38404096,
+          "report": {
+            "declaration_count": 115,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "23854b8e1ef575994c73768eb5a47ebad22281b781e7410b28e6e0d1218d0dfc",
+              "export": "c6bb33a78e531c412b0d48e0f24f92dcb046cb6521ed2ea833320abb80149c6c"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth1",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 2.5267041670158505
+        },
+        "rust": {
+          "cpu_system_seconds": 0.007306,
+          "cpu_user_seconds": 0.92511,
+          "exit_code": 0,
+          "peak_rss_bytes": 16252928,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 115,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "23854b8e1ef575994c73768eb5a47ebad22281b781e7410b28e6e0d1218d0dfc",
+              "export": "c6bb33a78e531c412b0d48e0f24f92dcb046cb6521ed2ea833320abb80149c6c"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth1",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 0.9991386249894276
+        }
+      },
+      "raw_sha256": "cc79cb0a0580973d11e143832d0a1093aad8231f6d1e839034519bfca6f704c8"
+    },
+    {
+      "case": {
+        "bytes": 110707,
+        "declarations": 115,
+        "depth": 1,
+        "expected": "rejected",
+        "family": "carry",
+        "id": "order-2-unrelated-carry-premise",
+        "initial_natural_quantified": false,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 6,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 10231,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 2
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.018217999999999998,
+          "cpu_user_seconds": 0.9980589999999999,
+          "exit_code": 1,
+          "peak_rss_bytes": 35782656,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.0483315410092473
+        },
+        "rust": {
+          "cpu_system_seconds": 0.007006999999999999,
+          "cpu_user_seconds": 0.942137,
+          "exit_code": 1,
+          "peak_rss_bytes": 16171008,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"36707\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "d1e9c97323b22bdca64e3c39fad1826aec9c044594784fc7ca837e65bbaa8290",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.0667910419870168
+        }
+      },
+      "raw_sha256": "857960bb69c57edecf8b7c8f625bb0d557b4be8c63bf31c4ca078f66b86cc64f"
+    },
+    {
+      "case": {
+        "bytes": 133219,
+        "declarations": 152,
+        "depth": 2,
+        "expected": "accepted",
+        "family": "carry",
+        "id": "order-4-carry-conservation",
+        "initial_natural_quantified": false,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 12,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 12256,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 4
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.03929,
+          "cpu_user_seconds": 2.246516,
+          "exit_code": 0,
+          "peak_rss_bytes": 53493760,
+          "report": {
+            "declaration_count": 152,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "ba3512ee2c3c4c144e583473c321ad82d02456ad9da122e9453566c99175ef70",
+              "export": "de559462f8afb616120d1000db9914216469859b85d4bf536613f7eb606fad1d"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth2",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 2.3428367919987068
+        },
+        "rust": {
+          "cpu_system_seconds": 0.007135,
+          "cpu_user_seconds": 0.961953,
+          "exit_code": 0,
+          "peak_rss_bytes": 19824640,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 152,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "ba3512ee2c3c4c144e583473c321ad82d02456ad9da122e9453566c99175ef70",
+              "export": "de559462f8afb616120d1000db9914216469859b85d4bf536613f7eb606fad1d"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth2",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.0033347919816151
+        }
+      },
+      "raw_sha256": "554effe56c6430e206df33672b1fdd418c64c89d4e6c74e750f2895f6c72b941"
+    },
+    {
+      "case": {
+        "bytes": 133261,
+        "declarations": 152,
+        "depth": 2,
+        "expected": "rejected",
+        "family": "carry",
+        "id": "order-4-unrelated-carry-premise",
+        "initial_natural_quantified": false,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 12,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 12265,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 4
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.019052,
+          "cpu_user_seconds": 1.069918,
+          "exit_code": 1,
+          "peak_rss_bytes": 41451520,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.1107538329670206
+        },
+        "rust": {
+          "cpu_system_seconds": 0.007287,
+          "cpu_user_seconds": 0.9706229999999999,
+          "exit_code": 1,
+          "peak_rss_bytes": 19021824,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"36707\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "71e3d2a4b8f0f60c9325b4aed585048a25d1b5959337283f49fcbfb485af920a",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.056248459033668
+        }
+      },
+      "raw_sha256": "1ae5648d62dc6fc15e4502ec8e4b584faf7f1f06315bc9e25373424894c08358"
+    },
+    {
+      "case": {
+        "bytes": 155824,
+        "declarations": 189,
+        "depth": 3,
+        "expected": "accepted",
+        "family": "carry",
+        "id": "order-8-carry-conservation",
+        "initial_natural_quantified": false,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 24,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 14291,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 8
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.036961,
+          "cpu_user_seconds": 2.342156,
+          "exit_code": 0,
+          "peak_rss_bytes": 48496640,
+          "report": {
+            "declaration_count": 189,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "d619b70fdaaa7f92e69244ad986c8b1550f7f5996b8a704f89af2e71c9bd60ac",
+              "export": "c733f5328a32ac0caf9550f3110619312bc14ca2bfda17b1da6d786325990bb6"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth3",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 2.4871104169869795
+        },
+        "rust": {
+          "cpu_system_seconds": 0.008745,
+          "cpu_user_seconds": 1.035666,
+          "exit_code": 0,
+          "peak_rss_bytes": 21741568,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 189,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "d619b70fdaaa7f92e69244ad986c8b1550f7f5996b8a704f89af2e71c9bd60ac",
+              "export": "c733f5328a32ac0caf9550f3110619312bc14ca2bfda17b1da6d786325990bb6"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth3",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.2251728330156766
+        }
+      },
+      "raw_sha256": "14b9b80a7fe2b71fa5afbaf8dadcd828ace7de0e26635b61a91cdfadf8e6ba5e"
+    },
+    {
+      "case": {
+        "bytes": 155866,
+        "declarations": 189,
+        "depth": 3,
+        "expected": "rejected",
+        "family": "carry",
+        "id": "order-8-unrelated-carry-premise",
+        "initial_natural_quantified": false,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 24,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 14300,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 8
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.017633,
+          "cpu_user_seconds": 1.11356,
+          "exit_code": 1,
+          "peak_rss_bytes": 41058304,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.1288077079807408
+        },
+        "rust": {
+          "cpu_system_seconds": 0.007364,
+          "cpu_user_seconds": 1.054553,
+          "exit_code": 1,
+          "peak_rss_bytes": 21626880,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"36707\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "c5fd2eb7e5e897f6f4c5799e97618554b1eb2b5f6a4cd18aa481750070b6ba68",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.1456441250047646
+        }
+      },
+      "raw_sha256": "d4dc4e3c0ff070c1a7af3e3486f4c42334d4207e975596acbad0efb22d8d98ef"
+    },
+    {
+      "case": {
+        "bytes": 156432,
+        "declarations": 189,
+        "depth": 3,
+        "expected": "accepted",
+        "family": "path",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Apply(Constant(\"Probe.GoPractical.Word.TreeSignIncoming3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeOrderLE3\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Variable(\"limit\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSign3\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])]), Constant(\"Std.Bool.true\")])",
+        "id": "order-8-path-step-invariant",
+        "initial_natural_quantified": false,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 24,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 14354,
+        "theorem": "Probe.GoPractical.Word.OrderPathClaim",
+        "width": 8
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.039273999999999996,
+          "cpu_user_seconds": 2.380216,
+          "exit_code": 0,
+          "peak_rss_bytes": 52609024,
+          "report": {
+            "declaration_count": 189,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "97bbdefb2f06e3d36347a1be6129d57456b97d2698eea0d255a489ac277eabd7",
+              "export": "269b7d9dbbcfe205e13963a6fa4ffc58656c98660f30482373480a2fbb658dea"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth3",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 2.483240375004243
+        },
+        "rust": {
+          "cpu_system_seconds": 0.008889,
+          "cpu_user_seconds": 1.027022,
+          "exit_code": 0,
+          "peak_rss_bytes": 21561344,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 189,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "97bbdefb2f06e3d36347a1be6129d57456b97d2698eea0d255a489ac277eabd7",
+              "export": "269b7d9dbbcfe205e13963a6fa4ffc58656c98660f30482373480a2fbb658dea"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth3",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.1625608750036918
+        }
+      },
+      "raw_sha256": "dfc05eaa06427be0b99c0ffa7f2b07776430da73afab1cb60cc5d77edbb6a97a"
+    },
+    {
+      "case": {
+        "bytes": 156438,
+        "declarations": 189,
+        "depth": 3,
+        "expected": "rejected",
+        "family": "path",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Apply(Constant(\"Probe.GoPractical.Word.TreeSignIncoming3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeOrderLE3\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Variable(\"limit\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSign3\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])]), Constant(\"Std.Bool.true\")])",
+        "id": "order-8-path-unrelated-remaining-bound",
+        "initial_natural_quantified": false,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 24,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 14355,
+        "theorem": "Probe.GoPractical.Word.OrderPathClaim",
+        "width": 8
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.020446,
+          "cpu_user_seconds": 1.13238,
+          "exit_code": 1,
+          "peak_rss_bytes": 41631744,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.2156354170292616
+        },
+        "rust": {
+          "cpu_system_seconds": 0.007558,
+          "cpu_user_seconds": 1.037066,
+          "exit_code": 1,
+          "peak_rss_bytes": 22986752,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"86414\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "c4687397c4795689d2c7d51487daf1edfc35cd891288ab84621c86ad055c6760",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.1120598330162466
+        }
+      },
+      "raw_sha256": "84f58000e798fb01171300d5792c097e8ce809e130f2f477d1b0522ecb94d2fe"
+    },
+    {
+      "case": {
+        "bytes": 156438,
+        "declarations": 189,
+        "depth": 3,
+        "expected": "rejected",
+        "family": "path",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Apply(Constant(\"Probe.GoPractical.Word.TreeSignIncoming3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeOrderLE3\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Variable(\"limit\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSign3\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])]), Constant(\"Std.Bool.true\")])",
+        "id": "order-8-path-unrelated-item-sign",
+        "initial_natural_quantified": false,
+        "mutation": 2,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 24,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 14355,
+        "theorem": "Probe.GoPractical.Word.OrderPathClaim",
+        "width": 8
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.019243,
+          "cpu_user_seconds": 1.136289,
+          "exit_code": 1,
+          "peak_rss_bytes": 41779200,
+          "report": {
+            "error_detail": "term 8 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.1717634170199744
+        },
+        "rust": {
+          "cpu_system_seconds": 0.006261999999999999,
+          "cpu_user_seconds": 1.013993,
+          "exit_code": 1,
+          "peak_rss_bytes": 19988480,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"85923\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"8\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "4e6d74886f03eee0902ec6327fae7ffc8a07f39faf8b7a9dacad6bd05b787b10",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.08344641700387
+        }
+      },
+      "raw_sha256": "5bbf8fcb7a70e6540cd5395a22747d6fb35cff2c1cc46c99fbfe097f0649a520"
+    },
+    {
+      "case": {
+        "bytes": 155783,
+        "declarations": 189,
+        "depth": 3,
+        "expected": "accepted",
+        "family": "natural",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Nat\"), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue3\"), [Constant(\"Std.Nat.succ\"), Variable(\"acc\")]), [Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue3\"), [Constant(\"Std.Nat.succ\"), Variable(\"item\")]), [Variable(\"initial\")])]), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue3\"), [Constant(\"Std.Nat.succ\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSum3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), [Variable(\"initial\")])])",
+        "id": "order-8-natural-exact-nat-addition",
+        "initial_natural_quantified": true,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 24,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 14282,
+        "theorem": "Probe.GoPractical.Word.OrderPathNatClaim",
+        "width": 8
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.03949,
+          "cpu_user_seconds": 2.374285,
+          "exit_code": 0,
+          "peak_rss_bytes": 48070656,
+          "report": {
+            "declaration_count": 189,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "1fad36f157d7078a6eecff4963025f8fe54c7872009a215997632b9f1cdf4c44",
+              "export": "5f80d8f25d189a11735d41c73b706639f59033e8fcdc620bb43fb7b40d9eb8fa"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth3",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 2.523806333018001
+        },
+        "rust": {
+          "cpu_system_seconds": 0.008263,
+          "cpu_user_seconds": 1.030995,
+          "exit_code": 0,
+          "peak_rss_bytes": 20758528,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 189,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "1fad36f157d7078a6eecff4963025f8fe54c7872009a215997632b9f1cdf4c44",
+              "export": "5f80d8f25d189a11735d41c73b706639f59033e8fcdc620bb43fb7b40d9eb8fa"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth3",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.1275208339793608
+        }
+      },
+      "raw_sha256": "2743b0e92f78ff1e3ba71ba133930a6ccb9f134def5832cb2458a65b77f400c4"
+    },
+    {
+      "case": {
+        "bytes": 155837,
+        "declarations": 189,
+        "depth": 3,
+        "expected": "rejected",
+        "family": "natural",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Nat\"), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue3\"), [Constant(\"Std.Nat.succ\"), Variable(\"item\")]), [Variable(\"initial\")]), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue3\"), [Constant(\"Std.Nat.succ\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSum3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), [Variable(\"initial\")])])",
+        "id": "order-8-natural-dropped-accumulator",
+        "initial_natural_quantified": true,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 24,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 14292,
+        "theorem": "Probe.GoPractical.Word.OrderPathNatClaim",
+        "width": 8
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.026595999999999998,
+          "cpu_user_seconds": 1.157116,
+          "exit_code": 1,
+          "peak_rss_bytes": 44154880,
+          "report": {
+            "error_detail": "term 87535 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.3724791249842383
+        },
+        "rust": {
+          "cpu_system_seconds": 0.0072369999999999995,
+          "cpu_user_seconds": 1.033213,
+          "exit_code": 1,
+          "peak_rss_bytes": 20742144,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"88162\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"87538\",\"kind\":\"check_type_mismatch\",\"term_index\":\"87594\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "ff86ffd64c75a19135d1d89c3446ad374788c4c61921980bdf2e83e0db6e6eec",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.0750645830412395
+        }
+      },
+      "raw_sha256": "952a5a32162dd68c1180e153f6ed68175bf84b3a341e848991d545ffbe9aa75c"
+    },
+    {
+      "case": {
+        "bytes": 155869,
+        "declarations": 189,
+        "depth": 3,
+        "expected": "rejected",
+        "family": "natural",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Nat\"), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue3\"), [Constant(\"Std.Nat.succ\"), Variable(\"acc\")]), [Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue3\"), [Constant(\"Std.Nat.succ\"), Variable(\"item\")]), [Variable(\"initial\")])]), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue3\"), [Constant(\"Std.Nat.succ\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSum3\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), [Variable(\"initial\")])])",
+        "id": "order-8-natural-unrelated-remaining-bound",
+        "initial_natural_quantified": true,
+        "mutation": 2,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 24,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 14299,
+        "theorem": "Probe.GoPractical.Word.OrderPathNatClaim",
+        "width": 8
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.023204,
+          "cpu_user_seconds": 1.168593,
+          "exit_code": 1,
+          "peak_rss_bytes": 42614784,
+          "report": {
+            "error_detail": "term 8 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.2889976250007749
+        },
+        "rust": {
+          "cpu_system_seconds": 0.010465,
+          "cpu_user_seconds": 1.073856,
+          "exit_code": 1,
+          "peak_rss_bytes": 21397504,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"85826\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"8\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "33a56cea19f76d47e44eeb8340a5b84ed407ee5944f227554706f711e3b8ff00",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.3575802500126883
+        }
+      },
+      "raw_sha256": "3af350a6b24a3fe82d3c24ee753a7fd38dd3ed76bc32fcb944fad6775329f5e5"
+    },
+    {
+      "case": {
+        "bytes": 178432,
+        "declarations": 226,
+        "depth": 4,
+        "expected": "accepted",
+        "family": "carry",
+        "id": "order-16-carry-conservation",
+        "initial_natural_quantified": false,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 48,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 16326,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 16
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.043712999999999995,
+          "cpu_user_seconds": 2.578187,
+          "exit_code": 0,
+          "peak_rss_bytes": 49610752,
+          "report": {
+            "declaration_count": 226,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "f10a1bd055474d9775f238f4ea8b867ae34da60fd72f57a36d4c4ef9a1759bb6",
+              "export": "f5be502d0e00fd2717db245aa7edb5fa58c23b664dc90c5983eb792a60fd9340"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth4",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 2.769464874989353
+        },
+        "rust": {
+          "cpu_system_seconds": 0.009589,
+          "cpu_user_seconds": 1.124008,
+          "exit_code": 0,
+          "peak_rss_bytes": 21135360,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 226,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "f10a1bd055474d9775f238f4ea8b867ae34da60fd72f57a36d4c4ef9a1759bb6",
+              "export": "f5be502d0e00fd2717db245aa7edb5fa58c23b664dc90c5983eb792a60fd9340"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth4",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.3021479590097442
+        }
+      },
+      "raw_sha256": "be170cb518e68925241a84116ed03ddfbaf80921c9d8dc8835455789b20a96e2"
+    },
+    {
+      "case": {
+        "bytes": 178474,
+        "declarations": 226,
+        "depth": 4,
+        "expected": "rejected",
+        "family": "carry",
+        "id": "order-16-unrelated-carry-premise",
+        "initial_natural_quantified": false,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 48,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 16335,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 16
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.021348,
+          "cpu_user_seconds": 1.242509,
+          "exit_code": 1,
+          "peak_rss_bytes": 49414144,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.3367405839962885
+        },
+        "rust": {
+          "cpu_system_seconds": 0.008156,
+          "cpu_user_seconds": 1.128732,
+          "exit_code": 1,
+          "peak_rss_bytes": 22790144,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"36707\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "abae82baedfb0febbd47fa911711a56bd6667e94902b5c91b445f6a8833ec8b7",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.319480250007473
+        }
+      },
+      "raw_sha256": "abc4f957243fb6eadd66d84a4bbe67849d89e5b1c950ec2752c414030650bafd"
+    },
+    {
+      "case": {
+        "bytes": 179046,
+        "declarations": 226,
+        "depth": 4,
+        "expected": "accepted",
+        "family": "path",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Apply(Constant(\"Probe.GoPractical.Word.TreeSignIncoming4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeOrderLE4\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Variable(\"limit\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSign4\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])]), Constant(\"Std.Bool.true\")])",
+        "id": "order-16-path-step-invariant",
+        "initial_natural_quantified": false,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 48,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 16389,
+        "theorem": "Probe.GoPractical.Word.OrderPathClaim",
+        "width": 16
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.04403,
+          "cpu_user_seconds": 2.624632,
+          "exit_code": 0,
+          "peak_rss_bytes": 50266112,
+          "report": {
+            "declaration_count": 226,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "16d6ffc740635a9c36d0e8c4697999d1a957c1a6b4cb564df2725bc622144c7d",
+              "export": "750c7eec037c3e01d29864d5274d763b4f09ac657dc24639ab3139f7e1ca03c1"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth4",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 2.9085472500300966
+        },
+        "rust": {
+          "cpu_system_seconds": 0.011890999999999999,
+          "cpu_user_seconds": 1.16557,
+          "exit_code": 0,
+          "peak_rss_bytes": 24379392,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 226,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "16d6ffc740635a9c36d0e8c4697999d1a957c1a6b4cb564df2725bc622144c7d",
+              "export": "750c7eec037c3e01d29864d5274d763b4f09ac657dc24639ab3139f7e1ca03c1"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth4",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.436000999994576
+        }
+      },
+      "raw_sha256": "a27fc7df7b040f6be0e379e142b3858faa00fb4630b81317ffe6e35fa9634eaf"
+    },
+    {
+      "case": {
+        "bytes": 179053,
+        "declarations": 226,
+        "depth": 4,
+        "expected": "rejected",
+        "family": "path",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Apply(Constant(\"Probe.GoPractical.Word.TreeSignIncoming4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeOrderLE4\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Variable(\"limit\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSign4\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])]), Constant(\"Std.Bool.true\")])",
+        "id": "order-16-path-unrelated-remaining-bound",
+        "initial_natural_quantified": false,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 48,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 16390,
+        "theorem": "Probe.GoPractical.Word.OrderPathClaim",
+        "width": 16
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.026535,
+          "cpu_user_seconds": 1.269793,
+          "exit_code": 1,
+          "peak_rss_bytes": 49971200,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4462199169793166
+        },
+        "rust": {
+          "cpu_system_seconds": 0.011961,
+          "cpu_user_seconds": 1.148006,
+          "exit_code": 1,
+          "peak_rss_bytes": 23134208,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"101471\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "e3c8727132ae37e514418422e2199dedc7e070257a53bfbf52870faa766c4812",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.5002050409675576
+        }
+      },
+      "raw_sha256": "9ddec5d8216ce9c655f0272534e68dc039139cc9d7e147ca51d4ceb5c3b2795a"
+    },
+    {
+      "case": {
+        "bytes": 179053,
+        "declarations": 226,
+        "depth": 4,
+        "expected": "rejected",
+        "family": "path",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Apply(Constant(\"Probe.GoPractical.Word.TreeSignIncoming4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeOrderLE4\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Variable(\"limit\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSign4\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])]), Constant(\"Std.Bool.true\")])",
+        "id": "order-16-path-unrelated-item-sign",
+        "initial_natural_quantified": false,
+        "mutation": 2,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 48,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 16390,
+        "theorem": "Probe.GoPractical.Word.OrderPathClaim",
+        "width": 16
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.024718,
+          "cpu_user_seconds": 1.267906,
+          "exit_code": 1,
+          "peak_rss_bytes": 42287104,
+          "report": {
+            "error_detail": "term 8 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4930205420241691
+        },
+        "rust": {
+          "cpu_system_seconds": 0.013205,
+          "cpu_user_seconds": 1.16975,
+          "exit_code": 1,
+          "peak_rss_bytes": 23150592,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"100931\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"8\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "be188f207d6e41cadedec84d34ba31c33737c77bcc18d9c9e2eea0f6011af1aa",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.6684308749972843
+        }
+      },
+      "raw_sha256": "cff8c4664ebbf7164b3794b1850d3656cf000ad67f5be2e45c9623a61291f46a"
+    },
+    {
+      "case": {
+        "bytes": 178391,
+        "declarations": 226,
+        "depth": 4,
+        "expected": "accepted",
+        "family": "natural",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Nat\"), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue4\"), [Constant(\"Std.Nat.succ\"), Variable(\"acc\")]), [Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue4\"), [Constant(\"Std.Nat.succ\"), Variable(\"item\")]), [Variable(\"initial\")])]), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue4\"), [Constant(\"Std.Nat.succ\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSum4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), [Variable(\"initial\")])])",
+        "id": "order-16-natural-exact-nat-addition",
+        "initial_natural_quantified": true,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 48,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 16317,
+        "theorem": "Probe.GoPractical.Word.OrderPathNatClaim",
+        "width": 16
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.046551999999999996,
+          "cpu_user_seconds": 2.619053,
+          "exit_code": 0,
+          "peak_rss_bytes": 57065472,
+          "report": {
+            "declaration_count": 226,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "0e0213dfc48fd58117217fd1c5452adcc5f40e822eda4112c01b6023e577d67a",
+              "export": "bd69ec815ce9efe43168bb9131079f8d98d955d9923da521c7f28cc5541336fe"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth4",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 2.8849304579780437
+        },
+        "rust": {
+          "cpu_system_seconds": 0.008251999999999999,
+          "cpu_user_seconds": 1.12194,
+          "exit_code": 0,
+          "peak_rss_bytes": 22528000,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 226,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "0e0213dfc48fd58117217fd1c5452adcc5f40e822eda4112c01b6023e577d67a",
+              "export": "bd69ec815ce9efe43168bb9131079f8d98d955d9923da521c7f28cc5541336fe"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth4",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.32653666700935
+        }
+      },
+      "raw_sha256": "5fbf70df5be70e258c96a8e960bdca0a40ce9200463f5274299ce35832265af0"
+    },
+    {
+      "case": {
+        "bytes": 178445,
+        "declarations": 226,
+        "depth": 4,
+        "expected": "rejected",
+        "family": "natural",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Nat\"), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue4\"), [Constant(\"Std.Nat.succ\"), Variable(\"item\")]), [Variable(\"initial\")]), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue4\"), [Constant(\"Std.Nat.succ\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSum4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), [Variable(\"initial\")])])",
+        "id": "order-16-natural-dropped-accumulator",
+        "initial_natural_quantified": true,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 48,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 16327,
+        "theorem": "Probe.GoPractical.Word.OrderPathNatClaim",
+        "width": 16
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.024173,
+          "cpu_user_seconds": 1.257463,
+          "exit_code": 1,
+          "peak_rss_bytes": 49856512,
+          "report": {
+            "error_detail": "term 102557 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4235677910037339
+        },
+        "rust": {
+          "cpu_system_seconds": 0.00893,
+          "cpu_user_seconds": 1.126976,
+          "exit_code": 1,
+          "peak_rss_bytes": 23216128,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"103312\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"102645\",\"kind\":\"check_type_mismatch\",\"term_index\":\"102701\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "ad52cda08ddcf3ff6e41d4568345a40c4607dc1191d3a41d4d407abf09fb95e8",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4476123749627732
+        }
+      },
+      "raw_sha256": "d1ced2f758f3ca7fe75e41aac2eed522a101a150525628703a29ffc6e6a5876f"
+    },
+    {
+      "case": {
+        "bytes": 178477,
+        "declarations": 226,
+        "depth": 4,
+        "expected": "rejected",
+        "family": "natural",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Nat\"), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue4\"), [Constant(\"Std.Nat.succ\"), Variable(\"acc\")]), [Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue4\"), [Constant(\"Std.Nat.succ\"), Variable(\"item\")]), [Variable(\"initial\")])]), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue4\"), [Constant(\"Std.Nat.succ\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSum4\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), [Variable(\"initial\")])])",
+        "id": "order-16-natural-unrelated-remaining-bound",
+        "initial_natural_quantified": true,
+        "mutation": 2,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 48,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 16334,
+        "theorem": "Probe.GoPractical.Word.OrderPathNatClaim",
+        "width": 16
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.022077,
+          "cpu_user_seconds": 1.253786,
+          "exit_code": 1,
+          "peak_rss_bytes": 50380800,
+          "report": {
+            "error_detail": "term 8 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.3593130410299636
+        },
+        "rust": {
+          "cpu_system_seconds": 0.008203,
+          "cpu_user_seconds": 1.118473,
+          "exit_code": 1,
+          "peak_rss_bytes": 21004288,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"100834\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"8\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "20506229dfe61e4abdbd9dbf22f97d533796e84c4443ec0719b90a2f7a351b46",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.2998858339851722
+        }
+      },
+      "raw_sha256": "e3e7674bba63e0a0477e40292aa7a8a158f729c0252ab19c5b6f42da1e66685d"
+    },
+    {
+      "case": {
+        "bytes": 205273,
+        "declarations": 263,
+        "depth": 5,
+        "expected": "accepted",
+        "family": "carry",
+        "id": "order-32-carry-conservation",
+        "initial_natural_quantified": false,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 96,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 18361,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 32
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.048719,
+          "cpu_user_seconds": 2.765367,
+          "exit_code": 0,
+          "peak_rss_bytes": 63209472,
+          "report": {
+            "declaration_count": 263,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "15d2408645350135ea2a67f6b29ebca11eb47e4d1f8525f35d4c144f44f1d3bc",
+              "export": "8f61f56cffc4911b0e9c31a528faa3e1976c339fbb021ccd0fe0b9eb297b032c"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth5",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 3.079824207990896
+        },
+        "rust": {
+          "cpu_system_seconds": 0.010177,
+          "cpu_user_seconds": 1.200618,
+          "exit_code": 0,
+          "peak_rss_bytes": 32997376,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 263,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "15d2408645350135ea2a67f6b29ebca11eb47e4d1f8525f35d4c144f44f1d3bc",
+              "export": "8f61f56cffc4911b0e9c31a528faa3e1976c339fbb021ccd0fe0b9eb297b032c"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth5",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.3965702499845065
+        }
+      },
+      "raw_sha256": "add03fea4241b3224bd8f61920f00b642fc7c2fcad75f75ac3a1de656d636653"
+    },
+    {
+      "case": {
+        "bytes": 205325,
+        "declarations": 263,
+        "depth": 5,
+        "expected": "rejected",
+        "family": "carry",
+        "id": "order-32-unrelated-carry-premise",
+        "initial_natural_quantified": false,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 96,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 18370,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 32
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.027944999999999998,
+          "cpu_user_seconds": 1.3299050000000001,
+          "exit_code": 1,
+          "peak_rss_bytes": 59736064,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.5918729580007493
+        },
+        "rust": {
+          "cpu_system_seconds": 0.008964999999999999,
+          "cpu_user_seconds": 1.191005,
+          "exit_code": 1,
+          "peak_rss_bytes": 34603008,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"36707\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "fa21604e0d1bcd0b6311d50ad17abc5c27cdc3bb9d9f6fb324c6ac251210e5c4",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.307423290971201
+        }
+      },
+      "raw_sha256": "dccc75c367f243240b29c6299a7e6d4a17cdc78d6ab12a0b4993e813f6ac1b3e"
+    },
+    {
+      "case": {
+        "bytes": 205995,
+        "declarations": 263,
+        "depth": 5,
+        "expected": "accepted",
+        "family": "path",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Apply(Constant(\"Probe.GoPractical.Word.TreeSignIncoming5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeOrderLE5\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Variable(\"limit\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSign5\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])]), Constant(\"Std.Bool.true\")])",
+        "id": "order-32-path-step-invariant",
+        "initial_natural_quantified": false,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 96,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 18424,
+        "theorem": "Probe.GoPractical.Word.OrderPathClaim",
+        "width": 32
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.047696999999999996,
+          "cpu_user_seconds": 2.773734,
+          "exit_code": 0,
+          "peak_rss_bytes": 59047936,
+          "report": {
+            "declaration_count": 263,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "f36cea36113de78ad28de86a0e17e9f1adcd39c9e3b97ad6543658d1fae37771",
+              "export": "4468edb138e79dc0c4b5683c6f43b7ac3a469079ac1d5df125af0b1f39b2394c"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth5",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 3.0234892499865964
+        },
+        "rust": {
+          "cpu_system_seconds": 0.010355999999999999,
+          "cpu_user_seconds": 1.210831,
+          "exit_code": 0,
+          "peak_rss_bytes": 34668544,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 263,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "f36cea36113de78ad28de86a0e17e9f1adcd39c9e3b97ad6543658d1fae37771",
+              "export": "4468edb138e79dc0c4b5683c6f43b7ac3a469079ac1d5df125af0b1f39b2394c"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth5",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.5838254159898497
+        }
+      },
+      "raw_sha256": "afa15003b260d8cdaf69914ed13988f66ae44846e2dbb982fd4712f39145db1e"
+    },
+    {
+      "case": {
+        "bytes": 206001,
+        "declarations": 263,
+        "depth": 5,
+        "expected": "rejected",
+        "family": "path",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Apply(Constant(\"Probe.GoPractical.Word.TreeSignIncoming5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeOrderLE5\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Variable(\"limit\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSign5\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])]), Constant(\"Std.Bool.true\")])",
+        "id": "order-32-path-unrelated-remaining-bound",
+        "initial_natural_quantified": false,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 96,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 18425,
+        "theorem": "Probe.GoPractical.Word.OrderPathClaim",
+        "width": 32
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.025925999999999998,
+          "cpu_user_seconds": 1.344983,
+          "exit_code": 1,
+          "peak_rss_bytes": 58703872,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4984805000131018
+        },
+        "rust": {
+          "cpu_system_seconds": 0.014877,
+          "cpu_user_seconds": 1.218517,
+          "exit_code": 1,
+          "peak_rss_bytes": 34258944,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"117069\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "ca5be9c707d20681c4f52b6b632da6ef425dbf5c503c8be87923b418008dd59a",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.8831505000125617
+        }
+      },
+      "raw_sha256": "2f91c4edaf779502dfb5e019db975ada05ab626185613f4f8e84e33bcf097f30"
+    },
+    {
+      "case": {
+        "bytes": 206001,
+        "declarations": 263,
+        "depth": 5,
+        "expected": "rejected",
+        "family": "path",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Apply(Constant(\"Probe.GoPractical.Word.TreeSignIncoming5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeOrderLE5\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Variable(\"limit\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSign5\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])]), Constant(\"Std.Bool.true\")])",
+        "id": "order-32-path-unrelated-item-sign",
+        "initial_natural_quantified": false,
+        "mutation": 2,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 96,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 18425,
+        "theorem": "Probe.GoPractical.Word.OrderPathClaim",
+        "width": 32
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.024789,
+          "cpu_user_seconds": 1.329529,
+          "exit_code": 1,
+          "peak_rss_bytes": 58163200,
+          "report": {
+            "error_detail": "term 8 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.3976016250089742
+        },
+        "rust": {
+          "cpu_system_seconds": 0.01109,
+          "cpu_user_seconds": 1.209245,
+          "exit_code": 1,
+          "peak_rss_bytes": 33751040,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"116480\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"8\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "6597bfee207741518c041f7eb73d24e1fbfb1db067a24803f8ba93fa4d09f79c",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4863429589895532
+        }
+      },
+      "raw_sha256": "e6ed924084931779dc1061948ebb9c3967475068d7de3ce3f64162e019f1335c"
+    },
+    {
+      "case": {
+        "bytes": 205223,
+        "declarations": 263,
+        "depth": 5,
+        "expected": "accepted",
+        "family": "natural",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Nat\"), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue5\"), [Constant(\"Std.Nat.succ\"), Variable(\"acc\")]), [Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue5\"), [Constant(\"Std.Nat.succ\"), Variable(\"item\")]), [Variable(\"initial\")])]), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue5\"), [Constant(\"Std.Nat.succ\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSum5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), [Variable(\"initial\")])])",
+        "id": "order-32-natural-exact-nat-addition",
+        "initial_natural_quantified": true,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 96,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 18352,
+        "theorem": "Probe.GoPractical.Word.OrderPathNatClaim",
+        "width": 32
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.049354999999999996,
+          "cpu_user_seconds": 2.759784,
+          "exit_code": 0,
+          "peak_rss_bytes": 60915712,
+          "report": {
+            "declaration_count": 263,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "8530373acb050d8db8f2d2be369c98e338a963c2800a3fe47c996ffef96fdb34",
+              "export": "264e35ddd08c8ee4a8a476ef1bf2c05667096875dce3252b6cbbc68922001f7d"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth5",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 3.119020415993873
+        },
+        "rust": {
+          "cpu_system_seconds": 0.011151999999999999,
+          "cpu_user_seconds": 1.215179,
+          "exit_code": 0,
+          "peak_rss_bytes": 32980992,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 263,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "8530373acb050d8db8f2d2be369c98e338a963c2800a3fe47c996ffef96fdb34",
+              "export": "264e35ddd08c8ee4a8a476ef1bf2c05667096875dce3252b6cbbc68922001f7d"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth5",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.5022107500117272
+        }
+      },
+      "raw_sha256": "47142fd85f2c98d53141ac4c584182c49a7df9832ae58b512eec3ca2f1531a31"
+    },
+    {
+      "case": {
+        "bytes": 205293,
+        "declarations": 263,
+        "depth": 5,
+        "expected": "rejected",
+        "family": "natural",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Nat\"), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue5\"), [Constant(\"Std.Nat.succ\"), Variable(\"item\")]), [Variable(\"initial\")]), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue5\"), [Constant(\"Std.Nat.succ\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSum5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), [Variable(\"initial\")])])",
+        "id": "order-32-natural-dropped-accumulator",
+        "initial_natural_quantified": true,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 96,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 18362,
+        "theorem": "Probe.GoPractical.Word.OrderPathNatClaim",
+        "width": 32
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.023926,
+          "cpu_user_seconds": 1.334061,
+          "exit_code": 1,
+          "peak_rss_bytes": 58785792,
+          "report": {
+            "error_detail": "term 118082 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4343574170488864
+        },
+        "rust": {
+          "cpu_system_seconds": 0.010718,
+          "cpu_user_seconds": 1.217898,
+          "exit_code": 1,
+          "peak_rss_bytes": 34783232,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"119003\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"118293\",\"kind\":\"check_type_mismatch\",\"term_index\":\"118349\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "6c9f91d5b2d05af1a10521bebe98ce4bbbe07f409391f0bfdbced56279392bde",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4193549170158803
+        }
+      },
+      "raw_sha256": "be99a6174259487a50400b61250f8d007ee7e2b2b1e3339301b6fad201a8839c"
+    },
+    {
+      "case": {
+        "bytes": 205335,
+        "declarations": 263,
+        "depth": 5,
+        "expected": "rejected",
+        "family": "natural",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Nat\"), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue5\"), [Constant(\"Std.Nat.succ\"), Variable(\"acc\")]), [Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue5\"), [Constant(\"Std.Nat.succ\"), Variable(\"item\")]), [Variable(\"initial\")])]), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue5\"), [Constant(\"Std.Nat.succ\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSum5\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), [Variable(\"initial\")])])",
+        "id": "order-32-natural-unrelated-remaining-bound",
+        "initial_natural_quantified": true,
+        "mutation": 2,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 96,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 18369,
+        "theorem": "Probe.GoPractical.Word.OrderPathNatClaim",
+        "width": 32
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.024354999999999998,
+          "cpu_user_seconds": 1.326031,
+          "exit_code": 1,
+          "peak_rss_bytes": 58687488,
+          "report": {
+            "error_detail": "term 8 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.493438082979992
+        },
+        "rust": {
+          "cpu_system_seconds": 0.011526,
+          "cpu_user_seconds": 1.223535,
+          "exit_code": 1,
+          "peak_rss_bytes": 34603008,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"116383\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"8\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "3f02c374be0b523b0b8596c39c932e9eb0a6f682dc0532aadb41a033eaab4ab1",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4809857090003788
+        }
+      },
+      "raw_sha256": "85da840bfbd72a18b2d05aa22bef7f3b7179d45f1af43173292d3297aba13241"
+    },
+    {
+      "case": {
+        "bytes": 232364,
+        "declarations": 300,
+        "depth": 6,
+        "expected": "accepted",
+        "family": "carry",
+        "id": "order-64-carry-conservation",
+        "initial_natural_quantified": false,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 192,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 20396,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 64
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.051932,
+          "cpu_user_seconds": 2.933112,
+          "exit_code": 0,
+          "peak_rss_bytes": 61964288,
+          "report": {
+            "declaration_count": 300,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "ffe7e7c843dba43440c241b47ef38673a94ed1f86f0071274107e778f9ce93c8",
+              "export": "a8761fae04c1b8b72a414904c4d80ef2bddaf1776896a7467eafbba91985137c"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth6",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 3.1759257919620723
+        },
+        "rust": {
+          "cpu_system_seconds": 0.011589,
+          "cpu_user_seconds": 1.295334,
+          "exit_code": 0,
+          "peak_rss_bytes": 35291136,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 300,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "ffe7e7c843dba43440c241b47ef38673a94ed1f86f0071274107e778f9ce93c8",
+              "export": "a8761fae04c1b8b72a414904c4d80ef2bddaf1776896a7467eafbba91985137c"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth6",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4987681669881567
+        }
+      },
+      "raw_sha256": "ae64d4844668deb6da07578b7c32bfa2d82c95eef414ce03474b3bf560e396d0"
+    },
+    {
+      "case": {
+        "bytes": 232416,
+        "declarations": 300,
+        "depth": 6,
+        "expected": "rejected",
+        "family": "carry",
+        "id": "order-64-unrelated-carry-premise",
+        "initial_natural_quantified": false,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 192,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 20405,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 64
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.027443,
+          "cpu_user_seconds": 1.417857,
+          "exit_code": 1,
+          "peak_rss_bytes": 59228160,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.578881416004151
+        },
+        "rust": {
+          "cpu_system_seconds": 0.009268,
+          "cpu_user_seconds": 1.274696,
+          "exit_code": 1,
+          "peak_rss_bytes": 33980416,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"36707\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "a73d2e2282e6e271cc611cf2ad59149951fccae4435b18c77af051dafae3ce21",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4049115829984657
+        }
+      },
+      "raw_sha256": "9ac838866645b0b830f0f00608ad856a0911e702c6253d89ca335f1be0167e3b"
+    },
+    {
+      "case": {
+        "bytes": 233086,
+        "declarations": 300,
+        "depth": 6,
+        "expected": "accepted",
+        "family": "path",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Apply(Constant(\"Probe.GoPractical.Word.TreeSignIncoming6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeOrderLE6\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Variable(\"limit\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSign6\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])]), Constant(\"Std.Bool.true\")])",
+        "id": "order-64-path-step-invariant",
+        "initial_natural_quantified": false,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 192,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 20459,
+        "theorem": "Probe.GoPractical.Word.OrderPathClaim",
+        "width": 64
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.052593,
+          "cpu_user_seconds": 2.966958,
+          "exit_code": 0,
+          "peak_rss_bytes": 66469888,
+          "report": {
+            "declaration_count": 300,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "1d261932616a44eb6ab69545c1ecb0f8decdfc62545425f5d917995f2f9c147d",
+              "export": "3bf5d20ab3f9ee40571aa9ce77d51d2b243855c0ece05c37f149619e649fd959"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth6",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 3.4952292080270126
+        },
+        "rust": {
+          "cpu_system_seconds": 0.012334,
+          "cpu_user_seconds": 1.3019669999999999,
+          "exit_code": 0,
+          "peak_rss_bytes": 34914304,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 300,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "1d261932616a44eb6ab69545c1ecb0f8decdfc62545425f5d917995f2f9c147d",
+              "export": "3bf5d20ab3f9ee40571aa9ce77d51d2b243855c0ece05c37f149619e649fd959"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth6",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.5838872080203146
+        }
+      },
+      "raw_sha256": "57fa6e55b539a89095428fe0e161ea5d551ae8fe0bcc8907f478ea81951e8a68"
+    },
+    {
+      "case": {
+        "bytes": 233092,
+        "declarations": 300,
+        "depth": 6,
+        "expected": "rejected",
+        "family": "path",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Apply(Constant(\"Probe.GoPractical.Word.TreeSignIncoming6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeOrderLE6\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Variable(\"limit\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSign6\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])]), Constant(\"Std.Bool.true\")])",
+        "id": "order-64-path-unrelated-remaining-bound",
+        "initial_natural_quantified": false,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 192,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 20460,
+        "theorem": "Probe.GoPractical.Word.OrderPathClaim",
+        "width": 64
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.023778,
+          "cpu_user_seconds": 1.400552,
+          "exit_code": 1,
+          "peak_rss_bytes": 59162624,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.5798733339761384
+        },
+        "rust": {
+          "cpu_system_seconds": 0.010901,
+          "cpu_user_seconds": 1.273552,
+          "exit_code": 1,
+          "peak_rss_bytes": 34717696,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"133208\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "292494878d953ef5e30cf3600ece87465411fee78866156d833ed4fb5ca28d4d",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.498446249985136
+        }
+      },
+      "raw_sha256": "1697b2aa79eadbead16682f9c8be38781f9db62906d94ed70360f6c87349e92e"
+    },
+    {
+      "case": {
+        "bytes": 233092,
+        "declarations": 300,
+        "depth": 6,
+        "expected": "rejected",
+        "family": "path",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Bool\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.false\"), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Apply(Constant(\"Probe.GoPractical.Word.TreeSignIncoming6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), Apply(Constant(\"Probe.GoPractical.Word.TreeOrderLE6\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")]), Variable(\"limit\")])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSign6\"), [Apply(Constant(\"Probe.GoPractical.Word.TreeSum6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])])]), Apply(Constant(\"Std.Bool.cases\"), [Lambda(\"__type\", Constant(\"Std.Bool\"), Constant(\"Std.Bool\")), Constant(\"Std.Bool.true\"), Constant(\"Std.Bool.false\"), Apply(Constant(\"Probe.GoPractical.Word.TreeCarry6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])])]), Constant(\"Std.Bool.true\")])",
+        "id": "order-64-path-unrelated-item-sign",
+        "initial_natural_quantified": false,
+        "mutation": 2,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 192,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 20460,
+        "theorem": "Probe.GoPractical.Word.OrderPathClaim",
+        "width": 64
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.026005999999999998,
+          "cpu_user_seconds": 1.412658,
+          "exit_code": 1,
+          "peak_rss_bytes": 60604416,
+          "report": {
+            "error_detail": "term 8 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.573084082978312
+        },
+        "rust": {
+          "cpu_system_seconds": 0.009512,
+          "cpu_user_seconds": 1.286996,
+          "exit_code": 1,
+          "peak_rss_bytes": 34652160,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"132570\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"8\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "ebd6bbeca11bf7c4660dd939581168107c933b372c865b86e4e5b0eaacb72775",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4306713749538176
+        }
+      },
+      "raw_sha256": "fe579c3ff7fbbd9e92f87161efb87b91698ec1ce0f5c899795f4e2f90ed03b8d"
+    },
+    {
+      "case": {
+        "bytes": 232314,
+        "declarations": 300,
+        "depth": 6,
+        "expected": "accepted",
+        "family": "natural",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Nat\"), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue6\"), [Constant(\"Std.Nat.succ\"), Variable(\"acc\")]), [Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue6\"), [Constant(\"Std.Nat.succ\"), Variable(\"item\")]), [Variable(\"initial\")])]), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue6\"), [Constant(\"Std.Nat.succ\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSum6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), [Variable(\"initial\")])])",
+        "id": "order-64-natural-exact-nat-addition",
+        "initial_natural_quantified": true,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 192,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 20387,
+        "theorem": "Probe.GoPractical.Word.OrderPathNatClaim",
+        "width": 64
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.048872,
+          "cpu_user_seconds": 2.933987,
+          "exit_code": 0,
+          "peak_rss_bytes": 69730304,
+          "report": {
+            "declaration_count": 300,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "ca9b33e24f7f9bbf88d687ef209397555ea04752d168c41df1a16d4df6312749",
+              "export": "0c6a046f5c7ba8bf6ef38756e3e177cd90c2b3fd64c24c0e3a2b8f74a434f2d5"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth6",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 3.1876800829777494
+        },
+        "rust": {
+          "cpu_system_seconds": 0.011989999999999999,
+          "cpu_user_seconds": 1.294529,
+          "exit_code": 0,
+          "peak_rss_bytes": 36372480,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 300,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "ca9b33e24f7f9bbf88d687ef209397555ea04752d168c41df1a16d4df6312749",
+              "export": "0c6a046f5c7ba8bf6ef38756e3e177cd90c2b3fd64c24c0e3a2b8f74a434f2d5"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth6",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.5947064170031808
+        }
+      },
+      "raw_sha256": "72e14a5913e375ffb5f1ecbd6ba7cbbd39e8ee8e0ea6e0f030105d9a5506a55f"
+    },
+    {
+      "case": {
+        "bytes": 232384,
+        "declarations": 300,
+        "depth": 6,
+        "expected": "rejected",
+        "family": "natural",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Nat\"), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue6\"), [Constant(\"Std.Nat.succ\"), Variable(\"item\")]), [Variable(\"initial\")]), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue6\"), [Constant(\"Std.Nat.succ\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSum6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), [Variable(\"initial\")])])",
+        "id": "order-64-natural-dropped-accumulator",
+        "initial_natural_quantified": true,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 192,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 20397,
+        "theorem": "Probe.GoPractical.Word.OrderPathNatClaim",
+        "width": 64
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.023853,
+          "cpu_user_seconds": 1.415534,
+          "exit_code": 1,
+          "peak_rss_bytes": 61063168,
+          "report": {
+            "error_detail": "term 134110 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4870810830034316
+        },
+        "rust": {
+          "cpu_system_seconds": 0.011420999999999999,
+          "cpu_user_seconds": 1.304954,
+          "exit_code": 1,
+          "peak_rss_bytes": 35209216,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"135235\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"134482\",\"kind\":\"check_type_mismatch\",\"term_index\":\"134538\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "76c552bf402286713ccb198e5709c8ec439d4e31cf518f6530b4a3e2e68d8534",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4563552080071531
+        }
+      },
+      "raw_sha256": "f007838f9f1cbe65648be2f8c733925e7c0a02e92b66648347600822a16793e3"
+    },
+    {
+      "case": {
+        "bytes": 232426,
+        "declarations": 300,
+        "depth": 6,
+        "expected": "rejected",
+        "family": "natural",
+        "goal_debug": "Apply(Constant(\"Std.Eq\"), [Constant(\"Std.Nat\"), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue6\"), [Constant(\"Std.Nat.succ\"), Variable(\"acc\")]), [Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue6\"), [Constant(\"Std.Nat.succ\"), Variable(\"item\")]), [Variable(\"initial\")])]), Apply(Apply(Constant(\"Probe.GoPractical.Word.TreeValue6\"), [Constant(\"Std.Nat.succ\"), Apply(Constant(\"Probe.GoPractical.Word.TreeSum6\"), [Variable(\"acc\"), Variable(\"item\"), Constant(\"Std.Bool.false\")])]), [Variable(\"initial\")])])",
+        "id": "order-64-natural-unrelated-remaining-bound",
+        "initial_natural_quantified": true,
+        "mutation": 2,
+        "operand_binders": 3,
+        "premises": "limit and accumulator nonnegative, accumulator <= limit, item nonnegative, item <= wrapping(limit - accumulator); named premise substitutions are deliberate mutations",
+        "quantified_operand_bits": 192,
+        "scope": "private source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+        "terms": 20404,
+        "theorem": "Probe.GoPractical.Word.OrderPathNatClaim",
+        "width": 64
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.043719999999999995,
+          "cpu_user_seconds": 1.375818,
+          "exit_code": 1,
+          "peak_rss_bytes": 60801024,
+          "report": {
+            "error_detail": "term 8 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 2.7961984160356224
+        },
+        "rust": {
+          "cpu_system_seconds": 0.010520999999999999,
+          "cpu_user_seconds": 1.257754,
+          "exit_code": 1,
+          "peak_rss_bytes": 36634624,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"132473\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"8\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "28cc25329b99b96cd016ab02d7d548ff7db4106ef8e3d7d1ea9d375bd40958f2",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.4206189169781283
+        }
+      },
+      "raw_sha256": "08a01295fed0e5723edda0ff4f90f1194024c7903b475e5cc6f5973611da464f"
+    },
+    {
+      "case": {
+        "bytes": 259742,
+        "declarations": 337,
+        "depth": 7,
+        "expected": "accepted",
+        "family": "carry",
+        "id": "order-128-carry-conservation",
+        "initial_natural_quantified": false,
+        "mutation": 0,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 384,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 22431,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 128
+      },
+      "classification": "accepted_zero_axiom",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.056200999999999994,
+          "cpu_user_seconds": 3.144601,
+          "exit_code": 0,
+          "peak_rss_bytes": 98697216,
+          "report": {
+            "declaration_count": 337,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "e0f0b19708cc2bb347148702ec0ea49580321cfdf62a28dddb70518275fbff86",
+              "export": "bcf534da9c7cd8e450076440fd9a41f23357c06951084705623a85e6a93fa149"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth7",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 3.5212721250136383
+        },
+        "rust": {
+          "cpu_system_seconds": 0.011961,
+          "cpu_user_seconds": 1.348379,
+          "exit_code": 0,
+          "peak_rss_bytes": 35880960,
+          "report": {
+            "axiom_count": 0,
+            "axiom_report": {
+              "declaration_dependencies": [],
+              "entries": [],
+              "summary": {
+                "builtin_theory_axiom_count": 0,
+                "core_axiom_count": 0,
+                "external_axiom_count": 0,
+                "go_semantics_axiom_count": 0,
+                "total_axiom_count": 0
+              }
+            },
+            "declaration_count": 337,
+            "error_code": null,
+            "error_detail": null,
+            "hashes": {
+              "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+              "certificate": "e0f0b19708cc2bb347148702ec0ea49580321cfdf62a28dddb70518275fbff86",
+              "export": "bcf534da9c7cd8e450076440fd9a41f23357c06951084705623a85e6a93fa149"
+            },
+            "module": "Probe.GoPractical.Word.OrderDepth7",
+            "verdict": "accepted"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.6500268339877948
+        }
+      },
+      "raw_sha256": "92463bb18d16ff6f23a34009bb56a8588fa176d703193f0de5f40e75c4811a65"
+    },
+    {
+      "case": {
+        "bytes": 259797,
+        "declarations": 337,
+        "depth": 7,
+        "expected": "rejected",
+        "family": "carry",
+        "id": "order-128-unrelated-carry-premise",
+        "initial_natural_quantified": false,
+        "mutation": 1,
+        "operand_binders": 3,
+        "premises": "four arbitrary incoming carries satisfying d + e + r = t + 1; unrelated true replacement is a deliberate mutation",
+        "quantified_operand_bits": 384,
+        "scope": "private unsigned modular add/subtract carry relation; Go frontend/source binding remains pending",
+        "terms": 22440,
+        "theorem": "Probe.GoPractical.Word.OrderClaim",
+        "width": 128
+      },
+      "classification": "core_type_mismatch",
+      "observations": {
+        "go": {
+          "cpu_system_seconds": 0.029161999999999997,
+          "cpu_user_seconds": 1.50989,
+          "exit_code": 1,
+          "peak_rss_bytes": 70516736,
+          "report": {
+            "error_detail": "term 7 inferred app but expected app",
+            "error_kind": "core_check",
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.8129393749986775
+        },
+        "rust": {
+          "cpu_system_seconds": 0.011982,
+          "cpu_user_seconds": 1.354734,
+          "exit_code": 1,
+          "peak_rss_bytes": 37650432,
+          "report": {
+            "axiom_count": null,
+            "axiom_report": null,
+            "declaration_count": null,
+            "error_code": "KERNEL_CORE_CHECK",
+            "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"36707\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"469\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}",
+            "hashes": {
+              "axiom_report": null,
+              "certificate": "a33e75c726e0d27ddd6dc0636246f42ca16527a8cdc160932d10838e608eeef7",
+              "export": null
+            },
+            "module": null,
+            "verdict": "rejected"
+          },
+          "resource_provider": "Darwin os.wait4 child rusage",
+          "stderr": "",
+          "wall_seconds": 1.568327541986946
+        }
+      },
+      "raw_sha256": "7e7c07e2a4299a7e9a0bf0e41cb45e26e158d7d708893ac89057dafd3effe953"
+    }
+  ],
+  "ceiling_scope": "private measurement, not a profile budget",
+  "checker_binaries": {
+    "go": "bc21d279807f5994a16287a532db65cac3bbb170bfa4d0ca5c6729825e24c62c",
+    "rust": "0146400024f313fc4f1e7634d7626f5bb21f95691d9a9c99c5445290620ba286"
+  },
+  "construction_groups": [
+    {
+      "depth": 0,
+      "first": {
+        "cpu_system_seconds": 0.020035999999999998,
+        "cpu_user_seconds": 0.600785,
+        "exit_code": 0,
+        "peak_rss_bytes": 111558656,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 1.059104208019562
+      },
+      "scope": "complete candidate group and shared ordinary library",
+      "second": {
+        "cpu_system_seconds": 0.017186,
+        "cpu_user_seconds": 0.6516419999999999,
+        "exit_code": 0,
+        "peak_rss_bytes": 111853568,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.7375795419793576
+      },
+      "width": 1
+    },
+    {
+      "depth": 1,
+      "first": {
+        "cpu_system_seconds": 0.022046,
+        "cpu_user_seconds": 0.6824779999999999,
+        "exit_code": 0,
+        "peak_rss_bytes": 113655808,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.7643257500021718
+      },
+      "scope": "complete candidate group and shared ordinary library",
+      "second": {
+        "cpu_system_seconds": 0.016597999999999998,
+        "cpu_user_seconds": 0.6746329999999999,
+        "exit_code": 0,
+        "peak_rss_bytes": 113377280,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.7076574580278248
+      },
+      "width": 2
+    },
+    {
+      "depth": 2,
+      "first": {
+        "cpu_system_seconds": 0.018531,
+        "cpu_user_seconds": 0.730439,
+        "exit_code": 0,
+        "peak_rss_bytes": 114688000,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.7879973750095814
+      },
+      "scope": "complete candidate group and shared ordinary library",
+      "second": {
+        "cpu_system_seconds": 0.017197999999999998,
+        "cpu_user_seconds": 0.721405,
+        "exit_code": 0,
+        "peak_rss_bytes": 113541120,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.839183584030252
+      },
+      "width": 4
+    },
+    {
+      "depth": 3,
+      "first": {
+        "cpu_system_seconds": 0.023433,
+        "cpu_user_seconds": 0.8423769999999999,
+        "exit_code": 0,
+        "peak_rss_bytes": 115851264,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.9441474589984864
+      },
+      "scope": "complete candidate group and shared ordinary library",
+      "second": {
+        "cpu_system_seconds": 0.018959999999999998,
+        "cpu_user_seconds": 0.8553999999999999,
+        "exit_code": 0,
+        "peak_rss_bytes": 115572736,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 0.9559317079838365
+      },
+      "width": 8
+    },
+    {
+      "depth": 4,
+      "first": {
+        "cpu_system_seconds": 0.019944,
+        "cpu_user_seconds": 0.922101,
+        "exit_code": 0,
+        "peak_rss_bytes": 116359168,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 1.0674267500289716
+      },
+      "scope": "complete candidate group and shared ordinary library",
+      "second": {
+        "cpu_system_seconds": 0.019785,
+        "cpu_user_seconds": 0.9243079999999999,
+        "exit_code": 0,
+        "peak_rss_bytes": 116768768,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 1.1251112919999287
+      },
+      "width": 16
+    },
+    {
+      "depth": 5,
+      "first": {
+        "cpu_system_seconds": 0.021521,
+        "cpu_user_seconds": 0.976765,
+        "exit_code": 0,
+        "peak_rss_bytes": 118030336,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 1.1091457500006072
+      },
+      "scope": "complete candidate group and shared ordinary library",
+      "second": {
+        "cpu_system_seconds": 0.023171999999999998,
+        "cpu_user_seconds": 0.983468,
+        "exit_code": 0,
+        "peak_rss_bytes": 117161984,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 1.2061295000021346
+      },
+      "width": 32
+    },
+    {
+      "depth": 6,
+      "first": {
+        "cpu_system_seconds": 0.023263,
+        "cpu_user_seconds": 1.031281,
+        "exit_code": 0,
+        "peak_rss_bytes": 118849536,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 1.207258875016123
+      },
+      "scope": "complete candidate group and shared ordinary library",
+      "second": {
+        "cpu_system_seconds": 0.022364,
+        "cpu_user_seconds": 1.042939,
+        "exit_code": 0,
+        "peak_rss_bytes": 118554624,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 1.1704411250539124
+      },
+      "width": 64
+    },
+    {
+      "depth": 7,
+      "first": {
+        "cpu_system_seconds": 0.036521,
+        "cpu_user_seconds": 0.9621639999999999,
+        "exit_code": 0,
+        "peak_rss_bytes": 118013952,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 2.015845916001126
+      },
+      "scope": "complete candidate group and shared ordinary library",
+      "second": {
+        "cpu_system_seconds": 0.020829999999999998,
+        "cpu_user_seconds": 0.981559,
+        "exit_code": 0,
+        "peak_rss_bytes": 118472704,
+        "resource_provider": "Darwin os.wait4 child rusage",
+        "stderr": "",
+        "stdout": "",
+        "wall_seconds": 1.148233249958139
+      },
+      "width": 128
+    }
+  ],
+  "deterministic_generations": 2,
+  "differential": {
+    "cases": 3428,
+    "continuation_cases": 152,
+    "go_binary_sha256": "474b39b94f0860cd0fde2339a077818c9a1fb23f28bf57a5f2c5621b80ea1a22",
+    "go_measurement": {
+      "cpu_system_seconds": 0.0041919999999999995,
+      "cpu_user_seconds": 0.0062109999999999995,
+      "exit_code": 0,
+      "peak_rss_bytes": 8110080,
+      "resource_provider": "Darwin os.wait4 child rusage",
+      "stderr": "",
+      "wall_seconds": 0.7981420410214923
+    },
+    "input_sha256": "3f0abae9217b7b5b04de5c20bef3ce7305ac6ef1c9df252efc70541c12bbeefb",
+    "output_sha256": "b403c40aff64ca36dd04f5cb67f4d787a2eb1a3fa3ba42cc7dcb79f84adc7174",
+    "scope": "actual pinned Go signed operations versus independent bit-loop model; empirical observations, not a Go frontend/application proof"
+  },
+  "host": {
+    "cpu_count": 10,
+    "machine": "arm64",
+    "model": null,
+    "physical_memory_bytes": null,
+    "release": "27.0.0",
+    "system": "Darwin"
+  },
+  "host_toolchain_inventory": {
+    "files": 14496,
+    "sha256": "85d1dd7ca77c9263d83e25f05e4c32105738fdc002434d61b27671aee4e259bc"
+  },
+  "inputs": [
+    {
+      "path": "Cargo.toml",
+      "sha256": "72e430895ee3fb12a4067714d819e0311ec7db7906215f6608bb4054652a2017"
+    },
+    {
+      "path": "crates/mpk-cert/Cargo.toml",
+      "sha256": "b99ff7fde6a4f0cb50a091eb02997c97d5f2e934b42eddfd375f53b96bfc3a47"
+    },
+    {
+      "path": "crates/mpk-cert/src/axiom_report.rs",
+      "sha256": "cae850ba9adf8f52485f25d3322a479e5effb3b5044c4998b8dbe10e395e9843"
+    },
+    {
+      "path": "crates/mpk-cert/src/binary_tags.rs",
+      "sha256": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b"
+    },
+    {
+      "path": "crates/mpk-cert/src/canonical.rs",
+      "sha256": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74"
+    },
+    {
+      "path": "crates/mpk-cert/src/cert_basic.rs",
+      "sha256": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295"
+    },
+    {
+      "path": "crates/mpk-cert/src/decode.rs",
+      "sha256": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13"
+    },
+    {
+      "path": "crates/mpk-cert/src/encode.rs",
+      "sha256": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf"
+    },
+    {
+      "path": "crates/mpk-cert/src/export.rs",
+      "sha256": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd"
+    },
+    {
+      "path": "crates/mpk-cert/src/hash.rs",
+      "sha256": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83"
+    },
+    {
+      "path": "crates/mpk-cert/src/imports.rs",
+      "sha256": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183"
+    },
+    {
+      "path": "crates/mpk-cert/src/lib.rs",
+      "sha256": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553"
+    },
+    {
+      "path": "crates/mpk-core/Cargo.toml",
+      "sha256": "7d23784732e23fd78029884f2b9a5bc6200e7192c31ae10ada567e61a15607a3"
+    },
+    {
+      "path": "crates/mpk-core/src/bool_cases.rs",
+      "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+    },
+    {
+      "path": "crates/mpk-core/src/context.rs",
+      "sha256": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d"
+    },
+    {
+      "path": "crates/mpk-core/src/decl_check.rs",
+      "sha256": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783"
+    },
+    {
+      "path": "crates/mpk-core/src/defeq.rs",
+      "sha256": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270"
+    },
+    {
+      "path": "crates/mpk-core/src/env.rs",
+      "sha256": "ed50466ecf9e1c6f1549022aa61812c1561cd725325633931a57efb1715ae5b8"
+    },
+    {
+      "path": "crates/mpk-core/src/error.rs",
+      "sha256": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive.rs",
+      "sha256": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d"
+    },
+    {
+      "path": "crates/mpk-core/src/inductive_gen.rs",
+      "sha256": "4758d3cf280f0d9c107e4af886f0880fd29670e9a23f2ddffa7728f958075cc2"
+    },
+    {
+      "path": "crates/mpk-core/src/infer.rs",
+      "sha256": "7cf169404b6fdd251e7884056c7204e285da904780d1e3ea9ca642d4c87991bd"
+    },
+    {
+      "path": "crates/mpk-core/src/level.rs",
+      "sha256": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad"
+    },
+    {
+      "path": "crates/mpk-core/src/lib.rs",
+      "sha256": "a0488ee47d656918dc05a7909bfb87a4ed970388600fced26e8eea5b73ba637f"
+    },
+    {
+      "path": "crates/mpk-core/src/name.rs",
+      "sha256": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99"
+    },
+    {
+      "path": "crates/mpk-core/src/positivity.rs",
+      "sha256": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce.rs",
+      "sha256": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37"
+    },
+    {
+      "path": "crates/mpk-core/src/reduce_inductive.rs",
+      "sha256": "123277c8989902c207d6b0fec994ff5c4223fe5bcc9a331bc381f7dc4412492f"
+    },
+    {
+      "path": "crates/mpk-core/src/subst.rs",
+      "sha256": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f"
+    },
+    {
+      "path": "crates/mpk-core/src/term.rs",
+      "sha256": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60"
+    },
+    {
+      "path": "crates/mpk-kernel/Cargo.toml",
+      "sha256": "3226dc567ef89c9488b61e6c79df2134eb7b1dd36c7cbe19abb3e3e7916ac826"
+    },
+    {
+      "path": "crates/mpk-kernel/src/bool_cases_tests.rs",
+      "sha256": "1ec5b21c3a581fcdd0fd234f7a25c26651958b1f9f96792061fd9936395ca460"
+    },
+    {
+      "path": "crates/mpk-kernel/src/cache.rs",
+      "sha256": "fb9bd805c365f6f614e2f0cb432bc92964e78faa4749df15ad62c4a82ed767ad"
+    },
+    {
+      "path": "crates/mpk-kernel/src/decl_driver.rs",
+      "sha256": "afe75c89bb7e43bb4a73c56aaa4a1bddc20c8ba789066fae5f0f27b7839278c3"
+    },
+    {
+      "path": "crates/mpk-kernel/src/json_output.rs",
+      "sha256": "82992d18824fd25f7c1fcd58d569e4e339bda8be2f60588bb20d2537b9b6cdb5"
+    },
+    {
+      "path": "crates/mpk-kernel/src/lib.rs",
+      "sha256": "ff4c1550532e2896bce4374145242f9a54d24502c8f2a79454067d664c383d72"
+    },
+    {
+      "path": "crates/mpk-kernel/src/profile.rs",
+      "sha256": "e44ce30ffbc29617073456ce8dd9bd46ce731549c423a01a747c82542cffc580"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_check.rs",
+      "sha256": "27e8f109d9241cee011984021d74f57088f4ebf30012a858e0fe6416cae96027"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_structural.rs",
+      "sha256": "6117063aa07e3ac5882ebba60ab907518a2c9844f96d35887f5a31c8d66906c0"
+    },
+    {
+      "path": "crates/mpk-kernel/src/proof_theory.rs",
+      "sha256": "81d52c5be4e325c3cccb1d6e0096b0e118f245f53234d5496dfdac066fee95af"
+    },
+    {
+      "path": "crates/mpk-kernel/src/verifier.rs",
+      "sha256": "e8932a62713b8f8af18a980093a6ff162b3510b4b4e7da924d9b421552a9e3f2"
+    },
+    {
+      "path": "crates/mpk-theory/Cargo.toml",
+      "sha256": "120227c9b1a0bbbe48e146d6d2412793b9e357cb43e7d21585c760a268081908"
+    },
+    {
+      "path": "crates/mpk-theory/src/array_cert.rs",
+      "sha256": "7b6261cbedc9200ffe8ce5513374e2c14aa6b999926607e450440e26bb25cace"
+    },
+    {
+      "path": "crates/mpk-theory/src/bitvec_eval.rs",
+      "sha256": "3fa7578174f4e3a489d395653687899d1d06fc59780b9224d652638b7d589ac4"
+    },
+    {
+      "path": "crates/mpk-theory/src/bool_cert.rs",
+      "sha256": "17bcac0225e8281ecf754115734cf254addf87bc44a6da4fddaebabbea226c14"
+    },
+    {
+      "path": "crates/mpk-theory/src/lib.rs",
+      "sha256": "10719601e65de998218739cd2b5b61a6bf69df6692c1b829c307c6cf57d61ccd"
+    },
+    {
+      "path": "crates/mpk-theory/src/linarith_cert.rs",
+      "sha256": "3606832e69432a08295e014f0810e5f20aa7d10fdef2bc8789448ebf98d6895a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs",
+      "sha256": "dd3a7ec39bb7aa86663a71fdc9ff55197e5f64df86a9adfd3cac41b7c9d90db3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/Cargo.lock",
+      "sha256": "908d07d9ab55bf4923537df208e6e451d5573e1d5a3c0de03853b9efe8e241ae"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/Cargo.toml",
+      "sha256": "7b97e6284a5777e58aeff7c938ac9fa985a987961cf8b5fa52588aa18efcc66f"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/main.rs",
+      "sha256": "30f6276e54f49f6b6d51b04aeb42150f11ad42182a8b6d4a6d4d82af18fde257"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/natural.rs",
+      "sha256": "ab70591c8fcaacbe09b24776e95bc381055200ffd11e5d19c367fc2434d19e20"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word.rs",
+      "sha256": "d7c6bf2c68c4fcca0d9a111801d15cca64806cd4d4666c23b0b35cee1a547826"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced.rs",
+      "sha256": "613e28fd7c0188fc2ef49d8452610a1492a093d5cf4a99f4191fe3da25eb8313"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed.rs",
+      "sha256": "fe1a7afc6be4a264844101ef9c0cda781543c651b3b4242d17c94472273d2729"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes.rs",
+      "sha256": "66e3961995d9dc5dd836eefa1e3f762b7f8afbd825a49100a279ad78b221d959"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds.rs",
+      "sha256": "9ae75866e7315aca7bd531d09da4ccf4a24519a26c6cca172eb4fe77418906c1"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/coverage.rs",
+      "sha256": "5ce6eb686f3b2231fa650ef1495fc9ddef88d1165ec1562b196e5f10d8af1610"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices.rs",
+      "sha256": "63fe8df6b803f9d885ac9659e0915bf3dfbd3a6a0e4afebf1f63442ffa496784"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access.rs",
+      "sha256": "e33d56d0ef4c36f6219c5e05e3b467639e2c560889150f3535b06f3285db7962"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity.rs",
+      "sha256": "d7986e03fc3e5e90f595002c2e706d719568cc1c51df9d7d7751575d63c1380e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/embedding.rs",
+      "sha256": "39f3ef83ae8d1eb4916a4cef20403382ace335294ddd01678be906f4cceb7ff6"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice.rs",
+      "sha256": "c4c90026cd3b86873eeab2397ab9fd73ad66634ba76f2fc9354f8a76d04348f7"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/arith.rs",
+      "sha256": "903c68c44f93e3caf1ca2d8ca99a9d93bc42c64044b51c239d529a2a513c8c89"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/assoc.rs",
+      "sha256": "23f441a888c555b1ef335c28122366718b217681d3a98f645ed44cd89ba4106e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying.rs",
+      "sha256": "5523909155b80740f88bcac2eea910ca315013e9e2a1b608da43e56b3fc4006b"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction.rs",
+      "sha256": "6587ef8f5cd707e976218e7ed824f9c1a18c628c9c2e5bf7d565bb25154aba0d"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended.rs",
+      "sha256": "1be6f2e82e5062629b00489ae47c26232e83869b410e099bd1e67e53283f98c7"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/emit.rs",
+      "sha256": "f9e2763ad5463f4dee39394ff43b99d578fc08ab46bb7381fe372d113f65e95e"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/indices.rs",
+      "sha256": "533049f98d496edb606f21ae4a1797227f2acf062ad493a950126b32845cf7f1"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/reads.rs",
+      "sha256": "26b111790fcde91173b6472269abed36efae0c6ac2d027460566fe26ecf5d736"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/appended/validity.rs",
+      "sha256": "a730f529dd364f937c18195461ac92efe2c7f22d05ab9e42960e513082972f93"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/indexed.rs",
+      "sha256": "9a66489607c424c22ce00938431bad9b14a0c30a60b3e9238b0102fb4f3f79e3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/made.rs",
+      "sha256": "3dd38d9959d2d14094e8789fcfbccad47e01595efca5b8a5b29ab358bea00a0d"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/construction/made/composed.rs",
+      "sha256": "1653576edab404256da3d1164746b79a4895a86339216c91f3b092e216a309b3"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/counts.rs",
+      "sha256": "2ba520e731ae25b74b613603ee092ff3a6b407c714e3a49d4d77bce90e02f9a0"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/emit.rs",
+      "sha256": "966f336423d01e34efec46471d3347d64e2f155d5c68a91d492719a58e588fae"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/shift.rs",
+      "sha256": "dbf47196405be7975ae27d1b126a810e9a3591c34b6b7688dbac47193ad8a8e5"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/copying/store.rs",
+      "sha256": "bb2dc947d6e6d2561ec1b74806f3c4a6c609fe8a4eb0dcdf3ec0be46214686ce"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/emit.rs",
+      "sha256": "d14ccac606a7565f60878730f799dbc9c8bd7915af044543fc0698d29f4e6603"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/model.rs",
+      "sha256": "dfebf52c56b1084669fa81ae353744c7847dc91551d4998e0a4f3d6239c5defc"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/numeric.rs",
+      "sha256": "4b55a2e36203e8bb69342e62c51008cf1f814952519b0b619d09cc56cde6b9c8"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/preservation.rs",
+      "sha256": "b2e28805ada6ee0f47b4dfda0c299706a2b788129b3e1a796f6acea5d6d941fa"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/readable.rs",
+      "sha256": "1abaa9ccc87de6d36451f0b77ebb70e2b65940cce14a49804086c5da584d8063"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/stringops.rs",
+      "sha256": "c559d9c5a9e6e9d9be6be51a4558faf717983ff97a601304a4dd1901b41143e2"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices/access/validity/reslice/stringops/emit.rs",
+      "sha256": "95c20db80309e146fb279fa7a0b195e1d054fc07ba1383e7d06c3706870415d0"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold.rs",
+      "sha256": "9bf23d6363dbcb9508607d381f48205e2b2228ca50d172f926632f65be8d8840"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation.rs",
+      "sha256": "aca248cc9693ec594ffa95df059dc42ea02e4ccc385a4f0b63f5f407f3a84af9"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned.rs",
+      "sha256": "9c4bdf37ba79d69568956629d588e2db679d6f3b99f3d62a7bc447429fcb3167"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/quote.rs",
+      "sha256": "c7deb1f6a2ea0de3b4a4b9000b4041fef49c405723c0863be506b2d2214b7552"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/run.rs",
+      "sha256": "f2f03b5069d4d9c9816ee179de737d7ddc881e49ea551b00b5d2df7609f481ab"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/signed_prefix.rs",
+      "sha256": "a58589540f394e72d216e985da8bb9daaa2d2b75c5bebcf51837651e7a404977"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order.rs",
+      "sha256": "52b24efd55c9d0df7397b0b9e21961dd15671322fd276ce15708c1eeef111582"
+    },
+    {
+      "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order/path.rs",
+      "sha256": "d92785a0ad8d1da68ddf398803a9e37a3f124b2e01aa52159ced339c99b2f860"
+    },
+    {
+      "path": "develop/probes/go-practical/check_balanced_report.py",
+      "sha256": "204916b16372e177035dff92e9b78a129f7129d0a532b393c7e4aa603cc4ea25"
+    },
+    {
+      "path": "develop/probes/go-practical/check_order_report.py",
+      "sha256": "0919a3e438661e93ebe3b2150fcf9a4a229fb0418c2f3f6952a33f2b00e33bdb"
+    },
+    {
+      "path": "develop/probes/go-practical/check_proof_report.py",
+      "sha256": "182bbac0b4146329c9f951c1b34dbb97adef35d58bc67901c74c5a1229ea4ba2"
+    },
+    {
+      "path": "develop/probes/go-practical/entry_audit.py",
+      "sha256": "0730c5598b4e3c885ed1b59d8b5925f72e0c09c614261cf0a33189327dd6ef2a"
+    },
+    {
+      "path": "develop/probes/go-practical/host-toolchain.json",
+      "sha256": "1927d5c54d8e62d2e479e9b30969f4ff4d482163d1da11dce8c0595e0d060bb4"
+    },
+    {
+      "path": "develop/probes/go-practical/order_differential.py",
+      "sha256": "396772db3d137a9c5091713a02646abfb4f586914a00e6219a9e8ff95696b59c"
+    },
+    {
+      "path": "develop/probes/go-practical/order_reference.go",
+      "sha256": "e0d0ef7eb7f9d755c214295577cda0a1a90e8d520e3a980b179d84dbfac45881"
+    },
+    {
+      "path": "develop/probes/go-practical/provision_host_toolchain.py",
+      "sha256": "acde3a9d67daae64ac03f2695b14a90b5283d73b58d4a83b69cb564f4f613d81"
+    },
+    {
+      "path": "develop/probes/go-practical/run_balanced_probes.py",
+      "sha256": "b6c037a96572a7dcab1118f62fe2cf8a8f3dd1f43e610d6ebb6932034072a248"
+    },
+    {
+      "path": "develop/probes/go-practical/run_module_probes.py",
+      "sha256": "95cf152ef7538f97e51f68831c2c7f9521445a18612d0bde0ba22d5b503d205c"
+    },
+    {
+      "path": "develop/probes/go-practical/run_order_probes.py",
+      "sha256": "b401b40b5311c3d282e50c1c0d3960e06347d952b95ef93adb106476175ef382"
+    },
+    {
+      "path": "develop/probes/go-practical/run_proof_pilot.py",
+      "sha256": "3ddaffd920a0aada1c91678a7d35de9314b5009c15dbe05ca025256cfb22a1d5"
+    },
+    {
+      "path": "fixtures/core-bool-cases/right-identity.hex",
+      "sha256": "0232430bd7abff3b231b0898a512f85b4b4471906afc43e192c9407a6b414063"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "4e73baf6738ca272e34287440750f4a8f1df2aa6785dffd77be205b43cf70c85"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e"
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583"
+    }
+  ],
+  "internal_width_128_scope": "width128 is an internal arithmetic probe, not Go source integer admission",
+  "measurement_child_ceiling_seconds": 60,
+  "outcomes": {
+    "accepted_zero_axiom": 16,
+    "core_type_mismatch": 24
+  },
+  "pending": [
+    "complete Go source/model and operation binding",
+    "Quote loop/prefix/return composition and collection/control laws",
+    "string/slice/descriptor law closure",
+    "aggregate boundary and resource freeze"
+  ],
+  "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+  "schema": "mpk.go_practical.order_report.v0",
+  "scope": "ordinary full-word carry composition and source-shaped Quote continuation arithmetic; Go frontend/source binding and whole-loop proof remain pending",
+  "status": "order/guard ingredients measured; W03 remains incomplete",
+  "work_item": "GO-PRAC-T01-W03"
+}

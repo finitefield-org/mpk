@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "command": [
+    "rustc",
+    "--edition=2021",
+    "-C",
+    "opt-level=1",
+    "-C",
+    "debug-assertions=yes",
+    "-C",
+    "overflow-checks=yes",
+    "-L",
+    "dependency=target/debug/deps",
+    "--extern",
+    "mpk_kernel=target/debug/deps/libmpk_kernel-0d580f7bf4ab7bf5.rlib",
+    "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/verify-aggregate.rs",
+    "-o",
+    "/private/tmp/mpk-go-source-invocations-whole-kernel-174"
+  ],
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregate-check-tools/driver.py",
+    "bytes": 2532,
+    "sha256": "768b5bcc1877b1d9b0fd3aaa30502826eb9fd94ef7085d041f57ee4b5d582349"
+  },
+  "complete_prelaunch_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregate-check-tools/prelaunch-inputs.json",
+    "bytes": 2917,
+    "sha256": "d54d7371fb84f2d4a79fa2b03fde78a4e32fdaeeb4c2ddafe6b2c6d6cdd66396"
+  },
+  "exact_original_kernel_library": {
+    "path": "target/debug/deps/libmpk_kernel-0d580f7bf4ab7bf5.rlib",
+    "bytes": 3370480,
+    "sha256": "cd870dff29a2ef4949fd01a357c9dc89d483b67c2e54ac07356f76a824994aba"
+  },
+  "started_at_utc": "2026-10-23T05:16:08.013132+00:00",
+  "exit_code": 0,
+  "whole_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregate-check-tools/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-invocations/aggregate-check-tools/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "binary": {
+    "path": "/private/tmp/mpk-go-source-invocations-whole-kernel-174",
+    "bytes": 1462888,
+    "sha256": "d79f236ace587c544bbbc3ad144ec3aacfacb2209c2877b981ef81098b925ad5"
+  },
+  "finished_at_utc": "2026-10-23T05:16:09.573726+00:00"
+}

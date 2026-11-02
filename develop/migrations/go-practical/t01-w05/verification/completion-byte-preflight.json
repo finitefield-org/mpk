@@ -1,0 +1,60 @@
+{
+  "schema": "mpk.go_practical.w05_completion_byte_preflight.v0",
+  "observed_at_utc": "2026-10-18T03:12:22.993558+00:00",
+  "scope": "read-only exact current byte audit while the cumulative full gate remains live; not T01 completion or a source/application proof",
+  "source_commit": "43c6739990da01f6bd39eee2935fe9a837563800",
+  "frozen_W04_design_members_checked": 255,
+  "published_specifications_checked": 5,
+  "published_vector_sets_checked": 5,
+  "installed_registry_files_checked": 2,
+  "evidence": [
+    {
+      "path": "develop/migrations/go-practical/t01-w04/completion-audit.json",
+      "bytes": 47962,
+      "sha256": "aa7369cdbb46ab1ef9b276e113f54ea6bead8de8b88ff92f155ccca99b043143"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/publication-audit.json",
+      "bytes": 2473,
+      "sha256": "853363a5e7ec30de01d96674ec7571fa992ebbfcb95b61bdeeb0bc2b994db7e5"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/installed-registry-preservation.json",
+      "bytes": 573,
+      "sha256": "b604a3f8928bcfa7525119b6b98374ecbef2b404109b46a30c9a62e7db65f99f"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/test-profile/cargo-profile-result.json",
+      "bytes": 16563,
+      "sha256": "ddcdf0de92583eb5c8ed31b9797bf8011bf7f1b4e4aa865761f0a8991cc10087"
+    }
+  ],
+  "current_registries": [
+    {
+      "path": "release/bundles/semantic-profile-registry.json",
+      "bytes": 3119,
+      "sha256": "1c9671f7db1f872f93d21757c271b39ddedd4fe612f4f388fe1700acd9808080"
+    },
+    {
+      "path": "release/bundles/bundle-registry.json",
+      "bytes": 2276758,
+      "sha256": "f2da0168c30ac72b2d624a2af76959231114b5ad862fad9d893c4e15b48395d0"
+    }
+  ],
+  "actual_test_profile": {
+    "test_targets": 116,
+    "opt_level": "1",
+    "debug_assertions": true,
+    "overflow_checks": true
+  },
+  "full_gate_at_observation": {
+    "status": "running",
+    "passed_individual_tests": 1004,
+    "failed_test_lines": [],
+    "fatal_target_lines": []
+  },
+  "T01_complete": false,
+  "T02_started": false,
+  "profile_activated": false,
+  "source_semantics_proved": false
+}

@@ -1,0 +1,81 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-m",
+        "unittest",
+        "-v",
+        "test_overlay_contracts"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical",
+      "exit_code": 0,
+      "log": "unittest-overlay.log",
+      "reason": "20 targeted grammar/type/phase/nominal/scope tests; 70 typed witnesses, full uint64 shift count and package-state exclusion",
+      "sha256": "d53cf0d75051c564ea2f467b20eacdc333cc6ddceeabe8e2e635cc0f7da0c090",
+      "wall_seconds": 0.07758741703582928
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_overlay_probes.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh exact Go1.25.0 build, two intact source type/scope observations and deterministic candidate replay",
+      "sha256": "2f4244e6b2306d5b6413538acc0d54304346ad6bb2281793109099158cef620d",
+      "wall_seconds": 4.31158283300465
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_overlay_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Current overlay/old proof integrity, 143 unchanged predecessor pins, all operator signatures, links and ledger order",
+      "sha256": "26f03cf4b6b4a2b44f33af97d56dfd1d4f11dd342412c2ec291eeb91d0a8589b",
+      "wall_seconds": 0.17631908401381224
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+        "-l",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/overlay_go_scopes.go"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "gofmt.log",
+      "reason": "Only the new Go observer; fixture bytes and retained snapshots preserved",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.005857582960743457
+    }
+  ],
+  "entry_commit": "48ab07a0622c3d5993070f52ddb9eb3b58cdeced",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative gate reserved for final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "6c48c588a2234c00043a993b64e226a6946addd6d07510304c0eac59a4dddfcc",
+  "not_repeated": [
+    "unchanged production/core/checker proof suites",
+    "unaffected native evaluation and collection proof matrices"
+  ],
+  "observed_tests": 20,
+  "output_scope": "complete raw combined stdout/stderr captured from local subprocesses",
+  "python_sources_compiled": 5,
+  "remaining": [
+    "complete source/effect admission, typed/definedness independent import and proofs",
+    "exact counters, schemas/hash identities and migration freeze",
+    "remaining ordinary foundation/source/application proofs and release gates"
+  ],
+  "schema": "mpk.go_practical.w04_overlay_verification.v0",
+  "scope": "private typed overlay and native original-file scope design; no production source/VC/proof completion",
+  "status": "W04 in progress; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

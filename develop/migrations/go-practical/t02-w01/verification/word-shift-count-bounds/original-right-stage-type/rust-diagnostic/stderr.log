@@ -1,0 +1,18 @@
+warning: function `choice_right` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/shifts/variable.rs:58:4
+   |
+58 | fn choice_right(f: Expr, a: Expr, e: Equality) -> Equality {
+   |    ^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `boolean_choice_right` is never used
+  --> crates/mpk-vc/src/go_practical_ordinary/word_numeric/shifts/variable.rs:86:4
+   |
+86 | fn boolean_choice_right(f: Expr, a: Expr, e: Equality) -> Equality {
+   |    ^^^^^^^^^^^^^^^^^^^^
+
+warning: `mpk-vc` (lib) generated 2 warnings
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1.44s
+     Running tests/go_practical_word_shift_counts_diagnostic.rs (target/debug/deps/go_practical_word_shift_counts_diagnostic-f5d202a4b59fb012)

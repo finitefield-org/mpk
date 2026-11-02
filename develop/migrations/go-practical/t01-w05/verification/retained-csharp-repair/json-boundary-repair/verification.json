@@ -1,0 +1,104 @@
+{
+  "schema": "mpk.go_practical.json_archive_repair_verification.v0",
+  "status": "selected_checks_passed_repaired_cumulative_gate_required",
+  "source_base_commit": "43c6739990da01f6bd39eee2935fe9a837563800",
+  "working_tree_test_sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_document_epoch_tests.rs",
+      "sha256": "b40f43f8a0a4faa8a1db6a4bd0c3e4b2eb390200d66cfa9e0083aa11523e2dd3"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_boundary_document_tests.rs",
+      "sha256": "8bd171f333e445fd1afd11669440b3a1856ca7dded9525993bd4e1ef1ca657b2"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_string_parse_tests.rs",
+      "sha256": "bcd516ee31d7e403bd09e63249ecbfdf00ef4f8ed318c5d8345ed5d294b2c874"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_token_tests.rs",
+      "sha256": "8057a5f6b568cb1f8bab8a957c7456c0502c0786f6bf2b5410dbbb320114aab9"
+    }
+  ],
+  "selected": [
+    {
+      "stage": "guards",
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-boundary-repair/utf16/guards-result.json",
+      "sha256": "51803dd0c35f3593ad90e245a8ebc814129a15414e5869e40a745d973311269e",
+      "exit_code": 0,
+      "reason": "Complete historical source-correspondence guards and affected original-source JSON reconstruction; generation and normal strict golden checks are separate invocations."
+    },
+    {
+      "stage": "generate-string",
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-boundary-repair/utf16/generate-string-result.json",
+      "sha256": "61ef84942aecd5167a99d6cb1df8a8508fb30bebc3f59492eb22e024b056b510",
+      "exit_code": 0,
+      "reason": "Complete historical source-correspondence guards and affected original-source JSON reconstruction; generation and normal strict golden checks are separate invocations."
+    },
+    {
+      "stage": "generate-tokens",
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-boundary-repair/utf16/generate-tokens-result.json",
+      "sha256": "500d9049bf795afebd4cd0c73ac44a6173b87cbb115ff401f3b90aafe7d912de",
+      "exit_code": 0,
+      "reason": "Complete historical source-correspondence guards and affected original-source JSON reconstruction; generation and normal strict golden checks are separate invocations."
+    },
+    {
+      "stage": "normal-string",
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-boundary-repair/utf16/normal-string-result.json",
+      "sha256": "62a854174e87b11c11419171ff8de1398004d9b2d9cc132e5681b770888bb209",
+      "exit_code": 0,
+      "reason": "Complete historical source-correspondence guards and affected original-source JSON reconstruction; generation and normal strict golden checks are separate invocations."
+    },
+    {
+      "stage": "normal-tokens",
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-boundary-repair/utf16/normal-tokens-result.json",
+      "sha256": "3cd191633250235d34c6c56b00289944677923419f659751f45100b6a894b585",
+      "exit_code": 0,
+      "reason": "Complete historical source-correspondence guards and affected original-source JSON reconstruction; generation and normal strict golden checks are separate invocations."
+    },
+    {
+      "stage": "format",
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-boundary-repair/utf16/format-result.json",
+      "sha256": "c0d9f12f0a60a0f33e5ce3b67db95da2b46b1527f5e61b2be025c9fa64fe3dee",
+      "exit_code": 0,
+      "reason": "Only four changed test sources and their single CSharp VC integration consumer; production code and the source43 full diagnostic binary are unchanged."
+    },
+    {
+      "stage": "clippy",
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-boundary-repair/utf16/clippy-result.json",
+      "sha256": "09a72a822f11ba47433927e4bc2ed3e3d14faec58c08e905d83dbc60724b066b",
+      "exit_code": 0,
+      "reason": "Only four changed test sources and their single CSharp VC integration consumer; production code and the source43 full diagnostic binary are unchanged."
+    }
+  ],
+  "normal_rust_test_cases": 4,
+  "generation_invocations": 2,
+  "contexts_per_generation": 68,
+  "nonempty_contexts_per_generation": 3,
+  "new_hex_members": 6,
+  "distinct_definition_certificates_accepted_both_checkers": 2,
+  "definition_axioms": 0,
+  "definition_checks": "definition-checks/result.json",
+  "archive_and_parent_git_objects_checked": 30,
+  "source_correspondence_pairs": 3,
+  "raw_native_input_digests_checked": 18,
+  "negative_source_contract_root_controls": 9,
+  "negative_lone_surrogate_substitution_controls": 1,
+  "original_failed_guard_source_and_logs": "initial-scalar-json-guard.json",
+  "original_raw_utf16_fixtures_unchanged": true,
+  "production_source_changes": false,
+  "T01_complete": false,
+  "T02_started": false,
+  "CSharp_application_proofs_completed": false,
+  "Go_application_proofs_completed": false,
+  "profile_activated": false,
+  "full_gate": {
+    "command": [
+      "./scripts/check-fast.sh"
+    ],
+    "status": "required_over_committed_repaired_tree",
+    "superseded_diagnostic": "../../superseded-json-archive/check-fast-result.json",
+    "remaining_targets_may_be_skipped": false
+  },
+  "raw_log_whitespace_audit": "../raw-log-whitespace.json"
+}

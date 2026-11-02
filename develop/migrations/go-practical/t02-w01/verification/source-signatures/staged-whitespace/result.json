@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-21T17:12:20.459418+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-signatures/staged-whitespace/driver.py",
+    "bytes": 5617,
+    "sha256": "6cec9684ffa199000bc08d550abb8100201d4b876099596ce9acbe9048022480"
+  },
+  "basis_commit": "323fa842a02ef1d1160a06cd02fccb92fc2eb89d",
+  "input_review": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-signatures/input-review.json",
+    "bytes": 67523,
+    "sha256": "f759ef90b36a6aa111267b0b7629e02563b3d3776d44bc217ef4eb65d0a5dbee"
+  },
+  "all_reviewed_inputs_unchanged": true,
+  "complete_staged_whitespace_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "complete_staged_whitespace_exit_code": 2,
+  "complete_staged_whitespace_stdout_hex": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-signatures/staged-whitespace/stdout.hex",
+    "bytes": 801,
+    "sha256": "9546e6c716c8fc928e19abb1648acd5aae1568dbd1b6c3c800583cae9de69722"
+  },
+  "complete_staged_whitespace_stderr_hex": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-signatures/staged-whitespace/stderr.hex",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  "exact_preserved_original_whitespace": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-signatures/binders-paired/rust-selected/stdout.log",
+      "bytes": 457,
+      "sha256": "75a1c79f1a6811ce437b0ae9516a97084154598581940453660bbdd587ccb8b7",
+      "line": 10,
+      "reason": "Complete actual Cargo stdout ends with its original blank line."
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-signatures/formatted/rust-importer/stdout.log",
+      "bytes": 354,
+      "sha256": "e435c4407351634cd741ce7810b22909222ef6420be861dfbf6ea576f52620a1",
+      "line": 9,
+      "reason": "Complete actual Cargo stdout ends with its original blank line."
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-signatures/paired/rust-selected/stdout.log",
+      "bytes": 482,
+      "sha256": "2c842c50a040f877dbbccf85a1dcb0d5a23f834d39ee0dbe94e92c3bfe1b1734",
+      "line": 14,
+      "reason": "Complete actual Cargo stdout ends with its original blank line."
+    }
+  ],
+  "scoped_code_and_metadata_whitespace_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check",
+    "--",
+    ".",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/source-signatures/binders-paired/rust-selected/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/source-signatures/formatted/rust-importer/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/source-signatures/paired/rust-selected/stdout.log"
+  ],
+  "scoped_code_and_metadata_whitespace_exit_code": 0,
+  "scoped_stdout_hex": "",
+  "scoped_stderr_hex": "",
+  "new_scanner_exclusions": false,
+  "public_profile_activated": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh"
+}

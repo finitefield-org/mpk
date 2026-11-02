@@ -1,0 +1,666 @@
+{
+  "arguments": [
+    "mod",
+    "graph"
+  ],
+  "environment": [
+    "CGO_ENABLED=0",
+    "GO111MODULE=on",
+    "GOAMD64=v1",
+    "GOARCH=amd64",
+    "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-4264754882/cache/go-build",
+    "GODEBUG=",
+    "GOENV=off",
+    "GOEXPERIMENT=",
+    "GOFLAGS=",
+    "GOMAXPROCS=1",
+    "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalModuleGraphPreservesUnselectedOldLeavesCyclesAndPru2198949689/002/dep",
+    "GONOPROXY=",
+    "GONOSUMDB=",
+    "GOOS=linux",
+    "GOPACKAGESDRIVER=off",
+    "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-4264754882/gopath",
+    "GOPRIVATE=",
+    "GOPROXY=off",
+    "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalModuleGraphPreservesUnselectedOldLeavesCyclesAndPru2198949689/001/go",
+    "GOSUMDB=off",
+    "GOTELEMETRY=off",
+    "GOTOOLCHAIN=local",
+    "GOVCS=*:off",
+    "GOWORK=off",
+    "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-4264754882/empty/home",
+    "LANG=C",
+    "LC_ALL=C",
+    "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalModuleGraphPreservesUnselectedOldLeavesCyclesAndPru2198949689/001/go/bin",
+    "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-4264754882/tmp",
+    "TZ=UTC"
+  ],
+  "final": [
+    {
+      "go_version": "1.16",
+      "identity": {
+        "Path": "example.com/a",
+        "Version": "v1.0.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "example.com/c",
+          "Version": "v1.0.0"
+        },
+        {
+          "Path": "example.com/c",
+          "Version": "v1.0.0"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "28142a9f3f74c86b1987283c48a0bd7de32808d220c594520166b5129fec7aba",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "366deaeeebcc65f46808eca6cdd8429b3802b03ed1bf9f437ac42f719c22dd63",
+          "bytes": 108
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2EKZ28gMS4xNgpyZXF1aXJlICgKZXhhbXBsZS5jb20vYyB2MS4wLjAKZXhhbXBsZS5jb20vYyB2MS4wLjAKZXhhbXBsZS5jb20vbmV2ZXIgdjEuMC4wCikK"
+      }
+    },
+    {
+      "go_version": "1.16",
+      "identity": {
+        "Path": "example.com/b",
+        "Version": "v1.0.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "example.com/c",
+          "Version": "v1.1.0"
+        },
+        {
+          "Path": "example.com/leaf",
+          "Version": "v1.1.0"
+        },
+        {
+          "Path": "example.com/q",
+          "Version": "v1.1.0"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "656442e0971df9ad37b28943ba2f170a73b9aabb3258266be4e420254478ac7a",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/b/@v/v1.0.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "1dd119727a20042d284224c00f642972833f776e8b93ee406f413538712d66b9",
+          "bytes": 107
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2IKZ28gMS4xNgpyZXF1aXJlICgKZXhhbXBsZS5jb20vYyB2MS4xLjAKZXhhbXBsZS5jb20vbGVhZiB2MS4xLjAKZXhhbXBsZS5jb20vcSB2MS4xLjAKKQo="
+      }
+    },
+    {
+      "go_version": "1.16",
+      "identity": {
+        "Path": "example.com/c",
+        "Version": "v1.0.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "example.com/leaf",
+          "Version": "v1.0.0"
+        },
+        {
+          "Path": "example.com/a",
+          "Version": "v1.0.0"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "722760afef0bc84cfca17aafd87247f87e5f7eca28d26788b1eb6a68238b0fa6",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "fef0e0c8fda82616d6f7bd0f8d48074ebaf17820929b24db231215e3ac2f791c",
+          "bytes": 111
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2MKZ28gMS4xNgpmdXR1cmVfZGlyZWN0aXZlIGlnbm9yZWQKcmVxdWlyZSAoCmV4YW1wbGUuY29tL2xlYWYgdjEuMC4wCmV4YW1wbGUuY29tL2EgdjEuMC4wCikK"
+      }
+    },
+    {
+      "go_version": "1.22",
+      "identity": {
+        "Path": "example.com/c",
+        "Version": "v1.1.0"
+      },
+      "pruned": true,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "go",
+          "Version": "1.22"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "5173083b2eb6e321f0a32f0419ebee6c637feb02f4b77d27d74cdfc4ecbd04be",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/c/@v/v1.1.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+          "bytes": 29
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2MKZ28gMS4yMgo="
+      }
+    },
+    {
+      "go_version": "",
+      "identity": {
+        "Path": "example.com/leaf",
+        "Version": "v1.0.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": null,
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "0687595e196998428c5076f3e2c3da49c64a5533fb33ee3a18efd26564be7db2",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/leaf/@v/v1.0.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "dea6e0a7cd496d33dc4b6e7776ede6e9c1e2879896ece08bc6d5d96c17052aa6",
+          "bytes": 62
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2xlYWYKLy8gb3JpZ2luYWwgemVyby1yZXF1aXJlbWVudCBvbGQgbGVhZgo="
+      }
+    },
+    {
+      "go_version": "1.22",
+      "identity": {
+        "Path": "example.com/leaf",
+        "Version": "v1.1.0"
+      },
+      "pruned": true,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "go",
+          "Version": "1.22"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "07df2cf56f49735d4a23593a1d7e3611739cdbb53065b85244bdb45a11133cee",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/leaf/@v/v1.1.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "55cdec646b58864fbd3ae5922b586b0c0690c49c198188512f933d0b51100832",
+          "bytes": 32
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2xlYWYKZ28gMS4yMgo="
+      }
+    },
+    {
+      "go_version": "1.22",
+      "identity": {
+        "Path": "example.com/q",
+        "Version": "v1.1.0"
+      },
+      "pruned": true,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "go",
+          "Version": "1.22"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "5414b05cb28efe5f0f0e9abb5f46e2293c5c57650ea3ebcbc76bcea13443474b",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/q/@v/v1.1.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "1b475e9131b20f5e8efe77de346f3a7f695fbbb2d20bbb63434d743cd578af7f",
+          "bytes": 29
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL3EKZ28gMS4yMgo="
+      }
+    },
+    {
+      "go_version": "1.22",
+      "identity": {
+        "Path": "example.com/z",
+        "Version": "v1.0.0"
+      },
+      "pruned": true,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "example.com/q",
+          "Version": "v1.0.0"
+        },
+        {
+          "Path": "go",
+          "Version": "1.22"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "f8b4ad2d4d3a018c206582c1ce29efdffec93e88ed43684825fde8e64d81e655",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "62398ac3a4ea71d3ee2bfdd0ddaf43093a81c220711df12a2a72768344479e88",
+          "bytes": 58
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL3oKZ28gMS4yMgpyZXF1aXJlIGV4YW1wbGUuY29tL3EgdjEuMC4wCg=="
+      }
+    },
+    {
+      "go_version": "",
+      "identity": {
+        "Path": "go",
+        "Version": "1.22"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "toolchain",
+          "Version": "go1.22"
+        }
+      ],
+      "source": null
+    },
+    {
+      "go_version": "",
+      "identity": {
+        "Path": "go",
+        "Version": "1.25.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "toolchain",
+          "Version": "go1.25.0"
+        }
+      ],
+      "source": null
+    },
+    {
+      "go_version": "",
+      "identity": {
+        "Path": "toolchain",
+        "Version": "go1.22"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": null,
+      "source": null
+    },
+    {
+      "go_version": "",
+      "identity": {
+        "Path": "toolchain",
+        "Version": "go1.25.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": null,
+      "source": null
+    }
+  ],
+  "independent_MVS_or_source_proof": false,
+  "initial": [
+    {
+      "go_version": "1.16",
+      "identity": {
+        "Path": "example.com/a",
+        "Version": "v1.0.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "example.com/c",
+          "Version": "v1.0.0"
+        },
+        {
+          "Path": "example.com/c",
+          "Version": "v1.0.0"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "28142a9f3f74c86b1987283c48a0bd7de32808d220c594520166b5129fec7aba",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "366deaeeebcc65f46808eca6cdd8429b3802b03ed1bf9f437ac42f719c22dd63",
+          "bytes": 108
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2EKZ28gMS4xNgpyZXF1aXJlICgKZXhhbXBsZS5jb20vYyB2MS4wLjAKZXhhbXBsZS5jb20vYyB2MS4wLjAKZXhhbXBsZS5jb20vbmV2ZXIgdjEuMC4wCikK"
+      }
+    },
+    {
+      "go_version": "1.16",
+      "identity": {
+        "Path": "example.com/b",
+        "Version": "v1.0.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "example.com/c",
+          "Version": "v1.1.0"
+        },
+        {
+          "Path": "example.com/leaf",
+          "Version": "v1.1.0"
+        },
+        {
+          "Path": "example.com/q",
+          "Version": "v1.1.0"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "656442e0971df9ad37b28943ba2f170a73b9aabb3258266be4e420254478ac7a",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/b/@v/v1.0.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "1dd119727a20042d284224c00f642972833f776e8b93ee406f413538712d66b9",
+          "bytes": 107
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2IKZ28gMS4xNgpyZXF1aXJlICgKZXhhbXBsZS5jb20vYyB2MS4xLjAKZXhhbXBsZS5jb20vbGVhZiB2MS4xLjAKZXhhbXBsZS5jb20vcSB2MS4xLjAKKQo="
+      }
+    },
+    {
+      "go_version": "1.16",
+      "identity": {
+        "Path": "example.com/c",
+        "Version": "v1.0.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "example.com/leaf",
+          "Version": "v1.0.0"
+        },
+        {
+          "Path": "example.com/a",
+          "Version": "v1.0.0"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "722760afef0bc84cfca17aafd87247f87e5f7eca28d26788b1eb6a68238b0fa6",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "fef0e0c8fda82616d6f7bd0f8d48074ebaf17820929b24db231215e3ac2f791c",
+          "bytes": 111
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2MKZ28gMS4xNgpmdXR1cmVfZGlyZWN0aXZlIGlnbm9yZWQKcmVxdWlyZSAoCmV4YW1wbGUuY29tL2xlYWYgdjEuMC4wCmV4YW1wbGUuY29tL2EgdjEuMC4wCikK"
+      }
+    },
+    {
+      "go_version": "1.22",
+      "identity": {
+        "Path": "example.com/c",
+        "Version": "v1.1.0"
+      },
+      "pruned": true,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "go",
+          "Version": "1.22"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "5173083b2eb6e321f0a32f0419ebee6c637feb02f4b77d27d74cdfc4ecbd04be",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/c/@v/v1.1.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+          "bytes": 29
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2MKZ28gMS4yMgo="
+      }
+    },
+    {
+      "go_version": "",
+      "identity": {
+        "Path": "example.com/leaf",
+        "Version": "v1.0.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": null,
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "0687595e196998428c5076f3e2c3da49c64a5533fb33ee3a18efd26564be7db2",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/leaf/@v/v1.0.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "dea6e0a7cd496d33dc4b6e7776ede6e9c1e2879896ece08bc6d5d96c17052aa6",
+          "bytes": 62
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2xlYWYKLy8gb3JpZ2luYWwgemVyby1yZXF1aXJlbWVudCBvbGQgbGVhZgo="
+      }
+    },
+    {
+      "go_version": "1.22",
+      "identity": {
+        "Path": "example.com/leaf",
+        "Version": "v1.1.0"
+      },
+      "pruned": true,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "go",
+          "Version": "1.22"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "07df2cf56f49735d4a23593a1d7e3611739cdbb53065b85244bdb45a11133cee",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/leaf/@v/v1.1.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "55cdec646b58864fbd3ae5922b586b0c0690c49c198188512f933d0b51100832",
+          "bytes": 32
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL2xlYWYKZ28gMS4yMgo="
+      }
+    },
+    {
+      "go_version": "1.22",
+      "identity": {
+        "Path": "example.com/q",
+        "Version": "v1.1.0"
+      },
+      "pruned": true,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "go",
+          "Version": "1.22"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "5414b05cb28efe5f0f0e9abb5f46e2293c5c57650ea3ebcbc76bcea13443474b",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/q/@v/v1.1.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "1b475e9131b20f5e8efe77de346f3a7f695fbbb2d20bbb63434d743cd578af7f",
+          "bytes": 29
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL3EKZ28gMS4yMgo="
+      }
+    },
+    {
+      "go_version": "1.22",
+      "identity": {
+        "Path": "example.com/z",
+        "Version": "v1.0.0"
+      },
+      "pruned": true,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "example.com/q",
+          "Version": "v1.0.0"
+        },
+        {
+          "Path": "go",
+          "Version": "1.22"
+        }
+      ],
+      "source": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "f8b4ad2d4d3a018c206582c1ce29efdffec93e88ed43684825fde8e64d81e655",
+          "capability": "workspace/dep",
+          "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+          "kind": "go_mod",
+          "raw_sha256": "62398ac3a4ea71d3ee2bfdd0ddaf43093a81c220711df12a2a72768344479e88",
+          "bytes": 58
+        },
+        "raw": "bW9kdWxlIGV4YW1wbGUuY29tL3oKZ28gMS4yMgpyZXF1aXJlIGV4YW1wbGUuY29tL3EgdjEuMC4wCg=="
+      }
+    },
+    {
+      "go_version": "",
+      "identity": {
+        "Path": "go",
+        "Version": "1.22"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "toolchain",
+          "Version": "go1.22"
+        }
+      ],
+      "source": null
+    },
+    {
+      "go_version": "",
+      "identity": {
+        "Path": "go",
+        "Version": "1.25.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": [
+        {
+          "Path": "toolchain",
+          "Version": "go1.25.0"
+        }
+      ],
+      "source": null
+    },
+    {
+      "go_version": "",
+      "identity": {
+        "Path": "toolchain",
+        "Version": "go1.22"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": null,
+      "source": null
+    },
+    {
+      "go_version": "",
+      "identity": {
+        "Path": "toolchain",
+        "Version": "go1.25.0"
+      },
+      "pruned": false,
+      "replacement": {
+        "Path": ""
+      },
+      "requirements": null,
+      "source": null
+    }
+  ],
+  "module_stderr": "",
+  "module_stdout": "ewoJIlBhdGgiOiAiZXhhbXBsZS5jb20vYXBwIiwKCSJNYWluIjogdHJ1ZSwKCSJEaXIiOiAiL3ByaXZhdGUvdmFyL2ZvbGRlcnMvNWwvY2d6aGtrZjE0d2Q2N2NfeDA0NTg5bmx3MDAwMGduL1QvVGVzdFByYWN0aWNhbE1vZHVsZUdyYXBoUHJlc2VydmVzVW5zZWxlY3RlZE9sZExlYXZlc0N5Y2xlc0FuZFBydTIxOTg5NDk2ODkvMDAyL21haW4iLAoJIkdvTW9kIjogIi9wcml2YXRlL3Zhci9mb2xkZXJzLzVsL2Nnemhra2YxNHdkNjdjX3gwNDU4OW5sdzAwMDBnbi9UL1Rlc3RQcmFjdGljYWxNb2R1bGVHcmFwaFByZXNlcnZlc1Vuc2VsZWN0ZWRPbGRMZWF2ZXNDeWNsZXNBbmRQcnUyMTk4OTQ5Njg5LzAwMi9tYWluL2dvLm1vZCIsCgkiR29WZXJzaW9uIjogIjEuMjUuMCIKfQp7CgkiUGF0aCI6ICJleGFtcGxlLmNvbS9hIiwKCSJWZXJzaW9uIjogInYxLjAuMCIsCgkiVGltZSI6ICIyMDIwLTAxLTAyVDAzOjA0OjA1WiIsCgkiRGlyIjogIi9wcml2YXRlL3Zhci9mb2xkZXJzLzVsL2Nnemhra2YxNHdkNjdjX3gwNDU4OW5sdzAwMDBnbi9UL1Rlc3RQcmFjdGljYWxNb2R1bGVHcmFwaFByZXNlcnZlc1Vuc2VsZWN0ZWRPbGRMZWF2ZXNDeWNsZXNBbmRQcnUyMTk4OTQ5Njg5LzAwMi9kZXAvZXhhbXBsZS5jb20vYUB2MS4wLjAiLAoJIkdvTW9kIjogIi9wcml2YXRlL3Zhci9mb2xkZXJzLzVsL2Nnemhra2YxNHdkNjdjX3gwNDU4OW5sdzAwMDBnbi9UL1Rlc3RQcmFjdGljYWxNb2R1bGVHcmFwaFByZXNlcnZlc1Vuc2VsZWN0ZWRPbGRMZWF2ZXNDeWNsZXNBbmRQcnUyMTk4OTQ5Njg5LzAwMi9kZXAvY2FjaGUvZG93bmxvYWQvZXhhbXBsZS5jb20vYS9Adi92MS4wLjAubW9kIiwKCSJHb1ZlcnNpb24iOiAiMS4xNiIsCgkiU3VtIjogImgxOjI1K09TQzdqYkhrQ0oxVTF0eENsVkJsQXJLSFBZOVU0T3NCSnE2elVkSWs9IiwKCSJHb01vZFN1bSI6ICJoMTpDc1dxSHhiMkd5Q1dwY1NFdFBjRnRYc3RzYXp2bzhOWWtTeVBBWSs2T3I4PSIKfQp7CgkiUGF0aCI6ICJleGFtcGxlLmNvbS9iIiwKCSJWZXJzaW9uIjogInYxLjAuMCIsCgkiVGltZSI6ICIyMDIwLTAxLTAyVDAzOjA0OjA1WiIsCgkiRGlyIjogIi9wcml2YXRlL3Zhci9mb2xkZXJzLzVsL2Nnemhra2YxNHdkNjdjX3gwNDU4OW5sdzAwMDBnbi9UL1Rlc3RQcmFjdGljYWxNb2R1bGVHcmFwaFByZXNlcnZlc1Vuc2VsZWN0ZWRPbGRMZWF2ZXNDeWNsZXNBbmRQcnUyMTk4OTQ5Njg5LzAwMi9kZXAvZXhhbXBsZS5jb20vYkB2MS4wLjAiLAoJIkdvTW9kIjogIi9wcml2YXRlL3Zhci9mb2xkZXJzLzVsL2Nnemhra2YxNHdkNjdjX3gwNDU4OW5sdzAwMDBnbi9UL1Rlc3RQcmFjdGljYWxNb2R1bGVHcmFwaFByZXNlcnZlc1Vuc2VsZWN0ZWRPbGRMZWF2ZXNDeWNsZXNBbmRQcnUyMTk4OTQ5Njg5LzAwMi9kZXAvY2FjaGUvZG93bmxvYWQvZXhhbXBsZS5jb20vYi9Adi92MS4wLjAubW9kIiwKCSJHb1ZlcnNpb24iOiAiMS4xNiIsCgkiU3VtIjogImgxOmVpMmNLVkVqb0lNWkZFeGxqVTFUZDlOSU1VZXJpQzFxQytHeEg1WWJkMk09IiwKCSJHb01vZFN1bSI6ICJoMTpNam8wMThkaWZ0TEhBWnYrbFM1bUV1N1k3V1hCQlh3Q3N6YU5seXp1VWlFPSIKfQp7CgkiUGF0aCI6ICJleGFtcGxlLmNvbS9jIiwKCSJWZXJzaW9uIjogInYxLjEuMCIsCgkiVGltZSI6ICIyMDIwLTAxLTAyVDAzOjA0OjA1WiIsCgkiSW5kaXJlY3QiOiB0cnVlLAoJIkRpciI6ICIvcHJpdmF0ZS92YXIvZm9sZGVycy81bC9jZ3poa2tmMTR3ZDY3Y194MDQ1ODlubHcwMDAwZ24vVC9UZXN0UHJhY3RpY2FsTW9kdWxlR3JhcGhQcmVzZXJ2ZXNVbnNlbGVjdGVkT2xkTGVhdmVzQ3ljbGVzQW5kUHJ1MjE5ODk0OTY4OS8wMDIvZGVwL2V4YW1wbGUuY29tL2NAdjEuMS4wIiwKCSJHb01vZCI6ICIvcHJpdmF0ZS92YXIvZm9sZGVycy81bC9jZ3poa2tmMTR3ZDY3Y194MDQ1ODlubHcwMDAwZ24vVC9UZXN0UHJhY3RpY2FsTW9kdWxlR3JhcGhQcmVzZXJ2ZXNVbnNlbGVjdGVkT2xkTGVhdmVzQ3ljbGVzQW5kUHJ1MjE5ODk0OTY4OS8wMDIvZGVwL2NhY2hlL2Rvd25sb2FkL2V4YW1wbGUuY29tL2MvQHYvdjEuMS4wLm1vZCIsCgkiR29WZXJzaW9uIjogIjEuMjIiLAoJIlN1bSI6ICJoMTppUlJ4ZWh3TTI2UjJIZk5kb1VHUVdIeU5pRmd6YkdUaFVmTDZZeTlQVVZVPSIsCgkiR29Nb2RTdW0iOiAiaDE6TjRyb0xNR0l0cko2eW1ldGVONDR0d3Axb1ZscG85TUJqKzF0Z0locjlqUT0iCn0KewoJIlBhdGgiOiAiZXhhbXBsZS5jb20vbGVhZiIsCgkiVmVyc2lvbiI6ICJ2MS4xLjAiLAoJIlRpbWUiOiAiMjAyMC0wMS0wMlQwMzowNDowNVoiLAoJIkluZGlyZWN0IjogdHJ1ZSwKCSJEaXIiOiAiL3ByaXZhdGUvdmFyL2ZvbGRlcnMvNWwvY2d6aGtrZjE0d2Q2N2NfeDA0NTg5bmx3MDAwMGduL1QvVGVzdFByYWN0aWNhbE1vZHVsZUdyYXBoUHJlc2VydmVzVW5zZWxlY3RlZE9sZExlYXZlc0N5Y2xlc0FuZFBydTIxOTg5NDk2ODkvMDAyL2RlcC9leGFtcGxlLmNvbS9sZWFmQHYxLjEuMCIsCgkiR29Nb2QiOiAiL3ByaXZhdGUvdmFyL2ZvbGRlcnMvNWwvY2d6aGtrZjE0d2Q2N2NfeDA0NTg5bmx3MDAwMGduL1QvVGVzdFByYWN0aWNhbE1vZHVsZUdyYXBoUHJlc2VydmVzVW5zZWxlY3RlZE9sZExlYXZlc0N5Y2xlc0FuZFBydTIxOTg5NDk2ODkvMDAyL2RlcC9jYWNoZS9kb3dubG9hZC9leGFtcGxlLmNvbS9sZWFmL0B2L3YxLjEuMC5tb2QiLAoJIkdvVmVyc2lvbiI6ICIxLjIyIiwKCSJTdW0iOiAiaDE6bUwwZWorVGcwcEVPNmRjWUVlSnhlQk9Lb2FTK1FPQlpoVnMxcUxsajNlYz0iLAoJIkdvTW9kU3VtIjogImgxOkxwdm5UNnl6b1kyWW9ZVURvd1J3TmhtMEtMZ2dNMWtUM2xZSFlwM080U1k9Igp9CnsKCSJQYXRoIjogImV4YW1wbGUuY29tL3EiLAoJIlZlcnNpb24iOiAidjEuMS4wIiwKCSJUaW1lIjogIjIwMjAtMDEtMDJUMDM6MDQ6MDVaIiwKCSJJbmRpcmVjdCI6IHRydWUsCgkiRGlyIjogIi9wcml2YXRlL3Zhci9mb2xkZXJzLzVsL2Nnemhra2YxNHdkNjdjX3gwNDU4OW5sdzAwMDBnbi9UL1Rlc3RQcmFjdGljYWxNb2R1bGVHcmFwaFByZXNlcnZlc1Vuc2VsZWN0ZWRPbGRMZWF2ZXNDeWNsZXNBbmRQcnUyMTk4OTQ5Njg5LzAwMi9kZXAvZXhhbXBsZS5jb20vcUB2MS4xLjAiLAoJIkdvTW9kIjogIi9wcml2YXRlL3Zhci9mb2xkZXJzLzVsL2Nnemhra2YxNHdkNjdjX3gwNDU4OW5sdzAwMDBnbi9UL1Rlc3RQcmFjdGljYWxNb2R1bGVHcmFwaFByZXNlcnZlc1Vuc2VsZWN0ZWRPbGRMZWF2ZXNDeWNsZXNBbmRQcnUyMTk4OTQ5Njg5LzAwMi9kZXAvY2FjaGUvZG93bmxvYWQvZXhhbXBsZS5jb20vcS9Adi92MS4xLjAubW9kIiwKCSJHb1ZlcnNpb24iOiAiMS4yMiIsCgkiU3VtIjogImgxOlo4eDlnNG9MdGFmcFQxUWFKS0wyTC9Vd1AzYmplbFpjQk0rTUYwRmRwSTg9IiwKCSJHb01vZFN1bSI6ICJoMTpJc3B3eUtNcFpJKzJZcXV5U0RwS1JLbmNFU1pLUmtYYy95ZkFDRHlVbjNnPSIKfQp7CgkiUGF0aCI6ICJleGFtcGxlLmNvbS96IiwKCSJWZXJzaW9uIjogInYxLjAuMCIsCgkiVGltZSI6ICIyMDIwLTAxLTAyVDAzOjA0OjA1WiIsCgkiRGlyIjogIi9wcml2YXRlL3Zhci9mb2xkZXJzLzVsL2Nnemhra2YxNHdkNjdjX3gwNDU4OW5sdzAwMDBnbi9UL1Rlc3RQcmFjdGljYWxNb2R1bGVHcmFwaFByZXNlcnZlc1Vuc2VsZWN0ZWRPbGRMZWF2ZXNDeWNsZXNBbmRQcnUyMTk4OTQ5Njg5LzAwMi9kZXAvZXhhbXBsZS5jb20vekB2MS4wLjAiLAoJIkdvTW9kIjogIi9wcml2YXRlL3Zhci9mb2xkZXJzLzVsL2Nnemhra2YxNHdkNjdjX3gwNDU4OW5sdzAwMDBnbi9UL1Rlc3RQcmFjdGljYWxNb2R1bGVHcmFwaFByZXNlcnZlc1Vuc2VsZWN0ZWRPbGRMZWF2ZXNDeWNsZXNBbmRQcnUyMTk4OTQ5Njg5LzAwMi9kZXAvY2FjaGUvZG93bmxvYWQvZXhhbXBsZS5jb20vei9Adi92MS4wLjAubW9kIiwKCSJHb1ZlcnNpb24iOiAiMS4yMiIsCgkiU3VtIjogImgxOjRTUEE5aHlTYWxZVEtGYWFxdFVZd0UwNGJiRlFHdGlhd0VWWWE0OE5DT289IiwKCSJHb01vZFN1bSI6ICJoMTpRbVQ3OVJFeFpOYkhOU0FvRkNCYVdXVzk1amd0ajJFRUxSTjlOMVk0WlFRPSIKfQo=",
+  "selected_modules": 7,
+  "stderr": "",
+  "stdout": "ZXhhbXBsZS5jb20vYXBwIGV4YW1wbGUuY29tL2FAdjEuMC4wCmV4YW1wbGUuY29tL2FwcCBleGFtcGxlLmNvbS9iQHYxLjAuMApleGFtcGxlLmNvbS9hcHAgZXhhbXBsZS5jb20vekB2MS4wLjAKZXhhbXBsZS5jb20vYXBwIGdvQDEuMjUuMApleGFtcGxlLmNvbS9hQHYxLjAuMCBleGFtcGxlLmNvbS9jQHYxLjAuMApleGFtcGxlLmNvbS9hQHYxLjAuMCBleGFtcGxlLmNvbS9jQHYxLjAuMApleGFtcGxlLmNvbS9iQHYxLjAuMCBleGFtcGxlLmNvbS9jQHYxLjEuMApleGFtcGxlLmNvbS9iQHYxLjAuMCBleGFtcGxlLmNvbS9sZWFmQHYxLjEuMApleGFtcGxlLmNvbS9iQHYxLjAuMCBleGFtcGxlLmNvbS9xQHYxLjEuMApleGFtcGxlLmNvbS96QHYxLjAuMCBleGFtcGxlLmNvbS9xQHYxLjAuMApleGFtcGxlLmNvbS96QHYxLjAuMCBnb0AxLjIyCmdvQDEuMjUuMCB0b29sY2hhaW5AZ28xLjI1LjAKZXhhbXBsZS5jb20vY0B2MS4wLjAgZXhhbXBsZS5jb20vbGVhZkB2MS4wLjAKZXhhbXBsZS5jb20vY0B2MS4wLjAgZXhhbXBsZS5jb20vYUB2MS4wLjAKZXhhbXBsZS5jb20vY0B2MS4xLjAgZ29AMS4yMgpleGFtcGxlLmNvbS9sZWFmQHYxLjEuMCBnb0AxLjIyCmV4YW1wbGUuY29tL3FAdjEuMS4wIGdvQDEuMjIKZ29AMS4yMiB0b29sY2hhaW5AZ28xLjIyCg=="
+}

@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--rm",
+    "-i",
+    "--platform",
+    "linux/amd64",
+    "--network",
+    "none",
+    "--read-only",
+    "--cap-add",
+    "SYS_ADMIN",
+    "--security-opt",
+    "seccomp=unconfined",
+    "--tmpfs",
+    "/tmp:rw,exec,nosuid,nodev,size=4294967296",
+    "--mount",
+    "type=bind,src=/Users/kazuyoshitoshiya/ff/mpk,dst=/workspace,readonly",
+    "--workdir",
+    "/workspace",
+    "sha256:ea3189955dd9c0e5deda7a30ef48a0c7ef5af3b128f74fcd6e368384b8e1420a",
+    "./scripts/build-csharp-practical-frontend.sh",
+    "--test-control-emission-requests"
+  ],
+  "exit_code": 66,
+  "scope": "fresh private captured CSharp source/control facts and original CLR runs; local emulation, not native installed-release evidence",
+  "stderr_sha256": "49d17c8826603f59b2285ea6ff3ac8636dada5d870602a129cad4d99c22f4cb6",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "wall_seconds": 0.8139373749727383
+}

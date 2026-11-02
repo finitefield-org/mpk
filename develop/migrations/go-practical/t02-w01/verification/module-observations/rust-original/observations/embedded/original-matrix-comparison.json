@@ -1,0 +1,1811 @@
+{
+  "caller_patterns_or_source_adapter": false,
+  "cases": [
+    {
+      "accepted": true,
+      "case": "pattern-00",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/a.txt",
+          "data/b.bin",
+          "data/deep/c.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+            "kind": "auxiliary",
+            "path": "data/a.txt",
+            "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 4,
+            "capability": "original",
+            "id": "5551ca7da13eb1166975147385125564766609f298ab88bd46827a8239e33582",
+            "kind": "auxiliary",
+            "path": "data/b.bin",
+            "raw_sha256": "3d1f57c984978ef98a18378c8166c1cb8ede02c03eeb6aee7e2f121dfeee3e56",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 14,
+            "capability": "original",
+            "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+            "kind": "auxiliary",
+            "path": "data/deep/c.txt",
+            "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data": [
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+              "kind": "auxiliary",
+              "path": "data/a.txt",
+              "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 4,
+              "capability": "original",
+              "id": "5551ca7da13eb1166975147385125564766609f298ab88bd46827a8239e33582",
+              "kind": "auxiliary",
+              "path": "data/b.bin",
+              "raw_sha256": "3d1f57c984978ef98a18378c8166c1cb8ede02c03eeb6aee7e2f121dfeee3e56",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 14,
+              "capability": "original",
+              "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+              "kind": "auxiliary",
+              "path": "data/deep/c.txt",
+              "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "64617461"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-01",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/.hidden",
+          "data/.hidden-dir/file.txt",
+          "data/_private",
+          "data/_private-dir/file.txt",
+          "data/a.txt",
+          "data/b.bin",
+          "data/deep/c.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 16,
+            "capability": "original",
+            "id": "0833baa92eef64ce50dbfbef2a74a5f3710f094af1fea8fc3ee996bdd185052f",
+            "kind": "auxiliary",
+            "path": "data/.hidden",
+            "raw_sha256": "4b84f6ce84b985d8323272e508ed4b89c6ddbcb214c179d0c245ecf9625aafb7",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 14,
+            "capability": "original",
+            "id": "3c9d0d7ab77c721e2eb3355896cfcc6cf81bdc6ac9411c81b86eb7917bc1ee5b",
+            "kind": "auxiliary",
+            "path": "data/.hidden-dir/file.txt",
+            "raw_sha256": "f8ab2f20bf87f438d23ca41f5633b2423665f1344fbd29f6f9b85327bd5adb5c",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "bdf266d15cd1cf7c5be8a026fc78caaa1aed0b2bc67bd2ecdf0df3aefa1ac6e3",
+            "kind": "auxiliary",
+            "path": "data/_private",
+            "raw_sha256": "7a98a07187f7f62a9eb582aaa7ef70556641782aed7082c7d33f26f7e12060f7",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 15,
+            "capability": "original",
+            "id": "aff7632df16f05dc99fdba73be72397ebf5e0b66b501ad78e01cf55e3ef9e65d",
+            "kind": "auxiliary",
+            "path": "data/_private-dir/file.txt",
+            "raw_sha256": "22a4c68152b8abddedacec2bd245487099d34a8b5273b459437b268ea4d3ce98",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+            "kind": "auxiliary",
+            "path": "data/a.txt",
+            "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 4,
+            "capability": "original",
+            "id": "5551ca7da13eb1166975147385125564766609f298ab88bd46827a8239e33582",
+            "kind": "auxiliary",
+            "path": "data/b.bin",
+            "raw_sha256": "3d1f57c984978ef98a18378c8166c1cb8ede02c03eeb6aee7e2f121dfeee3e56",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 14,
+            "capability": "original",
+            "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+            "kind": "auxiliary",
+            "path": "data/deep/c.txt",
+            "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "all:data": [
+            {
+              "bytes": 16,
+              "capability": "original",
+              "id": "0833baa92eef64ce50dbfbef2a74a5f3710f094af1fea8fc3ee996bdd185052f",
+              "kind": "auxiliary",
+              "path": "data/.hidden",
+              "raw_sha256": "4b84f6ce84b985d8323272e508ed4b89c6ddbcb214c179d0c245ecf9625aafb7",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 14,
+              "capability": "original",
+              "id": "3c9d0d7ab77c721e2eb3355896cfcc6cf81bdc6ac9411c81b86eb7917bc1ee5b",
+              "kind": "auxiliary",
+              "path": "data/.hidden-dir/file.txt",
+              "raw_sha256": "f8ab2f20bf87f438d23ca41f5633b2423665f1344fbd29f6f9b85327bd5adb5c",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "bdf266d15cd1cf7c5be8a026fc78caaa1aed0b2bc67bd2ecdf0df3aefa1ac6e3",
+              "kind": "auxiliary",
+              "path": "data/_private",
+              "raw_sha256": "7a98a07187f7f62a9eb582aaa7ef70556641782aed7082c7d33f26f7e12060f7",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 15,
+              "capability": "original",
+              "id": "aff7632df16f05dc99fdba73be72397ebf5e0b66b501ad78e01cf55e3ef9e65d",
+              "kind": "auxiliary",
+              "path": "data/_private-dir/file.txt",
+              "raw_sha256": "22a4c68152b8abddedacec2bd245487099d34a8b5273b459437b268ea4d3ce98",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+              "kind": "auxiliary",
+              "path": "data/a.txt",
+              "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 4,
+              "capability": "original",
+              "id": "5551ca7da13eb1166975147385125564766609f298ab88bd46827a8239e33582",
+              "kind": "auxiliary",
+              "path": "data/b.bin",
+              "raw_sha256": "3d1f57c984978ef98a18378c8166c1cb8ede02c03eeb6aee7e2f121dfeee3e56",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 14,
+              "capability": "original",
+              "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+              "kind": "auxiliary",
+              "path": "data/deep/c.txt",
+              "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "616c6c3a64617461"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-02",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/.hidden",
+          "data/.hidden-dir/file.txt",
+          "data/_private",
+          "data/_private-dir/file.txt",
+          "data/a.txt",
+          "data/b.bin",
+          "data/deep/c.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 16,
+            "capability": "original",
+            "id": "0833baa92eef64ce50dbfbef2a74a5f3710f094af1fea8fc3ee996bdd185052f",
+            "kind": "auxiliary",
+            "path": "data/.hidden",
+            "raw_sha256": "4b84f6ce84b985d8323272e508ed4b89c6ddbcb214c179d0c245ecf9625aafb7",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 14,
+            "capability": "original",
+            "id": "3c9d0d7ab77c721e2eb3355896cfcc6cf81bdc6ac9411c81b86eb7917bc1ee5b",
+            "kind": "auxiliary",
+            "path": "data/.hidden-dir/file.txt",
+            "raw_sha256": "f8ab2f20bf87f438d23ca41f5633b2423665f1344fbd29f6f9b85327bd5adb5c",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "bdf266d15cd1cf7c5be8a026fc78caaa1aed0b2bc67bd2ecdf0df3aefa1ac6e3",
+            "kind": "auxiliary",
+            "path": "data/_private",
+            "raw_sha256": "7a98a07187f7f62a9eb582aaa7ef70556641782aed7082c7d33f26f7e12060f7",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 15,
+            "capability": "original",
+            "id": "aff7632df16f05dc99fdba73be72397ebf5e0b66b501ad78e01cf55e3ef9e65d",
+            "kind": "auxiliary",
+            "path": "data/_private-dir/file.txt",
+            "raw_sha256": "22a4c68152b8abddedacec2bd245487099d34a8b5273b459437b268ea4d3ce98",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+            "kind": "auxiliary",
+            "path": "data/a.txt",
+            "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 4,
+            "capability": "original",
+            "id": "5551ca7da13eb1166975147385125564766609f298ab88bd46827a8239e33582",
+            "kind": "auxiliary",
+            "path": "data/b.bin",
+            "raw_sha256": "3d1f57c984978ef98a18378c8166c1cb8ede02c03eeb6aee7e2f121dfeee3e56",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 14,
+            "capability": "original",
+            "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+            "kind": "auxiliary",
+            "path": "data/deep/c.txt",
+            "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/*": [
+            {
+              "bytes": 16,
+              "capability": "original",
+              "id": "0833baa92eef64ce50dbfbef2a74a5f3710f094af1fea8fc3ee996bdd185052f",
+              "kind": "auxiliary",
+              "path": "data/.hidden",
+              "raw_sha256": "4b84f6ce84b985d8323272e508ed4b89c6ddbcb214c179d0c245ecf9625aafb7",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 14,
+              "capability": "original",
+              "id": "3c9d0d7ab77c721e2eb3355896cfcc6cf81bdc6ac9411c81b86eb7917bc1ee5b",
+              "kind": "auxiliary",
+              "path": "data/.hidden-dir/file.txt",
+              "raw_sha256": "f8ab2f20bf87f438d23ca41f5633b2423665f1344fbd29f6f9b85327bd5adb5c",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "bdf266d15cd1cf7c5be8a026fc78caaa1aed0b2bc67bd2ecdf0df3aefa1ac6e3",
+              "kind": "auxiliary",
+              "path": "data/_private",
+              "raw_sha256": "7a98a07187f7f62a9eb582aaa7ef70556641782aed7082c7d33f26f7e12060f7",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 15,
+              "capability": "original",
+              "id": "aff7632df16f05dc99fdba73be72397ebf5e0b66b501ad78e01cf55e3ef9e65d",
+              "kind": "auxiliary",
+              "path": "data/_private-dir/file.txt",
+              "raw_sha256": "22a4c68152b8abddedacec2bd245487099d34a8b5273b459437b268ea4d3ce98",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+              "kind": "auxiliary",
+              "path": "data/a.txt",
+              "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 4,
+              "capability": "original",
+              "id": "5551ca7da13eb1166975147385125564766609f298ab88bd46827a8239e33582",
+              "kind": "auxiliary",
+              "path": "data/b.bin",
+              "raw_sha256": "3d1f57c984978ef98a18378c8166c1cb8ede02c03eeb6aee7e2f121dfeee3e56",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 14,
+              "capability": "original",
+              "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+              "kind": "auxiliary",
+              "path": "data/deep/c.txt",
+              "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f2a"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-03",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/a.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+            "kind": "auxiliary",
+            "path": "data/a.txt",
+            "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/*.txt": [
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+              "kind": "auxiliary",
+              "path": "data/a.txt",
+              "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f2a2e747874"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-04",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/.hidden-dir/file.txt",
+          "data/_private-dir/file.txt",
+          "data/deep/c.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 14,
+            "capability": "original",
+            "id": "3c9d0d7ab77c721e2eb3355896cfcc6cf81bdc6ac9411c81b86eb7917bc1ee5b",
+            "kind": "auxiliary",
+            "path": "data/.hidden-dir/file.txt",
+            "raw_sha256": "f8ab2f20bf87f438d23ca41f5633b2423665f1344fbd29f6f9b85327bd5adb5c",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 15,
+            "capability": "original",
+            "id": "aff7632df16f05dc99fdba73be72397ebf5e0b66b501ad78e01cf55e3ef9e65d",
+            "kind": "auxiliary",
+            "path": "data/_private-dir/file.txt",
+            "raw_sha256": "22a4c68152b8abddedacec2bd245487099d34a8b5273b459437b268ea4d3ce98",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 14,
+            "capability": "original",
+            "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+            "kind": "auxiliary",
+            "path": "data/deep/c.txt",
+            "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/*/*.txt": [
+            {
+              "bytes": 14,
+              "capability": "original",
+              "id": "3c9d0d7ab77c721e2eb3355896cfcc6cf81bdc6ac9411c81b86eb7917bc1ee5b",
+              "kind": "auxiliary",
+              "path": "data/.hidden-dir/file.txt",
+              "raw_sha256": "f8ab2f20bf87f438d23ca41f5633b2423665f1344fbd29f6f9b85327bd5adb5c",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 15,
+              "capability": "original",
+              "id": "aff7632df16f05dc99fdba73be72397ebf5e0b66b501ad78e01cf55e3ef9e65d",
+              "kind": "auxiliary",
+              "path": "data/_private-dir/file.txt",
+              "raw_sha256": "22a4c68152b8abddedacec2bd245487099d34a8b5273b459437b268ea4d3ce98",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 14,
+              "capability": "original",
+              "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+              "kind": "auxiliary",
+              "path": "data/deep/c.txt",
+              "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f2a2f2a2e747874"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-05",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/.hidden",
+          "data/.hidden-dir/file.txt",
+          "data/_private",
+          "data/_private-dir/file.txt",
+          "data/a.txt",
+          "data/b.bin",
+          "data/deep/c.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 16,
+            "capability": "original",
+            "id": "0833baa92eef64ce50dbfbef2a74a5f3710f094af1fea8fc3ee996bdd185052f",
+            "kind": "auxiliary",
+            "path": "data/.hidden",
+            "raw_sha256": "4b84f6ce84b985d8323272e508ed4b89c6ddbcb214c179d0c245ecf9625aafb7",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 14,
+            "capability": "original",
+            "id": "3c9d0d7ab77c721e2eb3355896cfcc6cf81bdc6ac9411c81b86eb7917bc1ee5b",
+            "kind": "auxiliary",
+            "path": "data/.hidden-dir/file.txt",
+            "raw_sha256": "f8ab2f20bf87f438d23ca41f5633b2423665f1344fbd29f6f9b85327bd5adb5c",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "bdf266d15cd1cf7c5be8a026fc78caaa1aed0b2bc67bd2ecdf0df3aefa1ac6e3",
+            "kind": "auxiliary",
+            "path": "data/_private",
+            "raw_sha256": "7a98a07187f7f62a9eb582aaa7ef70556641782aed7082c7d33f26f7e12060f7",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 15,
+            "capability": "original",
+            "id": "aff7632df16f05dc99fdba73be72397ebf5e0b66b501ad78e01cf55e3ef9e65d",
+            "kind": "auxiliary",
+            "path": "data/_private-dir/file.txt",
+            "raw_sha256": "22a4c68152b8abddedacec2bd245487099d34a8b5273b459437b268ea4d3ce98",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+            "kind": "auxiliary",
+            "path": "data/a.txt",
+            "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 4,
+            "capability": "original",
+            "id": "5551ca7da13eb1166975147385125564766609f298ab88bd46827a8239e33582",
+            "kind": "auxiliary",
+            "path": "data/b.bin",
+            "raw_sha256": "3d1f57c984978ef98a18378c8166c1cb8ede02c03eeb6aee7e2f121dfeee3e56",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 14,
+            "capability": "original",
+            "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+            "kind": "auxiliary",
+            "path": "data/deep/c.txt",
+            "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/**": [
+            {
+              "bytes": 16,
+              "capability": "original",
+              "id": "0833baa92eef64ce50dbfbef2a74a5f3710f094af1fea8fc3ee996bdd185052f",
+              "kind": "auxiliary",
+              "path": "data/.hidden",
+              "raw_sha256": "4b84f6ce84b985d8323272e508ed4b89c6ddbcb214c179d0c245ecf9625aafb7",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 14,
+              "capability": "original",
+              "id": "3c9d0d7ab77c721e2eb3355896cfcc6cf81bdc6ac9411c81b86eb7917bc1ee5b",
+              "kind": "auxiliary",
+              "path": "data/.hidden-dir/file.txt",
+              "raw_sha256": "f8ab2f20bf87f438d23ca41f5633b2423665f1344fbd29f6f9b85327bd5adb5c",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "bdf266d15cd1cf7c5be8a026fc78caaa1aed0b2bc67bd2ecdf0df3aefa1ac6e3",
+              "kind": "auxiliary",
+              "path": "data/_private",
+              "raw_sha256": "7a98a07187f7f62a9eb582aaa7ef70556641782aed7082c7d33f26f7e12060f7",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 15,
+              "capability": "original",
+              "id": "aff7632df16f05dc99fdba73be72397ebf5e0b66b501ad78e01cf55e3ef9e65d",
+              "kind": "auxiliary",
+              "path": "data/_private-dir/file.txt",
+              "raw_sha256": "22a4c68152b8abddedacec2bd245487099d34a8b5273b459437b268ea4d3ce98",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+              "kind": "auxiliary",
+              "path": "data/a.txt",
+              "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 4,
+              "capability": "original",
+              "id": "5551ca7da13eb1166975147385125564766609f298ab88bd46827a8239e33582",
+              "kind": "auxiliary",
+              "path": "data/b.bin",
+              "raw_sha256": "3d1f57c984978ef98a18378c8166c1cb8ede02c03eeb6aee7e2f121dfeee3e56",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 14,
+              "capability": "original",
+              "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+              "kind": "auxiliary",
+              "path": "data/deep/c.txt",
+              "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f2a2a"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-06",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/.hidden"
+        ],
+        "objects": [
+          {
+            "bytes": 16,
+            "capability": "original",
+            "id": "0833baa92eef64ce50dbfbef2a74a5f3710f094af1fea8fc3ee996bdd185052f",
+            "kind": "auxiliary",
+            "path": "data/.hidden",
+            "raw_sha256": "4b84f6ce84b985d8323272e508ed4b89c6ddbcb214c179d0c245ecf9625aafb7",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/.hidden": [
+            {
+              "bytes": 16,
+              "capability": "original",
+              "id": "0833baa92eef64ce50dbfbef2a74a5f3710f094af1fea8fc3ee996bdd185052f",
+              "kind": "auxiliary",
+              "path": "data/.hidden",
+              "raw_sha256": "4b84f6ce84b985d8323272e508ed4b89c6ddbcb214c179d0c245ecf9625aafb7",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f2e68696464656e"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-07",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/_private"
+        ],
+        "objects": [
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "bdf266d15cd1cf7c5be8a026fc78caaa1aed0b2bc67bd2ecdf0df3aefa1ac6e3",
+            "kind": "auxiliary",
+            "path": "data/_private",
+            "raw_sha256": "7a98a07187f7f62a9eb582aaa7ef70556641782aed7082c7d33f26f7e12060f7",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/_private": [
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "bdf266d15cd1cf7c5be8a026fc78caaa1aed0b2bc67bd2ecdf0df3aefa1ac6e3",
+              "kind": "auxiliary",
+              "path": "data/_private",
+              "raw_sha256": "7a98a07187f7f62a9eb582aaa7ef70556641782aed7082c7d33f26f7e12060f7",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f5f70726976617465"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-08",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/.hidden-dir/file.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 14,
+            "capability": "original",
+            "id": "3c9d0d7ab77c721e2eb3355896cfcc6cf81bdc6ac9411c81b86eb7917bc1ee5b",
+            "kind": "auxiliary",
+            "path": "data/.hidden-dir/file.txt",
+            "raw_sha256": "f8ab2f20bf87f438d23ca41f5633b2423665f1344fbd29f6f9b85327bd5adb5c",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/.hidden-dir": [
+            {
+              "bytes": 14,
+              "capability": "original",
+              "id": "3c9d0d7ab77c721e2eb3355896cfcc6cf81bdc6ac9411c81b86eb7917bc1ee5b",
+              "kind": "auxiliary",
+              "path": "data/.hidden-dir/file.txt",
+              "raw_sha256": "f8ab2f20bf87f438d23ca41f5633b2423665f1344fbd29f6f9b85327bd5adb5c",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f2e68696464656e2d646972"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-09",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/a.txt",
+          "data/deep/c.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+            "kind": "auxiliary",
+            "path": "data/a.txt",
+            "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 14,
+            "capability": "original",
+            "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+            "kind": "auxiliary",
+            "path": "data/deep/c.txt",
+            "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/*.txt": [
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+              "kind": "auxiliary",
+              "path": "data/a.txt",
+              "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ],
+          "data/deep": [
+            {
+              "bytes": 14,
+              "capability": "original",
+              "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+              "kind": "auxiliary",
+              "path": "data/deep/c.txt",
+              "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f2a2e747874",
+        "646174612f64656570"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-10",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/deep/c.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 14,
+            "capability": "original",
+            "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+            "kind": "auxiliary",
+            "path": "data/deep/c.txt",
+            "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/deep": [
+            {
+              "bytes": 14,
+              "capability": "original",
+              "id": "62a14aa88e7224fac2f822fbd0fbc535d426f6f0d2c552187f53f1244144c53c",
+              "kind": "auxiliary",
+              "path": "data/deep/c.txt",
+              "raw_sha256": "840c2ff3c5325e1305b00fddf2885d4b70688ae357825045b3bb3900803a66c6",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f64656570"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-11",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "policy.go"
+        ],
+        "objects": [
+          {
+            "bytes": 111,
+            "capability": "original",
+            "id": "21ef1dcbfe712e58bd81be0da873dedef25566d4c7de0f8f7782e63016612623",
+            "kind": "go_file",
+            "path": "policy.go",
+            "raw_sha256": "1595a88ef1c3eff23082c4201a14c6d437a3b326fdb0cb9b9bea1c47b17bab52",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "policy.go": [
+            {
+              "bytes": 111,
+              "capability": "original",
+              "id": "21ef1dcbfe712e58bd81be0da873dedef25566d4c7de0f8f7782e63016612623",
+              "kind": "go_file",
+              "path": "policy.go",
+              "raw_sha256": "1595a88ef1c3eff23082c4201a14c6d437a3b326fdb0cb9b9bea1c47b17bab52",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "706f6c6963792e676f"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-12",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "go.mod"
+        ],
+        "objects": [
+          {
+            "bytes": 36,
+            "capability": "original",
+            "id": "6c24998fd42bf29610e5004e3e837ca082a5e27b731a213c32a16818d8af55fe",
+            "kind": "go_mod",
+            "path": "go.mod",
+            "raw_sha256": "6bea15ae7dca82fc0ac017af122d5eec5d4a51dd449b1355b8439916a91051a2",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "go.mod": [
+            {
+              "bytes": 36,
+              "capability": "original",
+              "id": "6c24998fd42bf29610e5004e3e837ca082a5e27b731a213c32a16818d8af55fe",
+              "kind": "go_mod",
+              "path": "go.mod",
+              "raw_sha256": "6bea15ae7dca82fc0ac017af122d5eec5d4a51dd449b1355b8439916a91051a2",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "676f2e6d6f64"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-13",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/a.txt",
+          "other/asset.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+            "kind": "auxiliary",
+            "path": "data/a.txt",
+            "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 18,
+            "capability": "original",
+            "id": "12335e341c0dba14ef92a882eb792de54bcc2f384173b6e1aeadb1921375463e",
+            "kind": "auxiliary",
+            "path": "other/asset.txt",
+            "raw_sha256": "301177229b8c656814396e4528f1547ce784cf493926f7bc12a5ffdf93a01eb1",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/a.txt": [
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+              "kind": "auxiliary",
+              "path": "data/a.txt",
+              "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ],
+          "other/asset.txt": [
+            {
+              "bytes": 18,
+              "capability": "original",
+              "id": "12335e341c0dba14ef92a882eb792de54bcc2f384173b6e1aeadb1921375463e",
+              "kind": "auxiliary",
+              "path": "other/asset.txt",
+              "raw_sha256": "301177229b8c656814396e4528f1547ce784cf493926f7bc12a5ffdf93a01eb1",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f612e747874",
+        "6f746865722f61737365742e747874"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "pattern-14",
+      "complete_original_objects": 10,
+      "result": {
+        "kind": "EmbedEmpty",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedEmpty, capability: \"original\", path: \"missing\" }"
+      },
+      "source_pattern_hex": [
+        "6d697373696e67"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "pattern-15",
+      "complete_original_objects": 10,
+      "result": {
+        "kind": "EmbedEmpty",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedEmpty, capability: \"original\", path: \"missing/*\" }"
+      },
+      "source_pattern_hex": [
+        "6d697373696e672f2a"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "pattern-16",
+      "complete_original_objects": 10,
+      "result": {
+        "kind": "EmbedEmpty",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedEmpty, capability: \"original\", path: \"data/*.missing\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f2a2e6d697373696e67"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "pattern-17",
+      "complete_original_objects": 10,
+      "result": {
+        "kind": "EmbedPattern",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedPattern, capability: \"original\", path: \".\" }"
+      },
+      "source_pattern_hex": [
+        "2e"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "pattern-18",
+      "complete_original_objects": 10,
+      "result": {
+        "kind": "EmbedPattern",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedPattern, capability: \"original\", path: \"../data\" }"
+      },
+      "source_pattern_hex": [
+        "2e2e2f64617461"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "pattern-19",
+      "complete_original_objects": 10,
+      "result": {
+        "kind": "EmbedPattern",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedPattern, capability: \"original\", path: \"/data\" }"
+      },
+      "source_pattern_hex": [
+        "2f64617461"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "pattern-20",
+      "complete_original_objects": 10,
+      "result": {
+        "kind": "EmbedPattern",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedPattern, capability: \"original\", path: \"data//a.txt\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f2f612e747874"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "pattern-21",
+      "complete_original_objects": 10,
+      "result": {
+        "kind": "EmbedPattern",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedPattern, capability: \"original\", path: \"data/[\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f5b"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "pattern-22",
+      "complete_original_objects": 10,
+      "result": {
+        "kind": "EmbedPattern",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedPattern, capability: \"original\", path: \"\" }"
+      },
+      "source_pattern_hex": [
+        "616c6c3a"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-23",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/a.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+            "kind": "auxiliary",
+            "path": "data/a.txt",
+            "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/?.txt": [
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+              "kind": "auxiliary",
+              "path": "data/a.txt",
+              "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f3f2e747874"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-24",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/a.txt",
+          "data/b.bin"
+        ],
+        "objects": [
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+            "kind": "auxiliary",
+            "path": "data/a.txt",
+            "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+            "schema": "mpk.go.source_object.v1"
+          },
+          {
+            "bytes": 4,
+            "capability": "original",
+            "id": "5551ca7da13eb1166975147385125564766609f298ab88bd46827a8239e33582",
+            "kind": "auxiliary",
+            "path": "data/b.bin",
+            "raw_sha256": "3d1f57c984978ef98a18378c8166c1cb8ede02c03eeb6aee7e2f121dfeee3e56",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/[ab].*": [
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+              "kind": "auxiliary",
+              "path": "data/a.txt",
+              "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+              "schema": "mpk.go.source_object.v1"
+            },
+            {
+              "bytes": 4,
+              "capability": "original",
+              "id": "5551ca7da13eb1166975147385125564766609f298ab88bd46827a8239e33582",
+              "kind": "auxiliary",
+              "path": "data/b.bin",
+              "raw_sha256": "3d1f57c984978ef98a18378c8166c1cb8ede02c03eeb6aee7e2f121dfeee3e56",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f5b61625d2e2a"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-25",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/b.bin"
+        ],
+        "objects": [
+          {
+            "bytes": 4,
+            "capability": "original",
+            "id": "5551ca7da13eb1166975147385125564766609f298ab88bd46827a8239e33582",
+            "kind": "auxiliary",
+            "path": "data/b.bin",
+            "raw_sha256": "3d1f57c984978ef98a18378c8166c1cb8ede02c03eeb6aee7e2f121dfeee3e56",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/[^a].*": [
+            {
+              "bytes": 4,
+              "capability": "original",
+              "id": "5551ca7da13eb1166975147385125564766609f298ab88bd46827a8239e33582",
+              "kind": "auxiliary",
+              "path": "data/b.bin",
+              "raw_sha256": "3d1f57c984978ef98a18378c8166c1cb8ede02c03eeb6aee7e2f121dfeee3e56",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f5b5e615d2e2a"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "pattern-26",
+      "complete_original_objects": 10,
+      "result": {
+        "files": [
+          "data/a.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 17,
+            "capability": "original",
+            "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+            "kind": "auxiliary",
+            "path": "data/a.txt",
+            "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/\\a.txt": [
+            {
+              "bytes": 17,
+              "capability": "original",
+              "id": "33ce24debb93601568edde44307b6f7e88183063a3469a1497f8d80f5df46153",
+              "kind": "auxiliary",
+              "path": "data/a.txt",
+              "raw_sha256": "52374feb47851fd2972abae5b39cc922c95a8a6b9324dd0d0858404d6bbb3de1",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f5c612e747874"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "direct-name-data/has space.txt",
+      "complete_original_objects": 3,
+      "result": {
+        "files": [
+          "data/has space.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 15,
+            "capability": "original",
+            "id": "84066da4b11d9d36f351a13cc4f14202a66b42bc26be6cccb612c08324e111e4",
+            "kind": "auxiliary",
+            "path": "data/has space.txt",
+            "raw_sha256": "469b0b2f0038abcb3291a91ce8586cc125bbffcca1f1c9cd63ccd6bfa3932c91",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/has space.txt": [
+            {
+              "bytes": 15,
+              "capability": "original",
+              "id": "84066da4b11d9d36f351a13cc4f14202a66b42bc26be6cccb612c08324e111e4",
+              "kind": "auxiliary",
+              "path": "data/has space.txt",
+              "raw_sha256": "469b0b2f0038abcb3291a91ce8586cc125bbffcca1f1c9cd63ccd6bfa3932c91",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f6861732073706163652e747874"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "walk-name-data/has space.txt",
+      "complete_original_objects": 3,
+      "result": {
+        "files": [
+          "data/has space.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 15,
+            "capability": "original",
+            "id": "84066da4b11d9d36f351a13cc4f14202a66b42bc26be6cccb612c08324e111e4",
+            "kind": "auxiliary",
+            "path": "data/has space.txt",
+            "raw_sha256": "469b0b2f0038abcb3291a91ce8586cc125bbffcca1f1c9cd63ccd6bfa3932c91",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "all:data": [
+            {
+              "bytes": 15,
+              "capability": "original",
+              "id": "84066da4b11d9d36f351a13cc4f14202a66b42bc26be6cccb612c08324e111e4",
+              "kind": "auxiliary",
+              "path": "data/has space.txt",
+              "raw_sha256": "469b0b2f0038abcb3291a91ce8586cc125bbffcca1f1c9cd63ccd6bfa3932c91",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "616c6c3a64617461"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "direct-name-data/原型.txt",
+      "complete_original_objects": 3,
+      "result": {
+        "files": [
+          "data/原型.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 15,
+            "capability": "original",
+            "id": "a6e65de070b750d48df40f9c7537db2321122420a81e57e5325b54fd82c5a752",
+            "kind": "auxiliary",
+            "path": "data/原型.txt",
+            "raw_sha256": "469b0b2f0038abcb3291a91ce8586cc125bbffcca1f1c9cd63ccd6bfa3932c91",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/原型.txt": [
+            {
+              "bytes": 15,
+              "capability": "original",
+              "id": "a6e65de070b750d48df40f9c7537db2321122420a81e57e5325b54fd82c5a752",
+              "kind": "auxiliary",
+              "path": "data/原型.txt",
+              "raw_sha256": "469b0b2f0038abcb3291a91ce8586cc125bbffcca1f1c9cd63ccd6bfa3932c91",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612fe58e9fe59e8b2e747874"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "walk-name-data/原型.txt",
+      "complete_original_objects": 3,
+      "result": {
+        "files": [
+          "data/原型.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 15,
+            "capability": "original",
+            "id": "a6e65de070b750d48df40f9c7537db2321122420a81e57e5325b54fd82c5a752",
+            "kind": "auxiliary",
+            "path": "data/原型.txt",
+            "raw_sha256": "469b0b2f0038abcb3291a91ce8586cc125bbffcca1f1c9cd63ccd6bfa3932c91",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "all:data": [
+            {
+              "bytes": 15,
+              "capability": "original",
+              "id": "a6e65de070b750d48df40f9c7537db2321122420a81e57e5325b54fd82c5a752",
+              "kind": "auxiliary",
+              "path": "data/原型.txt",
+              "raw_sha256": "469b0b2f0038abcb3291a91ce8586cc125bbffcca1f1c9cd63ccd6bfa3932c91",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "616c6c3a64617461"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "direct-name-data/CON.txt",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedName",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedName, capability: \"original\", path: \"data/CON.txt\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f434f4e2e747874"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "walk-name-data/CON.txt",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedName",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedName, capability: \"original\", path: \"data\" }"
+      },
+      "source_pattern_hex": [
+        "616c6c3a64617461"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "direct-name-data/COM1",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedName",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedName, capability: \"original\", path: \"data/COM1\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f434f4d31"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "walk-name-data/COM1",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedName",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedName, capability: \"original\", path: \"data\" }"
+      },
+      "source_pattern_hex": [
+        "616c6c3a64617461"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "direct-name-data/name.",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedName",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedName, capability: \"original\", path: \"data/name.\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f6e616d652e"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "walk-name-data/name.",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedName",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedName, capability: \"original\", path: \"data\" }"
+      },
+      "source_pattern_hex": [
+        "616c6c3a64617461"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "direct-name-data/bad?.txt",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedName",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedName, capability: \"original\", path: \"data/bad?.txt\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f6261643f2e747874"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "walk-name-data/bad?.txt",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedName",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedName, capability: \"original\", path: \"data\" }"
+      },
+      "source_pattern_hex": [
+        "616c6c3a64617461"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "direct-name-data/bad:name",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedName",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedName, capability: \"original\", path: \"data/bad:name\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f6261643a6e616d65"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "walk-name-data/bad:name",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedName",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedName, capability: \"original\", path: \"data\" }"
+      },
+      "source_pattern_hex": [
+        "616c6c3a64617461"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "direct-name-data/.git/file",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedName",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedName, capability: \"original\", path: \"data/.git/file\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f2e6769742f66696c65"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "walk-name-data/.git/file",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedEmpty",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedEmpty, capability: \"original\", path: \"data\" }"
+      },
+      "source_pattern_hex": [
+        "616c6c3a64617461"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "direct-name-data/.git",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedName",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedName, capability: \"original\", path: \"data/.git\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f2e676974"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "walk-name-data/.git",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedEmpty",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedEmpty, capability: \"original\", path: \"data\" }"
+      },
+      "source_pattern_hex": [
+        "616c6c3a64617461"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "direct-name-data/~short1.txt",
+      "complete_original_objects": 3,
+      "result": {
+        "files": [
+          "data/~short1.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 15,
+            "capability": "original",
+            "id": "eb2049701f8e6e471a4288bbe6b87e65a8b0404aecc40b99d407629045b20561",
+            "kind": "auxiliary",
+            "path": "data/~short1.txt",
+            "raw_sha256": "469b0b2f0038abcb3291a91ce8586cc125bbffcca1f1c9cd63ccd6bfa3932c91",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data/~short1.txt": [
+            {
+              "bytes": 15,
+              "capability": "original",
+              "id": "eb2049701f8e6e471a4288bbe6b87e65a8b0404aecc40b99d407629045b20561",
+              "kind": "auxiliary",
+              "path": "data/~short1.txt",
+              "raw_sha256": "469b0b2f0038abcb3291a91ce8586cc125bbffcca1f1c9cd63ccd6bfa3932c91",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "646174612f7e73686f7274312e747874"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "walk-name-data/~short1.txt",
+      "complete_original_objects": 3,
+      "result": {
+        "files": [
+          "data/~short1.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 15,
+            "capability": "original",
+            "id": "eb2049701f8e6e471a4288bbe6b87e65a8b0404aecc40b99d407629045b20561",
+            "kind": "auxiliary",
+            "path": "data/~short1.txt",
+            "raw_sha256": "469b0b2f0038abcb3291a91ce8586cc125bbffcca1f1c9cd63ccd6bfa3932c91",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "all:data": [
+            {
+              "bytes": 15,
+              "capability": "original",
+              "id": "eb2049701f8e6e471a4288bbe6b87e65a8b0404aecc40b99d407629045b20561",
+              "kind": "auxiliary",
+              "path": "data/~short1.txt",
+              "raw_sha256": "469b0b2f0038abcb3291a91ce8586cc125bbffcca1f1c9cd63ccd6bfa3932c91",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "616c6c3a64617461"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "nested-module-walk",
+      "complete_original_objects": 5,
+      "result": {
+        "files": [
+          "data/root.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 5,
+            "capability": "original",
+            "id": "79b0469655f414402f952e50c39a7e239c626b08d90644fa09e5a73587e42243",
+            "kind": "auxiliary",
+            "path": "data/root.txt",
+            "raw_sha256": "53175bcc0524f37b47062fafdda28e3f8eb91d519ca0a184ca71bbebe72f969a",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data": [
+            {
+              "bytes": 5,
+              "capability": "original",
+              "id": "79b0469655f414402f952e50c39a7e239c626b08d90644fa09e5a73587e42243",
+              "kind": "auxiliary",
+              "path": "data/root.txt",
+              "raw_sha256": "53175bcc0524f37b47062fafdda28e3f8eb91d519ca0a184ca71bbebe72f969a",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "64617461"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "nested-module-direct",
+      "complete_original_objects": 4,
+      "result": {
+        "kind": "EmbedModule",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedModule, capability: \"original\", path: \"data/module/file.txt\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f6d6f64756c652f66696c652e747874"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "linked-leaf-direct",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedIrregular",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedIrregular, capability: \"original\", path: \"data/link.txt\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f6c696e6b2e747874"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "linked-leaf-walk",
+      "complete_original_objects": 3,
+      "result": {
+        "files": [
+          "data/original.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 9,
+            "capability": "original",
+            "id": "5163bf085b7f8a41979f119ee614e3625c88938e71be64744a174d7bb4d981e0",
+            "kind": "auxiliary",
+            "path": "data/original.txt",
+            "raw_sha256": "25718360e05d3c2d0963d1381e9dd4dae5fca789244ee4b9f861adcc0cc96218",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data": [
+            {
+              "bytes": 9,
+              "capability": "original",
+              "id": "5163bf085b7f8a41979f119ee614e3625c88938e71be64744a174d7bb4d981e0",
+              "kind": "auxiliary",
+              "path": "data/original.txt",
+              "raw_sha256": "25718360e05d3c2d0963d1381e9dd4dae5fca789244ee4b9f861adcc0cc96218",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "64617461"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "linked-directory",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedEmpty",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedEmpty, capability: \"original\", path: \"data/link/file.txt\" }"
+      },
+      "source_pattern_hex": [
+        "646174612f6c696e6b2f66696c652e747874"
+      ]
+    },
+    {
+      "accepted": false,
+      "case": "hidden-only-empty",
+      "complete_original_objects": 3,
+      "result": {
+        "kind": "EmbedEmpty",
+        "rejected": "Go original package files: GoSourcePackageError { kind: EmbedEmpty, capability: \"original\", path: \"data\" }"
+      },
+      "source_pattern_hex": [
+        "64617461"
+      ]
+    },
+    {
+      "accepted": true,
+      "case": "unrelated-asset",
+      "complete_original_objects": 4,
+      "result": {
+        "files": [
+          "data/file.txt"
+        ],
+        "objects": [
+          {
+            "bytes": 9,
+            "capability": "original",
+            "id": "3e3680095d1d1406b876ceb028438bfce744d149c64bca616908c4c7488ca93b",
+            "kind": "auxiliary",
+            "path": "data/file.txt",
+            "raw_sha256": "25718360e05d3c2d0963d1381e9dd4dae5fca789244ee4b9f861adcc0cc96218",
+            "schema": "mpk.go.source_object.v1"
+          }
+        ],
+        "patterns": {
+          "data": [
+            {
+              "bytes": 9,
+              "capability": "original",
+              "id": "3e3680095d1d1406b876ceb028438bfce744d149c64bca616908c4c7488ca93b",
+              "kind": "auxiliary",
+              "path": "data/file.txt",
+              "raw_sha256": "25718360e05d3c2d0963d1381e9dd4dae5fca789244ee4b9f861adcc0cc96218",
+              "schema": "mpk.go.source_object.v1"
+            }
+          ]
+        }
+      },
+      "source_pattern_hex": [
+        "64617461"
+      ]
+    }
+  ],
+  "host_filesystem_fallback": false,
+  "status": "passed"
+}

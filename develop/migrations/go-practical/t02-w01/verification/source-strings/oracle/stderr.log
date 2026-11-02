@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/observe-structural.py", line 7, in <module>
+    rows=[m.inspect(p) for p in files]
+          ^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/structural-oracle.py", line 90, in inspect
+    check(module+'.'+n,f.bind('pi',binders,f.boolean()),f.bind('lam',binders,generic(n,math(s),*bits)))
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/structural-oracle.py", line 38, in check
+    if body is not None:assert term(d[3])==m.frozen_ast(body),(name,'body')
+                               ^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/structural-oracle.py", line 33, in term
+    if tag in [4,5]:return ('lam' if tag==4 else 'pi',term(args[0]),term(args[1]))
+                                                                    ^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/structural-oracle.py", line 33, in term
+    if tag in [4,5]:return ('lam' if tag==4 else 'pi',term(args[0]),term(args[1]))
+                                                                    ^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/structural-oracle.py", line 33, in term
+    if tag in [4,5]:return ('lam' if tag==4 else 'pi',term(args[0]),term(args[1]))
+                                                                    ^^^^^^^^^^^^^
+  [Previous line repeated 4 more times]
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/structural-oracle.py", line 32, in term
+    if tag==3:return ('app',term(args[0]),tuple(term(j) for j in args[1]))
+                            ^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/structural-oracle.py", line 31, in term
+    if tag==2:return ('const',names[declarations[args[0]][0]],tuple(level(j) for j in args[1]))
+                              ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+IndexError: list index out of range

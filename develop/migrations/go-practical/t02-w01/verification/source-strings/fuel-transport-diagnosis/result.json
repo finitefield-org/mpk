@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "scope": "Diagnostic prefix localization only, preserving the full original rejected certificate; native core caps unchanged. No prefix counts as a normal row/source-U proof.",
+  "started_at_utc": "2026-10-23T00:33:15.935083+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/fuel-transport-diagnosis/driver.py",
+    "bytes": 3692,
+    "sha256": "bcdab7585c82edcf360125c48a34dba1fe29e6fd512d6375285e45c2fc9be832"
+  },
+  "complete_prelaunch_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/fuel-transport-diagnosis/prelaunch-inputs.json",
+    "bytes": 8943,
+    "sha256": "1658a47db2a16e3a7998335981140b416f6db6bf30d520d09d72b9ce1f761600"
+  },
+  "commands": [
+    [
+      "rustc",
+      "--edition=2021",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/diagnose-prefix.rs",
+      "-L",
+      "dependency=target/debug/deps",
+      "-o",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/fuel-transport-diagnosis/diagnosis",
+      "--extern",
+      "mpk_cert=target/debug/deps/libmpk_cert-56581625005ce3b7.rlib",
+      "--extern",
+      "mpk_kernel=target/debug/deps/libmpk_kernel-0d580f7bf4ab7bf5.rlib"
+    ],
+    [
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/fuel-transport-diagnosis/diagnosis",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/empty-size-transport/certificates/nil-only-f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1.mpcert"
+    ]
+  ],
+  "tools": {
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "compiled_diagnostic_binary_before_execution": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/fuel-transport-diagnosis/diagnosis",
+    "bytes": 1060648,
+    "sha256": "bbdc3ce1869d509ff1a362833e5b2197ec6696221103b37e0f2d23b1578505f6"
+  },
+  "whole_inputs_unchanged": true,
+  "exit_code": 0,
+  "seconds": 8.563226582948118,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/fuel-transport-diagnosis/stdout.log",
+    "bytes": 921,
+    "sha256": "bc3989de4b41e72912f614013db0724b604b3339d756f06dbd818715a6fddc09"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-strings/fuel-transport-diagnosis/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "finished_at_utc": "2026-10-23T00:33:24.538628+00:00"
+}

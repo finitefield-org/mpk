@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "reviewer": "primary agent; source and proof review, not human or delegated review",
+  "basis_commit": "b8fdd9973575288d5b974d9cd755d52b8002b101",
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "46dc12f2d61fb97eecb9a99158d5f556b9ad1f0771b45f1af64033dd203f33d2",
+      "bytes": 57234
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs",
+      "sha256": "e2bab5372bf13b18a91eca924f1e7a23c9c0c3acb47d23bef5284e88e1f4ad80",
+      "bytes": 23131
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/finite_vector/arithmetic.rs",
+      "sha256": "b868b742cf2b322c5f80d64267f57aca1e59ed13af974586dc1624ca2b95c17c",
+      "bytes": 8357
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/finite_vector/branch.rs",
+      "sha256": "35a99a1b2905ee2b848e4ec6b1f607f1597f6d21ab62f71c6586118ad222083f",
+      "bytes": 6186
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_finite_vector_foundation.rs",
+      "sha256": "07769dbfaaf6ee8f092d4cf67346421a8b56db70708a55af506615cad5d05061",
+      "bytes": 18195
+    }
+  ],
+  "findings": [],
+  "observations": [
+    "The full 183 named prior declarations are compared by complete identity, not name/count alone.",
+    "Cube depth d has exactly d Boolean address arguments and an arbitrary Sort0 element; d=8 retains 256 full elements. No operand values or source programs are enumerated.",
+    "Capacity starts at 1 and doubles; head address bit selects the upper half. IndexPaddedBound quantifies arbitrary padding.",
+    "BranchIndex proves both dispatch and high-half subtraction from ordinary Nat theorems; LookupIndex composes actual definition equations and congruence.",
+    "LookupValid proves every bounded Nat observation using actual left/right validity, the original append right-index theorem and the full bound. EmbedValid consumes the quantified Fits witness and All-slot validity.",
+    "Definition equality at function/product types is reflexivity, then ordinary congruence/rewrite; no function extensionality, trusted claim, proof callback, new rule or axiom is introduced.",
+    "The fixed-depth interpretation has no surviving symbolic-spacing parameter. Initial failed closed and spacing epochs remain separate.",
+    "Boolean range negative controls reverse the actual truth conclusion while retaining the complete computed left side; all 139 altered full-law streams reject by type mismatch, not a resource error.",
+    "Eleven wrong Index/Lookup/Embed/Capacity definitions individually typecheck through their actual declaration prefixes, then all complete law-bearing certificates reject. A prefix type check does not claim certificate acceptance.",
+    "The exact Go checker binary and all 13 original production inputs are sealed before/after every paired catalog. Rust full empty axiom report and identical Go computed report hash establish zero axioms without defaulting absent Go fields.",
+    "This proves a finite data bridge only. Full frozen Go64 word/count/source/nominal/empty/padding/storage/program correspondence and private context are still due."
+  ],
+  "selected_checks": [
+    "new finite-vector integration root (3 tests)",
+    "strict Clippy for the affected target",
+    "format check of the 5 changed Rust files",
+    "all 202 same-byte whole inputs in independent unchanged Go checker"
+  ],
+  "unaffected_suites_repeated": false,
+  "full_T_gate_deferred_to": "GO-PRAC-T02-W04: ./scripts/check-fast.sh"
+}

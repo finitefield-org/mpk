@@ -1,0 +1,80 @@
+# Independent original executable build-info binding
+
+Status: scoped checks passed. Go/Rust only; T02-W01 remains open
+and the practical profile remains inactive.
+
+The whole compiler-input owner now independently reads every actual executable
+from its already owned full SDK file bytes. It derives GoVersion, tool path,
+main/dependency/replacement module fields and the complete ordered build settings.
+There is no producer build-info record, subprocess invocation, replacement
+executable, source stub or new installed artifact codec at this boundary.
+The existing complete file/inventory/component/source/export/namespace checks
+remain in force. All5577 original SDK files/163457770 bytes and the original
+182-package/5697-object HTTP application are retained after image retirement.
+
+The reader handles the mapped-data forms used by the pinned Go1.25 reader:
+ELF32/64 with either byte order, Mach-O32/64 with either byte order and universal
+first-image selection, PE32/64, XCOFF32/64 and Plan9. Section precedence and
+writable-segment fallback, aligned one-MiB-chunk magic search, inline varints and
+legacy 32/64-bit endian pointers follow the native extraction rules. Go's actual
+chunk/slice-relative behavior after a misaligned magic match is preserved.
+Arithmetic and byte-range checks use the original file bounds; no smaller file,
+section, module, setting-count or source/type/error/proof universe cap is added.
+This reader extracts mapped build-info facts. It does not certify unrelated
+relocation/symbol-table validity, executable loadability or compiler correctness.
+Full reader equivalence is not claimed: compressed ELF section-name tables and
+the remaining native container edge cases still need implementation/coverage.
+Those inputs remain in the frozen scope; this checkpoint does not remove them
+or close the overall compiler-binding requirement.
+
+Module/settings text preserves arbitrary Go string bytes, original setting order
+and duplicates, final unterminated-line behavior and replacement attachment across
+unrecognized/path/build lines. Quoted settings use Go escape rules, raw-string CR
+removal and per-invalid-byte UTF-8 replacement in interpreted strings. BuildInfo
+settings are decoded separately from Go source literals, whose lexer has different
+preconditions. Binding requires Go1.25.0, the exact `cmd/<tool>` path and the existing
+host/CGO/compiler/build-mode/experiment/tuning settings. Duplicate keys reject,
+including unknown keys; a missing empty GOEXPERIMENT retains native behavior.
+
+The new native comparison records full hex-safe facts and binding decisions for
+187 cases: the9 actual original SDK tools,36 object/search/control probes and142
+text probes. Constructed object probes exercise the reader's binary structures;
+they do not substitute for the whole actual SDK/source owner. Rust compares every
+field and decision with the pinned native reader. All original compiler ownership
+and coherent claim/member/unused-source tests and all six affected export tests
+remain selected. Three additional controls patch the actual complete original
+gofmt release/tool/CGO bytes, reseal file/component/distribution/contract/selection/
+capture/export/compiler links and successfully reimport the original source/export
+owner. They retain every original source, unused body/init and Root contract and
+must reject specifically at the independent BuildInfo check. Complete changed
+executable bytes and all rehashed records are saved.
+
+Affected verification is local: native comparison,12 Rust roots, strict affected
+Clippy, Go vet and changed-file format checks. Each consuming source epoch owns
+its complete prelaunch source/driver snapshot, unchanged original SDK receipt,
+original object/cache/source/contract/package universe and raw output. Prior32
+proof streams and43-root/zero-or70-error universes retain their previous evidence;
+they are not relabeled as new kernel replay. Review policies,127 matchers/4 scopes/
+39 seals/51 exclusions, mathematical rules, premises and all source/bundle/kernel/
+certificate budgets remain unchanged.
+
+Full SDK source-role reconstruction and installed compiler/root/capture/context/
+descriptor/registry/launcher/native-read bindings, all required foundation/source/
+program proofs, native Linux release checks and remaining T02–T11 work stay due.
+R01/R03/R04/R05/R06/W01 remain open. The cumulative T02 gate stays at final W04:
+`./scripts/check-fast.sh`; no whole-workspace gate or removed-language test runs
+here. The [verification](verification.json), [inspection](inspection.json) and
+[scoped review driver](review.py) preserve the selected checks and their exact limits.
+
+All12 Rust roots and the187-case native comparison pass, with strict affected
+Clippy, Go vet and changed formats. All12 consuming epochs are preserved:11 pass
+and the first Rust test epoch fails because its negative control changed the
+runtime moduledata copy before the actual build-info record. The corrected test
+locates the actual record; all three fully rehashed executable controls reject.
+The native reader and original binary facts did not need a production repair.
+
+An initial read-only review was stopped after detecting a result-link ordering
+mistake: the README referenced review.json before that output was generated.
+The [interrupted review record](review-interrupted/inputs.json) preserves exact
+consumed document/driver preimages, the earlier inspection and exit143. The link
+now references the existing review driver; a fresh review owns the final result.

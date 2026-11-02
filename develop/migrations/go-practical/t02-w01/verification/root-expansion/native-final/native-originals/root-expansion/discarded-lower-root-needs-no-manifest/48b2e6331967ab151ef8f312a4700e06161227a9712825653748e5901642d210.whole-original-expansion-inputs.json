@@ -1,0 +1,94 @@
+{
+  "namespace": {
+    "workspace/dep\u0000": [
+      {
+        "Name": "cache",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache": [
+      {
+        "Name": "download",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download": [
+      {
+        "Name": "example.com",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com": [
+      {
+        "Name": "c",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/c": [
+      {
+        "Name": "@v",
+        "Type": 2147483648
+      }
+    ],
+    "workspace/dep\u0000cache/download/example.com/c/@v": [
+      {
+        "Name": "v1.2.0.mod",
+        "Type": 0
+      }
+    ],
+    "workspace/main\u0000": [
+      {
+        "Name": "go.mod",
+        "Type": 0
+      },
+      {
+        "Name": "go.sum",
+        "Type": 0
+      }
+    ]
+  },
+  "objects": [
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "0df91f9c94f72eb6355076646cb8c14b40881add86e2a5928503926f9135212e",
+      "capability": "workspace/main",
+      "path": "go.mod",
+      "kind": "go_mod",
+      "raw_sha256": "36f55dc3e4a5b274c621ff73a669f0989458048b2b81109130ffd32bd5b92686",
+      "bytes": 87
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "2f4da89b5856c06bf9fe22bc58a2ee95c2f5c4c616f322daa50f45627fad4dbf",
+      "capability": "workspace/main",
+      "path": "go.sum",
+      "kind": "go_sum",
+      "raw_sha256": "d6976cee5d1e8d2047df32e8a79e69ab223c223b9ff84c0f059cf071e93cdf3b",
+      "bytes": 76
+    },
+    {
+      "schema": "mpk.go.source_object.v1",
+      "id": "9c174a3559c48de40a20c32f560e47241957dc787f64ea1f7909c222c5de556e",
+      "capability": "workspace/dep",
+      "path": "cache/download/example.com/c/@v/v1.2.0.mod",
+      "kind": "go_mod",
+      "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+      "bytes": 29
+    }
+  ],
+  "origins": [
+    {
+      "Capability": "workspace/dep",
+      "Directory": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOraclediscarded-lower-root-n370707052/001/dep"
+    },
+    {
+      "Capability": "workspace/main",
+      "Directory": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOraclediscarded-lower-root-n370707052/001/main"
+    }
+  ],
+  "raw": {
+    "0df91f9c94f72eb6355076646cb8c14b40881add86e2a5928503926f9135212e": "bW9kdWxlIGV4YW1wbGUuY29tL2FwcApnbyAxLjI1LjAKcmVxdWlyZSAoCmV4YW1wbGUuY29tL2MgdjEuMC4wCmV4YW1wbGUuY29tL2MgdjEuMi4wCikK",
+    "2f4da89b5856c06bf9fe22bc58a2ee95c2f5c4c616f322daa50f45627fad4dbf": "ZXhhbXBsZS5jb20vYyB2MS4yLjAvZ28ubW9kIGgxOk40cm9MTUdJdHJKNnltZXRlTjQ0dHdwMW9WbHBvOU1CaisxdGdJaHI5alE9Cg==",
+    "9c174a3559c48de40a20c32f560e47241957dc787f64ea1f7909c222c5de556e": "bW9kdWxlIGV4YW1wbGUuY29tL2MKZ28gMS4yMgo="
+  }
+}

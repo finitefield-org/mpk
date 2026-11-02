@@ -447,8 +447,8 @@ fn tracked_successor_release_registry_is_valid_and_build_inputs_are_derived() {
     let root = repository_root();
     let semantic_bytes = fs::read(root.join("release/bundles/semantic-profile-registry.json"))
         .expect("read tracked semantic registry");
-    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision3)
-        .expect("tracked revision-3 semantic registry validates");
+    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision4)
+        .expect("tracked revision-4 semantic registry validates");
     let bytes = fs::read(root.join("release/bundles/bundle-registry.json"))
         .expect("read tracked bundle registry");
     let validated = validate_successor_release_registry(&bytes, &semantic)
@@ -458,15 +458,15 @@ fn tracked_successor_release_registry_is_valid_and_build_inputs_are_derived() {
         validated.registry().profile_registry.registry_sha256,
         semantic.identity().registry_sha256()
     );
-    assert_eq!(validated.registry().frontend_bundles.len(), 4);
-    assert_eq!(validated.registry().toolchain_bundles.len(), 4);
-    assert_eq!(validated.registry().tuples.len(), 5);
-    assert_eq!(validated.registry().native_runtime_layout_profiles.len(), 2);
+    assert_eq!(validated.registry().frontend_bundles.len(), 2);
+    assert_eq!(validated.registry().toolchain_bundles.len(), 2);
+    assert_eq!(validated.registry().tuples.len(), 3);
+    assert_eq!(validated.registry().native_runtime_layout_profiles.len(), 1);
     let frontend = validated
         .registry()
         .frontend_bundles
         .iter()
-        .find(|bundle| bundle.bundle_id == "frontend.go.go2vir.candidate.v1")
+        .find(|bundle| bundle.bundle_id == "frontend.go.go2vir.candidate.v2")
         .expect("registered Go frontend");
     assert!(frontend.subordinate_binaries.is_empty());
     assert!(matches!(frontend.main.runtime, ExecutableRuntime::Static));

@@ -1,0 +1,12 @@
+    Finished `release` profile [optimized] target(s) in 0.04s
+     Running tests/go_practical_array_equality.rs (target/release/deps/go_practical_array_equality-c2fda9ef323cc6a5)
+
+thread 'equality_definitions_have_actual_countermodels' (46205181) panicked at crates/mpk-vc/tests/go_practical_array_equality.rs:48:5:
+assertion `left == right` failed: definition-D0.ByteNotEqual: {"verdict":"accepted","module":"Mpk.Go.Practical.ArrayEqualityFoundation","declaration_count":2972,"axiom_count":0,"hashes":{"export":"5c586d034cf3c01317a610cffd8d7bf59bb896ac439b32fda09cc02102327fe7","axiom_report":"0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5","certificate":"3710de69e7dd8b26cfa55db561ac3d392bff8a4e659e45654318d80bb309e5f3"},"axiom_report":{"summary":{"core_axiom_count":0,"builtin_theory_axiom_count":0,"go_semantics_axiom_count":0,"external_axiom_count":0,"total_axiom_count":0},"entries":[],"declaration_dependencies":[]},"error_code":null,"error_detail":null}
+  left: true
+ right: false
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_array_equality`
+
+Caused by:
+  process didn't exit successfully: `/Users/kazuyoshitoshiya/ff/mpk/target/release/deps/go_practical_array_equality-c2fda9ef323cc6a5 --nocapture --skip array_equality_preserves_all2688_prior_identities --skip observations_match_original_go_all_lengths_and_normalization` (signal: 15, SIGTERM: termination signal)

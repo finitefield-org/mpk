@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1.84s
+     Running tests/go_practical_product_expanded_resource_diagnostic.rs (target/debug/deps/go_practical_product_expanded_resource_diagnostic-5c23336a6a6fc7e0)
+
+thread 'retain_complete_original_expanded_product_candidates' (39793343) panicked at crates/mpk-vc/tests/go_practical_product_expanded_resource_diagnostic.rs:27:44:
+called `Result::unwrap()` on an `Err` value: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_product_expanded_resource_diagnostic`

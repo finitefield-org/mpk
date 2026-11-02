@@ -1,0 +1,3809 @@
+[
+  {
+    "id": "straight-return-candidate",
+    "model": "scopes",
+    "record": {
+      "body": {
+        "captures": [],
+        "id": 0,
+        "nodes": [
+          {
+            "definition_hash": "f66aedc689479a713c0e81a02853fbc5d08e9aa40411c9e39ca05c3d6c4e8078",
+            "id": 0,
+            "inputs": [],
+            "kind": "apply",
+            "outputs": [
+              6
+            ],
+            "regions": [],
+            "source_ref": {
+              "end_byte": 1563,
+              "ordinal": 0,
+              "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+              "start_byte": 994
+            }
+          },
+          {
+            "definition_hash": "0a90d142c28240a561d26c79c0735a6049f887b45006e348c7ed16553e0cb70a",
+            "id": 1,
+            "inputs": [],
+            "kind": "apply",
+            "outputs": [
+              7
+            ],
+            "regions": [],
+            "source_ref": {
+              "end_byte": 1563,
+              "ordinal": 0,
+              "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+              "start_byte": 994
+            }
+          },
+          {
+            "definition_hash": "2a985c09e33ca1b07416697b85add5a0c59be455f9c2f2485a5a5b4a9d6afcc9",
+            "id": 2,
+            "inputs": [
+              6,
+              7
+            ],
+            "kind": "apply",
+            "outputs": [
+              8
+            ],
+            "regions": [],
+            "source_ref": {
+              "end_byte": 1563,
+              "ordinal": 0,
+              "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+              "start_byte": 994
+            }
+          },
+          {
+            "definition_hash": "a10ac7994b9418fe438b174c29e55d1b537fedd58670bea12d01b9fc2bec5554",
+            "id": 3,
+            "inputs": [
+              8,
+              5
+            ],
+            "kind": "apply",
+            "outputs": [
+              9
+            ],
+            "regions": [],
+            "source_ref": {
+              "end_byte": 1563,
+              "ordinal": 0,
+              "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+              "start_byte": 994
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "id": 0,
+            "type": {
+              "kind": "source",
+              "source_type_id": "4978a409fc893f4b2721ceebdd4e2c7473cd9fb8782f2565ab4706005ce28072"
+            }
+          },
+          {
+            "id": 1,
+            "type": {
+              "kind": "source",
+              "source_type_id": "a7aa96520c6715e7f138d31ec6552a7613078cc4b50ead51a9e8b98012873cd9"
+            }
+          },
+          {
+            "id": 2,
+            "type": {
+              "kind": "source",
+              "source_type_id": "8c9c5065d57492bbc530dedf1408e94f13d842f442d4caadf87e094660ad2a14"
+            }
+          },
+          {
+            "id": 3,
+            "type": {
+              "kind": "source",
+              "source_type_id": "211be18694a46bd6d08ba00849b4585045b9c7c792beaa92bb892c845f3ec1fa"
+            }
+          },
+          {
+            "id": 4,
+            "type": {
+              "kind": "source",
+              "source_type_id": "335dfb0981b5c3b487cd096b159c5760379e38ea915750f2da15f9ced29556dc"
+            }
+          },
+          {
+            "id": 5,
+            "type": {
+              "kind": "state"
+            }
+          }
+        ],
+        "terminator": {
+          "kind": "yield",
+          "values": [
+            9
+          ]
+        }
+      },
+      "body_hash": "7f15486e4fbfa3fb3f9dd7ba1a544a15c0dc5750a35da05d6f39ce1b853090f1",
+      "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+      "contract_hash": "3a1922d5c12239c36f115bf0f2353179d11413687291dfcec4104427447839fd",
+      "entry_arguments": [
+        {
+          "binding_id": "c0cba91cdd7aeb7ff4713ae1b23bf875f8711a790831d5e91c58c25fae8bd73c",
+          "value_id": 0
+        },
+        {
+          "binding_id": "d601155e291fe71e084720e2e198695ae1d561ae8f2f5f1dbdd6c3fe33d91eec",
+          "value_id": 1
+        },
+        {
+          "binding_id": "1c69accdcc3751d3c041e65d84054f316a9e91916dbadd17cc4cdef92f5aa807",
+          "value_id": 2
+        },
+        {
+          "binding_id": "0338a47d713d5fa933b821f38ac6bea6f5776bd2b927030deada42890d3f8632",
+          "value_id": 3
+        },
+        {
+          "binding_id": "e75f606e62d345ec46b136ee382ad71de09368b1433bc4a69968e3a30491f0d4",
+          "value_id": 4
+        }
+      ],
+      "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+      "obligation_sites": [
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 0,
+          "source_ref": {
+            "end_byte": 1563,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 994
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 1,
+          "source_ref": {
+            "end_byte": 1563,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 994
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            },
+            {
+              "category": "profile_domain",
+              "ordinal": 0,
+              "predicate": "0 <= arity <= 16"
+            }
+          ],
+          "node_id": 2,
+          "source_ref": {
+            "end_byte": 1563,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 994
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 3,
+          "source_ref": {
+            "end_byte": 1563,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 994
+          }
+        }
+      ],
+      "operation_definitions": [
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-01",
+          "operation_hash": "0a90d142c28240a561d26c79c0735a6049f887b45006e348c7ed16553e0cb70a",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "source",
+              "source_type_id": "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+            }
+          ],
+          "parameters": {
+            "type": "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [
+            {
+              "kind": "source",
+              "source_type_id": "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d"
+            },
+            {
+              "kind": "source",
+              "source_type_id": "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+            }
+          ],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            },
+            {
+              "category": "profile_domain",
+              "ordinal": 0,
+              "predicate": "0 <= arity <= 16"
+            }
+          ],
+          "op": "GP-OP-17",
+          "operation_hash": "2a985c09e33ca1b07416697b85add5a0c59be455f9c2f2485a5a5b4a9d6afcc9",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "joint",
+              "result_types": [
+                "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+              ]
+            }
+          ],
+          "parameters": {
+            "types": [
+              "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+              "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+            ]
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [
+            {
+              "kind": "joint",
+              "result_types": [
+                "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+              ]
+            },
+            {
+              "kind": "state"
+            }
+          ],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-20",
+          "operation_hash": "a10ac7994b9418fe438b174c29e55d1b537fedd58670bea12d01b9fc2bec5554",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "control",
+              "result_types": [
+                "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+              ]
+            }
+          ],
+          "parameters": {},
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-01",
+          "operation_hash": "f66aedc689479a713c0e81a02853fbc5d08e9aa40411c9e39ca05c3d6c4e8078",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "source",
+              "source_type_id": "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d"
+            }
+          ],
+          "parameters": {
+            "type": "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d"
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        }
+      ],
+      "schema": "mpk.go.function_body.v1",
+      "semantic_context": {
+        "foundation_descriptor": {
+          "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+          "id": "mpk.go.practical.foundation.v1",
+          "schema": "mpk.go.foundation_descriptor.v1"
+        },
+        "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+        "profile_registry": {
+          "id": "mpk.semantic_profile.registry.v3",
+          "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+          "revision": 1,
+          "schema": "mpk.semantic_profile.registry.v3"
+        },
+        "schema": "mpk.semantic_context.v3",
+        "semantic_parameters": {
+          "schema": "mpk.semantic_parameters.go_practical.v1",
+          "value": {
+            "compiler_release": "go1.25.0",
+            "effective_languages": [
+              "go1.22",
+              "go1.23",
+              "go1.24",
+              "go1.25"
+            ],
+            "goamd64": "v1",
+            "goarch": "amd64",
+            "goos": "linux",
+            "limits_id": "mpk.go.practical.limits.v1",
+            "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+            "pointer_width": 64,
+            "target_id": "linux/amd64"
+          }
+        },
+        "semantic_profile": "mpk.go.practical.v1",
+        "source_language": "go"
+      },
+      "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+      "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573"
+    }
+  },
+  {
+    "id": "loop-abrupt-candidate",
+    "model": "scopes",
+    "record": {
+      "body": {
+        "captures": [],
+        "id": 0,
+        "nodes": [
+          {
+            "definition_hash": "a7fb1fe3ca238586b4982d3f71f4d009fce91c173f29320802bcc9fd05ed354f",
+            "id": 0,
+            "inputs": [
+              5
+            ],
+            "kind": "apply",
+            "outputs": [
+              6
+            ],
+            "regions": [
+              {
+                "region": {
+                  "captures": [],
+                  "id": 1,
+                  "nodes": [
+                    {
+                      "definition_hash": "87a1aef13c99e58f38960e524de42bead764302931020fee9225686ed298b5e8",
+                      "id": 1,
+                      "inputs": [],
+                      "kind": "apply",
+                      "outputs": [
+                        8
+                      ],
+                      "regions": [],
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      }
+                    },
+                    {
+                      "binding_id": "7e340a02e67a4ec4909b39fdc0489de58ef84d41757e844114ea7f0d73d68e6a",
+                      "id": 2,
+                      "kind": "declare",
+                      "output": 9,
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      },
+                      "state": 7,
+                      "value": 8
+                    }
+                  ],
+                  "parameters": [
+                    {
+                      "id": 7,
+                      "type": {
+                        "kind": "state"
+                      }
+                    }
+                  ],
+                  "terminator": {
+                    "kind": "yield",
+                    "values": [
+                      9
+                    ]
+                  }
+                },
+                "role": "init"
+              },
+              {
+                "region": {
+                  "captures": [],
+                  "id": 2,
+                  "nodes": [
+                    {
+                      "id": 3,
+                      "kind": "address",
+                      "output": 11,
+                      "path": [],
+                      "root": {
+                        "binding_id": "7e340a02e67a4ec4909b39fdc0489de58ef84d41757e844114ea7f0d73d68e6a",
+                        "kind": "binding"
+                      },
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      },
+                      "state": 10
+                    },
+                    {
+                      "id": 4,
+                      "kind": "load",
+                      "location": 11,
+                      "output": 12,
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      },
+                      "state": 10
+                    },
+                    {
+                      "id": 5,
+                      "kind": "address",
+                      "output": 13,
+                      "path": [],
+                      "root": {
+                        "binding_id": "c0cba91cdd7aeb7ff4713ae1b23bf875f8711a790831d5e91c58c25fae8bd73c",
+                        "kind": "binding"
+                      },
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      },
+                      "state": 10
+                    },
+                    {
+                      "id": 6,
+                      "kind": "load",
+                      "location": 13,
+                      "output": 14,
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      },
+                      "state": 10
+                    },
+                    {
+                      "definition_hash": "8eb8dd666158154552c3db9c2486c733c649803d1a1a9d47a228df6fa9d32a57",
+                      "id": 7,
+                      "inputs": [
+                        14
+                      ],
+                      "kind": "apply",
+                      "outputs": [
+                        15
+                      ],
+                      "regions": [],
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      }
+                    },
+                    {
+                      "definition_hash": "525173eccfbf9a0d03ba1b5490c415e0e3ae29daac67dd5bd2c4dc8afd3e19f5",
+                      "id": 8,
+                      "inputs": [
+                        12,
+                        15
+                      ],
+                      "kind": "apply",
+                      "outputs": [
+                        16
+                      ],
+                      "regions": [],
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      }
+                    }
+                  ],
+                  "parameters": [
+                    {
+                      "id": 10,
+                      "type": {
+                        "kind": "state"
+                      }
+                    }
+                  ],
+                  "terminator": {
+                    "kind": "yield",
+                    "values": [
+                      16,
+                      10
+                    ]
+                  }
+                },
+                "role": "test"
+              },
+              {
+                "region": {
+                  "captures": [],
+                  "id": 3,
+                  "nodes": [
+                    {
+                      "id": 9,
+                      "kind": "address",
+                      "output": 18,
+                      "path": [],
+                      "root": {
+                        "binding_id": "1c69accdcc3751d3c041e65d84054f316a9e91916dbadd17cc4cdef92f5aa807",
+                        "kind": "binding"
+                      },
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      },
+                      "state": 17
+                    },
+                    {
+                      "id": 10,
+                      "kind": "load",
+                      "location": 18,
+                      "output": 19,
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      },
+                      "state": 17
+                    },
+                    {
+                      "definition_hash": "bae49b8bdb03890ac2710ffdf1c3da3e48dbd2f2df5f746d17ae61260d6d78fc",
+                      "id": 11,
+                      "inputs": [
+                        19,
+                        17
+                      ],
+                      "kind": "apply",
+                      "outputs": [
+                        20
+                      ],
+                      "regions": [
+                        {
+                          "region": {
+                            "captures": [],
+                            "id": 4,
+                            "nodes": [
+                              {
+                                "definition_hash": "effe60a03f003c9321112e8a80349f6f10434c84c5e76396a2e48d16f89e762e",
+                                "id": 12,
+                                "inputs": [
+                                  21
+                                ],
+                                "kind": "apply",
+                                "outputs": [
+                                  22
+                                ],
+                                "regions": [],
+                                "source_ref": {
+                                  "end_byte": 1289,
+                                  "ordinal": 0,
+                                  "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                                  "start_byte": 1150
+                                }
+                              }
+                            ],
+                            "parameters": [
+                              {
+                                "id": 21,
+                                "type": {
+                                  "kind": "state"
+                                }
+                              }
+                            ],
+                            "terminator": {
+                              "kind": "yield",
+                              "values": [
+                                22
+                              ]
+                            }
+                          },
+                          "role": "then"
+                        },
+                        {
+                          "region": {
+                            "captures": [],
+                            "id": 5,
+                            "nodes": [
+                              {
+                                "definition_hash": "2c136f376256545a31e3f50a43e7d23a8a2b4e1115317f796b6969fdcbe6c07f",
+                                "id": 13,
+                                "inputs": [
+                                  23
+                                ],
+                                "kind": "apply",
+                                "outputs": [
+                                  24
+                                ],
+                                "regions": [],
+                                "source_ref": {
+                                  "end_byte": 1289,
+                                  "ordinal": 0,
+                                  "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                                  "start_byte": 1150
+                                }
+                              }
+                            ],
+                            "parameters": [
+                              {
+                                "id": 23,
+                                "type": {
+                                  "kind": "state"
+                                }
+                              }
+                            ],
+                            "terminator": {
+                              "kind": "yield",
+                              "values": [
+                                24
+                              ]
+                            }
+                          },
+                          "role": "else"
+                        }
+                      ],
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      }
+                    }
+                  ],
+                  "parameters": [
+                    {
+                      "id": 17,
+                      "type": {
+                        "kind": "state"
+                      }
+                    }
+                  ],
+                  "terminator": {
+                    "kind": "yield",
+                    "values": [
+                      20
+                    ]
+                  }
+                },
+                "role": "body"
+              },
+              {
+                "region": {
+                  "captures": [],
+                  "id": 6,
+                  "nodes": [
+                    {
+                      "id": 14,
+                      "kind": "address",
+                      "output": 26,
+                      "path": [],
+                      "root": {
+                        "binding_id": "7e340a02e67a4ec4909b39fdc0489de58ef84d41757e844114ea7f0d73d68e6a",
+                        "kind": "binding"
+                      },
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      },
+                      "state": 25
+                    },
+                    {
+                      "definition_hash": "2f673227046ee5bc20e2b331891f5b5081b820d363f48b9bcea39ff1092babf5",
+                      "id": 15,
+                      "inputs": [],
+                      "kind": "apply",
+                      "outputs": [
+                        27
+                      ],
+                      "regions": [],
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      }
+                    },
+                    {
+                      "definition_hash": "dafa1f23300538a38b534d8d664ca0f3ec964c0b97c1308cd69d541f7639016f",
+                      "id": 16,
+                      "inputs": [
+                        26,
+                        27,
+                        25
+                      ],
+                      "kind": "apply",
+                      "outputs": [
+                        28
+                      ],
+                      "regions": [],
+                      "source_ref": {
+                        "end_byte": 1289,
+                        "ordinal": 0,
+                        "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                        "start_byte": 1150
+                      }
+                    }
+                  ],
+                  "parameters": [
+                    {
+                      "id": 25,
+                      "type": {
+                        "kind": "state"
+                      }
+                    }
+                  ],
+                  "terminator": {
+                    "kind": "yield",
+                    "values": [
+                      28
+                    ]
+                  }
+                },
+                "role": "post"
+              }
+            ],
+            "source_ref": {
+              "end_byte": 1289,
+              "ordinal": 0,
+              "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+              "start_byte": 1150
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "id": 0,
+            "type": {
+              "kind": "source",
+              "source_type_id": "4978a409fc893f4b2721ceebdd4e2c7473cd9fb8782f2565ab4706005ce28072"
+            }
+          },
+          {
+            "id": 1,
+            "type": {
+              "kind": "source",
+              "source_type_id": "a7aa96520c6715e7f138d31ec6552a7613078cc4b50ead51a9e8b98012873cd9"
+            }
+          },
+          {
+            "id": 2,
+            "type": {
+              "kind": "source",
+              "source_type_id": "8c9c5065d57492bbc530dedf1408e94f13d842f442d4caadf87e094660ad2a14"
+            }
+          },
+          {
+            "id": 3,
+            "type": {
+              "kind": "source",
+              "source_type_id": "211be18694a46bd6d08ba00849b4585045b9c7c792beaa92bb892c845f3ec1fa"
+            }
+          },
+          {
+            "id": 4,
+            "type": {
+              "kind": "source",
+              "source_type_id": "335dfb0981b5c3b487cd096b159c5760379e38ea915750f2da15f9ced29556dc"
+            }
+          },
+          {
+            "id": 5,
+            "type": {
+              "kind": "state"
+            }
+          }
+        ],
+        "terminator": {
+          "continuation": {
+            "captures": [],
+            "id": 7,
+            "nodes": [
+              {
+                "definition_hash": "f66aedc689479a713c0e81a02853fbc5d08e9aa40411c9e39ca05c3d6c4e8078",
+                "id": 17,
+                "inputs": [],
+                "kind": "apply",
+                "outputs": [
+                  30
+                ],
+                "regions": [],
+                "source_ref": {
+                  "end_byte": 1563,
+                  "ordinal": 0,
+                  "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                  "start_byte": 994
+                }
+              },
+              {
+                "definition_hash": "0a90d142c28240a561d26c79c0735a6049f887b45006e348c7ed16553e0cb70a",
+                "id": 18,
+                "inputs": [],
+                "kind": "apply",
+                "outputs": [
+                  31
+                ],
+                "regions": [],
+                "source_ref": {
+                  "end_byte": 1563,
+                  "ordinal": 0,
+                  "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                  "start_byte": 994
+                }
+              },
+              {
+                "definition_hash": "2a985c09e33ca1b07416697b85add5a0c59be455f9c2f2485a5a5b4a9d6afcc9",
+                "id": 19,
+                "inputs": [
+                  30,
+                  31
+                ],
+                "kind": "apply",
+                "outputs": [
+                  32
+                ],
+                "regions": [],
+                "source_ref": {
+                  "end_byte": 1563,
+                  "ordinal": 0,
+                  "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                  "start_byte": 994
+                }
+              },
+              {
+                "definition_hash": "a10ac7994b9418fe438b174c29e55d1b537fedd58670bea12d01b9fc2bec5554",
+                "id": 20,
+                "inputs": [
+                  32,
+                  29
+                ],
+                "kind": "apply",
+                "outputs": [
+                  33
+                ],
+                "regions": [],
+                "source_ref": {
+                  "end_byte": 1563,
+                  "ordinal": 0,
+                  "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                  "start_byte": 994
+                }
+              }
+            ],
+            "parameters": [
+              {
+                "id": 29,
+                "type": {
+                  "kind": "state"
+                }
+              }
+            ],
+            "terminator": {
+              "kind": "yield",
+              "values": [
+                33
+              ]
+            }
+          },
+          "control": 6,
+          "kind": "resume"
+        }
+      },
+      "body_hash": "137d27f75babd9d2b1cd4a1e7e248146ec457b409df72a686d14f9eae0c29620",
+      "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+      "contract_hash": "3a1922d5c12239c36f115bf0f2353179d11413687291dfcec4104427447839fd",
+      "entry_arguments": [
+        {
+          "binding_id": "c0cba91cdd7aeb7ff4713ae1b23bf875f8711a790831d5e91c58c25fae8bd73c",
+          "value_id": 0
+        },
+        {
+          "binding_id": "d601155e291fe71e084720e2e198695ae1d561ae8f2f5f1dbdd6c3fe33d91eec",
+          "value_id": 1
+        },
+        {
+          "binding_id": "1c69accdcc3751d3c041e65d84054f316a9e91916dbadd17cc4cdef92f5aa807",
+          "value_id": 2
+        },
+        {
+          "binding_id": "0338a47d713d5fa933b821f38ac6bea6f5776bd2b927030deada42890d3f8632",
+          "value_id": 3
+        },
+        {
+          "binding_id": "e75f606e62d345ec46b136ee382ad71de09368b1433bc4a69968e3a30491f0d4",
+          "value_id": 4
+        }
+      ],
+      "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+      "obligation_sites": [
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 0,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 1,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "local_declaration_initialization_and_activation_lifetime"
+            }
+          ],
+          "node_id": 2,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "location_source_binding_and_lexical_lifetime"
+            }
+          ],
+          "node_id": 3,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [
+            {
+              "checks": [
+                "full_index_bounds_at_access",
+                "initialized_live_location",
+                "same_snapshot_validity",
+                "read_permission"
+              ],
+              "location": {
+                "captured_state": 10,
+                "kind": "location",
+                "path": [],
+                "root": {
+                  "binding_id": "7e340a02e67a4ec4909b39fdc0489de58ef84d41757e844114ea7f0d73d68e6a",
+                  "kind": "binding"
+                }
+              },
+              "mode": "read",
+              "operand": 0,
+              "state_ref": {
+                "kind": "current",
+                "value": 10
+              }
+            }
+          ],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "complete_value_read_source_binding"
+            }
+          ],
+          "node_id": 4,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "location_source_binding_and_lexical_lifetime"
+            }
+          ],
+          "node_id": 5,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [
+            {
+              "checks": [
+                "full_index_bounds_at_access",
+                "initialized_live_location",
+                "same_snapshot_validity",
+                "read_permission"
+              ],
+              "location": {
+                "captured_state": 10,
+                "kind": "location",
+                "path": [],
+                "root": {
+                  "binding_id": "c0cba91cdd7aeb7ff4713ae1b23bf875f8711a790831d5e91c58c25fae8bd73c",
+                  "kind": "binding"
+                }
+              },
+              "mode": "read",
+              "operand": 0,
+              "state_ref": {
+                "kind": "current",
+                "value": 10
+              }
+            }
+          ],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "complete_value_read_source_binding"
+            }
+          ],
+          "node_id": 6,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 7,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 8,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "location_source_binding_and_lexical_lifetime"
+            }
+          ],
+          "node_id": 9,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [
+            {
+              "checks": [
+                "full_index_bounds_at_access",
+                "initialized_live_location",
+                "same_snapshot_validity",
+                "read_permission"
+              ],
+              "location": {
+                "captured_state": 17,
+                "kind": "location",
+                "path": [],
+                "root": {
+                  "binding_id": "1c69accdcc3751d3c041e65d84054f316a9e91916dbadd17cc4cdef92f5aa807",
+                  "kind": "binding"
+                }
+              },
+              "mode": "read",
+              "operand": 0,
+              "state_ref": {
+                "kind": "current",
+                "value": 17
+              }
+            }
+          ],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "complete_value_read_source_binding"
+            }
+          ],
+          "node_id": 10,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 11,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 12,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 13,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "location_source_binding_and_lexical_lifetime"
+            }
+          ],
+          "node_id": 14,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            },
+            {
+              "category": "profile_domain",
+              "ordinal": 0,
+              "predicate": "materialized runtime value fits frozen type/string/aggregate limits; untyped compile-time intermediates remain exact"
+            }
+          ],
+          "node_id": 15,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [
+            {
+              "checks": [
+                "full_index_bounds_at_access",
+                "same_snapshot_validity",
+                "permission_and_frame"
+              ],
+              "location": {
+                "captured_state": 25,
+                "kind": "location",
+                "path": [],
+                "root": {
+                  "binding_id": "7e340a02e67a4ec4909b39fdc0489de58ef84d41757e844114ea7f0d73d68e6a",
+                  "kind": "binding"
+                }
+              },
+              "mode": "read_write",
+              "operand": 0,
+              "state_ref": {
+                "kind": "current",
+                "value": 25
+              }
+            }
+          ],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            },
+            {
+              "category": "permission",
+              "ordinal": 0,
+              "predicate": "positive writes to materialized local array backing use its tracked FreshOwned permission"
+            }
+          ],
+          "node_id": 16,
+          "source_ref": {
+            "end_byte": 1289,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 1150
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 17,
+          "source_ref": {
+            "end_byte": 1563,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 994
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 18,
+          "source_ref": {
+            "end_byte": 1563,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 994
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            },
+            {
+              "category": "profile_domain",
+              "ordinal": 0,
+              "predicate": "0 <= arity <= 16"
+            }
+          ],
+          "node_id": 19,
+          "source_ref": {
+            "end_byte": 1563,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 994
+          }
+        },
+        {
+          "access": [],
+          "dependencies": [],
+          "members": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "node_id": 20,
+          "source_ref": {
+            "end_byte": 1563,
+            "ordinal": 0,
+            "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+            "start_byte": 994
+          }
+        }
+      ],
+      "operation_definitions": [
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-01",
+          "operation_hash": "0a90d142c28240a561d26c79c0735a6049f887b45006e348c7ed16553e0cb70a",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "source",
+              "source_type_id": "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+            }
+          ],
+          "parameters": {
+            "type": "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [
+            {
+              "kind": "source",
+              "source_type_id": "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d"
+            },
+            {
+              "kind": "source",
+              "source_type_id": "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+            }
+          ],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            },
+            {
+              "category": "profile_domain",
+              "ordinal": 0,
+              "predicate": "0 <= arity <= 16"
+            }
+          ],
+          "op": "GP-OP-17",
+          "operation_hash": "2a985c09e33ca1b07416697b85add5a0c59be455f9c2f2485a5a5b4a9d6afcc9",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "joint",
+              "result_types": [
+                "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+              ]
+            }
+          ],
+          "parameters": {
+            "types": [
+              "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+              "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+            ]
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [
+            {
+              "target": {
+                "end_byte": 1289,
+                "kind": "loop",
+                "ordinal": 0,
+                "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                "start_byte": 1150
+              }
+            }
+          ],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [
+            {
+              "kind": "state"
+            }
+          ],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-55",
+          "operation_hash": "2c136f376256545a31e3f50a43e7d23a8a2b4e1115317f796b6969fdcbe6c07f",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "control",
+              "result_types": [
+                "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+              ]
+            }
+          ],
+          "parameters": {
+            "enclosing": [
+              {
+                "end_byte": 1289,
+                "kind": "loop",
+                "ordinal": 0,
+                "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                "start_byte": 1150
+              }
+            ]
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            },
+            {
+              "category": "profile_domain",
+              "ordinal": 0,
+              "predicate": "materialized runtime value fits frozen type/string/aggregate limits; untyped compile-time intermediates remain exact"
+            }
+          ],
+          "op": "GP-OP-02",
+          "operation_hash": "2f673227046ee5bc20e2b331891f5b5081b820d363f48b9bcea39ff1092babf5",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "source",
+              "source_type_id": "c82cbb19f48a90758c7f51984b5498def26a7a6c3cb3fd3095294341f7bde57b"
+            }
+          ],
+          "parameters": {
+            "type": "c82cbb19f48a90758c7f51984b5498def26a7a6c3cb3fd3095294341f7bde57b",
+            "value": "1"
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [
+            {
+              "kind": "source",
+              "source_type_id": "c82cbb19f48a90758c7f51984b5498def26a7a6c3cb3fd3095294341f7bde57b"
+            },
+            {
+              "kind": "source",
+              "source_type_id": "c82cbb19f48a90758c7f51984b5498def26a7a6c3cb3fd3095294341f7bde57b"
+            }
+          ],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-09",
+          "operation_hash": "525173eccfbf9a0d03ba1b5490c415e0e3ae29daac67dd5bd2c4dc8afd3e19f5",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "source",
+              "source_type_id": "8c9c5065d57492bbc530dedf1408e94f13d842f442d4caadf87e094660ad2a14"
+            }
+          ],
+          "parameters": {
+            "operator": "less",
+            "type": "c82cbb19f48a90758c7f51984b5498def26a7a6c3cb3fd3095294341f7bde57b"
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-01",
+          "operation_hash": "87a1aef13c99e58f38960e524de42bead764302931020fee9225686ed298b5e8",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "source",
+              "source_type_id": "c82cbb19f48a90758c7f51984b5498def26a7a6c3cb3fd3095294341f7bde57b"
+            }
+          ],
+          "parameters": {
+            "type": "c82cbb19f48a90758c7f51984b5498def26a7a6c3cb3fd3095294341f7bde57b"
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [
+            {
+              "kind": "source",
+              "source_type_id": "4978a409fc893f4b2721ceebdd4e2c7473cd9fb8782f2565ab4706005ce28072"
+            }
+          ],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-37",
+          "operation_hash": "8eb8dd666158154552c3db9c2486c733c649803d1a1a9d47a228df6fa9d32a57",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "source",
+              "source_type_id": "c82cbb19f48a90758c7f51984b5498def26a7a6c3cb3fd3095294341f7bde57b"
+            }
+          ],
+          "parameters": {
+            "size": "length",
+            "type": "4978a409fc893f4b2721ceebdd4e2c7473cd9fb8782f2565ab4706005ce28072"
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [
+            {
+              "kind": "joint",
+              "result_types": [
+                "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+              ]
+            },
+            {
+              "kind": "state"
+            }
+          ],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-20",
+          "operation_hash": "a10ac7994b9418fe438b174c29e55d1b537fedd58670bea12d01b9fc2bec5554",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "control",
+              "result_types": [
+                "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+              ]
+            }
+          ],
+          "parameters": {},
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [
+            {
+              "loop_ref_id": "d1f5cdacb6d812e5a8815808232908cd1849610b971186247ecaa009e68e7b93"
+            }
+          ],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [
+            {
+              "kind": "state"
+            }
+          ],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-51",
+          "operation_hash": "a7fb1fe3ca238586b4982d3f71f4d009fce91c173f29320802bcc9fd05ed354f",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "control",
+              "result_types": [
+                "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+              ]
+            }
+          ],
+          "parameters": {
+            "condition_type": "8c9c5065d57492bbc530dedf1408e94f13d842f442d4caadf87e094660ad2a14",
+            "has_test": true,
+            "loop": 0
+          },
+          "regions": [
+            {
+              "inputs": [
+                {
+                  "kind": "state"
+                }
+              ],
+              "outputs": [
+                {
+                  "kind": "state"
+                }
+              ],
+              "role": "init"
+            },
+            {
+              "inputs": [
+                {
+                  "kind": "state"
+                }
+              ],
+              "outputs": [
+                {
+                  "kind": "source",
+                  "source_type_id": "8c9c5065d57492bbc530dedf1408e94f13d842f442d4caadf87e094660ad2a14"
+                },
+                {
+                  "kind": "state"
+                }
+              ],
+              "role": "test"
+            },
+            {
+              "inputs": [
+                {
+                  "kind": "state"
+                }
+              ],
+              "outputs": [
+                {
+                  "kind": "control",
+                  "result_types": [
+                    "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                    "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+                  ]
+                }
+              ],
+              "role": "body"
+            },
+            {
+              "inputs": [
+                {
+                  "kind": "state"
+                }
+              ],
+              "outputs": [
+                {
+                  "kind": "state"
+                }
+              ],
+              "role": "post"
+            }
+          ],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [
+            {
+              "kind": "source",
+              "source_type_id": "8c9c5065d57492bbc530dedf1408e94f13d842f442d4caadf87e094660ad2a14"
+            },
+            {
+              "kind": "state"
+            }
+          ],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-15",
+          "operation_hash": "bae49b8bdb03890ac2710ffdf1c3da3e48dbd2f2df5f746d17ae61260d6d78fc",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "control",
+              "result_types": [
+                "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+              ]
+            }
+          ],
+          "parameters": {
+            "condition_type": "8c9c5065d57492bbc530dedf1408e94f13d842f442d4caadf87e094660ad2a14"
+          },
+          "regions": [
+            {
+              "inputs": [
+                {
+                  "kind": "state"
+                }
+              ],
+              "outputs": [
+                {
+                  "kind": "control",
+                  "result_types": [
+                    "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                    "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+                  ]
+                }
+              ],
+              "role": "then"
+            },
+            {
+              "inputs": [
+                {
+                  "kind": "state"
+                }
+              ],
+              "outputs": [
+                {
+                  "kind": "control",
+                  "result_types": [
+                    "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                    "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+                  ]
+                }
+              ],
+              "role": "else"
+            }
+          ],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [
+            {
+              "kind": "location",
+              "source_type_id": "c82cbb19f48a90758c7f51984b5498def26a7a6c3cb3fd3095294341f7bde57b"
+            },
+            {
+              "kind": "source",
+              "source_type_id": "c82cbb19f48a90758c7f51984b5498def26a7a6c3cb3fd3095294341f7bde57b"
+            },
+            {
+              "kind": "state"
+            }
+          ],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            },
+            {
+              "category": "permission",
+              "ordinal": 0,
+              "predicate": "positive writes to materialized local array backing use its tracked FreshOwned permission"
+            }
+          ],
+          "op": "GP-OP-22",
+          "operation_hash": "dafa1f23300538a38b534d8d664ca0f3ec964c0b97c1308cd69d541f7639016f",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "state"
+            }
+          ],
+          "parameters": {
+            "operator": "add",
+            "rhs_type": "c82cbb19f48a90758c7f51984b5498def26a7a6c3cb3fd3095294341f7bde57b",
+            "type": "c82cbb19f48a90758c7f51984b5498def26a7a6c3cb3fd3095294341f7bde57b"
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [
+            {
+              "target": {
+                "end_byte": 1289,
+                "kind": "loop",
+                "ordinal": 0,
+                "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                "start_byte": 1150
+              }
+            }
+          ],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [
+            {
+              "kind": "state"
+            }
+          ],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-54",
+          "operation_hash": "effe60a03f003c9321112e8a80349f6f10434c84c5e76396a2e48d16f89e762e",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "control",
+              "result_types": [
+                "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d",
+                "aa67ad2425305018fe37f006ab066ba4190aa6cd69cb1a8ab0e1078918d6fd2f"
+              ]
+            }
+          ],
+          "parameters": {
+            "enclosing": [
+              {
+                "end_byte": 1289,
+                "kind": "loop",
+                "ordinal": 0,
+                "source_object_id": "8a465b0327c946192c0b9f3c3c25dd7e0220ca9822acdb849cfb8e7d502b48e1",
+                "start_byte": 1150
+              }
+            ]
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        },
+        {
+          "binding_requirements": [],
+          "capture_context_id": "b5383bf43c965a4a894344f999adc561063d74fab19f457eef4f829c4b3df55d",
+          "error_universe_id": "77e7fa9e3f6ef4aaecea108b3ae81eb5e34ffff9a0702be91921a976b574ade2",
+          "function_decl_id": "a12f0987d620150dd5add40bf2bdfb2ab24c0d4320385f0dd03e045ce16a7869",
+          "inputs": [],
+          "obligations": [
+            {
+              "category": "ordinary",
+              "ordinal": 0,
+              "predicate": "source_binding"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 1,
+              "predicate": "input_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 2,
+              "predicate": "evaluation"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 3,
+              "predicate": "safety_domain_permission"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 4,
+              "predicate": "value_effect_output_validity"
+            },
+            {
+              "category": "ordinary",
+              "ordinal": 5,
+              "predicate": "frame_joint_invocation"
+            }
+          ],
+          "op": "GP-OP-01",
+          "operation_hash": "f66aedc689479a713c0e81a02853fbc5d08e9aa40411c9e39ca05c3d6c4e8078",
+          "operation_table_sha256": "2eb0f811cf0000aa5666116af90d356426ead1e93d85479fff7fc5857b73b027",
+          "outputs": [
+            {
+              "kind": "source",
+              "source_type_id": "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d"
+            }
+          ],
+          "parameters": {
+            "type": "96420eb14ccd64307c829133d17b1cf3d38ba219d8f8eaf21afd87bb14e21d9d"
+          },
+          "regions": [],
+          "schema": "mpk.go.operation_definition.v1",
+          "semantic_context": {
+            "foundation_descriptor": {
+              "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+              "id": "mpk.go.practical.foundation.v1",
+              "schema": "mpk.go.foundation_descriptor.v1"
+            },
+            "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v3",
+              "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+              "revision": 1,
+              "schema": "mpk.semantic_profile.registry.v3"
+            },
+            "schema": "mpk.semantic_context.v3",
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.go_practical.v1",
+              "value": {
+                "compiler_release": "go1.25.0",
+                "effective_languages": [
+                  "go1.22",
+                  "go1.23",
+                  "go1.24",
+                  "go1.25"
+                ],
+                "goamd64": "v1",
+                "goarch": "amd64",
+                "goos": "linux",
+                "limits_id": "mpk.go.practical.limits.v1",
+                "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+                "pointer_width": 64,
+                "target_id": "linux/amd64"
+              }
+            },
+            "semantic_profile": "mpk.go.practical.v1",
+            "source_language": "go"
+          },
+          "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+          "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573",
+          "type_definitions_sha256": "85a129cc610d0df6d2f4d9807ec6cd2dbf05d0498de4f552cf8f098c42973c6a"
+        }
+      ],
+      "schema": "mpk.go.function_body.v1",
+      "semantic_context": {
+        "foundation_descriptor": {
+          "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+          "id": "mpk.go.practical.foundation.v1",
+          "schema": "mpk.go.foundation_descriptor.v1"
+        },
+        "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+        "profile_registry": {
+          "id": "mpk.semantic_profile.registry.v3",
+          "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+          "revision": 1,
+          "schema": "mpk.semantic_profile.registry.v3"
+        },
+        "schema": "mpk.semantic_context.v3",
+        "semantic_parameters": {
+          "schema": "mpk.semantic_parameters.go_practical.v1",
+          "value": {
+            "compiler_release": "go1.25.0",
+            "effective_languages": [
+              "go1.22",
+              "go1.23",
+              "go1.24",
+              "go1.25"
+            ],
+            "goamd64": "v1",
+            "goarch": "amd64",
+            "goos": "linux",
+            "limits_id": "mpk.go.practical.limits.v1",
+            "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+            "pointer_width": 64,
+            "target_id": "linux/amd64"
+          }
+        },
+        "semantic_profile": "mpk.go.practical.v1",
+        "source_language": "go"
+      },
+      "signature_id": "2c254c1953c80ff007e9358dd1bb92f8bcd071bea2bb7328f053845e0d124cde",
+      "source_scope_sha256": "3a88ac87bc413a19c027ab37cc0535304153beec4edbb638f2c3c5d3894d0573"
+    }
+  },
+  {
+    "id": "empty-original-function-candidate",
+    "model": "input-errors",
+    "raw": {
+      "ensures": [
+        {
+          "op": "bool.literal",
+          "value": true
+        }
+      ],
+      "error_inputs": [
+        {
+          "cases": [
+            "fixture/policy.RejectAlias"
+          ],
+          "input": 0,
+          "path": [
+            {
+              "kind": "field",
+              "name": "Err"
+            }
+          ]
+        },
+        {
+          "cases": [],
+          "input": 1,
+          "path": [
+            {
+              "kind": "elements"
+            }
+          ]
+        }
+      ],
+      "function": {
+        "function": "InputErrors",
+        "package": "fixture/policy",
+        "receiver": null
+      },
+      "loops": [],
+      "modifies": [],
+      "requires": [],
+      "schema": "mpk.go.practical.source_overlay.v1",
+      "source": "policy.go",
+      "termination": "total"
+    },
+    "record": {
+      "body": {
+        "captures": [],
+        "id": 0,
+        "nodes": [],
+        "parameters": [
+          {
+            "id": 0,
+            "type": {
+              "kind": "source",
+              "source_type_id": "e05e132b3a6df7f30dd336f07ca7b9e79a36dc4cddf6b04fed3d30f0acce9ba8"
+            }
+          },
+          {
+            "id": 1,
+            "type": {
+              "kind": "source",
+              "source_type_id": "335dfb0981b5c3b487cd096b159c5760379e38ea915750f2da15f9ced29556dc"
+            }
+          },
+          {
+            "id": 2,
+            "type": {
+              "kind": "state"
+            }
+          }
+        ],
+        "terminator": {
+          "kind": "normal",
+          "state": 2
+        }
+      },
+      "body_hash": "15b85edd199197114914f0d0cafa9728c6d92f1fea0bbbde9c8a684657700a50",
+      "capture_context_id": "d424c944e0a5b7d42f55bc56823bcf2da4798eb644a5c4669dcf43b8063495fc",
+      "contract_hash": "7b3d29955f8d02935eded80c7fd01adc0374e2b4c6abe44b0e9a9b090854da63",
+      "entry_arguments": [
+        {
+          "binding_id": "a45f127137f9bf32fe28098c346b9b0331e53ece03383a1f1c9f842392650881",
+          "value_id": 0
+        },
+        {
+          "binding_id": "028c2e5d311a8feae9f540058cf3bae4d41e27647a9fc6ad3a4c52308a92b4a0",
+          "value_id": 1
+        }
+      ],
+      "function_decl_id": "a04fd635c7c8cb9652a7a4c4273febdd46b9ffa18a7c78afb3c911fa36349561",
+      "obligation_sites": [],
+      "operation_definitions": [],
+      "schema": "mpk.go.function_body.v1",
+      "semantic_context": {
+        "foundation_descriptor": {
+          "content_sha256": "7b038ab4a8fcac4079bdb2228dd6345c8489224233fec81544e2aa98283a225d",
+          "id": "mpk.go.practical.foundation.v1",
+          "schema": "mpk.go.foundation_descriptor.v1"
+        },
+        "profile_entry_sha256": "0c15131de1279800ee5ee58c4c9a45f9a423e09b1721d9ba198868aa79fe5f9a",
+        "profile_registry": {
+          "id": "mpk.semantic_profile.registry.v3",
+          "registry_sha256": "cf3a801661437a8570fc39d8a63f2969161233e98c2a85683ce66b5ce1a0a6f9",
+          "revision": 1,
+          "schema": "mpk.semantic_profile.registry.v3"
+        },
+        "schema": "mpk.semantic_context.v3",
+        "semantic_parameters": {
+          "schema": "mpk.semantic_parameters.go_practical.v1",
+          "value": {
+            "compiler_release": "go1.25.0",
+            "effective_languages": [
+              "go1.22",
+              "go1.23",
+              "go1.24",
+              "go1.25"
+            ],
+            "goamd64": "v1",
+            "goarch": "amd64",
+            "goos": "linux",
+            "limits_id": "mpk.go.practical.limits.v1",
+            "limits_sha256": "49ab79bb15643fa34b5b0d9b15ce4c833d098e38b70e89f0af3206bdac570551",
+            "pointer_width": 64,
+            "target_id": "linux/amd64"
+          }
+        },
+        "semantic_profile": "mpk.go.practical.v1",
+        "source_language": "go"
+      },
+      "signature_id": "9fe99658661727b91e24823adfa098ad2d10d871a529fad7dc29da09161f3ee4",
+      "source_scope_sha256": "e0553af359718039910e6343f64e5473e577cddbe561d301ae6f21ad4a83ba29"
+    },
+    "universe": [
+      "fixture/policy.RejectCode"
+    ]
+  }
+]

@@ -1,0 +1,40 @@
+   Compiling libc v0.2.186
+   Compiling memchr v2.8.2
+   Compiling bitflags v2.13.1
+   Compiling mpk-theory v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-theory)
+   Compiling fastrand v2.5.0
+   Compiling once_cell v1.21.4
+   Compiling unicode-width v0.2.2
+   Compiling pulldown-cmark v0.13.4
+   Compiling pulldown-cmark-escape v0.11.0
+   Compiling unicase v2.9.0
+   Compiling getopts v0.2.24
+   Compiling serde_json v1.0.150
+   Compiling cpufeatures v0.2.17
+   Compiling errno v0.3.14
+   Compiling getrandom v0.4.3
+   Compiling sha2 v0.10.9
+   Compiling rustix v1.1.4
+   Compiling mpk-cert v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cert)
+   Compiling mpk-kernel v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-kernel)
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+   Compiling tempfile v3.27.0
+   Compiling mpk-api v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-api)
+   Compiling mpk-cli v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli)
+warning: unused import: `mpk_vc::validate_release_registry`
+ --> crates/mpk-cli/tests/../src/frontend_registry.rs:4:5
+  |
+4 | use mpk_vc::validate_release_registry;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `super`
+   --> crates/mpk-cli/tests/../src/frontend_registry.rs:427:9
+    |
+427 |     use super::*;
+    |         ^^^^^
+
+warning: `mpk-cli` (test "go_practical_installed_compiler") generated 2 warnings (run `cargo fix --test "go_practical_installed_compiler" -p mpk-cli` to apply 1 suggestion)
+    Finished `test` profile [unoptimized] target(s) in 1m 00s
+     Running tests/go_practical_installed_compiler.rs (target/debug/deps/go_practical_installed_compiler-dac03822e5d705f9)

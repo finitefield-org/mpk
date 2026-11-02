@@ -1,0 +1,125 @@
+[
+  {
+    "command": [
+      "/usr/local/bin/docker",
+      "context",
+      "inspect",
+      "--format",
+      "{{.Endpoints.docker.Host}}"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/linux-test-analysis-info/command-00-stdout.log",
+      "bytes": 57,
+      "sha256": "a9e6840b3066e2cc7d419c224f386890e92aaeb9545de3d7d059ae2acfe61354",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/linux-test-analysis-info/command-00-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  },
+  {
+    "command": [
+      "/usr/local/bin/docker",
+      "--host",
+      "unix:///Users/kazuyoshitoshiya/.orbstack/run/docker.sock",
+      "image",
+      "inspect",
+      "--format",
+      "{{.Id}} {{.Architecture}} {{.Os}}",
+      "sha256:d617f1b5c2a18778ba357ba0528e973bd24992b0dd18000dfbca059f4a15ebda"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/linux-test-analysis-info/command-01-stdout.log",
+      "bytes": 84,
+      "sha256": "c1039b2bb22ad902bea85a5ee848307b0f259060169fc6bb769c1b60d3eeae84",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/linux-test-analysis-info/command-01-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    }
+  },
+  {
+    "command": [
+      "/usr/local/bin/docker",
+      "--host",
+      "unix:///Users/kazuyoshitoshiya/.orbstack/run/docker.sock",
+      "run",
+      "-i",
+      "--pull=never",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "--read-only",
+      "--cap-drop",
+      "ALL",
+      "--security-opt",
+      "no-new-privileges",
+      "--user",
+      "501:20",
+      "--tmpfs",
+      "/tmp:rw,exec,nosuid,nodev,size=128m,mode=1777",
+      "--mount",
+      "type=bind,src=/Users/kazuyoshitoshiya/ff/mpk,dst=/workspace,readonly",
+      "--mount",
+      "type=bind,src=/private/tmp/mpk-go-practical-policy-linux-cargo,dst=/cargo",
+      "--mount",
+      "type=bind,src=/Users/kazuyoshitoshiya/.cargo/registry/index,dst=/cargo/registry/index,readonly",
+      "--mount",
+      "type=bind,src=/private/tmp/mpk-go-practical-policy-linux-target,dst=/target",
+      "--workdir",
+      "/workspace",
+      "--env",
+      "CARGO_HOME=/cargo",
+      "--env",
+      "CARGO_TARGET_DIR=/target",
+      "--env",
+      "CARGO_INCREMENTAL=0",
+      "--env",
+      "CARGO_PROFILE_DEV_DEBUG=0",
+      "--env",
+      "CARGO_PROFILE_DEV_CODEGEN_UNITS=1",
+      "--env",
+      "CARGO_PROFILE_TEST_OPT_LEVEL=1",
+      "--env",
+      "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS=true",
+      "--env",
+      "CARGO_PROFILE_TEST_OVERFLOW_CHECKS=true",
+      "--env",
+      "CARGO_PROFILE_TEST_DEBUG=0",
+      "sha256:d617f1b5c2a18778ba357ba0528e973bd24992b0dd18000dfbca059f4a15ebda",
+      "cargo",
+      "test",
+      "--offline",
+      "--locked",
+      "-p",
+      "mpk-cli",
+      "--test",
+      "go_practical_installed_compiler",
+      "--no-run",
+      "--message-format=json"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/linux-test-analysis-info/command-02-stdout.log",
+      "bytes": 59849,
+      "sha256": "68a5c5f9d28d668e52df1483d48fe16ab313e9bdb2ec089b7cbd3c667cdd1b37",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/linux-test-analysis-info/command-02-stderr.log",
+      "bytes": 227,
+      "sha256": "92a451e5dee318d4fc50e57678a5d395b9c16fa2a32c7d41cac85a87484ae485",
+      "mode": 420
+    }
+  }
+]

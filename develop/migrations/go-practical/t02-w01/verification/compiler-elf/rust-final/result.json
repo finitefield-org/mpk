@@ -1,0 +1,85 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_compiler_elf",
+    "--test",
+    "go_practical_compiler_inputs",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_ELF_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/rust-final/observations/elf",
+    "MPK_GO_COMPILER_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/rust-final/observations/compilers",
+    "MPK_GO_GRAPH_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/rust-final/observations/graphs",
+    "MPK_GO_GRAPH_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/rust-final/observations/graph-manifests",
+    "MPK_GO_MODULE_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/rust-final/observations/manifests",
+    "MPK_GO_EXPORT_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/rust-final/observations/exports"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/rust-final/inputs.json",
+    "bytes": 81765324,
+    "sha256": "68232a1d6a925c08c3d73540b331ece91490bc711e65b603e828685e6eacdedb",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/run.py",
+    "bytes": 11076,
+    "sha256": "83550a141b3ed4feca73f540c25aedd0b7e5ba47a325147166e5f9e1a499add7",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T21:28:20.774451+00:00",
+  "selection_reason": "Preserve all187 original executable/layout/text cases and9 actual original SDK tools. Compare full ELF class/endian/section/compression/name observations with pinned Go1.25, including entire3 actual SDK Zstandard streams, complete ZLIB/Zstandard prefixes and malformed/extended/unused metadata. No SDK/source/body/Root/type/error/proof scope, native compiler/release condition, source/bundle/kernel/certificate cap or public profile changes. Run the independent ELF reader and full original5577-file/182-package/5697-object compiler owner with all prior coherent claim/content/role/manifest controls. Select only the reader and its affected compiler-input consumers, scoped Clippy/vet/formats. No whole gate or removed-language tests.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 549.4235937920166,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/rust-final/stdout.log",
+    "bytes": 897,
+    "sha256": "40d74ca445938522a3887d25e843f066fb4aeb105d5522a405d7426c277cf6ba",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/rust-final/stderr.log",
+    "bytes": 471,
+    "sha256": "20d0eefd99190d0f7c1e79b8c15180db28bddb5ecd94d973a3350455361e3ef0",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T21:37:30.209677+00:00"
+}

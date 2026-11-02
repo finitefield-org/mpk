@@ -5,14 +5,14 @@ use std::collections::BTreeMap;
 
 pub const PROFILE_REGISTRY_SCHEMA: &str = "mpk.semantic_profile.registry.v1";
 pub const PROFILE_REGISTRY_ID: &str = "mpk.semantic_profile.registry.v1";
-pub const PROFILE_REGISTRY_REVISION: i64 = 3;
+pub const PROFILE_REGISTRY_REVISION: i64 = 4;
 pub const PROFILE_REGISTRY_SHA256: &str =
-    "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557";
+    "25c92a9be951c91d0692aeb92003ae1d9fc5dd2d6a337c980ff6e681b222d2c0";
 pub const PROFILE_ENTRY_SHA256: &str =
     "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057";
 pub const PARAMETERS_SCHEMA: &str = "mpk.semantic_parameters.rust_checked.v0";
 pub const SELECTION_SCHEMA: &str = "mpk.selection.rust_function.v0";
-pub const FRONTEND_ID: &str = "frontend.rust.rust2vir.candidate.v2";
+pub const FRONTEND_ID: &str = "frontend.rust.rust2vir.candidate.v3";
 pub const TOOLCHAIN_ID: &str = "toolchain.rust.nightly-2025-06-01.candidate.v1";
 pub const TOOLCHAIN_DISTRIBUTION_SHA256: &str =
     "86dab73dadd3a3184064e7d7da7e878562eba4cfc4c8a969bc8f44a5e865c90a";

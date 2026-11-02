@@ -1,0 +1,115 @@
+{
+  "status": "passed",
+  "reviewed_at_utc": "2026-10-18T19:12:25.445758+00:00",
+  "source_base_commit": "e8ceb3c1fd8501e1fe774289091f188cdc8fdc65",
+  "scope": "Manual review of all six changed Rust test-support files against staged/current bytes, corroborated by exact inverse-source audits and complete selected executions. This is not the entire repaired T01 gate.",
+  "command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--unified=0",
+    "--",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_foundation_proof_tests.rs",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_identity_proof_tests.rs",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_default_proof_tests.rs",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs"
+  ],
+  "exact_test_source_diff": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/final-repair-review/test-source.diff.log",
+    "sha256": "5d23cdeb1270177a870c39698adc8c99b85c495f7f60e152c2b98e3fe0e623fd",
+    "bytes": 10424
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_foundation_proof_tests.rs",
+      "sha256": "7d6cb52ea13a6bb0d1f2b4990ffd416d621c0f8f8a934516e9ea532a8a92e016",
+      "bytes": 13931
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_identity_proof_tests.rs",
+      "sha256": "0f3421a487dac88a069017ebfbe18e5484f17296463d39d2d065d738aa39592f",
+      "bytes": 9486
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_default_proof_tests.rs",
+      "sha256": "ef59c70eb4eaa939fc90c843c8e2702e272ffb585b89e83273dc1e111eedd78e",
+      "bytes": 8189
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_edge_tests.rs",
+      "sha256": "b7dd63d21d97a1b1ae05c3456395595f0a3626ef94f2710563092d08ae7b59b6",
+      "bytes": 151531
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_decimal_clause_tests.rs",
+      "sha256": "44cefa6b2cdfa7af673819a1fbad9fe7ccfc14828cab541ef25b7fb35c7fa5f7",
+      "bytes": 21332
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs",
+      "sha256": "8eff8cd8609056492fbf8d38db238163a8507e27cd0f667d1019cc9dcbf9382f",
+      "bytes": 23090
+    }
+  ],
+  "source_preservation_audits": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/source-preservation-audit.json",
+      "sha256": "9ebb60542f1f9a0ae1b17078ca1bbd5c75e34c8a8c148ba8df18114f40b7a708",
+      "bytes": 2436
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-builtin-throw-diagnosis/source-preservation-audit.json",
+      "sha256": "a7c90a74ec8a94f51ce6601f9697421724ee6670f4f453c4f0d16e84dd2d3284",
+      "bytes": 879
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/source-preservation-audit-repaired-path.json",
+      "sha256": "0e24d557956799f84336785790264dadee2865c242caac4f4d29dcbbee5268eb",
+      "bytes": 1034
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/source-preservation-audit.json",
+      "sha256": "8b1c4a02adb9d7a5cbe04543fd78939e4ccdaaccca232057f7f6d22db7787eaf",
+      "bytes": 1040
+    }
+  ],
+  "explicitly_audited_owner_helper_assertions": {
+    "component_owner_sources": 99,
+    "original_control_preservation_helper": 46,
+    "decimal_owner_source": 17,
+    "fixed_codec_owner_source": 23,
+    "total": 185,
+    "note": "Owner/helper invocation census; other unchanged control-file assertions also remain byte identical."
+  },
+  "observations": [
+    {
+      "area": "Component proof owners",
+      "result": "Complete current metadata/certificate goldens add checks; original strict imports, sequents, prefixes, false-goal controls, loops and bounds remain. Identity/default unchanged certificates retain exact predecessor byte comparisons."
+    },
+    {
+      "area": "Control epochs",
+      "result": "Exact manifest SHA pins528 members and supporting receipts. Both historical comparison legs and228 comparisons remain. Current18-context full-golden/strict-import owner and five real mutations exercise original assertions."
+    },
+    {
+      "area": "Input echoes",
+      "result": "Original inputs and separate exact serialized echoes are byte-pinned and complete JSON values are compared before the original full output-byte assertion. Full-width invalid digits, original runtime/packet loops and all source values remain unchanged."
+    },
+    {
+      "area": "Scope and pending work",
+      "result": "No production frontend, interpreter, kernel, checker or active registry source changes in this patch. Both checkers agree on49 zero-axiom positive certificates and5 CoreCheck rejections. CSharp987 application IDs andGo169 demands remain pending. The entire repaired gate is still required."
+    }
+  ],
+  "sealed_current_proof_inputs": {
+    "path": "develop/migrations/go-practical/t01-w05/retained-csharp/current-proof-inputs/manifest.json",
+    "sha256": "20ba89b8666397b7557250f296f8b170e650fc1f3d0dc8327edea4137a8a7189",
+    "bytes": 255703
+  },
+  "findings": [],
+  "final_changed_input_review_required": true,
+  "full_gate_passed": false,
+  "T01_complete": false,
+  "T02_started": false,
+  "diff_context": "All changed lines are retained with --unified=0. Full source bytes and exact inverse-source audits are separately pinned; no source or validation scope is excluded."
+}

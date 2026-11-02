@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-18T18:39:12.183335+00:00",
+  "source_base_commit": "e8ceb3c1fd8501e1fe774289091f188cdc8fdc65",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "RUST_MIN_STACK": "unset",
+  "test_source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_fixed_codec_clause_tests.rs",
+    "sha256": "8eff8cd8609056492fbf8d38db238163a8507e27cd0f667d1019cc9dcbf9382f",
+    "bytes": 23090
+  },
+  "selection_reason": "Only the final serialized requests input echo association changes. Build the existing integration target with all original context, closure, import, mutation and runtime assertions preserved; no compiler, producer, interpreter, checker or resource bounds change.",
+  "pid": 74206,
+  "exit_code": 0,
+  "wall_seconds": 41.34122316702269,
+  "finished_at_utc": "2026-10-18T18:39:53.525420+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/build/stdout.jsonl",
+    "sha256": "0c6069c820008852865730acb54edd4f612a03d9dfa613db54632049b08e5cfc",
+    "bytes": 30425
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/fixed-codec-clauses-repair/build/stderr.log",
+    "sha256": "865a1d27e42f89ca339914079af3de705e2ca4c06f34e1ba682e3a273bda2e39",
+    "bytes": 146
+  },
+  "executable": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "17b721db9bead4c1322dd7d8a7b91f9e1825484e27d6dd2928b037cce30c19d3",
+    "bytes": 41036104
+  },
+  "profile": {
+    "opt_level": "1",
+    "debuginfo": 2,
+    "debug_assertions": true,
+    "overflow_checks": true,
+    "test": true
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "selection_reason": "Inspect the actual example target after two exploratory forced test-cfg invocations incorrectly applied test flags to ordinary dependency libraries without their test harness/dev dependencies. The standard targeted Linux Clippy command is recorded separately.",
+  "command": [
+    "cargo",
+    "metadata",
+    "--offline",
+    "--locked",
+    "--no-deps",
+    "--format-version",
+    "1"
+  ],
+  "exit_code": 0,
+  "example_kind": [
+    "example"
+  ],
+  "example_test_harness_enabled": false,
+  "stdout_sha256": "3763995c76d2e47a2eaa4c6eab885cd2d901abb8b3c1910609b0f800a25dac49",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

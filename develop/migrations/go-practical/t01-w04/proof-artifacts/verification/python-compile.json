@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "-B",
+    "-c",
+    "from pathlib import Path;p=Path('develop/probes/go-practical');names=('proof_canonical.py', 'proof_artifacts.py', 'proof_artifact_vectors.py', 'go_obligations.py', 'proof_components.py', 'proof_native_build.py', 'run_proof_artifacts.py', 'test_proof_artifacts.py', 'check_proof_artifact_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: nine new Python sources compile')"
+  ],
+  "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+  "exit_code": 0,
+  "wall_seconds": 0.04376320808660239,
+  "log": "python-compile.log",
+  "sha256": "790c0da65fba14cfcd4b6047c66a4cf1d865209c86ed3f831d99682e15f0cbd6",
+  "reason": "All nine new proof/canonical/demand/fixture/component/build/replay/test/metadata Python sources"
+}

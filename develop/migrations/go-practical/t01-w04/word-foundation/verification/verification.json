@@ -1,0 +1,246 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_word_foundation"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "unit.log",
+      "reason": "All16 affected word/proof/source-specialization tests,nominal and definedness boundaries,exact initial failures; new ordinary definitions and actual native observations covered",
+      "sha256": "579d5b4ceb0f7dbb05cfdccf94731dcfbc92c5158d05da03f82519d57ed5b393",
+      "wall_seconds": 12.47261137503665
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "develop/probes/go-practical/run_word_foundation.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh build of unchanged77-source checkers,21 actual paired certificate cases,787 value specializations and1640 AST/Go/integer observations; verify full source/toolchain/binary replay",
+      "sha256": "ee664a9fc37c4d6a2babf260879094173310ffb68b6609f4f27508feba0ba994",
+      "wall_seconds": 169.63447175000329
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "develop/probes/go-practical/check_word_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "environment": {
+        "PYTHONPATH": "develop/probes/go-practical"
+      },
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Full ordinary expansion,685 source/data pins,preceding proof/capture evidence,143 predecessor paths,strict JSONs,document links and ordered ledger49; W04 remains open",
+      "sha256": "6f14218d44532c438f5b9a7dcc6482d6d04959e1789d8ac1fe609c9dffd7df6a",
+      "wall_seconds": 64.47582358296495
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+        "-l",
+        "develop/probes/go-practical/word_observer.go"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "gofmt.log",
+      "reason": "Only the new actual-Go word observer; preceding/private/production Go files unchanged",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.040818165987730026
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-B",
+        "-c",
+        "from pathlib import Path;p=Path('develop/probes/go-practical');names=('word_foundation.py','word_cases.py','word_bindings.py','run_word_foundation.py','test_word_foundation.py','check_word_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: six new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "All six new ordinary-term/source-specialization/replay/test/metadata Python sources",
+      "sha256": "5f3537ba7604ac2b60bd9acce8ddff6181bb844aa6ce5a06c3175b95c2bbdc85",
+      "wall_seconds": 0.053149625076912344
+    }
+  ],
+  "combined_certificate": {
+    "bytes": 513817,
+    "declarations": 2756,
+    "expected": "accepted",
+    "id": "source-word-values",
+    "module": "Probe.GoPractical.WordFoundation.SourceWordValues",
+    "mutation": "combined",
+    "new_definitions": 2575,
+    "new_theorems": 146,
+    "terms": 19718,
+    "width": null
+  },
+  "complete_go_elaboration": false,
+  "document_links": 405,
+  "documents": 24,
+  "entry_commit": "ee1083c14e7050e08a411f0fcda7e1d78ec1abba",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; final W05 owns cumulative whole T01 gate",
+    "status": "deferred"
+  },
+  "full_word_Nat_bridge_proved": false,
+  "host_toolchain_inventory": {
+    "files": 14496,
+    "sha256": "85d1dd7ca77c9263d83e25f05e4c32105738fdc002434d61b27671aee4e259bc"
+  },
+  "initial_repaired_failures": [
+    {
+      "finding": "a full operation digest used as a name component may begin with a digit",
+      "record": "initial-binding-name/diagnostic.json",
+      "repair": "prefix the complete hash component with H; no truncation,identity or semantic change",
+      "scope": "ordinary declaration name format,not a core proposition/source failure",
+      "sha256": "8dfcc8e4d1095b6bdb85f5f37f691d587e81451b718176c15cfc53c6cb0eff0d"
+    },
+    {
+      "finding": "specialized carry proof still used an implicit zero-bit evaluation in a nested eliminator argument",
+      "record": "initial-congruence-arguments/diagnostic.json",
+      "repair": "prove the concrete zero-bit normalization explicitly with Eq.congr/trans; keep each carry step as a named compact universal lemma",
+      "scope": "ordinary proof composition mismatch,not source rejection",
+      "sha256": "e451fbeeaabd7a97c04a290e93a0785fe87142496c2a01b09f1d4a67cc05fb90"
+    },
+    {
+      "finding": "fully nested per-bit carry evaluation proofs exceed128 JSON nesting at width16",
+      "record": "initial-deep-evaluation/diagnostic.json",
+      "repair": "name universal carry-zero lemmas and compose each step with Eq.congr/trans; use one compact reference per carry instead of nesting the complete prior evaluation proof",
+      "scope": "untrusted emitter parser/construction depth,not a failed ordinary theorem",
+      "sha256": "5cecb5821cbecf32d6bd1c6480c81c8dbafa26d8b1cc23d78dd8177427672574"
+    },
+    {
+      "finding": "Bool iota requires a direct constructor discriminant; nested ordinary definition applications do not normalize as a discriminant automatically",
+      "record": "initial-nested-elimination/diagnostic.json",
+      "repair": "construct ordinary Eq.congr/trans/symm evaluation proofs; retain all77 private checker source bytes",
+      "scope": "retained definitional-equality boundary,not source rejection or a checker extension",
+      "sha256": "0a4e6b63afd41f310eb4df73762c39a720c54a56c356f5e4a6da5aca466f6967"
+    },
+    {
+      "finding": "left-associated equality/count predicates exceed the retained emitter serde_json nesting limit",
+      "record": "initial-parser-depth/diagnostic.json",
+      "repair": "balance finite And/Or folds in the new ordinary circuit generator; keep retained emitter/checkers unchanged",
+      "scope": "untrusted emitter JSON parser limit,not ordinary core/source rejection",
+      "sha256": "81836652b11ba61a705a13c018258e1333a5ac9f05f660a932c9deaa85b813f0"
+    },
+    {
+      "finding": "universal Bool eliminator already returns lambdas; declaration helper wrapped the same parameters again",
+      "record": "initial-universal-binders/diagnostic.json",
+      "repair": "emit the complete quantified theorem type and already-bound proof without duplicate lambdas; preserve both independent checker rejections",
+      "scope": "incorrectly constructed proof term,not a Go source counterexample",
+      "sha256": "6a1985f7f084187bf4033af149b36f9ca09c2c7ed74e52eb4829d0f6b73e3a0e"
+    }
+  ],
+  "materialization": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+      "-B",
+      "develop/probes/go-practical/run_word_foundation.py",
+      "--write"
+    ],
+    "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+    "environment": {
+      "PYTHONPATH": "develop/probes/go-practical"
+    },
+    "exit_code": 0,
+    "log": "initial-materialization.log",
+    "reason": "Materialize exact full-width ordinary definitions and source specializations;21 actual paired proof cases,two emissions each,1640 actual AST/native-Go/integer observations; W04 remains open",
+    "sha256": "ee664a9fc37c4d6a2babf260879094173310ffb68b6609f4f27508feba0ba994",
+    "wall_seconds": 160.56788708397653
+  },
+  "maximum_direct_proof_child_rss_bytes": 298024960,
+  "maximum_direct_proof_child_wall_seconds": 0.5065363330068067,
+  "metadata_checker_sha256": "e12e7a5f822c4bcc4d596b879b2b8a652bf088a44097826a9f756aa3bc6a5131",
+  "native_observations": 1640,
+  "not_repeated": [
+    "unaffected older kernel/ordinary/native matrices; prior proof/capture/module reconstruction and all143 predecessor/source pins verified",
+    "formatting unchanged prior/private/production sources; only new Go observer checked; no new Rust source was introduced"
+  ],
+  "observation_outcomes": {
+    "boolean": 288,
+    "runtime_safety_failure": 40,
+    "word": 1312
+  },
+  "observed_tests": 16,
+  "ordinary_cases": 21,
+  "outcomes": {
+    "accepted_zero_axiom": 5,
+    "ill_typed_ordinary_term": 4,
+    "incorrect_ordinary_claim": 12
+  },
+  "output_scope": "complete raw combined stdout/stderr of selected local subprocesses; exact initial construction sources/plans/certificates/reports retained separately",
+  "profile_activated": false,
+  "proof_resource_scope": "60s/1GiB per direct proof child; Python fixture/AST observation construction is not a certificate check or release measurement",
+  "remaining": [
+    "full-width Nat/Int interpretation/conservation/division/shift/source correctness proofs",
+    "remaining contract/operation/source/state/permission/frame/control/totality ordinary definitions and proofs; complete Go statement/program/skeleton assembly",
+    "frontend-envelope/policy/API/release roots,reviewed migrations,W04 freeze,W05 inactive publication/T01 gate and full T02–T11"
+  ],
+  "review": {
+    "checked": [
+      "full-bit carrier widths/address order and polynomial shared carry/shift/division stage dependencies",
+      "wrapping arithmetic and source-signed widening; literal representability checked before wrapping",
+      "restoring division comparison uses complete shifted remainder; zero totalizers retain independent mandatory DivideDefined guard",
+      "all64 shift-count bits used; negative signed counts sign-extend and fail their explicit guard",
+      "Eq.congr/trans/symm prove nested Bool computations within retained iota rules; no added axiom,opcode,reduction,eta or extensionality",
+      "arbitrary-word pointwise laws and compact prior carry theorem references,not exhaustive input enumeration",
+      "whole captured operation reconstruction before787 Value/Defined definitions; full context/scope/hash and ordered nominal IDs retained",
+      "same-width nominal types,caller formulas/proof flags and changed operators cannot borrow a valid specialization",
+      "actual ordinary AST interpreter and independent mathematical oracle compared to actual pinned Go operators/runtime panics for all1640 queries",
+      "five actual paired zero-axiom certificates with exact output hashes; twelve false-claim and four type-invalid controls fail in both cores",
+      "fresh77-source private checker build and exact emit/binary/toolchain replay; production core/kernel,Certificate v0,preceding helpers and installed profiles unchanged",
+      "value/definedness definitions do not discharge source/evaluation/state/permission/frame or complete Go function obligations; prior169 requests remain pending"
+    ],
+    "kind": "local manual review of full-width circuits,ordinary equality proof construction,source nominal/count specialization,independent finite observations and affected documentation",
+    "remaining_requirements": [
+      "full-width Nat/Int interpretation/conservation/division/shift/source correctness proofs",
+      "remaining contract/operation/source/state/permission/frame/control/totality ordinary definitions and proofs; complete Go statement/program/skeleton assembly",
+      "frontend-envelope/policy/API/release roots,reviewed migrations,W04 freeze,W05 inactive publication/T01 gate and full T02–T11"
+    ],
+    "resolved_findings": [
+      "prefix the complete hash component with H; no truncation,identity or semantic change",
+      "prove the concrete zero-bit normalization explicitly with Eq.congr/trans; keep each carry step as a named compact universal lemma",
+      "name universal carry-zero lemmas and compose each step with Eq.congr/trans; use one compact reference per carry instead of nesting the complete prior evaluation proof",
+      "construct ordinary Eq.congr/trans/symm evaluation proofs; retain all77 private checker source bytes",
+      "balance finite And/Or folds in the new ordinary circuit generator; keep retained emitter/checkers unchanged",
+      "emit the complete quantified theorem type and already-bound proof without duplicate lambdas; preserve both independent checker rejections"
+    ]
+  },
+  "schema": "mpk.go_practical.w04_word_foundation_verification.v0",
+  "scope": "ordinary8/16/32/64-bit circuits and universal carry/bit identities,source-typed value/definedness definitions and finite real-Go comparison; no universal Nat bridge,source/operation/frame proof or complete Go VC elaboration",
+  "source_evaluation_proved": false,
+  "source_inputs": 685,
+  "source_operations": 787,
+  "source_word_types": 13,
+  "status": "W04 in progress; five selected local checks passed; no T complete",
+  "strict_jsons": 136,
+  "unchanged_private_checker_sources": 77,
+  "unit_execution": {
+    "failed": 0,
+    "passed": 16,
+    "record": "unit.json",
+    "selection": "New ordinary arithmetic circuits,proof construction,source-value/definedness specializations and all affected nominal/source/shift/division/canonical evidence boundaries; fresh replay executes all21 paired native proofs and1640 actual AST/Go/integer observations",
+    "tests": 16
+  },
+  "work_item": "GO-PRAC-T01-W04"
+}

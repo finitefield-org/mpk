@@ -7,26 +7,13 @@
 
 pub mod call_wp;
 pub mod canonical_json;
-#[doc(hidden)]
-pub mod csharp_practical_consumer;
-#[doc(hidden)]
-pub mod csharp_practical_registry;
-#[doc(hidden)]
-pub mod csharp_practical_release;
-#[doc(hidden)]
-pub mod csharp_practical_source_artifacts;
-#[doc(hidden)]
-pub mod csharp_practical_vc_model;
-#[doc(hidden)]
-pub mod csharp_practical_vir_model;
-#[doc(hidden)]
-pub mod csharp_practical_vir_validation;
 pub mod expr_encode;
+#[doc(hidden)]
+pub mod go_practical_ordinary;
+#[doc(hidden)]
+pub mod go_practical_type_keys;
 pub mod grouping;
 pub mod hash;
-mod java_profile;
-pub mod java_release;
-mod java_source_artifacts;
 pub mod program_encode;
 pub mod program_wp;
 mod release_bundle;

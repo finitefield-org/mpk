@@ -1,0 +1,493 @@
+{
+  "status": "reviewed_with_original_diagnostic_bytes_preserved",
+  "observed_at_utc": "2026-10-20T17:03:34.296828+00:00",
+  "automated_review": {
+    "path": "develop/migrations/go-rust-only/verification/final-input-review/staged-review.json",
+    "sha256": "8ce121572445e55ced11483051fcd771fd610d2d2bf7f7addb059b8f0ac4767e",
+    "bytes": 2176734,
+    "status": "failed",
+    "exit_code": 1
+  },
+  "full_original_outputs": [
+    {
+      "path": "/private/tmp/mpk-go-rust-scope/final-staged.stdout",
+      "sha256": "d419dbaa3ba1d0e5d42ed90292835b33926a76267193b6580a9d221431ec015b",
+      "bytes": 399,
+      "base64": "eyJzdGF0dXMiOiAiZmFpbGVkIiwgIm1vZGUiOiAic3RhZ2VkIiwgImRlY29kZWRfY29tcGxldGVfcGF5bG9hZF9jb3VudCI6IDU0MjgsICJzb3VyY2VfaW5wdXRzX3VuY2hhbmdlZF9kdXJpbmdfcmV2aWV3IjogdHJ1ZSwgImxpbmtzX2NoZWNrZWQiOiAzNDEsICJmaW5kaW5ncyI6IFt7Im1hdGNoZXJfaWQiOiAiaGVscGVyLWtpbmQtZ28tc291cmNlIiwgIm93bmVyIjogIkdPLVZJUi0wMi1UMTIiLCAicGF0aCI6ICJkZXZlbG9wL21pZ3JhdGlvbnMvZ28tcnVzdC1vbmx5L3ZlcmlmaWNhdGlvbi9vYnNlcnZlZC1zY3JhdGNoLWxvZ3MvY29tcGxldGUuYnl0ZXMuanNvbiNkZWNvZGVkLTM3MzIiLCAibGluZSI6IDN9XSwgIm1pc3NpbmdfbGlua3MiOiBbXSwgIndoaXRlc3BhY2VfZXhpdF9jb2RlIjogMn0K"
+    },
+    {
+      "path": "/private/tmp/mpk-go-rust-scope/final-staged.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "base64": ""
+    }
+  ],
+  "original_negative_diagnostic": {
+    "matcher_id": "helper-kind-go-source",
+    "owner": "GO-VIR-02-T12",
+    "path": "develop/migrations/go-rust-only/verification/observed-scratch-logs/complete.bytes.json#decoded-3732",
+    "line": 3
+  },
+  "original_negative_diagnostic_characterization": "negative-diagnostic-review.json",
+  "decoded_complete_payload_count": 5428,
+  "links_checked": 341,
+  "missing_links": [],
+  "source_inputs_unchanged_during_review": true,
+  "git_diff_check": {
+    "exit_code": 2,
+    "warning_count": 62,
+    "complete_raw_log_count": 25,
+    "warnings": [
+      {
+        "path": "develop/migrations/go-rust-only/verification/go-vc-final-update/stdout.log",
+        "line": 6,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/host-final/api.stdout.log",
+        "line": 19,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/host-final/cli.stdout.log",
+        "line": 76,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/host-final/vc.stdout.log",
+        "line": 103,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/policy.stdout.log",
+        "line": 8,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stderr.log",
+        "line": 23,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stderr.log",
+        "line": 49,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stderr.log",
+        "line": 75,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stderr.log",
+        "line": 101,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stderr.log",
+        "line": 127,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stderr.log",
+        "line": 153,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stderr.log",
+        "line": 179,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stderr.log",
+        "line": 205,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stderr.log",
+        "line": 231,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stderr.log",
+        "line": 257,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stdout.log",
+        "line": 24,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/policy.stdout.log",
+        "line": 8,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stderr.log",
+        "line": 64,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stderr.log",
+        "line": 90,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stderr.log",
+        "line": 116,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stderr.log",
+        "line": 142,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stderr.log",
+        "line": 168,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stderr.log",
+        "line": 194,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stderr.log",
+        "line": 220,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stderr.log",
+        "line": 246,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stderr.log",
+        "line": 272,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stderr.log",
+        "line": 298,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stdout.log",
+        "line": 24,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-shared-consumers-final/api.stdout.log",
+        "line": 10,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-shared-consumers-final/consumers.stdout.log",
+        "line": 33,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-shared-consumers-fixed/api.stdout.log",
+        "line": 10,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-shared-consumers-fixed/consumers.stdout.log",
+        "line": 33,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-shared-consumers/consumers.stdout.log",
+        "line": 21,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/policy.stdout.log",
+        "line": 8,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stderr.log",
+        "line": 23,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stderr.log",
+        "line": 49,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stderr.log",
+        "line": 75,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stderr.log",
+        "line": 101,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stderr.log",
+        "line": 127,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stderr.log",
+        "line": 153,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stderr.log",
+        "line": 179,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stderr.log",
+        "line": 205,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stderr.log",
+        "line": 231,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stderr.log",
+        "line": 257,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stdout.log",
+        "line": 24,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+        "line": 19,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+        "line": 45,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+        "line": 71,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+        "line": 97,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+        "line": 123,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+        "line": 149,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+        "line": 175,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+        "line": 201,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+        "line": 227,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+        "line": 253,
+        "warning": "trailing whitespace."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+        "line": 260,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/rust-frontend-final-contracts/stderr.log",
+        "line": 15,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/rust-frontend-final-contracts/stdout.log",
+        "line": 20,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/rust-frontend-final-readonly-complete/stdout.log",
+        "line": 53,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/rust-frontend-final-readonly-retry/stdout.log",
+        "line": 19,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/rust-frontend-final-readonly/stdout.log",
+        "line": 19,
+        "warning": "new blank line at EOF."
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/rust-frontend-final-update/stdout.log",
+        "line": 9,
+        "warning": "new blank line at EOF."
+      }
+    ],
+    "complete_raw_logs": [
+      {
+        "path": "develop/migrations/go-rust-only/verification/go-vc-final-update/stdout.log",
+        "sha256": "3b156d42d09d1436f08474a2e0a206c915691a802d414eb53ccbc27ab5c9393c",
+        "bytes": 191
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/host-final/api.stdout.log",
+        "sha256": "cc3da5c7c173526568b4d73170f64c1ea1f707cee80d8438da22e75c3edd6187",
+        "bytes": 1199
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/host-final/cli.stdout.log",
+        "sha256": "3f3f0b14ea2a44ab4423fe5f5dfc38f6b6bca3d0b39f8389ae2e40af4f5cfd60",
+        "bytes": 2948
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/host-final/vc.stdout.log",
+        "sha256": "6f19aa169aaad51591ea0dc02dd337a24b1cd9645c7a447b8d017e851fc40b49",
+        "bytes": 4976
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/policy.stdout.log",
+        "sha256": "ac11c0bfa738db885306e9c6d4ea1bf229101c0df6a1417b331bdd8d5344e970",
+        "bytes": 390
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stderr.log",
+        "sha256": "2ea6befad249da33dd7ff9bbd9bd0bd2c672877ae7be7f744594234609229b8c",
+        "bytes": 6791
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-libraries-fixed/sandbox.stdout.log",
+        "sha256": "73b6b6fc6939e3f3206c6077802baf8987534722bf62360457a8a451b18835b1",
+        "bytes": 2059
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/policy.stdout.log",
+        "sha256": "711a4dbd480ffe04bac3ec1249a1352eb10f2ea478fafa002ce08ee22f7406cf",
+        "bytes": 390
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stderr.log",
+        "sha256": "4110c14bf8706c6e17e4eae8a88cba79f8967689b88c764c7c2c03c59480b755",
+        "bytes": 8537
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-rebound/sandbox.stdout.log",
+        "sha256": "73b6b6fc6939e3f3206c6077802baf8987534722bf62360457a8a451b18835b1",
+        "bytes": 2059
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-shared-consumers-final/api.stdout.log",
+        "sha256": "a96d655abbfc80738fce6f1eac1fe94631eddae06a61960463fc0c433d584b8c",
+        "bytes": 567
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-shared-consumers-final/consumers.stdout.log",
+        "sha256": "25b491a434c271cb4809a9b14dd5fe4ddc236ab8332bf265d0bb7d4e9cb2293c",
+        "bytes": 1401
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-shared-consumers-fixed/api.stdout.log",
+        "sha256": "b83bef31d57a01c9c1e8585daee8db02c0879a95b590b443e7f9bf01e875c410",
+        "bytes": 567
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-shared-consumers-fixed/consumers.stdout.log",
+        "sha256": "c76b056eb9cec1be0abf7a52686fb8ffd3b06b17ff3967de596c50116d723669",
+        "bytes": 1401
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-shared-consumers/consumers.stdout.log",
+        "sha256": "6bc405a6684950e9fd6c4812744bb26b61f59a7735593c6da44e152d0eebd789",
+        "bytes": 771
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/policy.stdout.log",
+        "sha256": "ac11c0bfa738db885306e9c6d4ea1bf229101c0df6a1417b331bdd8d5344e970",
+        "bytes": 390
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stderr.log",
+        "sha256": "1711097d85d8130ec6ed8d7ddfda088ce1e6d6596202e7b2d1e7187f04689cf6",
+        "bytes": 6791
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/linux-stable-libraries/sandbox.stdout.log",
+        "sha256": "73b6b6fc6939e3f3206c6077802baf8987534722bf62360457a8a451b18835b1",
+        "bytes": 2059
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/native-host-guard/emulated-cpuinfo.stdout.log",
+        "sha256": "887e7ea00535df6e13b234e1ad46e879c443dd5cc3ccd7857fd32f7d003eb8bb",
+        "bytes": 6460
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/rust-frontend-final-contracts/stderr.log",
+        "sha256": "9597bbf9497ff75c9b9703a892be6744827f120296a612630184ac282edd4071",
+        "bytes": 498
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/rust-frontend-final-contracts/stdout.log",
+        "sha256": "46a0f35d439aa030967ff59c3a89467534f25b404a72defd18740cd3251b01e7",
+        "bytes": 1327
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/rust-frontend-final-readonly-complete/stdout.log",
+        "sha256": "e1fbf743dfd46f807e86287e130e8992b0189bed57c8fbd773920be0ca4bc49f",
+        "bytes": 2516
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/rust-frontend-final-readonly-retry/stdout.log",
+        "sha256": "5de3e025237a3ea3d23179e302c283bd327540ad06aae369bb51cd148a96eeb9",
+        "bytes": 879
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/rust-frontend-final-readonly/stdout.log",
+        "sha256": "5de3e025237a3ea3d23179e302c283bd327540ad06aae369bb51cd148a96eeb9",
+        "bytes": 879
+      },
+      {
+        "path": "develop/migrations/go-rust-only/verification/rust-frontend-final-update/stdout.log",
+        "sha256": "b133706fc1615994afa84ee09d78b6de36376688052015e241d7633b1e624600",
+        "bytes": 569
+      }
+    ],
+    "source_or_document_whitespace_warnings": 0,
+    "interpretation": "All whitespace warnings are actual process-output bytes in the listed 25 complete raw logs. Preserve their exact bytes; no source/document warning or whitespace policy change is accepted."
+  },
+  "actionable_current_code_findings": [],
+  "matcher_scope_seal_counts": [
+    127,
+    4,
+    39
+  ],
+  "new_source_JSON_directory_or_blanket_exclusions": false,
+  "source_or_diagnostic_bytes_sanitized": false,
+  "zero_findings_or_zero_whitespace_claimed_for_full_evidence": false,
+  "native_release_acceptance": false,
+  "cumulative_gate_deferred_to": "GO-PRAC-T02-W04: ./scripts/check-fast.sh"
+}

@@ -1,0 +1,144 @@
+#!/usr/bin/env python3
+"""Replay full-word addition in the checked ordinary Nat/Int library."""
+import argparse
+import json
+import os
+import subprocess
+import tempfile
+from collections import Counter
+from pathlib import Path
+from word_arithmetic import MODULE,RECORD,SEED,OLD_SEED,Bridge
+from word_arithmetic_cases import WIDTHS,MUTATIONS,queries,negative_plan,model_observations,expected_denotation,mathematical_observation
+from proof_canonical import canonical
+from word_arithmetic_build import prepare,TARGET
+from run_ordinary_arithmetic import inputs as prior_inputs,RECORD as PRIOR
+from run_word_foundation import build
+from run_proof_pilot import ROOT,HERE,DEFAULT_GOROOT,sha,json_bytes,timed,observe,semantic_expectation,verify_host_toolchain
+from check_scope_report import require,strict_json
+
+NEW=('word_arithmetic.py','word_arithmetic_cases.py','word_arithmetic_build.py','run_word_arithmetic.py','test_word_arithmetic.py','check_word_arithmetic_metadata.py',
+    'ordinary-word-seed/Cargo.toml','ordinary-word-seed/Cargo.lock','ordinary-word-seed/src/main.rs')
+DOCS=('schema.json','retained.json','export.json','source-values.json','expansions.json','queries.json')
+SCOPE='checked successor-function/ordinary Nat translation at every bit-cube depth,actual full-width addition with final carry and conditional semantic Int equality,13 exact typed Value additions; no full word/source/Go elaboration proof'
+PENDING=['remaining word arithmetic/order/division/shift/conversion correctness and full source correspondence beyond this addition interpretation',
+    'source/storage/partial contract expressions,bounded definedness and independent elaborator correctness;169 complete Go requests remain unelaborated',
+    'ordinary state/permission/frame/control/totality proofs and complete Go statement/program/skeleton assembly',
+    'frontend-envelope/policy/API/release roots,reviewed migrations,W04 freeze,W05 inactive publication/T01 gate and full T02–T11']
+
+
+def catalogue():
+    return {'schema':'mpk.go_practical.word_arithmetic_draft.v0','module':MODULE,'widths':list(WIDTHS),
+        'seed':SEED.relative_to(ROOT).as_posix(),'seed_sha256':sha(SEED.read_bytes()),'retained_seed':OLD_SEED.relative_to(ROOT).as_posix(),'retained_seed_sha256':sha(OLD_SEED.read_bytes()),
+        'ordinary_export':'both source certificates checked;22 shared declarations compare complete symbolic kind/type/value/proof/level/family signatures;165 remaining unchanged ordinary word members exported and rechecked in each result',
+        'pointwise':'forall arbitrary Nat k,n,whole Bool-cube word and f:Nat->Nat with forall n.f(n)=n+k; recursive Value/Weight interpretations proven by checked depth composition without function extensionality',
+        'weights':'Power0=1+1;Power(d+1)=Power(d)*Power(d);depth d carries2^d bits and weight2^(2^d); each named definition has an ordinary equality proof',
+        'Nat':'actual ripple result and actual final carry; U(x)+U(y)+incoming=U(result)+2^width*carry expressed by Bool-selected0/weight',
+        'Int':'Make(unsigned,sign-selected2^width); actual sign-stage incoming=final carry implies semantic Equiv(Add(Add(x,y),FromNat incoming),result)',
+        'source_values':'13 exact preceding typed Value definitions lifted through checked word definition equality; signed cases retain the actual sign-stage premise',
+        'proof_composition':'generic checked function-application congruence and conditional-translation lemmas prevent beta conversion from expanding concrete huge iterations; projections and computed Nat literals lifted explicitly',
+        'observations':'96 pinned actual Go/math.bits/math.big observations against independent integer oracle;24 selected8-bit cases also execute every new unsigned/signed denotation against actual ripple output; no claim of unary execution at larger widths',
+        'production_owners':{'ordinary':'crates/mpk-vc/src/go_practical_ordinary.rs (planned)','source':'crates/mpk-vc/src/go_practical_artifacts.rs (planned)'},
+        'word_addition_library_connection_proved':True,'all_word_operations_proved':False,'elaborator_correctness_proved':False,'source_evaluation_proved':False,'complete_go_elaboration':False,'profile_activated':False,'remaining':PENDING}
+
+
+def documents():
+    exported=strict_json((RECORD/'retained.json').read_bytes());receipt=strict_json((RECORD/'export.json').read_bytes());plans={};sources=[]
+    require(receipt['base_declarations']==634 and receipt['source_declarations']==187 and len(receipt['common'])==len(set(receipt['common']))==22 and receipt['exported']==len(exported['declarations'])==165,'exact shared/ordinary declaration closure')
+    for w in WIDTHS:
+        b=Bridge(w,exported);plans[str(w)]=b.build();sources+=b.source_rows
+    return dict(zip(DOCS,(catalogue(),exported,receipt,sources,plans,queries())))
+def cases():return [{'id':'w'+str(w)+'-'+m,'width':w,'mutation':m,'expected':'accepted' if m=='valid' else 'rejected'} for w in WIDTHS for m in ('valid',)+MUTATIONS]
+def case_plan(c,docs):
+    p=docs['expansions.json'][str(c['width'])];return p if c['mutation']=='valid' else negative_plan(p,c['mutation'])
+def classify(c,obs):
+    if c['expected']=='accepted':semantic_expectation(c,obs,declarations=c['declarations'],module=c['module']);return 'accepted_zero_axiom'
+    r,g=obs['rust'],obs['go'];require(r['exit_code']==g['exit_code']==1 and r['report'].get('error_code')=='KERNEL_CORE_CHECK' and g['report'].get('error_kind')=='core_check','paired core rejection,not format/timeout')
+    code=json.loads(r['report']['error_detail'])['code'];detail=g['report']['error_detail']
+    if code=='CORE_FUEL_EXHAUSTED':require('fuel exhausted' in detail,'paired candidate conversion-fuel failure');return 'candidate_conversion_fuel_failure'
+    require(code=='CORE_TYPE_MISMATCH' and (' inferred ' in detail or detail=='lambda domain mismatch'),'paired ordinary type mismatch');return 'ordinary_type_mismatch'
+
+
+def inputs():
+    rows={x['path']:x['sha256'] for x in prior_inputs()}
+    for p in [PRIOR/'observations.json',SEED,OLD_SEED]+[HERE/n for n in NEW]+[RECORD/n for n in DOCS]:rows[p.relative_to(ROOT).as_posix()]=sha(p.read_bytes())
+    for p,h in rows.items():require(sha((ROOT/p).read_bytes())==h,'word arithmetic/current predecessor pin: '+p)
+    return [{'path':p,'sha256':h} for p,h in sorted(rows.items())]
+
+
+def check_retained():
+    docs=documents();r=strict_json((RECORD/'observations.json').read_bytes())
+    for n,d in docs.items():require((RECORD/n).read_bytes()==canonical(d)+b'\n','complete word arithmetic reconstruction: '+n)
+    require(r['scope']==SCOPE and r['pending']==PENDING and r['inputs']==inputs(),'word arithmetic source/scope closure')
+    actual=__import__('termination_foundation_build').files();require(len(actual)==len(r['mirrored_checker_inputs'])==77 and r['mirrored_checker_inputs']==[{'path':p,'sha256':sha(b)} for p,b in sorted(actual.items())],'unchanged joint77-source checker')
+    require(len(r['cases'])==20 and len(docs['source-values.json'])==13,'all widths/controls/exact source Values')
+    for x,c in zip(r['cases'],cases()):
+        require(all(x['case'][k]==v for k,v in c.items()),'exact word arithmetic case identity');cp=case_plan(c,docs);raw=(RECORD/(c['id']+'.mpcert')).read_bytes()
+        require(x['raw_sha256']==sha(raw) and x['case']['bytes']==len(raw) and x['ast_sha256']==sha(canonical(cp)+b'\n'),'full ordinary/certificate bytes')
+        require(x['classification']==classify(x['case'],x['observations']),'actual paired arithmetic outcomes')
+        require(x['case']['bytes']<=2097152 and x['case']['terms']<=131072 and x['case']['declarations']<=4096,'candidate artifact envelope')
+        require(len(x['generations'])==2 and all(g['exit_code']==0 and g['stdout_sha256']==x['generations'][0]['stdout_sha256'] for g in x['generations']),'two exact ordinary emissions')
+    require(r['outcomes']==dict(Counter(x['classification'] for x in r['cases']))=={'accepted_zero_axiom':4,'ordinary_type_mismatch':16},'all16 controls reject by ordinary typing,not resources')
+    require(len(r['export_generations'])==2 and all(x['exit_code']==0 and x['stdout_sha256']==sha(canonical(docs['export.json'])) and x['exported_sha256']==sha(canonical(docs['retained.json'])) for x in r['export_generations']),'two exact checked source exports')
+    qs=docs['queries.json'];native_raw=(RECORD/'native.json').read_bytes();native=strict_json(native_raw);model=strict_json((RECORD/'model.json').read_bytes())
+    require(len(qs)==len(native)==96 and native==[mathematical_observation(q) for q in qs],'all96 actual Go/integer observations')
+    require(model==model_observations(qs,docs['expansions.json'])==[expected_denotation(q) for q in qs if q['width']==8] and len(model)==24,'selected24 actual ordinary denotations')
+    for q,n in zip(qs,native):
+        d=expected_denotation(q);require(d['unsigned_result']==str(int(n['word_hex'],16)) and d['signed_result']==n['go_signed_result'],'all-width Go and mathematical denotations')
+    require(len(r['native_runs'])==2 and all(x['exit_code']==0 and x['stdin_sha256']==sha(canonical(qs)) and x['stdout_sha256']==sha(native_raw) for x in r['native_runs']),'two exact native observations')
+    for f in (RECORD/'verification').glob('initial-*/diagnostic.json'):
+        for x in strict_json(f.read_bytes())['inputs']:require(sha((f.parent/x['path']).read_bytes())==x['sha256'],'preserved initial construction/build/fuel finding')
+    for flag in ('all_word_operations_proved','elaborator_correctness_proved','source_evaluation_proved','complete_go_elaboration','profile_activated'):require(r[flag] is False,'addition proof evidence boundary: '+flag)
+    return r
+
+
+def main():
+    p=argparse.ArgumentParser(description=__doc__);g=p.add_mutually_exclusive_group(required=True);g.add_argument('--write',action='store_true');g.add_argument('--check',action='store_true');args=p.parse_args()
+    docs=documents()
+    if args.write:
+        for n,d in docs.items():(RECORD/n).write_bytes(canonical(d)+b'\n')
+    before=inputs();inventory=verify_host_toolchain(DEFAULT_GOROOT,strict_json((HERE/'host-toolchain.json').read_bytes()))
+    with tempfile.TemporaryDirectory(prefix='mpk-word-arithmetic-',dir='/private/tmp') as temporary:
+        temp=Path(temporary);workspace=temp/'workspace';receipt=prepare(workspace)
+        env={**os.environ,'CARGO_TARGET_DIR':str(TARGET),'CARGO_INCREMENTAL':'0','CARGO_PROFILE_RELEASE_DEBUG':'0','CARGO_PROFILE_RELEASE_CODEGEN_UNITS':'1'}
+        for manifest in (workspace/'Cargo.toml',workspace/'ordinary-word-seed/Cargo.toml'):
+            command=['cargo','build','--release','--offline','--locked','--manifest-path',manifest]
+            if manifest==workspace/'Cargo.toml':command+=['-p','go-practical-closed-carriers']
+            build_env=env
+            if manifest!=workspace/'Cargo.toml':
+                build_env={**env,'RUSTFLAGS':'--remap-path-prefix='+str(workspace)+'=/mpk-go-practical-private'}
+                build_env.pop('CARGO_ENCODED_RUSTFLAGS',None)
+            build(command,env=build_env)
+        rust=TARGET/'release/go-practical-closed-carriers';exporter=TARGET/'release/go-practical-ordinary-word-seed';go=temp/'checker';native=temp/'observer'
+        goenv={**os.environ,'GOENV':'off','GOWORK':'off','GOTOOLCHAIN':'local','GOPROXY':'off','GOTELEMETRY':'off','CGO_ENABLED':'0','GOFLAGS':'','GOEXPERIMENT':'','GOCACHE':'/private/tmp/mpk-go-practical-checker-cache'}
+        build([DEFAULT_GOROOT/'bin/go','build','-trimpath','-buildvcs=false','-o',go,'./cmd/mpk-checker-ref'],cwd=workspace/'go-tools/mpk-checker-ref',env=goenv)
+        build([DEFAULT_GOROOT/'bin/go','build','-trimpath','-buildvcs=false','-o',native,HERE/'numeric_observer.go'],env=goenv)
+        bins={'rust':rust,'exporter':exporter,'go':go,'observer':native};binaries={n:sha(f.read_bytes()) for n,f in bins.items()};exports=[]
+        for i in range(2):
+            f=temp/('retained'+str(i)+'.json');x=timed([exporter,'export',SEED,OLD_SEED,f]);require(x['exit_code']==0,'ordinary source export succeeded')
+            require(f.read_bytes()==canonical(docs['retained.json']) and strict_json(x['stdout'])==docs['export.json'],'fresh exact ordinary/common-signature export')
+            require(x['wall_seconds']<=60 and x['peak_rss_bytes']<=1073741824,'direct export/check child resource envelope')
+            exports.append({k:v for k,v in x.items() if k!='stdout'}|{'stdout_sha256':sha(x['stdout'].strip().encode()),'exported_sha256':sha(f.read_bytes())})
+        rows=[];outputs={}
+        for c in cases():
+            cp=case_plan(c,docs);ast=canonical(cp)+b'\n';wire=temp/'plan.json';wire.write_bytes(ast);files=[temp/(c['id']+str(i)+'.mpcert') for i in range(2)];runs=[timed([rust,'emit',SEED,wire,f]) for f in files]
+            require(all(x['exit_code']==0 for x in runs) and files[0].read_bytes()==files[1].read_bytes(),'two byte-identical word arithmetic emissions')
+            counts=strict_json(runs[0]['stdout']);require(counts['added']==[d['name'] for d in cp['declarations']],'all ordinary members emitted in order')
+            case={**c,'module':cp['module'],**{k:counts[k] for k in ('bytes','terms','declarations')},'new_definitions':sum(d['kind']=='definition' for d in cp['declarations']),'new_theorems':sum(d['kind']=='theorem' for d in cp['declarations'])}
+            obs={n:observe(exe,files[0]) for n,exe in (('rust',rust),('go',go))};classification=classify(case,obs)
+            require(all(x['wall_seconds']<=60 and x['peak_rss_bytes']<=1073741824 for x in runs+list(obs.values())),'per-direct-proof-child resource envelope')
+            raw=files[0].read_bytes();outputs[c['id']+'.mpcert']=raw;rows.append({'case':case,'raw_sha256':sha(raw),'ast_sha256':sha(ast),'classification':classification,'generations':[{k:v for k,v in x.items() if k!='stdout'}|{'stdout_sha256':sha(x['stdout'].encode())} for x in runs],'observations':obs});print(c['id']+': '+classification,flush=True)
+        raw=[];native_runs=[];qs=canonical(docs['queries.json'])
+        for _ in range(2):
+            x=subprocess.run([native],input=qs,capture_output=True,timeout=60);require(x.returncode==0 and not x.stderr,'actual Go/math.bits/math.big observations');raw.append(x.stdout);native_runs.append({'exit_code':x.returncode,'stdin_sha256':sha(qs),'stdout_sha256':sha(x.stdout)})
+        require(raw[0]==raw[1] and strict_json(raw[0])==[mathematical_observation(q) for q in docs['queries.json']],'two exact Go/integer outputs');model=model_observations(docs['queries.json'],docs['expansions.json'])
+        require(before==inputs() and binaries=={n:sha(f.read_bytes()) for n,f in bins.items()},'source/binary stability')
+        for x in receipt['generated']:require(sha((workspace/x['path']).read_bytes())==x['sha256'],'unchanged mirrored checker sources')
+        report={'schema':'mpk.go_practical.word_arithmetic_probe.v0','scope':SCOPE,'pending':PENDING,'inputs':before,'host_toolchain_inventory':inventory,'checker_binaries':binaries,'mirrored_checker_inputs':receipt['generated'],'cases':rows,'outcomes':dict(Counter(x['classification'] for x in rows)),'export_generations':exports,'source_values':13,'native_runs':native_runs,'native_observations':96,'actual_AST_denotations':24,'model_selected_widths':[8],'direct_child_parallelism':1,'proof_resource_scope':'60s/1GiB per direct proof child; Darwin measurement,not Linux release/process-tree evidence','word_addition_library_connection_proved':True,'all_word_operations_proved':False,'elaborator_correctness_proved':False,'source_evaluation_proved':False,'complete_go_elaboration':False,'profile_activated':False}
+        if args.write:
+            for n,b in outputs.items():(RECORD/n).write_bytes(b)
+            (RECORD/'native.json').write_bytes(raw[0]);(RECORD/'model.json').write_bytes(canonical(model)+b'\n');(RECORD/'observations.json').write_bytes(json_bytes(report))
+        old=check_retained();require(old['checker_binaries']==binaries and all((RECORD/n).read_bytes()==b for n,b in outputs.items()),'fresh complete word arithmetic certificate/binary replay')
+    print('PASS:4 zero-axiom full-width addition interpretations,13 exact typed Values,96 Go/integer observations and24 selected actual AST denotations; '+str(report['outcomes'])+'; W04 open',flush=True)
+
+
+if __name__=='__main__':main()

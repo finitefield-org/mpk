@@ -1,0 +1,64 @@
+{
+  "candidate_sha256": "58736a11c27535b2f31b5b319c674b9e8d67a84172977fd510a2e0c33f10f53a",
+  "classification": "core_type_mismatch in both private checkers",
+  "finding": "Nat type recursion with a computed Bool-to-Nat major stays neutral under the retained shallow iota reducer; try direct Bool type selection without changing legacy normalization",
+  "generated_checker_inputs": "private-build-inputs.json",
+  "inputs": [
+    {
+      "path": "develop/probes/go-practical/termination-foundation/rust/nat_rec_type.rs",
+      "sha256": "916979f61554433935d780d73e00e7ae0bb435b2798e718820316fd93c74e325",
+      "snapshot": "source-0.rs"
+    },
+    {
+      "path": "develop/probes/go-practical/termination-foundation/go/nat_rec_type.go",
+      "sha256": "274eac5d47ca9ef970b91827e6b6d22ef2194337f54d808e29c8e4f9da21f3a9",
+      "snapshot": "source-1.go"
+    },
+    {
+      "path": "develop/probes/go-practical/termination_foundation_build.py",
+      "sha256": "4583ad64efdd0a62e66f6de6fb8476029b529782de20fe545f44cd1a9cc37105",
+      "snapshot": "source-2.py"
+    },
+    {
+      "path": "develop/probes/go-practical/termination-certificates/src/termination.rs",
+      "sha256": "5af737169ee0931de6b3435ce8e460aba0d9de13d84b66d5043179712e1d61f1",
+      "snapshot": "source-3.rs"
+    },
+    {
+      "path": "develop/probes/go-practical/termination-certificates/build.rs",
+      "sha256": "c9c72275ba62729adceb2085dee894f7b05f5f6e7b73962e4b78b47f55db53c3",
+      "snapshot": "source-4.rs"
+    }
+  ],
+  "observations": {
+    "go": {
+      "binary_sha256": "1f4b270040d251f8cf28d4cd8de76ad1cefd20310ae77d89051a27dbeb4c17df",
+      "exit_code": 1,
+      "report": {
+        "error_detail": "term 14 inferred const but expected app",
+        "error_kind": "core_check",
+        "verdict": "rejected"
+      }
+    },
+    "rust": {
+      "binary_sha256": "5cb2a63ad79e651fe71dbece2c2c3ebf2ef62e04a15e71ecc66ef94aad036c90",
+      "exit_code": 1,
+      "report": {
+        "axiom_count": null,
+        "axiom_report": null,
+        "declaration_count": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"603\",\"inferred_kind\":\"const\",\"inferred_term_index\":\"2\",\"kind\":\"check_type_mismatch\",\"term_index\":\"14\"}}",
+        "hashes": {
+          "axiom_report": null,
+          "certificate": "fc853e8b9b0cc97d79d757057bea07cf201a5d0eefd756bfdbbca0fe763558df",
+          "export": null
+        },
+        "module": null,
+        "verdict": "rejected"
+      }
+    }
+  },
+  "schema": "mpk.go_practical.type_selection_initial.v0",
+  "scope": "retained intended-positive construction failure, not semantic negative or support"
+}

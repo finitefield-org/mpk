@@ -1,78 +1,13 @@
-# Alpha Release Report
+# Go/Rust release status
 
-Schema: `mpk.alpha_release_report.v1`
+MPK's supported source languages are Go and Rust. The canonical semantic
+registry is revision 4, with Go fixed and Rust checked entries. The bundle
+registry contains two frontend/toolchain pairs and three target tuples.
 
-Status: JAVA-03-T10 complete; native x86-64 Linux receipt accepted
+The new registry requires fresh native Linux release validation. Earlier
+migration receipts describe their original releases and cannot certify the
+new metadata. Run the root README's local release gates before publication.
+Practical Go remains private and under development at GO-PRAC-T02-W01.
 
-Milestone: `JAVA-03-T10`
-
-## Result
-
-The sole active release uses semantic-profile registry revision 3 and
-`mpk.release.registry.v1`. Go, Rust, C#, and Java run only through registered
-descriptor-relative frontend/toolchain bundles installed beside `bin/mpk`.
-Policy scan, evidence, and explanation requests use successor v2 schemas; old
-public parsers, flags, staging gates, and dual-generation selectors are
-unavailable.
-
-Certificate v0 and proof acceptance are unchanged. All source, compiler,
-frontend, VIR, VC, policy, AI, CI, and release-report material remains
-untrusted helper evidence.
-
-## Canonical generated report
-
-`release-report.json` is the deterministic untrusted provenance report. It
-binds both active registries, all four candidate projections, active C#
-policy/AI fixtures, package certificates, both source-free checker results,
-and the archived zero-finding migration records.
-
-```sh
-python3 scripts/generate-release-report.py --check
-```
-
-## Reproduction
-
-```sh
-./scripts/check-no-active-gir.sh --strict
-./scripts/build-release-bundles.sh --check-build-inputs rust
-./scripts/build-release-bundles.sh --check successor
-./scripts/check-release-bundles.sh --fixture successor
-./scripts/regenerate-go-vir-corpus.sh --check
-sudo ./scripts/check-java-frontend.sh
-./scripts/check-fast.sh
-sudo ./scripts/check-all.sh
-(cd go-tools/go2vir && go test -count=1 ./...)
-cargo test --workspace
-python3 scripts/generate-release-report.py --check
-git diff --check
-```
-
-## Registered release
-
-- registry: `mpk.release.registry.v1`;
-- frontends: `frontend.go.go2vir.candidate.v1`,
-  `frontend.rust.rust2vir.candidate.v2`,
-  `frontend.csharp.csharp2vir.candidate.v1`, and
-  `frontend.java.java2vir.candidate.v2`;
-- toolchains: frozen Go 1.25.0, Rust nightly 2025-06-01,
-  Roslyn 5.6.0/.NET 10.0.11, and Temurin 25.0.4.1+1 candidate-v1 bundles;
-- targets: Go `linux/amd64`, Rust `i686-unknown-linux-gnu` and
-  `x86_64-unknown-linux-gnu`, C# `linux-x64`, and Java `linux-x64`;
-- semantic profiles: `mpk.go.fixed.v0`, `mpk.rust.checked.v0`,
-  `mpk.csharp.scalar.v0`, and `mpk.java.scalar.v0`.
-
-The exact registry digest and bundle inventory hashes are recorded in
-`release/bundles/bundle-registry.json`; callers cannot override them.
-
-## Review conclusions
-
-- active Go/Rust corpora, C# policy/AI fixtures, and the Java example use the
-  revision-3 successor identities;
-- the installed release rejects predecessor, crossed, and tampered identities;
-- both source-free checkers agree and the axiom inventory has no new category;
-- the executable Java staging tree and predecessor composed gates are absent;
-- the final implementation review has zero findings;
-- the native x86-64 Linux gate completed both installed-release passes on
-  2026-09-03 with kernel `6.8.0-134-generic`; its canonical receipt is
-  `develop/migrations/archive/java-03-t10-native-receipt.json`, and
-  `CSHARP-03-T01-W01` is unblocked.
+The deterministic metadata/evidence report is `release-report.json`.
+Proof acceptance still requires canonical checked certificate bytes.

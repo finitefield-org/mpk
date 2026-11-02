@@ -1,0 +1,685 @@
+{
+  "status": "only_nil_only_error_root_changes",
+  "inputs": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-value-relations/final-large/inputs/crates/mpk-vc/src/go_practical_ordinary/source_value_relations.rs",
+      "bytes": 34356,
+      "sha256": "3b82fe02ac63e59fb1f5dce01c3781e522b55d0d27191d049c65de52c37459af",
+      "mode": 420
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-value-relations/small-fixed/inputs/crates/mpk-vc/src/go_practical_ordinary/source_value_relations.rs",
+      "bytes": 34590,
+      "sha256": "25a4b758c4257c7668be10824a8a9eeaaecc0e93b0486ee7dcb78a95934bd6f7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/audit-adapter-choice.py",
+      "bytes": 3267,
+      "sha256": "87c43eed73478ac66817b3c0529bf6666b572c300b346d5698da84d3ccaf0120",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/small-fixed/certificates/nil-only-nil.sources.json",
+      "bytes": 1561,
+      "sha256": "db5e200ea359ba97b0f02908170a24d7d1f59a75d5aece27e4011d794a3acd3e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/small-fixed/certificates/entry-nil.sources.json",
+      "bytes": 3300,
+      "sha256": "76d244aa7ff42dc90684284a1ea84f135b30cb34e250a820753180cf6a83f4eb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/heterogeneous-final/certificates/heterogeneous-payloads-nil.sources.json",
+      "bytes": 8407,
+      "sha256": "45aa583c990c50aa486d1f126a194d24011d900bf5f426f9157b4bf4c2add684",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/final-large/certificates/seventy-cases-nil.sources.json",
+      "bytes": 37207,
+      "sha256": "c4c8e653dfde5c308ebdcc0225dcfc3395f01b8461c40e1770a9910559e5439f",
+      "mode": 420
+    }
+  ],
+  "entire_producer_module_diff_limited_to_one_adapter_predicate": true,
+  "units": [
+    {
+      "unit": "nil-only",
+      "full_U_cases": 0,
+      "all_type_choices": [
+        {
+          "source_type_id": "5a184d54e7bc575ae47064a4ca8316be8c2dc71c1bc030903999cf18f071e177",
+          "kind": "builtin",
+          "before": false,
+          "after": true
+        },
+        {
+          "source_type_id": "f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1",
+          "kind": "builtin",
+          "before": false,
+          "after": false
+        }
+      ]
+    },
+    {
+      "unit": "entry",
+      "full_U_cases": 3,
+      "all_type_choices": [
+        {
+          "source_type_id": "1db133a53e61ee710b4cf51c5c2f5e3c01afd810b45f406aa5facb9935d2d9eb",
+          "kind": "builtin",
+          "before": true,
+          "after": true
+        },
+        {
+          "source_type_id": "5a184d54e7bc575ae47064a4ca8316be8c2dc71c1bc030903999cf18f071e177",
+          "kind": "builtin",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1",
+          "kind": "builtin",
+          "before": false,
+          "after": false
+        }
+      ]
+    },
+    {
+      "unit": "heterogeneous-payloads",
+      "full_U_cases": 6,
+      "all_type_choices": [
+        {
+          "source_type_id": "012b5f48368cb98bba816258741102982f2544c897b6c3463ac3c1b78735e3cf",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "1c241b82b7335c3caf09e18a91509145eff8e3511643bc150f9881adef4cf37d",
+          "kind": "slice",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "1c8462c1cba61a9dd5873aa9d017bf62e473cbde9488342b9ba88edf419e084c",
+          "kind": "array",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "1db133a53e61ee710b4cf51c5c2f5e3c01afd810b45f406aa5facb9935d2d9eb",
+          "kind": "builtin",
+          "before": true,
+          "after": true
+        },
+        {
+          "source_type_id": "341ba961c25053afd7d06b06ee0c81a6716b196097f2b25b29f982e3388c32d1",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "3988affd1bb6c5c745f81fa33760e05bbe3b0850fab0ed7c87aad9b1daedf889",
+          "kind": "struct",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "484c5c4d664b27e9d0ab62254ec27213f8be44c51b6c8e65f3707f1bb5cf13f7",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "57d6daba46cfefdf24fd3c613086aa2f7909ce723458381eca6c45b41a54b515",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "5a184d54e7bc575ae47064a4ca8316be8c2dc71c1bc030903999cf18f071e177",
+          "kind": "builtin",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "61479fbf3418d6107496588fed420de0507fb3d19dd30fdf00d41ab97b439c22",
+          "kind": "builtin",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "654cf0cd3f00c4db2116d888ad5bf60ab0647e12aa106cc5954647f06d8c4ed3",
+          "kind": "struct",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "6fa96457153ad9834d5c5723aa6e21e955d1a1e811bb22f2bb2563bdbaf54359",
+          "kind": "array",
+          "before": true,
+          "after": true
+        },
+        {
+          "source_type_id": "9259dd6c4c5c8a37b6299c83a676d1467fee75ce0bc75c27f4639863c1b7dc87",
+          "kind": "builtin",
+          "before": true,
+          "after": true
+        },
+        {
+          "source_type_id": "a6f1abce88278b20f5e12df1df4a54d1c5919a3315dca9fea6da34d8d16b41b6",
+          "kind": "struct",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "add3eac03d23d52e0376d31b18fbc5525d0947726bae4a9196328d9dc5d82922",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "bd34a4d3b08bf4b11499dfe8cfaf7b64e5738dffbb353c5982da8430925cdb45",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "ca80470f01f6150f1e5ac50a0b0f67d0387e9b291eec6de4894522f8af061f7e",
+          "kind": "builtin",
+          "before": true,
+          "after": true
+        },
+        {
+          "source_type_id": "cefc3d160a456810fffec213a82c37f4391ec72500e8397d0413a9e9fdbcc318",
+          "kind": "struct",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1",
+          "kind": "builtin",
+          "before": false,
+          "after": false
+        }
+      ]
+    },
+    {
+      "unit": "seventy-cases",
+      "full_U_cases": 70,
+      "all_type_choices": [
+        {
+          "source_type_id": "0153002808f6b1ad75b3a70c513a6c3ddcbb229b3c5ba012642aefc3f15a44ba",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "01a0fdb395102c563c3e4fb9c79664571c1c404fe71791ac9f51b75d19a244b1",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "0450884812f8303cd115cf8c21f7aeca2b2baf3b17d96562aecf48748d08caf2",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "05a8e0498be421843fea795572795f49558d1962cb7e963d537e37b154f6d29c",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "09390868af511992ff982db39d8ef3a7e4df8ec87dc6508a70fafe5bd4b92318",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "0be14c8231db56a1abd5425ee4aa19a4978089e34ae60d5cd77ce1fd746a9973",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "0fbfafb4843864b99153ed50357af1c1a083b4b6295dae900f1b097731998e58",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "11efba017e15f5a5d272a48a19de8b9f2f2237d74f13440069ad61a7e5837c93",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "13dd4f3eeec9632922b983f813bf63e4f80a42e45c423a4a15eeb7da1310af9c",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "160cd575f109d835ae14fe7c439f238590e76eed64ce35c8b823acea20e58df0",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "1b1acbd215b9b48c576556475f3845f0c713580f8826701e25f7121d45dd9cfd",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "1d161ee707f3006376b5faca40f0e8e7ec5c326f4ca618512f853da2a96f2c71",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "1db133a53e61ee710b4cf51c5c2f5e3c01afd810b45f406aa5facb9935d2d9eb",
+          "kind": "builtin",
+          "before": true,
+          "after": true
+        },
+        {
+          "source_type_id": "25e222feecd71ae08a8dba44bd1ee252772e23000ef1c942291cfd53ac30bf8c",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "26430c55b95bf02c8711e54aa67d99e8d615ff5349cde0bb95caac92b383660c",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "26b41400a7c3a97b0aba532e78568de8711054dfe198a4fd35cc7e3aba749d43",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "271eecc990a7c27c4a88b2aea1fb44d77c2afaecd306e5a789b02705724bbc56",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "2b753a8d920d34758e232afab5d75dcbf4dd1dadfd53359a3876da6b5a678fd6",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "2eb0ebb12048e71c062956d084900ecd0a94dd5eff01747ebfa1e2089687a731",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "2fbc6788c86a1de7c3a2778c8f4b4e19d8da007ff4a647b48d40ac432aedf1a2",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "3c9016f681562e41db87c6bb54561ba7b9207a0f8e78b58599609d7996e1872e",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "3e5a8d7db211162e453452c13219884251645f6ae5c1eddca94550839f3b368e",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "41e843ee13560def4bef7f03ec5e2252c3b7200ac79f05bfe516e20cf7c21f3e",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "436e1e7def5c63a127a9b0fe0674c08d76befa16124b8348b79edeae70a457cb",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "5a184d54e7bc575ae47064a4ca8316be8c2dc71c1bc030903999cf18f071e177",
+          "kind": "builtin",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "5b1ae1d0fdb6ddba13ace8b7698a15368b0a51f069709003b609d7c837455dc1",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "5c0d4f3adb6ec119886eb2ebac330aaebad0b76fa8b9a4d4e35b0215ad911546",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "5c2e75253bec9209274be5bc6cc0451c60611966305014e90e9c6b091e37f0be",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "5d77a98cacd5a826f4fa07286b733430c35a4d4bd938c1b92ec7b939a3786364",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "6343b47963a432b023703c7871d9c4bb08607825be30d57c79210c899f5b2914",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "637b1e53946f1efb443e11ac38251a9173b9303ecdad95fa13811f681e3977db",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "64444cea7201ae84228fa9dfd1f40e7d17ad601b2348719617fd9a6304534254",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "64b45c71f772274f5b5f2e0cef8c09165d9ca98be2bd0108303857a1f40cecf4",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "65aaf6e2f2c9aca16bdbd21f1ab0161664c5c6b7e814a47db0df18cf40c9053c",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "67aad9cf025140319b805658fabd70ae2363be67cc9f73b4573fbd4d31d0e113",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "6afaeedbb6eb04b9ff2ec7ca4bcdccb9bd7848db135ef5f7a4531aeaf4d9aff5",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "7022164535ad80c23fb426e78eb0734448c1ee16197a3a3a9e15fa03745af7d2",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "7c8c18067910200941556594a77c3bdb02b25435ab09a24ac9b4a3c0ea2eeff9",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "7eee6d6500556ee1cc8038cb8e88f7398ff0db7214122dba4e2d962f9bdf1918",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "7ff0fd01a9a0dc384693674500e4811795b5bb6d4c26a2078ae58ab343025106",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "832a6e3d6f417c5152db0eac66d7022a8bf5d4f47089892d37da7058194fe74c",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "8435e8caa75d99f8ef3e482b06c5aafb0d84758c6aee08503cb5ee67bd0c48c1",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "84a697d6247f048007689aea71dae46ed7d333e0955a1e06b97d5ae2909062ab",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "8922e6637cbc036c7e2edf342fb9db37b195221bc34c917534cea03c6f9eaa55",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "8d5d46e817211fc9afd015252124ec6d34904ed4734edd39214ac5ede35e168b",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "8eca6c0ed172cb685cea73d069bcfedc06540ef1b7adacf089fdc38e3fe9c0cb",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "8fec4f2cce1d0fa44b0b38d65720d87757c8b9cf02466a244bb3fb7a5ec88043",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "925ba6652e9acfe6608034de1a79ba2f1cdf04b7583393aa1c0e018391fddeaa",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "9474fb10a63e057d25e13621518262344633625e979856ddf710a317a5e4c4ff",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "992a3086ba55973eefe4cd656b42ff64d23ac06c06c958b9f62f95da376d09c5",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "9ff960b8b522e8613d9385d27e82b59b032f79a26342c5306c162c2b5dc51183",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "abb099414213b57720c6c0f15b479bbac32641d789e878a6d26c3bc2a60744aa",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "ad149c091368a65777dc41881d8d863dbd7bb14fd9e797b69b6623f103dc4b47",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "add1576845750eea28df962b6aa3eeb7e2cce341d978314e95081c9c0791b505",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "aec193b6283dd932a060dc486ae73157fa5f32f3370ca843ccfe449c32cec02d",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "aec350de003d7e8ffaf39b5d5cdf00a0e61cbe6a5d9112f087f7fad2648cb11a",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "afc362e90373a9eb02f4c56ad969ff9499c2865edbd24b4b63851cf2ef8fa3e8",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "b36df8cafeb33e19eb541ebf63d950e26ccc6b0a5368658034cc24e2b82356e1",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "bc6450c3063755752398c1859c95724be9aa732775c6ee64ac7e4cd2de9bf73d",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "c66570771884a34d9a781fe044c665cb2e59ea62ad12035c7699b5e33b2b9038",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "d07b5003ee14dfdabe6e1e3b53ece20c5a2febe81ccf14611b3a6bf5522a1b97",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "d0970a1afcc024124f3056810f9e430a72bb13cbbde36d96e18b17c014af2db8",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "d3eb67d19c74d9dac098019d921826f44521fe14c6a9897a14d7b000edf9a848",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "daf1f454e24a917b72a3477974f16d45767bb8974f640c8a79c36b2236dbe401",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "ed801cd9b68262314f7a3917d94d0b412c7bc1087a79345897a9d2971aaff1a4",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "f06242ce3cd250ffa27d2da3e9c28f2a818eaa7996b66f6d47c673ff0418c6f1",
+          "kind": "builtin",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "f63a92c770fec09c1240ce0c1b62e23d96efda99e4213ee3f3f0fc2442af0d01",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "f63fa6f0c61fe67c724785b909034b18b7199c2369748a4f62771a612837137f",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "f84e5193e1f5c62054e06dbb9c2e8e8fbff18bbfc8ae1940c4bd5383aab2459c",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "f9a665a494c899e478169b36eb85ecc85af1f8052ee24a6053ba850d6be4fe0c",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "f9ab3838e2f02bb4a10cdc0dc15b5f97fd7e801d9bd465addb6d076603075eeb",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "fa5c03b39bc7838eaa375e4626ea6adac4903d1ea7587fced9492465414cae31",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        },
+        {
+          "source_type_id": "fd94fdf4142d78514c8dfade4fbb864ce69e5ff2c51e11cffd40ba260f962d34",
+          "kind": "nominal",
+          "before": false,
+          "after": false
+        }
+      ]
+    }
+  ],
+  "changed_source_type_choices": [
+    {
+      "unit": "nil-only",
+      "source_type_id": "5a184d54e7bc575ae47064a4ca8316be8c2dc71c1bc030903999cf18f071e177",
+      "kind": "builtin",
+      "name": "error"
+    }
+  ],
+  "complete_large_and_heterogeneous_source_type_recipes_unchanged": true,
+  "no_old_native_result_relabelled_as_new_source_execution": true,
+  "remaining": "Fresh complete-library/boundary-row byte replay and final worktree binding are recorded separately after original source consumers terminate."
+}

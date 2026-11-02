@@ -1,0 +1,30 @@
+{
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--rm",
+    "--platform=linux/amd64",
+    "--pull=never",
+    "--network=none",
+    "--read-only",
+    "--cap-drop=ALL",
+    "--security-opt=no-new-privileges",
+    "--user=65534:65534",
+    "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/release/build-input-cache/rust,dst=/case,readonly",
+    "docker.io/library/ubuntu@sha256:dca176c9663a7ba4c1f0e710986f5a25e672842963d95b960191e2d9f7185ebe",
+    "/bin/sh",
+    "-ceu",
+    "test \"$(cat /case/MPKCaseDockerProbe)\" = first; test \"$(cat /case/mpkcasedockerprobe)\" = second"
+  ],
+  "exit_code": 0,
+  "stdout": {
+    "path": "develop/migrations/go-rust-only/verification/sdk-case-volume/docker-probe.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-rust-only/verification/sdk-case-volume/docker-probe.stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

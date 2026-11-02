@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T14:46:57.090911+00:00",
+  "command": [
+    "rustfmt",
+    "--edition=2021",
+    "--config",
+    "skip_children=true",
+    "crates/mpk-vc/src/go_practical_type_keys.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/module_observations/data.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/analysis_vendor.rs",
+    "crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/module.rs",
+    "crates/mpk-vc/tests/go_practical_analysis_module.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-module/rust-format-write/inputs.json",
+    "bytes": 2571,
+    "sha256": "923ebd5a77149ca16d9afbe1f693a64486df77b8cf15eb68ead68cedeb2bc360",
+    "mode": 420
+  },
+  "selection_reason": "Check the original analysis module/checksum snapshot binding and the directly consumed manifest, checksum, namespace and archive components. A caller-supplied snapshot is not authenticated as an original filesystem; source syntax and binary/context authority remain separate. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 0.23244883300003494,
+  "consumed_inputs_unchanged": false,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": true,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-module/rust-format-write/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-module/rust-format-write/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  }
+}

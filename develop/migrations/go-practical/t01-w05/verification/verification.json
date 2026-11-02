@@ -1,0 +1,390 @@
+{
+  "additional_json_boundary_repair": {
+    "T02_started": false,
+    "archive_lookup_audit": "retained-csharp-repair/json-boundary-repair/archive-lookup-audit.json",
+    "changed_native_sidecar_digests": 6,
+    "generation_and_normal_validation": "passed",
+    "independent_source_comparison": "../retained-csharp/json-boundary-epochs/source-correspondence.json",
+    "initial_guard_failure": "retained-csharp-repair/json-boundary-repair/initial-scalar-json-guard.json",
+    "initial_working_tree_build": "retained-csharp-repair/json-boundary-repair/build-result.json",
+    "original_epoch": "../retained-csharp/json-boundary-epochs/epoch.json",
+    "original_failure": "retained-csharp-repair/json-string-source-diagnosis/result.json",
+    "original_files_unchanged": true,
+    "original_gate_disposition": "superseded-json-archive/disposition.json",
+    "original_source_commit": "09a14bdde6b14408e4f25e55cb787dd989577d7e",
+    "raw_utf16_fixtures_unchanged": true,
+    "repaired_full_gate_required": true,
+    "source_body_and_other_facts_unchanged": true,
+    "source_free_definition_checks": "passed_two_distinct_zero_axiom_definitions_six_members",
+    "source_pairs": 3,
+    "verification": "retained-csharp-repair/json-boundary-repair/verification.json",
+    "working_tree_build": "retained-csharp-repair/json-boundary-repair/utf16/build-result.json"
+  },
+  "csharp_control_epoch_fix": {
+    "capture_cases": 26,
+    "clr_runs": 255,
+    "fresh_capture": "control-source-diagnosis/refrozen-native-capture-result.json",
+    "gate_reporting": "cargo test --workspace --no-fail-fast executes all test targets and still fails the gate on any failing target",
+    "only_sidecar_input_digests_changed": true,
+    "original_fixtures_and_conformance_unchanged": true,
+    "record": "control-source-diagnosis/targeted-emission-result.json",
+    "targeted_tests_passed": 16
+  },
+  "csharp_retained_epoch_fix": {
+    "original_conformance_and_current_fixtures_unchanged": true,
+    "record": "csharp-retained-input-check.json",
+    "targeted_test": "passed"
+  },
+  "full_gate": {
+    "status": "passed",
+    "command": [
+      "./scripts/check-fast.sh",
+      "--skip-csharp"
+    ],
+    "result": "go-development-gate/run/result.json",
+    "scope": "GO-PRAC development; CSharp tests explicitly deferred by user",
+    "amendment": "go-development-gate/amendment.json",
+    "selected_reason": "Final W of T01; cumulative remaining workspace gate under the explicit user scope amendment. CSharp failures are retained, not counted as passing.",
+    "source_commit": "4b4c3a01ddfa2377d7ccc0116f128649ff3ec3b1",
+    "source_tree": "076e02b74b41b6cf9222f97765b414ee9ff0824c",
+    "result_sha256": "4f59dacb4efdaa60631be2761ef6822c30b0715c3d32f21643909b8a30f9048b",
+    "tests_passed": 594,
+    "failed_tests": 0,
+    "wall_seconds": 598.1708976250375,
+    "CSharp_validation_deferred_by_user": true
+  },
+  "historical_replay_after_publication": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/historical-replay-after-publication.json",
+    "sha256": "5fc72a286cbfcfa56f8aa9ddfdb7fbb3ed32f63f01fcdad1d7b19e2f65d97110"
+  },
+  "installed_registry_check": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/installed-registry-preservation.json",
+    "sha256": "b604a3f8928bcfa7525119b6b98374ecbef2b404109b46a30c9a62e7db65f99f"
+  },
+  "native_Linux_release_gate_executed": false,
+  "profile_activated": false,
+  "raw_log_whitespace_audit": {
+    "directory_exclusions": false,
+    "exact_paths": 51,
+    "path": "retained-csharp-repair/raw-log-whitespace.json"
+  },
+  "raw_log_whitespace_preserved": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/initial-retained-source-pin/check-fast.stdout.log",
+      "reason": "original failed cargo stdout ends with a blank line; exact raw bytes retained",
+      "sha256": "54b0da256fbcc73a83baf92d6ec735bbe6c6551a6f9c650407b42826748982eb"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/initial-csharp-control-source/check-fast.stdout.log",
+      "reason": "Original test stdout has an ending blank line; raw evidence is retained byte for byte",
+      "sha256": "047328136fae9a56ca9437733945cb19bf1871fab1c0b8bf5bb161dc4dbb7799"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/control-source-diagnosis/targeted-emission.stdout.log",
+      "reason": "Original test stdout has an ending blank line; raw evidence is retained byte for byte",
+      "sha256": "6a3532041213bd22da59603ca0264a3ce5d0930de9117b778dd1880b69e28161"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/control-source-diagnosis/collection.stdout.log",
+      "reason": "Original request-generation test stdout ends in a blank line; it is setup evidence, not emission validation",
+      "sha256": "9d53cf1e94309ac2b3cfd9323e299cd09fd9fefcc2d635ceb21c43b4eabfe31a"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/control-source-diagnosis/construction.stdout.log",
+      "reason": "Original request-generation test stdout ends in a blank line; it is setup evidence, not emission validation",
+      "sha256": "7eceec84b1a2f91a22a8086e754c8c1996f9cc7362e1a201c77d73bfc56692c4"
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/control-source-diagnosis/cross-loop.stdout.log",
+      "reason": "Original request-generation test stdout ends in a blank line; it is setup evidence, not emission validation",
+      "sha256": "f58396e3324ac31b5cfaef375a7acabd8b3fd242751e9f641351eadad61a7cde"
+    }
+  ],
+  "retained_csharp_epoch_repair": {
+    "additional_test_stack_abort_repaired": true,
+    "current_CSharp_refreeze_complete": false,
+    "distinct_definition_certificates_accepted_both_checkers": 3,
+    "full_retry_required": true,
+    "known_failed_tests_repaired": 14,
+    "normal_vc_tests_passed": 4,
+    "record": "retained-csharp-repair/verification.json"
+  },
+  "scanner_optimization": {
+    "all127_matchers_preserved": true,
+    "baseline_commit": "f1ada294",
+    "differential_cases": 3206,
+    "existing_fixture_cases": 9,
+    "manifest_entries": 10,
+    "reason": "Absent literals cannot match the unchanged literal/boundary regex; JSON escapes always retain decoded structured checks; path-only findings are checked independently.",
+    "report": "gir-prefilter/comparison.json",
+    "repository_scope_preserved": true
+  },
+  "scanner_retention": {
+    "all127_rules_unchanged": true,
+    "controls": "gir-prefilter/seal-controls.json",
+    "manifest_schema": "mpk.gir_to_vir.search_fixtures.v1",
+    "production_file_exclusions": [],
+    "sealed_records": 36,
+    "source_hash": "14e61e16be3b706e18a2de0842f85f6091eb256d9713924b677e2212a54c3cc1"
+  },
+  "schema": "mpk.go_practical.w05_verification.v0",
+  "source_kind_amendment": {
+    "catalog": "../source-kind/catalog.json",
+    "go_file_kind": "go_file",
+    "native_hash_observation": "../source-kind/hash-observations.json",
+    "old_graph_relabeling_allowed": false
+  },
+  "source_semantics_proved": false,
+  "status": "T01_complete_under_explicit_CSharp_test_deferral",
+  "targeted_results": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/targeted-results.json",
+    "sha256": "ea675b508555ed889741c5e47bdfc54a02e05f1b258b7b4c26c5d2a446a8ab6a"
+  },
+  "remaining_document_root_reference_audit": {
+    "path": "retained-csharp-repair/json-boundary-repair/remaining-document-root-audit.json",
+    "sha256": "24268e5704842700073cf4a891de8c85e7e787a01943bc334fa6abfd3762d6e3",
+    "status": "passed_file_reference_audit_full_gate_pending",
+    "families_checked": 11,
+    "current_hex_members_checked": 33,
+    "full_gate_passed": false
+  },
+  "calendar_count_helper_archive_repair": {
+    "original_failure": "retained-csharp-repair/json-calendar-diagnosis/result.json",
+    "related_original_failure": "retained-csharp-repair/json-calendar-diagnosis/related-structural-archive-result.json",
+    "calendar_selected_result": "retained-csharp-repair/json-calendar-repair/focused-result.json",
+    "calendar_selected_status": "passed",
+    "calendar_mutations_rejected": 4,
+    "structural_archive_repair_status": "passed",
+    "T01_complete": false,
+    "T02_started": false,
+    "production_changed": false,
+    "fixtures_changed": false,
+    "profile_activated": false,
+    "status": "selected_repairs_passed_complete_repaired_gate_required",
+    "verification": "retained-csharp-repair/json-calendar-repair/verification.json",
+    "current_source_producer_status": "passed",
+    "format": "passed",
+    "clippy": "passed",
+    "new_complete_gate_required": true
+  },
+  "numeric_capacity_archive_repair": {
+    "original_failure": "retained-csharp-repair/json-numeric-capacity-diagnosis/result.json",
+    "epoch_manifest": "../retained-csharp/json-numeric-capacity-epochs/manifest.json",
+    "verification": "retained-csharp-repair/json-numeric-capacity-repair/verification.json",
+    "historical_complete_original_assertions": "passed",
+    "historical_declarations": 4387,
+    "changed_bodies_each": 6,
+    "unreviewed_mutations_rejected": 6,
+    "current_source_generation_import_golden_mutations": "passed_both_array_and_sum_owners",
+    "format_and_targeted_clippy": "passed",
+    "existing_inputs_unchanged": true,
+    "complete_repaired_gate_required": true,
+    "T02_started": false
+  },
+  "aggregate_archive_epoch_repair": {
+    "original_failures": [
+      "retained-csharp-repair/aggregate-archive-diagnosis/aliased-consumers-result.json",
+      "retained-csharp-repair/aggregate-archive-diagnosis/decimal-shared-result.json"
+    ],
+    "epoch_manifest": "../retained-csharp/aggregate-preservation-epochs/manifest.json",
+    "verification": "retained-csharp-repair/aggregate-archive-repair/verification.json",
+    "complete225_historical_vector_comparisons": "passed",
+    "non_cost_metadata_pairs": 12,
+    "reassociated_vectors": 133,
+    "unchanged_vectors": 92,
+    "mutations_rejected": 14,
+    "unchanged_complete_current_component_closure": "passed",
+    "unchanged_current_producer_cases": "passed_in_completed_source320_lib_target",
+    "format_and_targeted_clippy": "passed",
+    "production_and_existing_inputs_unchanged": true,
+    "complete_repaired_gate_required": true,
+    "T02_started": false
+  },
+  "live_gate_resource_observation": {
+    "record": "retained-csharp-repair/full-gate-live-profile/observation.json",
+    "sampled_test_workers": 10,
+    "small_sample_only": true,
+    "whole_gate_passed": false,
+    "original_execution_continues": true
+  },
+  "option_core_source_epoch_repair": {
+    "verification": "retained-csharp-repair/json-option-core-repair/verification.json",
+    "original_failures": [
+      "retained-csharp-repair/json-option-core-diagnosis/result.json",
+      "retained-csharp-repair/json-option-core-diagnosis/string-result.json"
+    ],
+    "existing_input_and_guard_bytes_unchanged": true,
+    "original_i32_cases": 17,
+    "full_i32_packet_bits_each": 256,
+    "original_string_cases": 4,
+    "original_string_packet_observations": 9804,
+    "existing_complete_source_correspondence_and_mutations": "passed",
+    "affected_current_source_producer": "passed_one_selected_original_source_context",
+    "format_and_targeted_clippy": "passed",
+    "repaired_complete_gate_required": true,
+    "T02_started": false
+  },
+  "proof_input_epoch_repair": {
+    "status": "all_selected_checks_passed_complete_repaired_gate_pending",
+    "verification": "retained-csharp-repair/default-proofs-current-generation/verification.json",
+    "original_default_failure": "retained-csharp-repair/default-proofs-diagnosis/result.json",
+    "original_identity_failure": "retained-csharp-repair/default-proofs-diagnosis/identity-result.json",
+    "retained_archive_members_unchanged": 138,
+    "current_foundation_identity_contexts_each": 45,
+    "positive_dual_checker_agreement": 49,
+    "negative_dual_checker_core_check_agreement": 5,
+    "whole_gate_completion": "pending_complete_repaired_retry",
+    "application_proofs_discharged": false,
+    "default_generation": "passed_all45_contexts_1612.841_seconds",
+    "current_corpus_members": 189,
+    "default_normal_mode": "passed_all45_contexts_1915.528_seconds",
+    "default_independent_checks": "passed_all_six_certificates",
+    "complete_corpus_sealing": "sealed_after_all_selected_terminal_passes",
+    "complete_corpus_manifest": "../retained-csharp/current-proof-inputs/manifest.json",
+    "complete_corpus_manifest_sha256": "20ba89b8666397b7557250f296f8b170e650fc1f3d0dc8327edea4137a8a7189"
+  },
+  "control_preservation_epoch_repair": {
+    "status": "all_selected_checks_passed_complete_repaired_gate_pending",
+    "verification": "retained-csharp-repair/control-builtin-throw-repair/verification.json",
+    "input_manifest": "../retained-csharp/control-preservation-epochs/refined-manifest.json",
+    "families": 13,
+    "complete_original_program_comparisons": 228,
+    "input_members": 528,
+    "original_helper_assertions_retained": 46,
+    "current_source_contexts": 18,
+    "negative_controls": 5,
+    "existing_current_and_historical_files_unchanged": true,
+    "full_repaired_gate": "required_before_T01_completion_or_T02"
+  },
+  "decimal_clause_response_echo_repair": {
+    "status": "all_selected_checks_passed_complete_repaired_gate_pending",
+    "verification": "retained-csharp-repair/decimal-clauses-repair/verification.json",
+    "source_contexts": 9,
+    "operation_alias_closures": 44,
+    "contract_attachments": 49,
+    "original_assertions_preserved": 17,
+    "complete_json_values_equal": true,
+    "original_input_bytes_unchanged": true,
+    "fixed_echo_bytes_from_exact_original_assertion": true,
+    "original_runtime_cases_and_counts_unchanged": true,
+    "selected_candidate_seconds": 13.022333874949254,
+    "format_and_targeted_clippy": "passed",
+    "entire_repaired_gate_required": true,
+    "T01_complete": false,
+    "T02_started": false,
+    "runtime_owner_normal_mode": "passed_all_nine_contexts",
+    "runtime_owner_seconds": 1090.2644156250171,
+    "selected_runtime_conditions": 10,
+    "failure_definedness_rejections": 5
+  },
+  "fixed_codec_clause_request_echo_repair": {
+    "status": "all_selected_checks_passed_complete_repaired_gate_pending",
+    "verification": "retained-csharp-repair/fixed-codec-clauses-repair/verification.json",
+    "original_codec_contexts": 6,
+    "input_contexts_including_mixed": 7,
+    "source_clauses": 44,
+    "format_composition_bit_observations": 21088,
+    "original_assertions_preserved": 23,
+    "complete_original_JSON_and_UTF8_sidecar_strings_equal": true,
+    "all_original_fixtures_and_runtime_loops_unchanged": true,
+    "selected_normal_seconds": 142.77475641702767,
+    "format_and_targeted_clippy": "passed",
+    "entire_repaired_gate_required": true,
+    "T01_complete": false,
+    "T02_started": false
+  },
+  "input_echo_followup_repair": {
+    "status": "all_selected_checks_passed_final_input_review_and_full_gate_pending",
+    "verification": "retained-csharp-repair/input-echo-followup-repair/verification.json",
+    "source_owners": 2,
+    "original_assertions_per_file": 11,
+    "transition_contexts": 2,
+    "transition_projection_observations": 999,
+    "literal_constants": 18,
+    "literal_packet_observations": 1414,
+    "original_fixture_and_source_values_unchanged": true,
+    "format_and_targeted_clippy": "passed",
+    "entire_committed_repaired_gate_required": true,
+    "T01_complete": false,
+    "T02_started": false
+  },
+  "additional_control_source_step_diagnosis": {
+    "status": "selected_observer_repair_passed_CSharp_retry_deferred",
+    "result": "retained-csharp-repair/control-source-steps-diagnosis/result.json",
+    "wall_seconds": 6339.1222947920905,
+    "failed_assertion": "Original line129, actual3/expected2; obsolete component observer omits existing memory update and source constructor components.",
+    "repair_verification": "retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/verification.json",
+    "scope": "Both failed original attempts retained. Corrected shared metadata and complete18-context normal runtime pass; user now defers further CSharp tests."
+  },
+  "control_source_step_observer_repair": {
+    "status": "all_selected_checks_passed_CSharp_retry_deferred",
+    "verification": "retained-csharp-repair/control-source-steps-repair/ssa-origin-followup/verification.json",
+    "original_whole_file_assertions_preserved": 112,
+    "added_assertions": 9,
+    "original_input_members_unchanged": 42,
+    "component_mismatches_explained": 3,
+    "normal_mode": "passed_all18_original_contexts",
+    "corrected_build_seconds": 30.721012666937895,
+    "format_and_targeted_clippy": "passed",
+    "production_and_original_fixture_bytes_unchanged": true,
+    "entire_committed_repaired_gate_required": false,
+    "T01_complete": false,
+    "T02_started": false,
+    "harness_original_whole_file_assertions_preserved": 329,
+    "metadata_preflight_contexts": 18,
+    "metadata_complete_steps": 582,
+    "runtime_complete_steps": 582,
+    "runtime_positive": 9852,
+    "runtime_negative": 10853,
+    "runtime_observations": 20725,
+    "normal_seconds": 10017.322312208009,
+    "Go_development_gate_required": true
+  },
+  "historical_full_gate_before_CSharp_skip_amendment": {
+    "actual_profile_verification": "retained-csharp-repair/test-profile/json-repaired-retry/cargo-profile-result.json",
+    "actual_profile_verification_sha256": "baf3154fc2834e4d632b22f1f2215421cfb99fadf505c8f0852160a0da7e64f3",
+    "command": [
+      "./scripts/check-fast.sh"
+    ],
+    "control_epoch_failure": "initial-csharp-control-source/check-fast-result.json",
+    "failed_attempt": "initial-vocabulary-findings/check-fast-result.json",
+    "previous_source_commit": "43c6739990da01f6bd39eee2935fe9a837563800",
+    "result": "check-fast-result.json",
+    "retained_epoch_failure": "initial-retained-source-pin/check-fast-result.json",
+    "retry_environment": {
+      "CARGO_NET_OFFLINE": "true",
+      "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+      "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+      "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+    },
+    "selected_reason": "T01 final W; cumulative full local gate is mandatory; no T02 implementation starts until it passes",
+    "source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+    "source_tree": "05b791d9e2fe6bb40709b3d47df7295f355e9d97",
+    "status": "running_failed_original_diagnostic_requires_complete_repaired_retry",
+    "stderr": "check-fast.stderr.log",
+    "stdout": "check-fast.stdout.log",
+    "superseded_attempts": [
+      "initial-unoptimized/check-fast-result.json",
+      "initial-literal-only/check-fast-result.json",
+      "superseded-slow-debug/check-fast-result.json",
+      "superseded-json-archive/check-fast-result.json"
+    ],
+    "planned_repaired_retry_environment": {
+      "CARGO_NET_OFFLINE": "true",
+      "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+      "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+      "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+      "RUST_TEST_THREADS": "4"
+    },
+    "planned_repaired_retry_environment_reason": "Reduce aggregate host memory pressure after the exact live ten-worker process sample; all tests and assertions remain mandatory. Not applied to the current source320 diagnostic."
+  },
+  "current_gate_policy": {
+    "authority": "Latest explicit user instruction, 2026-10-19",
+    "CSharp_test_retry_requirements_in_historical_entries": "superseded_for_Go_development",
+    "default_full_gate_and_native_release_scope_unchanged": true,
+    "amendment": "go-development-gate/amendment.json"
+  },
+  "T01_complete": true,
+  "T02_started": false,
+  "completion_audit": "../completion-audit.json"
+}

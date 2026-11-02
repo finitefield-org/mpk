@@ -1,0 +1,11 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1m 31s
+     Running tests/go_practical_source_string.rs (target/debug/deps/go_practical_source_string-418647875683b948)
+
+thread 'source_strings' (57817782) panicked at crates/mpk-vc/tests/go_practical_source_string.rs:223:9:
+{"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"3e10069885e081af1257c2be138957aaab665615861adb81821fd82cd7d64846"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"}],\"details\":{\"constant_term_index\":\"595\",\"kind\":\"defeq_fuel_exhausted\",\"lhs_term_index\":\"89699\",\"operation\":\"defeq_delta\",\"rhs_term_index\":\"89713\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'source_strings_controls' (57818778) panicked at crates/mpk-vc/tests/go_practical_source_string.rs:121:63:
+called `Result::unwrap()` on an `Err` value: Domain(GoSourceDomainError { kind: Payload, source: None, input: None, path: [], typ: Some("9dd37a2784b6e83d7ff276bf49c07ccd1922569935a64d3851a5c6492446b4a3") })
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_string`

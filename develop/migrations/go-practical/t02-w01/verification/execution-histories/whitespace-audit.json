@@ -1,0 +1,89 @@
+{
+  "status": "passed_for_all_other_staged_files",
+  "initial_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "initial_exit_code": 2,
+  "initial_tool_session": 14849,
+  "initial_output_chunk": "a0cd63",
+  "initial_output": "develop/migrations/go-practical/t02-w01/verification/execution-histories/format-original/stderr.log:31: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/execution-histories/rust-borrow-fixed/stdout.log:13: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-equalities/stdout.log:6: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-fixed/stdout.log:11: new blank line at EOF.\n",
+  "retained_raw_outputs": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/execution-histories/format-original/stderr.log",
+      "complete_raw_producer_output": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/format-original/stderr.log",
+        "bytes": 1606,
+        "sha256": "10ab47d5743a2e8bd64cc05d521230175dd5d41ed887a4962009b46dc36a733f",
+        "mode": 420
+      },
+      "actual_result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/execution-histories/format-original/result.json",
+        "bytes": 3007,
+        "sha256": "e2de792d1de7cd5d80c0ff60260f3e6685a9a4c840e0edb31f41553c0b3dffd1",
+        "mode": 420
+      }
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-borrow-fixed/stdout.log",
+      "complete_raw_producer_output": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-borrow-fixed/stdout.log",
+        "bytes": 441,
+        "sha256": "978d68d50d52430c845d1a71b8996ecf54a20a75188a7933ce3c594fc70d0d99",
+        "mode": 420
+      },
+      "actual_result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-borrow-fixed/result.json",
+        "bytes": 3124,
+        "sha256": "e86bd16fd245d260ece29650b721b24c91fa1006418d36030bfbc58aa7b92b92",
+        "mode": 420
+      }
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-equalities/stdout.log",
+      "complete_raw_producer_output": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-equalities/stdout.log",
+        "bytes": 190,
+        "sha256": "c6463ef5df84f4b876e13d448bf14804ca409690e903c14b210c11c39828f4b1",
+        "mode": 420
+      },
+      "actual_result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-equalities/result.json",
+        "bytes": 3221,
+        "sha256": "d3f9d6c1ba88abed7bb70927814251f06ab2547199b221fbcac929df9189c594",
+        "mode": 420
+      }
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-fixed/stdout.log",
+      "complete_raw_producer_output": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-fixed/stdout.log",
+        "bytes": 290,
+        "sha256": "093e21184fa5266d0fe9964d5519bb38b5956008c5981636f85cbbf2f9539588",
+        "mode": 420
+      },
+      "actual_result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-fixed/result.json",
+        "bytes": 3205,
+        "sha256": "5966a220956c5f89e5f2cf050f07841e77fc609762ac34a026725e205d81ebfd",
+        "mode": 420
+      }
+    }
+  ],
+  "follow_up_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check",
+    "--",
+    ".",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/execution-histories/format-original/stderr.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-borrow-fixed/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-equalities/stdout.log",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/execution-histories/rust-controls-fixed/stdout.log"
+  ],
+  "follow_up_exit_code": 0,
+  "reason": "Preserve all producer stdout/stderr bytes authenticated by their actual result receipts. Only these four result-bound final blank lines are exempted from whitespace normalization. No source, rule, seal or scanner exclusion changes."
+}

@@ -1,0 +1,235 @@
+{
+  "status": "failed",
+  "root_and_original_dependency_versions_only": true,
+  "cases": [
+    {
+      "manifest": "fuzz/Cargo.toml",
+      "command": [
+        "cargo",
+        "metadata",
+        "--offline",
+        "--format-version",
+        "1",
+        "--manifest-path",
+        "/Users/kazuyoshitoshiya/ff/mpk/fuzz/Cargo.toml"
+      ],
+      "exit_code": 101,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-fuzz/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": 420
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-fuzz/stderr.log",
+        "bytes": 339,
+        "sha256": "3c8c5d5f9fa8cdee3921ac56d86c4e677feb090274fdea877bb2ac8a6782f6e2",
+        "mode": 420
+      },
+      "lock": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/fuzz/Cargo.lock",
+        "bytes": 10302,
+        "sha256": "2249c687fb0bb3dc6d4d12661644e1939a39922b0e8b89ecd006951f81f12626",
+        "mode": 420
+      }
+    },
+    {
+      "manifest": "develop/probes/go-practical/release-native/Cargo.toml",
+      "command": [
+        "cargo",
+        "metadata",
+        "--offline",
+        "--format-version",
+        "1",
+        "--manifest-path",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/release-native/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-release-native/stdout.log",
+        "bytes": 134515,
+        "sha256": "4e233e0b42bd272e30f4bb74d3838b86cae0b52dacae6c15eb6829a55f3e04ee",
+        "mode": 420
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-release-native/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": 420
+      },
+      "lock": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/release-native/Cargo.lock",
+        "bytes": 5874,
+        "sha256": "1b83fc8c5a9dfc288f66e650ebe397ca0289d5d4902e4275de547d6afcbe0ad6",
+        "mode": 420
+      },
+      "resolved_packages": 29,
+      "existing_registry_versions_and_checksums_retained": true
+    },
+    {
+      "manifest": "develop/probes/go-practical/context-legacy/Cargo.toml",
+      "command": [
+        "cargo",
+        "metadata",
+        "--offline",
+        "--format-version",
+        "1",
+        "--manifest-path",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/context-legacy/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-context-legacy/stdout.log",
+        "bytes": 134102,
+        "sha256": "92c38789220c8efff0ef97db0246d6935bc3eaea143dcf5176dc6ceeb382761c",
+        "mode": 420
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-context-legacy/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": 420
+      },
+      "lock": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/context-legacy/Cargo.lock",
+        "bytes": 5865,
+        "sha256": "aa5431f0addff56928519b2a697fe82a8d4038b5c2d2a62a012ea4d48521e09a",
+        "mode": 420
+      },
+      "resolved_packages": 29,
+      "existing_registry_versions_and_checksums_retained": true
+    },
+    {
+      "manifest": "develop/probes/go-practical/proof-native/Cargo.toml",
+      "command": [
+        "cargo",
+        "metadata",
+        "--offline",
+        "--format-version",
+        "1",
+        "--manifest-path",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/proof-native/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-proof-native/stdout.log",
+        "bytes": 134483,
+        "sha256": "7da73a79a378a013dc29d67f5c03491b0512e0d2edbb7793b5af42016419d0ed",
+        "mode": 420
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-proof-native/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": 420
+      },
+      "lock": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/proof-native/Cargo.lock",
+        "bytes": 5872,
+        "sha256": "9d3548fd97545513a9f5769dc15a511438a968a166e88f50ac538628d1a637d1",
+        "mode": 420
+      },
+      "resolved_packages": 29,
+      "existing_registry_versions_and_checksums_retained": true
+    },
+    {
+      "manifest": "develop/probes/go-practical/capture-native/Cargo.toml",
+      "command": [
+        "cargo",
+        "metadata",
+        "--offline",
+        "--format-version",
+        "1",
+        "--manifest-path",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/capture-native/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-capture-native/stdout.log",
+        "bytes": 134104,
+        "sha256": "424888091f74aa25b82334b42c4542001a7350f88531630bf0dbb6a570c81aad",
+        "mode": 420
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-capture-native/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": 420
+      },
+      "lock": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/capture-native/Cargo.lock",
+        "bytes": 5865,
+        "sha256": "99e95e09566a68185fab88a11e44d730ec21bb00139b42e192c254516c9a5b4c",
+        "mode": 420
+      },
+      "resolved_packages": 29,
+      "existing_registry_versions_and_checksums_retained": true
+    },
+    {
+      "manifest": "develop/probes/go-practical/policy-native/Cargo.toml",
+      "command": [
+        "cargo",
+        "metadata",
+        "--offline",
+        "--format-version",
+        "1",
+        "--manifest-path",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/policy-native/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-policy-native/stdout.log",
+        "bytes": 227491,
+        "sha256": "b6c9634c06e7ab27492fa4f216ebdeb0d3bb5288c95185a391738bdc9a1ebf9e",
+        "mode": 420
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-policy-native/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": 420
+      },
+      "lock": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/policy-native/Cargo.lock",
+        "bytes": 8994,
+        "sha256": "b84129e80e8c562dde824ca16fcc7aa2a7d5bd41a9f07deeca56f8c3214abd57",
+        "mode": 420
+      },
+      "resolved_packages": 45,
+      "existing_registry_versions_and_checksums_retained": true
+    },
+    {
+      "manifest": "develop/probes/go-practical/frontend-native/Cargo.toml",
+      "command": [
+        "cargo",
+        "metadata",
+        "--offline",
+        "--format-version",
+        "1",
+        "--manifest-path",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/frontend-native/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-frontend-native/stdout.log",
+        "bytes": 226266,
+        "sha256": "4eceab3571ec74cd323a595b04b59e622f41e9e79f46ddcc8b509faa5f68ad7d",
+        "mode": 420
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-elf/build-wiring/resolve-frontend-native/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": 420
+      },
+      "lock": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/frontend-native/Cargo.lock",
+        "bytes": 8956,
+        "sha256": "a35839fcbde300f5deb822d6e8b63de36e1f8cdafe64a5a712823c489c983cc7",
+        "mode": 420
+      },
+      "resolved_packages": 45,
+      "existing_registry_versions_and_checksums_retained": true
+    }
+  ]
+}

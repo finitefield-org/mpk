@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "selection_reason": "Preserve exact test stdout streams and check all other staged records; retain the full check with its two final blank-line observations.",
+  "full_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "full_exit_code": 2,
+  "full_stdout": "develop/migrations/go-practical/t02-w01/verification/registered-analysis/roots-original/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/registered-analysis/rust-original/stdout.log:6: new blank line at EOF.\n",
+  "selected_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check",
+    "--",
+    ".",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/registered-analysis/**/stdout.log"
+  ],
+  "selected_exit_code": 0,
+  "selected_stdout": "",
+  "selected_stderr": "",
+  "original_stdout_bytes_modified": false
+}

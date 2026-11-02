@@ -1,0 +1,83 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_standard_module",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_STANDARD_MODULE_RUST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/roles-initial/observations/strict-modules",
+    "MPK_GO_COMPILER_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/roles-initial/observations/compilers",
+    "MPK_GO_GRAPH_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/roles-initial/observations/graphs",
+    "MPK_GO_GRAPH_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/roles-initial/observations/graph-manifests",
+    "MPK_GO_MODULE_MANIFEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/roles-initial/observations/manifests",
+    "MPK_GO_EXPORT_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/roles-initial/observations/exports"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/roles-initial/inputs.json",
+    "bytes": 81554792,
+    "sha256": "5be84de54e44eab14742e37b6d968d5a3fe56f001cfda35e8535413513b6e4f8",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/run.py",
+    "bytes": 10239,
+    "sha256": "c12d2ed21acc72898c1d216f3f912337d06ea0d04f6a92e5fc8468406d689fa7",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-26T20:28:31.272915+00:00",
+  "selection_reason": "Independently parse complete original standard go.mod using the pinned general strict Parse grammar, separate from unchanged application admission and dependency ParseLax. Preserve all original656 manifest cases, std-path variants, full SDK manifests and complete extra directive/version/byte probes, including40000 duplicate debug rows. Run actual original5577-file SDK/5480-source/715-directory and182-package/5697-object source/Root owner; coherently reseal actual SDK go.mod source bytes, full compiler inventories/distribution/component/contract/selection/snapshot/capture/export links, and reject malformed standard manifests at StandardModule while valid complete directives remain accepted. Select strict/module/graph-manifest/compiler/export consumers, exact whole originals and scoped Clippy/vet/formats. No original source/type/error/proof universe, source/bundle/kernel/certificate cap, scanner rule, public profile or whole-gate/removed-language testing changes.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 221.65967170801014,
+  "consumed_inputs_unchanged": true,
+  "whole_sdk_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/roles-initial/stdout.log",
+    "bytes": 293,
+    "sha256": "82091c955cdee7bbc9e832c7d79d6268f68d297b544bf302bc96290a2cf59d93",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/standard-module/roles-initial/stderr.log",
+    "bytes": 263,
+    "sha256": "7ee7ef94d976127090167a7625c284ed95877c168286158e5be2f2e9b999b5fa",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-26T20:32:12.935724+00:00"
+}

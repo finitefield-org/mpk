@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1.87s
+     Running tests/go_practical_word_division.rs (target/debug/deps/go_practical_word_division-e05b48f27373d52f)
+
+thread 'closed_prerequisite_declarations_match_prior_components_by_name' (36742547) panicked at crates/mpk-vc/tests/go_practical_word_division.rs:40:13:
+assertion `left == right` failed: retained named type/proof/body/metadata changed: Mpk.Go.Practical.Word.Numeric.CheckedStep0123
+  left: Some(Array [String("theorem"), String("415053bb8e11d6696e88b78ee73f403174983f6a3e227f8f57cfbaba943e2039"), String("6628e5e4838704625ebe1aef1a7c19875f35523e8440363943d41df2095c2055")])
+ right: Some(Array [String("theorem"), String("a7d2077588031c47aba69ad31863e7a755e7f756c4e2a1eafae21a40a8e9e284"), String("fdb7b90867629803b35e19032316bb40a79e6d2b18d3885d56d50b426bb156cf")])
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_word_division`

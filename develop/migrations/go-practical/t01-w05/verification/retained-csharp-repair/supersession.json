@@ -1,0 +1,29 @@
+{
+  "action": "supersede already-failed old compiled diagnostic gate",
+  "complete_original_suite": false,
+  "observed_processes": [
+    {
+      "command": "/Users/kazuyoshitoshiya/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "parent": 97323,
+      "pid": 9718
+    },
+    {
+      "command": "/Users/kazuyoshitoshiya/ff/mpk/target/debug/deps/csharp_practical_vc-275d24cd51fb68fd",
+      "parent": 9718,
+      "pid": 45586
+    },
+    {
+      "command": "bash",
+      "parent": 97321,
+      "pid": 97323
+    }
+  ],
+  "reason": "All14 known failures have passing focused repairs. Old debug-profile scalar oracle tests have occupied nine cores for over30 minutes. The repaired full gate will run every test with opt-level1 while retaining debug assertions and overflow checks. No test exclusion or release/profile activation is introduced.",
+  "required_retry_environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "source_commit": "94b544f4887ba4edae3ee6867bbeac82c88e248c"
+}

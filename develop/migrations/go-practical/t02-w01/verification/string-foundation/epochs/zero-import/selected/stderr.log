@@ -1,0 +1,11 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `release` profile [optimized] target(s) in 29.17s
+     Running tests/go_practical_string_foundation.rs (target/release/deps/go_practical_string_foundation-ae4ef1f2582e554e)
+
+thread 'frozen_string_foundation_preserves_all_full64_prerequisites' (43971406) panicked at crates/mpk-vc/tests/go_practical_string_foundation.rs:41:9:
+string-foundation: first declaration type-check failure Mpk.Go.Practical.String.ZeroCubeValue1: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"3cc4cb4d030cf342ddb656c51ceff88e10125cccb41738225c131834c289bdfb"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"228353\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"38246\",\"kind\":\"check_type_mismatch\",\"term_index\":\"228296\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'complete_native_byte_alphabet_has_every_ordinary_bit_checked' (43971405) panicked at crates/mpk-vc/tests/go_practical_string_foundation.rs:41:9:
+string-all-bytes: first declaration type-check failure Mpk.Go.Practical.String.ZeroCubeValue1: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"eb43975694dcf33abdd4e938af60ab62a727f70300e0c0a3168001b0dd87ec78"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"228353\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"38246\",\"kind\":\"check_type_mismatch\",\"term_index\":\"228296\"}}"}
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_string_foundation`

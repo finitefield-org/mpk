@@ -1,0 +1,747 @@
+{
+  "schema": "mpk.go_practical.source_error_receiver_checkpoint.v1",
+  "status": "scoped_checks_passed",
+  "basis_commit": "5fbad134bc14cd702477db3d5f756169a18b0cdc",
+  "language_scope": [
+    "Go",
+    "Rust"
+  ],
+  "observed_at_utc": "2026-10-22T19:35:30.351966+00:00",
+  "actual_summary_driver_sha256": "998325fdef9c95e96279ffafe08b2c67e84c998b26002359bea17007268c94bf",
+  "distinct_full_streams_checked_in_both_cores": 100,
+  "zero_axiom_mathematical_acceptances": 93,
+  "genuine_core_type_mismatches": 7,
+  "paired_executions": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/result.json",
+      "bytes": 79379,
+      "sha256": "2ae7c7d7c7c81b8477bcc0ca9a8cb5ab6a9018f3387cfaa6a73904634896983b"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-large/result.json",
+      "bytes": 320100,
+      "sha256": "c8d5562c3766a5d45c340fadea14659c40d963b67861c073e5fcecb873d3fc44"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/controls-paired/result.json",
+      "bytes": 22803,
+      "sha256": "413a65851b14614008026f5f6a39c725f03c1abe5a5f9a8d662b3c3864749179"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/large-controls-paired/result.json",
+      "bytes": 6961,
+      "sha256": "9e1aa7a40ba63998053dec894051ce0bf372292dabb3e278c88a357f16f82da9"
+    }
+  ],
+  "Go_complete_prelaunch_inputs": 365,
+  "normal_original_streams": 92,
+  "independent_complete_source_box_constructors": 5030,
+  "actual_tag_bit_observations": 321920,
+  "structural_comparisons": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/oracle-small/structural-comparison.json",
+      "bytes": 89065,
+      "sha256": "d5e917b1a1adb29e84d74345b6b9d868dbcc4285cac3774f66364451011c3061"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/oracle-large/structural-comparison.json",
+      "bytes": 4989707,
+      "sha256": "d936168a8ca97ce656bfafb4b4539df8c1a514c1d2a2818a684cddb03b5907de"
+    }
+  ],
+  "wrong_target_ordinal_math_and_wrong_call_owner_fail_frozen_comparison": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/oracle-owned/structural-comparison.json",
+    "bytes": 1012,
+    "sha256": "d821d310067697a5fd9675e1b0cc11394c2e86830296d45e353e009bf227d3cc"
+  },
+  "prior_selector92_literal_replay": {
+    "map": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/replay/certificates/selector-row-literal-map.json",
+      "bytes": 43666,
+      "sha256": "1220f573eef1cfa2dca5510e8a7afb5f65a4c775769e09e4809f48a98e25a9d4"
+    },
+    "rows": 92
+  },
+  "prior_complete_selector_rows_evidence_unchanged": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-selector/verification.json",
+    "bytes": 32924,
+    "sha256": "c9fde924e08eb8e44f0bde7268aa46ccc2d2142bdd0d0552f2b9f429a4e1a8f8"
+  },
+  "actual_nil_tag_bit_observations": 5888,
+  "complete_operation_definitions_compared": 460,
+  "complete_operation_theorem_statements_compared": 11348,
+  "every_source_copy_payload_field_compared": 5030,
+  "complete_source_case_row_theorem_statements_compared": 9975,
+  "case_comparison_pairs": 4945,
+  "selector_definitions_compared": 10336,
+  "selector_theorem_statements_compared": 15274,
+  "actual_decoded_selector_target_observations": 92,
+  "receiver_predicate_definitions_compared": 92,
+  "complete_receiver_theorem_statements_compared": 11157,
+  "actual_decoded_copy_target_and_nil_observations": 276,
+  "nil_without_selected_target_rows": 7,
+  "source_epochs": 12,
+  "original_input_rows": 9453,
+  "actual_source_executions": [
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/controls/result.json",
+        "bytes": 5581,
+        "sha256": "3d1d7f8bec522b147c39d8951d1d3b83c4da392d740f7dfacb4153089721fe68"
+      },
+      "inputs": 850,
+      "status": "passed",
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/controls-format/result.json",
+        "bytes": 3266,
+        "sha256": "d5a5187e335129b881b7ad05e4c68b85f633117a21a5d24df8ee75e9909cadd7"
+      },
+      "inputs": 781,
+      "status": "passed",
+      "formatter_mutation_expected": true
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/result.json",
+        "bytes": 10444,
+        "sha256": "ed0dd646a235186ce74166dadbf78541d38a4150e3d43ea9bb66d8d739bb29ab"
+      },
+      "inputs": 819,
+      "status": "passed",
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/first-large/result.json",
+        "bytes": 28854,
+        "sha256": "961a8aa5ba45d4ec496358af36d95def7847635aaf018371d1067d04eba30948"
+      },
+      "inputs": 820,
+      "status": "passed",
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/format/result.json",
+        "bytes": 3420,
+        "sha256": "eca04ed9c249193da280939e21cf9570c40f19b6225213a564abd93e887890c9"
+      },
+      "inputs": 819,
+      "status": "passed",
+      "formatter_mutation_expected": true
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/format-check/result.json",
+        "bytes": 3596,
+        "sha256": "83fc733976dc9d6f4de274c6b64a1532b2f6781c4a60edccbb2bb9b00dfb0a79"
+      },
+      "inputs": 781,
+      "status": "passed",
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/large-controls/result.json",
+        "bytes": 3835,
+        "sha256": "d3eb7122405e093c955a84ad4c55cbde7ece3681cd64674f0ce452e7a4bcee78"
+      },
+      "inputs": 995,
+      "status": "passed",
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/lint/result.json",
+        "bytes": 3323,
+        "sha256": "032e2e4b0154abe1b53a5f11e5e57cffc7c10aa5d02ecfc3a53e6a0d1857b5a5"
+      },
+      "inputs": 781,
+      "status": "passed",
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/oracle-large/result.json",
+        "bytes": 3149,
+        "sha256": "1f4b502cd4aa9aab3bc4ec2f87630985ea2e339973bcbb239b3009d6ec71e6b4"
+      },
+      "inputs": 754,
+      "status": "passed",
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/oracle-owned/result.json",
+        "bytes": 3197,
+        "sha256": "4f802a62b40a4b08d18f8d1db005ff158b29803c637cbb4f8c32a2dda41ac029"
+      },
+      "inputs": 624,
+      "status": "passed",
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/oracle-small/result.json",
+        "bytes": 3146,
+        "sha256": "ca799ed6543ac0e1f8174f4f3c36b57bb423620c048240c357429c3cdb065c1b"
+      },
+      "inputs": 609,
+      "status": "passed",
+      "formatter_mutation_expected": false
+    },
+    {
+      "result": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/replay/result.json",
+        "bytes": 3412,
+        "sha256": "1c762eb973af76626e168ee34c2b27bda6264e7db52150a6516d8c27ecb60813"
+      },
+      "inputs": 820,
+      "status": "passed",
+      "formatter_mutation_expected": false
+    }
+  ],
+  "retained_failed_epochs": [],
+  "current_checks": {
+    "entries": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/result.json",
+      "bytes": 10444,
+      "sha256": "ed0dd646a235186ce74166dadbf78541d38a4150e3d43ea9bb66d8d739bb29ab"
+    },
+    "first-large": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/first-large/result.json",
+      "bytes": 28854,
+      "sha256": "961a8aa5ba45d4ec496358af36d95def7847635aaf018371d1067d04eba30948"
+    },
+    "controls": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/controls/result.json",
+      "bytes": 5581,
+      "sha256": "3d1d7f8bec522b147c39d8951d1d3b83c4da392d740f7dfacb4153089721fe68"
+    },
+    "large-controls": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/large-controls/result.json",
+      "bytes": 3835,
+      "sha256": "d3eb7122405e093c955a84ad4c55cbde7ece3681cd64674f0ce452e7a4bcee78"
+    },
+    "lint": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/lint/result.json",
+      "bytes": 3323,
+      "sha256": "032e2e4b0154abe1b53a5f11e5e57cffc7c10aa5d02ecfc3a53e6a0d1857b5a5"
+    },
+    "format-check": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/format-check/result.json",
+      "bytes": 3596,
+      "sha256": "83fc733976dc9d6f4de274c6b64a1532b2f6781c4a60edccbb2bb9b00dfb0a79"
+    },
+    "oracle-small": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/oracle-small/result.json",
+      "bytes": 3146,
+      "sha256": "ca799ed6543ac0e1f8174f4f3c36b57bb423620c048240c357429c3cdb065c1b"
+    },
+    "oracle-large": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/oracle-large/result.json",
+      "bytes": 3149,
+      "sha256": "1f4b502cd4aa9aab3bc4ec2f87630985ea2e339973bcbb239b3009d6ec71e6b4"
+    },
+    "oracle-owned": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/oracle-owned/result.json",
+      "bytes": 3197,
+      "sha256": "4f802a62b40a4b08d18f8d1db005ff158b29803c637cbb4f8c32a2dda41ac029"
+    },
+    "replay": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/replay/result.json",
+      "bytes": 3412,
+      "sha256": "1c762eb973af76626e168ee34c2b27bda6264e7db52150a6516d8c27ecb60813"
+    }
+  },
+  "production_sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "bytes": 83067,
+      "sha256": "999bb0b9f227c4316318eea8e4f5686136a877363f50382e5d77513c2413fd4b"
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/source_error_cases.rs",
+      "bytes": 9829,
+      "sha256": "89aadc969c692dc0b4583e979f5bafbfb43cd1efae40ae16f6580be97bf37015"
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/source_error_dispatch.rs",
+      "bytes": 15522,
+      "sha256": "54ad708ce80e20a452bca827d348a7942c195d09770c08ed67006eef58906ec1"
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/source_error_receiver.rs",
+      "bytes": 16628,
+      "sha256": "00e9e1b8039838a37ee56811e2ce74c0fcf59d89df6d5680012753837ea6763f"
+    }
+  ],
+  "N70": {
+    "cases": 70,
+    "source_type_recipes": 73,
+    "rows": 71,
+    "concrete_target_rows": 70,
+    "nil_no_target_rows": 1,
+    "row_sizes": [
+      {
+        "boxed_source_type_id": "0153002808f6b1ad75b3a70c513a6c3ddcbb229b3c5ba012642aefc3f15a44ba",
+        "declarations": 1998,
+        "terms": 21797,
+        "bytes": 676999
+      },
+      {
+        "boxed_source_type_id": "01a0fdb395102c563c3e4fb9c79664571c1c404fe71791ac9f51b75d19a244b1",
+        "declarations": 1998,
+        "terms": 21762,
+        "bytes": 676582
+      },
+      {
+        "boxed_source_type_id": "0450884812f8303cd115cf8c21f7aeca2b2baf3b17d96562aecf48748d08caf2",
+        "declarations": 1998,
+        "terms": 21797,
+        "bytes": 677005
+      },
+      {
+        "boxed_source_type_id": "05a8e0498be421843fea795572795f49558d1962cb7e963d537e37b154f6d29c",
+        "declarations": 1998,
+        "terms": 21744,
+        "bytes": 676403
+      },
+      {
+        "boxed_source_type_id": "09390868af511992ff982db39d8ef3a7e4df8ec87dc6508a70fafe5bd4b92318",
+        "declarations": 1998,
+        "terms": 21797,
+        "bytes": 676999
+      },
+      {
+        "boxed_source_type_id": "0be14c8231db56a1abd5425ee4aa19a4978089e34ae60d5cd77ce1fd746a9973",
+        "declarations": 1998,
+        "terms": 21762,
+        "bytes": 676582
+      },
+      {
+        "boxed_source_type_id": "0fbfafb4843864b99153ed50357af1c1a083b4b6295dae900f1b097731998e58",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676947
+      },
+      {
+        "boxed_source_type_id": "11efba017e15f5a5d272a48a19de8b9f2f2237d74f13440069ad61a7e5837c93",
+        "declarations": 1998,
+        "terms": 21730,
+        "bytes": 676209
+      },
+      {
+        "boxed_source_type_id": "13dd4f3eeec9632922b983f813bf63e4f80a42e45c423a4a15eeb7da1310af9c",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676933
+      },
+      {
+        "boxed_source_type_id": "160cd575f109d835ae14fe7c439f238590e76eed64ce35c8b823acea20e58df0",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676516
+      },
+      {
+        "boxed_source_type_id": "1b1acbd215b9b48c576556475f3845f0c713580f8826701e25f7121d45dd9cfd",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676963
+      },
+      {
+        "boxed_source_type_id": "1d161ee707f3006376b5faca40f0e8e7ec5c326f4ca618512f853da2a96f2c71",
+        "declarations": 1998,
+        "terms": 21739,
+        "bytes": 676322
+      },
+      {
+        "boxed_source_type_id": "25e222feecd71ae08a8dba44bd1ee252772e23000ef1c942291cfd53ac30bf8c",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676933
+      },
+      {
+        "boxed_source_type_id": "26430c55b95bf02c8711e54aa67d99e8d615ff5349cde0bb95caac92b383660c",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676516
+      },
+      {
+        "boxed_source_type_id": "26b41400a7c3a97b0aba532e78568de8711054dfe198a4fd35cc7e3aba749d43",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676947
+      },
+      {
+        "boxed_source_type_id": "271eecc990a7c27c4a88b2aea1fb44d77c2afaecd306e5a789b02705724bbc56",
+        "declarations": 1998,
+        "terms": 21726,
+        "bytes": 676159
+      },
+      {
+        "boxed_source_type_id": "2b753a8d920d34758e232afab5d75dcbf4dd1dadfd53359a3876da6b5a678fd6",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676941
+      },
+      {
+        "boxed_source_type_id": "2eb0ebb12048e71c062956d084900ecd0a94dd5eff01747ebfa1e2089687a731",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676524
+      },
+      {
+        "boxed_source_type_id": "2fbc6788c86a1de7c3a2778c8f4b4e19d8da007ff4a647b48d40ac432aedf1a2",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676971
+      },
+      {
+        "boxed_source_type_id": "3c9016f681562e41db87c6bb54561ba7b9207a0f8e78b58599609d7996e1872e",
+        "declarations": 1998,
+        "terms": 21739,
+        "bytes": 676330
+      },
+      {
+        "boxed_source_type_id": "3e5a8d7db211162e453452c13219884251645f6ae5c1eddca94550839f3b368e",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676941
+      },
+      {
+        "boxed_source_type_id": "41e843ee13560def4bef7f03ec5e2252c3b7200ac79f05bfe516e20cf7c21f3e",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676524
+      },
+      {
+        "boxed_source_type_id": "436e1e7def5c63a127a9b0fe0674c08d76befa16124b8348b79edeae70a457cb",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676947
+      },
+      {
+        "boxed_source_type_id": "5b1ae1d0fdb6ddba13ace8b7698a15368b0a51f069709003b609d7c837455dc1",
+        "declarations": 1998,
+        "terms": 21730,
+        "bytes": 676214
+      },
+      {
+        "boxed_source_type_id": "5c0d4f3adb6ec119886eb2ebac330aaebad0b76fa8b9a4d4e35b0215ad911546",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676933
+      },
+      {
+        "boxed_source_type_id": "5c2e75253bec9209274be5bc6cc0451c60611966305014e90e9c6b091e37f0be",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676516
+      },
+      {
+        "boxed_source_type_id": "5d77a98cacd5a826f4fa07286b733430c35a4d4bd938c1b92ec7b939a3786364",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676963
+      },
+      {
+        "boxed_source_type_id": "6343b47963a432b023703c7871d9c4bb08607825be30d57c79210c899f5b2914",
+        "declarations": 1998,
+        "terms": 21739,
+        "bytes": 676322
+      },
+      {
+        "boxed_source_type_id": "637b1e53946f1efb443e11ac38251a9173b9303ecdad95fa13811f681e3977db",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676933
+      },
+      {
+        "boxed_source_type_id": "64444cea7201ae84228fa9dfd1f40e7d17ad601b2348719617fd9a6304534254",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676516
+      },
+      {
+        "boxed_source_type_id": "64b45c71f772274f5b5f2e0cef8c09165d9ca98be2bd0108303857a1f40cecf4",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676947
+      },
+      {
+        "boxed_source_type_id": "65aaf6e2f2c9aca16bdbd21f1ab0161664c5c6b7e814a47db0df18cf40c9053c",
+        "declarations": 1998,
+        "terms": 21724,
+        "bytes": 676134
+      },
+      {
+        "boxed_source_type_id": "67aad9cf025140319b805658fabd70ae2363be67cc9f73b4573fbd4d31d0e113",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676945
+      },
+      {
+        "boxed_source_type_id": "6afaeedbb6eb04b9ff2ec7ca4bcdccb9bd7848db135ef5f7a4531aeaf4d9aff5",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676528
+      },
+      {
+        "boxed_source_type_id": "7022164535ad80c23fb426e78eb0734448c1ee16197a3a3a9e15fa03745af7d2",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676975
+      },
+      {
+        "boxed_source_type_id": "7c8c18067910200941556594a77c3bdb02b25435ab09a24ac9b4a3c0ea2eeff9",
+        "declarations": 1998,
+        "terms": 21739,
+        "bytes": 676334
+      },
+      {
+        "boxed_source_type_id": "7eee6d6500556ee1cc8038cb8e88f7398ff0db7214122dba4e2d962f9bdf1918",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676945
+      },
+      {
+        "boxed_source_type_id": "7ff0fd01a9a0dc384693674500e4811795b5bb6d4c26a2078ae58ab343025106",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676528
+      },
+      {
+        "boxed_source_type_id": "832a6e3d6f417c5152db0eac66d7022a8bf5d4f47089892d37da7058194fe74c",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676947
+      },
+      {
+        "boxed_source_type_id": "8435e8caa75d99f8ef3e482b06c5aafb0d84758c6aee08503cb5ee67bd0c48c1",
+        "declarations": 1998,
+        "terms": 21730,
+        "bytes": 676212
+      },
+      {
+        "boxed_source_type_id": "84a697d6247f048007689aea71dae46ed7d333e0955a1e06b97d5ae2909062ab",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676933
+      },
+      {
+        "boxed_source_type_id": "8922e6637cbc036c7e2edf342fb9db37b195221bc34c917534cea03c6f9eaa55",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676516
+      },
+      {
+        "boxed_source_type_id": "8d5d46e817211fc9afd015252124ec6d34904ed4734edd39214ac5ede35e168b",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676963
+      },
+      {
+        "boxed_source_type_id": "8eca6c0ed172cb685cea73d069bcfedc06540ef1b7adacf089fdc38e3fe9c0cb",
+        "declarations": 1998,
+        "terms": 21739,
+        "bytes": 676322
+      },
+      {
+        "boxed_source_type_id": "8fec4f2cce1d0fa44b0b38d65720d87757c8b9cf02466a244bb3fb7a5ec88043",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676933
+      },
+      {
+        "boxed_source_type_id": "925ba6652e9acfe6608034de1a79ba2f1cdf04b7583393aa1c0e018391fddeaa",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676516
+      },
+      {
+        "boxed_source_type_id": "9474fb10a63e057d25e13621518262344633625e979856ddf710a317a5e4c4ff",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676947
+      },
+      {
+        "boxed_source_type_id": "992a3086ba55973eefe4cd656b42ff64d23ac06c06c958b9f62f95da376d09c5",
+        "declarations": 1998,
+        "terms": 21726,
+        "bytes": 676162
+      },
+      {
+        "boxed_source_type_id": "9ff960b8b522e8613d9385d27e82b59b032f79a26342c5306c162c2b5dc51183",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676941
+      },
+      {
+        "boxed_source_type_id": "abb099414213b57720c6c0f15b479bbac32641d789e878a6d26c3bc2a60744aa",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676524
+      },
+      {
+        "boxed_source_type_id": "ad149c091368a65777dc41881d8d863dbd7bb14fd9e797b69b6623f103dc4b47",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676971
+      },
+      {
+        "boxed_source_type_id": "add1576845750eea28df962b6aa3eeb7e2cce341d978314e95081c9c0791b505",
+        "declarations": 1998,
+        "terms": 21739,
+        "bytes": 676330
+      },
+      {
+        "boxed_source_type_id": "aec193b6283dd932a060dc486ae73157fa5f32f3370ca843ccfe449c32cec02d",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676941
+      },
+      {
+        "boxed_source_type_id": "aec350de003d7e8ffaf39b5d5cdf00a0e61cbe6a5d9112f087f7fad2648cb11a",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676524
+      },
+      {
+        "boxed_source_type_id": "afc362e90373a9eb02f4c56ad969ff9499c2865edbd24b4b63851cf2ef8fa3e8",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676947
+      },
+      {
+        "boxed_source_type_id": "b36df8cafeb33e19eb541ebf63d950e26ccc6b0a5368658034cc24e2b82356e1",
+        "declarations": 1998,
+        "terms": 21730,
+        "bytes": 676217
+      },
+      {
+        "boxed_source_type_id": "bc6450c3063755752398c1859c95724be9aa732775c6ee64ac7e4cd2de9bf73d",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676933
+      },
+      {
+        "boxed_source_type_id": "c66570771884a34d9a781fe044c665cb2e59ea62ad12035c7699b5e33b2b9038",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676516
+      },
+      {
+        "boxed_source_type_id": "d07b5003ee14dfdabe6e1e3b53ece20c5a2febe81ccf14611b3a6bf5522a1b97",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676963
+      },
+      {
+        "boxed_source_type_id": "d0970a1afcc024124f3056810f9e430a72bb13cbbde36d96e18b17c014af2db8",
+        "declarations": 1998,
+        "terms": 21739,
+        "bytes": 676322
+      },
+      {
+        "boxed_source_type_id": "d3eb67d19c74d9dac098019d921826f44521fe14c6a9897a14d7b000edf9a848",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676933
+      },
+      {
+        "boxed_source_type_id": "daf1f454e24a917b72a3477974f16d45767bb8974f640c8a79c36b2236dbe401",
+        "declarations": 1998,
+        "terms": 21757,
+        "bytes": 676516
+      },
+      {
+        "boxed_source_type_id": "ed801cd9b68262314f7a3917d94d0b412c7bc1087a79345897a9d2971aaff1a4",
+        "declarations": 1998,
+        "terms": 21792,
+        "bytes": 676947
+      },
+      {
+        "boxed_source_type_id": "f63a92c770fec09c1240ce0c1b62e23d96efda99e4213ee3f3f0fc2442af0d01",
+        "declarations": 1998,
+        "terms": 21721,
+        "bytes": 676115
+      },
+      {
+        "boxed_source_type_id": "f63fa6f0c61fe67c724785b909034b18b7199c2369748a4f62771a612837137f",
+        "declarations": 1998,
+        "terms": 21797,
+        "bytes": 676995
+      },
+      {
+        "boxed_source_type_id": "f84e5193e1f5c62054e06dbb9c2e8e8fbff18bbfc8ae1940c4bd5383aab2459c",
+        "declarations": 1998,
+        "terms": 21762,
+        "bytes": 676578
+      },
+      {
+        "boxed_source_type_id": "f9a665a494c899e478169b36eb85ecc85af1f8052ee24a6053ba850d6be4fe0c",
+        "declarations": 1998,
+        "terms": 21797,
+        "bytes": 677025
+      },
+      {
+        "boxed_source_type_id": "f9ab3838e2f02bb4a10cdc0dc15b5f97fd7e801d9bd465addb6d076603075eeb",
+        "declarations": 1998,
+        "terms": 21744,
+        "bytes": 676384
+      },
+      {
+        "boxed_source_type_id": "fa5c03b39bc7838eaa375e4626ea6adac4903d1ea7587fced9492465414cae31",
+        "declarations": 1998,
+        "terms": 21797,
+        "bytes": 676995
+      },
+      {
+        "boxed_source_type_id": "fd94fdf4142d78514c8dfade4fbb864ce69e5ff2c51e11cffd40ba260f962d34",
+        "declarations": 1998,
+        "terms": 21762,
+        "bytes": 676578
+      },
+      {
+        "boxed_source_type_id": null,
+        "declarations": 1927,
+        "terms": 21083,
+        "bytes": 650102
+      }
+    ],
+    "maximum_declarations": 1998,
+    "maximum_terms": 21797,
+    "maximum_bytes": 677025,
+    "imports": 0,
+    "axioms": 0
+  },
+  "frozen_design_inputs": {
+    "manifest": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/product-relations/frozen-design-preservation.json",
+      "bytes": 53232,
+      "sha256": "3e4064923d298b473c7522d78754620c046c70364ca4da32da3543f460bc4961"
+    },
+    "count": 255
+  },
+  "selection_reason": "The premise must be exactly the original same-U source tag equality on the arbitrary full receiver, with actual Box and Nil witnesses, and all target/nil/copy equations must retain that premise. Verify all92 small/large original rows in both complete cores, every complete predicate and theorem statement independently, and actual decoded original/copied target/nil observations. Six small and one large false predicate/target/nil/copy claims must genuinely type reject; a coherent changed ordinal is accepted mathematics but must fail exact import and the frozen target definition. Different accepted callsite substitution must fail even with identical complete U and targets. Replay all92 old selector rows literally, avoiding their unchanged expensive prior proof matrix. Scoped lint/format/review only, no intermediate full gate or unrelated suites.",
+  "packaging": "Every original complete selector/case row and all source-U type/zero/constructor/payload/nil/copy/comparison identities remain. ReceiverTag is a concrete closed ordinary Eq Word64 Tag(e)=the selected original source tag, never a caller-supplied predicate or source-validity assumption. Match/suffix/final/nil/copy theorems quantify the whole receiver and that exact premise; actual constructed witnesses establish it. The full target table and original source/call/receiver/method preparation identity remain. No new axiom/compiler rule, lower capacity/admission cap or canonical context authority is introduced.",
+  "all_actual_validation_handles_terminal": true,
+  "limits_unchanged": {
+    "declarations": 4096,
+    "terms": 131072,
+    "bytes": 2097152,
+    "conversion_fuel": 1024
+  },
+  "no_new_case_root_helper_parameter_cap": true,
+  "Go_frontend_changed": false,
+  "kernel_or_axiom_changes": false,
+  "complete_R01_R06_W01": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "strict_whole_repository_gate_passed": false,
+  "remaining": "Original-source validity and full receiver-once/nil-safety/callee/precondition/joint-result/effect/frame execution, nil/copy/boxing/comparison execution and zero-evaluation and arbitrary-input/inactive-case validity; canonical capture/module-role/U/tag/boxing bindings; entry/receiver/dispatch/precondition/result/store/frame/lifetime/loop/runtime/program proofs; full56-family foundation/private registry/context, canonical scope/contract wire, native Linux/all169 application demands/T02-T11. Earlier historical-scope scanner findings remain for the final strict gate. Private source tags and recipes confer no canonical context or program authority."
+}

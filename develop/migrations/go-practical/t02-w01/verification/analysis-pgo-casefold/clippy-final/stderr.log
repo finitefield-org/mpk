@@ -1,0 +1,25 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Checking mpk-api v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-api)
+   Compiling mpk-cli v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli)
+error: field `roots` is never read
+  --> crates/mpk-cli/tests/../src/go_practical_analysis_root_binding.rs:18:5
+   |
+16 | pub(crate) struct GoRootMatchedAnalysisInputs {
+   |                   --------------------------- field in this struct
+17 |     inputs: GoAnalysisSourceInputs,
+18 |     roots: GoSourceRootsMatch,
+   |     ^^^^^
+   |
+   = note: `-D dead-code` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[expect(dead_code)]` or `#[allow(dead_code)]`
+
+error: method `matched_snapshot` is never used
+  --> crates/mpk-cli/tests/../src/go_practical_analysis_root_binding.rs:26:19
+   |
+21 | impl GoRootMatchedAnalysisInputs {
+   | -------------------------------- method in this implementation
+...
+26 |     pub(crate) fn matched_snapshot(&self) -> &GoSourceSnapshotInputs {
+   |                   ^^^^^^^^^^^^^^^^
+
+error: could not compile `mpk-cli` (test "go_practical_analysis_casefold") due to 2 previous errors

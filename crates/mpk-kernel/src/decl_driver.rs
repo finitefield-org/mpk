@@ -241,6 +241,24 @@ impl<'certificate> CheckedDeclarationContext<'certificate> {
                         *generated,
                     )
                     .map_err(DeclarationCheckError::core)?;
+                    mpk_core::check_nat_induct_declaration(
+                        &mut self.terms,
+                        &self.env,
+                        &name,
+                        ty,
+                        inductive,
+                        *generated,
+                    )
+                    .map_err(DeclarationCheckError::core)?;
+                    mpk_core::check_bool_rec_type_declaration(
+                        &mut self.terms,
+                        &self.env,
+                        &name,
+                        ty,
+                        inductive,
+                        *generated,
+                    )
+                    .map_err(DeclarationCheckError::core)?;
                     if *generated {
                         self.env
                             .register_generated_recursor(name, ty, inductive)

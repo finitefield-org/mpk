@@ -1,0 +1,49 @@
+{
+  "selection_reason": "Run strict Clippy on the changed Linux root-replay test and CLI library with the installed x86_64 Linux target. The prior epoch retains every original frontend and linked source input. Linux execution evidence is recorded separately; no whole T gate runs.",
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-root-replay/run_clippy.py",
+    "bytes": 3014,
+    "sha256": "eb4249133f5551ae16bb5841510d4b0b7e75a534d2e33a38a9492608f06d1e9d",
+    "mode": 420
+  },
+  "prior_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-root-replay/detached/inputs.json",
+    "bytes": 265556,
+    "sha256": "c55f8e87759f2e2f5576cc41a651977cf5b4148ba95604be5714d7774e0782bb",
+    "mode": 420
+  },
+  "prior_archive": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-root-replay/detached/inputs.tar.gz",
+    "bytes": 17640868,
+    "sha256": "7dd88a26f842f9d362cf7eb358a5286a842c0171b5db11e390b736a7e9800971",
+    "mode": 420
+  },
+  "original_files": 1003,
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-cli",
+    "--lib",
+    "--test",
+    "go_practical_source_roots",
+    "--target",
+    "x86_64-unknown-linux-gnu",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "environment": {
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-go-source-root-clippy-target",
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0"
+  },
+  "versions": {
+    "cargo": "cargo 1.97.1 (c980f4866 2026-06-30)",
+    "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+    "clippy": "clippy 0.1.97 (8bab26f4f6 2026-07-14)"
+  }
+}

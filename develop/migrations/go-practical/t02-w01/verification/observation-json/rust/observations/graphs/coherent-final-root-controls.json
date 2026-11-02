@@ -1,0 +1,951 @@
+{
+  "cases": [
+    {
+      "complete_changed_graph": {
+        "content_sha256": "6b36640034647ae6856095521a4e51b0dd7c817bc07eea82a38ed98adc533f79",
+        "diagnostics_hex": "",
+        "final_summaries": [
+          {
+            "go_version": "1.16",
+            "manifest_source_object_id": "28142a9f3f74c86b1987283c48a0bd7de32808d220c594520166b5129fec7aba",
+            "module": {
+              "path": "example.com/a",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/c",
+                "version_hex": "76312e302e30"
+              },
+              {
+                "path": "example.com/c",
+                "version_hex": "76312e302e30"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "8c01f24dc15d60b1a63251bb5226b116ffa7267ef1e147bc643bdde551dab2fd",
+            "module": {
+              "path": "example.com/alias",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "6578616d706c652e636f6d2f41637475616c",
+            "replacement_version": "v1.1.0",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "1.16",
+            "manifest_source_object_id": "656442e0971df9ad37b28943ba2f170a73b9aabb3258266be4e420254478ac7a",
+            "module": {
+              "path": "example.com/b",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/c",
+                "version_hex": "76312e312e30"
+              },
+              {
+                "path": "example.com/leaf",
+                "version_hex": "76312e312e30"
+              },
+              {
+                "path": "example.com/q",
+                "version_hex": "76312e312e30"
+              }
+            ]
+          },
+          {
+            "go_version": "1.16",
+            "manifest_source_object_id": "722760afef0bc84cfca17aafd87247f87e5f7eca28d26788b1eb6a68238b0fa6",
+            "module": {
+              "path": "example.com/c",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/leaf",
+                "version_hex": "76312e302e30"
+              },
+              {
+                "path": "example.com/a",
+                "version_hex": "76312e302e30"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "5173083b2eb6e321f0a32f0419ebee6c637feb02f4b77d27d74cdfc4ecbd04be",
+            "module": {
+              "path": "example.com/c",
+              "version_hex": "76312e312e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": "c3d341f4a4c34074cfe588d3ce8ded592371c21da8a1a25e19da03f45dc6ff26",
+            "module": {
+              "path": "example.com/leaf",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": []
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "07df2cf56f49735d4a23593a1d7e3611739cdbb53065b85244bdb45a11133cee",
+            "module": {
+              "path": "example.com/leaf",
+              "version_hex": "76312e312e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "5414b05cb28efe5f0f0e9abb5f46e2293c5c57650ea3ebcbc76bcea13443474b",
+            "module": {
+              "path": "example.com/q",
+              "version_hex": "76312e312e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "f8b4ad2d4d3a018c206582c1ce29efdffec93e88ed43684825fde8e64d81e655",
+            "module": {
+              "path": "example.com/z",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/q",
+                "version_hex": "76312e302e30"
+              },
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "go",
+              "version_hex": "312e3232"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "toolchain",
+                "version_hex": "676f312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "go",
+              "version_hex": "312e32352e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "toolchain",
+                "version_hex": "676f312e32352e30"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "toolchain",
+              "version_hex": "676f312e3232"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": []
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": []
+          }
+        ],
+        "initial_summaries": [
+          {
+            "go_version": "1.16",
+            "manifest_source_object_id": "28142a9f3f74c86b1987283c48a0bd7de32808d220c594520166b5129fec7aba",
+            "module": {
+              "path": "example.com/a",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/c",
+                "version_hex": "76312e302e30"
+              },
+              {
+                "path": "example.com/c",
+                "version_hex": "76312e302e30"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "8c01f24dc15d60b1a63251bb5226b116ffa7267ef1e147bc643bdde551dab2fd",
+            "module": {
+              "path": "example.com/alias",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "6578616d706c652e636f6d2f41637475616c",
+            "replacement_version": "v1.1.0",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "1.16",
+            "manifest_source_object_id": "656442e0971df9ad37b28943ba2f170a73b9aabb3258266be4e420254478ac7a",
+            "module": {
+              "path": "example.com/b",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/c",
+                "version_hex": "76312e312e30"
+              },
+              {
+                "path": "example.com/leaf",
+                "version_hex": "76312e312e30"
+              },
+              {
+                "path": "example.com/q",
+                "version_hex": "76312e312e30"
+              }
+            ]
+          },
+          {
+            "go_version": "1.16",
+            "manifest_source_object_id": "722760afef0bc84cfca17aafd87247f87e5f7eca28d26788b1eb6a68238b0fa6",
+            "module": {
+              "path": "example.com/c",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/leaf",
+                "version_hex": "76312e302e30"
+              },
+              {
+                "path": "example.com/a",
+                "version_hex": "76312e302e30"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "5173083b2eb6e321f0a32f0419ebee6c637feb02f4b77d27d74cdfc4ecbd04be",
+            "module": {
+              "path": "example.com/c",
+              "version_hex": "76312e312e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": "c3d341f4a4c34074cfe588d3ce8ded592371c21da8a1a25e19da03f45dc6ff26",
+            "module": {
+              "path": "example.com/leaf",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": []
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "07df2cf56f49735d4a23593a1d7e3611739cdbb53065b85244bdb45a11133cee",
+            "module": {
+              "path": "example.com/leaf",
+              "version_hex": "76312e312e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "5414b05cb28efe5f0f0e9abb5f46e2293c5c57650ea3ebcbc76bcea13443474b",
+            "module": {
+              "path": "example.com/q",
+              "version_hex": "76312e312e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "f8b4ad2d4d3a018c206582c1ce29efdffec93e88ed43684825fde8e64d81e655",
+            "module": {
+              "path": "example.com/z",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/q",
+                "version_hex": "76312e302e30"
+              },
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "go",
+              "version_hex": "312e3232"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "toolchain",
+                "version_hex": "676f312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "go",
+              "version_hex": "312e32352e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "toolchain",
+                "version_hex": "676f312e32352e30"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "toolchain",
+              "version_hex": "676f312e3232"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": []
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": []
+          }
+        ],
+        "metadata_hex": "6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f6c6561664076312e312e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f614076312e302e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f616c6961734076312e302e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f624076312e302e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f634076312e312e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f6c6561664076312e312e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f714076312e312e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f7a4076312e302e300a6578616d706c652e636f6d2f706f6c69637920676f40312e32352e300a6578616d706c652e636f6d2f614076312e302e30206578616d706c652e636f6d2f634076312e302e300a6578616d706c652e636f6d2f614076312e302e30206578616d706c652e636f6d2f634076312e302e300a6578616d706c652e636f6d2f616c6961734076312e302e3020676f40312e32320a6578616d706c652e636f6d2f624076312e302e30206578616d706c652e636f6d2f634076312e312e300a6578616d706c652e636f6d2f624076312e302e30206578616d706c652e636f6d2f6c6561664076312e312e300a6578616d706c652e636f6d2f624076312e302e30206578616d706c652e636f6d2f714076312e312e300a6578616d706c652e636f6d2f634076312e312e3020676f40312e32320a6578616d706c652e636f6d2f6c6561664076312e312e3020676f40312e32320a6578616d706c652e636f6d2f714076312e312e3020676f40312e32320a6578616d706c652e636f6d2f7a4076312e302e30206578616d706c652e636f6d2f714076312e302e300a6578616d706c652e636f6d2f7a4076312e302e3020676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a6578616d706c652e636f6d2f634076312e302e30206578616d706c652e636f6d2f6c6561664076312e302e300a6578616d706c652e636f6d2f634076312e302e30206578616d706c652e636f6d2f614076312e302e300a676f40312e323220746f6f6c636861696e40676f312e32320a",
+        "module_cache": {
+          "capability": "workspace/dep",
+          "directory": "",
+          "original_path": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalGraphImportKeepsWholeOriginalVersionedUniverse3260582344/002/dep"
+        },
+        "schema": "mpk.go.practical.source_module_graph_inputs.v2",
+        "source_module_observations_sha256": "2b6879ffb722240d04c88b843c23e9985dc6ab5c08e5136de5fb60e5be36bd2f"
+      },
+      "error": "Go original module graph: Selection",
+      "original_objects": 5697,
+      "same_original_sources_and_Root_contract": true
+    },
+    {
+      "complete_changed_graph": {
+        "content_sha256": "a7ffd03736ee8215c8c4092dcd886fe55477b5dd96631b5bd21b4b21f1f040d2",
+        "diagnostics_hex": "",
+        "final_summaries": [
+          {
+            "go_version": "1.16",
+            "manifest_source_object_id": "28142a9f3f74c86b1987283c48a0bd7de32808d220c594520166b5129fec7aba",
+            "module": {
+              "path": "example.com/a",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/c",
+                "version_hex": "76312e302e30"
+              },
+              {
+                "path": "example.com/c",
+                "version_hex": "76312e302e30"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "8c01f24dc15d60b1a63251bb5226b116ffa7267ef1e147bc643bdde551dab2fd",
+            "module": {
+              "path": "example.com/alias",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "6578616d706c652e636f6d2f41637475616c",
+            "replacement_version": "v1.1.0",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "1.16",
+            "manifest_source_object_id": "656442e0971df9ad37b28943ba2f170a73b9aabb3258266be4e420254478ac7a",
+            "module": {
+              "path": "example.com/b",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/c",
+                "version_hex": "76312e312e30"
+              },
+              {
+                "path": "example.com/leaf",
+                "version_hex": "76312e312e30"
+              },
+              {
+                "path": "example.com/q",
+                "version_hex": "76312e312e30"
+              }
+            ]
+          },
+          {
+            "go_version": "1.16",
+            "manifest_source_object_id": "722760afef0bc84cfca17aafd87247f87e5f7eca28d26788b1eb6a68238b0fa6",
+            "module": {
+              "path": "example.com/c",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/leaf",
+                "version_hex": "76312e302e30"
+              },
+              {
+                "path": "example.com/a",
+                "version_hex": "76312e302e30"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "5173083b2eb6e321f0a32f0419ebee6c637feb02f4b77d27d74cdfc4ecbd04be",
+            "module": {
+              "path": "example.com/c",
+              "version_hex": "76312e312e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": "c3d341f4a4c34074cfe588d3ce8ded592371c21da8a1a25e19da03f45dc6ff26",
+            "module": {
+              "path": "example.com/leaf",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": []
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "07df2cf56f49735d4a23593a1d7e3611739cdbb53065b85244bdb45a11133cee",
+            "module": {
+              "path": "example.com/leaf",
+              "version_hex": "76312e312e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "5414b05cb28efe5f0f0e9abb5f46e2293c5c57650ea3ebcbc76bcea13443474b",
+            "module": {
+              "path": "example.com/q",
+              "version_hex": "76312e312e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "f8b4ad2d4d3a018c206582c1ce29efdffec93e88ed43684825fde8e64d81e655",
+            "module": {
+              "path": "example.com/z",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/q",
+                "version_hex": "76312e302e30"
+              },
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "go",
+              "version_hex": "312e3232"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "toolchain",
+                "version_hex": "676f312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "go",
+              "version_hex": "312e32352e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "toolchain",
+                "version_hex": "676f312e32352e30"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "toolchain",
+              "version_hex": "676f312e3232"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": []
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": []
+          }
+        ],
+        "initial_summaries": [
+          {
+            "go_version": "1.16",
+            "manifest_source_object_id": "28142a9f3f74c86b1987283c48a0bd7de32808d220c594520166b5129fec7aba",
+            "module": {
+              "path": "example.com/a",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/c",
+                "version_hex": "76312e302e30"
+              },
+              {
+                "path": "example.com/c",
+                "version_hex": "76312e302e30"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "8c01f24dc15d60b1a63251bb5226b116ffa7267ef1e147bc643bdde551dab2fd",
+            "module": {
+              "path": "example.com/alias",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "6578616d706c652e636f6d2f41637475616c",
+            "replacement_version": "v1.1.0",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "1.16",
+            "manifest_source_object_id": "656442e0971df9ad37b28943ba2f170a73b9aabb3258266be4e420254478ac7a",
+            "module": {
+              "path": "example.com/b",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/c",
+                "version_hex": "76312e312e30"
+              },
+              {
+                "path": "example.com/leaf",
+                "version_hex": "76312e312e30"
+              },
+              {
+                "path": "example.com/q",
+                "version_hex": "76312e312e30"
+              }
+            ]
+          },
+          {
+            "go_version": "1.16",
+            "manifest_source_object_id": "722760afef0bc84cfca17aafd87247f87e5f7eca28d26788b1eb6a68238b0fa6",
+            "module": {
+              "path": "example.com/c",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/leaf",
+                "version_hex": "76312e302e30"
+              },
+              {
+                "path": "example.com/a",
+                "version_hex": "76312e302e30"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "5173083b2eb6e321f0a32f0419ebee6c637feb02f4b77d27d74cdfc4ecbd04be",
+            "module": {
+              "path": "example.com/c",
+              "version_hex": "76312e312e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": "c3d341f4a4c34074cfe588d3ce8ded592371c21da8a1a25e19da03f45dc6ff26",
+            "module": {
+              "path": "example.com/leaf",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": []
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "07df2cf56f49735d4a23593a1d7e3611739cdbb53065b85244bdb45a11133cee",
+            "module": {
+              "path": "example.com/leaf",
+              "version_hex": "76312e312e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "5414b05cb28efe5f0f0e9abb5f46e2293c5c57650ea3ebcbc76bcea13443474b",
+            "module": {
+              "path": "example.com/q",
+              "version_hex": "76312e312e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "1.22",
+            "manifest_source_object_id": "f8b4ad2d4d3a018c206582c1ce29efdffec93e88ed43684825fde8e64d81e655",
+            "module": {
+              "path": "example.com/z",
+              "version_hex": "76312e302e30"
+            },
+            "pruned": true,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "example.com/q",
+                "version_hex": "76312e302e30"
+              },
+              {
+                "path": "go",
+                "version_hex": "312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "go",
+              "version_hex": "312e3232"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "toolchain",
+                "version_hex": "676f312e3232"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "go",
+              "version_hex": "312e32352e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": [
+              {
+                "path": "toolchain",
+                "version_hex": "676f312e32352e30"
+              }
+            ]
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "toolchain",
+              "version_hex": "676f312e3232"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": []
+          },
+          {
+            "go_version": "",
+            "manifest_source_object_id": null,
+            "module": {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            },
+            "pruned": false,
+            "replacement_path_hex": "",
+            "replacement_version": "",
+            "requirements": []
+          }
+        ],
+        "metadata_hex": "6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f6c6561664076312e302e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f614076312e302e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f616c6961734076312e302e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f624076312e302e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f634076312e312e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f6c6561664076312e312e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f714076312e312e300a6578616d706c652e636f6d2f706f6c696379206578616d706c652e636f6d2f7a4076312e302e300a6578616d706c652e636f6d2f706f6c69637920676f40312e32352e300a6578616d706c652e636f6d2f614076312e302e30206578616d706c652e636f6d2f634076312e302e300a6578616d706c652e636f6d2f614076312e302e30206578616d706c652e636f6d2f634076312e302e300a6578616d706c652e636f6d2f616c6961734076312e302e3020676f40312e32320a6578616d706c652e636f6d2f624076312e302e30206578616d706c652e636f6d2f634076312e312e300a6578616d706c652e636f6d2f624076312e302e30206578616d706c652e636f6d2f6c6561664076312e312e300a6578616d706c652e636f6d2f624076312e302e30206578616d706c652e636f6d2f714076312e312e300a6578616d706c652e636f6d2f634076312e312e3020676f40312e32320a6578616d706c652e636f6d2f6c6561664076312e312e3020676f40312e32320a6578616d706c652e636f6d2f714076312e312e3020676f40312e32320a6578616d706c652e636f6d2f7a4076312e302e30206578616d706c652e636f6d2f714076312e302e300a6578616d706c652e636f6d2f7a4076312e302e3020676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a6578616d706c652e636f6d2f634076312e302e30206578616d706c652e636f6d2f6c6561664076312e302e300a6578616d706c652e636f6d2f634076312e302e30206578616d706c652e636f6d2f614076312e302e300a676f40312e323220746f6f6c636861696e40676f312e32320a",
+        "module_cache": {
+          "capability": "workspace/dep",
+          "directory": "",
+          "original_path": "/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalGraphImportKeepsWholeOriginalVersionedUniverse3260582344/002/dep"
+        },
+        "schema": "mpk.go.practical.source_module_graph_inputs.v2",
+        "source_module_observations_sha256": "2b6879ffb722240d04c88b843c23e9985dc6ab5c08e5136de5fb60e5be36bd2f"
+      },
+      "error": "Go original module graph: Selection",
+      "original_objects": 5697,
+      "same_original_sources_and_Root_contract": true
+    }
+  ],
+  "status": "passed"
+}

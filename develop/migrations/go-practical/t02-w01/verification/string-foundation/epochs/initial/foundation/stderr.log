@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `release` profile [optimized] target(s) in 32.49s
+     Running tests/go_practical_string_foundation.rs (target/release/deps/go_practical_string_foundation-ae4ef1f2582e554e)
+
+thread 'frozen_string_foundation_preserves_all_full64_prerequisites' (43957153) panicked at crates/mpk-vc/tests/go_practical_string_foundation.rs:41:9:
+string-foundation: first declaration type-check failure Mpk.Go.Practical.String.ZeroValue: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"f1b73b16433d2aade5f8ee4c004a75996e60827f69d3b22159c5f504b908137d"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"228282\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"567\",\"kind\":\"check_type_mismatch\",\"term_index\":\"549\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_string_foundation`

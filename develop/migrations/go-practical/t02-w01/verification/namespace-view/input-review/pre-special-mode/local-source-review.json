@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-20T09:04:50.095299+00:00",
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_replay.go",
+      "sha256": "57453ab28a0dea15810bf3847112a7b23799ed7e9c7121e73c1dd3fdf52da532",
+      "bytes": 14868
+    },
+    {
+      "path": "go-tools/go2vir/practical_replay_test.go",
+      "sha256": "5f6bc6554049f5d89fd263dd1b2dbae5c865d1b78bbea162355fc005c141af3a",
+      "bytes": 13674
+    },
+    {
+      "path": "go-tools/go2vir/practical_namespace.go",
+      "sha256": "138d1c45284c11cf78b8718194670a14be056be69005f466b02c20942e4fcb8a",
+      "bytes": 6259
+    },
+    {
+      "path": "go-tools/go2vir/practical_namespace_test.go",
+      "sha256": "bbf5bfa58b898ceb850aa12a5d42ff0bbedaf035e201be24cb069c0fb8f429b5",
+      "bytes": 8651
+    },
+    {
+      "path": "go-tools/go2vir/practical_view.go",
+      "sha256": "0034461634136e85836cc230f35e9eb7d0f078f3e60ecca175abb6663cdcaf11",
+      "bytes": 6525
+    },
+    {
+      "path": "go-tools/go2vir/practical_view_test.go",
+      "sha256": "6255654c15761fb907dca31f4eff9454d459037017c8192f0ed82f5b309f7034",
+      "bytes": 5987
+    },
+    {
+      "path": "go-tools/go2vir/practical_cleanup_go125.go",
+      "sha256": "2fd7b44d266025e697ee0e2f6858b50762ebc192318b48d60b5c67d2bcd34b13",
+      "bytes": 1063
+    },
+    {
+      "path": "go-tools/go2vir/practical_cleanup_unavailable.go",
+      "sha256": "fc04fa620db586e47e3c046af6d57134fb39113de0fca03eacc29ada9e5dbc42",
+      "bytes": 185
+    }
+  ],
+  "reviewed_boundaries": [
+    "All original physical paths are reconciled before image allocation: complete overlapping directory observations, ancestor types, captured source roles/full-byte identities and compiler executable modes must agree. Compatible aliases retain separate source IDs and authorized nested roots only refine unvisited namespaces.",
+    "The view plan owns original namespace entry slices/maps/source object values/original roots independently of producer image metadata and captured snapshots. The capability-specific original namespace decides observed absence and not-captured status; another capability cannot supply unread original bytes.",
+    "Opening a view checks exact entire materialized directory/file closure, sealed modes, bounded streamed digests/lengths and stat/open/after/name identities using a rooted nonblocking file reader. Mode/byte/missing/extra/link controls reject. Rechecks invalidate changed backing.",
+    "Unknown kinds are rejected before absence queries. Invalid source role/path/not-captured or backing failure makes the transaction sticky. Restoring bytes or ignoring earlier failures cannot regain authority; closed views reject reuse.",
+    "Image/view mutex ordering avoids inverse nested acquisition; active views retain image lifetime. Both Close methods are idempotent, and cleanup uses owned root metadata. Rooted directory-only permission changes and RemoveAll remain confined; outside symlink-target mode and bytes are checked unchanged.",
+    "All original source/module/function bytes, full compiler inventory and frozen source budgets remain intact. No source signatures or typed-package adapters replace original bodies. New owned views do not assert registered context/kernel execution or general source semantics.",
+    "The producer checks the new whole view against the complete original SDK/application image. Two actual independent kernel-readonly native replays agree with every original module/package field except derived Export locator and all181 full original archives. Previous exact harness negative controls are retained without rerun.",
+    "Current affected tests/legacy compile-only/vet/format, two full input-owned frontend builds and independent original preimage/image/frozen audits pass. Actual producer/replay/driver handles are terminal before staging. Local Linux x86-64 emulation remains explicit.",
+    "Production kernel lifecycle/private context/full general consulted namespace/selected-closure authority, full56-all6-19 source/program foundation/private descriptor/registry/context/retained policies/all169/T02-T11 remain due."
+  ],
+  "findings": [],
+  "all_actual_validation_handles_terminal": true,
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp"
+}

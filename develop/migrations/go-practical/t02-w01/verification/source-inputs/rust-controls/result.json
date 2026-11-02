@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_source_inputs",
+    "source_inputs_reject_coherent_native_facts_and_incomplete_package_roots",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-inputs/rust-controls/inputs.json",
+    "bytes": 317886,
+    "sha256": "072acf3b7acf5f43673bc2f9ace7cbd46892eccfd1d9b4121358596f72bf851f"
+  },
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-inputs/rust-controls/driver.py",
+    "bytes": 7388,
+    "sha256": "1f188a69696a08a3cb997a5bf21df7a3f90bc7e23986055ffa6fd1d89d23fef4"
+  },
+  "formatter_mutation_expected": false,
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/cargo",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustfmt",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "selection_reason": "The new production original-package source handoff owns every active source and module object for every non-intrinsic original package. Strict Rust source-only input rejects coherent native type hints and incomplete source/package sets; actual source-derived types/calls retain all original0/70 error cases,65 parameters and16 results. New native ownership/closed-owner checks and the existing complete native invocation root exercise the changed shared packet producer. Every original32 complete certificate is replayed byte-for-byte, retaining previous checked full-union mathematical evidence without repeating unchanged kernels. No source pruning, new cap, other-language test or intermediate broad gate.",
+  "full_T_gate": "Deferred to final GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "started_at_utc": "2026-10-23T06:36:46.422295+00:00",
+  "exit_code": 0,
+  "seconds": 8.845179875032045,
+  "whole_source_inputs_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-inputs/rust-controls/stdout.log",
+    "bytes": 196,
+    "sha256": "792535acdccc8095ae78b5fac2f0003ae72b055ae4130f55b9f12f6fc8f34824"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-inputs/rust-controls/stderr.log",
+    "bytes": 258,
+    "sha256": "2df09b6ff78c0f110000c7fec9ef3d510fabb795028a87c64547fd9dcec97e12"
+  },
+  "finished_at_utc": "2026-10-23T06:36:55.269187+00:00"
+}

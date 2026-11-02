@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-28T14:00:46.780261+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_analysis_archives"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-archive/archive-controls-final/inputs.json",
+    "bytes": 264644,
+    "sha256": "2c9ea5d2c51d8b00541db2de45b94df2286aadbc3ef85345929031cd04111502",
+    "mode": 420
+  },
+  "selection_reason": "Check original analysis archive/vendor byte correspondence and affected consumers, without claiming a complete namespace, source syntax or binary/context authority. Preserve original frontend/source and compiler inputs; do not infer a practical profile, source correspondence or native Linux release acceptance. Formats cover changed files only.",
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 4.647784291002608,
+  "consumed_inputs_unchanged": true,
+  "complete_original_test_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "whole_registered_SDK_unchanged": true,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-archive/archive-controls-final/stdout.log",
+    "bytes": 264,
+    "sha256": "a99de70637dee22a51ae1980753e8d437b76cd6d2395a491767cfe1628acb056",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-archive/archive-controls-final/stderr.log",
+    "bytes": 308,
+    "sha256": "ed13f9bdabaca8b2c64bc3bc99b0a9fb47be45076f117d476a56331eb6c9f99f",
+    "mode": 420
+  }
+}

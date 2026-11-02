@@ -1,0 +1,442 @@
+{
+  "schema": "mpk.go_practical.program_conformance_design.v0",
+  "scope": "future production conformance obligations, not observations or executed theorem checks",
+  "vectors": [
+    {
+      "condition": "independent source interpreter, all prefixes and all completion kinds",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "function_source_binding",
+      "id": "GP-PROGRAM-01-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "replace source AST by the emitted IR or assume correspondence",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "function_source_binding",
+      "id": "GP-PROGRAM-01-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "full argument/product/alias/initialized-tail representation",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "entry_representation",
+      "id": "GP-PROGRAM-02-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "assume caller fit, separation, no-wrap or copied-list slice semantics",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "entry_representation",
+      "id": "GP-PROGRAM-02-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "own clause excluded; ordered earlier requires and short-circuit guards only",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "contract_definedness",
+      "id": "GP-PROGRAM-03-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "use the clause being checked, its result or an unproved invariant",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "contract_definedness",
+      "id": "GP-PROGRAM-03-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "every normal return, exact positional/named results and entry old-state",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "postcondition",
+      "id": "GP-PROGRAM-04-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "drop early return, permute tuple members or read old from the final heap",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "postcondition",
+      "id": "GP-PROGRAM-04-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "every reachable prefix, borrowed inputs and exact write permissions",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "function_frame",
+      "id": "GP-PROGRAM-05-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "allow an input write because the original value is restored on return",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "function_frame",
+      "id": "GP-PROGRAM-05-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "all paths, runtime safety and domain obligations; divergence allowed",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "partial_correctness",
+      "id": "GP-PROGRAM-06-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "interpret finite proof fuel as termination, falsehood or source panic",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "partial_correctness",
+      "id": "GP-PROGRAM-06-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "actual normal termination plus separately required partial correctness",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "function_totality",
+      "id": "GP-PROGRAM-07-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "use a finite slice length or the partial contract as a termination axiom",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "function_totality",
+      "id": "GP-PROGRAM-07-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "exact concrete member of the independently regenerated 56-operation table",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "node_member",
+      "id": "GP-PROGRAM-08-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "substitute a different node, member ordinal, operation or free predicate",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "node_member",
+      "id": "GP-PROGRAM-08-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "full address arithmetic, typed owner/view, domain and permissions",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "access_member",
+      "id": "GP-PROGRAM-09-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "truncate addresses or omit an access point/initialized tail",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "access_member",
+      "id": "GP-PROGRAM-09-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "evaluated receiver/arguments from one invocation; actual callee and contract",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "call_precondition",
+      "id": "GP-PROGRAM-10-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "assume a callee precondition or evaluate an argument twice",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "call_precondition",
+      "id": "GP-PROGRAM-10-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "one callee execution couples complete result product and output state",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "call_relation",
+      "id": "GP-PROGRAM-11-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "combine results and effects from distinct calls or import unproved contracts",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "call_relation",
+      "id": "GP-PROGRAM-11-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "conditional on actual reached arguments; only required by total callers",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "call_totality",
+      "id": "GP-PROGRAM-12-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "promote a partial callee to globally total or add recursive theorem cycles",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "call_totality",
+      "id": "GP-PROGRAM-12-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "registered compiler/symbol/body/target and full precondition/effect relation",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "adapter_binding",
+      "id": "GP-PROGRAM-13-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "trust a package name, caller adapter, mismatched body or target",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "adapter_binding",
+      "id": "GP-PROGRAM-13-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "exact control stack and continuation; distinct yield/return/break/continue",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "region_control",
+      "id": "GP-PROGRAM-14-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "change an abrupt exit target or discard an enclosing post step",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "region_control",
+      "id": "GP-PROGRAM-14-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "first header after initializer and range capture; candidate invariant checked",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "loop_initialization",
+      "id": "GP-PROGRAM-15-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "assume even a generated invariant before its initialization proof",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "loop_initialization",
+      "id": "GP-PROGRAM-15-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "all continuing backedges including continue with the correct post",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "loop_preservation",
+      "id": "GP-PROGRAM-16-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "require decrease on return/break or skip the post on continue",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "loop_preservation",
+      "id": "GP-PROGRAM-16-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "false test, break and early return keep their own guards/continuations",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "loop_exit",
+      "id": "GP-PROGRAM-17-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "infer a false test at break or ignore result/effect propagation",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "loop_exit",
+      "id": "GP-PROGRAM-17-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "well-founded Nat rank after exact signed/full-word conversion",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "loop_variant_domain",
+      "id": "GP-PROGRAM-18-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "use wrapped machine subtraction or an unproved nonnegative assumption",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "loop_variant_domain",
+      "id": "GP-PROGRAM-18-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "strict decrease only on continuing edges; exact source loop binding",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "required",
+      "family": "loop_variant_decrease",
+      "id": "GP-PROGRAM-19-REQUIRED",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "accept equal/wrapped ranks or borrow another loop's variant",
+      "executor": "crates/mpk-vc/src/go_practical_vc.rs",
+      "expected": "reject",
+      "family": "loop_variant_decrease",
+      "id": "GP-PROGRAM-19-REJECT",
+      "production_observed": false,
+      "test_owner": "crates/mpk-vc/tests/go_practical_vc.rs",
+      "work_item": "GO-PRAC-T03-W03"
+    },
+    {
+      "condition": "same declaration interface hash with a different term table",
+      "expected": "reject",
+      "id": "GP-HANDOFF-NEG-01",
+      "production_observed": false,
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "condition": "same results from one call and effects from another",
+      "expected": "reject",
+      "id": "GP-HANDOFF-NEG-02",
+      "production_observed": false,
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "condition": "materialized metadata without an independent source importer",
+      "expected": "reject",
+      "id": "GP-HANDOFF-NEG-03",
+      "production_observed": false,
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "condition": "zero-only fixture policy applied to a retained mvp-theory certificate",
+      "expected": "reject",
+      "id": "GP-HANDOFF-NEG-04",
+      "production_observed": false,
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "condition": "old weaker Go host used for practical Go",
+      "expected": "reject",
+      "id": "GP-HANDOFF-NEG-05",
+      "production_observed": false,
+      "work_item": "GO-PRAC-T07-W02"
+    },
+    {
+      "condition": "new production input bytes paired with a historical replay receipt",
+      "expected": "reject",
+      "id": "GP-HANDOFF-NEG-06",
+      "production_observed": false,
+      "work_item": "GO-PRAC-T02-W03"
+    },
+    {
+      "condition": "AI response omits or swaps a property batch",
+      "expected": "reject",
+      "id": "GP-HANDOFF-NEG-07",
+      "production_observed": false,
+      "work_item": "GO-PRAC-T07-W01"
+    },
+    {
+      "condition": "candidate flags rehashed to release_verified without native gates",
+      "expected": "reject",
+      "id": "GP-HANDOFF-NEG-08",
+      "production_observed": false,
+      "work_item": "GO-PRAC-T07-W02"
+    }
+  ]
+}

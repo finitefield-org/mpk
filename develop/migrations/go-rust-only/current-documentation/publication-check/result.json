@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "exit_code": 0,
+  "command": [
+    "bash",
+    "scripts/check-go-practical-spec.sh"
+  ],
+  "seconds": 0.6211669159820303,
+  "selection_reason": "The scope and profile-admission documentation changes; check that the inactive Go publication and Go/Rust-only manifest still reconstruct from unchanged frozen design inputs. No unrelated language or whole workspace test.",
+  "prelaunch_inputs": [
+    {
+      "path": "scripts/check-go-practical-spec.sh",
+      "bytes": 177,
+      "sha256": "48c3327ec2ea1a64ad3b114408473dd482bcfda1425c477dc90d64abf83b80d4",
+      "complete_prelaunch_input": "develop/migrations/go-rust-only/current-documentation/publication-check/000.original",
+      "mode": 493
+    },
+    {
+      "path": "develop/probes/go-practical/publish_spec.py",
+      "bytes": 10751,
+      "sha256": "b710c87c99a68da6af8984d56b4ee7e04d27f4ee28bd8f1a3eb40b2f4aa5d995",
+      "complete_prelaunch_input": "develop/migrations/go-rust-only/current-documentation/publication-check/001.original",
+      "mode": 420
+    },
+    {
+      "path": "develop/specs/SEMANTIC_PROFILE_REGISTRY_V1.md",
+      "bytes": 35466,
+      "sha256": "f0f8de521698fa6db19336636d756309798093bf2bf621293f64f8c48ac4d9c3",
+      "complete_prelaunch_input": "develop/migrations/go-rust-only/current-documentation/publication-check/002.original",
+      "mode": 420
+    }
+  ],
+  "full_T02_gate": "deferred to final W04: ./scripts/check-fast.sh",
+  "stdout.log": {
+    "path": "develop/migrations/go-rust-only/current-documentation/publication-check/stdout.log",
+    "bytes": 196,
+    "sha256": "82e96229369ea4e5a6993d195737b2f34fdd1afc8410d7fd6961f912cf59b459"
+  },
+  "stderr.log": {
+    "path": "develop/migrations/go-rust-only/current-documentation/publication-check/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

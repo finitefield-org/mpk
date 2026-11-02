@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "selection_reason": "Check all staged changes while preserving the exact original Go/Rust test logs, including their final blank lines.",
+  "full_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "full_exit_code": 2,
+  "full_stdout": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/downstream-original/rust-original-consumer.stdout:12: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/rust-complete-owner.stdout:9: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-final/rust-native-names.stdout:6: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-original/rust-original-projection.stdout:17: new blank line at EOF.\n",
+  "preserved_original_evidence": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/downstream-original/rust-original-consumer.stdout",
+      "bytes": 1862,
+      "sha256": "c30d5619d83a62d4609d84d764ca4373b9375758f20ada79ec53347cd07bfe05",
+      "mode": 420
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/rust-complete-owner.stdout",
+      "bytes": 981,
+      "sha256": "2b8c910193a6d155c8bf379bb1b77663c14cd8074032c2cd1afca28eea97f405",
+      "mode": 420
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-final/rust-native-names.stdout",
+      "bytes": 218,
+      "sha256": "d1d14079b54926d224c3c0a275a76bcd5ee5caa52b0b7c1382d75f1af6ea0b0b",
+      "mode": 420
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-original/rust-original-projection.stdout",
+      "bytes": 1360,
+      "sha256": "0a766799ab5398a1bed484ca3b8ddab78c9c8648c0a465786285fb6437c19ad4",
+      "mode": 420
+    }
+  ],
+  "staged_original_bytes_match": true,
+  "selected_command": [
+    "/usr/bin/git",
+    "diff",
+    "--cached",
+    "--check",
+    "--",
+    ".",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/combined-root-live/downstream-original/rust-original-consumer.stdout",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-control/rust-complete-owner.stdout",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-final/rust-native-names.stdout",
+    ":(exclude)develop/migrations/go-practical/t02-w01/verification/combined-root-live/preflight-original/rust-original-projection.stdout"
+  ],
+  "selected_exit_code": 0,
+  "selected_stdout": "",
+  "selected_stderr": "",
+  "original_evidence_bytes_modified": false
+}

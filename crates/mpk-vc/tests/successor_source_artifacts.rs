@@ -20,8 +20,6 @@ use std::collections::BTreeMap;
 
 const REGISTRY_VECTORS: &[u8] =
     include_bytes!("../../../develop/specs/vectors/semantic-profile-registry-v1.json");
-const CSHARP_VECTORS: &[u8] =
-    include_bytes!("../../../develop/specs/vectors/csharp-profile-v0.json");
 const ACTIVE_VIR: &[u8] = include_bytes!("../../../fixtures/vir-go/frontend/basic-arith/vir.json");
 const ACTIVE_RUST_CALL_VIR: &[u8] =
     include_bytes!("../../../fixtures/rust-basic/positive/module-calls/artifacts/vir.json");
@@ -146,9 +144,9 @@ fn successor_vir_fixture(active: &[u8], context: &Value) -> Value {
 fn staged_artifacts() -> StagedArtifacts {
     let registry = validate_semantic_profile_registry(
         include_bytes!("../../../release/bundles/semantic-profile-registry.json"),
-        RegistryRevision::Revision3,
+        RegistryRevision::Revision4,
     )
-    .expect("installed revision-3 registry validates");
+    .expect("installed revision-4 registry validates");
     let vir = load(ACTIVE_VIR);
     let source_map = load(ACTIVE_SOURCE_MAP);
     let source_manifest = load(ACTIVE_SOURCE_MANIFEST);
@@ -255,15 +253,6 @@ fn successor_artifacts_round_trip_and_use_the_frozen_domains() {
         assert_eq!(case["successor"], domain);
         assert_ne!(case["current"], case["successor"]);
     }
-
-    let csharp = load(CSHARP_VECTORS);
-    let normalized = &csharp["normalized_contract_fixture"];
-    let hash = successor_contract_hash_value(normalized).expect("normalized C# contract hashes");
-    assert_eq!(hash.as_str(), normalized["contract_hash"]);
-    assert_eq!(
-        hash.as_str(),
-        "b88b13b2041782b1728563e9ae3d34bf2334771fb05171fa4ba38a8c1ffb0cab"
-    );
 }
 
 #[test]

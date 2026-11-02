@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/private/tmp/mpk-go-rust-scope/materialize-sdk-portable.py", line 90, in <module>
+    outputs=[compile_portable('cargo-fuzz-'+str(i),V['valid_descriptor']['cargo_fuzz']['build_argv'],source=STAGE/'tool-sources/cargo-fuzz',cargo=True) for i in range(2)]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/mpk-go-rust-scope/materialize-sdk-portable.py", line 76, in compile_portable
+    assert result.returncode==0,(label,result.returncode,result.stderr.decode(errors='replace')[-3000:])
+AssertionError: ('cargo-fuzz-0', 101, "   Compiling proc-macro2 v1.0.70\nerror: failed to run custom build command for `proc-macro2 v1.0.70`\n\nCaused by:\n  process didn't exit successfully: `/mpk/target/release/build/proc-macro2-eb48162af26dca87/build-script-build` (exit status: 1)\n  --- stderr\n  init mmap: Out of memory\n")

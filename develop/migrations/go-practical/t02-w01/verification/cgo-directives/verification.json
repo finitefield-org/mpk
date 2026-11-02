@@ -1,0 +1,98 @@
+{
+  "status": "scoped_checks_passed_work_item_in_progress",
+  "basis_commit": "f4641e836c093634a186911abc79c6e6f2229286",
+  "observed_at_utc": "2026-10-26T05:42:01.950083+00:00",
+  "component": "Independently validate original import-C documentation, even in files excluded by the fixed cgo-disabled build, without executing directives or admitting C programs.",
+  "checks": {
+    "build-original": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/build-original/result.json",
+      "bytes": 3495,
+      "sha256": "020db8d07ddff9d07ec35eaa37049882f865e44e45c30a3dd41e0fc2c71983a0",
+      "mode": 420
+    },
+    "clippy": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/clippy/result.json",
+      "bytes": 3505,
+      "sha256": "37492571afb955d964d6505e2cfa2b15830c01ce51650c7fcab9b94af62b7fce",
+      "mode": 420
+    },
+    "format-check": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/format-check/result.json",
+      "bytes": 3579,
+      "sha256": "376b07397c893c4717226f2a83878cea136012374f83ac972e87f29e0349cc06",
+      "mode": 420
+    },
+    "go-format": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/go-format/result.json",
+      "bytes": 3800,
+      "sha256": "7d61a9d87138c58de247aa96fcb2683288b472ec08b6a4d534689afa52c096c6",
+      "mode": 420
+    },
+    "go-format-check": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/go-format-check/result.json",
+      "bytes": 3817,
+      "sha256": "94fec530d097116ba7aa5a75df7454fbf38b14fe34b0991cf6c034e50da24ed0",
+      "mode": 420
+    },
+    "go-vet": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/go-vet/result.json",
+      "bytes": 3739,
+      "sha256": "72c3be7fcc309c4ac9c724147005db8a3f0e121087f01eea7f087ba826c1d09c",
+      "mode": 420
+    },
+    "native": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/native/result.json",
+      "bytes": 4050,
+      "sha256": "148936cae60781daf54a5a1330f2bd4e0e38e41d749d8b9ecc73b320d8b1925f",
+      "mode": 420
+    },
+    "rust-format": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/rust-format/result.json",
+      "bytes": 3561,
+      "sha256": "967570b620097ed43d76d7e0689926e014507ba1004dda350556f1337cc171fb",
+      "mode": 420
+    },
+    "rust-original": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/rust-original/result.json",
+      "bytes": 4737,
+      "sha256": "f683a9904ff5cb093f597dc02d789f96bb37bbb26bda3e7b2676f7e04b9b00de",
+      "mode": 420
+    }
+  },
+  "independent_inspection": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/cgo-directives/inspection.json",
+    "bytes": 441668,
+    "sha256": "712e83c814f7d5bfdb98931d2d8de1a4d40b05cfa1ee1951cdab13f9f3c2bc33",
+    "mode": 420
+  },
+  "affected_rust_roots": 21,
+  "actual_native_go_roots": 3,
+  "original_native_cases": 88,
+  "native_directive_rejections": 31,
+  "complete_original_package_directories": 2003,
+  "original_cgo_disabled_files": 66,
+  "complete_new_owned_snapshot_objects": 5486,
+  "complete_new_owned_snapshot_bytes": 85370335,
+  "same_source_selection_contracts_and_coherent_excluded_directive_control": true,
+  "original_roots_per_complete_unit": 43,
+  "original_error_case_universes": [
+    0,
+    70
+  ],
+  "original_proof_byte_streams": 32,
+  "cgo_enabled": false,
+  "build_flags_or_hooks_executed": false,
+  "additional_program_language_support": false,
+  "language_scope": [
+    "Go",
+    "Rust"
+  ],
+  "selection_reason": "Validate all new original comment association/text/condition/argument/path/verb cases against the pinned actual Go reader and every old complete package directory. Exercise actual whole owned capture and a coherently changed excluded cgo file with identical source selection and two contract candidates. Run21 affected Rust roots, three native Go roots, strict Clippy, vet and explicit changed-file formats. Previous39-header/178-auxiliary/182-build cases, all13853 Go candidates,43-root units/zero-or70-error/type domains and32 exact proof streams remain. Unchanged full lexer/parser/language/kernel/foundation matrices retain earlier evidence without repetition.",
+  "remaining": "Embed selection and canonical module/build/compiler/export/capture/context/descriptor/registry and launcher authority, full56 foundation families/all169 source/program demands, native Linux gates and remaining T02-T11 stay due.",
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "public_profile_activated": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "whole_T_gate_run": false
+}

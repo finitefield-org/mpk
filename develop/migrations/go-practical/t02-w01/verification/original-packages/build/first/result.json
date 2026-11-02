@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--rm",
+    "--pull=never",
+    "--network=none",
+    "--platform=linux/amd64",
+    "--read-only",
+    "--tmpfs=/tmp:rw,nosuid,nodev,noexec,mode=1777",
+    "--mount=type=bind,src=/Users/kazuyoshitoshiya/ff/mpk,dst=/src,readonly",
+    "--mount=type=bind,src=/private/tmp/mpk-go-practical-original-packages-build-first,dst=/out",
+    "docker.io/library/golang@sha256:ebd54034f076819b3054f155db53660ded951612bb4dfd277f933e62059e5d5a",
+    "/bin/sh",
+    "-ceu",
+    "umask 077\ntest \"$(sed -n '1p' /usr/local/go/VERSION)\" = \"go1.25.0\"\nmkdir -p /tmp/mpk-home /tmp/mpk-cache\ncd /src/go-tools/go2vir\nenv -i PATH=/usr/local/go/bin:/usr/bin:/bin HOME=/tmp/mpk-home GOCACHE=/tmp/mpk-cache CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOAMD64=v1 GOENV=off GOFLAGS= GOWORK=off GOPROXY=off GOSUMDB=off GOTOOLCHAIN=local TZ=UTC LANG=C LC_ALL=C SOURCE_DATE_EPOCH=0 /usr/local/go/bin/go build -mod=vendor -trimpath -buildvcs=false -ldflags=-buildid= -o /out/go2vir .\n"
+  ],
+  "command_basis": "develop/migrations/go-rust-only/verification/build-go/result.json",
+  "command_basis_sha256": "df3c0465a9d8fe66a3c42b0634579394b64ac213f7395cf53e683efc700cb15a",
+  "exit_code": 0,
+  "seconds": 42.22753841604572,
+  "whole_source_inputs_unchanged": true,
+  "native_release_acceptance": false,
+  "finished_at_utc": "2026-10-20T17:26:52.643359+00:00",
+  "output": {
+    "path": "/private/tmp/mpk-go-practical-original-packages-build-first/go2vir",
+    "sha256": "0eb0fda3e43922ccb424a5a1299ba3173cadddb715c083b55d1adfc0f2c1f214",
+    "bytes": 9004394
+  }
+}

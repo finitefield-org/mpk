@@ -72,38 +72,6 @@ fn successor_scan_rejects_raw_locators_as_unknown_arguments() {
 }
 
 #[test]
-fn csharp_contracts_come_only_from_the_validated_selection() {
-    let temporary = tempfile::tempdir().unwrap();
-    let candidate = load("release/bundles/candidates/csharp.json");
-    let vector = load("develop/specs/vectors/csharp-profile-v0.json");
-    let context = &candidate["tuples"][0]["semantic_context"];
-    let selection = &vector["case_harness"]["baseline_selection"];
-    let context_path = temporary.path().join("context.json");
-    let selection_path = temporary.path().join("selection.json");
-    let output_path = temporary.path().join("scan.json");
-    fs::write(&context_path, serde_json::to_vec(context).unwrap()).unwrap();
-    fs::write(&selection_path, serde_json::to_vec(selection).unwrap()).unwrap();
-
-    let output = run_mpk(&[
-        "policy",
-        "scan",
-        "missing-source-root",
-        "--semantic-context",
-        context_path.to_str().unwrap(),
-        "--selection",
-        selection_path.to_str().unwrap(),
-        "--contract",
-        "contracts/approved.json",
-        "--json-out",
-        output_path.to_str().unwrap(),
-    ]);
-    assert_eq!(output.status.code(), Some(1));
-    assert!(output.stdout.is_empty());
-    assert!(stderr(&output).contains("selected only by the validated selection"));
-    assert!(!output_path.exists());
-}
-
-#[test]
 fn duplicate_json_members_reject_before_source_capture() {
     let temporary = tempfile::tempdir().unwrap();
     let context_path = temporary.path().join("context.json");
@@ -132,4 +100,44 @@ fn duplicate_json_members_reject_before_source_capture() {
     assert_eq!(output.status.code(), Some(1));
     assert!(stderr(&output).contains("duplicate JSON object name"));
     assert!(!output_path.exists());
+}
+
+#[test]
+fn removed_and_unknown_languages_reject_before_source_capture() {
+    let temporary = tempfile::tempdir().unwrap();
+    let candidate = load("release/bundles/candidates/go.json");
+    let selection = serde_json::json!({
+        "schema":"mpk.selection.go_function.v0",
+        "value":{"package":"example.invalid/policy","function":"example.invalid/policy.Identity"}
+    });
+    let selection_path = temporary.path().join("selection.json");
+    fs::write(&selection_path, serde_json::to_vec(&selection).unwrap()).unwrap();
+    for language in ["java", "csharp", "python", "typescript"] {
+        let mut context = candidate["tuples"][0]["semantic_context"].clone();
+        context["source_language"] = serde_json::json!(language);
+        context["semantic_profile"] = serde_json::json!(format!("mpk.{language}.scalar.v0"));
+        let context_path = temporary.path().join("context.json");
+        let output_path = temporary.path().join("scan.json");
+        fs::write(&context_path, serde_json::to_vec(&context).unwrap()).unwrap();
+        let output = run_mpk(&[
+            "policy",
+            "scan",
+            "missing-source-root",
+            "--semantic-context",
+            context_path.to_str().unwrap(),
+            "--selection",
+            selection_path.to_str().unwrap(),
+            "--contract",
+            "contract.json",
+            "--json-out",
+            output_path.to_str().unwrap(),
+        ]);
+        assert_eq!(output.status.code(), Some(1), "{language}");
+        assert!(
+            stderr(&output).contains("semantic request is invalid"),
+            "{language}"
+        );
+        assert!(output.stdout.is_empty());
+        assert!(!output_path.exists());
+    }
 }

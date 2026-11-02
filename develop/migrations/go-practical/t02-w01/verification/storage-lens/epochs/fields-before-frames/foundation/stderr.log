@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `release` profile [optimized] target(s) in 29.30s
+     Running tests/go_practical_storage_lens.rs (target/release/deps/go_practical_storage_lens-ec1d355628761861)
+
+thread 'lens_retains_complete_parent' (46620545) panicked at crates/mpk-vc/tests/go_practical_storage_lens.rs:39:9:
+lens-foundation: first declaration type-check failure Mpk.Go.Practical.Storage.Lens.ComposePutPut: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"b61cbe71f8831e7a1178d1b3cb25cb42aefbb4558160e62fefc59bfb5e94293a"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"var\",\"expected_term_index\":\"7886\",\"inferred_kind\":\"var\",\"inferred_term_index\":\"7885\",\"kind\":\"check_type_mismatch\",\"term_index\":\"7\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_storage_lens`

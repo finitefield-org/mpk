@@ -1,61 +1,30 @@
-# Active successor release metadata
+# Go and Rust release metadata
 
-This directory contains the source metadata for the sole active Go/Rust/C#/Java
-helper release. The release remains untrusted: only canonical certificate
-bytes and checked theory certificates accepted by the configured source-free
-checkers support proof acceptance.
-
-`semantic-profile-registry.json` is the frozen revision-3
-`mpk.semantic_profile.registry.v1` registry. It contains exactly the Go fixed,
-Rust checked, C# scalar, and Java scalar profiles. `bundle-registry.json` is the canonical
-`mpk.release.bundle_registry.v1` transport bound to that semantic registry. It
-contains four frontend bundles, four toolchain bundles, and five tuples:
+`semantic-profile-registry.json` is the canonical revision-4
+`mpk.semantic_profile.registry.v1` registry. It contains exactly
+`mpk.go.fixed.v0` and `mpk.rust.checked.v0`, preserving both entry hashes.
+`bundle-registry.json` binds two frontend bundles, two toolchain bundles,
+and three target tuples:
 
 - Go on `linux/amd64`;
 - Rust on `i686-unknown-linux-gnu`;
-- Rust on `x86_64-unknown-linux-gnu`;
-- C# on `linux-x64`; and
-- Java on `linux-x64`.
+- Rust on `x86_64-unknown-linux-gnu`.
 
-The registered bundle pairs are:
+The registered pairs are `frontend.go.go2vir.candidate.v2` with
+`toolchain.go.go1.25.0.linux-amd64.candidate.v1`, and
+`frontend.rust.rust2vir.candidate.v3` with
+`toolchain.rust.nightly-2025-06-01.candidate.v1`. Candidate suffixes are
+immutable identifiers. Projections under `candidates/` reproduce the combined
+registry; installed consumers never load that directory.
 
-- `frontend.go.go2vir.candidate.v1` and
-  `toolchain.go.go1.25.0.linux-amd64.candidate.v1`;
-- `frontend.rust.rust2vir.candidate.v2` and
-  `toolchain.rust.nightly-2025-06-01.candidate.v1`;
-- `frontend.csharp.csharp2vir.candidate.v1` and
-  `toolchain.csharp.roslyn-5_6_0.dotnet-10_0_11.candidate.v1`; and
-- `frontend.java.java2vir.candidate.v2` and
-  `toolchain.java.temurin-25_0_4_1_1.candidate.v1`.
+On a reviewed native x86-64 Linux host with writable cgroup v2 and frozen
+build-input caches, run `sudo ./scripts/check-go-rust-frontend.sh`.
+It rebuilds the bundles and runs both frontends through descriptor-relative
+installed paths twice. The new registry requires fresh native acceptance;
+older receipts cannot attest to these metadata bytes.
 
-Each `.candidate.vN` suffix is part of its frozen reviewed identifier; Rust v2
-supersedes the unreproducible v1 descriptor without mutating that identity. The
-suffix does not create a second publication state. The JSON files under
-`candidates/` are source-only projections used to reproduce the combined active
-registry; an installed release never copies that directory or resolves it at
-runtime.
-
-Verify the complete release deterministically and without repository writes:
-
-```sh
-./scripts/build-release-bundles.sh --check successor
-./scripts/check-release-bundles.sh --fixture successor
-```
-
-The first command rebuilds every bundle twice from pinned inputs and compares
-the results. The second materializes one installed image and runs its Go,
-Rust, C#, and Java frontends through the registered descriptor-relative paths. Both
-commands are offline and fail closed when the required frozen cache, host
-tools, Linux isolation features, or root-owned cgroup boundary are absent.
-
-An installed image contains exactly:
-
-- `bin/mpk`;
-- `share/mpk/semantic-profile-registry.json`;
-- `share/mpk/bundle-registry.json`; and
-- the eight registered inventories below
-  `libexec/mpk/bundles/<bundle_id>`.
-
-There is no registry override, raw executable path, compatibility flag, or
-staging-tree lookup. Rollback replaces the whole release image; it never mixes
-predecessor and successor identities.
+The installed image contains `bin/mpk`, both registries in `share/mpk`,
+and exactly four inventories under `libexec/mpk/bundles/<bundle_id>`.
+Unknown languages, old registry identities, caller-supplied executables and
+alternate registry paths are rejected. All release metadata is untrusted;
+proof acceptance still requires checked certificate bytes.

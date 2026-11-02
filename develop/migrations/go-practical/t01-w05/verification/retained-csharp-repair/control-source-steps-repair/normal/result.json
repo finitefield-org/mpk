@@ -1,0 +1,106 @@
+{
+  "status": "failed",
+  "mode": "normal",
+  "command": [
+    "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "--exact",
+    "ordinary_carriers::public_domain_tests::contract_expression_tests::control_edge_tests::steps::csharp_03_t06_w09_control_source_steps_original_sources",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_CORE_MAX_STEPS",
+    "MPK_CORE_MAX_SECONDS",
+    "MPK_W09_CONTROL_EDGES_OUT"
+  ],
+  "prior_environment": {
+    "RUST_MIN_STACK": null,
+    "MPK_CORE_MAX_STEPS": null,
+    "MPK_CORE_MAX_SECONDS": null,
+    "MPK_W09_CONTROL_EDGES_OUT": null
+  },
+  "test_sources": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_control_step_tests.rs",
+      "sha256": "646ad3742f2e0518d304a077f22f262b4973d01436a468ffb7b7f842e41b358c",
+      "bytes": 54978
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_transition_clause_tests.rs",
+      "sha256": "cae1aa8a75c32f755ad9e3ce429828a291c497474e8f0b98ac58859d5bdaa401",
+      "bytes": 17872
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_literal_clause_tests.rs",
+      "sha256": "3c068a816c030526f24929aa201220de516de630fab8bd6ab5d42fcf465ca539",
+      "bytes": 17744
+    }
+  ],
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-json-repair-target/debug/deps/csharp_practical_vc-f5f78b9b819b93a0",
+    "sha256": "64724a768b645109b1ceb2b6d0e2fdbe7bb7c3e457f44811ec2f6d8b7bd7796f",
+    "bytes": 41061768
+  },
+  "build": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/build-corrected/result.json",
+    "sha256": "074f14defac0673e914962dc31cd0fe548563c73a76b95846fe742ddefbabd19",
+    "bytes": 3503
+  },
+  "source_preservation_audit": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/source-preservation-audit-corrected.json",
+    "sha256": "fa51c38ac5f3e42e60ebf7c62542d5b9b9859eebac209e273f724d87e950255b",
+    "bytes": 2035
+  },
+  "failure_analysis": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/failure-analysis.json",
+    "sha256": "2b597144f9ed59ada10bb89c792cb4aa963cb8fe8b9531b2579e963c82b5dc7d",
+    "bytes": 22355
+  },
+  "started_at_utc": "2026-10-18T21:50:00.861997+00:00",
+  "selection_reason": "The only affected consumer invokes private run_steps. Execute all18 original contexts, full original NativeRuntime::Steps examples, every original argument/bit mutation, independent SSA origins, all component conjunctions, strict import mutations and all36 exact current JSON/certificate goldens. No context filters, output flags, stack overrides or core resource ceilings. Include the existing two memory effects and source constructor without removing any old component checks.",
+  "original_contexts": [
+    "count_fill",
+    "while",
+    "for",
+    "short_circuit",
+    "switch",
+    "is_binding",
+    "guard_order",
+    "guard_throw",
+    "total_variable",
+    "index_update",
+    "foreach_string",
+    "foreach_string_var",
+    "foreach_array",
+    "foreach_array_var",
+    "lookup",
+    "governing_throw",
+    "type",
+    "string_property"
+  ],
+  "full_gate": "The entire repaired T01 check-fast gate remains mandatory. This selected check does not complete W05/T01 or permit T02.",
+  "pid": 89191,
+  "exit_code": 101,
+  "wall_seconds": 5476.090286707971,
+  "finished_at_utc": "2026-10-18T23:21:16.978234+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/normal/stdout.log",
+    "sha256": "7e08dd2cc42e885bc0cddba3e85dfa40101bd4d4cdbaeef8eecf7007cca5a301",
+    "bytes": 655
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/control-source-steps-repair/normal/stderr.log",
+    "sha256": "88379f4e291f6bb31317f320cb35bccb434324e7f5cc5de1755f377b3a0abbb9",
+    "bytes": 5092
+  },
+  "expected_one_test_passed": false,
+  "completed_original_contexts": [],
+  "all18_original_contexts_completed": false
+}

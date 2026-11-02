@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 1.53s
+     Running tests/go_practical_product_foundation.rs (target/debug/deps/go_practical_product_foundation-111fd125c3384fb6)
+
+thread 'balanced_products_preserve_every_heterogeneous_field' (39385610) panicked at crates/mpk-vc/tests/support/go_product_foundation_shapes.rs:320:9:
+assertion failed: c.declarations.len() <= 4096 && c.term_table.len() <= 131_072
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_product_foundation`

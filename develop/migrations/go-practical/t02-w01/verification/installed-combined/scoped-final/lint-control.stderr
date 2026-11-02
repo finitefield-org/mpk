@@ -1,0 +1,12 @@
+    Checking mpk-scoped-clippy-control v0.0.0 (/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-combined/scoped-final/lint-control)
+error: equality checks against true are unnecessary
+ --> examples/go_practical_live_combined_roots.rs:1:59
+  |
+1 | fn main() { let selected = std::env::args().len() > 1; if selected == true { eprintln!("control"); } }
+  |                                                           ^^^^^^^^^^^^^^^^ help: try: `selected`
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#bool_comparison
+  = note: `-D clippy::bool-comparison` implied by `-D warnings`
+  = help: to override `-D warnings` add `#[allow(clippy::bool_comparison)]`
+
+error: could not compile `mpk-scoped-clippy-control` (example "go_practical_live_combined_roots") due to 1 previous error

@@ -8,7 +8,10 @@ homepage.workspace = true
 publish = false
 
 [dependencies]
+mpk-go-zstd-blocks = { path = "../../third_party/ruzstd-go125" }
 mpk-cert = { path = "../mpk-cert" }
+base64 = "0.22"
+miniz_oxide = { version = "=0.8.9", default-features = false, features = ["with-alloc"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = { version = "1", features = ["raw_value", "unbounded_depth"] }
 sha2 = "0.10"

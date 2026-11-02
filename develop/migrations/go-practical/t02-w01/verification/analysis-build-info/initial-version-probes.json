@@ -1,0 +1,21 @@
+{
+  "record_kind": "verbatim combined output transcribed from the two prior tool results; no independent stdout/stderr capture",
+  "user": "501:20",
+  "attempts": [
+    {
+      "exit_code": 127,
+      "image": "sha256:d617f1b5c2a18778ba357ba0528e973bd24992b0dd18000dfbca059f4a15ebda",
+      "invocation": "/usr/local/go/bin/go version -m /go2vir",
+      "observed_combined_output": "docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: exec: \"/usr/local/go/bin/go\": stat /usr/local/go/bin/go: no such file or directory\n\nRun 'docker run --help' for more information\n",
+      "reason": "the Rust runtime image did not contain a Go binary"
+    },
+    {
+      "exit_code": 0,
+      "image": "docker.io/library/golang@sha256:ebd54034f076819b3054f155db53660ded951612bb4dfd277f933e62059e5d5a",
+      "invocation": "/sdk/go/bin/go version -m /go2vir",
+      "observed_combined_output": "/go2vir: go1.25.0\n\tpath\tgithub.com/finitefield-org/mpk/go-tools/go2vir\n\tmod\tgithub.com/finitefield-org/mpk/go-tools/go2vir\t(devel)\t\n\tdep\tgolang.org/x/mod\tv0.27.0\t\n\tdep\tgolang.org/x/sync\tv0.16.0\t\n\tdep\tgolang.org/x/tools\tv0.36.0\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=containermaxprocs=0,decoratemappings=0,gotestjsonbuildtext=1,multipathtcp=0,randseednop=0,rsa1024min=0,tlsmlkem=0,updatemaxprocs=0,x509rsacrt=0,x509sha256skid=0,x509usepolicies=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n",
+      "reason": "use the exact retained registered Go SDK"
+    }
+  ],
+  "native_Linux_release_acceptance": false
+}

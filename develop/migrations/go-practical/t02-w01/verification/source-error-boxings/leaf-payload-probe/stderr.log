@@ -1,0 +1,17 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+warning: function `root_domain` is never used
+   --> crates/mpk-vc/tests/go_practical_source_error_boxing_large_diagnostic.rs:103:4
+    |
+103 | fn root_domain() -> GoSourceValueDomain {
+    |    ^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mpk-vc` (test "go_practical_source_error_boxing_large_diagnostic") generated 1 warning
+    Finished `test` profile [optimized + debuginfo] target(s) in 2m 05s
+     Running tests/go_practical_source_error_boxing_large_diagnostic.rs (target/debug/deps/go_practical_source_error_boxing_large_diagnostic-38fb2e46687300f4)
+
+thread 'current_complete_case_proofs_in_closed_diagnostic' (53962059) panicked at crates/mpk-vc/tests/go_practical_source_error_boxing_large_diagnostic.rs:211:18:
+called `Result::unwrap()` on an `Err` value: Limit
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_error_boxing_large_diagnostic`

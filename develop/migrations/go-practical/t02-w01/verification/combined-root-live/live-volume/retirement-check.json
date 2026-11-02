@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "selection_reason": "Check every actual source and generated export root on its original shared volume after the live run, without recreating or changing any entries.",
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--pull=never",
+    "--rm",
+    "--platform",
+    "linux/arm64",
+    "--network",
+    "none",
+    "--read-only",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--user",
+    "501:20",
+    "--mount",
+    "type=volume,src=mpk-go-combined-live-0aaae25536364e0e90f5f14394e598c3,dst=/tmp,readonly,volume-nocopy",
+    "sha256:7cf1e580ef5539f03b58560753e8ab84c8c360960d99dff714004aa98f203977",
+    "python3",
+    "-c",
+    "import json,os,sys\nresults=[]\nfor p in sys.argv[1:]:\n try: os.lstat(p)\n except FileNotFoundError: results.append({\"path\":p,\"absent\":True})\n else: results.append({\"path\":p,\"absent\":False})\nprint(json.dumps(results))\n",
+    "/tmp/TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPac3170668069/002/main",
+    "/tmp/TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPac3170668069/002/dep",
+    "/tmp/TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPac3170668069/001/go",
+    "/tmp/go2vir-loader-4157684602/cache/go-build"
+  ],
+  "original_root_paths": [
+    {
+      "Capability": "workspace/main",
+      "Directory": "/tmp/TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPac3170668069/002/main"
+    },
+    {
+      "Capability": "workspace/dep",
+      "Directory": "/tmp/TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPac3170668069/002/dep"
+    },
+    {
+      "Capability": "original-go-sdk",
+      "Directory": "/tmp/TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPac3170668069/001/go"
+    },
+    {
+      "Capability": "original-go-package-exports",
+      "Directory": "/tmp/go2vir-loader-4157684602/cache/go-build"
+    }
+  ],
+  "post_run_observations": [
+    {
+      "path": "/tmp/TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPac3170668069/002/main",
+      "absent": true
+    },
+    {
+      "path": "/tmp/TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPac3170668069/002/dep",
+      "absent": true
+    },
+    {
+      "path": "/tmp/TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPac3170668069/001/go",
+      "absent": true
+    },
+    {
+      "path": "/tmp/go2vir-loader-4157684602/cache/go-build",
+      "absent": true
+    }
+  ],
+  "all_paths_absent_after_run": true,
+  "original_volume_modified": false,
+  "native_Linux_release_acceptance": false
+}

@@ -1,0 +1,2995 @@
+{
+  "cases": [
+    {
+      "arguments": [
+        "mod",
+        "graph"
+      ],
+      "case": "empty",
+      "derived_roots": [
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "diagnostics_hex": "",
+      "environment": [
+        "CGO_ENABLED=0",
+        "GO111MODULE=on",
+        "GOAMD64=v1",
+        "GOARCH=amd64",
+        "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-4125936889/cache/go-build",
+        "GODEBUG=",
+        "GOENV=off",
+        "GOEXPERIMENT=",
+        "GOFLAGS=",
+        "GOMAXPROCS=1",
+        "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracleempty3606692911/001/dep",
+        "GONOPROXY=",
+        "GONOSUMDB=",
+        "GOOS=linux",
+        "GOPACKAGESDRIVER=off",
+        "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-4125936889/gopath",
+        "GOPRIVATE=",
+        "GOPROXY=off",
+        "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go",
+        "GOSUMDB=off",
+        "GOTELEMETRY=off",
+        "GOTOOLCHAIN=local",
+        "GOVCS=*:off",
+        "GOWORK=off",
+        "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-4125936889/empty/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go/bin",
+        "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-4125936889/tmp",
+        "TZ=UTC"
+      ],
+      "final": [
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "initial": [
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "main": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "f44d1a41f21f849f1bf32b99adbe4c0a3b1747214110b2d02e03ca2055b707ae",
+          "capability": "workspace/main",
+          "path": "go.mod",
+          "kind": "go_mod",
+          "raw_sha256": "22e34c796bba12362171be18e4a7c935f34f714d16844e89f09b9229cd15dfa4",
+          "bytes": 33
+        },
+        "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6170700a676f20312e32352e300a"
+      },
+      "metadata_hex": "6578616d706c652e636f6d2f61707020676f40312e32352e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "source_program_or_context_authority": false,
+      "sources": []
+    },
+    {
+      "arguments": [
+        "mod",
+        "graph"
+      ],
+      "case": "cascade-transient",
+      "derived_roots": [
+        {
+          "path": "example.com/a",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "example.com/c",
+          "version_hex": "76312e322e30"
+        },
+        {
+          "path": "example.com/z",
+          "version_hex": "76312e312e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "diagnostics_hex": "",
+      "environment": [
+        "CGO_ENABLED=0",
+        "GO111MODULE=on",
+        "GOAMD64=v1",
+        "GOARCH=amd64",
+        "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-3458576642/cache/go-build",
+        "GODEBUG=",
+        "GOENV=off",
+        "GOEXPERIMENT=",
+        "GOFLAGS=",
+        "GOMAXPROCS=1",
+        "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOraclecascade-transient3249118444/001/dep",
+        "GONOPROXY=",
+        "GONOSUMDB=",
+        "GOOS=linux",
+        "GOPACKAGESDRIVER=off",
+        "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-3458576642/gopath",
+        "GOPRIVATE=",
+        "GOPROXY=off",
+        "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go",
+        "GOSUMDB=off",
+        "GOTELEMETRY=off",
+        "GOTOOLCHAIN=local",
+        "GOVCS=*:off",
+        "GOWORK=off",
+        "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-3458576642/empty/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go/bin",
+        "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-3458576642/tmp",
+        "TZ=UTC"
+      ],
+      "final": [
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "example.com/c",
+              "version_hex": "76312e312e30"
+            },
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+              "bytes": 58
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+          }
+        },
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/c",
+            "version_hex": "76312e322e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "example.com/unread",
+              "version_hex": "76312e302e30"
+            },
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "bbfb98e6ed3df453ceca65471b4009d7fc2be9405c4097b4086d49afd309d2ef",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/c/@v/v1.2.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "663567cf6da2150cc189aa96f75d1481cb59187cb36dbeb0ab68cb08f0a177ed",
+              "bytes": 63
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a72657175697265206578616d706c652e636f6d2f756e726561642076312e302e300a"
+          }
+        },
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/z",
+            "version_hex": "76312e312e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "example.com/c",
+              "version_hex": "76312e322e30"
+            },
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "22e5b8867e7dfef01e2ee6f8a168b37e2c224202a4fafb72c423869fe75ccd3a",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/z/@v/v1.1.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "005b369200da99521509fbec0e1cf7acfdf54f17e5b6701a6820449e21c662ae",
+              "bytes": 58
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f7a0a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e322e300a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "initial": [
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "example.com/c",
+              "version_hex": "76312e312e30"
+            },
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+              "bytes": 58
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+          }
+        },
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "ed36f6dcdc153bf757bd0ff46e9c805cd825e222cfd7abf10e59a2669a91f3de",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+              "bytes": 29
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a"
+          }
+        },
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/z",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "3a277c65df72ddad3075f7f685b5cda83fa37b29e268b6752c0c38230315fa73",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "71cad4ea7cbd094633a1d29bfb8bed337860875bc01e0a8d89e57de19f76344e",
+              "bytes": 29
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f7a0a676f20312e32320a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "main": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "fc5f0b620f9974763c3ecd497ab08d56194b7c757ef872ae1be6a1ea68d50e0e",
+          "capability": "workspace/main",
+          "path": "go.mod",
+          "kind": "go_mod",
+          "raw_sha256": "38a731c10d1af832c8c74a1387e988bdcb9623982b72cc87787820f3c54aa0f2",
+          "bytes": 108
+        },
+        "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6170700a676f20312e32352e300a7265717569726520280a6578616d706c652e636f6d2f612076312e302e300a6578616d706c652e636f6d2f632076312e302e300a6578616d706c652e636f6d2f7a2076312e302e300a290a"
+      },
+      "metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f614076312e302e300a6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f634076312e322e300a6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f7a4076312e312e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f614076312e302e30206578616d706c652e636f6d2f634076312e312e300a6578616d706c652e636f6d2f614076312e302e3020676f40312e32320a6578616d706c652e636f6d2f634076312e322e30206578616d706c652e636f6d2f756e726561644076312e302e300a6578616d706c652e636f6d2f634076312e322e3020676f40312e32320a6578616d706c652e636f6d2f7a4076312e312e30206578616d706c652e636f6d2f634076312e322e300a6578616d706c652e636f6d2f7a4076312e312e3020676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "source_program_or_context_authority": false,
+      "sources": [
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ed36f6dcdc153bf757bd0ff46e9c805cd825e222cfd7abf10e59a2669a91f3de",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+            "bytes": 29
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e312e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "9cb3087d3df2768f2645289febe36bd55ed10701860f032b2e530ffae209ab58",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.1.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "4ec4fcab023a118a734b3f059d5404f667711f1d4c852e80244c9deea0439a9c",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a72657175697265206578616d706c652e636f6d2f7a2076312e312e300a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e322e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "bbfb98e6ed3df453ceca65471b4009d7fc2be9405c4097b4086d49afd309d2ef",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.2.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "663567cf6da2150cc189aa96f75d1481cb59187cb36dbeb0ab68cb08f0a177ed",
+            "bytes": 63
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a72657175697265206578616d706c652e636f6d2f756e726561642076312e302e300a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/z",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "3a277c65df72ddad3075f7f685b5cda83fa37b29e268b6752c0c38230315fa73",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "71cad4ea7cbd094633a1d29bfb8bed337860875bc01e0a8d89e57de19f76344e",
+            "bytes": 29
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f7a0a676f20312e32320a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/z",
+            "version_hex": "76312e312e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "22e5b8867e7dfef01e2ee6f8a168b37e2c224202a4fafb72c423869fe75ccd3a",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/z/@v/v1.1.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "005b369200da99521509fbec0e1cf7acfdf54f17e5b6701a6820449e21c662ae",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f7a0a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e322e300a"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        "mod",
+        "graph"
+      ],
+      "case": "duplicate-inconsistent",
+      "derived_roots": [
+        {
+          "path": "example.com/c",
+          "version_hex": "76312e322e30"
+        },
+        {
+          "path": "example.com/z",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "diagnostics_hex": "",
+      "environment": [
+        "CGO_ENABLED=0",
+        "GO111MODULE=on",
+        "GOAMD64=v1",
+        "GOARCH=amd64",
+        "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-1181323008/cache/go-build",
+        "GODEBUG=",
+        "GOENV=off",
+        "GOEXPERIMENT=",
+        "GOFLAGS=",
+        "GOMAXPROCS=1",
+        "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracleduplicate-inconsistent943534405/001/dep",
+        "GONOPROXY=",
+        "GONOSUMDB=",
+        "GOOS=linux",
+        "GOPACKAGESDRIVER=off",
+        "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-1181323008/gopath",
+        "GOPRIVATE=",
+        "GOPROXY=off",
+        "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go",
+        "GOSUMDB=off",
+        "GOTELEMETRY=off",
+        "GOTOOLCHAIN=local",
+        "GOVCS=*:off",
+        "GOWORK=off",
+        "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-1181323008/empty/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go/bin",
+        "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-1181323008/tmp",
+        "TZ=UTC"
+      ],
+      "final": [
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/c",
+            "version_hex": "76312e322e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "example.com/unread",
+              "version_hex": "76312e302e30"
+            },
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "bbfb98e6ed3df453ceca65471b4009d7fc2be9405c4097b4086d49afd309d2ef",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/c/@v/v1.2.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "663567cf6da2150cc189aa96f75d1481cb59187cb36dbeb0ab68cb08f0a177ed",
+              "bytes": 63
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a72657175697265206578616d706c652e636f6d2f756e726561642076312e302e300a"
+          }
+        },
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/z",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "3a277c65df72ddad3075f7f685b5cda83fa37b29e268b6752c0c38230315fa73",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "71cad4ea7cbd094633a1d29bfb8bed337860875bc01e0a8d89e57de19f76344e",
+              "bytes": 29
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f7a0a676f20312e32320a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "initial": [
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "ed36f6dcdc153bf757bd0ff46e9c805cd825e222cfd7abf10e59a2669a91f3de",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+              "bytes": 29
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a"
+          }
+        },
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/c",
+            "version_hex": "76312e322e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "example.com/unread",
+              "version_hex": "76312e302e30"
+            },
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "bbfb98e6ed3df453ceca65471b4009d7fc2be9405c4097b4086d49afd309d2ef",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/c/@v/v1.2.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "663567cf6da2150cc189aa96f75d1481cb59187cb36dbeb0ab68cb08f0a177ed",
+              "bytes": 63
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a72657175697265206578616d706c652e636f6d2f756e726561642076312e302e300a"
+          }
+        },
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/z",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "3a277c65df72ddad3075f7f685b5cda83fa37b29e268b6752c0c38230315fa73",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "71cad4ea7cbd094633a1d29bfb8bed337860875bc01e0a8d89e57de19f76344e",
+              "bytes": 29
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f7a0a676f20312e32320a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "main": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "91b174d6adf66021446e53aba3f2e142808445025683310aafb028e2a9923951",
+          "capability": "workspace/main",
+          "path": "go.mod",
+          "kind": "go_mod",
+          "raw_sha256": "598f3f8f6fe8ecc48f406d8e628998ce43fe3327b12394e6b19190a0c108357a",
+          "bytes": 108
+        },
+        "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6170700a676f20312e32352e300a7265717569726520280a6578616d706c652e636f6d2f632076312e302e300a6578616d706c652e636f6d2f632076312e322e300a6578616d706c652e636f6d2f7a2076312e302e300a290a"
+      },
+      "metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f634076312e322e300a6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f7a4076312e302e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f634076312e322e30206578616d706c652e636f6d2f756e726561644076312e302e300a6578616d706c652e636f6d2f634076312e322e3020676f40312e32320a6578616d706c652e636f6d2f7a4076312e302e3020676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "source_program_or_context_authority": false,
+      "sources": [
+        {
+          "captured_during_expansion": false,
+          "module": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ed36f6dcdc153bf757bd0ff46e9c805cd825e222cfd7abf10e59a2669a91f3de",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+            "bytes": 29
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a"
+        },
+        {
+          "captured_during_expansion": false,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e312e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "9cb3087d3df2768f2645289febe36bd55ed10701860f032b2e530ffae209ab58",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.1.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "4ec4fcab023a118a734b3f059d5404f667711f1d4c852e80244c9deea0439a9c",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a72657175697265206578616d706c652e636f6d2f7a2076312e312e300a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e322e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "bbfb98e6ed3df453ceca65471b4009d7fc2be9405c4097b4086d49afd309d2ef",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.2.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "663567cf6da2150cc189aa96f75d1481cb59187cb36dbeb0ab68cb08f0a177ed",
+            "bytes": 63
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a72657175697265206578616d706c652e636f6d2f756e726561642076312e302e300a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/z",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "3a277c65df72ddad3075f7f685b5cda83fa37b29e268b6752c0c38230315fa73",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "71cad4ea7cbd094633a1d29bfb8bed337860875bc01e0a8d89e57de19f76344e",
+            "bytes": 29
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f7a0a676f20312e32320a"
+        },
+        {
+          "captured_during_expansion": false,
+          "module": {
+            "path": "example.com/z",
+            "version_hex": "76312e312e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "22e5b8867e7dfef01e2ee6f8a168b37e2c224202a4fafb72c423869fe75ccd3a",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/z/@v/v1.1.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "005b369200da99521509fbec0e1cf7acfdf54f17e5b6701a6820449e21c662ae",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f7a0a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e322e300a"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        "mod",
+        "graph"
+      ],
+      "case": "old-unprunes-modern",
+      "derived_roots": [
+        {
+          "path": "example.com/old",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "diagnostics_hex": "",
+      "environment": [
+        "CGO_ENABLED=0",
+        "GO111MODULE=on",
+        "GOAMD64=v1",
+        "GOARCH=amd64",
+        "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-1605622268/cache/go-build",
+        "GODEBUG=",
+        "GOENV=off",
+        "GOEXPERIMENT=",
+        "GOFLAGS=",
+        "GOMAXPROCS=1",
+        "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracleold-unprunes-modern1638381890/001/dep",
+        "GONOPROXY=",
+        "GONOSUMDB=",
+        "GOOS=linux",
+        "GOPACKAGESDRIVER=off",
+        "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-1605622268/gopath",
+        "GOPRIVATE=",
+        "GOPROXY=off",
+        "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go",
+        "GOSUMDB=off",
+        "GOTELEMETRY=off",
+        "GOTOOLCHAIN=local",
+        "GOVCS=*:off",
+        "GOWORK=off",
+        "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-1605622268/empty/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go/bin",
+        "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-1605622268/tmp",
+        "TZ=UTC"
+      ],
+      "final": [
+        {
+          "go_version": "",
+          "identity": {
+            "path": "example.com/leaf",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "f70da412c01c318a3561083ee7cc913aaf0b58b676aea529b42be16a8a42d9e2",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/leaf/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "faaa972457075c21562531771176e1c42876b8ed64a397ec24969837060d7077",
+              "bytes": 62
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6c6561660a2f2f206e6f20676f206469726563746976652c206e6f206f7574676f696e672065646765730a"
+          }
+        },
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/modern",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "example.com/leaf",
+              "version_hex": "76312e302e30"
+            },
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "9b9794577d1f999c7d80b891b6b0630d6a7c6bcd37d8bfb20ce68d5224e509ff",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/modern/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "be8e952771963e768ba35ec7debebaf339afdcfb3cde1dbbea49a9daf479d781",
+              "bytes": 66
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6d6f6465726e0a676f20312e32320a72657175697265206578616d706c652e636f6d2f6c6561662076312e302e300a"
+          }
+        },
+        {
+          "go_version": "1.16",
+          "identity": {
+            "path": "example.com/old",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "example.com/modern",
+              "version_hex": "76312e302e30"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "6cfb8108704850623b698d712aed9626c876122506b89cdd8bff1c0cb6d03ccc",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/old/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "1051902243e9a4c9eed6d4f2cb833a2054d9d3a685443bb8adcb87db528a6d38",
+              "bytes": 65
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6f6c640a676f20312e31360a72657175697265206578616d706c652e636f6d2f6d6f6465726e2076312e302e300a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e3232"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e3232"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e3232"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "initial": [
+        {
+          "go_version": "",
+          "identity": {
+            "path": "example.com/leaf",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "f70da412c01c318a3561083ee7cc913aaf0b58b676aea529b42be16a8a42d9e2",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/leaf/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "faaa972457075c21562531771176e1c42876b8ed64a397ec24969837060d7077",
+              "bytes": 62
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6c6561660a2f2f206e6f20676f206469726563746976652c206e6f206f7574676f696e672065646765730a"
+          }
+        },
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/modern",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "example.com/leaf",
+              "version_hex": "76312e302e30"
+            },
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "9b9794577d1f999c7d80b891b6b0630d6a7c6bcd37d8bfb20ce68d5224e509ff",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/modern/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "be8e952771963e768ba35ec7debebaf339afdcfb3cde1dbbea49a9daf479d781",
+              "bytes": 66
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6d6f6465726e0a676f20312e32320a72657175697265206578616d706c652e636f6d2f6c6561662076312e302e300a"
+          }
+        },
+        {
+          "go_version": "1.16",
+          "identity": {
+            "path": "example.com/old",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "example.com/modern",
+              "version_hex": "76312e302e30"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "6cfb8108704850623b698d712aed9626c876122506b89cdd8bff1c0cb6d03ccc",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/old/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "1051902243e9a4c9eed6d4f2cb833a2054d9d3a685443bb8adcb87db528a6d38",
+              "bytes": 65
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6f6c640a676f20312e31360a72657175697265206578616d706c652e636f6d2f6d6f6465726e2076312e302e300a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e3232"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e3232"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e3232"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "main": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "f1f30b26ba1d50a395a015ef1ef391d30e6511ad6a55e37b8b488fba00ccc72f",
+          "capability": "workspace/main",
+          "path": "go.mod",
+          "kind": "go_mod",
+          "raw_sha256": "fd297622ad355988a790853af1a1fec66484982d4e264cc1e0487a5f6bc841d1",
+          "bytes": 64
+        },
+        "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6170700a676f20312e32352e300a72657175697265206578616d706c652e636f6d2f6f6c642076312e302e300a"
+      },
+      "metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f6f6c644076312e302e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f6f6c644076312e302e30206578616d706c652e636f6d2f6d6f6465726e4076312e302e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a6578616d706c652e636f6d2f6d6f6465726e4076312e302e30206578616d706c652e636f6d2f6c6561664076312e302e300a6578616d706c652e636f6d2f6d6f6465726e4076312e302e3020676f40312e32320a676f40312e323220746f6f6c636861696e40676f312e32320a",
+      "source_program_or_context_authority": false,
+      "sources": [
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/old",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "6cfb8108704850623b698d712aed9626c876122506b89cdd8bff1c0cb6d03ccc",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/old/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "1051902243e9a4c9eed6d4f2cb833a2054d9d3a685443bb8adcb87db528a6d38",
+            "bytes": 65
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6f6c640a676f20312e31360a72657175697265206578616d706c652e636f6d2f6d6f6465726e2076312e302e300a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/modern",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "9b9794577d1f999c7d80b891b6b0630d6a7c6bcd37d8bfb20ce68d5224e509ff",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/modern/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "be8e952771963e768ba35ec7debebaf339afdcfb3cde1dbbea49a9daf479d781",
+            "bytes": 66
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6d6f6465726e0a676f20312e32320a72657175697265206578616d706c652e636f6d2f6c6561662076312e302e300a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/leaf",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "f70da412c01c318a3561083ee7cc913aaf0b58b676aea529b42be16a8a42d9e2",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/leaf/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "faaa972457075c21562531771176e1c42876b8ed64a397ec24969837060d7077",
+            "bytes": 62
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6c6561660a2f2f206e6f20676f206469726563746976652c206e6f206f7574676f696e672065646765730a"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        "mod",
+        "graph"
+      ],
+      "case": "cycle-upgrades",
+      "derived_roots": [
+        {
+          "path": "example.com/a",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "example.com/c",
+          "version_hex": "76312e312e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "diagnostics_hex": "",
+      "environment": [
+        "CGO_ENABLED=0",
+        "GO111MODULE=on",
+        "GOAMD64=v1",
+        "GOARCH=amd64",
+        "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-2410537645/cache/go-build",
+        "GODEBUG=",
+        "GOENV=off",
+        "GOEXPERIMENT=",
+        "GOFLAGS=",
+        "GOMAXPROCS=1",
+        "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOraclecycle-upgrades3085363647/001/dep",
+        "GONOPROXY=",
+        "GONOSUMDB=",
+        "GOOS=linux",
+        "GOPACKAGESDRIVER=off",
+        "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-2410537645/gopath",
+        "GOPRIVATE=",
+        "GOPROXY=off",
+        "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go",
+        "GOSUMDB=off",
+        "GOTELEMETRY=off",
+        "GOTOOLCHAIN=local",
+        "GOVCS=*:off",
+        "GOWORK=off",
+        "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-2410537645/empty/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go/bin",
+        "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-2410537645/tmp",
+        "TZ=UTC"
+      ],
+      "final": [
+        {
+          "go_version": "1.16",
+          "identity": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "example.com/c",
+              "version_hex": "76312e312e30"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "9f6294baafdb266e43d6838002f8f6d11c7f520c434c7f7c2459bba3b9ab0c96",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "ff7d3942f60d07cff4e5f5fcb931e3b64ca08451a1530b3e8cc549ff5df287c9",
+              "bytes": 58
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e31360a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+          }
+        },
+        {
+          "go_version": "1.16",
+          "identity": {
+            "path": "example.com/c",
+            "version_hex": "76312e312e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "example.com/a",
+              "version_hex": "76312e302e30"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "540574f55603b2c340896547672682bd1d1a49f67da7c92e41051dd3df69a669",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/c/@v/v1.1.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "674fa0d79f40c13ba4414a2fb954c679a0cb89e4cf8d94c4195fa24a5764fadc",
+              "bytes": 58
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e31360a72657175697265206578616d706c652e636f6d2f612076312e302e300a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "initial": [
+        {
+          "go_version": "1.16",
+          "identity": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "example.com/c",
+              "version_hex": "76312e312e30"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "9f6294baafdb266e43d6838002f8f6d11c7f520c434c7f7c2459bba3b9ab0c96",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "ff7d3942f60d07cff4e5f5fcb931e3b64ca08451a1530b3e8cc549ff5df287c9",
+              "bytes": 58
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e31360a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+          }
+        },
+        {
+          "go_version": "1.16",
+          "identity": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "example.com/a",
+              "version_hex": "76312e302e30"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "19827aeca02a3f117520db3190c3c78ac3010def5f09902f9bbe5b5f81030117",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "674fa0d79f40c13ba4414a2fb954c679a0cb89e4cf8d94c4195fa24a5764fadc",
+              "bytes": 58
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e31360a72657175697265206578616d706c652e636f6d2f612076312e302e300a"
+          }
+        },
+        {
+          "go_version": "1.16",
+          "identity": {
+            "path": "example.com/c",
+            "version_hex": "76312e312e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "example.com/a",
+              "version_hex": "76312e302e30"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "540574f55603b2c340896547672682bd1d1a49f67da7c92e41051dd3df69a669",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/c/@v/v1.1.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "674fa0d79f40c13ba4414a2fb954c679a0cb89e4cf8d94c4195fa24a5764fadc",
+              "bytes": 58
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e31360a72657175697265206578616d706c652e636f6d2f612076312e302e300a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "main": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "a73653693e55e3ed1416db9013cc7d6510641c90921b9bc337c4bf98d990ec29",
+          "capability": "workspace/main",
+          "path": "go.mod",
+          "kind": "go_mod",
+          "raw_sha256": "16e15452206ab4fa338b831a693a51431c7f72a35bd954f9fd1e6e2eda868f97",
+          "bytes": 87
+        },
+        "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6170700a676f20312e32352e300a7265717569726520280a6578616d706c652e636f6d2f612076312e302e300a6578616d706c652e636f6d2f632076312e302e300a290a"
+      },
+      "metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f614076312e302e300a6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f634076312e312e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f614076312e302e30206578616d706c652e636f6d2f634076312e312e300a6578616d706c652e636f6d2f634076312e312e30206578616d706c652e636f6d2f614076312e302e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "source_program_or_context_authority": false,
+      "sources": [
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "9f6294baafdb266e43d6838002f8f6d11c7f520c434c7f7c2459bba3b9ab0c96",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "ff7d3942f60d07cff4e5f5fcb931e3b64ca08451a1530b3e8cc549ff5df287c9",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e31360a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "19827aeca02a3f117520db3190c3c78ac3010def5f09902f9bbe5b5f81030117",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "674fa0d79f40c13ba4414a2fb954c679a0cb89e4cf8d94c4195fa24a5764fadc",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e31360a72657175697265206578616d706c652e636f6d2f612076312e302e300a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e312e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "540574f55603b2c340896547672682bd1d1a49f67da7c92e41051dd3df69a669",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.1.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "674fa0d79f40c13ba4414a2fb954c679a0cb89e4cf8d94c4195fa24a5764fadc",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e31360a72657175697265206578616d706c652e636f6d2f612076312e302e300a"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        "mod",
+        "graph"
+      ],
+      "case": "excluded-upgrade",
+      "derived_roots": [
+        {
+          "path": "example.com/a",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "example.com/c",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "diagnostics_hex": "",
+      "environment": [
+        "CGO_ENABLED=0",
+        "GO111MODULE=on",
+        "GOAMD64=v1",
+        "GOARCH=amd64",
+        "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-693754487/cache/go-build",
+        "GODEBUG=",
+        "GOENV=off",
+        "GOEXPERIMENT=",
+        "GOFLAGS=",
+        "GOMAXPROCS=1",
+        "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracleexcluded-upgrade819196336/001/dep",
+        "GONOPROXY=",
+        "GONOSUMDB=",
+        "GOOS=linux",
+        "GOPACKAGESDRIVER=off",
+        "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-693754487/gopath",
+        "GOPRIVATE=",
+        "GOPROXY=off",
+        "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go",
+        "GOSUMDB=off",
+        "GOTELEMETRY=off",
+        "GOTOOLCHAIN=local",
+        "GOVCS=*:off",
+        "GOWORK=off",
+        "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-693754487/empty/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go/bin",
+        "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-693754487/tmp",
+        "TZ=UTC"
+      ],
+      "final": [
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+              "bytes": 58
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+          }
+        },
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "ed36f6dcdc153bf757bd0ff46e9c805cd825e222cfd7abf10e59a2669a91f3de",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+              "bytes": 29
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "initial": [
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+              "bytes": 58
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+          }
+        },
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "ed36f6dcdc153bf757bd0ff46e9c805cd825e222cfd7abf10e59a2669a91f3de",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+              "bytes": 29
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "main": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "e0d659456c6b3fea55e13ae86b9e2e5b9472b13aa82638e9d8a30d4e6b1ebac7",
+          "capability": "workspace/main",
+          "path": "go.mod",
+          "kind": "go_mod",
+          "raw_sha256": "32b189c2797e670ad1cafee33915eb8cdc767610fd2e53710869379ef7775b3c",
+          "bytes": 116
+        },
+        "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6170700a676f20312e32352e300a7265717569726520280a6578616d706c652e636f6d2f612076312e302e300a6578616d706c652e636f6d2f632076312e302e300a290a6578636c756465206578616d706c652e636f6d2f632076312e312e300a"
+      },
+      "metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f614076312e302e300a6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f634076312e302e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f614076312e302e3020676f40312e32320a6578616d706c652e636f6d2f634076312e302e3020676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "source_program_or_context_authority": false,
+      "sources": [
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ed36f6dcdc153bf757bd0ff46e9c805cd825e222cfd7abf10e59a2669a91f3de",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+            "bytes": 29
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a"
+        },
+        {
+          "captured_during_expansion": false,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e312e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "9cb3087d3df2768f2645289febe36bd55ed10701860f032b2e530ffae209ab58",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.1.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "4ec4fcab023a118a734b3f059d5404f667711f1d4c852e80244c9deea0439a9c",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a72657175697265206578616d706c652e636f6d2f7a2076312e312e300a"
+        },
+        {
+          "captured_during_expansion": false,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e322e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "bbfb98e6ed3df453ceca65471b4009d7fc2be9405c4097b4086d49afd309d2ef",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.2.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "663567cf6da2150cc189aa96f75d1481cb59187cb36dbeb0ab68cb08f0a177ed",
+            "bytes": 63
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a72657175697265206578616d706c652e636f6d2f756e726561642076312e302e300a"
+        },
+        {
+          "captured_during_expansion": false,
+          "module": {
+            "path": "example.com/z",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "3a277c65df72ddad3075f7f685b5cda83fa37b29e268b6752c0c38230315fa73",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "71cad4ea7cbd094633a1d29bfb8bed337860875bc01e0a8d89e57de19f76344e",
+            "bytes": 29
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f7a0a676f20312e32320a"
+        },
+        {
+          "captured_during_expansion": false,
+          "module": {
+            "path": "example.com/z",
+            "version_hex": "76312e312e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "22e5b8867e7dfef01e2ee6f8a168b37e2c224202a4fafb72c423869fe75ccd3a",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/z/@v/v1.1.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "005b369200da99521509fbec0e1cf7acfdf54f17e5b6701a6820449e21c662ae",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f7a0a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e322e300a"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        "mod",
+        "graph"
+      ],
+      "case": "go-root-upgrade",
+      "derived_roots": [
+        {
+          "path": "example.com/a",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "diagnostics_hex": "",
+      "environment": [
+        "CGO_ENABLED=0",
+        "GO111MODULE=on",
+        "GOAMD64=v1",
+        "GOARCH=amd64",
+        "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-3073302592/cache/go-build",
+        "GODEBUG=",
+        "GOENV=off",
+        "GOEXPERIMENT=",
+        "GOFLAGS=",
+        "GOMAXPROCS=1",
+        "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOraclego-root-upgrade384555657/001/dep",
+        "GONOPROXY=",
+        "GONOSUMDB=",
+        "GOOS=linux",
+        "GOPACKAGESDRIVER=off",
+        "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-3073302592/gopath",
+        "GOPRIVATE=",
+        "GOPROXY=off",
+        "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go",
+        "GOSUMDB=off",
+        "GOTELEMETRY=off",
+        "GOTOOLCHAIN=local",
+        "GOVCS=*:off",
+        "GOWORK=off",
+        "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-3073302592/empty/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go/bin",
+        "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-3073302592/tmp",
+        "TZ=UTC"
+      ],
+      "final": [
+        {
+          "go_version": "1.25.0",
+          "identity": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e32352e30"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "54800f4d3c2228eb716242ae6411312cad86192163a3bd4c031ae0f12eb40140",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "d6d9e780fb6a7a2c95972bb04d8e87f1f1418656f96c336e79d19a8db0b55738",
+              "bytes": 31
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32352e300a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "initial": [
+        {
+          "go_version": "1.25.0",
+          "identity": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e32352e30"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "54800f4d3c2228eb716242ae6411312cad86192163a3bd4c031ae0f12eb40140",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "d6d9e780fb6a7a2c95972bb04d8e87f1f1418656f96c336e79d19a8db0b55738",
+              "bytes": 31
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32352e300a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e3232"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e3232"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e3232"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "main": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "ccd6f7ca2d0903b151b40b3d5fc051256e36277228df128cf39841a2c5748c24",
+          "capability": "workspace/main",
+          "path": "go.mod",
+          "kind": "go_mod",
+          "raw_sha256": "a6fc2ddcb647a5441a78787759c9892c19b817880172b9f93b2c48a3c66335db",
+          "bytes": 60
+        },
+        "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6170700a676f20312e32320a72657175697265206578616d706c652e636f6d2f612076312e302e300a"
+      },
+      "metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f614076312e302e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f614076312e302e3020676f40312e32352e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "source_program_or_context_authority": false,
+      "sources": [
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "54800f4d3c2228eb716242ae6411312cad86192163a3bd4c031ae0f12eb40140",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "d6d9e780fb6a7a2c95972bb04d8e87f1f1418656f96c336e79d19a8db0b55738",
+            "bytes": 31
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32352e300a"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        "mod",
+        "graph"
+      ],
+      "case": "toolchain-default",
+      "derived_roots": [
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        },
+        {
+          "path": "toolchain",
+          "version_hex": "676f312e32352e30"
+        }
+      ],
+      "diagnostics_hex": "",
+      "environment": [
+        "CGO_ENABLED=0",
+        "GO111MODULE=on",
+        "GOAMD64=v1",
+        "GOARCH=amd64",
+        "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-68222524/cache/go-build",
+        "GODEBUG=",
+        "GOENV=off",
+        "GOEXPERIMENT=",
+        "GOFLAGS=",
+        "GOMAXPROCS=1",
+        "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracletoolchain-default312764273/001/dep",
+        "GONOPROXY=",
+        "GONOSUMDB=",
+        "GOOS=linux",
+        "GOPACKAGESDRIVER=off",
+        "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-68222524/gopath",
+        "GOPRIVATE=",
+        "GOPROXY=off",
+        "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go",
+        "GOSUMDB=off",
+        "GOTELEMETRY=off",
+        "GOTOOLCHAIN=local",
+        "GOVCS=*:off",
+        "GOWORK=off",
+        "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-68222524/empty/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go/bin",
+        "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-68222524/tmp",
+        "TZ=UTC"
+      ],
+      "final": [
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "initial": [
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "64656661756c74"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "main": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "60ba874ae2d3e2f017cf7f6669322e5d23ec0bee8503126519539c829dee1e68",
+          "capability": "workspace/main",
+          "path": "go.mod",
+          "kind": "go_mod",
+          "raw_sha256": "077a3cf6c5d2383f4aee80a287095b0698c74a61d77e7056369c05c6c1a45aee",
+          "bytes": 51
+        },
+        "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6170700a676f20312e32352e300a746f6f6c636861696e2064656661756c740a"
+      },
+      "metadata_hex": "6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f61707020746f6f6c636861696e40676f312e32352e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "source_program_or_context_authority": false,
+      "sources": []
+    },
+    {
+      "arguments": [
+        "mod",
+        "graph"
+      ],
+      "case": "toolchain-older",
+      "derived_roots": [
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        },
+        {
+          "path": "toolchain",
+          "version_hex": "676f312e32352e30"
+        }
+      ],
+      "diagnostics_hex": "",
+      "environment": [
+        "CGO_ENABLED=0",
+        "GO111MODULE=on",
+        "GOAMD64=v1",
+        "GOARCH=amd64",
+        "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-989609001/cache/go-build",
+        "GODEBUG=",
+        "GOENV=off",
+        "GOEXPERIMENT=",
+        "GOFLAGS=",
+        "GOMAXPROCS=1",
+        "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracletoolchain-older1702312437/001/dep",
+        "GONOPROXY=",
+        "GONOSUMDB=",
+        "GOOS=linux",
+        "GOPACKAGESDRIVER=off",
+        "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-989609001/gopath",
+        "GOPRIVATE=",
+        "GOPROXY=off",
+        "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go",
+        "GOSUMDB=off",
+        "GOTELEMETRY=off",
+        "GOTOOLCHAIN=local",
+        "GOVCS=*:off",
+        "GOWORK=off",
+        "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-989609001/empty/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go/bin",
+        "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-989609001/tmp",
+        "TZ=UTC"
+      ],
+      "final": [
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "initial": [
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32342e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "main": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "a6fa0a8a9aa5be89e1b28172a70bf11245b5cefb99d7e46b0b74a3641a9104b1",
+          "capability": "workspace/main",
+          "path": "go.mod",
+          "kind": "go_mod",
+          "raw_sha256": "25f4853800fe9fa88496142d404c91962709aeae8593e38adfb9331c5f1367ed",
+          "bytes": 52
+        },
+        "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6170700a676f20312e32352e300a746f6f6c636861696e20676f312e32342e300a"
+      },
+      "metadata_hex": "6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f61707020746f6f6c636861696e40676f312e32352e300a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "source_program_or_context_authority": false,
+      "sources": []
+    },
+    {
+      "arguments": [
+        "mod",
+        "graph"
+      ],
+      "case": "toolchain-equal-suffix",
+      "derived_roots": [
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        },
+        {
+          "path": "toolchain",
+          "version_hex": "676f312e32352e302d6f726967696e616c2dff"
+        }
+      ],
+      "diagnostics_hex": "",
+      "environment": [
+        "CGO_ENABLED=0",
+        "GO111MODULE=on",
+        "GOAMD64=v1",
+        "GOARCH=amd64",
+        "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-3226685472/cache/go-build",
+        "GODEBUG=",
+        "GOENV=off",
+        "GOEXPERIMENT=",
+        "GOFLAGS=",
+        "GOMAXPROCS=1",
+        "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracletoolchain-equal-suffix751274407/001/dep",
+        "GONOPROXY=",
+        "GONOSUMDB=",
+        "GOOS=linux",
+        "GOPACKAGESDRIVER=off",
+        "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-3226685472/gopath",
+        "GOPRIVATE=",
+        "GOPROXY=off",
+        "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go",
+        "GOSUMDB=off",
+        "GOTELEMETRY=off",
+        "GOTOOLCHAIN=local",
+        "GOVCS=*:off",
+        "GOWORK=off",
+        "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-3226685472/empty/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go/bin",
+        "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-3226685472/tmp",
+        "TZ=UTC"
+      ],
+      "final": [
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e302d6f726967696e616c2dff"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "initial": [
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e302d6f726967696e616c2dff"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "main": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "15d1719147a97d67d2855a8e7c4255e66cd7fa94763c2418dcd0a902475f3918",
+          "capability": "workspace/main",
+          "path": "go.mod",
+          "kind": "go_mod",
+          "raw_sha256": "9a8e1920f8a60c0f9ef5c9526017670445e8746c35a0ecd96cc5b36625e3dd34",
+          "bytes": 63
+        },
+        "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6170700a676f20312e32352e300a746f6f6c636861696e20676f312e32352e302d6f726967696e616c2dff0a"
+      },
+      "metadata_hex": "6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f61707020746f6f6c636861696e40676f312e32352e302d6f726967696e616c2dff0a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "source_program_or_context_authority": false,
+      "sources": []
+    },
+    {
+      "arguments": [
+        "mod",
+        "graph"
+      ],
+      "case": "nonroot-is-not-promoted",
+      "derived_roots": [
+        {
+          "path": "example.com/a",
+          "version_hex": "76312e302e30"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "diagnostics_hex": "",
+      "environment": [
+        "CGO_ENABLED=0",
+        "GO111MODULE=on",
+        "GOAMD64=v1",
+        "GOARCH=amd64",
+        "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-410308710/cache/go-build",
+        "GODEBUG=",
+        "GOENV=off",
+        "GOEXPERIMENT=",
+        "GOFLAGS=",
+        "GOMAXPROCS=1",
+        "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOraclenonroot-is-not-promote3216562536/001/dep",
+        "GONOPROXY=",
+        "GONOSUMDB=",
+        "GOOS=linux",
+        "GOPACKAGESDRIVER=off",
+        "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-410308710/gopath",
+        "GOPRIVATE=",
+        "GOPROXY=off",
+        "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go",
+        "GOSUMDB=off",
+        "GOTELEMETRY=off",
+        "GOTOOLCHAIN=local",
+        "GOVCS=*:off",
+        "GOWORK=off",
+        "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-410308710/empty/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go/bin",
+        "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-410308710/tmp",
+        "TZ=UTC"
+      ],
+      "final": [
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "example.com/c",
+              "version_hex": "76312e312e30"
+            },
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+              "bytes": 58
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "initial": [
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "example.com/c",
+              "version_hex": "76312e312e30"
+            },
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+              "bytes": 58
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "main": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "f1a577cac8f4da79458d5614235ac78810e663de78592adf4f862bdaa2ce9289",
+          "capability": "workspace/main",
+          "path": "go.mod",
+          "kind": "go_mod",
+          "raw_sha256": "1eb57cc0c7140e5dcad2e05788fde15daeb6ddb7cb386d92e39f3bf50fe3fce2",
+          "bytes": 62
+        },
+        "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6170700a676f20312e32352e300a72657175697265206578616d706c652e636f6d2f612076312e302e300a"
+      },
+      "metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f614076312e302e300a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f614076312e302e30206578616d706c652e636f6d2f634076312e312e300a6578616d706c652e636f6d2f614076312e302e3020676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "source_program_or_context_authority": false,
+      "sources": [
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/a",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "421e6083ec36ff81940321f1c2e6fdf7616a0a8153fd4b4ba929d19959c18925",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/a/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "f49f52ac962f7f18e7e5615be353583c0d9e69543117c80f344f11430b4381c5",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f610a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e312e300a"
+        },
+        {
+          "captured_during_expansion": false,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "ed36f6dcdc153bf757bd0ff46e9c805cd825e222cfd7abf10e59a2669a91f3de",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "d202db2d6307e332ecad85b243b8639174a54cb2e0b07d85094fe1002a947875",
+            "bytes": 29
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a"
+        },
+        {
+          "captured_during_expansion": false,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e312e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "9cb3087d3df2768f2645289febe36bd55ed10701860f032b2e530ffae209ab58",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.1.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "4ec4fcab023a118a734b3f059d5404f667711f1d4c852e80244c9deea0439a9c",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a72657175697265206578616d706c652e636f6d2f7a2076312e312e300a"
+        },
+        {
+          "captured_during_expansion": false,
+          "module": {
+            "path": "example.com/c",
+            "version_hex": "76312e322e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "bbfb98e6ed3df453ceca65471b4009d7fc2be9405c4097b4086d49afd309d2ef",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/c/@v/v1.2.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "663567cf6da2150cc189aa96f75d1481cb59187cb36dbeb0ab68cb08f0a177ed",
+            "bytes": 63
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f630a676f20312e32320a72657175697265206578616d706c652e636f6d2f756e726561642076312e302e300a"
+        },
+        {
+          "captured_during_expansion": false,
+          "module": {
+            "path": "example.com/z",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "3a277c65df72ddad3075f7f685b5cda83fa37b29e268b6752c0c38230315fa73",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/z/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "71cad4ea7cbd094633a1d29bfb8bed337860875bc01e0a8d89e57de19f76344e",
+            "bytes": 29
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f7a0a676f20312e32320a"
+        },
+        {
+          "captured_during_expansion": false,
+          "module": {
+            "path": "example.com/z",
+            "version_hex": "76312e312e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "22e5b8867e7dfef01e2ee6f8a168b37e2c224202a4fafb72c423869fe75ccd3a",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/z/@v/v1.1.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "005b369200da99521509fbec0e1cf7acfdf54f17e5b6701a6820449e21c662ae",
+            "bytes": 58
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f7a0a676f20312e32320a72657175697265206578616d706c652e636f6d2f632076312e322e300a"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        "mod",
+        "graph"
+      ],
+      "case": "equal-real-labels",
+      "derived_roots": [
+        {
+          "path": "example.com/equal",
+          "version_hex": "76312e302e302b696e636f6d70617469626c65"
+        },
+        {
+          "path": "go",
+          "version_hex": "312e32352e30"
+        }
+      ],
+      "diagnostics_hex": "",
+      "environment": [
+        "CGO_ENABLED=0",
+        "GO111MODULE=on",
+        "GOAMD64=v1",
+        "GOARCH=amd64",
+        "GOCACHE=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-2360311953/cache/go-build",
+        "GODEBUG=",
+        "GOENV=off",
+        "GOEXPERIMENT=",
+        "GOFLAGS=",
+        "GOMAXPROCS=1",
+        "GOMODCACHE=/private/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracleequal-real-labels3739911869/001/dep",
+        "GONOPROXY=",
+        "GONOSUMDB=",
+        "GOOS=linux",
+        "GOPACKAGESDRIVER=off",
+        "GOPATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-2360311953/gopath",
+        "GOPRIVATE=",
+        "GOPROXY=off",
+        "GOROOT=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go",
+        "GOSUMDB=off",
+        "GOTELEMETRY=off",
+        "GOTOOLCHAIN=local",
+        "GOVCS=*:off",
+        "GOWORK=off",
+        "HOME=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-2360311953/empty/home",
+        "LANG=C",
+        "LC_ALL=C",
+        "PATH=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/TestPracticalOriginalGraphExpansionOracle842856420/001/go/bin",
+        "TMPDIR=/var/folders/5l/cgzhkkf14wd67c_x04589nlw0000gn/T/go2vir-loader-2360311953/tmp",
+        "TZ=UTC"
+      ],
+      "final": [
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/equal",
+            "version_hex": "76312e302e302b696e636f6d70617469626c65"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "d2ac432b4058907ee3de03266f299f516034b83d1af56503030ce53eb2ae18bd",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/equal/@v/v1.0.0+incompatible.mod",
+              "kind": "go_mod",
+              "raw_sha256": "fe4ea7e4a8d2cd9af80a985cd37222f10a6d457ce47765dce87f6ee24918e526",
+              "bytes": 33
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f657175616c0a676f20312e32320a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "initial": [
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/equal",
+            "version_hex": "76312e302e30"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "a5beb68593f4344303467e04eed0e8d38773e502c45f26ad673350cba8a7bee5",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/equal/@v/v1.0.0.mod",
+              "kind": "go_mod",
+              "raw_sha256": "fe4ea7e4a8d2cd9af80a985cd37222f10a6d457ce47765dce87f6ee24918e526",
+              "bytes": 33
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f657175616c0a676f20312e32320a"
+          }
+        },
+        {
+          "go_version": "1.22",
+          "identity": {
+            "path": "example.com/equal",
+            "version_hex": "76312e302e302b696e636f6d70617469626c65"
+          },
+          "pruned": true,
+          "requirements": [
+            {
+              "path": "go",
+              "version_hex": "312e3232"
+            }
+          ],
+          "source": {
+            "object": {
+              "schema": "mpk.go.source_object.v1",
+              "id": "d2ac432b4058907ee3de03266f299f516034b83d1af56503030ce53eb2ae18bd",
+              "capability": "workspace/dep",
+              "path": "cache/download/example.com/equal/@v/v1.0.0+incompatible.mod",
+              "kind": "go_mod",
+              "raw_sha256": "fe4ea7e4a8d2cd9af80a985cd37222f10a6d457ce47765dce87f6ee24918e526",
+              "bytes": 33
+            },
+            "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f657175616c0a676f20312e32320a"
+          }
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "go",
+            "version_hex": "312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [
+            {
+              "path": "toolchain",
+              "version_hex": "676f312e32352e30"
+            }
+          ],
+          "source": null
+        },
+        {
+          "go_version": "",
+          "identity": {
+            "path": "toolchain",
+            "version_hex": "676f312e32352e30"
+          },
+          "pruned": false,
+          "requirements": [],
+          "source": null
+        }
+      ],
+      "main": {
+        "object": {
+          "schema": "mpk.go.source_object.v1",
+          "id": "f929b5c6fd35d635a45ffce77843e3527da63b35434b719f30c4eb20117e47a3",
+          "capability": "workspace/main",
+          "path": "go.mod",
+          "kind": "go_mod",
+          "raw_sha256": "b82c961a7a79ea45c9cc5fc5846c70aeb67fd0adb49f04f5cbad9567152e1b1e",
+          "bytes": 108
+        },
+        "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f6170700a676f20312e32352e300a7265717569726520280a6578616d706c652e636f6d2f657175616c2076312e302e302b696e636f6d70617469626c650a6578616d706c652e636f6d2f657175616c2076312e302e300a290a"
+      },
+      "metadata_hex": "6578616d706c652e636f6d2f617070206578616d706c652e636f6d2f657175616c4076312e302e302b696e636f6d70617469626c650a6578616d706c652e636f6d2f61707020676f40312e32352e300a6578616d706c652e636f6d2f657175616c4076312e302e302b696e636f6d70617469626c6520676f40312e32320a676f40312e32352e3020746f6f6c636861696e40676f312e32352e300a",
+      "source_program_or_context_authority": false,
+      "sources": [
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/equal",
+            "version_hex": "76312e302e302b696e636f6d70617469626c65"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "d2ac432b4058907ee3de03266f299f516034b83d1af56503030ce53eb2ae18bd",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/equal/@v/v1.0.0+incompatible.mod",
+            "kind": "go_mod",
+            "raw_sha256": "fe4ea7e4a8d2cd9af80a985cd37222f10a6d457ce47765dce87f6ee24918e526",
+            "bytes": 33
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f657175616c0a676f20312e32320a"
+        },
+        {
+          "captured_during_expansion": true,
+          "module": {
+            "path": "example.com/equal",
+            "version_hex": "76312e302e30"
+          },
+          "object": {
+            "schema": "mpk.go.source_object.v1",
+            "id": "a5beb68593f4344303467e04eed0e8d38773e502c45f26ad673350cba8a7bee5",
+            "capability": "workspace/dep",
+            "path": "cache/download/example.com/equal/@v/v1.0.0.mod",
+            "kind": "go_mod",
+            "raw_sha256": "fe4ea7e4a8d2cd9af80a985cd37222f10a6d457ce47765dce87f6ee24918e526",
+            "bytes": 33
+          },
+          "raw_hex": "6d6f64756c65206578616d706c652e636f6d2f657175616c0a676f20312e32320a"
+        }
+      ]
+    }
+  ]
+}

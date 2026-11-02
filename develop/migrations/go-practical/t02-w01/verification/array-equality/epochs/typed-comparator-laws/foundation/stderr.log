@@ -1,0 +1,39 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0618]: expected function, found `syntax::Expr`
+   --> crates/mpk-vc/src/go_practical_ordinary/array.rs:62:1
+    |
+ 62 | fn inside(i: Expr, n: Expr) -> Expr {
+    | ----------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/src/go_practical_ordinary/finite_vector.rs:102:1
+    |
+102 | fn inside(i: Expr, n: Expr) -> Expr {
+    | ----------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/src/go_practical_ordinary/sequence.rs:37:1
+    |
+ 37 | fn inside(i: Expr, n: Expr) -> Expr {
+    | ----------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/src/go_practical_ordinary/string/equality.rs:87:1
+    |
+ 87 | fn inside(s: Expr, address: Vec<Expr>) -> Expr {
+    | ---------------------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/src/go_practical_ordinary/word_numeric/shifts/sequence_index.rs:28:1
+    |
+ 28 | fn inside(i: Expr, n: Expr) -> Expr {
+    | ----------------------------------- this function of the same name is available here, but it's shadowed by the local binding
+    |
+   ::: crates/mpk-vc/src/go_practical_ordinary/array/equality/algebra.rs:32:13
+    |
+ 32 |         let inside = less(idx(d, at.clone()), var("n"));
+    |             ------ `inside` has type `syntax::Expr`
+...
+134 |                 inside(idx(d, at.clone()), var("n")),
+    |                 ^^^^^^------------------------------
+    |                 |
+    |                 call expression requires function
+
+For more information about this error, try `rustc --explain E0618`.
+error: could not compile `mpk-vc` (lib) due to 1 previous error

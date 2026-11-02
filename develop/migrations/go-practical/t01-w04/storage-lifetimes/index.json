@@ -1,0 +1,70 @@
+{
+  "cases": [
+    {
+      "address_enumeration": false,
+      "altered": false,
+      "bytes": 3234,
+      "declarations": 23,
+      "expected": "accepted",
+      "family": "dead-slot-guard",
+      "id": "dead-slot-guard-valid",
+      "scope": "ordinary arbitrary-Sort0 masked frame for two 128-cell slots and separate past store; reference-closure/source/allocator binding remains required",
+      "terms": 352,
+      "theorem": "Probe.GoPractical.LiveStorage.Claim",
+      "value_enumeration": false
+    },
+    {
+      "address_enumeration": false,
+      "altered": true,
+      "bytes": 3234,
+      "declarations": 23,
+      "expected": "rejected",
+      "family": "dead-slot-guard",
+      "id": "dead-slot-guard-altered",
+      "scope": "ordinary arbitrary-Sort0 masked frame for two 128-cell slots and separate past store; reference-closure/source/allocator binding remains required",
+      "terms": 352,
+      "theorem": "Probe.GoPractical.LiveStorage.Claim",
+      "value_enumeration": false
+    },
+    {
+      "address_enumeration": false,
+      "altered": true,
+      "bytes": 3222,
+      "declarations": 23,
+      "expected": "rejected",
+      "family": "masked-replacement-frame",
+      "id": "masked-replacement-frame-altered",
+      "scope": "ordinary arbitrary-Sort0 masked frame for two 128-cell slots and separate past store; reference-closure/source/allocator binding remains required",
+      "terms": 351,
+      "theorem": "Probe.GoPractical.LiveStorage.Claim",
+      "value_enumeration": false
+    },
+    {
+      "address_enumeration": false,
+      "altered": false,
+      "bytes": 2655,
+      "declarations": 23,
+      "expected": "accepted",
+      "family": "past-store-namespace",
+      "id": "past-store-namespace-valid",
+      "scope": "ordinary arbitrary-Sort0 masked frame for two 128-cell slots and separate past store; reference-closure/source/allocator binding remains required",
+      "terms": 294,
+      "theorem": "Probe.GoPractical.LiveStorage.Claim",
+      "value_enumeration": false
+    },
+    {
+      "address_enumeration": false,
+      "altered": true,
+      "bytes": 2667,
+      "declarations": 23,
+      "expected": "rejected",
+      "family": "past-store-namespace",
+      "id": "past-store-namespace-altered",
+      "scope": "ordinary arbitrary-Sort0 masked frame for two 128-cell slots and separate past store; reference-closure/source/allocator binding remains required",
+      "terms": 295,
+      "theorem": "Probe.GoPractical.LiveStorage.Claim",
+      "value_enumeration": false
+    }
+  ],
+  "schema": "mpk.go_practical.lifetime_pilot.v0"
+}

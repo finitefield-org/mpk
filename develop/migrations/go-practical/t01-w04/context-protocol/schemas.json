@@ -1,0 +1,254 @@
+{
+  "foundation_rule": "retained four profiles require null; Go practical requires the exact compiled Go reference; no caller bundle/descriptor/allowlist",
+  "legacy_rule": "parameter/selection policy delegated to unchanged actual v1 compiled Rust validators; not a hand-copied subset",
+  "nested": {
+    "envelope": [
+      "schema",
+      "value"
+    ],
+    "foundation_ref": [
+      "schema",
+      "id",
+      "content_sha256"
+    ],
+    "go_parameter_values": [
+      "target_id",
+      "pointer_width",
+      "goos",
+      "goarch",
+      "goamd64",
+      "compiler_release",
+      "effective_languages",
+      "limits_id",
+      "limits_sha256"
+    ],
+    "go_selector": [
+      "package",
+      "function",
+      "receiver"
+    ],
+    "receiver_selector": [
+      "package",
+      "type_name"
+    ],
+    "registry_ref": [
+      "schema",
+      "id",
+      "revision",
+      "registry_sha256"
+    ]
+  },
+  "remaining": [
+    "complete registered Go foundation definitions/limits schemas and proofs, compiled profile payloads, independent production import",
+    "full source/snapshot/alias resolution, downstream common roots/unions/preimages and reviewed migration/activation/release gates"
+  ],
+  "roots": [
+    {
+      "field_types": {
+        "id": "literal registry.v3",
+        "profiles": "ordered exact5 entry.v3 records",
+        "registry_sha256": "sha256",
+        "revision": "uint exact1",
+        "schema": "literal registry.v3"
+      },
+      "hash_domain": "MPK-SEMANTIC-PROFILE-REGISTRY-3.0",
+      "hash_field": "registry_sha256",
+      "hash_preimage_fields": [
+        "schema",
+        "id",
+        "revision",
+        "profiles"
+      ],
+      "name": "registry",
+      "optional_fields": [],
+      "ordered_fields": [
+        "schema",
+        "id",
+        "revision",
+        "profiles",
+        "registry_sha256"
+      ],
+      "required_fields": [
+        "schema",
+        "id",
+        "revision",
+        "profiles",
+        "registry_sha256"
+      ],
+      "schema": "mpk.semantic_profile.registry.v3",
+      "unknown_fields": "reject"
+    },
+    {
+      "field_types": {
+        "contracts": "exact nine compiled profile contract IDs",
+        "entry_sha256": "sha256",
+        "foundation_descriptor": "null or exact registered Go foundation_ref",
+        "schema": "literal entry.v3",
+        "selection_schema": "registered selection schema",
+        "semantic_parameters_schema": "registered parameters schema",
+        "semantic_profile": "registered exact profile",
+        "source_language": "registered language"
+      },
+      "hash_domain": "MPK-SEMANTIC-PROFILE-ENTRY-3.0",
+      "hash_field": "entry_sha256",
+      "hash_preimage_fields": [
+        "schema",
+        "source_language",
+        "semantic_profile",
+        "semantic_parameters_schema",
+        "selection_schema",
+        "foundation_descriptor",
+        "contracts"
+      ],
+      "name": "registry_entry",
+      "optional_fields": [],
+      "ordered_fields": [
+        "schema",
+        "source_language",
+        "semantic_profile",
+        "semantic_parameters_schema",
+        "selection_schema",
+        "foundation_descriptor",
+        "contracts",
+        "entry_sha256"
+      ],
+      "required_fields": [
+        "schema",
+        "source_language",
+        "semantic_profile",
+        "semantic_parameters_schema",
+        "selection_schema",
+        "foundation_descriptor",
+        "contracts",
+        "entry_sha256"
+      ],
+      "schema": "mpk.semantic_profile.entry.v3",
+      "unknown_fields": "reject"
+    },
+    {
+      "field_types": {
+        "foundation_descriptor": "entry-equal nullable foundation_ref",
+        "profile_entry_sha256": "registered entry sha256",
+        "profile_registry": "registry_ref",
+        "schema": "literal context.v3",
+        "semantic_parameters": "entry-bound parameters envelope",
+        "semantic_profile": "entry profile",
+        "source_language": "entry language"
+      },
+      "hash_domain": "MPK-SEMANTIC-CONTEXT-3.0",
+      "hash_field": null,
+      "hash_preimage_fields": [
+        "schema",
+        "profile_registry",
+        "profile_entry_sha256",
+        "source_language",
+        "semantic_profile",
+        "semantic_parameters",
+        "foundation_descriptor"
+      ],
+      "name": "context",
+      "optional_fields": [],
+      "ordered_fields": [
+        "schema",
+        "profile_registry",
+        "profile_entry_sha256",
+        "source_language",
+        "semantic_profile",
+        "semantic_parameters",
+        "foundation_descriptor"
+      ],
+      "required_fields": [
+        "schema",
+        "profile_registry",
+        "profile_entry_sha256",
+        "source_language",
+        "semantic_profile",
+        "semantic_parameters",
+        "foundation_descriptor"
+      ],
+      "schema": "mpk.semantic_context.v3",
+      "unknown_fields": "reject"
+    },
+    {
+      "field_types": {
+        "request_sha256": "sha256",
+        "schema": "literal validated_request.v3",
+        "selection": "entry-bound selection envelope",
+        "semantic_context": "context.v3"
+      },
+      "hash_domain": "MPK-VALIDATED-SEMANTIC-REQUEST-3.0",
+      "hash_field": "request_sha256",
+      "hash_preimage_fields": [
+        "schema",
+        "semantic_context",
+        "selection"
+      ],
+      "name": "validated_request",
+      "optional_fields": [],
+      "ordered_fields": [
+        "schema",
+        "semantic_context",
+        "selection",
+        "request_sha256"
+      ],
+      "required_fields": [
+        "schema",
+        "semantic_context",
+        "selection",
+        "request_sha256"
+      ],
+      "schema": "mpk.validated_semantic_request.v3",
+      "unknown_fields": "reject"
+    },
+    {
+      "field_types": {
+        "schema": "literal go_practical parameters.v1",
+        "value": "exact compiled go_parameter_values"
+      },
+      "hash_domain": "MPK-GO-PRACTICAL-PARAMETERS-1.0",
+      "hash_field": null,
+      "hash_preimage_fields": [
+        "schema",
+        "value"
+      ],
+      "name": "parameters",
+      "optional_fields": [],
+      "ordered_fields": [
+        "schema",
+        "value"
+      ],
+      "required_fields": [
+        "schema",
+        "value"
+      ],
+      "schema": "mpk.semantic_parameters.go_practical.v1",
+      "unknown_fields": "reject"
+    },
+    {
+      "field_types": {
+        "schema": "literal go_functions.v1",
+        "value": "exact roots array of go_selector,1..8192 canonical unique order"
+      },
+      "hash_domain": "MPK-GO-PRACTICAL-SELECTION-1.0",
+      "hash_field": null,
+      "hash_preimage_fields": [
+        "schema",
+        "value"
+      ],
+      "name": "selection",
+      "optional_fields": [],
+      "ordered_fields": [
+        "schema",
+        "value"
+      ],
+      "required_fields": [
+        "schema",
+        "value"
+      ],
+      "schema": "mpk.selection.go_functions.v1",
+      "unknown_fields": "reject"
+    }
+  ],
+  "schema": "mpk.go_practical.context_protocol_draft.v0",
+  "status": "private closed context/registry/request rules; no complete foundation or activation"
+}

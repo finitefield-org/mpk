@@ -1,0 +1,37 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error: called `unwrap` on `pname` after checking its variant with `is_some`
+   --> crates/mpk-vc/src/go_practical_type_keys/parse/declarations.rs:135:31
+    |
+129 |                 if pname.is_some() && (ptype.is_some() || !self.is("]")) {
+    |                    --------------- the check is happening here
+...
+135 |                         Some((pname.unwrap(), ptype)),
+    |                               ^^^^^^^^^^^^^^
+    |
+    = help: try using `match`
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#unnecessary_unwrap
+    = note: `-D clippy::unnecessary-unwrap` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::unnecessary_unwrap)]`
+
+error: this `if` branch is empty
+   --> crates/mpk-vc/src/go_practical_type_keys/parse/expressions.rs:186:33
+    |
+186 | ...                   if self.eat(",").is_some() {}
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can remove it: `self.eat(",").is_some();`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#needless_ifs
+    = note: `-D clippy::needless-ifs` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::needless_ifs)]`
+
+error: called `unwrap` on `typ` after checking its variant with `is_some`
+   --> crates/mpk-vc/src/go_practical_type_keys/parse/types.rs:483:31
+    |
+482 |                 if name.is_some() && typ.is_some() {
+    |                                      ------------- the check is happening here
+483 |                     let typ = typ.unwrap();
+    |                               ^^^^^^^^^^^^
+    |
+    = help: try using `match`
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#unnecessary_unwrap
+
+error: could not compile `mpk-vc` (lib) due to 3 previous errors

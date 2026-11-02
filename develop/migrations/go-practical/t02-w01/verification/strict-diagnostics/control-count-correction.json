@@ -1,0 +1,6 @@
+{
+  "status": "initial_control_assertion_corrected",
+  "initial_failure": "AssertionError: exact2 raw matches assumed for each historical diagnostic",
+  "cause": "A global obsolete-token matcher also sees its token inside a diagnostic matcher ID, so raw text findings can exceed the original source finding count.",
+  "correction": "Require actual positive findings, keep exact original byte/hash seals, record observed counts, and retain all four seal-tampering rejections per file. No matching rule, source or historical diagnostic is weakened."
+}

@@ -1,0 +1,40 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0599]: no method named `signature` found for reference `&GoSelectedBodyTypes` in the current scope
+  --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/entry_layouts.rs:80:26
+   |
+80 |     let signature = body.signature();
+   |                          ^^^^^^^^^ method not found in `&GoSelectedBodyTypes`
+
+error[E0599]: no method named `local_variables` found for reference `&GoSelectedBodyTypes` in the current scope
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/entry_layouts.rs:145:25
+    |
+145 |     for binding in body.local_variables() {
+    |                         ^^^^^^^^^^^^^^^ method not found in `&GoSelectedBodyTypes`
+
+error[E0599]: no method named `local_type_id` found for reference `&GoSelectedBodyTypes` in the current scope
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/entry_layouts.rs:147:14
+    |
+146 |           let typ = body
+    |  ___________________-
+147 | |             .local_type_id(binding)
+    | |_____________-^^^^^^^^^^^^^
+    |
+help: there is a method `type_id` with a similar name, but with different arguments
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/any.rs:137:4
+
+error[E0599]: no method named `iter` found for opaque type `impl Iterator<Item = &GoSourceSelectionRef>` in the current scope
+   --> crates/mpk-vc/src/go_practical_type_keys/source_scalar_typing/entry_layouts.rs:178:10
+    |
+175 | /     domain
+176 | |         .selection()
+177 | |         .checked_body_locators()
+178 | |         .iter()
+    | |_________-^^^^
+    |
+help: there is a method `filter` with a similar name, but with different arguments
+   --> /rustc/8bab26f4f68e0e26f0bb7960be334d5b520ea452/library/core/src/iter/traits/iterator.rs:952:4
+    = note: the full name for the type has been written to '/Users/kazuyoshitoshiya/ff/mpk/target/debug/deps/mpk_vc-634779c68275c08f.long-type-6400648502686333819.txt'
+    = note: consider using `--verbose` to print the full type name to the console
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `mpk-vc` (lib) due to 4 previous errors

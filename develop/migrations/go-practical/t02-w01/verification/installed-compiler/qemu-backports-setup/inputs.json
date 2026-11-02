@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--pull=never",
+    "--rm",
+    "--platform",
+    "linux/arm64",
+    "--user",
+    "0:0",
+    "--mount",
+    "type=bind,src=/private/tmp/mpk-go-installed-205-fs/qemu-backports,dst=/out",
+    "rust:1.95-bookworm-arm64-mpk",
+    "/bin/sh",
+    "-ceu",
+    "printf 'deb http://deb.debian.org/debian bookworm-backports main\\n' > /etc/apt/sources.list.d/mpk-backports.list; apt-get update; DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends -t bookworm-backports qemu-user; cp /usr/bin/qemu-x86_64 /out/qemu-x86_64; dpkg-query -W qemu-user"
+  ],
+  "scope": "Use signed Debian bookworm-backports packages only inside a disposable local ARM container to obtain newer QEMU user-mode support for openat2. This is a local diagnostic, not a production or native release gate."
+}

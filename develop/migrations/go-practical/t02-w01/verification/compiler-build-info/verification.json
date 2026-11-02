@@ -1,0 +1,38 @@
+{
+  "status": "scoped_checks_passed",
+  "basis_commit": "2ec936c819f395a540597e7a5b1759f8d4b67f7a",
+  "source_epochs": [
+    "clippy-final",
+    "clippy-initial",
+    "format-final",
+    "format-fix",
+    "format-initial",
+    "format-write",
+    "go-format-initial",
+    "go-format-write",
+    "native",
+    "rust-final",
+    "rust-initial",
+    "vet"
+  ],
+  "preserved_failed_epochs": [
+    "rust-initial"
+  ],
+  "rust_epoch": "rust-final",
+  "affected_rust_roots": 12,
+  "native_roots": 1,
+  "native_comparisons": 187,
+  "coherent_binary_controls": 3,
+  "existing_coherent_compiler_controls": 30,
+  "original_sdk_files": 5577,
+  "original_sdk_bytes": 163457770,
+  "original_source_objects": 5697,
+  "original_packages": 182,
+  "full_reader_equivalence": false,
+  "remaining_reader_inputs": "Compressed ELF section-name tables and remaining native container edge cases stay in frozen scope; no scope removal.",
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "whole_repository_gate_run": false,
+  "removed_language_tests_run": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

@@ -1,0 +1,64 @@
+{
+  "status": "direct_candidate_observed",
+  "observed_at_utc": "2026-10-19T20:12:59.666406+00:00",
+  "command": [
+    "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "verify",
+    "develop/migrations/go-practical/t02-w01/verification/word-conversions/explicit-ones-equation/rust-construction/certificates/word-conversions.mpcert"
+  ],
+  "exit_code": 1,
+  "seconds": 0.23193479201290756,
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/explicit-ones-equation/rust-construction/certificates/word-conversions.mpcert",
+    "sha256": "73f99397f314cfc62f24822cf2db1a98e2117ef1714592ff3544f3a6427e7ba5",
+    "bytes": 480433
+  },
+  "original_Rust_report": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/explicit-ones-equation/rust-construction/certificates/word-conversions.rust.json",
+    "sha256": "76a9533e5a55e8a446290fc2af81496b8f8da647520a3111ea5fce3a6c579502",
+    "bytes": 533
+  },
+  "unchanged_go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "unchanged_go_source_build_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/explicit-ones-equation/go-candidate/stdout.log",
+    "sha256": "c3207805e8a0989459deb8ce0f2840f2feee0a3758885bbd424e7cca805ee7e7",
+    "bytes": 96
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/explicit-ones-equation/go-candidate/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "Rust_observation": {
+    "verdict": "rejected",
+    "module": null,
+    "declaration_count": null,
+    "axiom_count": null,
+    "hashes": {
+      "export": null,
+      "axiom_report": null,
+      "certificate": "debe4dc2a75d4224bf51bfc0601113a0e569f5feb2d0153c33be03140a4c1791"
+    },
+    "axiom_report": null,
+    "error_code": "KERNEL_CORE_CHECK",
+    "error_detail": "{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"87462\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"89922\",\"side\":\"lhs\",\"term_index\":\"87511\"}}"
+  },
+  "Go_observation": {
+    "verdict": "rejected",
+    "error_kind": "core_check",
+    "error_detail": "core reduction fuel exhausted"
+  },
+  "semantic_negative_counted": false,
+  "complete_paired_success_claimed": false,
+  "resource_or_Linux_release_claimed": false,
+  "scope": "One original intended-positive word-conversions certificate. Preserve both direct outcomes; full paired acceptance still requires both unchanged checkers to accept the same final bytes. A format/fuel/resource failure supplies no semantic negative."
+}

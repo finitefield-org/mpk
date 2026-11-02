@@ -1,0 +1,17 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 6.47s
+     Running tests/go_practical_source_string_operation.rs (target/debug/deps/go_practical_source_string_operation-a2ddb70733497dd6)
+
+thread 'source_operations_index_without_error_or_int' (58445216) panicked at crates/mpk-vc/tests/go_practical_source_string_operation.rs:247:5:
+{"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"7d9544d3028da5f44230f191d5d7e82912f2a43e72d9a2f7dbed702986677b75"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"161182\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"161195\",\"side\":\"lhs\",\"term_index\":\"161323\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'source_operations_literal_materializes_string' (58448822) panicked at crates/mpk-vc/tests/go_practical_source_string_operation.rs:247:5:
+{"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"7a832e43fd359e6065bdf86bf4f63a1cc44595a8769ed5e4753f9d0e376ef393"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"161317\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"161330\",\"side\":\"lhs\",\"term_index\":\"161458\"}}"}
+
+thread 'source_operations_pure' (58450085) panicked at crates/mpk-vc/tests/go_practical_source_string_operation.rs:191:9:
+pure-004: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"66441c09e7b9d6b00206c5fa55e7c69578167e6df08f2042940136d806af2078"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"161296\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"161309\",\"side\":\"lhs\",\"term_index\":\"161437\"}}"}
+
+thread 'source_operations_wide' (58452531) panicked at crates/mpk-vc/tests/go_practical_source_string_operation.rs:191:9:
+wide-004: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"c01a6ecd4878b7ffafcf3af45dc5b46e23f9067d7e57e97e766b20ef77c7125b"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"},{\"field\":\"lhs\"},{\"field\":\"whnf\"}],\"details\":{\"lhs_term_index\":\"185228\",\"operation\":\"defeq_whnf\",\"rhs_term_index\":\"185241\",\"side\":\"lhs\",\"term_index\":\"185369\"}}"}
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_string_operation`

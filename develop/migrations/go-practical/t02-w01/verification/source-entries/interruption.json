@@ -1,0 +1,47 @@
+{
+  "status": "verified-interrupted",
+  "observed_at_utc": "2026-10-23T09:40:42.951726+00:00",
+  "worker_command": [
+    "/bin/ps",
+    "-Ao",
+    "pid,ppid,etime,time,%cpu,rss,command"
+  ],
+  "exit_code": 0,
+  "matching_workers": [],
+  "missing_tool_handles": [
+    53302,
+    12359
+  ],
+  "reason": "The calling turn was intentionally interrupted; both original tool handles are missing and no original worker remains. Original executions are not claimed completed.",
+  "partial_capture": {
+    "directory": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/complete-parts",
+    "complete_prelaunch_receipt": false,
+    "retained_incomplete_container": {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/complete-parts/inputs.tar.gz",
+      "bytes": 85697877,
+      "sha256": "d8c32a0695c84ef4fcd78f09bae8a2e6b591f30c5b311770b142930d24ee3216",
+      "mode": 420
+    },
+    "inspection_started": false
+  },
+  "interrupted_checker_attempts": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/paired/rust-factored/wide-part-000/interrupted-attempt.json",
+      "bytes": 1481,
+      "sha256": "0f75682bc641ace5b8d2e0585b7b1e6a7a3c0e8224d693917c67ccc5e836c5c0",
+      "mode": 420
+    }
+  ],
+  "pair_result": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/paired-all/result.json",
+    "bytes": 3638,
+    "sha256": "3e80848b4da64425bb0d3d856b06d553cac92c67301301b1b88d4bc5a8475d15",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-entries/record-interruption.py",
+    "bytes": 3306,
+    "sha256": "50b89c2bb3c11e461af98f75fcdf86cdec654b0bd4e8b0af2ab50c5c2e1a2b5c",
+    "mode": 420
+  }
+}

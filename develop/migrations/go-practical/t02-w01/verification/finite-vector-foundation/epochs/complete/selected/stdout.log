@@ -1,0 +1,20 @@
+
+running 3 tests
+finite vectors: declarations=413 terms=6834 bytes=80953 zero axioms; depths=0..8 slots=1..256
+test finite_vectors_preserve_all_sequence_prerequisites_and_slot_depths ... ok
+test exact_finite_vector_ownership_is_separate_from_core_acceptance ... ok
+type-correct changed operation: D0.Index; declarations=193
+type-correct changed operation: D1.Index; declarations=218
+type-correct changed operation: D6.Index; declarations=343
+type-correct changed operation: D8.Index; declarations=393
+type-correct changed operation: D1.Lookup; declarations=220
+type-correct changed operation: D6.Lookup; declarations=345
+type-correct changed operation: D8.Lookup; declarations=395
+type-correct changed operation: D0.Embed; declarations=201
+type-correct changed operation: D6.Embed; declarations=351
+type-correct changed operation: D8.Embed; declarations=401
+type-correct changed operation: D8.Capacity; declarations=389
+test finite_vector_laws_reject_false_claims_erased_bounds_and_wrong_operations ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 52.32s
+

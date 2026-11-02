@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--pull=never",
+    "--rm",
+    "--platform",
+    "linux/amd64",
+    "--network",
+    "none",
+    "--read-only",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--user",
+    "501:20",
+    "--mount",
+    "type=bind,src=/private/tmp/mpk-go-practical-policy-linux-target/debug/deps/go_practical_installed_compiler-32f9679e1752973a,dst=/observer,readonly",
+    "--mount",
+    "type=bind,src=/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/alternate-registry-validation,dst=/controls,readonly",
+    "sha256:d617f1b5c2a18778ba357ba0528e973bd24992b0dd18000dfbca059f4a15ebda",
+    "/observer",
+    "--validate-registry",
+    "/controls/alternate-registry.json"
+  ],
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/alternate-registry-validation/inputs.json",
+    "bytes": 2958,
+    "sha256": "3da1e28c5a4957aab377cd9f7624bad214f76880a539901a8b768c3a877309d3",
+    "mode": 420
+  },
+  "alternate_registry": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/alternate-registry-validation/alternate-registry.json",
+    "bytes": 1992254,
+    "sha256": "1cf223ebc95eaca38ef8f57ef23e69975ec0430b373664091cfa8ffafa3abbdb",
+    "mode": 420
+  },
+  "changed_binary": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/alternate-registry-validation/changed-go-binary",
+    "bytes": 14939693,
+    "sha256": "3811e21f5091f6bbd0a723cc5f48c1ed4802f5c5ae1a9ed7290ff9985d1f295c",
+    "mode": 420
+  },
+  "native_Linux_release_acceptance": false,
+  "exit_code": 0,
+  "seconds": 0.7831548750036745,
+  "inputs_unchanged": true,
+  "observation": {
+    "phase": "registry-validation",
+    "registry_sha256": "734914c43930626021d21674d046d26a15132205b4dbff35ddb79a33f75c7831",
+    "status": "accepted"
+  },
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/alternate-registry-validation/stdout.log",
+    "bytes": 137,
+    "sha256": "f1ee5f1bc399f533c9bf57269697bad75c9d33b81898c1db839c6d1ee91766a1",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/alternate-registry-validation/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  }
+}

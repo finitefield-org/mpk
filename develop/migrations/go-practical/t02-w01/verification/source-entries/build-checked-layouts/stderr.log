@@ -1,0 +1,15 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0599]: no variant, associated function, or constant named `Array` found for enum `mpk_vc::go_practical_type_keys::GoSourceRuntimeData` in the current scope
+   --> crates/mpk-vc/tests/go_practical_source_entries.rs:207:30
+    |
+207 |     let GoSourceRuntimeData::Array(array) = zero_result[0].data() else {
+    |                              ^^^^^ variant, associated function, or constant not found in `mpk_vc::go_practical_type_keys::GoSourceRuntimeData`
+
+error[E0599]: no variant, associated function, or constant named `Struct` found for enum `mpk_vc::go_practical_type_keys::GoSourceRuntimeData` in the current scope
+   --> crates/mpk-vc/tests/go_practical_source_entries.rs:225:30
+    |
+225 |         GoSourceRuntimeData::Struct(vec![word(&fields[0].type_id, 13)]),
+    |                              ^^^^^^ variant, associated function, or constant not found in `mpk_vc::go_practical_type_keys::GoSourceRuntimeData`
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `mpk-vc` (test "go_practical_source_entries") due to 2 previous errors

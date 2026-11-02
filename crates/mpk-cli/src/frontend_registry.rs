@@ -35,16 +35,6 @@ pub(crate) enum FrontendReleaseCode {
     SandboxUnavailable,
 }
 
-/// Test-injected successor release resolver used only by
-/// CSHARP-03-T02-W09's private consumer closure.
-pub(crate) fn validate_private_csharp_practical_release(
-    input: &[u8],
-    registry: &mpk_vc::csharp_practical_registry::ValidatedSuccessorRegistry,
-) -> Result<mpk_vc::csharp_practical_release::ValidatedPrivateReleaseRegistry, &'static str> {
-    mpk_vc::csharp_practical_release::validate_private_successor_release_registry(input, registry)
-        .map_err(|_| "private successor release rejected")
-}
-
 impl FrontendReleaseCode {
     pub(crate) const fn as_str(self) -> &'static str {
         match self {
@@ -442,7 +432,7 @@ mod tests {
         let bytes = include_bytes!("../../../release/bundles/bundle-registry.json");
         let semantic = mpk_vc::semantic_profile_registry::validate_semantic_profile_registry(
             include_bytes!("../../../release/bundles/semantic-profile-registry.json"),
-            mpk_vc::semantic_profile_registry::RegistryRevision::Revision3,
+            mpk_vc::semantic_profile_registry::RegistryRevision::Revision4,
         )
         .expect("reviewed semantic registry validates");
         let registry =

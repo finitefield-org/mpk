@@ -1,0 +1,8 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 37.04s
+     Running tests/go_practical_word_division.rs (target/debug/deps/go_practical_word_division-703d9f6f53afbaf9)
+
+thread 'actual_division_closed_dependency_assembly_preserves_prior_component_bytes' (36700064) panicked at crates/mpk-vc/tests/go_practical_word_division.rs:46:5:
+{"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"5469ec931646a63472b70c3b967edb1c565a614fea679da3feada79cc2195a97"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"}],\"details\":{\"kind\":\"defeq_fuel_exhausted\",\"lhs_term_index\":\"327099\",\"rhs_term_index\":\"327215\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_word_division`

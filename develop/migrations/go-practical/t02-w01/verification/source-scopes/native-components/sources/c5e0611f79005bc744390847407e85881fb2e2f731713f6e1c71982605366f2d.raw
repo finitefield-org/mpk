@@ -1,0 +1,5 @@
+package policy
+import escaped "example.com/policy/hel\x70er"
+func Escaped(){var r escaped.Record; _=r; _=escaped.Value}
+var Forward Later
+type Later uint16

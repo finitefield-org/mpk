@@ -1,0 +1,22 @@
+# Private Go1.25 block-decoder facade. Original source/archive retained in evidence.
+[package]
+name = "mpk-go-zstd-blocks"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.87"
+license = "MIT"
+publish = false
+autobins = false
+autoexamples = false
+autotests = false
+autobenches = false
+
+[lib]
+path = "src/lib.rs"
+
+[features]
+default = ["std"]
+std = []
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(feature, values("hash", "dict_builder", "fuzz_exports", "rustc-dep-of-std"))'] }

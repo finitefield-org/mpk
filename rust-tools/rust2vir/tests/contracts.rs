@@ -623,7 +623,7 @@ fn whitespace_changes_only_raw_traceability_hash() {
     assert_ne!(compact.raw_input_sha256, whitespace.raw_input_sha256);
     assert_eq!(
         compact.contract_hash,
-        "b47a18b7975ac177ac1f7f090fbc1703695fbb8996f4284c49ac371656dc2ed5"
+        "a3280e2b53485f9c27fe5488b03078989571d3ad484f0f153429a7f6aa5289df"
     );
 }
 

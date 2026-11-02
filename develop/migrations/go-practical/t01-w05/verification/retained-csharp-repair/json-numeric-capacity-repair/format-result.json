@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "source_base_commit": "1d3af2aa6d980f6b49eba3cbb69ecab7f74f352e",
+  "started_at_utc": "2026-10-18T11:10:02.692463+00:00",
+  "command": [
+    "rustfmt",
+    "--edition",
+    "2021",
+    "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_cell_count_tests.rs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TARGET_DIR": "/private/tmp/mpk-t01-w05-json-repair-target",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true"
+  },
+  "RUST_MIN_STACK": "unset",
+  "inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_cell_count_tests.rs",
+      "sha256": "2b710ad29385a1a26e6d918ae76e987562ef170714bc626cdaf63502e3f34271",
+      "bytes": 6623
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/retained-csharp/json-numeric-capacity-epochs/manifest.json",
+      "sha256": "2b8516c2810ec76d2a5b5684c2ee6893b1119b93c253959f90e41c9639e69549",
+      "bytes": 5713
+    }
+  ],
+  "selection_reason": "Only the reproduced numeric-capacity historical comparison changed. Build its owning integration target; retain all historical assertions and separate current-source consumers.",
+  "exit_code": 0,
+  "wall_seconds": 0.3722396659431979,
+  "finished_at_utc": "2026-10-18T11:10:03.069386+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/format.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-numeric-capacity-repair/format.stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "formatted_source": {
+    "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_cell_count_tests.rs",
+    "sha256": "d5b6a39d02277ce2bda4fbf79f96af7604296970ca189de883ba995ffe7a3721",
+    "bytes": 6677
+  }
+}

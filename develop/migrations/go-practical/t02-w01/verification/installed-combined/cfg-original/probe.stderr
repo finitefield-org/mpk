@@ -1,0 +1,35 @@
+   Compiling mpk-cli v0.1.0 (/workspace/crates/mpk-cli)
+warning: unused import: `super::*`
+   --> crates/mpk-cli/examples/../src/go_practical_source_roots.rs:365:9
+    |
+365 |     use super::*;
+    |         ^^^^^^^^
+    |
+    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::ffi::OsString`
+   --> crates/mpk-cli/examples/../src/go_practical_source_roots.rs:366:9
+    |
+366 |     use std::ffi::OsString;
+    |         ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::os::unix::ffi::OsStringExt`
+   --> crates/mpk-cli/examples/../src/go_practical_source_roots.rs:367:9
+    |
+367 |     use std::os::unix::ffi::OsStringExt;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::os::unix::fs::symlink`
+   --> crates/mpk-cli/examples/../src/go_practical_source_roots.rs:368:9
+    |
+368 |     use std::os::unix::fs::symlink;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::os::unix::net::UnixListener`
+   --> crates/mpk-cli/examples/../src/go_practical_source_roots.rs:369:9
+    |
+369 |     use std::os::unix::net::UnixListener;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `mpk-cli` (example "go_practical_live_combined_roots") generated 5 warnings (run `cargo fix --example "go_practical_live_combined_roots" -p mpk-cli` to apply 5 suggestions)
+    Finished `dev` profile [unoptimized] target(s) in 2.89s

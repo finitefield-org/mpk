@@ -1,0 +1,120 @@
+{
+  "schema": "mpk.go_practical.word_conversions_manual_source_review.v1",
+  "status": "reviewed_no_actionable_findings",
+  "observed_at_utc": "2026-10-19T20:34:19.779360+00:00",
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "d97430a4d93878b91e26df4a532358fbff746b73767173587d76432260fc3919",
+      "bytes": 46596
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "f60ddf79f71981c6eedb6ab853c298514b5d32dec2d63a4fb6376889c46e0e7c",
+      "bytes": 22377
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+      "sha256": "26dfcba719b72cf94151c9ebdd3c7d8f67085627d6ec26785dbd55ee01f775c9",
+      "bytes": 2200
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/conversions.rs",
+      "sha256": "f1293971879c16e1b7e565f24b0c27c35f95d812d58e2233f7830d4516297e22",
+      "bytes": 4367
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/conversions/cubes.rs",
+      "sha256": "e561fb4dcc218fc36ca6b90270af4eb3930eb1d3dba500feb7dc8fe1191fd482",
+      "bytes": 11609
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/conversions/family.rs",
+      "sha256": "7b124e7f2175fed13b33dc3acd150b730a9df476731aa1452d14d79bd3ea3e58",
+      "bytes": 14605
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/conversions/integer.rs",
+      "sha256": "e14ee134137d8604b8a6ec763761790edce6900b1a36c232fb6af046d412cd47",
+      "bytes": 3652
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/conversions/scalar.rs",
+      "sha256": "c5ba54b20a69a65d67794fc4ec68fe2d6e7f04a50bfeaae33ae8908988a7ea05",
+      "bytes": 5022
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_conversions.rs",
+      "sha256": "2e93d35258503422361913b668978477e010d0d4464839145cbef682fb471381",
+      "bytes": 4568
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_conversions_diagnostic.rs",
+      "sha256": "4a0be474db4fb72a38d6dab92023c3dcbe84d573e626faa8358e4d1cb8f5d4bf",
+      "bytes": 2367
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_conversions_controls.rs",
+      "sha256": "6a1bece266a7c2c654ac06efd3d98b3b2fb20a803c20101ec5830ff71cb008f7",
+      "bytes": 10921
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_conversions_observations.rs",
+      "sha256": "1a325b16a972cb9fe4e9b874a2e3dc9866ed5583a6a21cfe249705e940141509",
+      "bytes": 6870
+    },
+    {
+      "path": "develop/probes/go-practical/conversion_observer.go",
+      "sha256": "9ca42890941c90ebdb05673aa7d27a10e68010d51f0d896e2d23a488c38dd4d5",
+      "bytes": 5577
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/compare-native.py",
+      "sha256": "6638f23b8c3157bd9cc9e336b7b895caf3d13e003744d94af05dd761b4bef3ef",
+      "bytes": 6102
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/measure-retained-identities.py",
+      "sha256": "c1c2d51207944b95bb181de0304af11e94062e8aa54bc2ae9616695e520ed87c",
+      "bytes": 2939
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/record-checkpoint.py",
+      "sha256": "61a1d215dbeb90d3e9c781f20d70fded9f6395d7defcdc4aed1ab09770975e90",
+      "bytes": 16549
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/run-candidate-go.py",
+      "sha256": "613f1894769d0321df651ab94ceecd7cc725a33142df8d15025d96214fa9dd50",
+      "bytes": 2494
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/run-native.py",
+      "sha256": "5db88e6948143e6b86c55e41a378d1f0d0d0639b3bc2cc8a8622f759992206df",
+      "bytes": 5908
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/run-paired.py",
+      "sha256": "531eeb396872b9caa97e99ea74354656176fbb3ab620683c960a26f722159b06",
+      "bytes": 6453
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-conversions/run-selected.py",
+      "sha256": "a5b33b6311e0561aa64836483a7029a01fd36a07867f21e1d411df36a250ec9f",
+      "bytes": 5649
+    }
+  ],
+  "reviewed_concerns": [
+    "Private owning importer caps length before full deterministic regeneration and exact byte comparison. Only new public struct/factory/importer and private append/wrapper/module are added; existing producers keep raw byte pins. Hard-coded complete closure retains exact888 originals with no rewrites or caller roots.",
+    "Generic cube Fill/Ones/extension/truncation/ratio/mask laws quantify arbitrary input bits and ordinary Nat values. Actual source converter literal bits bind results through original value congruence; actual quotient is derived from real higher source values and result bound is checked. No operand enumeration, arithmetic callback or caller quotient/truth authority.",
+    "Shared NarrowCross/WidenCross premises are discharged by actual structural/converter laws, then genuine balanced-Int projections and ScalarCorrection prove both target interpretations. Signed/unsigned widening exactness includes identity. Signed count normalization uses actual To64 top and source-definedness guard; unsigned64 high-bit route remains allowed. Variable-shift numeric/source obligations remain open.",
+    "Explicit small cube equality through Value avoids huge definitional normalization; mask/ratio/low/quotient and actual top equations travel through Nat/Not contexts before literal reduction. Original per-pair declaration overflow and all compiler/fuel/type failures are preserved; no core, axiom, fuel or cap changes. No failure or direct prefix acceptance is promoted to semantic authority.",
+    "170 canonical complete mutations rebuild normal export/axiom reports and are rejected as real type errors by both unchanged cores; all32 actual converter bodies are altered. Two valid different components pass cores but exact owning importer rejects the different bytes. Same stream hashes and zero axioms checked throughout.",
+    "All256 intact original queries compare actual decoded Bool converters/signs/full64/count guards to typed Go casts/real negative-count faults/math-big and Python modular casts/signed differences. Host-derived quantities are qualified; no Nat/Int/ratio/mask/quotient/theorem/variable-shift execution is claimed. Negative counts retain normal conversion words but make no shift-result observation. Exactness flags denote applicability by types.",
+    "Ignored helper is ignored at creation and selected listing does not rerun diagnostics. All captured inputs stay fixed until actual terminal handles. Initial native path error occurs before image/build; single later build/two identical runs and full prepared5577 before/after checks preserve honest provenance. No native/Linux/profile/application release claim.",
+    "All255 frozen original inputs and official scanner/seals remain exact. Review includes current source, all original snapshots, binary candidates/raw logs and JSON; only11 exact original stdout EOF paths/hashes/lengths are observed. CSharp tests and cumulative T02 gate remain deferred by the authorized plan."
+  ],
+  "validation_selection_reason": "All32 actual signed/unsigned conversion circuits, both target integer interpretations and full64 signed-count normalization.1882 declarations/31495 terms/483095 bytes, zero axioms; unchanged4096/131072/2097152 limits. Original888 named metadata and whole arithmetic/order raw generators remain exact;994 new declarations. Four affected roots,172 same-byte streams(2accepted170 genuine type mismatches161check9lambda), strict selected library/main/ignored-helper Clippy/Rust/Go format and256 original full-row actual Bool/native/integer comparisons pass.64 real negative-count native panics,192 defined counts,80 signed80unsigned exact type cases. Exactness flags are theorem applicability, not iff over finite inputs. Nat/Int/quotient/ratio/mask/theorem/variable-shift bodies do not execute in finite Bool model; universal conversion proofs checked separately by both unchanged cores. Source input x additionally used as typed count without query field replacement. Preserve initial private-method/ownership/partial-edit failures, declaration overflow source/phase logs and all complete fuel/type failed candidates/both-checker outcomes/direct prefix diagnostics. Shared scalar arithmetic retains all32 converters under cap; small cube/definition/top equality transport repairs proof recipes without checker/fuel/bound changes. Helper ignored from creation and current --ignored --list validates lifecycle without diagnostics rerun. Initial native copied path error occurs before image/native work; preserve original runner/copied source/tool text and fix only path. Single fresh prepared5577-file image build/two identical native runs pass before/after checks. All captured sources fixed until actual terminal handles. Frozen255 original design inputs, official127-rule/four-scope scanner/39 seals unchanged. Only11 exact per-file hash/length-bound original libtest stdout EOF observations. No source/JSON/directory/blanket exclusions, CSharp tests, unaffected repeated suites, intermediate whole gate or complete source/program/profile/application/Linux release claims. Full T02-T11/W01 scope and169 demands stay active; cumulativeT02 gateW04.",
+  "findings": [],
+  "T02_W01_complete": false
+}

@@ -1,0 +1,15 @@
+{
+  "scope": "private observer setup failure, not a source/proof rejection",
+  "observed": "all retained maps accepted their base, but frontend manifest construction reported SOURCE_MANIFEST shape before import",
+  "repair": "Insert required zero placeholder source_manifest_hash before calling unchanged actual hash helper, which requires the field to exist",
+  "raw_inputs_and_outputs": [
+    {
+      "path": "queries.json",
+      "sha256": "1edf78b89d4f1526d90331f22a9aaeac2d5748974ce29fa90d6fdc691460b874"
+    },
+    {
+      "path": "results.json",
+      "sha256": "6050007e80b5e0d33b4e4ef5083285a7fb335f3f4d7be2481776e0eb11098e64"
+    }
+  ]
+}

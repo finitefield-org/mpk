@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "observed_at_utc": "2026-10-20T02:40:02.962566+00:00",
+  "complete_original_scalar_certificates": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/final/tests/certificates/word-signed-equality.mpcert",
+      "sha256": "aff545ade52f37b0c5dcf215e8fd5f5aff1a06d269193a9827cbc4b350e6c06f",
+      "bytes": 1007869
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-order/final/tests/certificates/word-signed-order.mpcert",
+      "sha256": "0f61e8eb6a89cac3e2fa786f6027901424e2edaeb730df5dee0c5e8db49e8587",
+      "bytes": 996816
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-shift-count-bounds/final/rust-tests/certificates/word-shift-counts.mpcert",
+      "sha256": "119c384ddefd5afc6c42de2171df608d4b5b6329304912d3e9ce29860751e1b2",
+      "bytes": 1454895
+    }
+  ],
+  "frozen_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/product-foundation/frozen-design-preservation.json",
+    "sha256": "fb842bfe4df84ccdac5603f86f29e24dfeaa87bd2170a94b869da0095d21e998",
+    "bytes": 52976
+  },
+  "scope": "Retain complete original signed equality, signed ordering and full64-shift proof bytes. Product source additions do not rewrite their generators. No unchanged scalar/native/Bool suite is rerun, no omitted family or application/source/context claim."
+}

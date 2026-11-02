@@ -1,0 +1,845 @@
+{
+  "groups": [
+    {
+      "cases": [
+        {
+          "file": "original-library.mpcert",
+          "observations": {
+            "go": {
+              "cpu_system_seconds": 0.007377,
+              "cpu_user_seconds": 0.15526099999999998,
+              "exit_code": 1,
+              "peak_rss_bytes": 25067520,
+              "report": {
+                "error_detail": "term 42774 inferred app but expected app",
+                "error_kind": "core_check",
+                "verdict": "rejected"
+              },
+              "resource_provider": "Darwin os.wait4 child rusage",
+              "stderr": "",
+              "wall_seconds": 0.20359162497334182
+            },
+            "rust": {
+              "cpu_system_seconds": 0.002705,
+              "cpu_user_seconds": 0.129854,
+              "exit_code": 1,
+              "peak_rss_bytes": 10289152,
+              "report": {
+                "axiom_count": null,
+                "axiom_report": null,
+                "declaration_count": null,
+                "error_code": "KERNEL_CORE_CHECK",
+                "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"42823\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"42835\",\"kind\":\"check_type_mismatch\",\"term_index\":\"42829\"}}",
+                "hashes": {
+                  "axiom_report": null,
+                  "certificate": "654971bd6389b2325c1627d394825605cd9a1b0ac45da1bd84a8b1874307bf25",
+                  "export": null
+                },
+                "module": null,
+                "verdict": "rejected"
+              },
+              "resource_provider": "Darwin os.wait4 child rusage",
+              "stderr": "",
+              "wall_seconds": 0.13851124997017905
+            }
+          },
+          "raw_sha256": "84e618812e7306f4fb4a3457798f4a054f6dec8706acce1a84f3ff36b2527244"
+        },
+        {
+          "file": "stage-constructor.mpcert",
+          "observations": {
+            "go": {
+              "cpu_system_seconds": 0.005859,
+              "cpu_user_seconds": 0.156691,
+              "exit_code": 1,
+              "peak_rss_bytes": 22298624,
+              "report": {
+                "error_detail": "term 42774 inferred app but expected app",
+                "error_kind": "core_check",
+                "verdict": "rejected"
+              },
+              "resource_provider": "Darwin os.wait4 child rusage",
+              "stderr": "",
+              "wall_seconds": 0.1587496250285767
+            },
+            "rust": {
+              "cpu_system_seconds": 0.002402,
+              "cpu_user_seconds": 0.13255799999999998,
+              "exit_code": 1,
+              "peak_rss_bytes": 10256384,
+              "report": {
+                "axiom_count": null,
+                "axiom_report": null,
+                "declaration_count": null,
+                "error_code": "KERNEL_CORE_CHECK",
+                "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"42823\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"42835\",\"kind\":\"check_type_mismatch\",\"term_index\":\"42829\"}}",
+                "hashes": {
+                  "axiom_report": null,
+                  "certificate": "a9507c9b9842895dda5bdb6879d531774e2005114eabcb4008ab6362b03309a6",
+                  "export": null
+                },
+                "module": null,
+                "verdict": "rejected"
+              },
+              "resource_provider": "Darwin os.wait4 child rusage",
+              "stderr": "",
+              "wall_seconds": 0.13926929095759988
+            }
+          },
+          "raw_sha256": "d0c5d88d9565673816431091a28ef0449d8049cbd28c548000db0ee437555972"
+        }
+      ],
+      "checker_binaries": {
+        "go": "bc21d279807f5994a16287a532db65cac3bbb170bfa4d0ca5c6729825e24c62c",
+        "rust": "544709982296f6b502d14bc0e54a528b9efbc416ec0f1b34be6c424b015ad581"
+      },
+      "id": "tag-predicate",
+      "inputs": [
+        {
+          "path": "Cargo.toml",
+          "sha256": "72e430895ee3fb12a4067714d819e0311ec7db7906215f6608bb4054652a2017"
+        },
+        {
+          "path": "crates/mpk-cert/Cargo.toml",
+          "sha256": "b99ff7fde6a4f0cb50a091eb02997c97d5f2e934b42eddfd375f53b96bfc3a47"
+        },
+        {
+          "path": "crates/mpk-cert/src/axiom_report.rs",
+          "sha256": "cae850ba9adf8f52485f25d3322a479e5effb3b5044c4998b8dbe10e395e9843"
+        },
+        {
+          "path": "crates/mpk-cert/src/binary_tags.rs",
+          "sha256": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b"
+        },
+        {
+          "path": "crates/mpk-cert/src/canonical.rs",
+          "sha256": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74"
+        },
+        {
+          "path": "crates/mpk-cert/src/cert_basic.rs",
+          "sha256": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295"
+        },
+        {
+          "path": "crates/mpk-cert/src/decode.rs",
+          "sha256": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13"
+        },
+        {
+          "path": "crates/mpk-cert/src/encode.rs",
+          "sha256": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf"
+        },
+        {
+          "path": "crates/mpk-cert/src/export.rs",
+          "sha256": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd"
+        },
+        {
+          "path": "crates/mpk-cert/src/hash.rs",
+          "sha256": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83"
+        },
+        {
+          "path": "crates/mpk-cert/src/imports.rs",
+          "sha256": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183"
+        },
+        {
+          "path": "crates/mpk-cert/src/lib.rs",
+          "sha256": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553"
+        },
+        {
+          "path": "crates/mpk-core/Cargo.toml",
+          "sha256": "7d23784732e23fd78029884f2b9a5bc6200e7192c31ae10ada567e61a15607a3"
+        },
+        {
+          "path": "crates/mpk-core/src/bool_cases.rs",
+          "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+        },
+        {
+          "path": "crates/mpk-core/src/context.rs",
+          "sha256": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d"
+        },
+        {
+          "path": "crates/mpk-core/src/decl_check.rs",
+          "sha256": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783"
+        },
+        {
+          "path": "crates/mpk-core/src/defeq.rs",
+          "sha256": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270"
+        },
+        {
+          "path": "crates/mpk-core/src/env.rs",
+          "sha256": "ed50466ecf9e1c6f1549022aa61812c1561cd725325633931a57efb1715ae5b8"
+        },
+        {
+          "path": "crates/mpk-core/src/error.rs",
+          "sha256": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb"
+        },
+        {
+          "path": "crates/mpk-core/src/inductive.rs",
+          "sha256": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d"
+        },
+        {
+          "path": "crates/mpk-core/src/inductive_gen.rs",
+          "sha256": "4758d3cf280f0d9c107e4af886f0880fd29670e9a23f2ddffa7728f958075cc2"
+        },
+        {
+          "path": "crates/mpk-core/src/infer.rs",
+          "sha256": "7cf169404b6fdd251e7884056c7204e285da904780d1e3ea9ca642d4c87991bd"
+        },
+        {
+          "path": "crates/mpk-core/src/level.rs",
+          "sha256": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad"
+        },
+        {
+          "path": "crates/mpk-core/src/lib.rs",
+          "sha256": "a0488ee47d656918dc05a7909bfb87a4ed970388600fced26e8eea5b73ba637f"
+        },
+        {
+          "path": "crates/mpk-core/src/name.rs",
+          "sha256": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99"
+        },
+        {
+          "path": "crates/mpk-core/src/positivity.rs",
+          "sha256": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd"
+        },
+        {
+          "path": "crates/mpk-core/src/reduce.rs",
+          "sha256": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37"
+        },
+        {
+          "path": "crates/mpk-core/src/reduce_inductive.rs",
+          "sha256": "123277c8989902c207d6b0fec994ff5c4223fe5bcc9a331bc381f7dc4412492f"
+        },
+        {
+          "path": "crates/mpk-core/src/subst.rs",
+          "sha256": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f"
+        },
+        {
+          "path": "crates/mpk-core/src/term.rs",
+          "sha256": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60"
+        },
+        {
+          "path": "crates/mpk-kernel/Cargo.toml",
+          "sha256": "3226dc567ef89c9488b61e6c79df2134eb7b1dd36c7cbe19abb3e3e7916ac826"
+        },
+        {
+          "path": "crates/mpk-kernel/src/bool_cases_tests.rs",
+          "sha256": "1ec5b21c3a581fcdd0fd234f7a25c26651958b1f9f96792061fd9936395ca460"
+        },
+        {
+          "path": "crates/mpk-kernel/src/cache.rs",
+          "sha256": "fb9bd805c365f6f614e2f0cb432bc92964e78faa4749df15ad62c4a82ed767ad"
+        },
+        {
+          "path": "crates/mpk-kernel/src/decl_driver.rs",
+          "sha256": "afe75c89bb7e43bb4a73c56aaa4a1bddc20c8ba789066fae5f0f27b7839278c3"
+        },
+        {
+          "path": "crates/mpk-kernel/src/json_output.rs",
+          "sha256": "82992d18824fd25f7c1fcd58d569e4e339bda8be2f60588bb20d2537b9b6cdb5"
+        },
+        {
+          "path": "crates/mpk-kernel/src/lib.rs",
+          "sha256": "ff4c1550532e2896bce4374145242f9a54d24502c8f2a79454067d664c383d72"
+        },
+        {
+          "path": "crates/mpk-kernel/src/profile.rs",
+          "sha256": "e44ce30ffbc29617073456ce8dd9bd46ce731549c423a01a747c82542cffc580"
+        },
+        {
+          "path": "crates/mpk-kernel/src/proof_check.rs",
+          "sha256": "27e8f109d9241cee011984021d74f57088f4ebf30012a858e0fe6416cae96027"
+        },
+        {
+          "path": "crates/mpk-kernel/src/proof_structural.rs",
+          "sha256": "6117063aa07e3ac5882ebba60ab907518a2c9844f96d35887f5a31c8d66906c0"
+        },
+        {
+          "path": "crates/mpk-kernel/src/proof_theory.rs",
+          "sha256": "81d52c5be4e325c3cccb1d6e0096b0e118f245f53234d5496dfdac066fee95af"
+        },
+        {
+          "path": "crates/mpk-kernel/src/verifier.rs",
+          "sha256": "e8932a62713b8f8af18a980093a6ff162b3510b4b4e7da924d9b421552a9e3f2"
+        },
+        {
+          "path": "crates/mpk-theory/Cargo.toml",
+          "sha256": "120227c9b1a0bbbe48e146d6d2412793b9e357cb43e7d21585c760a268081908"
+        },
+        {
+          "path": "crates/mpk-theory/src/array_cert.rs",
+          "sha256": "7b6261cbedc9200ffe8ce5513374e2c14aa6b999926607e450440e26bb25cace"
+        },
+        {
+          "path": "crates/mpk-theory/src/bitvec_eval.rs",
+          "sha256": "3fa7578174f4e3a489d395653687899d1d06fc59780b9224d652638b7d589ac4"
+        },
+        {
+          "path": "crates/mpk-theory/src/bool_cert.rs",
+          "sha256": "17bcac0225e8281ecf754115734cf254addf87bc44a6da4fddaebabbea226c14"
+        },
+        {
+          "path": "crates/mpk-theory/src/lib.rs",
+          "sha256": "10719601e65de998218739cd2b5b61a6bf69df6692c1b829c307c6cf57d61ccd"
+        },
+        {
+          "path": "crates/mpk-theory/src/linarith_cert.rs",
+          "sha256": "3606832e69432a08295e014f0810e5f20aa7d10fdef2bc8789448ebf98d6895a"
+        },
+        {
+          "path": "develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs",
+          "sha256": "dd3a7ec39bb7aa86663a71fdc9ff55197e5f64df86a9adfd3cac41b7c9d90db3"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/Cargo.lock",
+          "sha256": "908d07d9ab55bf4923537df208e6e451d5573e1d5a3c0de03853b9efe8e241ae"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/Cargo.toml",
+          "sha256": "7b97e6284a5777e58aeff7c938ac9fa985a987961cf8b5fa52588aa18efcc66f"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/main.rs",
+          "sha256": "8009f4897c65be61256677b70aa0620c467d94bd2f65aa2e1a6decb0400abaed"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/natural.rs",
+          "sha256": "ab70591c8fcaacbe09b24776e95bc381055200ffd11e5d19c367fc2434d19e20"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/coverage.rs",
+          "sha256": "0c49a13b4ad5c84d0bd68405137e20078b4bc50483b787ed07d624f10c248542"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices.rs",
+          "sha256": "950a9f76d4cbfe251e9a70800f7bc9304d6827ae3098b47a56d214c40aa8906b"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds.rs",
+          "sha256": "33cd5362917629cad65b960380d3b3eb1e1ec76a8a5c21cba7c32c9c52c805dd"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes.rs",
+          "sha256": "ce0d6267943bd1a7c3c4b99f0c6852f43922da5923dd2155136d6c6c1423a641"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/quote.rs",
+          "sha256": "c7deb1f6a2ea0de3b4a4b9000b4041fef49c405723c0863be506b2d2214b7552"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/run.rs",
+          "sha256": "f2f03b5069d4d9c9816ee179de737d7ddc881e49ea551b00b5d2df7609f481ab"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned.rs",
+          "sha256": "9c4bdf37ba79d69568956629d588e2db679d6f3b99f3d62a7bc447429fcb3167"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation.rs",
+          "sha256": "aca248cc9693ec594ffa95df059dc42ea02e4ccc385a4f0b63f5f407f3a84af9"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/signed_prefix.rs",
+          "sha256": "a58589540f394e72d216e985da8bb9daaa2d2b75c5bebcf51837651e7a404977"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold.rs",
+          "sha256": "9bf23d6363dbcb9508607d381f48205e2b2228ca50d172f926632f65be8d8840"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order/path.rs",
+          "sha256": "d92785a0ad8d1da68ddf398803a9e37a3f124b2e01aa52159ced339c99b2f860"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order.rs",
+          "sha256": "52b24efd55c9d0df7397b0b9e21961dd15671322fd276ce15708c1eeef111582"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed.rs",
+          "sha256": "8af2a3e3e92e29e138ff91c98f65150c1838cbcd437ba3723f8fc2030642f3a5"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced.rs",
+          "sha256": "be277346846f366d0454d19b6d7e296aca7c490362e79cdb1d8378c212ee5ea8"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word.rs",
+          "sha256": "878eb3b2c1938590033d33d3fa48f824d3f22e9665d419e30af7c297d088adb4"
+        },
+        {
+          "path": "develop/probes/go-practical/check_proof_report.py",
+          "sha256": "182bbac0b4146329c9f951c1b34dbb97adef35d58bc67901c74c5a1229ea4ba2"
+        },
+        {
+          "path": "develop/probes/go-practical/entry_audit.py",
+          "sha256": "0730c5598b4e3c885ed1b59d8b5925f72e0c09c614261cf0a33189327dd6ef2a"
+        },
+        {
+          "path": "develop/probes/go-practical/host-toolchain.json",
+          "sha256": "1927d5c54d8e62d2e479e9b30969f4ff4d482163d1da11dce8c0595e0d060bb4"
+        },
+        {
+          "path": "develop/probes/go-practical/provision_host_toolchain.py",
+          "sha256": "acde3a9d67daae64ac03f2695b14a90b5283d73b58d4a83b69cb564f4f613d81"
+        },
+        {
+          "path": "develop/probes/go-practical/run_module_probes.py",
+          "sha256": "95cf152ef7538f97e51f68831c2c7f9521445a18612d0bde0ba22d5b503d205c"
+        },
+        {
+          "path": "develop/probes/go-practical/run_proof_pilot.py",
+          "sha256": "3ddaffd920a0aada1c91678a7d35de9314b5009c15dbe05ca025256cfb22a1d5"
+        },
+        {
+          "path": "fixtures/core-bool-cases/right-identity.hex",
+          "sha256": "0232430bd7abff3b231b0898a512f85b4b4471906afc43e192c9407a6b414063"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/axiom_report.go",
+          "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/bool_cases.go",
+          "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+          "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/core_check.go",
+          "sha256": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/decoder.go",
+          "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/defeq.go",
+          "sha256": "4e73baf6738ca272e34287440750f4a8f1df2aa6785dffd77be205b43cf70c85"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/doc.go",
+          "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/go.mod",
+          "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/hash.go",
+          "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/proof_check.go",
+          "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/verify.go",
+          "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e"
+        },
+        {
+          "path": "proofs/std/nat/std-nat.hex",
+          "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583"
+        }
+      ]
+    },
+    {
+      "cases": [
+        {
+          "file": "stage-alias.mpcert",
+          "observations": {
+            "go": {
+              "cpu_system_seconds": 0.006558,
+              "cpu_user_seconds": 0.17657799999999998,
+              "exit_code": 1,
+              "peak_rss_bytes": 31408128,
+              "report": {
+                "error_detail": "core reduction fuel exhausted",
+                "error_kind": "core_check",
+                "verdict": "rejected"
+              },
+              "resource_provider": "Darwin os.wait4 child rusage",
+              "stderr": "",
+              "wall_seconds": 0.17630791699048132
+            },
+            "rust": {
+              "cpu_system_seconds": 0.002529,
+              "cpu_user_seconds": 0.14277299999999998,
+              "exit_code": 1,
+              "peak_rss_bytes": 10633216,
+              "report": {
+                "axiom_count": null,
+                "axiom_report": null,
+                "declaration_count": null,
+                "error_code": "KERNEL_CORE_CHECK",
+                "error_detail": "{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"reduce_inductive\"}],\"details\":{\"inductive\":\"0\",\"kind\":\"iota_fuel_exhausted\",\"recursor\":\"16\",\"term_index\":\"46688\"}}",
+                "hashes": {
+                  "axiom_report": null,
+                  "certificate": "5019807dc05fc2fc79d316dc14a4dffaac44d3f6184fdf7066a4133803b08c91",
+                  "export": null
+                },
+                "module": null,
+                "verdict": "rejected"
+              },
+              "resource_provider": "Darwin os.wait4 child rusage",
+              "stderr": "",
+              "wall_seconds": 0.15130224998574704
+            }
+          },
+          "raw_sha256": "67125a27bd0cebe45a1366937ceed6bfc838e49a07df76e2aa199b39f1a62590"
+        }
+      ],
+      "checker_binaries": {
+        "go": "bc21d279807f5994a16287a532db65cac3bbb170bfa4d0ca5c6729825e24c62c",
+        "rust": "ec419797bfb9373b51123e79586164f1cb2ae59557669016ae85af7c0d374d81"
+      },
+      "id": "inline-views",
+      "inputs": [
+        {
+          "path": "Cargo.toml",
+          "sha256": "72e430895ee3fb12a4067714d819e0311ec7db7906215f6608bb4054652a2017"
+        },
+        {
+          "path": "crates/mpk-cert/Cargo.toml",
+          "sha256": "b99ff7fde6a4f0cb50a091eb02997c97d5f2e934b42eddfd375f53b96bfc3a47"
+        },
+        {
+          "path": "crates/mpk-cert/src/axiom_report.rs",
+          "sha256": "cae850ba9adf8f52485f25d3322a479e5effb3b5044c4998b8dbe10e395e9843"
+        },
+        {
+          "path": "crates/mpk-cert/src/binary_tags.rs",
+          "sha256": "f557165a3d1fad17ea5c4b5ad27b92170dbb203931b30ef157e22856d5f2616b"
+        },
+        {
+          "path": "crates/mpk-cert/src/canonical.rs",
+          "sha256": "704d3f04bf3219cbc9bca5b7ca8b4ff6723bc834d777fcf5219ecc900c2b8e74"
+        },
+        {
+          "path": "crates/mpk-cert/src/cert_basic.rs",
+          "sha256": "ca8e2bd5c7ffbc5c54e51a1e65eb2f2b559b5d6f8efd6a0d74581197d8d7e295"
+        },
+        {
+          "path": "crates/mpk-cert/src/decode.rs",
+          "sha256": "e77619d5d464db0e5d5538b1349c1cb1b1d8b39da227c3f7aa36fbb5e9d11a13"
+        },
+        {
+          "path": "crates/mpk-cert/src/encode.rs",
+          "sha256": "406c310d53e464c9fe0f079e4186a0501e2eb84fae6c443d40d029d53a2beecf"
+        },
+        {
+          "path": "crates/mpk-cert/src/export.rs",
+          "sha256": "b846726ef91b02583aee70849459c5856ea14cebaee226a5d71fedb0a61da2cd"
+        },
+        {
+          "path": "crates/mpk-cert/src/hash.rs",
+          "sha256": "dc80a4db8fbd2965093daa90d4b32cebc8116659a95323df987ebeaa7dec2a83"
+        },
+        {
+          "path": "crates/mpk-cert/src/imports.rs",
+          "sha256": "3b2edcf9305e5a5ed355fe194219826c97571da0ca47656562cf4bdde2983183"
+        },
+        {
+          "path": "crates/mpk-cert/src/lib.rs",
+          "sha256": "38b44e99c13ea9a76c0c08c8a1cfd1ec23922b33c9d252a96beef59f8634b553"
+        },
+        {
+          "path": "crates/mpk-core/Cargo.toml",
+          "sha256": "7d23784732e23fd78029884f2b9a5bc6200e7192c31ae10ada567e61a15607a3"
+        },
+        {
+          "path": "crates/mpk-core/src/bool_cases.rs",
+          "sha256": "b920fd682eaa4de8d93dc0a143b8d1241b1240fc7294425c8792dfd811756f01"
+        },
+        {
+          "path": "crates/mpk-core/src/context.rs",
+          "sha256": "e426d6d43b99106bd80c8e946325b1f8d712109865f6b8c340146908d273352d"
+        },
+        {
+          "path": "crates/mpk-core/src/decl_check.rs",
+          "sha256": "8a6afd03f5e19831815f59b069f319cfd947ce123b8ad10e29d511c869f43783"
+        },
+        {
+          "path": "crates/mpk-core/src/defeq.rs",
+          "sha256": "940fd74971a889239e8168fb13fd5cf9099e4efdbac1c2ffbce5780724a2c270"
+        },
+        {
+          "path": "crates/mpk-core/src/env.rs",
+          "sha256": "ed50466ecf9e1c6f1549022aa61812c1561cd725325633931a57efb1715ae5b8"
+        },
+        {
+          "path": "crates/mpk-core/src/error.rs",
+          "sha256": "76bbf92e086713711c26310fd2f02f58bf5a1d298251cd93c66e4af0c14189bb"
+        },
+        {
+          "path": "crates/mpk-core/src/inductive.rs",
+          "sha256": "41bc938dfdb03ef8a8973a9abecd917171e25efc55c58ebeb43bf4b8ad59be9d"
+        },
+        {
+          "path": "crates/mpk-core/src/inductive_gen.rs",
+          "sha256": "4758d3cf280f0d9c107e4af886f0880fd29670e9a23f2ddffa7728f958075cc2"
+        },
+        {
+          "path": "crates/mpk-core/src/infer.rs",
+          "sha256": "7cf169404b6fdd251e7884056c7204e285da904780d1e3ea9ca642d4c87991bd"
+        },
+        {
+          "path": "crates/mpk-core/src/level.rs",
+          "sha256": "00b030888a20ae9015c94968e8e4dc63f8c924224df36d3a186ba9d4dcfff1ad"
+        },
+        {
+          "path": "crates/mpk-core/src/lib.rs",
+          "sha256": "a0488ee47d656918dc05a7909bfb87a4ed970388600fced26e8eea5b73ba637f"
+        },
+        {
+          "path": "crates/mpk-core/src/name.rs",
+          "sha256": "6a6c8659f556bb63d782ca4aa9c465b05a7b8987327a2e02cbbb95669ca15e99"
+        },
+        {
+          "path": "crates/mpk-core/src/positivity.rs",
+          "sha256": "5ad6d3d072a8db9bba5c98b02a0d9da9e096faca1836762aecf4cebb1ad460bd"
+        },
+        {
+          "path": "crates/mpk-core/src/reduce.rs",
+          "sha256": "bbd58360f97eba191a9c12208e1488668ed8b39c96be6d354065a7c4d9c02d37"
+        },
+        {
+          "path": "crates/mpk-core/src/reduce_inductive.rs",
+          "sha256": "123277c8989902c207d6b0fec994ff5c4223fe5bcc9a331bc381f7dc4412492f"
+        },
+        {
+          "path": "crates/mpk-core/src/subst.rs",
+          "sha256": "e1843f9aafe2d4349bf6bd8a1bcfff4eb39c318c87e37b47a36c23cb8e2cd23f"
+        },
+        {
+          "path": "crates/mpk-core/src/term.rs",
+          "sha256": "4fcd1dba9916b8b3d22ffabd889c2949bb14cf468420b5e839b779108e91bb60"
+        },
+        {
+          "path": "crates/mpk-kernel/Cargo.toml",
+          "sha256": "3226dc567ef89c9488b61e6c79df2134eb7b1dd36c7cbe19abb3e3e7916ac826"
+        },
+        {
+          "path": "crates/mpk-kernel/src/bool_cases_tests.rs",
+          "sha256": "1ec5b21c3a581fcdd0fd234f7a25c26651958b1f9f96792061fd9936395ca460"
+        },
+        {
+          "path": "crates/mpk-kernel/src/cache.rs",
+          "sha256": "fb9bd805c365f6f614e2f0cb432bc92964e78faa4749df15ad62c4a82ed767ad"
+        },
+        {
+          "path": "crates/mpk-kernel/src/decl_driver.rs",
+          "sha256": "afe75c89bb7e43bb4a73c56aaa4a1bddc20c8ba789066fae5f0f27b7839278c3"
+        },
+        {
+          "path": "crates/mpk-kernel/src/json_output.rs",
+          "sha256": "82992d18824fd25f7c1fcd58d569e4e339bda8be2f60588bb20d2537b9b6cdb5"
+        },
+        {
+          "path": "crates/mpk-kernel/src/lib.rs",
+          "sha256": "ff4c1550532e2896bce4374145242f9a54d24502c8f2a79454067d664c383d72"
+        },
+        {
+          "path": "crates/mpk-kernel/src/profile.rs",
+          "sha256": "e44ce30ffbc29617073456ce8dd9bd46ce731549c423a01a747c82542cffc580"
+        },
+        {
+          "path": "crates/mpk-kernel/src/proof_check.rs",
+          "sha256": "27e8f109d9241cee011984021d74f57088f4ebf30012a858e0fe6416cae96027"
+        },
+        {
+          "path": "crates/mpk-kernel/src/proof_structural.rs",
+          "sha256": "6117063aa07e3ac5882ebba60ab907518a2c9844f96d35887f5a31c8d66906c0"
+        },
+        {
+          "path": "crates/mpk-kernel/src/proof_theory.rs",
+          "sha256": "81d52c5be4e325c3cccb1d6e0096b0e118f245f53234d5496dfdac066fee95af"
+        },
+        {
+          "path": "crates/mpk-kernel/src/verifier.rs",
+          "sha256": "e8932a62713b8f8af18a980093a6ff162b3510b4b4e7da924d9b421552a9e3f2"
+        },
+        {
+          "path": "crates/mpk-theory/Cargo.toml",
+          "sha256": "120227c9b1a0bbbe48e146d6d2412793b9e357cb43e7d21585c760a268081908"
+        },
+        {
+          "path": "crates/mpk-theory/src/array_cert.rs",
+          "sha256": "7b6261cbedc9200ffe8ce5513374e2c14aa6b999926607e450440e26bb25cace"
+        },
+        {
+          "path": "crates/mpk-theory/src/bitvec_eval.rs",
+          "sha256": "3fa7578174f4e3a489d395653687899d1d06fc59780b9224d652638b7d589ac4"
+        },
+        {
+          "path": "crates/mpk-theory/src/bool_cert.rs",
+          "sha256": "17bcac0225e8281ecf754115734cf254addf87bc44a6da4fddaebabbea226c14"
+        },
+        {
+          "path": "crates/mpk-theory/src/lib.rs",
+          "sha256": "10719601e65de998218739cd2b5b61a6bf69df6692c1b829c307c6cf57d61ccd"
+        },
+        {
+          "path": "crates/mpk-theory/src/linarith_cert.rs",
+          "sha256": "3606832e69432a08295e014f0810e5f20aa7d10fdef2bc8789448ebf98d6895a"
+        },
+        {
+          "path": "develop/migrations/csharp-03/probes/boolean-proof-elimination-logs/producer/builder.rs",
+          "sha256": "dd3a7ec39bb7aa86663a71fdc9ff55197e5f64df86a9adfd3cac41b7c9d90db3"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/Cargo.lock",
+          "sha256": "908d07d9ab55bf4923537df208e6e451d5573e1d5a3c0de03853b9efe8e241ae"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/Cargo.toml",
+          "sha256": "7b97e6284a5777e58aeff7c938ac9fa985a987961cf8b5fa52588aa18efcc66f"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/main.rs",
+          "sha256": "82ccaecff3ef2dd887918a950bf4d266c7dca4bbe93f86820ea5196027e81bef"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/natural.rs",
+          "sha256": "ab70591c8fcaacbe09b24776e95bc381055200ffd11e5d19c367fc2434d19e20"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/coverage.rs",
+          "sha256": "0c49a13b4ad5c84d0bd68405137e20078b4bc50483b787ed07d624f10c248542"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds/slices.rs",
+          "sha256": "3bd14d2cfd2621febafa3b5fe610f4d5f463af22e186313e6b182202ba703c57"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes/bounds.rs",
+          "sha256": "33cd5362917629cad65b960380d3b3eb1e1ec76a8a5c21cba7c32c9c52c805dd"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/bytes.rs",
+          "sha256": "ce0d6267943bd1a7c3c4b99f0c6852f43922da5923dd2155136d6c6c1423a641"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/quote.rs",
+          "sha256": "c7deb1f6a2ea0de3b4a4b9000b4041fef49c405723c0863be506b2d2214b7552"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned/run.rs",
+          "sha256": "f2f03b5069d4d9c9816ee179de737d7ddc881e49ea551b00b5d2df7609f481ab"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation/returned.rs",
+          "sha256": "9c4bdf37ba79d69568956629d588e2db679d6f3b99f3d62a7bc447429fcb3167"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/continuation.rs",
+          "sha256": "aca248cc9693ec594ffa95df059dc42ea02e4ccc385a4f0b63f5f407f3a84af9"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold/signed_prefix.rs",
+          "sha256": "a58589540f394e72d216e985da8bb9daaa2d2b75c5bebcf51837651e7a404977"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/fold.rs",
+          "sha256": "9bf23d6363dbcb9508607d381f48205e2b2228ca50d172f926632f65be8d8840"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order/path.rs",
+          "sha256": "d92785a0ad8d1da68ddf398803a9e37a3f124b2e01aa52159ced339c99b2f860"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed/order.rs",
+          "sha256": "52b24efd55c9d0df7397b0b9e21961dd15671322fd276ce15708c1eeef111582"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced/signed.rs",
+          "sha256": "8af2a3e3e92e29e138ff91c98f65150c1838cbcd437ba3723f8fc2030642f3a5"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word/balanced.rs",
+          "sha256": "be277346846f366d0454d19b6d7e296aca7c490362e79cdb1d8378c212ee5ea8"
+        },
+        {
+          "path": "develop/probes/go-practical/certificates/src/word.rs",
+          "sha256": "878eb3b2c1938590033d33d3fa48f824d3f22e9665d419e30af7c297d088adb4"
+        },
+        {
+          "path": "develop/probes/go-practical/check_proof_report.py",
+          "sha256": "182bbac0b4146329c9f951c1b34dbb97adef35d58bc67901c74c5a1229ea4ba2"
+        },
+        {
+          "path": "develop/probes/go-practical/entry_audit.py",
+          "sha256": "0730c5598b4e3c885ed1b59d8b5925f72e0c09c614261cf0a33189327dd6ef2a"
+        },
+        {
+          "path": "develop/probes/go-practical/host-toolchain.json",
+          "sha256": "1927d5c54d8e62d2e479e9b30969f4ff4d482163d1da11dce8c0595e0d060bb4"
+        },
+        {
+          "path": "develop/probes/go-practical/provision_host_toolchain.py",
+          "sha256": "acde3a9d67daae64ac03f2695b14a90b5283d73b58d4a83b69cb564f4f613d81"
+        },
+        {
+          "path": "develop/probes/go-practical/run_module_probes.py",
+          "sha256": "95cf152ef7538f97e51f68831c2c7f9521445a18612d0bde0ba22d5b503d205c"
+        },
+        {
+          "path": "develop/probes/go-practical/run_proof_pilot.py",
+          "sha256": "3ddaffd920a0aada1c91678a7d35de9314b5009c15dbe05ca025256cfb22a1d5"
+        },
+        {
+          "path": "fixtures/core-bool-cases/right-identity.hex",
+          "sha256": "0232430bd7abff3b231b0898a512f85b4b4471906afc43e192c9407a6b414063"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/axiom_report.go",
+          "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/bool_cases.go",
+          "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+          "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/core_check.go",
+          "sha256": "19008b25758b9a00919f468d6bf0f8d8275bd918fe7678156971bd48dde097f8"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/decoder.go",
+          "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/defeq.go",
+          "sha256": "4e73baf6738ca272e34287440750f4a8f1df2aa6785dffd77be205b43cf70c85"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/doc.go",
+          "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/go.mod",
+          "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/hash.go",
+          "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/proof_check.go",
+          "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996"
+        },
+        {
+          "path": "go-tools/mpk-checker-ref/verify.go",
+          "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e"
+        },
+        {
+          "path": "proofs/std/nat/std-nat.hex",
+          "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583"
+        }
+      ]
+    }
+  ],
+  "schema": "mpk.go_practical.slice_initial.v0",
+  "scope": "failed positive library attempts; diagnostic only, not false-claim or completion evidence"
+}

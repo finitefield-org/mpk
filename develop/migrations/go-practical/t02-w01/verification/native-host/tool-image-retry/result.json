@@ -1,0 +1,20 @@
+{
+  "status": "failed",
+  "command": [
+    "/usr/local/bin/docker",
+    "build",
+    "--platform=linux/amd64",
+    "--pull=false",
+    "--progress=plain",
+    "--iidfile",
+    "/private/tmp/mpk-go-practical-native-host-clippy-image.id",
+    "develop/migrations/go-practical/t02-w01/verification/native-host/tool-image-retry"
+  ],
+  "started_at_utc": "2026-10-20T12:14:47.688771+00:00",
+  "scope": "Rust1.95 Clippy provisioning only; no Go/application source or registry publication",
+  "prior_actual_sandbox_builder_failure": "tool-image/result.json",
+  "builder_client_bookkeeping_outside_sandbox": true,
+  "exit_code": 1,
+  "seconds": 3.683709458913654,
+  "finished_at_utc": "2026-10-20T12:14:51.372964+00:00"
+}

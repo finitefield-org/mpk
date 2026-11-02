@@ -1,0 +1,23 @@
+    Checking mpk-cli v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli)
+error: duplicated attribute
+ --> crates/mpk-cli/examples/../src/frontend_registry.rs:1:10
+  |
+1 | #![allow(dead_code)]
+  |          ^^^^^^^^^
+  |
+note: first defined here
+ --> crates/mpk-cli/examples/go_practical_live_combined_roots.rs:4:9
+  |
+4 | #[allow(dead_code, unused_imports)]
+  |         ^^^^^^^^^
+help: remove this attribute
+ --> crates/mpk-cli/examples/../src/frontend_registry.rs:1:10
+  |
+1 | #![allow(dead_code)]
+  |          ^^^^^^^^^
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#duplicated_attributes
+  = note: `-D clippy::duplicated-attributes` implied by `-D warnings`
+  = help: to override `-D warnings` add `#[allow(clippy::duplicated_attributes)]`
+
+error: could not compile `mpk-cli` (example "go_practical_live_combined_roots") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

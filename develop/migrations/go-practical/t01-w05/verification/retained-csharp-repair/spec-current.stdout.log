@@ -1,0 +1,37 @@
+
+running 18 tests
+test csharp_03_t01_w09_contract_boundary_transition_and_dispatch_are_closed ... ok
+test csharp_03_t01_w08_independent_instance_closure_substitution_provenance_and_counts ... ok
+test csharp_03_t01_w08_binding_schema_and_projection_obligations_are_not_proofs ... ok
+test csharp_03_t01_w09_limits_capacity_and_diagnostics_have_total_boundaries ... ok
+test csharp_03_t01_w08_descriptor_members_domains_and_closed_registry ... ok
+test csharp_03_t01_w09_successor_identities_schemas_and_owners_are_frozen ... ok
+test csharp_03_t01_w10_freeze_and_downstream_ownership_is_total_and_exact ... ok
+test csharp_03_t01_w09_boolean_proof_elimination_feasibility ... ok
+test csharp_03_t01_w09_vectors_cover_all_strict_mutations_limits_and_precedence ... ok
+test csharp_03_t01_w09_freeze_generator_is_reproducible ... ok
+test csharp_03_current_amendment_stays_pending_beside_retained_publication ... ok
+test csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze ... FAILED
+test csharp_03_t01_w08_executable_specification_and_independent_runtime_oracle ... ok
+test recursor_feasibility::csharp_03_t01_w09_checker_capacity_bytes_are_reproducible ... ok
+test recursor_feasibility::csharp_03_t01_w09_recursor_probe_bytes_are_reproducible ... ok
+test csharp_03_t01_w08_vectors_runtime_evidence_and_owner_closure ... ok
+test csharp_03_t01_w10_manifest_specs_and_generator_are_reproducible ... ok
+test csharp_03_t01_w10_upgrade_gate_and_nonactivation_decisions_are_closed ... ok
+
+failures:
+
+---- csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze stdout ----
+
+thread 'csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze' (27987322) panicked at crates/mpk-vc/tests/csharp_practical_spec.rs:1723:5:
+assertion `left == right` failed
+  left: 16
+ right: 17
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze
+
+test result: FAILED. 17 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.83s
+

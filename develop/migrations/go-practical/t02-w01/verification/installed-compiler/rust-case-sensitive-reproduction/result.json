@@ -1,0 +1,16 @@
+{
+  "status": "failed",
+  "started_at_utc": "2026-10-28T11:36:26.973716+00:00",
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/rust-case-sensitive-reproduction/inputs.json",
+    "bytes": 70903,
+    "sha256": "e512300d2288c8755c2faa471a827ca09d7562adee117125fa3a0e6b8f582958",
+    "mode": 420
+  },
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "error": "RustBuildFailure('BUNDLE_PUBLICATION_UNAVAILABLE')",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 1431, in download\n    block = response.read(1024 * 1024)\n  File \"/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py\", line 459, in read\n    n = self.readinto(b)\n  File \"/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py\", line 503, in readinto\n    n = self.fp.readinto(b)\n  File \"/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py\", line 704, in readinto\n    return self._sock.recv_into(b)\n  File \"/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py\", line 1270, in recv_into\n    return self.read(nbytes, buffer)\n  File \"/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py\", line 1128, in read\n    return self._sslobj.read(len, buffer)\nsocket.timeout: The read operation timed out\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/restore_rust_case.py\", line 106, in main\n    phase('frozen-llvm-linker-and-support', lambda: rust.materialize_llvm(vector, archives, staging, work))\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/restore_rust_case.py\", line 84, in phase\n    result = action()\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/restore_rust_case.py\", line 106, in <lambda>\n    phase('frozen-llvm-linker-and-support', lambda: rust.materialize_llvm(vector, archives, staging, work))\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 3808, in materialize_llvm\n    download(LLVM_URL, native[\"llvm\"][\"sha256\"], archive)\n  File \"/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/restore_rust_case.py\", line 51, in download\n    original_download(url, expected, destination, maximum)\n  File \"/Users/kazuyoshitoshiya/ff/mpk/scripts/rust_build_inputs.py\", line 1443, in download\n    raise RustBuildFailure(\"BUNDLE_PUBLICATION_UNAVAILABLE\", 69) from error\nrust_build_inputs.RustBuildFailure: BUNDLE_PUBLICATION_UNAVAILABLE\n",
+  "seconds": 1382.128817792,
+  "consumed_inputs_unchanged": true
+}

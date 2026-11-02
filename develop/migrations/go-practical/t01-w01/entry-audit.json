@@ -1,0 +1,1735 @@
+{
+  "baseline_selection": {
+    "active_go_profile": "mpk.go.fixed.v0",
+    "compiler_release": "go1.25.0",
+    "effective_language_versions": [
+      "go1.22",
+      "go1.23",
+      "go1.24",
+      "go1.25"
+    ],
+    "entry_amendment": "2026-10-16 user authorization: Go practical may precede the practical C# release",
+    "installed_release_receipt": "develop/migrations/archive/java-03-t10-native-receipt.json",
+    "language_table_status": "proposed; T01-W02 probes required before T01-W04 freeze",
+    "prior_main_commit": "1c34ed5701df2e53fd515d49ad4d158cc728cb4b",
+    "registered_release_scope": "historical installed release only; not certification of later source changes",
+    "schema": "mpk.go_practical.baseline_selection.v0",
+    "source_baseline_clean_at_capture": true,
+    "source_baseline_commit": "b61e48c65ad1fb007121d8d0a3b01a8d754218cf",
+    "source_baseline_tree": "edee70236ab38763d34afcc4b02bdcba037031d5",
+    "target": {
+      "goamd64": "v1",
+      "id": "linux/amd64",
+      "pointer_width": 64
+    },
+    "toolchain_bundle_id": "toolchain.go.go1.25.0.linux-amd64.candidate.v1"
+  },
+  "compiler_candidate": {
+    "bundle_id": "toolchain.go.go1.25.0.linux-amd64.candidate.v1",
+    "content_sha256": "5380dbbaf794293606958f98f1e0f2fdab25826eba775801becb9159119b6f50",
+    "distribution_sha256": "0f90ec34b19ee271f1a31c923ff5ef0f805493a5890f22b5736e68741d4575be",
+    "executable": {
+      "binary_sha256": "b93cdfdbc72f1afc3f21498c80bf3d155a44a9b95e2d690c940511051574bc25",
+      "kind": "executable",
+      "name": "go",
+      "path": "go/bin/go",
+      "release": "go1.25.0",
+      "runtime": {
+        "kind": "static"
+      }
+    },
+    "source_witnesses": [
+      {
+        "executable": false,
+        "path": "go/VERSION",
+        "sha256": "5b444481508c9a41ae34393cf2e0e06ddfa930b02c783a7ccad450b6a8eab773",
+        "size_bytes": 35
+      },
+      {
+        "executable": false,
+        "path": "go/doc/go_spec.html",
+        "sha256": "42a4ff1c01efe8dc23eca4378b8fb03d76e9f2f079dab01298ffd74d8b0e3149",
+        "size_bytes": 293108
+      },
+      {
+        "executable": false,
+        "path": "go/src/go/types/version.go",
+        "sha256": "6a41744c247a4e22afa59098970b2dee3693f6c0a0556a043236758415755e83",
+        "size_bytes": 2085
+      },
+      {
+        "executable": false,
+        "path": "go/src/go/version/version.go",
+        "sha256": "7a910410a2b437e873749b2bb551085ff993617304331784afd83954a74c7f5c",
+        "size_bytes": 1970
+      }
+    ],
+    "status": "registered metadata pin; target compiler not executed by this audit"
+  },
+  "consumer_inventory": [
+    {
+      "bytes": 12458,
+      "path": "crates/mpk-api/src/policy_strategy.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "51183e351b25b0dfcd3f1ded4a8936f88464907ec4131737d6c4718bc7dcdc92"
+    },
+    {
+      "bytes": 43300,
+      "path": "crates/mpk-api/src/v2_tests.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "51eb44458e179d165c59f287ce742fc6d2fc737261ae8b7ffab05dc749654fe4"
+    },
+    {
+      "bytes": 15492,
+      "path": "crates/mpk-api/tests/policy_strategy.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "e6f858ff011ca4b5f38edcfbae3249c57805d8084787ab696a4f6c067f2b276d"
+    },
+    {
+      "bytes": 122669,
+      "path": "crates/mpk-cli/src/ai_explain.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "b717bde506447acd7ee271e5d6d9b2c5254ca004f4ed6c960eac4d808ee5759b"
+    },
+    {
+      "bytes": 61197,
+      "path": "crates/mpk-cli/src/csharp_practical_migration.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "bcbdd41bfb06cd7171169757e57b7cf486d191170384b8017c0feaa13947b930"
+    },
+    {
+      "bytes": 55147,
+      "path": "crates/mpk-cli/src/frontend_protocol.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "859cc5bd3c80e6f60202714fba6315c945a871585623fca9888e15b643b1f215"
+    },
+    {
+      "bytes": 19410,
+      "path": "crates/mpk-cli/src/frontend_registry.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "77ee8257071d5c653ceb963c8f826c7c1caa7832c3199c720b231d8bc0dc602d"
+    },
+    {
+      "bytes": 25497,
+      "path": "crates/mpk-cli/src/frontend_runner.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "d541a3b2a7b105df4ba707aa29d57eba71e930a51b6697213b14c03405461783"
+    },
+    {
+      "bytes": 10754,
+      "path": "crates/mpk-cli/src/policy_profile.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "5a553718f994255b640f6f64f9df6ee9d72627cb157ad0a2e109e04ff6212dac"
+    },
+    {
+      "bytes": 114363,
+      "path": "crates/mpk-cli/src/policy_scan.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "f7ff9aad5bee2205834d77d2b132262f71acfb673bd136199746221305e25d8f"
+    },
+    {
+      "bytes": 114459,
+      "path": "crates/mpk-cli/src/policy_schema.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "c2174e197ea64547fe5f3c2f57b66bf0d16cb876d09de3a1d29ece4cb056246c"
+    },
+    {
+      "bytes": 60748,
+      "path": "crates/mpk-cli/src/successor_ai_explain.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "2cc49008953772d7ff19a69832ec229e1a5e829427e5012169db8d293e600139"
+    },
+    {
+      "bytes": 30053,
+      "path": "crates/mpk-cli/src/successor_cli.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "3e0ed602068f8350e335ecca26bf2e233cdf78e2a17ab64e3540594c8eabeaf9"
+    },
+    {
+      "bytes": 34793,
+      "path": "crates/mpk-cli/src/successor_frontend_protocol.rs",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "7fc320909c96751705982b901fecaaedaf3a0ba0bd8ae635452230cfe4669915"
+    },
+    {
+      "bytes": 56849,
+      "path": "crates/mpk-cli/src/successor_frontend_runner.rs",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "8b8081561715de130bf04f0566b8a65d9349af1c30a6639833cd2cd52e243418"
+    },
+    {
+      "bytes": 73120,
+      "path": "crates/mpk-cli/src/successor_policy.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "1569596b5571ddf875b59f61cb86468249a7735d4274f5317c3489053d7680a0"
+    },
+    {
+      "bytes": 912,
+      "path": "crates/mpk-cli/src/successor_release_bundle.rs",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "586d35ea1cd18fc94c1cdd1ef632f2c4d2eec16ec9f4a9a1c0ae7b43efec94d3"
+    },
+    {
+      "bytes": 17376,
+      "path": "crates/mpk-cli/tests/csharp_policy_verify.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "72e5477e01506775a62d934e4ca29833645153ad9a8afc47f5b613c15ec66df8"
+    },
+    {
+      "bytes": 97562,
+      "path": "crates/mpk-cli/tests/csharp_practical_migration.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "3f2f9345e6182d46a91f3d8a3fbd70be541dc2d9d9bcbe7b226e69306b50c16f"
+    },
+    {
+      "bytes": 18766,
+      "path": "crates/mpk-cli/tests/frontend_limits.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "daeb99545dc8e5ff9b2ffe349c5fd142bf65b7c2f2311c2a94c732efac2de4c4"
+    },
+    {
+      "bytes": 12113,
+      "path": "crates/mpk-cli/tests/policy_profiles.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "cd00cad38fbd93b7b2dc9100c6e8a771a65f0fe2aec6032308acb3719ac89394"
+    },
+    {
+      "bytes": 29473,
+      "path": "crates/mpk-cli/tests/successor_atomic_cutover.rs",
+      "reason": "reviewed shared/frontend owner",
+      "role": "test",
+      "sha256": "61373906e6c63f967a073ce8dbf97832b1be19bf74b21b6569564398f41837fa"
+    },
+    {
+      "bytes": 5730,
+      "path": "crates/mpk-cli/tests/successor_go_release.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "95b0197bfec829c0ac6aaf29f7fcbb273d2456d20dc1ad17cc94587ceed2e597"
+    },
+    {
+      "bytes": 38731,
+      "path": "crates/mpk-cli/tests/support/successor_policy.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "e07d58651d6051146aa0261625b0366e228f1afd8a9e73266ede843e0c4e7696"
+    },
+    {
+      "bytes": 11278,
+      "path": "crates/mpk-vc/src/call_wp.rs",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "6ba037523704ba6409d7dcdf336493fab63c72a3abc28efb3cdebae7f61614bd"
+    },
+    {
+      "bytes": 73067,
+      "path": "crates/mpk-vc/src/csharp_practical_registry.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "fbcf370c81881e45df837845af6152301ede4f1e8e0ebdebf011005b3016757c"
+    },
+    {
+      "bytes": 46177,
+      "path": "crates/mpk-vc/src/program_encode.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "ef25ffa9ced0549858ba3c54b84885d7dd896659f941f8061c97c204ac4c5292"
+    },
+    {
+      "bytes": 120835,
+      "path": "crates/mpk-vc/src/program_wp.rs",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "a5816540b20e75ae890bb10dc7808edeba84f1893d7077c4c17c9f0288746c35"
+    },
+    {
+      "bytes": 94913,
+      "path": "crates/mpk-vc/src/release_bundle.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "0e9080c946446aaf3ad85e5b77847c3a0ac26ea3b70c88a42de9a00c8a3b89ae"
+    },
+    {
+      "bytes": 53819,
+      "path": "crates/mpk-vc/src/release_bundle_v1.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "1a8296ecfcaa53b1b2d4461ee0bb2f2233b8deec074e1299bbc2cfbe42c5767b"
+    },
+    {
+      "bytes": 40822,
+      "path": "crates/mpk-vc/src/safety_check.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "da4ec3cfd53cb187e9ce07eb2d56ac00a3bbc99bbc13f437bb1f0a673c239fde"
+    },
+    {
+      "bytes": 7671,
+      "path": "crates/mpk-vc/src/semantic_profile.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "92a3fc01f642d251b65a20c1a6de51ef63702acff17018400bc326d7a2fd493a"
+    },
+    {
+      "bytes": 78980,
+      "path": "crates/mpk-vc/src/semantic_profile_registry.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "64013e00230aab720d993859589549bfa7283609ae1f1a7d5f6316530bd22e50"
+    },
+    {
+      "bytes": 62477,
+      "path": "crates/mpk-vc/src/source_manifest.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "11c4515b833385bcbf981a90e93e91c5890f454acd142f2453bb88043e50d822"
+    },
+    {
+      "bytes": 69477,
+      "path": "crates/mpk-vc/src/successor_source_artifacts.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "9951da4ed987a6f11d439965b3eb62e2e6dfd6b1676c8905b1d37d0f69f34b76"
+    },
+    {
+      "bytes": 53827,
+      "path": "crates/mpk-vc/src/successor_vc.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "fb97322316b37dc7c425d4c7a87fa00e181e3eee2d01e7581297fca46c3a038d"
+    },
+    {
+      "bytes": 10787,
+      "path": "crates/mpk-vc/src/type_encode.rs",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "4bdf361e3d71cec329685fb6a66aafcd340d0fd6e69928dc5657b060cb4a416d"
+    },
+    {
+      "bytes": 25718,
+      "path": "crates/mpk-vc/src/vir.rs",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "0d9141447f46d85468a2737be2c37e45606505adce9577aa3005d1de412ba9f9"
+    },
+    {
+      "bytes": 107139,
+      "path": "crates/mpk-vc/src/vir_validate.rs",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "e2848dd1f659b44b1de9248a6bcc0a48aed735a63b87cc4a50815438f333415d"
+    },
+    {
+      "bytes": 44215,
+      "path": "crates/mpk-vc/tests/csharp_practical_registry.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "559714234093cdc5353a803312fa86ca8b964dd7749a6978bbf040b5f77f0104"
+    },
+    {
+      "bytes": 1890,
+      "path": "crates/mpk-vc/tests/go_profile_vectors.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "76822719c49cd4b644b0998c59aad1bb507ae24f309c4ceb866d5fa731a1615c"
+    },
+    {
+      "bytes": 24483,
+      "path": "crates/mpk-vc/tests/go_vir_corpus.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "7bd11af93cd3b0f8518dfd3a38a7be76cba9073f166e7fe4e1743dea51dabccc"
+    },
+    {
+      "bytes": 27765,
+      "path": "crates/mpk-vc/tests/program_encoding.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "19fc269954e585897d261002159aaace499da3a22b90137ccbf14c585a510443"
+    },
+    {
+      "bytes": 26036,
+      "path": "crates/mpk-vc/tests/program_wp.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "870319085739561f6b287102ce8c9d92820b6f9b733e8a94a68e51f3781519c1"
+    },
+    {
+      "bytes": 34109,
+      "path": "crates/mpk-vc/tests/release_bundle.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "45558b653104b6d6fc120f43ec70c099e74b63989bcf779afcd06d30fc9c81a9"
+    },
+    {
+      "bytes": 39570,
+      "path": "crates/mpk-vc/tests/safety_profiles.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "8fd62bad1ee0419a68d84c10737b8a56fc3cbd452ab20f1303384f7751fd2bbc"
+    },
+    {
+      "bytes": 47798,
+      "path": "crates/mpk-vc/tests/semantic_profile_registry.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "9815a1adb9384b75adb38412845c558469dda309b1c840bbb5036e968ad47122"
+    },
+    {
+      "bytes": 35367,
+      "path": "crates/mpk-vc/tests/semantic_profile_registry_runtime.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "dd7aaef6a2e9e8dfd53ff1732659694e852028612103d1399750ac74f1852688"
+    },
+    {
+      "bytes": 34510,
+      "path": "crates/mpk-vc/tests/source_manifest.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "d7ea385ab474e6216d05631ed6ae6e57b082e8dd95b5ce548d0e7a033d52b1fa"
+    },
+    {
+      "bytes": 36645,
+      "path": "crates/mpk-vc/tests/successor_vc.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "a982cd64c6b7d0a27c4cfdb2f29b336df558d8e0d43ae89ba22740418d35173b"
+    },
+    {
+      "bytes": 24132,
+      "path": "crates/mpk-vc/tests/verification_limits.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "c8c73513e5004fb6b7aad6ad2c6246860bf003f1bd803aae8b59922544335a67"
+    },
+    {
+      "bytes": 20121,
+      "path": "crates/mpk-vc/tests/vir_loops.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "5fe0304e1c42d10f4c8ba26d338bde6aeb9639056fb4ddd1064ce7840e94f8da"
+    },
+    {
+      "bytes": 16107,
+      "path": "crates/mpk-vc/tests/vir_model.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "fb4e490abdbe25234b291052abbb116b7cc3f6675cecc0eb7d1c5ce5f2717593"
+    },
+    {
+      "bytes": 6681,
+      "path": "crates/mpk-vc/tests/vir_semantics_gate.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "abae93e382a7328e2f7ef08bbb4e4ff2af22899a61b844ef5527288acb6681fb"
+    },
+    {
+      "bytes": 43210,
+      "path": "crates/mpk-vc/tests/vir_validation.rs",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "b6c7c3343f9e8076286674b60631bce7ef80ee8e1d523e7909ce714df7860931"
+    },
+    {
+      "bytes": 19494,
+      "path": "go-tools/go2vir/active_corpus_test.go",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "fdd64563b0103dcf833816455b181daf3df270e5d50446fee6860c4362b46369"
+    },
+    {
+      "bytes": 12027,
+      "path": "go-tools/go2vir/bundle_candidate_test.go",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "ca92ebb2c1b153c750db5f80724f2aa04bc60758508d77c5a6f5c72514548e41"
+    },
+    {
+      "bytes": 30100,
+      "path": "go-tools/go2vir/contract.go",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "51316ed3fecbf200f569567f46fd9065c912a41d03299b96021e44c2418c9bda"
+    },
+    {
+      "bytes": 16972,
+      "path": "go-tools/go2vir/corpus_test.go",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "08007ed264fcc6da716241e72d7fb26bb53918aed84b13cfd1a66f17d6711f87"
+    },
+    {
+      "bytes": 10285,
+      "path": "go-tools/go2vir/emit.go",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "8e9457ca250c53bbe01de30644dc9085946e807df75737fef5933a3de42916ec"
+    },
+    {
+      "bytes": 18090,
+      "path": "go-tools/go2vir/features.go",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "050c9e7f59d429aeceb82a8fdbbac7a2ef2d78bad4e6759e237ab60508eb69fc"
+    },
+    {
+      "bytes": 11318,
+      "path": "go-tools/go2vir/loader.go",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "6034f01b6e9b2e46adfc131299f21a8b38bbc1415a93de0de91db39eb2f296eb"
+    },
+    {
+      "bytes": 50967,
+      "path": "go-tools/go2vir/lower.go",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052"
+    },
+    {
+      "bytes": 5075,
+      "path": "go-tools/go2vir/lower_types.go",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "40378faf14b85bd585b0425b333d1e0b4b66738912e2fbb7a0f3479ce90c33f1"
+    },
+    {
+      "bytes": 14048,
+      "path": "go-tools/go2vir/main.go",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "353468be619893d2235442d8fc686b03c4ab0e15751fc73e94f5777932d50911"
+    },
+    {
+      "bytes": 37853,
+      "path": "go-tools/go2vir/main_test.go",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "ec42bf8fea669fff426d89f8e18411a4cfeae6aa8933ccfb702ae41288e73aa5"
+    },
+    {
+      "bytes": 9152,
+      "path": "go-tools/go2vir/manifest.go",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "37c20f41cb3a11b90f5dadba2aaca5e694f4ddb1d058b7d7bfde985e039a6176"
+    },
+    {
+      "bytes": 27204,
+      "path": "go-tools/go2vir/preflight.go",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "8faf415d2954ac1821dd3c8f7bbf6d58e48ce9a5bbf56fd8d46d91651120d711"
+    },
+    {
+      "bytes": 12140,
+      "path": "go-tools/go2vir/preflight_test.go",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "adfa1f4844a44d66190ff8b4e7a4e5015add7f9ece73bd1d2f5cbd6547f0e100"
+    },
+    {
+      "bytes": 3294,
+      "path": "go-tools/go2vir/profile_v0_test.go",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "72205ffe1b8ed8fa42982fc61284cb56c9c94e1723ee7e80104ca65d346e067c"
+    },
+    {
+      "bytes": 2115,
+      "path": "go-tools/go2vir/profile_v0_vectors_test.go",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "c0960b21d6eb8ff4864fa7f4632222c54b67d331a26ecc1c6c811d63d7940c64"
+    },
+    {
+      "bytes": 9548,
+      "path": "go-tools/go2vir/protocol.go",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "11a2088602b48cb339dbff6c1647387df92e0d2308174c56eb2d40bbf088883f"
+    },
+    {
+      "bytes": 5346,
+      "path": "go-tools/go2vir/snapshot.go",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "b67ac51476f2d28b37a75fa3cd800c78c0745cdbf2cb9dd16f659be436d9e3ab"
+    },
+    {
+      "bytes": 5166,
+      "path": "go-tools/go2vir/source_map.go",
+      "reason": "reviewed shared/frontend owner",
+      "role": "implementation",
+      "sha256": "393d0d1d7b17f7ceb27b8003fc4aefc85bdd35844621b9a34a974cdb0fdef3f3"
+    },
+    {
+      "bytes": 21694,
+      "path": "go-tools/go2vir/successor_migration_test.go",
+      "reason": "direct Go profile reference",
+      "role": "test",
+      "sha256": "77b22bf193270f3fb639ce299479f8cb113c978d15145e1291c0683f1e69c213"
+    },
+    {
+      "bytes": 16722,
+      "path": "go-tools/go2vir/vir_types.go",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "51023734e8eba6bb65aa1bc7759feadbc8c171ce8d66db313c8eaa65f4121088"
+    },
+    {
+      "bytes": 58413,
+      "path": "scripts/release_bundles.py",
+      "reason": "direct Go profile reference",
+      "role": "implementation",
+      "sha256": "05877c8c796d0e80d36f8133a8fe3e051526d16d5e87411c172399a3ba9200e3"
+    }
+  ],
+  "consumer_inventory_scope": "direct profile references plus reviewed initial owners; T01-W04 expands to the complete successor migration inventory",
+  "evidence_scope": "baseline identity/inventory checks; not practical-Go proof or release acceptance",
+  "findings": [],
+  "fixed_go_regression": {
+    "derived_cases": 11,
+    "files": [
+      {
+        "bytes": 9972,
+        "path": "examples/max64/frontend-envelope.json",
+        "sha256": "d062eeb0a70a844e71ca7b576ef608fa69b171a6184f6b90fa2742d11ada2966"
+      },
+      {
+        "bytes": 24,
+        "path": "examples/max64/go.mod",
+        "sha256": "3c7a45a90568ec4db1c013ce11a2aa80c4d8de6920a939bc769e12f939a3b3e3"
+      },
+      {
+        "bytes": 105,
+        "path": "examples/max64/max64.go",
+        "sha256": "b7addf05c795cde66d285154838709033da6221beefc4515b034940badeb7fa1"
+      },
+      {
+        "bytes": 695,
+        "path": "examples/max64/max64_contract.json",
+        "sha256": "07e12623b2af700189f0ac95e55a60aecf7ceabc57de8ab0e40a8253bb7187d9"
+      },
+      {
+        "bytes": 98,
+        "path": "examples/max64/mpk-selection.json",
+        "sha256": "2baa343982cd1c9539771a5cabd933c825af32d6f7a4f734a134dab4adf559df"
+      },
+      {
+        "bytes": 480,
+        "path": "examples/max64/mpk-semantic-context.json",
+        "sha256": "8eff765a5e5f66ff27a0ea3a4ca33db37c985b8ac4be56894e35adccb67c5e78"
+      },
+      {
+        "bytes": 3781,
+        "path": "examples/max64/source-manifest.frontend.json",
+        "sha256": "9a5783aad3879894e022456f469a22a6b9a6cc0db11a544317be5b4323cebe55"
+      },
+      {
+        "bytes": 2301,
+        "path": "examples/max64/source-map.json",
+        "sha256": "89f0ae6556321ffe2298b5ce458236f8018cd49bf1a3dcdfd38e45e0060156be"
+      },
+      {
+        "bytes": 3927,
+        "path": "examples/max64/vc.json",
+        "sha256": "c86e1ff513208c74a69bdcfeedd89f3707b5b1488a1aebf703fe5ef47d956580"
+      },
+      {
+        "bytes": 4182,
+        "path": "examples/max64/vc_skeleton.json",
+        "sha256": "83a623744761d6c4d0cd2df59db7355984e4ad217347e59045b49d11a1855fd1"
+      },
+      {
+        "bytes": 3019,
+        "path": "examples/max64/vir.json",
+        "sha256": "754f567ba38b365f1ec98586f4f721c0875c0c9f890e94fec155c62b09ede526"
+      },
+      {
+        "bytes": 10888,
+        "path": "examples/order_policy/frontend-envelope.json",
+        "sha256": "003e84f33dc79e4179ff5c2353accaa06fb9a33bb0cf92cd909df8c6d854fc50"
+      },
+      {
+        "bytes": 40,
+        "path": "examples/order_policy/go.mod",
+        "sha256": "8c8ec1146b94abac55ddc4e27b5916d8f348018a233d053eec6920bea99a452d"
+      },
+      {
+        "bytes": 145,
+        "path": "examples/order_policy/mpk-selection.json",
+        "sha256": "a7c682c5bb912bc1722d04b7f16b8b3741b63859d1342d90914e60038288551c"
+      },
+      {
+        "bytes": 480,
+        "path": "examples/order_policy/mpk-semantic-context.json",
+        "sha256": "8eff765a5e5f66ff27a0ea3a4ca33db37c985b8ac4be56894e35adccb67c5e78"
+      },
+      {
+        "bytes": 337,
+        "path": "examples/order_policy/policy.go",
+        "sha256": "4b8fab6e2f2d9e20dc77eee7f1b8813fc423acd858d1dab802259725f1801948"
+      },
+      {
+        "bytes": 1416,
+        "path": "examples/order_policy/policy_contract.json",
+        "sha256": "fcf5c2aec662011ea5b00382710a35d051a4b93ce56b70cadbf22a9573f14a00"
+      },
+      {
+        "bytes": 3851,
+        "path": "examples/order_policy/source-manifest.frontend.json",
+        "sha256": "00c2e1ecf928c19fc2ae2b22817687f2f2c70144e7333f2d1e7b11e9e1855510"
+      },
+      {
+        "bytes": 2693,
+        "path": "examples/order_policy/source-map.json",
+        "sha256": "ef791582a3214ff7a26eebf3fe3a6ab2a74fd567500ff234a7c1ed5665de9224"
+      },
+      {
+        "bytes": 5573,
+        "path": "examples/order_policy/vc.json",
+        "sha256": "cf250c10a3f676e998484e438100caba89bc5c123bbbd4dbdfd34d6f2b7a3124"
+      },
+      {
+        "bytes": 5776,
+        "path": "examples/order_policy/vc_skeleton.json",
+        "sha256": "ac946f0602ff22f4249005ec247e9e8ee0826a6af89e341e20d5d46aab7860fb"
+      },
+      {
+        "bytes": 3426,
+        "path": "examples/order_policy/vir.json",
+        "sha256": "3ae049f4de3b73dc213f0ae82f65e2306dac45f7f82e8335b32ec31b598e0c24"
+      },
+      {
+        "bytes": 126,
+        "path": "examples/order_policy/webapp/go.mod",
+        "sha256": "7fe32e017db1d075c1fb4adb7bbd2104abae5fb431b38888a84a336ba8b9defa"
+      },
+      {
+        "bytes": 3053,
+        "path": "examples/order_policy/webapp/handler.go",
+        "sha256": "fdda1c5d5b7774350ecd01ce02bbe2b52654d61b4b08d3d6cc0d2b4c3ea1d01d"
+      },
+      {
+        "bytes": 3272,
+        "path": "examples/order_policy/webapp/handler_test.go",
+        "sha256": "84731df5640c23eefa9579232699c004ff47de4c3af800a5fcbad463684c371c"
+      },
+      {
+        "bytes": 11024,
+        "path": "examples/payment_policies/discount/frontend-envelope.json",
+        "sha256": "2d0491bbdb1914d90339176a18a4f2314af907d6dc08cad80a6a3734cdf4096d"
+      },
+      {
+        "bytes": 45,
+        "path": "examples/payment_policies/discount/go.mod",
+        "sha256": "4a661d37f78e488cb5eaba57d4514a8513f2bad61207bdf1bbcda811fa0a754f"
+      },
+      {
+        "bytes": 156,
+        "path": "examples/payment_policies/discount/mpk-selection.json",
+        "sha256": "ead7dc1b4a125dbe591c6a4287be24f74e7f3eeeb3ecd64a037735dd862c10fb"
+      },
+      {
+        "bytes": 480,
+        "path": "examples/payment_policies/discount/mpk-semantic-context.json",
+        "sha256": "8eff765a5e5f66ff27a0ea3a4ca33db37c985b8ac4be56894e35adccb67c5e78"
+      },
+      {
+        "bytes": 308,
+        "path": "examples/payment_policies/discount/policy.go",
+        "sha256": "3f53035e86e57ad70ed953cbfe5d04db926cb76aaaff35ce627c47b139c7cb4d"
+      },
+      {
+        "bytes": 1441,
+        "path": "examples/payment_policies/discount/policy_contract.json",
+        "sha256": "c496bf1b675fa674eba84e4cde91ab1f82b5816c5b86fb82cec9a566e8897672"
+      },
+      {
+        "bytes": 803,
+        "path": "examples/payment_policies/discount/policy_test.go",
+        "sha256": "bec14d13785e36f1781a68038d4cd4dbd2b625b4a76f3c02e8a9c5c36d9f74d1"
+      },
+      {
+        "bytes": 3864,
+        "path": "examples/payment_policies/discount/source-manifest.frontend.json",
+        "sha256": "47cd394fd72521d90e88d7922059b9c9ebf091b7e1ecc940add156c73236d1af"
+      },
+      {
+        "bytes": 2780,
+        "path": "examples/payment_policies/discount/source-map.json",
+        "sha256": "762a77f2fd36fab005548fb32460ff70389a2dce6e6b97f8b5cafa2364817a20"
+      },
+      {
+        "bytes": 5723,
+        "path": "examples/payment_policies/discount/vc.json",
+        "sha256": "5887dbc727d6cd076005a069d46ee9d6801d8a4c37df2394f4d2a69770b8197d"
+      },
+      {
+        "bytes": 5860,
+        "path": "examples/payment_policies/discount/vc_skeleton.json",
+        "sha256": "68cd8599c5246931de8f2419e42afd5aa3b854e0df8ee319a3adece5743d58c6"
+      },
+      {
+        "bytes": 3451,
+        "path": "examples/payment_policies/discount/vir.json",
+        "sha256": "6d632d244e6f580343649a96032f4e9a37cf31995687e2f724af12e1722b8338"
+      },
+      {
+        "bytes": 10910,
+        "path": "examples/payment_policies/fee/frontend-envelope.json",
+        "sha256": "0182f1d24a240804ddee6cdacf463e32c43eadd9c3e6728cd6d4bcb478660962"
+      },
+      {
+        "bytes": 40,
+        "path": "examples/payment_policies/fee/go.mod",
+        "sha256": "85b08ea1c733a7f92115b6d3a4de3e583be37d6ca47b175f42970e552dd2967a"
+      },
+      {
+        "bytes": 148,
+        "path": "examples/payment_policies/fee/mpk-selection.json",
+        "sha256": "20593326ef0603d6ca1565785032d176173e430f35a181f706ef3d0276b4f2c9"
+      },
+      {
+        "bytes": 480,
+        "path": "examples/payment_policies/fee/mpk-semantic-context.json",
+        "sha256": "8eff765a5e5f66ff27a0ea3a4ca33db37c985b8ac4be56894e35adccb67c5e78"
+      },
+      {
+        "bytes": 287,
+        "path": "examples/payment_policies/fee/policy.go",
+        "sha256": "46bdd70a14cdd399b780fe91986687bc68cbcc8ec640bf79311c721db7465a56"
+      },
+      {
+        "bytes": 1432,
+        "path": "examples/payment_policies/fee/policy_contract.json",
+        "sha256": "fdf8250ac83d4d94b1a59b8dc69423919bee8c7032658190a4532706ee970601"
+      },
+      {
+        "bytes": 760,
+        "path": "examples/payment_policies/fee/policy_test.go",
+        "sha256": "df136534de5b1172c0f0660635125cd6f146d1de0357da599d435c95ccaa0540"
+      },
+      {
+        "bytes": 3846,
+        "path": "examples/payment_policies/fee/source-manifest.frontend.json",
+        "sha256": "90a9467020eb1b02e3c6656d7e2d7e518d186acc681748e6379ff008405de9d1"
+      },
+      {
+        "bytes": 2716,
+        "path": "examples/payment_policies/fee/source-map.json",
+        "sha256": "c144587e55c785684c98008b2bb09ed9c0299e1c29778ebc4e0fd4a44fc10dfe"
+      },
+      {
+        "bytes": 5648,
+        "path": "examples/payment_policies/fee/vc.json",
+        "sha256": "0ea8b79dcb159c17556f3dc44d39f9e2ca1146b4c9335adf9704be2b7ac1f834"
+      },
+      {
+        "bytes": 5818,
+        "path": "examples/payment_policies/fee/vc_skeleton.json",
+        "sha256": "e8db72a27eca132d84d1005526e5fac069139e9a6e00c78a88097ea30c5f3a41"
+      },
+      {
+        "bytes": 3427,
+        "path": "examples/payment_policies/fee/vir.json",
+        "sha256": "c2cd980dbd31054bab661e4bbd49aaeff6bba92b9b1d67eb375db5b8c5a65449"
+      },
+      {
+        "bytes": 1680,
+        "path": "examples/payment_policies/manifest.json",
+        "sha256": "a3fe95a98653d1370587231ae84c555a784e68a7f019192bafaf274900435ca3"
+      },
+      {
+        "bytes": 51,
+        "path": "examples/payment_policies/negative/float/go.mod",
+        "sha256": "1a57ac67fcfffe17fa17b3423d292eb3866e23903a6d1796aeb9c7c72f1be1af"
+      },
+      {
+        "bytes": 80,
+        "path": "examples/payment_policies/negative/float/policy.go",
+        "sha256": "4f0b86a34953dfc5c38af23433ce4264a5676df4c1d92524febcbe6f86ad3d72"
+      },
+      {
+        "bytes": 49,
+        "path": "examples/payment_policies/negative/map/go.mod",
+        "sha256": "d56a9b31b97c25445820bb3931044ed04e7d416864899198ae457cfb66202673"
+      },
+      {
+        "bytes": 124,
+        "path": "examples/payment_policies/negative/map/policy.go",
+        "sha256": "d3d3e66214b08a41097bb49e2cf96ad83f9842184e4795b9ac455b565e1eead6"
+      },
+      {
+        "bytes": 68,
+        "path": "examples/payment_policies/negative/missing_postconditions/go.mod",
+        "sha256": "a6d2f7b11a5fcd8823a802add721d8578b182823b8c04f5d8689a34dfb08c560"
+      },
+      {
+        "bytes": 81,
+        "path": "examples/payment_policies/negative/missing_postconditions/policy.go",
+        "sha256": "917ae60cffd658f8c010f889d5d69389ecf536f5f002332f2bc8e56f2ffa6db7"
+      },
+      {
+        "bytes": 328,
+        "path": "examples/payment_policies/negative/missing_postconditions/policy_contract.json",
+        "sha256": "a1b24c6b9690da9ee6038b1156d0939071cbc145336875abb09c2888e5d0f81f"
+      },
+      {
+        "bytes": 53,
+        "path": "examples/payment_policies/negative/pointer/go.mod",
+        "sha256": "44d78282450153c0881cc1a896a79b9f533188aa7ead05c9dae5d09f3dba0704"
+      },
+      {
+        "bytes": 86,
+        "path": "examples/payment_policies/negative/pointer/policy.go",
+        "sha256": "36552871fb2e39b95dfc01efd1d5bce0dde4fa4c0cfc20b24ebbd259164c1977"
+      },
+      {
+        "bytes": 11008,
+        "path": "examples/payment_policies/points/frontend-envelope.json",
+        "sha256": "4e4f3545f0afae25888b223caea88ef7bbcdbc6e3e61a92d92050735bb8c95d0"
+      },
+      {
+        "bytes": 43,
+        "path": "examples/payment_policies/points/go.mod",
+        "sha256": "bbb69536b147e6e4ee4d18827d327b2d47b23ed79723842f0d5911ee8f175bc5"
+      },
+      {
+        "bytes": 155,
+        "path": "examples/payment_policies/points/mpk-selection.json",
+        "sha256": "bc8feb472ea726d98d276012d0911b3343f08c423ffd02966a9f7d1e32b819e0"
+      },
+      {
+        "bytes": 480,
+        "path": "examples/payment_policies/points/mpk-semantic-context.json",
+        "sha256": "8eff765a5e5f66ff27a0ea3a4ca33db37c985b8ac4be56894e35adccb67c5e78"
+      },
+      {
+        "bytes": 298,
+        "path": "examples/payment_policies/points/policy.go",
+        "sha256": "6c5c1919cceeb97071340ac60c43777d2e03006939c67045e57595eee4a1ac1c"
+      },
+      {
+        "bytes": 1421,
+        "path": "examples/payment_policies/points/policy_contract.json",
+        "sha256": "16327bb94f33d19b17e758192b174aee1b7b5e1a3155989f0f02bc761303bec3"
+      },
+      {
+        "bytes": 744,
+        "path": "examples/payment_policies/points/policy_test.go",
+        "sha256": "854c6ecad507c214a9693a663b106dfb48d9639e4855bd0aeaecae75769e5d0b"
+      },
+      {
+        "bytes": 3859,
+        "path": "examples/payment_policies/points/source-manifest.frontend.json",
+        "sha256": "54e205466ff0a954d75bc8483fe3ef2cd4bc244be7dc1102343fec12c645a970"
+      },
+      {
+        "bytes": 2773,
+        "path": "examples/payment_policies/points/source-map.json",
+        "sha256": "91450fd0150e9993b8e137d045b1608138cfbac50370ce3a518bf9c6b0ae42e5"
+      },
+      {
+        "bytes": 5748,
+        "path": "examples/payment_policies/points/vc.json",
+        "sha256": "d9c46ecb97dbea37934259632510d0c622bd38361dcdb53f5d20db07754a9f7f"
+      },
+      {
+        "bytes": 5874,
+        "path": "examples/payment_policies/points/vc_skeleton.json",
+        "sha256": "496145fd0d0849ad89701935e0727b00fac7f749878fd23d793beb3285dfba80"
+      },
+      {
+        "bytes": 3448,
+        "path": "examples/payment_policies/points/vir.json",
+        "sha256": "fec8d8ff8fb092c0836878894dbab8f1c9eda52f68e718f921f60d21a2478d3c"
+      },
+      {
+        "bytes": 10942,
+        "path": "examples/payment_policies/refund/frontend-envelope.json",
+        "sha256": "9f4d13eecf05bc952ec4140f0ccce5041b7800f31bb6fa9d1257c7ce225aebd4"
+      },
+      {
+        "bytes": 43,
+        "path": "examples/payment_policies/refund/go.mod",
+        "sha256": "e72da78fa681084726169fd13d61b9faf474ca233b78391172c1a2725303e385"
+      },
+      {
+        "bytes": 150,
+        "path": "examples/payment_policies/refund/mpk-selection.json",
+        "sha256": "ad5ee73029d05bcc0e1363eac0112590ab0cc8c1625e240a71b0f8968f603e92"
+      },
+      {
+        "bytes": 480,
+        "path": "examples/payment_policies/refund/mpk-semantic-context.json",
+        "sha256": "8eff765a5e5f66ff27a0ea3a4ca33db37c985b8ac4be56894e35adccb67c5e78"
+      },
+      {
+        "bytes": 267,
+        "path": "examples/payment_policies/refund/policy.go",
+        "sha256": "832d61bc348519351d9d95294c1110c38a612e391021033478467543dc0d189b"
+      },
+      {
+        "bytes": 1401,
+        "path": "examples/payment_policies/refund/policy_contract.json",
+        "sha256": "c1e084bed11e55fc1459353e2f7b55fa50c51ff88ed08ce8768f3313aef2c2d7"
+      },
+      {
+        "bytes": 707,
+        "path": "examples/payment_policies/refund/policy_test.go",
+        "sha256": "8b95d5f2b7ecc98c5da1ef77cb40403d3c7808fc64ec1903bbcb0bf9063b521d"
+      },
+      {
+        "bytes": 3854,
+        "path": "examples/payment_policies/refund/source-manifest.frontend.json",
+        "sha256": "1761966ceb0ab153dda6b9d2472da12f1509d12443f497a960239c7ac834cfa8"
+      },
+      {
+        "bytes": 2732,
+        "path": "examples/payment_policies/refund/source-map.json",
+        "sha256": "2bf1be78e1cc375433efabedf1522736bdbf3e217ceee8d67186bac98f246139"
+      },
+      {
+        "bytes": 5623,
+        "path": "examples/payment_policies/refund/vc.json",
+        "sha256": "13769bfa2a7173b2d60321bb18ab401d6f05a53093316c98461aae07569b19ac"
+      },
+      {
+        "bytes": 5804,
+        "path": "examples/payment_policies/refund/vc_skeleton.json",
+        "sha256": "25c07e10b2d9f094369d1b09d2d3149c5d3d955a72838c1df68d4284c297a160"
+      },
+      {
+        "bytes": 3433,
+        "path": "examples/payment_policies/refund/vir.json",
+        "sha256": "09d14edb6af66b9792563e96aad52844b131c394c84aa0ab6c02beb6f9841a3d"
+      },
+      {
+        "bytes": 10983,
+        "path": "examples/payment_policies/reserve/frontend-envelope.json",
+        "sha256": "fcf3d6fd51367462598bbc643ad08cf6a72f54e2130a19a94cecdfd09f427267"
+      },
+      {
+        "bytes": 44,
+        "path": "examples/payment_policies/reserve/go.mod",
+        "sha256": "a3987b8027dcbc02b3b2f72a8a3effa7d35cb84799f534690e407600ba3f97ee"
+      },
+      {
+        "bytes": 153,
+        "path": "examples/payment_policies/reserve/mpk-selection.json",
+        "sha256": "2f430df90ff7f0300572e3b2b016445d1467f451200976e9e40c655d2e10edae"
+      },
+      {
+        "bytes": 480,
+        "path": "examples/payment_policies/reserve/mpk-semantic-context.json",
+        "sha256": "8eff765a5e5f66ff27a0ea3a4ca33db37c985b8ac4be56894e35adccb67c5e78"
+      },
+      {
+        "bytes": 278,
+        "path": "examples/payment_policies/reserve/policy.go",
+        "sha256": "d844f257c70887dab36e13347755a44f28f7c35095dd7efa4fc84dbeaf4044f2"
+      },
+      {
+        "bytes": 1412,
+        "path": "examples/payment_policies/reserve/policy_contract.json",
+        "sha256": "7b5ae3065faa320474ac2feaf6a99c33c891417b8d14e8683dcdea34485f80a6"
+      },
+      {
+        "bytes": 718,
+        "path": "examples/payment_policies/reserve/policy_test.go",
+        "sha256": "f7dae79358b0f206471cbc2dca062bf38a58b18d922b682cade0ef2976682fda"
+      },
+      {
+        "bytes": 3859,
+        "path": "examples/payment_policies/reserve/source-manifest.frontend.json",
+        "sha256": "34b58914449bcd09d6ac784511fdb88b91f22a79e4fae1d1e3e8ecd58196cf71"
+      },
+      {
+        "bytes": 2756,
+        "path": "examples/payment_policies/reserve/source-map.json",
+        "sha256": "13a314b3d68c1718d55d2d7609b07c80dbb3cc391ab8eb211fc40748f627f8bc"
+      },
+      {
+        "bytes": 5673,
+        "path": "examples/payment_policies/reserve/vc.json",
+        "sha256": "4e280b038b5816bfa016d714cc8181414badf24e27d5813d7ea529c5f7b41e8c"
+      },
+      {
+        "bytes": 5832,
+        "path": "examples/payment_policies/reserve/vc_skeleton.json",
+        "sha256": "70eb9d56adbe7c48a72a02403f241657443bcde170850c81074dc92294acef45"
+      },
+      {
+        "bytes": 3442,
+        "path": "examples/payment_policies/reserve/vir.json",
+        "sha256": "03292fc66f746119a434b7fe87f84a1ded042fcee7230255aed6a32b42e6d78a"
+      },
+      {
+        "bytes": 1924,
+        "path": "fixtures/go-alpha/arith/arith.go",
+        "sha256": "7ea7cedcc016a0beacc1184741b1079ce7e4595100dee6c029cd5ac8f101c31d"
+      },
+      {
+        "bytes": 2997,
+        "path": "fixtures/go-alpha/array/array.go",
+        "sha256": "d6bfc8d7c4ca5f06be35d1d7bdb9a3e7807856bc6a16fd67280555a556d4344c"
+      },
+      {
+        "bytes": 4213,
+        "path": "fixtures/go-alpha/branch/branch.go",
+        "sha256": "b3d2487cf5b8305eea5e84dbdbb112d7efe4eafd792cfc4ad7380138f8379240"
+      },
+      {
+        "bytes": 65,
+        "path": "fixtures/go-alpha/go.mod",
+        "sha256": "4a3cb8b7a0c57d3ad6619e79e6b0dffbcbcc631a23c9f437b3133d964f1a0aac"
+      },
+      {
+        "bytes": 886,
+        "path": "fixtures/go-alpha/manifest.json",
+        "sha256": "4f3371e0bc768724cab86831b3daa24c76d64cf926284fee72c571160399aed7"
+      },
+      {
+        "bytes": 65,
+        "path": "fixtures/go-basic/go.mod",
+        "sha256": "fbaecf3a2fa13def8774c5ed6d6439b5032975224b7569e1464cfd0a014e903a"
+      },
+      {
+        "bytes": 1392,
+        "path": "fixtures/go-basic/manifest.json",
+        "sha256": "512c522568a44b930dcd1ddbccc6d5203231a09d5eaf3f428ff47bf673097fc1"
+      },
+      {
+        "bytes": 67,
+        "path": "fixtures/go-basic/negative/generic/generic.go",
+        "sha256": "6c6ec14df0ff94da8fbb67c95e0686ae4b244301069211b01bae52776d56938c"
+      },
+      {
+        "bytes": 119,
+        "path": "fixtures/go-basic/negative/map/map.go",
+        "sha256": "8097f84018a3b41013c0da83883e83c2641589670753c32a657de81d20c7a33f"
+      },
+      {
+        "bytes": 67,
+        "path": "fixtures/go-basic/negative/pointer/pointer.go",
+        "sha256": "bd36d4dc0bb00dcac2b0ab640e1928de89df4e84e7a0375779a5384c214bdb64"
+      },
+      {
+        "bytes": 83,
+        "path": "fixtures/go-basic/negative/string/string.go",
+        "sha256": "02ca8d5fff33dd866aecac787fa64048bc491a882aca5777d673d03c48abf52a"
+      },
+      {
+        "bytes": 204,
+        "path": "fixtures/go-basic/positive/arith/arith.go",
+        "sha256": "be472595e9029249dcc0f35c43c6a441cb935c78a03ec0d06c07c2123fbaf28c"
+      },
+      {
+        "bytes": 121,
+        "path": "fixtures/go-basic/positive/branch/branch.go",
+        "sha256": "2f5af9661edc9e1e078640fd48e6fa1d511ff9b82a3ac07f62163a9ec3ac65b4"
+      },
+      {
+        "bytes": 373,
+        "path": "fixtures/go-basic/positive/structarray/struct_array.go",
+        "sha256": "d7c8a95e23a31708d0aa83f23f1d55903f1d30079d6d0f2ff128e487a99b3ef8"
+      },
+      {
+        "bytes": 368,
+        "path": "fixtures/vir-go/checker/axiom-report.json",
+        "sha256": "548d76a52a743f0f99ca9a10a7a8dcb53f03cdba6e0bba7b0be8997205aaecaa"
+      },
+      {
+        "bytes": 514,
+        "path": "fixtures/vir-go/checker/one-theorem.hex",
+        "sha256": "ca7c64b652f01cca504f3c78882da89424675fbe7df73c21606bc07c910c1f37"
+      },
+      {
+        "bytes": 996,
+        "path": "fixtures/vir-go/checker/verdicts.json",
+        "sha256": "8a08dbf19f59441ce3096ab8421f53338639ddcfc0dcad17c92e147b12c69019"
+      },
+      {
+        "bytes": 8470,
+        "path": "fixtures/vir-go/derived-index.json",
+        "sha256": "95975d87ec4fc7e8f972316a8400746ed9947842cd522706f40c3f2613a22652"
+      },
+      {
+        "bytes": 60759,
+        "path": "fixtures/vir-go/derived/alpha-arith/vc-skeleton.json",
+        "sha256": "c284bd86f432720e8aa617967877e2916d89d337d48494d7cead9252b1f6f97c"
+      },
+      {
+        "bytes": 55934,
+        "path": "fixtures/vir-go/derived/alpha-arith/vc.json",
+        "sha256": "459cf5bacbbc18c42c0e6a04f7b10da4bc2e32d52a5e78409848d4125706e088"
+      },
+      {
+        "bytes": 510,
+        "path": "fixtures/vir-go/derived/alpha-branch/vc-alpha-manifest.json",
+        "sha256": "0fa492f9638ab9f8e6d729b46e1d3013db935a4bcb72091c29f151c244e5acdc"
+      },
+      {
+        "bytes": 60721,
+        "path": "fixtures/vir-go/derived/alpha-branch/vc-skeleton.json",
+        "sha256": "024400f78ef3bedcc5cd9bb43f62f3a1c74e58bb961a7d5b16792a914159d317"
+      },
+      {
+        "bytes": 54375,
+        "path": "fixtures/vir-go/derived/alpha-branch/vc.json",
+        "sha256": "1c501b72077b4f3ab900d7f4229803e4c8f672e9dc15517c2171bc0f632f4ba0"
+      },
+      {
+        "bytes": 7440,
+        "path": "fixtures/vir-go/derived/basic-arith/vc-skeleton.json",
+        "sha256": "e34ad9add9e97204a19763aabc4d6082e5b593c94274370b51a893b1dc578416"
+      },
+      {
+        "bytes": 7179,
+        "path": "fixtures/vir-go/derived/basic-arith/vc.json",
+        "sha256": "17ee967a553181507cfa5fd261b0fe32daef3806f6b8d0ed9f17f1ef00dc99fd"
+      },
+      {
+        "bytes": 3234,
+        "path": "fixtures/vir-go/derived/basic-branch/vc-skeleton.json",
+        "sha256": "f072a5f3c3219c4b0736dbbbdbe06f9827bda2642902cb7b5532fc56524a906a"
+      },
+      {
+        "bytes": 3031,
+        "path": "fixtures/vir-go/derived/basic-branch/vc.json",
+        "sha256": "7a98b920b1f5992fbae66b192be2c9172269db6e977f184daaf3f4a1a8e85afe"
+      },
+      {
+        "bytes": 4182,
+        "path": "fixtures/vir-go/derived/example-max64/vc-skeleton.json",
+        "sha256": "83a623744761d6c4d0cd2df59db7355984e4ad217347e59045b49d11a1855fd1"
+      },
+      {
+        "bytes": 3927,
+        "path": "fixtures/vir-go/derived/example-max64/vc.json",
+        "sha256": "c86e1ff513208c74a69bdcfeedd89f3707b5b1488a1aebf703fe5ef47d956580"
+      },
+      {
+        "bytes": 5776,
+        "path": "fixtures/vir-go/derived/example-order-policy/vc-skeleton.json",
+        "sha256": "ac946f0602ff22f4249005ec247e9e8ee0826a6af89e341e20d5d46aab7860fb"
+      },
+      {
+        "bytes": 5573,
+        "path": "fixtures/vir-go/derived/example-order-policy/vc.json",
+        "sha256": "cf250c10a3f676e998484e438100caba89bc5c123bbbd4dbdfd34d6f2b7a3124"
+      },
+      {
+        "bytes": 5860,
+        "path": "fixtures/vir-go/derived/payment-discount/vc-skeleton.json",
+        "sha256": "68cd8599c5246931de8f2419e42afd5aa3b854e0df8ee319a3adece5743d58c6"
+      },
+      {
+        "bytes": 5723,
+        "path": "fixtures/vir-go/derived/payment-discount/vc.json",
+        "sha256": "5887dbc727d6cd076005a069d46ee9d6801d8a4c37df2394f4d2a69770b8197d"
+      },
+      {
+        "bytes": 5818,
+        "path": "fixtures/vir-go/derived/payment-fee/vc-skeleton.json",
+        "sha256": "e8db72a27eca132d84d1005526e5fac069139e9a6e00c78a88097ea30c5f3a41"
+      },
+      {
+        "bytes": 5648,
+        "path": "fixtures/vir-go/derived/payment-fee/vc.json",
+        "sha256": "0ea8b79dcb159c17556f3dc44d39f9e2ca1146b4c9335adf9704be2b7ac1f834"
+      },
+      {
+        "bytes": 5874,
+        "path": "fixtures/vir-go/derived/payment-points/vc-skeleton.json",
+        "sha256": "496145fd0d0849ad89701935e0727b00fac7f749878fd23d793beb3285dfba80"
+      },
+      {
+        "bytes": 5748,
+        "path": "fixtures/vir-go/derived/payment-points/vc.json",
+        "sha256": "d9c46ecb97dbea37934259632510d0c622bd38361dcdb53f5d20db07754a9f7f"
+      },
+      {
+        "bytes": 5804,
+        "path": "fixtures/vir-go/derived/payment-refund/vc-skeleton.json",
+        "sha256": "25c07e10b2d9f094369d1b09d2d3149c5d3d955a72838c1df68d4284c297a160"
+      },
+      {
+        "bytes": 5623,
+        "path": "fixtures/vir-go/derived/payment-refund/vc.json",
+        "sha256": "13769bfa2a7173b2d60321bb18ab401d6f05a53093316c98461aae07569b19ac"
+      },
+      {
+        "bytes": 5832,
+        "path": "fixtures/vir-go/derived/payment-reserve/vc-skeleton.json",
+        "sha256": "70eb9d56adbe7c48a72a02403f241657443bcde170850c81074dc92294acef45"
+      },
+      {
+        "bytes": 5673,
+        "path": "fixtures/vir-go/derived/payment-reserve/vc.json",
+        "sha256": "4e280b038b5816bfa016d714cc8181414badf24e27d5813d7ea529c5f7b41e8c"
+      },
+      {
+        "bytes": 17670,
+        "path": "fixtures/vir-go/frontend-index.json",
+        "sha256": "3224c6091b7fd7427011a08d40e4eca3dd1528e6ce39fc91319e1febdb4f7ae7"
+      },
+      {
+        "bytes": 89300,
+        "path": "fixtures/vir-go/frontend/alpha-arith/frontend-envelope.json",
+        "sha256": "258004907c94d620b504fcb08980425a27fe46e956816387ec6fc5881b631ff4"
+      },
+      {
+        "bytes": 3774,
+        "path": "fixtures/vir-go/frontend/alpha-arith/source-manifest.frontend.json",
+        "sha256": "ed9afd31c48fe0f392c1ca856ec1bfbd0d45d354ea83378b0a114128ac0235eb"
+      },
+      {
+        "bytes": 32891,
+        "path": "fixtures/vir-go/frontend/alpha-arith/source-map.json",
+        "sha256": "7aed7fa461759c88833d52c12c696f0851fa50f535fb9c8d23d6aeb8d669eeb4"
+      },
+      {
+        "bytes": 51670,
+        "path": "fixtures/vir-go/frontend/alpha-arith/vir.json",
+        "sha256": "55cf9e65077133f95b262798a4e8742dce74bcde2a2e98edebf2dac4c762d5f1"
+      },
+      {
+        "bytes": 108375,
+        "path": "fixtures/vir-go/frontend/alpha-array/frontend-envelope.json",
+        "sha256": "bfca7573b21b5a212e9a5351379806a67643bc33123dc288178804c1e6f3287d"
+      },
+      {
+        "bytes": 3780,
+        "path": "fixtures/vir-go/frontend/alpha-array/source-manifest.frontend.json",
+        "sha256": "e6006b152e946e7ea65fa5778c0acac06725722afa97633f04c2f14e4aeef63b"
+      },
+      {
+        "bytes": 44016,
+        "path": "fixtures/vir-go/frontend/alpha-array/source-map.json",
+        "sha256": "22bd5f4e4a5b7697fd37163fe3daa05c3502554bba863b95390015a0d4c7a5da"
+      },
+      {
+        "bytes": 59608,
+        "path": "fixtures/vir-go/frontend/alpha-array/vir.json",
+        "sha256": "6bb41e0f360e1359f2e8af67fc5bccfe7d83a9ffed0e099bd5059fffa622e11c"
+      },
+      {
+        "bytes": 171254,
+        "path": "fixtures/vir-go/frontend/alpha-branch/frontend-envelope.json",
+        "sha256": "d5287c0c0d3fb49b6baca20f5e2ea945d8291408a0069a2b9656fb27e324ab4d"
+      },
+      {
+        "bytes": 3780,
+        "path": "fixtures/vir-go/frontend/alpha-branch/source-manifest.frontend.json",
+        "sha256": "af443e602838ca7264fcc653f2680e9a0d89761dfa2e31f979dc20a619ebc042"
+      },
+      {
+        "bytes": 86335,
+        "path": "fixtures/vir-go/frontend/alpha-branch/source-map.json",
+        "sha256": "7a418c11a905118e937276a75b0dfa738daa2f00c3f944c8aeb07c00ef1bcee8"
+      },
+      {
+        "bytes": 80172,
+        "path": "fixtures/vir-go/frontend/alpha-branch/vir.json",
+        "sha256": "4fdab0050b512c4989e1fe92885e0ea6d922dd87c63f2abcfb1769f3bc4f108c"
+      },
+      {
+        "bytes": 14729,
+        "path": "fixtures/vir-go/frontend/basic-arith/frontend-envelope.json",
+        "sha256": "4b2c1b48ab168fcc92b03068f15b43153d81e68bda953507a306daee9c47bd12"
+      },
+      {
+        "bytes": 3809,
+        "path": "fixtures/vir-go/frontend/basic-arith/source-manifest.frontend.json",
+        "sha256": "5336669081dce3f2f10e08a3cfb401518c38d2a19d8828a7fc5f8868938b92ab"
+      },
+      {
+        "bytes": 4335,
+        "path": "fixtures/vir-go/frontend/basic-arith/source-map.json",
+        "sha256": "771503445fb15977604900f2373830fc3bf7d4946ff087c7b6522fdd68a3a0f6"
+      },
+      {
+        "bytes": 5602,
+        "path": "fixtures/vir-go/frontend/basic-arith/vir.json",
+        "sha256": "0a911348915a1044bb02cf5f8c66e661746672cd5dc12ddb0da674f2ddec1afe"
+      },
+      {
+        "bytes": 11232,
+        "path": "fixtures/vir-go/frontend/basic-branch/frontend-envelope.json",
+        "sha256": "fdcba2b57906ad963915cbe86250ab9940eb4671f87f418411fde5f811fe6921"
+      },
+      {
+        "bytes": 3818,
+        "path": "fixtures/vir-go/frontend/basic-branch/source-manifest.frontend.json",
+        "sha256": "74d8529a029f7dc2864e26a2186d8be82222e532e4517d9d51ea850cf4ca4e7b"
+      },
+      {
+        "bytes": 3341,
+        "path": "fixtures/vir-go/frontend/basic-branch/source-map.json",
+        "sha256": "55ad47462a31f2c51acc1fa4c89bf8e0945c3c9baf529c7198fe2f8f28602cef"
+      },
+      {
+        "bytes": 3085,
+        "path": "fixtures/vir-go/frontend/basic-branch/vir.json",
+        "sha256": "28f03051bb0c34750a554e3f5106cff36db3155507d8cc8a87c848141ef80d76"
+      },
+      {
+        "bytes": 18435,
+        "path": "fixtures/vir-go/frontend/basic-structarray/frontend-envelope.json",
+        "sha256": "0b2412fbb7e9a0966bb7a78473982a7f9e93744c7a485c20e3f26272a088dde8"
+      },
+      {
+        "bytes": 3848,
+        "path": "fixtures/vir-go/frontend/basic-structarray/source-manifest.frontend.json",
+        "sha256": "cfc32384f8cdeb69af0d40c33b5cb331133eb3dfa0b975ab61088f2bd89cfb54"
+      },
+      {
+        "bytes": 5775,
+        "path": "fixtures/vir-go/frontend/basic-structarray/source-map.json",
+        "sha256": "55c68c5e7fd8511b3ab90ac17003103c0d118c73516ebd3eb9a52335c90d1b6e"
+      },
+      {
+        "bytes": 7815,
+        "path": "fixtures/vir-go/frontend/basic-structarray/vir.json",
+        "sha256": "9822d9e090083d2ccfb75453ef17355d3fe588b9210326f016f4d1b16c1273fc"
+      },
+      {
+        "bytes": 9972,
+        "path": "fixtures/vir-go/frontend/example-max64/frontend-envelope.json",
+        "sha256": "d062eeb0a70a844e71ca7b576ef608fa69b171a6184f6b90fa2742d11ada2966"
+      },
+      {
+        "bytes": 3781,
+        "path": "fixtures/vir-go/frontend/example-max64/source-manifest.frontend.json",
+        "sha256": "9a5783aad3879894e022456f469a22a6b9a6cc0db11a544317be5b4323cebe55"
+      },
+      {
+        "bytes": 2301,
+        "path": "fixtures/vir-go/frontend/example-max64/source-map.json",
+        "sha256": "89f0ae6556321ffe2298b5ce458236f8018cd49bf1a3dcdfd38e45e0060156be"
+      },
+      {
+        "bytes": 3019,
+        "path": "fixtures/vir-go/frontend/example-max64/vir.json",
+        "sha256": "754f567ba38b365f1ec98586f4f721c0875c0c9f890e94fec155c62b09ede526"
+      },
+      {
+        "bytes": 10888,
+        "path": "fixtures/vir-go/frontend/example-order-policy/frontend-envelope.json",
+        "sha256": "003e84f33dc79e4179ff5c2353accaa06fb9a33bb0cf92cd909df8c6d854fc50"
+      },
+      {
+        "bytes": 3851,
+        "path": "fixtures/vir-go/frontend/example-order-policy/source-manifest.frontend.json",
+        "sha256": "00c2e1ecf928c19fc2ae2b22817687f2f2c70144e7333f2d1e7b11e9e1855510"
+      },
+      {
+        "bytes": 2693,
+        "path": "fixtures/vir-go/frontend/example-order-policy/source-map.json",
+        "sha256": "ef791582a3214ff7a26eebf3fe3a6ab2a74fd567500ff234a7c1ed5665de9224"
+      },
+      {
+        "bytes": 3426,
+        "path": "fixtures/vir-go/frontend/example-order-policy/vir.json",
+        "sha256": "3ae049f4de3b73dc213f0ae82f65e2306dac45f7f82e8335b32ec31b598e0c24"
+      },
+      {
+        "bytes": 11024,
+        "path": "fixtures/vir-go/frontend/payment-discount/frontend-envelope.json",
+        "sha256": "2d0491bbdb1914d90339176a18a4f2314af907d6dc08cad80a6a3734cdf4096d"
+      },
+      {
+        "bytes": 3864,
+        "path": "fixtures/vir-go/frontend/payment-discount/source-manifest.frontend.json",
+        "sha256": "47cd394fd72521d90e88d7922059b9c9ebf091b7e1ecc940add156c73236d1af"
+      },
+      {
+        "bytes": 2780,
+        "path": "fixtures/vir-go/frontend/payment-discount/source-map.json",
+        "sha256": "762a77f2fd36fab005548fb32460ff70389a2dce6e6b97f8b5cafa2364817a20"
+      },
+      {
+        "bytes": 3451,
+        "path": "fixtures/vir-go/frontend/payment-discount/vir.json",
+        "sha256": "6d632d244e6f580343649a96032f4e9a37cf31995687e2f724af12e1722b8338"
+      },
+      {
+        "bytes": 10910,
+        "path": "fixtures/vir-go/frontend/payment-fee/frontend-envelope.json",
+        "sha256": "0182f1d24a240804ddee6cdacf463e32c43eadd9c3e6728cd6d4bcb478660962"
+      },
+      {
+        "bytes": 3846,
+        "path": "fixtures/vir-go/frontend/payment-fee/source-manifest.frontend.json",
+        "sha256": "90a9467020eb1b02e3c6656d7e2d7e518d186acc681748e6379ff008405de9d1"
+      },
+      {
+        "bytes": 2716,
+        "path": "fixtures/vir-go/frontend/payment-fee/source-map.json",
+        "sha256": "c144587e55c785684c98008b2bb09ed9c0299e1c29778ebc4e0fd4a44fc10dfe"
+      },
+      {
+        "bytes": 3427,
+        "path": "fixtures/vir-go/frontend/payment-fee/vir.json",
+        "sha256": "c2cd980dbd31054bab661e4bbd49aaeff6bba92b9b1d67eb375db5b8c5a65449"
+      },
+      {
+        "bytes": 11008,
+        "path": "fixtures/vir-go/frontend/payment-points/frontend-envelope.json",
+        "sha256": "4e4f3545f0afae25888b223caea88ef7bbcdbc6e3e61a92d92050735bb8c95d0"
+      },
+      {
+        "bytes": 3859,
+        "path": "fixtures/vir-go/frontend/payment-points/source-manifest.frontend.json",
+        "sha256": "54e205466ff0a954d75bc8483fe3ef2cd4bc244be7dc1102343fec12c645a970"
+      },
+      {
+        "bytes": 2773,
+        "path": "fixtures/vir-go/frontend/payment-points/source-map.json",
+        "sha256": "91450fd0150e9993b8e137d045b1608138cfbac50370ce3a518bf9c6b0ae42e5"
+      },
+      {
+        "bytes": 3448,
+        "path": "fixtures/vir-go/frontend/payment-points/vir.json",
+        "sha256": "fec8d8ff8fb092c0836878894dbab8f1c9eda52f68e718f921f60d21a2478d3c"
+      },
+      {
+        "bytes": 10942,
+        "path": "fixtures/vir-go/frontend/payment-refund/frontend-envelope.json",
+        "sha256": "9f4d13eecf05bc952ec4140f0ccce5041b7800f31bb6fa9d1257c7ce225aebd4"
+      },
+      {
+        "bytes": 3854,
+        "path": "fixtures/vir-go/frontend/payment-refund/source-manifest.frontend.json",
+        "sha256": "1761966ceb0ab153dda6b9d2472da12f1509d12443f497a960239c7ac834cfa8"
+      },
+      {
+        "bytes": 2732,
+        "path": "fixtures/vir-go/frontend/payment-refund/source-map.json",
+        "sha256": "2bf1be78e1cc375433efabedf1522736bdbf3e217ceee8d67186bac98f246139"
+      },
+      {
+        "bytes": 3433,
+        "path": "fixtures/vir-go/frontend/payment-refund/vir.json",
+        "sha256": "09d14edb6af66b9792563e96aad52844b131c394c84aa0ab6c02beb6f9841a3d"
+      },
+      {
+        "bytes": 10983,
+        "path": "fixtures/vir-go/frontend/payment-reserve/frontend-envelope.json",
+        "sha256": "fcf3d6fd51367462598bbc643ad08cf6a72f54e2130a19a94cecdfd09f427267"
+      },
+      {
+        "bytes": 3859,
+        "path": "fixtures/vir-go/frontend/payment-reserve/source-manifest.frontend.json",
+        "sha256": "34b58914449bcd09d6ac784511fdb88b91f22a79e4fae1d1e3e8ecd58196cf71"
+      },
+      {
+        "bytes": 2756,
+        "path": "fixtures/vir-go/frontend/payment-reserve/source-map.json",
+        "sha256": "13a314b3d68c1718d55d2d7609b07c80dbb3cc391ab8eb211fc40748f627f8bc"
+      },
+      {
+        "bytes": 3442,
+        "path": "fixtures/vir-go/frontend/payment-reserve/vir.json",
+        "sha256": "03292fc66f746119a434b7fe87f84a1ded042fcee7230255aed6a32b42e6d78a"
+      },
+      {
+        "bytes": 15236,
+        "path": "fixtures/vir-go/manifest.json",
+        "sha256": "e56260773f4752ca4a5ad2d9473eb078fe36e74405fdc506508b0b6fe59296d0"
+      },
+      {
+        "bytes": 1601,
+        "path": "fixtures/vir-go/negative/basic-generic/frontend-envelope.json",
+        "sha256": "e3ec158d1ec2342c7f794da5918f284e92ea99e8a803734e13f3831b9b5d62c7"
+      },
+      {
+        "bytes": 1535,
+        "path": "fixtures/vir-go/negative/basic-map/frontend-envelope.json",
+        "sha256": "6a1848f80465d6f828f9d01b5e7f13d21b45a2e4afb181ecd06d2f6a5ece0af4"
+      },
+      {
+        "bytes": 1333,
+        "path": "fixtures/vir-go/negative/basic-pointer/frontend-envelope.json",
+        "sha256": "e59e48b640ec624d0d89d44c9726160e46a4ad38e1c5ff6ea58309190366f73e"
+      },
+      {
+        "bytes": 1568,
+        "path": "fixtures/vir-go/negative/basic-string/frontend-envelope.json",
+        "sha256": "b882363194a2445690508ccefb0eb9a6534a3640b14a2c487ba8985f44c214c5"
+      },
+      {
+        "bytes": 1190,
+        "path": "fixtures/vir-go/negative/payment-float/frontend-envelope.json",
+        "sha256": "c56d2ebc8fd4d5f48b013e127e0964c151b396a9aaef9e6e1ea8f52282cc08a0"
+      },
+      {
+        "bytes": 1388,
+        "path": "fixtures/vir-go/negative/payment-map/frontend-envelope.json",
+        "sha256": "c8c8cdb06d0714b7cf86eb79e2f021755b1c58bb4d8b316040814844b4e96b6c"
+      },
+      {
+        "bytes": 1009,
+        "path": "fixtures/vir-go/negative/payment-missing-postconditions/frontend-envelope.json",
+        "sha256": "9127da443969b9dd522e8f900c06bda255c98c747ad19696c114d90c4e380560"
+      },
+      {
+        "bytes": 1220,
+        "path": "fixtures/vir-go/negative/payment-pointer/frontend-envelope.json",
+        "sha256": "3e23119925b36d29efcd70379804d26e08169582c4359d5d5cbcf3d5bab94305"
+      }
+    ],
+    "indexed_artifacts_checked": 83,
+    "negative_sources": 8,
+    "positive_sources": 13,
+    "profile_vectors": 130
+  },
+  "go_profile_entry": {
+    "contracts": {
+      "ai": "mpk.profile.ai.go_fixed.v0",
+      "evidence": "mpk.profile.evidence.go_fixed.v0",
+      "frontend": "mpk.profile.frontend.go_fixed.v0",
+      "manifest": "mpk.profile.manifest.go_fixed.v0",
+      "policy": "mpk.profile.policy.go_fixed.v0",
+      "release": "mpk.profile.release.go_fixed.v0",
+      "source_map": "mpk.profile.source_map.go_fixed.v0",
+      "vc": "mpk.profile.vc.go_fixed.v0",
+      "vir": "mpk.profile.vir.go_fixed.v0"
+    },
+    "entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+    "schema": "mpk.semantic_profile.entry.v1",
+    "selection_schema": "mpk.selection.go_function.v0",
+    "semantic_parameters_schema": "mpk.semantic_parameters.go_fixed.v0",
+    "semantic_profile": "mpk.go.fixed.v0",
+    "source_language": "go"
+  },
+  "go_tuple": {
+    "frontend_bundle_id": "frontend.go.go2vir.candidate.v1",
+    "limit_profile_id": "mpk.vir.limits.v0",
+    "semantic_context": {
+      "profile_entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.go_fixed.v0",
+        "value": {
+          "pointer_width": 64,
+          "target_id": "linux/amd64"
+        }
+      },
+      "semantic_profile": "mpk.go.fixed.v0",
+      "source_language": "go"
+    },
+    "toolchain_bundle_id": "toolchain.go.go1.25.0.linux-amd64.candidate.v1"
+  },
+  "installed_release": {
+    "bundle_registry": {
+      "bytes": 2276758,
+      "path": "release/bundles/bundle-registry.json",
+      "sha256": "f2da0168c30ac72b2d624a2af76959231114b5ad862fad9d893c4e15b48395d0"
+    },
+    "date": "2026-09-03",
+    "profile_count": 4,
+    "receipt": {
+      "bytes": 845,
+      "path": "develop/migrations/archive/java-03-t10-native-receipt.json",
+      "sha256": "712261fc353e1f84e70eecd8f0db690f5b9f7e364eef32b8f5afc5446fdd1de8"
+    },
+    "scope": "historical installed release only; not certification of later source changes",
+    "semantic_registry": {
+      "bytes": 3119,
+      "path": "release/bundles/semantic-profile-registry.json",
+      "sha256": "1c9671f7db1f872f93d21757c271b39ddedd4fe612f4f388fe1700acd9808080"
+    },
+    "semantic_registry_revision": 3,
+    "tuple_count": 5
+  },
+  "schema": "mpk.go_practical.entry_audit.v0",
+  "selection_file": {
+    "bytes": 1039,
+    "path": "develop/migrations/go-practical/t01-w01/baseline-selection.json",
+    "sha256": "b8c7f14662771c7a7cdb47b9cadae989e88eec7a33347b3081cfb5fc449b430c"
+  },
+  "specifications": [
+    {
+      "bytes": 65624,
+      "path": "develop/specs/GO_VIR_PROFILE_V0.md",
+      "sha256": "98eedb11e226cf5d4797419866d11f4f5588f800b85941d3de1eeaa38c8331a8"
+    },
+    {
+      "bytes": 47017,
+      "path": "develop/specs/VIR_V0.md",
+      "sha256": "3e8923e3475b12a09bdd028380c4586dbeaab635e6d050ad66cc4bf3468f4cd6"
+    },
+    {
+      "bytes": 42509,
+      "path": "develop/specs/VC_V1.md",
+      "sha256": "f11fa00f72859b07ee2fbc002244530fe124d7647bf31b38e10ac539dc576dcd"
+    },
+    {
+      "bytes": 36934,
+      "path": "develop/specs/SEMANTIC_PROFILE_REGISTRY_V1.md",
+      "sha256": "e9770f4cfb955bb712791b89012b82ee065404f2fa5907cf75a07c573b59a4fe"
+    },
+    {
+      "bytes": 13203,
+      "path": "develop/specs/SOURCE_MAP_V0.md",
+      "sha256": "f48b11876d8473f36208150441abb287504c0e178b139be8e12815a23b55f821"
+    },
+    {
+      "bytes": 23491,
+      "path": "develop/specs/SOURCE_MANIFEST_V0.md",
+      "sha256": "71ffc2cdfccdaa065edb00bf9eb3a7ca53e37091db3def79aaea05e59d974277"
+    },
+    {
+      "bytes": 6631,
+      "path": "develop/specs/CORE_V0.md",
+      "sha256": "cc3f19b874d82fa8bf7684b6ef71e25e6a54fd9641e7185e8c4484f22cf4f814"
+    },
+    {
+      "bytes": 7433,
+      "path": "develop/specs/CERT_V0.md",
+      "sha256": "402efcd546ed42e84ed27d85618bd8793b4aa45166f72923e8462b2fa187340a"
+    },
+    {
+      "bytes": 11472,
+      "path": "develop/specs/TRUST_BOUNDARY_V0.md",
+      "sha256": "e1eae4b6b12815ce0433ccc576c1a0ddadc40ade0c29905927fa8514cff7aaa3"
+    },
+    {
+      "bytes": 82914,
+      "path": "develop/specs/vectors/go-vir-profile-v0.json",
+      "sha256": "1b408f57739eff2f053ea2c9e13fc7e78ee15ab72388b56e3f251fc1cf700dab"
+    }
+  ],
+  "work_item": "GO-PRAC-T01-W01"
+}

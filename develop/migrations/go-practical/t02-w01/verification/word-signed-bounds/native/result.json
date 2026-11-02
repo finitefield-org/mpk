@@ -1,0 +1,142 @@
+{
+  "schema": "mpk.go_practical.fresh_signed_bounds_native_observation.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T17:05:45.155906+00:00",
+  "original_source": {
+    "path": "develop/probes/go-practical/signed_bounds_observer.go",
+    "sha256": "0b7baad36e928256ada89d76c1367aad5dc3862dae01236fa8ef736384ef8594",
+    "bytes": 3066
+  },
+  "owned_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/native/inputs/signed_bounds_observer.go",
+    "sha256": "0b7baad36e928256ada89d76c1367aad5dc3862dae01236fa8ef736384ef8594",
+    "bytes": 3066
+  },
+  "original_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/queries.json",
+    "sha256": "c4bcdbb45f7496496fcf26ec23379d5f99be560b46c29a1b151a234027a8bd95",
+    "bytes": 6651
+  },
+  "owned_queries": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/native/inputs/queries.json",
+    "sha256": "c4bcdbb45f7496496fcf26ec23379d5f99be560b46c29a1b151a234027a8bd95",
+    "bytes": 6651
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "complete_original_prepared_image": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/captured/selected/prepared-image.json",
+    "sha256": "c6bcb748bf728a999d4edd56fb4cd390f9c1134671990dfd4e35e0c1086cc75d",
+    "bytes": 2574682
+  },
+  "complete_original_image_checks": [
+    {
+      "label": "before fresh empty-cache native compilation",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 0.5727894169976935,
+      "status": "passed"
+    },
+    {
+      "label": "after native compilation and both executions",
+      "files": 5577,
+      "original_bytes": 163457770,
+      "seconds": 0.5549603749532253,
+      "status": "passed"
+    }
+  ],
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-signed-bounds-native-m1tqqycy/image/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "observer_binary": {
+    "path": "/private/tmp/mpk-go-practical-signed-bounds-native-m1tqqycy/signed-bounds-observer",
+    "sha256": "93bc96c42ea95a263be8c25fe16cdb756d378844f3b54603c8e45e99cf04ced4",
+    "bytes": 3123170
+  },
+  "build_cache_initially_empty": true,
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-signed-bounds-native-m1tqqycy/image/go",
+    "GOCACHE": "/private/tmp/mpk-go-practical-signed-bounds-native-m1tqqycy/cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-signed-bounds-native-m1tqqycy/gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-signed-bounds-native-m1tqqycy/mod",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GO111MODULE": "off",
+    "CGO_ENABLED": "0",
+    "GOFLAGS": "",
+    "GOEXPERIMENT": ""
+  },
+  "commands": [
+    {
+      "name": "build",
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-bounds-native-m1tqqycy/image/go/bin/go",
+        "build",
+        "-trimpath",
+        "-buildvcs=false",
+        "-o",
+        "/private/tmp/mpk-go-practical-signed-bounds-native-m1tqqycy/signed-bounds-observer",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/native/inputs/signed_bounds_observer.go"
+      ],
+      "exit_code": 0,
+      "seconds": 3.095197750022635,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/native/build.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/native/build.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run1",
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-bounds-native-m1tqqycy/signed-bounds-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.4989164579892531,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/native/run1.stdout.log",
+        "sha256": "4aa5f8e6b59d16e14e6409f564e71ab826fc12e9c5f0687f502c07bcb282b40e",
+        "bytes": 12038
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/native/run1.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "run2",
+      "command": [
+        "/private/tmp/mpk-go-practical-signed-bounds-native-m1tqqycy/signed-bounds-observer"
+      ],
+      "exit_code": 0,
+      "seconds": 0.006508084014058113,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/native/run2.stdout.log",
+        "sha256": "4aa5f8e6b59d16e14e6409f564e71ab826fc12e9c5f0687f502c07bcb282b40e",
+        "bytes": 12038
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-bounds/native/run2.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "two_native_outputs_byte_identical": true,
+  "native_rows": 32,
+  "scope": "Actual typed Go sign/negation/unsigned magnitude, half-width and lower-bit masking/complement, computed half gap, strict nonnegative bound and minimum/half/magnitude-sign correspondence over32 original frozen rows. A fresh pinned prepared compiler image and two identical outputs supply independent finite counterparts for the new ordinary range laws, without repeating the old full-adder stage suite. Universal Nat/Int/source/application or Linux release acceptance is not claimed.",
+  "CSharp_tests_executed": false,
+  "public_profile_activated": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp"
+}

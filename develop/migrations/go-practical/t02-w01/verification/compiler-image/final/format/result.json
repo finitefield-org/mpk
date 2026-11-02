@@ -1,0 +1,80 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+    "-l",
+    "practical_compiler.go",
+    "practical_compiler_test.go",
+    "practical_compiler_capture_test.go"
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOWORK": "off",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_compiler.go",
+      "sha256": "046fb4ce4a0e9dd9fe2906b4b91bac7d394cbc0e278a8a0c4b57c100a39e0381",
+      "bytes": 9092
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler_test.go",
+      "sha256": "581f1cb1060dc85b6024d9b29cee621bbb7fb088b5ad393360e128f0e38fa5a2",
+      "bytes": 972
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler_capture_test.go",
+      "sha256": "9b92581125a5d46f04f4abc463c8a41aa058573d1f611530d792290c248f11c3",
+      "bytes": 10246
+    }
+  ],
+  "frozen_contract": {
+    "path": "develop/migrations/go-practical/t01-w01/entry-audit.json",
+    "sha256": "ecfe456fd52fd1b5f562f48126dddd487e00cc3b900147abe149b806fe64e828",
+    "bytes": 65080
+  },
+  "selection_reason": "Fix the full-SDK test fixture to seal files as well as directories; production compiler validation code is unchanged. Retest the entire native full-image root and all controls, plus current vet/format. The five unaffected initial root tests and five legacy roots remain passing and are not repeated. No CSharp tests, application proof, context/native release or intermediate full gate.",
+  "full_T02_gate": "deferred to T02-W04; use check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "started_at_utc": "2026-10-19T09:50:44.617921+00:00",
+  "input_vectors": [
+    {
+      "path": "develop/specs/GO_PRACTICAL_PROFILE_V1.md",
+      "sha256": "3afb71dc9f92075c9a1ca745291e8babc91055f633b366e51c49a301bd15cc86",
+      "bytes": 8197
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w01/entry-audit.json",
+      "sha256": "ecfe456fd52fd1b5f562f48126dddd487e00cc3b900147abe149b806fe64e828",
+      "bytes": 65080
+    }
+  ],
+  "exit_code": 0,
+  "wall_seconds": 0.006061500054784119,
+  "finished_at_utc": "2026-10-19T09:50:44.625665+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/final/format/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/compiler-image/final/format/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

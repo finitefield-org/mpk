@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "scope": "Diagnostic prefix localization only, preserving the full original rejected certificate; native core caps unchanged. No prefix counts as a normal row/source-U proof.",
+  "started_at_utc": "2026-10-22T21:33:54.896519+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/fuel-fields/driver.py",
+    "bytes": 3701,
+    "sha256": "90bdf7051b0960adfc6c7694c7dc643a67698ec0179ad2b16a81e32e32bf1bc8"
+  },
+  "complete_prelaunch_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/fuel-fields/prelaunch-inputs.json",
+    "bytes": 8844,
+    "sha256": "1bcd0af5ca0ad3fb6d293389c11b2b74cbb418fdf3241cba95bf20bc67b5f367"
+  },
+  "commands": [
+    [
+      "rustc",
+      "--edition=2021",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/diagnose-prefix.rs",
+      "-L",
+      "dependency=target/debug/deps",
+      "-o",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/fuel-fields/diagnosis",
+      "--extern",
+      "mpk_cert=target/debug/deps/libmpk_cert-56581625005ce3b7.rlib",
+      "--extern",
+      "mpk_kernel=target/debug/deps/libmpk_kernel-0d580f7bf4ab7bf5.rlib"
+    ],
+    [
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/fuel-fields/diagnosis",
+      "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/heterogeneous-fields/certificates/heterogeneous-payloads-nil.mpcert"
+    ]
+  ],
+  "tools": {
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustc",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a"
+    }
+  },
+  "compiled_diagnostic_binary_before_execution": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/fuel-fields/diagnosis",
+    "bytes": 1060648,
+    "sha256": "5ba27e24acd859652f52f6d7c495a55a1be09fdbf9c90d19a125c641fcd01060"
+  },
+  "whole_inputs_unchanged": true,
+  "exit_code": 0,
+  "seconds": 11.665372707997449,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/fuel-fields/stdout.log",
+    "bytes": 682,
+    "sha256": "e47c552fbc37bf16d5e071d704fc1f96ce5ceebcce220ff800baef6b87f36fb8"
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-value-relations/fuel-fields/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "finished_at_utc": "2026-10-22T21:34:06.610770+00:00"
+}

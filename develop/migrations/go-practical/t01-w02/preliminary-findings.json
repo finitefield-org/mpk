@@ -1,0 +1,31 @@
+{
+  "schema": "mpk.go_practical.preliminary_findings.v0",
+  "scope": "preliminary tool observations, not positive proof or release evidence",
+  "findings": [
+    {
+      "id": "W02-PREP-01",
+      "status": "resolved",
+      "observation": "Python urllib could not verify the local TLS issuer chain for the official Go metadata endpoint",
+      "correction": "Used /usr/bin/curl with normal certificate verification, then checked the official pinned archive size/SHA-256 and every extracted compiler file",
+      "tls_verification_disabled": false,
+      "source_hash_of_initial_attempt": null
+    },
+    {
+      "id": "W02-VERSION-01",
+      "status": "resolved",
+      "case": "language-go125",
+      "observed_initial_status": "rejected",
+      "observed_initial_code": "GO_PROBE_LANGUAGE_VERSION",
+      "raw_file_version": "go1.25.0",
+      "initially_compared_language_table_entry": "go1.25",
+      "correction": "Retain raw file version, derive the language minor with go/version.Lang, and keep the full module/toolchain requirement comparison separate",
+      "initial_subset_execution": [
+        "unused-unsupported-body: closed",
+        "external-helper: closed",
+        "language-go125: rejected; run stopped"
+      ],
+      "source_hash_of_initial_attempt": null,
+      "final_evidence": "module-probes.json contains the corrected complete 39-case two-pass run"
+    }
+  ]
+}

@@ -88,12 +88,8 @@ fn reduce_recursor_iota_with_budget(
     }
 
     let info = generated_recursor_info(env, terms, recursor_spine.head, inductive, term)?;
-    let arity = if info.bool_cases {
-        4
-    } else {
-        recursor_arity(info.shape)
-    };
-    if info.bool_cases && !recursor_spine.levels.is_empty() {
+    let arity = info.arity();
+    if info.kind.is_monomorphic() && !recursor_spine.levels.is_empty() {
         return Err(iota_error(
             IotaReductionErrorKind::MalformedGeneratedRecursor,
             term,
@@ -138,7 +134,7 @@ fn reduce_recursor_iota_with_budget(
     if constructor_inductive != inductive || !generated {
         return unknown_equation(term, recursor_spine.head, inductive, major_spine.head);
     }
-    if info.bool_cases && !major_spine.levels.is_empty() {
+    if info.kind.is_monomorphic() && !major_spine.levels.is_empty() {
         return unknown_equation(term, recursor_spine.head, inductive, major_spine.head);
     }
 
@@ -184,9 +180,9 @@ fn reduce_bool_iota(
         return unknown_equation(term, recursor, inductive, major_spine.head);
     }
     if major_spine.head == info.constructors[0] {
-        Ok(recursor_arguments[usize::from(info.bool_cases)])
+        Ok(recursor_arguments[info.kind.branch_offset()])
     } else if major_spine.head == info.constructors[1] {
-        Ok(recursor_arguments[1 + usize::from(info.bool_cases)])
+        Ok(recursor_arguments[1 + info.kind.branch_offset()])
     } else {
         unknown_equation(term, recursor, inductive, major_spine.head)
     }
@@ -202,7 +198,7 @@ fn reduce_nat_iota(
 ) -> Result<TermId, CoreError> {
     if major_spine.head == info.constructors[0] {
         if major_spine.arguments.is_empty() {
-            return Ok(recursor_spine.arguments[0]);
+            return Ok(recursor_spine.arguments[info.kind.branch_offset()]);
         }
         return unknown_equation(term, recursor_spine.head, inductive, major_spine.head);
     }
@@ -213,15 +209,14 @@ fn reduce_nat_iota(
 
     let predecessor = major_spine.arguments[0];
     let recursor_const = terms.constant(recursor_spine.head, recursor_spine.levels.iter().copied());
-    let recursive_result = terms.app(
-        recursor_const,
-        [
-            recursor_spine.arguments[0],
-            recursor_spine.arguments[1],
-            predecessor,
-        ],
-    );
-    Ok(terms.app(recursor_spine.arguments[1], [predecessor, recursive_result]))
+    let offset = info.kind.branch_offset();
+    let mut arguments = recursor_spine.arguments[..2 + offset].to_vec();
+    arguments.push(predecessor);
+    let recursive_result = terms.app(recursor_const, arguments);
+    Ok(terms.app(
+        recursor_spine.arguments[1 + offset],
+        [predecessor, recursive_result],
+    ))
 }
 
 fn reduce_eq_iota(
@@ -267,6 +262,38 @@ fn generated_recursor_info(
         .lookup(recursor)
         .map(|declaration| declaration.name().as_str())
         .unwrap_or_default();
+    if recursor_name == format!("{family_name}.induct") {
+        let signature = crate::nat_induct::nat_induct_signature(terms, env, inductive)?;
+        if env.lookup(recursor).expect("looked up recursor").ty() != signature.ty {
+            return Err(iota_error(
+                IotaReductionErrorKind::MalformedGeneratedRecursor,
+                term,
+                Some(recursor),
+                Some(inductive),
+            ));
+        }
+        return Ok(GeneratedRecursorInfo {
+            shape: MvpInductiveShape::Nat,
+            constructors: signature.constructors.to_vec(),
+            kind: GeneratedRecursorKind::NatInduct,
+        });
+    }
+    if recursor_name == format!("{family_name}.recType") {
+        let signature = crate::bool_rec_type::bool_rec_type_signature(terms, env, inductive)?;
+        if env.lookup(recursor).expect("looked up recursor").ty() != signature.ty {
+            return Err(iota_error(
+                IotaReductionErrorKind::MalformedGeneratedRecursor,
+                term,
+                Some(recursor),
+                Some(inductive),
+            ));
+        }
+        return Ok(GeneratedRecursorInfo {
+            shape: MvpInductiveShape::Bool,
+            constructors: signature.constructors.to_vec(),
+            kind: GeneratedRecursorKind::BoolRecType,
+        });
+    }
     if recursor_name == format!("{family_name}.cases") {
         let signature = crate::bool_cases::bool_cases_signature(terms, env, inductive)?;
         if env.lookup(recursor).expect("looked up recursor").ty() != signature.ty {
@@ -280,7 +307,7 @@ fn generated_recursor_info(
         return Ok(GeneratedRecursorInfo {
             shape: MvpInductiveShape::Bool,
             constructors: signature.constructors.to_vec(),
-            bool_cases: true,
+            kind: GeneratedRecursorKind::BoolCases,
         });
     }
     if recursor_name != format!("{family_name}.rec") {
@@ -322,7 +349,7 @@ fn generated_recursor_info(
             return Ok(GeneratedRecursorInfo {
                 shape,
                 constructors: constructors.iter().map(|(global, _)| *global).collect(),
-                bool_cases: false,
+                kind: GeneratedRecursorKind::Legacy,
             });
         }
     }
@@ -463,7 +490,36 @@ struct ConstSpine {
 struct GeneratedRecursorInfo {
     shape: MvpInductiveShape,
     constructors: Vec<GlobalId>,
-    bool_cases: bool,
+    kind: GeneratedRecursorKind,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+enum GeneratedRecursorKind {
+    Legacy,
+    BoolCases,
+    NatInduct,
+    BoolRecType,
+}
+
+impl GeneratedRecursorKind {
+    fn is_monomorphic(self) -> bool {
+        self != Self::Legacy
+    }
+
+    fn branch_offset(self) -> usize {
+        usize::from(matches!(self, Self::BoolCases | Self::NatInduct))
+    }
+}
+
+impl GeneratedRecursorInfo {
+    fn arity(&self) -> usize {
+        match self.kind {
+            GeneratedRecursorKind::BoolCases | GeneratedRecursorKind::NatInduct => 4,
+            GeneratedRecursorKind::Legacy | GeneratedRecursorKind::BoolRecType => {
+                recursor_arity(self.shape)
+            }
+        }
+    }
 }
 
 #[cfg(test)]

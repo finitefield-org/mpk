@@ -1,0 +1,137 @@
+{
+  "status": "passed",
+  "previous_registry_sha256": "e9152b475d92ee5a3d0debccc04d9aa2c20abac685a009616dc9719043a952b6",
+  "previous_records_reverified": 51,
+  "exact_new_records": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/stdout.log",
+      "sha256": "5dadd3cb1a6f13adb3f7e3f82df6d0c9d17d13ddcbfb19404fb8b24ef0c6881e",
+      "reason": "Preserve the exact terminal blank line in original isolated failure or complete proof-owner libtest stdout; this exact byte-pinned raw file is the only whitespace exception."
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/identity.stdout.log",
+      "sha256": "0e9f5fd0bcd9d83819433d5633ba1f24347694aecb87ed89a6b1583cba70b1f9",
+      "reason": "Preserve the exact terminal blank line in original isolated failure or complete proof-owner libtest stdout; this exact byte-pinned raw file is the only whitespace exception."
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/foundation.stdout.log",
+      "sha256": "7654b3ab9725ce32b31b4aaa0b8d14453508592383ab3739650602c86bc8196b",
+      "reason": "Preserve the exact terminal blank line in original isolated failure or complete proof-owner libtest stdout; this exact byte-pinned raw file is the only whitespace exception."
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/identity/identity.stdout.log",
+      "sha256": "24e735dfdedf278d8dcd6d6fc095ba66b0e28f8bfe97b382eee5acc8606c2656",
+      "reason": "Preserve the exact terminal blank line in original isolated failure or complete proof-owner libtest stdout; this exact byte-pinned raw file is the only whitespace exception."
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/normal/foundation.stdout.log",
+      "sha256": "37f2450ed0618332c7928b20ffb83504a300175c353eb27797d1efeb0e310fa5",
+      "reason": "Preserve the exact terminal blank line in original isolated failure or complete proof-owner libtest stdout; this exact byte-pinned raw file is the only whitespace exception."
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/normal/identity.stdout.log",
+      "sha256": "1954f87c442841e5eaa180bd3439e20ae0226afe06bb5c90e01328ecec3ded6c",
+      "reason": "Preserve the exact terminal blank line in original isolated failure or complete proof-owner libtest stdout; this exact byte-pinned raw file is the only whitespace exception."
+    }
+  ],
+  "checks": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/stdout.log",
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/stdout.log"
+      ],
+      "exit_code": 3,
+      "stdout_raw_utf8": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/stdout.log:11: new blank line at EOF.\n",
+      "stderr_raw_utf8": "",
+      "only_exact_raw_stdout_new_blank_at_EOF": true
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/identity.stdout.log",
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/identity.stdout.log"
+      ],
+      "exit_code": 3,
+      "stdout_raw_utf8": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-diagnosis/identity.stdout.log:11: new blank line at EOF.\n",
+      "stderr_raw_utf8": "",
+      "only_exact_raw_stdout_new_blank_at_EOF": true
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/foundation.stdout.log",
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/foundation.stdout.log"
+      ],
+      "exit_code": 3,
+      "stdout_raw_utf8": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/foundation.stdout.log:7: new blank line at EOF.\n",
+      "stderr_raw_utf8": "",
+      "only_exact_raw_stdout_new_blank_at_EOF": true
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/identity/identity.stdout.log",
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/identity/identity.stdout.log"
+      ],
+      "exit_code": 3,
+      "stdout_raw_utf8": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/identity/identity.stdout.log:6: new blank line at EOF.\n",
+      "stderr_raw_utf8": "",
+      "only_exact_raw_stdout_new_blank_at_EOF": true
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/normal/foundation.stdout.log",
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/normal/foundation.stdout.log"
+      ],
+      "exit_code": 3,
+      "stdout_raw_utf8": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/normal/foundation.stdout.log:7: new blank line at EOF.\n",
+      "stderr_raw_utf8": "",
+      "only_exact_raw_stdout_new_blank_at_EOF": true
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/normal/identity.stdout.log",
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/normal/identity.stdout.log"
+      ],
+      "exit_code": 3,
+      "stdout_raw_utf8": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/default-proofs-current-generation/normal/identity.stdout.log:6: new blank line at EOF.\n",
+      "stderr_raw_utf8": "",
+      "only_exact_raw_stdout_new_blank_at_EOF": true
+    }
+  ],
+  "total_records": 57,
+  "source_or_directory_exceptions_added": false
+}

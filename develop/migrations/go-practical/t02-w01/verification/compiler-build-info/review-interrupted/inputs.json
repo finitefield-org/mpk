@@ -1,0 +1,63 @@
+{
+  "status": "interrupted_for_concrete_self_output_link_bug",
+  "sources": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/README.md",
+      "bytes": 5117,
+      "sha256": "ee06f3e0ed09e9f7846add63c5d3cc23d5f98b5401b554eb83bcc9307a90e0b7",
+      "mode": 420,
+      "raw_file": "README.md.original.raw"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/review.py",
+      "bytes": 20025,
+      "sha256": "e8159347989bc538d2ab3dc6a74d8f1b5828a341169fac9e78341ec15a634e94",
+      "mode": 420,
+      "raw_file": "review.py.original.raw"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/docs/go-practical-implementation-traceability-ledger.md",
+      "bytes": 638658,
+      "sha256": "939e40552d618250d2ac8da5d1dde3556d4fef85d10b89b2e3d2670a20e9c551",
+      "mode": 420,
+      "raw_file": "attempt2-0-go-practical-implementation-traceability-ledger.md.original.raw"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/README.md",
+      "bytes": 5521,
+      "sha256": "a0a086d9eb1c906a3f4f26f2215fa7c641b7d4934c6f36e810e510a20c2db735",
+      "mode": 420,
+      "raw_file": "attempt2-1-README.md.original.raw"
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/compiler-build-info/review.py",
+      "bytes": 20471,
+      "sha256": "8a9619fe275465cbaad161f8c595c05b24d9934831504aacc3e0a47d491b3052",
+      "mode": 420,
+      "raw_file": "attempt2-2-review.py.original.raw"
+    }
+  ],
+  "reason": "README linked review.json before the review generated that output; the unchanged reviewer requires link destinations to exist. Stop before changing consumed sources, then link the review.py driver and run a fresh review. This is not an observation timeout or a source/test-scope change.",
+  "exit_code": 143,
+  "stdout": "stdout.log",
+  "stderr": "stderr.log",
+  "attempts": [
+    {
+      "exit_code": 143,
+      "reason": "README linked review.json before the review generated that output; the unchanged reviewer requires link destinations to exist. Stop before changing consumed sources, then link the review.py driver and run a fresh review. This is not an observation timeout or a source/test-scope change.",
+      "source_indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "exit_code": 143,
+      "reason": "Git diff --check found one new blank line at EOF of the implementation ledger. Stop before editing consumed inputs, fix that document whitespace, complete document preflight, and perform a fresh review. No implementation/test/source-scope change.",
+      "source_indices": [
+        2,
+        3,
+        4
+      ]
+    }
+  ]
+}

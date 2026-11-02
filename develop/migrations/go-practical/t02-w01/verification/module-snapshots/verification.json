@@ -1,0 +1,93 @@
+{
+  "schema": "mpk.go_practical.versioned_module_checkpoint.v1",
+  "status": "component_checks_passed_work_item_in_progress",
+  "observed_at_utc": "2026-10-19T09:17:43.195234+00:00",
+  "entry_commit": "a4a875653ad701c9ff0675be010057098939a978",
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot.go",
+      "sha256": "84b42b360ade8de47379d8623315c93d0e88462078f845e493f0774481872372",
+      "bytes": 4143
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot_test.go",
+      "sha256": "2bbe78c3752a8aba2ef4da3bdffcd7445ef1e03e7e05ebd657aab954474cd1fc",
+      "bytes": 1604
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot_capture_test.go",
+      "sha256": "3ee4ed013d253944e25a3c2e62158c14ab17d427730fc0fbedafa9777414a7bb",
+      "bytes": 8027
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive.go",
+      "sha256": "ad995d22331b7ef003c7f7a5d38d6531f32157f0f73b525330b317e81b41534b",
+      "bytes": 10335
+    }
+  ],
+  "selected_results": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-snapshots/selected/result.json",
+      "sha256": "4ddfe4d482b434f0bbaaf00aaa01fa9d7505f4cb879a088995d90f7192504174",
+      "bytes": 7662,
+      "mode": "selected",
+      "status": "passed",
+      "seconds": 2.2673016249900684
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-snapshots/legacy/result.json",
+      "sha256": "c5ddec8761e85bedcb72612804cf1a584aa1a1947a51c752674e6b303e53564c",
+      "bytes": 6057,
+      "mode": "legacy",
+      "status": "passed",
+      "seconds": 2.1872202499071136
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-snapshots/vet/result.json",
+      "sha256": "8d6e13887e8ea8d8febdb9501dfec655f0b27a16550fd130e2186faea4692bd3",
+      "bytes": 3822,
+      "mode": "vet",
+      "status": "passed",
+      "seconds": 0.41535929101519287
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/module-snapshots/format/result.json",
+      "sha256": "b579c08bcbe0fa3aeed7ed68e6e69c18cb63ac5b12a07db57155a775fe381ee1",
+      "bytes": 3957,
+      "mode": "format",
+      "status": "passed",
+      "seconds": 0.005744708934798837
+    }
+  ],
+  "root_tests_passed": 9,
+  "subtests_passed": 34,
+  "legacy_root_tests_passed": 5,
+  "legacy_subtests_passed": 20,
+  "implemented": [
+    "Capture exact original versioned .mod/.info/.ziphash/.zip from a bound original download root using official module path/version escaping; reject noncanonical location aliases.",
+    "Use an independently reconstructed captured original go.sum index for both manifest and ZIP h1 verification; caller parsed-map mutations cannot authorize replacement sums.",
+    "Check original Go info JSON/duplicate/member types and literal version through Go-compatible Version/Time/Origin decoding. Preserve unknown Go cache fields as opaque original bytes, not MPK artifact or VCS authority.",
+    "Match whitespace-trimmed original ziphash metadata to recorded h1 while retaining all raw bytes. Missing metadata is not repaired.",
+    "Verify present ZIP root go.mod against separately captured/checksummed .mod bytes, even when each independent h1 is individually correct. Retain legacy ZIPs without inserting a root manifest.",
+    "Preserve original raw source-object identities through immutable sealing; repeated reads do not add inputs or consume budgets twice.",
+    "Reject missing .mod/.info/.ziphash/.zip, stale manifest sums, mismatched root manifest/info version/ziphash, unavailable compiler patch and sticky transaction failures without downloads, VCS or generation."
+  ],
+  "reviewed_properties": [
+    "This captures one already selected identity. Go still selects module versions/replacements; no MVS reimplementation or trusted caller graph.",
+    "The shared original checksum-owner reconstruction is factored without changing pure ZIP parsing/CRC/content behavior; both existing archive-capture consumers are tested.",
+    "Opaque Go info provenance is data, never authorization to contact VCS or a source/application proof.",
+    "Uppercase path escaping and a legacy +incompatible snapshot retain original module spelling; legacy .mod is captured as existing input, not manufactured."
+  ],
+  "remaining": [
+    "Exact actual selected Go module graph and versioned/local replacement ownership, every consulted metadata/manifests and original source/export/build selection inventory.",
+    "Complete private checked foundation/registry/context and compiler/stdlib/analysis inventory before production original-package loader materialization.",
+    "W02 original type checking/closure, W03 independent common artifacts and W04 source-bound scalar proof/cumulative gate; continue full T03\u2013T11 scope."
+  ],
+  "CSharp_tests_executed": false,
+  "production_immutable_loader_materialized": false,
+  "public_profile_activated": false,
+  "source_program_proof_claimed": false,
+  "native_Linux_acceptance_claimed": false,
+  "T02_W01_complete": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp"
+}

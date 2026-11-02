@@ -1,0 +1,2415 @@
+{
+  "status": "failed",
+  "compiled_source_commit": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "repair_head": "0a68bf007146910dfd3a710a993626ec480ff860",
+  "started_at_utc": "2026-10-18T11:17:33.626260+00:00",
+  "command": [
+    "/private/tmp/mpk-t01-w05-calendar-original-test-binary",
+    "--exact",
+    "ordinary_carriers::structural_equivalence_tests::csharp_03_t06_w09_aggregate_aliased_consumer_preservation",
+    "--nocapture"
+  ],
+  "binary": {
+    "path": "/private/tmp/mpk-t01-w05-calendar-original-test-binary",
+    "sha256": "53da17280f5e86f1aeee4737592031f4b70d1fc5632f403e7512b4c12ee23656",
+    "bytes": 40911640
+  },
+  "original_source_package": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-diagnosis/compiler-source-snapshots.json",
+    "sha256": "b3232dd1b762820fc60489c9d462e69742976d21b764d73d84b0bedfe7f72c94",
+    "bytes": 98171
+  },
+  "original_source_member": "original-structural-equivalence-tests.rs",
+  "unset_environment": [
+    "RUST_MIN_STACK",
+    "MPK_W09_AGGREGATE_CONSUMER_OUT",
+    "MPK_W09_DECIMAL_SHARED_OUT"
+  ],
+  "selection_reason": "Concrete calendar/numeric failures show a later DomainCount epoch change. These two still-queued assertions also compare complete pre-StepEight archives with current definitions; diagnose exact original assertions before changing anything. This is not a repeated whole gate.",
+  "inputs": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/binding-vc-boundary_field.hex",
+      "sha256": "044780a098182e2079f5ec3356d51d4d383379f3c8ee378a604eb1ca96e67455",
+      "bytes": 101943
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/binding-vc-boundary_field.hex",
+      "sha256": "044780a098182e2079f5ec3356d51d4d383379f3c8ee378a604eb1ca96e67455",
+      "bytes": 101943
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/binding-vc-bounded_sequence.hex",
+      "sha256": "06197113f8075b1e78b1ed350e5825e458c3427903956572a7618ec2d8ba247a",
+      "bytes": 139287
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/binding-vc-bounded_sequence.hex",
+      "sha256": "2b3104b7a559b1b314d6befdf4ec4b8c61eea52a264b2eeb81d37add48d205df",
+      "bytes": 90505
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/binding-vc-instant.hex",
+      "sha256": "0584a415e2a287e5b8dfc0387f37cd59107b0ce0170544d672a9c5d6b804f7d2",
+      "bytes": 145473
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/binding-vc-instant.hex",
+      "sha256": "0584a415e2a287e5b8dfc0387f37cd59107b0ce0170544d672a9c5d6b804f7d2",
+      "bytes": 145473
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/binding-vc-lookup.hex",
+      "sha256": "d9b58a1eb848916fb57f266a4e130c2c03e2a0bee4b43c6dc5fb891d3c753709",
+      "bytes": 95967
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/binding-vc-lookup.hex",
+      "sha256": "d9b58a1eb848916fb57f266a4e130c2c03e2a0bee4b43c6dc5fb891d3c753709",
+      "bytes": 95967
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/binding-vc-money.hex",
+      "sha256": "a885fde62bc41827ecfb4f65249748ddd7a05b3de84b061e19b1d910c770f15a",
+      "bytes": 955227
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/binding-vc-money.hex",
+      "sha256": "f19df22097265702a3d68bf739cd122f60411ffe6cbe80dea6fc22200d62f847",
+      "bytes": 901373
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/binding-vc-option.hex",
+      "sha256": "08848b4123114abf16b40e62b601f73f5e8cd80ed14c959fe7afc2a5cc69d686",
+      "bytes": 95967
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/binding-vc-option.hex",
+      "sha256": "08848b4123114abf16b40e62b601f73f5e8cd80ed14c959fe7afc2a5cc69d686",
+      "bytes": 95967
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/binding-vc-ordered_entry.hex",
+      "sha256": "fb288f3bddde5bafd6263aea3d7fa7b7b092e903cebd8b62a9c83078ddbb29ea",
+      "bytes": 81471
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/binding-vc-ordered_entry.hex",
+      "sha256": "fb288f3bddde5bafd6263aea3d7fa7b7b092e903cebd8b62a9c83078ddbb29ea",
+      "bytes": 81471
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/binding-vc-ordered_map.hex",
+      "sha256": "d879fd2524add007bf3b0ed689d5d7e96bcd2b40d1f3dc77a02f03926fece31d",
+      "bytes": 163281
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/binding-vc-ordered_map.hex",
+      "sha256": "26f0d80fa39b4ee10c2aa407054c048ebd43f7d9a0621c11deaeb9f1836f4be2",
+      "bytes": 114367
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/binding-vc-ordered_set.hex",
+      "sha256": "22b889d4889590ebe2c1d366ad0cf3d4451a1dc1f7a463474f9a37313f2596c5",
+      "bytes": 143975
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/binding-vc-ordered_set.hex",
+      "sha256": "6d2b20431dd71d1ffb06a73b980d3712818f4a68aca3023a0b035268c669ee48",
+      "bytes": 95137
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/binding-vc-result.hex",
+      "sha256": "104aa55b258dfe2c502a30116e0ee3ad4c6b5cfc2864d967eaa71127cbefba01",
+      "bytes": 99955
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/binding-vc-result.hex",
+      "sha256": "104aa55b258dfe2c502a30116e0ee3ad4c6b5cfc2864d967eaa71127cbefba01",
+      "bytes": 99955
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/binding-vc-transition.hex",
+      "sha256": "f5b24348beada4d83d69f43094e40c4e90e77b0c2a44cbedd5c6a8e2a134ab15",
+      "bytes": 150237
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/binding-vc-transition.hex",
+      "sha256": "ea39b2393c2985a1da019f8a8ee8fd7f9851db5402853789e48b8ab511087cf3",
+      "bytes": 101345
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/binding-vc-validation.hex",
+      "sha256": "780e2f040a228a73f5073f478962dbea793c576c75978317bd1b81ca5979225c",
+      "bytes": 166275
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/binding-vc-validation.hex",
+      "sha256": "d45418e85a38f498a04d52f4771dc3a714eaeeb438efea8af73be9fb81c749a9",
+      "bytes": 117375
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/bool-construction.hex",
+      "sha256": "0f3991cb1e404c5dfef21cdf35584e3d3be5deb19ec6c9ba5d22e5a9f8bf0f5b",
+      "bytes": 133513
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/bool-construction.hex",
+      "sha256": "282cb3565b25f840e864eefe4d259d5a842fb0bab2b7dc694b9c52d81abd3aac",
+      "bytes": 84821
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/bool-float-entry.hex",
+      "sha256": "b4516928bf4b2fcf9a9316a83cc60f60442b7f77f04e4518922b0ecc0638558e",
+      "bytes": 72003
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/bool-float-entry.hex",
+      "sha256": "b4516928bf4b2fcf9a9316a83cc60f60442b7f77f04e4518922b0ecc0638558e",
+      "bytes": 72003
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/boundary-exception-empty.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/boundary-exception-empty.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/boundary-exception-payload.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/boundary-exception-payload.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/boundary-map-compound.hex",
+      "sha256": "b46b21190e32315bffb4ec07f50a5fc83b0e52310b020147d2b187041b9b2607",
+      "bytes": 193167
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/boundary-map-compound.hex",
+      "sha256": "6e973dcfa4bf89f96bbb3228acca9a3853bca457e2d035a72e2028cf399e8f9f",
+      "bytes": 144233
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/boundary-map-decimal.hex",
+      "sha256": "f6646a52d3f4135a46a211cf7cc2c43645ba0115bdd846d4391dd38bb0146270",
+      "bytes": 951189
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/boundary-map-decimal.hex",
+      "sha256": "727cf967e9c3e025b2b8ed1a25740297f423dc8e67a99e13826b62c75d8e0123",
+      "bytes": 897419
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/boundary-map-string.hex",
+      "sha256": "3585b9e1717f6db8e537768d75124aa9e270b6cb200f6c9fe60f99d97eee2fd7",
+      "bytes": 190621
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/boundary-map-string.hex",
+      "sha256": "ee72d704a7515f591a5bac5f4cf8f4795fd5036a38112025635867c55940f4b7",
+      "bytes": 141673
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/boundary-set-decimal.hex",
+      "sha256": "3d0ed261b2a5fddae0d8fd301e1ea22a0fedf0fec9ac4fdf630d137df9c3d8ab",
+      "bytes": 930659
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/boundary-set-decimal.hex",
+      "sha256": "25ce302b01445a4506ef59645b9a5d86f82a326d3ebe46349e08cda6516c468f",
+      "bytes": 876801
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/boundary-total-cells.hex",
+      "sha256": "4643183775c3d75457cefcb908c020c251045e92d8bf83a7667c0931dcdeae7c",
+      "bytes": 87595
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/boundary-total-cells.hex",
+      "sha256": "4643183775c3d75457cefcb908c020c251045e92d8bf83a7667c0931dcdeae7c",
+      "bytes": 87595
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/complete-snapshot.hex",
+      "sha256": "e3c8c45986f26b9ffd7cef9cfdd8b05cf951659b703ae98aa91835bd75c80b0f",
+      "bytes": 66543
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/complete-snapshot.hex",
+      "sha256": "e3c8c45986f26b9ffd7cef9cfdd8b05cf951659b703ae98aa91835bd75c80b0f",
+      "bytes": 66543
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/construction-vc-enum_zero.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/construction-vc-enum_zero.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/construction-vc-positive_constructor.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/construction-vc-positive_constructor.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/date.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/date.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/enum-construction.hex",
+      "sha256": "aa6b5625a07477538b1a92b269a0663332094738b7c693b1449cdff6116102e6",
+      "bytes": 133521
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/enum-construction.hex",
+      "sha256": "299e66b562a9f280a4612b85cc18b87031af6be099d4957aa678c998360feba4",
+      "bytes": 84829
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/exception-vc-allowed.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/exception-vc-allowed.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/extra-bool-float-map.hex",
+      "sha256": "b7190df0e5c31ae49284acdc9fabf9f722ee9d96042d379087ef4720918e5432",
+      "bytes": 149661
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/extra-bool-float-map.hex",
+      "sha256": "bc8f9ce9bcdbd8a0ba948f07158bd04a85cd573aee4192764935965831535c3f",
+      "bytes": 100749
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/extra-bool-nullable-map.hex",
+      "sha256": "a05663a81cc08a0cb166d36fc638ce1a793d0f96f4e9d65703f72a1cd816d01a",
+      "bytes": 169893
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/extra-bool-nullable-map.hex",
+      "sha256": "c48df6b18a6189357075fc6e564e0ad54201439dbb7b855124730c9ca584fb91",
+      "bytes": 120983
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/extra-lookup-nullable.hex",
+      "sha256": "b8ab6a45cae4e5c619d8094448a0d96ba676d3973606941aa4227b956ec61901",
+      "bytes": 102173
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/extra-lookup-nullable.hex",
+      "sha256": "b8ab6a45cae4e5c619d8094448a0d96ba676d3973606941aa4227b956ec61901",
+      "bytes": 102173
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/extra-shared-lookup-maps.hex",
+      "sha256": "ad08c79d4f599b6adec9f6de5ef16dd99bfb85ac7d439c884d0e9bd00612c797",
+      "bytes": 188183
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/extra-shared-lookup-maps.hex",
+      "sha256": "fc18a53dacda2e561307d852c7a2746070ca849c5a5f2a841c325bdea6d7579f",
+      "bytes": 139255
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/extra-validation-bool.hex",
+      "sha256": "fae49be0063867d0cdece839aff0542985a1ae48aa798193950a891f38e83dac",
+      "bytes": 165701
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/extra-validation-bool.hex",
+      "sha256": "bbe0874324f00af1cf9c4d079338e2472fd2034a482e35c832d6b19ab284af53",
+      "bytes": 116845
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/extra-validation-product.hex",
+      "sha256": "6058acc5bec944a8ef0c43fb07bdfefe0dee7d3e00dc3b796d26c0437de65bcc",
+      "bytes": 168763
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/extra-validation-product.hex",
+      "sha256": "bb66a7424a44e31075cec37505b849560cdac8b8160868ff69b80c6e3d415ede",
+      "bytes": 119855
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/float-make-commutation.hex",
+      "sha256": "b200e2a9e1e5101fa970ae20b7ab89cd4b2c10362878dca40ee9cfa91a47d3e0",
+      "bytes": 72653
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/float-make-commutation.hex",
+      "sha256": "b200e2a9e1e5101fa970ae20b7ab89cd4b2c10362878dca40ee9cfa91a47d3e0",
+      "bytes": 72653
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/float-sequence.hex",
+      "sha256": "7d4b9b286a1e0f405212317c87c3172f78a5fd45eec68496e4f005eefa4cad9c",
+      "bytes": 124195
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/float-sequence.hex",
+      "sha256": "f835d8c4cd0ee041372bbd129277ef1e877f4bfed5c4cadc2221063df200a8f3",
+      "bytes": 75515
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/floats.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/floats.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/guid.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/guid.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/nested-box.hex",
+      "sha256": "3d6eda778d56c544a4939b1b71010f2c4829a48a85dbce932d5fb3e953e357af",
+      "bytes": 141963
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/nested-box.hex",
+      "sha256": "f3616d46df8a1947da9b9aa058817ebad2fc1fa7469ee24e48b307c29559f695",
+      "bytes": 93161
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/nullable-float.hex",
+      "sha256": "e3c8c45986f26b9ffd7cef9cfdd8b05cf951659b703ae98aa91835bd75c80b0f",
+      "bytes": 66543
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/nullable-float.hex",
+      "sha256": "e3c8c45986f26b9ffd7cef9cfdd8b05cf951659b703ae98aa91835bd75c80b0f",
+      "bytes": 66543
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/nullable-string-default.hex",
+      "sha256": "1d2303c02be90e13d1153c006e113cfc9adf9d0bddec8accea04e5e01d86a7e0",
+      "bytes": 167065
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/nullable-string-default.hex",
+      "sha256": "236ad0f495640628e450de7eedb5e2f4bca4838a8c358b48206215fe74fd3fd4",
+      "bytes": 118149
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/parse-error-contract.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/parse-error-contract.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/product-construction.hex",
+      "sha256": "fea91a392785fa70db2219970ba3a514b6d149dfbaf6a0f77d48efbe67dd9a78",
+      "bytes": 135895
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/product-construction.hex",
+      "sha256": "fc0bd6825b31c4445b50d53b7b19f21f7352361d4452e1be18f7d87d7a4dc2b6",
+      "bytes": 87173
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/remapped-boundary-sequence.hex",
+      "sha256": "5a6cb32f9f3a2f13c4bb218fad0654f6b677ceda6f099d9fdcb41ac3f878a574",
+      "bytes": 257301
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/remapped-boundary-sequence.hex",
+      "sha256": "e963567bc8b368effc5d3f208a512c9662be41c1c81680acc258f4983680a081",
+      "bytes": 213541
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/string.hex",
+      "sha256": "9e4153387e758778889308441e4233e0fe51e06ecd15479b7d55707087bdadaf",
+      "bytes": 159961
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/string.hex",
+      "sha256": "d7ddaedf4e6b8cb597e53dd4588384d29f2746b1fc3c214bd9fcd61afa51fd95",
+      "bytes": 111055
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/unit-void-source.hex",
+      "sha256": "fcf5fdbb62d594a41cb779072a840d7af38ebcb8e9f229a73fbc36c5f8d202f6",
+      "bytes": 78069
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/unit-void-source.hex",
+      "sha256": "fcf5fdbb62d594a41cb779072a840d7af38ebcb8e9f229a73fbc36c5f8d202f6",
+      "bytes": 78069
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/previous-step-eight/certificates.json",
+      "sha256": "b3128d4193859a01b401bdecdb75fbcf6a153e9bc474b24d1b26babaa8b72eb2",
+      "bytes": 727102
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-guards/certificates.json",
+      "sha256": "8b185b618610ab1e1e266140be6c2e0b6735564f856ae8ffed78fa4d9c508e6e",
+      "bytes": 727098
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/previous-step-eight/binding-vc-ordered_map.hex",
+      "sha256": "c1dc2d6565ba4cc48f41d184776935b70409b2bc2597487b75ca376565975ee2",
+      "bytes": 164839
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/binding-vc-ordered_map.hex",
+      "sha256": "25e2812e67e4d2e13dd12baeca85f0462e125be9ce131b52bc349c2419f6fc35",
+      "bytes": 115925
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/previous-step-eight/binding-vc-ordered_set.hex",
+      "sha256": "32c65614a63c25b825402b3bcfd9c0c03add64cb968f1e45836028dcb81faf95",
+      "bytes": 145209
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/binding-vc-ordered_set.hex",
+      "sha256": "64fffe6b50599a3b44df3b3e5258dc96c74fb72c8c130952af2168c5fea2de1d",
+      "bytes": 96349
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/previous-step-eight/boundary-map-compound.hex",
+      "sha256": "369c207d28cae0bdf1bcdcfdac5d20212a63782df048c0f70c531aa5ca8d999d",
+      "bytes": 198577
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/boundary-map-compound.hex",
+      "sha256": "46b4dc5903c4ca029048a708adfa7362e523b93a7426edfff3bb4c1ca2ceb8c0",
+      "bytes": 149643
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/previous-step-eight/boundary-map-decimal.hex",
+      "sha256": "13d78f12da68cd49fffe0231a87962949d4ae6bfdd6a26f7ea190d4d08ba5b6a",
+      "bytes": 952845
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/boundary-map-decimal.hex",
+      "sha256": "c92ef4d7ec949602dbcdceaaed225665e2a2abbccf1d45816957da71568003a7",
+      "bytes": 899075
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/previous-step-eight/boundary-map-string.hex",
+      "sha256": "bbdd09701cd8f22a1692a0e7537ca3c83f6752a83fb5828b7727de5a5fab9329",
+      "bytes": 193775
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/boundary-map-string.hex",
+      "sha256": "d44649943c34c5aa67d0f3fbadb7abdf0392313f63fe87a1bb621e904fba08c2",
+      "bytes": 144827
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/previous-step-eight/boundary-set-decimal.hex",
+      "sha256": "14f4c1faff5be738a95257ae316c91fbd3fa004b3537dfc2b4a47212c2d1086f",
+      "bytes": 931981
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/boundary-set-decimal.hex",
+      "sha256": "1e9a821cab9a335227616de9c1a7e523568d3eb52921cf15d06bdcb007ef14fd",
+      "bytes": 878123
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/previous-step-eight/extra-bool-float-map.hex",
+      "sha256": "80a18230d8ff92f8d5b8b317f55ca46eedde65a53f6c0ba110a14dd5c87b1ebf",
+      "bytes": 151225
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/extra-bool-float-map.hex",
+      "sha256": "78ec9a43160cd3c0a574f0734bf9cc00da72ecffb1a493cb30eaefa9bc49c462",
+      "bytes": 102311
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/previous-step-eight/extra-bool-nullable-map.hex",
+      "sha256": "21235d3684e57a1065d876f7ec9226317bae4cc499c708bcfb711382560621f7",
+      "bytes": 171451
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/extra-bool-nullable-map.hex",
+      "sha256": "6261926c5ebd687cd10c0d6520d502c06ee63d5dc97ee09aa369a28bfef3a6b9",
+      "bytes": 122541
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/previous-step-eight/extra-shared-lookup-maps.hex",
+      "sha256": "2ef0c17bbe3ac1f8646bf477d356792551c4087c515be20045ea00d43edf0287",
+      "bytes": 191231
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/extra-shared-lookup-maps.hex",
+      "sha256": "ac8dbb61fb888fca087e9939c28daf0ace2cba1267ffa6dc95c2f3dbf61d764c",
+      "bytes": 142303
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/previous-step-eight/certificates.json",
+      "sha256": "1d1dcba0fc3ee1e9f1aea77d595c0349b549c4719a6bf3912cd131d7c5582747",
+      "bytes": 307682
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-orders/certificates.json",
+      "sha256": "b7e73eafd15691181292982b011a31ab8c318944bd407ac7e777fe279f387b76",
+      "bytes": 307682
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/binding-vc-boundary_field.hex",
+      "sha256": "8ac3265c82634ee1bb442455abdb3a04433125d6ed621b9ef5f1cfc764e42fb6",
+      "bytes": 88181
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/binding-vc-boundary_field.hex",
+      "sha256": "8ac3265c82634ee1bb442455abdb3a04433125d6ed621b9ef5f1cfc764e42fb6",
+      "bytes": 88181
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/binding-vc-bounded_sequence.hex",
+      "sha256": "9638f73fae74389de5f5dfb6024b001671ec26903cfc2eb202def58699f4f569",
+      "bytes": 138321
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/binding-vc-bounded_sequence.hex",
+      "sha256": "d7e9c367a9918675dd54554cc795bda22cbaf6ee62e6ed7a4c7dfd31a8a37235",
+      "bytes": 89559
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/binding-vc-instant.hex",
+      "sha256": "f18f45732677e74c2c19dce1ff53148585039ddf9c65b7cb9146667e35dc611f",
+      "bytes": 145157
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/binding-vc-instant.hex",
+      "sha256": "f18f45732677e74c2c19dce1ff53148585039ddf9c65b7cb9146667e35dc611f",
+      "bytes": 145157
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/binding-vc-lookup.hex",
+      "sha256": "8d6d1b500d9a1f3b659baa54d2f93ec5b33710e78b82ce0040437c5b1b5de0d4",
+      "bytes": 85547
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/binding-vc-lookup.hex",
+      "sha256": "8d6d1b500d9a1f3b659baa54d2f93ec5b33710e78b82ce0040437c5b1b5de0d4",
+      "bytes": 85547
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/binding-vc-money.hex",
+      "sha256": "d8ad0aaaffbce24f43a0973fca74e883318b746746a4f468ec2ff8215e20f914",
+      "bytes": 952963
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/binding-vc-money.hex",
+      "sha256": "e2b9db8a84c95b86f09cc29aa685d09a49fde7246d22f06ff44a90a920aaef9a",
+      "bytes": 899109
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/binding-vc-option.hex",
+      "sha256": "52f91db6f5104b4d7a62ff77ea2e0b9f538dae9616a498fa0224e8542c3c2c06",
+      "bytes": 85547
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/binding-vc-option.hex",
+      "sha256": "52f91db6f5104b4d7a62ff77ea2e0b9f538dae9616a498fa0224e8542c3c2c06",
+      "bytes": 85547
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/binding-vc-ordered_entry.hex",
+      "sha256": "2c0c3ce4de131441dca2ea670a29fb4f15ba9253f6f78b0ba3f100266589a9a8",
+      "bytes": 79285
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/binding-vc-ordered_entry.hex",
+      "sha256": "2c0c3ce4de131441dca2ea670a29fb4f15ba9253f6f78b0ba3f100266589a9a8",
+      "bytes": 79285
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/binding-vc-ordered_map.hex",
+      "sha256": "78778c53848f2f2acd2d33488071beadc08d93e64a511f52e59c463d2c46a7ab",
+      "bytes": 160083
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/binding-vc-ordered_map.hex",
+      "sha256": "c8d283b100af76815fb54641877f3d9f434480cdfd85703903b96e4be69923aa",
+      "bytes": 111169
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/binding-vc-ordered_set.hex",
+      "sha256": "c837b141dec9a0577d6d010509ed97f7fb9f3563c6187b3810a2426fa649cb10",
+      "bytes": 142997
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/binding-vc-ordered_set.hex",
+      "sha256": "6cce1a0e868fde8896d7f7f548a58126893362515e29f6edbed57c9d6c572db8",
+      "bytes": 94179
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/binding-vc-result.hex",
+      "sha256": "a65a4dec2eae671e66b8e4a6b5f196653b6cc459a9faa4e351c9473cbf844953",
+      "bytes": 88469
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/binding-vc-result.hex",
+      "sha256": "a65a4dec2eae671e66b8e4a6b5f196653b6cc459a9faa4e351c9473cbf844953",
+      "bytes": 88469
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/binding-vc-transition.hex",
+      "sha256": "bb0a15c2a559d24fbf6c881c3c72e9ba485b564a4b834eda123fd9bc829aee48",
+      "bytes": 146511
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/binding-vc-transition.hex",
+      "sha256": "ea0ca0167a7d499c6a9c3c2b60c683f40dbb28af119646515b32e228df5daa1b",
+      "bytes": 97649
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/binding-vc-validation.hex",
+      "sha256": "3a0981be988bbcdb51f3a15f7bd990e910ca05aadbbfc21a2a605d159e46a11b",
+      "bytes": 152935
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/binding-vc-validation.hex",
+      "sha256": "69f47870785bac0fe3c29f2c86f55fd1e63cbc054b37eb2418f5e3eb06677204",
+      "bytes": 104035
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/bool-construction.hex",
+      "sha256": "0f3991cb1e404c5dfef21cdf35584e3d3be5deb19ec6c9ba5d22e5a9f8bf0f5b",
+      "bytes": 133513
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/bool-construction.hex",
+      "sha256": "282cb3565b25f840e864eefe4d259d5a842fb0bab2b7dc694b9c52d81abd3aac",
+      "bytes": 84821
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/bool-float-entry.hex",
+      "sha256": "5228933401ce292d7da079976a3ad72afc42d9b325f9a0688bd60894643eeb63",
+      "bytes": 69817
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/bool-float-entry.hex",
+      "sha256": "5228933401ce292d7da079976a3ad72afc42d9b325f9a0688bd60894643eeb63",
+      "bytes": 69817
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/boundary-exception-empty.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/boundary-exception-empty.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/boundary-exception-payload.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/boundary-exception-payload.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/boundary-map-compound.hex",
+      "sha256": "4fcfd5252b9ec5c014fb09b16e0758a253db464299faeec6e9841f643788cdec",
+      "bytes": 189961
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/boundary-map-compound.hex",
+      "sha256": "41eb49d8a94d3cbe9573ba26408ccea550b3146fd62534d53ad751b9d0219cff",
+      "bytes": 141027
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/boundary-map-decimal.hex",
+      "sha256": "d8514e3ce0f07478c53004fa394871b9988e33aaaf00f2058594de16e534f3e0",
+      "bytes": 947917
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/boundary-map-decimal.hex",
+      "sha256": "92a8c95ea52c4c4eb1f168d82f1ca480436e5f1a22fc98f8c03692842fead48f",
+      "bytes": 894147
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/boundary-map-string.hex",
+      "sha256": "f7b7e2165cf6bd8ba1446bbd80de74b52bc1b181c955a8bc89c17aba788b1eaf",
+      "bytes": 187415
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/boundary-map-string.hex",
+      "sha256": "02544c615ee22aa23ba71557ab2bccb021def6f1a8ea7e8b97dae7c452f6668e",
+      "bytes": 138467
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/boundary-set-decimal.hex",
+      "sha256": "d01951fac6a833b5903da562d0e8a7c92c9f04d9e3cb306b09350b9c9d012a47",
+      "bytes": 929651
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/boundary-set-decimal.hex",
+      "sha256": "bb770ac28ca37fe287a64966578e6384dbc7d4d78f07d52aa43a2cadb7281110",
+      "bytes": 875793
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/boundary-total-cells.hex",
+      "sha256": "4643183775c3d75457cefcb908c020c251045e92d8bf83a7667c0931dcdeae7c",
+      "bytes": 87595
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/boundary-total-cells.hex",
+      "sha256": "4643183775c3d75457cefcb908c020c251045e92d8bf83a7667c0931dcdeae7c",
+      "bytes": 87595
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/complete-snapshot.hex",
+      "sha256": "e3c8c45986f26b9ffd7cef9cfdd8b05cf951659b703ae98aa91835bd75c80b0f",
+      "bytes": 66543
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/complete-snapshot.hex",
+      "sha256": "e3c8c45986f26b9ffd7cef9cfdd8b05cf951659b703ae98aa91835bd75c80b0f",
+      "bytes": 66543
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/construction-vc-enum_zero.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/construction-vc-enum_zero.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/construction-vc-positive_constructor.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/construction-vc-positive_constructor.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/date.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/date.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/enum-construction.hex",
+      "sha256": "aa6b5625a07477538b1a92b269a0663332094738b7c693b1449cdff6116102e6",
+      "bytes": 133521
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/enum-construction.hex",
+      "sha256": "299e66b562a9f280a4612b85cc18b87031af6be099d4957aa678c998360feba4",
+      "bytes": 84829
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/exception-vc-allowed.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/exception-vc-allowed.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/extra-bool-float-map.hex",
+      "sha256": "fb2024f4a984e0251f55925ddbb4819e507507e3219aec7ae7bb8a67e8ae9766",
+      "bytes": 146463
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/extra-bool-float-map.hex",
+      "sha256": "a24a22915f1075b4da8762df3bc37e28d20596a0a71bec488ccdca4ebd187595",
+      "bytes": 97605
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/extra-bool-nullable-map.hex",
+      "sha256": "9cdb8a9745d2bac05236fb70cfd6b7474085decf6947b4f7b93f658dc671bebe",
+      "bytes": 166687
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/extra-bool-nullable-map.hex",
+      "sha256": "19bc5acb30811cd94566308061fa9d90248958bd0e636bf76adcc111579e3b2f",
+      "bytes": 117777
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/extra-lookup-nullable.hex",
+      "sha256": "f07e215baca7bd1e898ce554c177127ba10476966138a63f6720fe684b942d8e",
+      "bytes": 91649
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/extra-lookup-nullable.hex",
+      "sha256": "f07e215baca7bd1e898ce554c177127ba10476966138a63f6720fe684b942d8e",
+      "bytes": 91649
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/extra-shared-lookup-maps.hex",
+      "sha256": "788416524f7ceabef7d68e99d4449e6f2d14e6bbea01299a3750be1574b99722",
+      "bytes": 181787
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/extra-shared-lookup-maps.hex",
+      "sha256": "ca0dbc3674044d20a96c82fcc15c6e129bc09e8d7f766b9442931a332bb720b2",
+      "bytes": 132859
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/extra-validation-bool.hex",
+      "sha256": "609cc1efef51d14f7b12fb61c032c61de8f5fbe79d5903d3a8eb6dcf0bc2faa6",
+      "bytes": 152541
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/extra-validation-bool.hex",
+      "sha256": "e79f4adef22f188bf0cb022f710b8f6842b2704611711c689a483120400adf49",
+      "bytes": 103685
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/extra-validation-product.hex",
+      "sha256": "8cf560a2b834303383ba684bb88a348c7f2d94a21243b0a5e5bc713f565f25a7",
+      "bytes": 155387
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/extra-validation-product.hex",
+      "sha256": "1f81b416543973e18f7ae6e70a66895a5a2ec16c934b80177f433b0314ef0bb6",
+      "bytes": 106479
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/float-make-commutation.hex",
+      "sha256": "53bd6d692ba5bfd21dd15f14570478e710b67c9a4dc738199e82b9fe19505fb0",
+      "bytes": 70467
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/float-make-commutation.hex",
+      "sha256": "53bd6d692ba5bfd21dd15f14570478e710b67c9a4dc738199e82b9fe19505fb0",
+      "bytes": 70467
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/float-sequence.hex",
+      "sha256": "7d4b9b286a1e0f405212317c87c3172f78a5fd45eec68496e4f005eefa4cad9c",
+      "bytes": 124195
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/float-sequence.hex",
+      "sha256": "f835d8c4cd0ee041372bbd129277ef1e877f4bfed5c4cadc2221063df200a8f3",
+      "bytes": 75515
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/floats.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/floats.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/guid.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/guid.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/nested-box.hex",
+      "sha256": "3d6eda778d56c544a4939b1b71010f2c4829a48a85dbce932d5fb3e953e357af",
+      "bytes": 141963
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/nested-box.hex",
+      "sha256": "f3616d46df8a1947da9b9aa058817ebad2fc1fa7469ee24e48b307c29559f695",
+      "bytes": 93161
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/nullable-float.hex",
+      "sha256": "e3c8c45986f26b9ffd7cef9cfdd8b05cf951659b703ae98aa91835bd75c80b0f",
+      "bytes": 66543
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/nullable-float.hex",
+      "sha256": "e3c8c45986f26b9ffd7cef9cfdd8b05cf951659b703ae98aa91835bd75c80b0f",
+      "bytes": 66543
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/nullable-string-default.hex",
+      "sha256": "1d2303c02be90e13d1153c006e113cfc9adf9d0bddec8accea04e5e01d86a7e0",
+      "bytes": 167065
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/nullable-string-default.hex",
+      "sha256": "236ad0f495640628e450de7eedb5e2f4bca4838a8c358b48206215fe74fd3fd4",
+      "bytes": 118149
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/parse-error-contract.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/parse-error-contract.hex",
+      "sha256": "067da7ce87be4f7bc653ac643da1fb93109301322fe005961091b688a1d45ee7",
+      "bytes": 18447
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/product-construction.hex",
+      "sha256": "fea91a392785fa70db2219970ba3a514b6d149dfbaf6a0f77d48efbe67dd9a78",
+      "bytes": 135895
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/product-construction.hex",
+      "sha256": "fc0bd6825b31c4445b50d53b7b19f21f7352361d4452e1be18f7d87d7a4dc2b6",
+      "bytes": 87173
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/remapped-boundary-sequence.hex",
+      "sha256": "8573a6465facff0ed135f04133dc0383e57c69f8f950b5c74172f49b27e01d80",
+      "bytes": 240809
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/remapped-boundary-sequence.hex",
+      "sha256": "c0562903a105bd1b31b3d3e9dc01f5d4a207d810b3985869936d74231e76c355",
+      "bytes": 197049
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/string.hex",
+      "sha256": "9e4153387e758778889308441e4233e0fe51e06ecd15479b7d55707087bdadaf",
+      "bytes": 159961
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/string.hex",
+      "sha256": "d7ddaedf4e6b8cb597e53dd4588384d29f2746b1fc3c214bd9fcd61afa51fd95",
+      "bytes": 111055
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/unit-void-source.hex",
+      "sha256": "fcf5fdbb62d594a41cb779072a840d7af38ebcb8e9f229a73fbc36c5f8d202f6",
+      "bytes": 78069
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/unit-void-source.hex",
+      "sha256": "fcf5fdbb62d594a41cb779072a840d7af38ebcb8e9f229a73fbc36c5f8d202f6",
+      "bytes": 78069
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/previous-step-eight/certificates.json",
+      "sha256": "57a075972290aa378f0762bf074946defa473b2c3583937f81452c04a5668da4",
+      "bytes": 663783
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/binding-relations/certificates.json",
+      "sha256": "db87818e82eb5db411a19cb217cde9365472c38a5b4e6891b5a87f7c83302485",
+      "bytes": 663779
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/previous-step-eight/binding-vc-ordered_map.hex",
+      "sha256": "191636f97ea9986a70332559c981d50cc1bf34435c2b06d4a933f26911442be2",
+      "bytes": 187305
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/binding-vc-ordered_map.hex",
+      "sha256": "230af4db8aeaa4b0b4d98bf46be5e6d3e2e55c7888ae20bfe51bd128e9e77145",
+      "bytes": 130739
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/previous-step-eight/binding-vc-ordered_set.hex",
+      "sha256": "58bd22e2fc6e9a0e3077e0f7a61e9a8d2d1902cd3722801c60e28c26a0a1eb4d",
+      "bytes": 171849
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/binding-vc-ordered_set.hex",
+      "sha256": "5566d2f056268d72012bc7eb5dde47b93a6577fcbe9b29db729714aa7df5ae24",
+      "bytes": 115461
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/previous-step-eight/boundary-map-compound.hex",
+      "sha256": "118ffc0262beeb4ff79d3198f79bae417563e069e5a62fc74a0492091e66870f",
+      "bytes": 229299
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/boundary-map-compound.hex",
+      "sha256": "977857d49e637918c30d34cc23b895a540c73cd82ff4a76cda2eac888455db13",
+      "bytes": 176039
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/previous-step-eight/boundary-map-decimal.hex",
+      "sha256": "5e2dfaee44fd46ef6ae6c40afa8db18e5787713769e0788a5dd35978c75af0de",
+      "bytes": 1009743
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/boundary-map-decimal.hex",
+      "sha256": "63919082cc7145d615e3d0b2b379c85b662ee90a373032d5cb3440f8f5e0a311",
+      "bytes": 943639
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/previous-step-eight/boundary-map-string.hex",
+      "sha256": "90bea0ee195b2966ac04a022329c0152c7400582a63ff722fe1159430a403839",
+      "bytes": 224371
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/boundary-map-string.hex",
+      "sha256": "dc74e59b4c88ed4d538708f78a3a3f6d46880b88606c6d7905e921d5a7929ad6",
+      "bytes": 171203
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/previous-step-eight/boundary-set-decimal.hex",
+      "sha256": "7d2bf00a203a824981565f866cc1b22a325a296e03e4fd5304dc73af28544a46",
+      "bytes": 983041
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/boundary-set-decimal.hex",
+      "sha256": "689f12b48e88dccee01934cc9ddb8630903ad39e107bd0fe970ca16b60ffa751",
+      "bytes": 917093
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/previous-step-eight/extra-bool-float-map.hex",
+      "sha256": "18ee8fac96345d546cdac035b98cae76ece27a104e143225cfd484fbcfa78076",
+      "bytes": 206117
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/extra-bool-float-map.hex",
+      "sha256": "b53a039b337100debe5a6e2251fe56f453cf719a949c5b9be6f30f0d9e104954",
+      "bytes": 149535
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/previous-step-eight/extra-bool-nullable-map.hex",
+      "sha256": "9185451ca3d4303e88b697442fc33055868c73798d4e0c7a0c58e780d2c8a146",
+      "bytes": 207421
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/extra-bool-nullable-map.hex",
+      "sha256": "5d2fadfe94c47ba0feb6247a559d0477e805a3d61ca75e4c17d54515dc28d999",
+      "bytes": 149143
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/previous-step-eight/extra-shared-lookup-maps.hex",
+      "sha256": "5459a9d49ebd3f83d98dd05388f6c532ec7a4fa8273ca225703efa9e244e1392",
+      "bytes": 212185
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/extra-shared-lookup-maps.hex",
+      "sha256": "2dbbedecfdd8bda4ba82c9d269e2420ca694e8ed06772ee9817749deb095bd33",
+      "bytes": 155477
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/previous-step-eight/certificates.json",
+      "sha256": "0c591823b9a35bdab7710b60eabc8eedb683d4042337d2d1c55631350a58377d",
+      "bytes": 92000
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/collection-operations/certificates.json",
+      "sha256": "ac2792a81aa084e139fef9feb2899ee12013b4d78c4a336b2036d5b14f0847a1",
+      "bytes": 91998
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/construction-operations/previous-step-eight/bool-construction.hex",
+      "sha256": "04479d7c97242a33bbe44b70ed180f8780c31c7835952ab73f1985bf74c476f8",
+      "bytes": 90317
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/construction-operations/bool-construction.hex",
+      "sha256": "6a8b79875620a235645e4b55aa3d59490091e6862f7aaf08c9163dc0ef3b62af",
+      "bytes": 39705
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/construction-operations/previous-step-eight/enum-construction.hex",
+      "sha256": "ddf409c02fb2e9d76a5724f65ea9648e7a46e95eddf1eb3164b9294a3bf1576a",
+      "bytes": 93837
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/construction-operations/enum-construction.hex",
+      "sha256": "388b642e7f0085af390b4e3f9ec58c13ea317eb01d3f4ea0a48fb2fba429f32f",
+      "bytes": 43189
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/construction-operations/previous-step-eight/float-sequence.hex",
+      "sha256": "8f5d3a7d94a68374cb0c1998052500680545c5623bd0a64610a7139fbfa5fe95",
+      "bytes": 93837
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/construction-operations/float-sequence.hex",
+      "sha256": "eeae00a08c1bb9090bdf9039705b503c00a6f898ed12c74f6a6e2cf66091d023",
+      "bytes": 43189
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/construction-operations/previous-step-eight/nested-box.hex",
+      "sha256": "7ae894023d858c2f8141c99a02f7c93552cd9808f51c8c587a670ec08127dc71",
+      "bytes": 93939
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/construction-operations/nested-box.hex",
+      "sha256": "5b1e544f156d81c8bc620f2d096b4a73f597b11f5464e17cc637d63f4d7e0bfb",
+      "bytes": 43309
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/construction-operations/previous-step-eight/product-construction.hex",
+      "sha256": "7ae894023d858c2f8141c99a02f7c93552cd9808f51c8c587a670ec08127dc71",
+      "bytes": 93939
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/construction-operations/product-construction.hex",
+      "sha256": "5b1e544f156d81c8bc620f2d096b4a73f597b11f5464e17cc637d63f4d7e0bfb",
+      "bytes": 43309
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/construction-operations/previous-step-eight/certificates.json",
+      "sha256": "21234289144f0427235406ddc9286f1835d14b9b4d8fbd01a44c3d5728142e76",
+      "bytes": 58248
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/construction-operations/certificates.json",
+      "sha256": "fcf2c8e7545afd44a2edd10258bfd1947e92cfae7c59e35ac2d0ddb6c7e2bfba",
+      "bytes": 58248
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/binding-vc-boundary_field.hex",
+      "sha256": "3e1ac2d853c4686d2e3ea8e53a9c1a0f408406131fd25dfeab3e56e4d38c7af2",
+      "bytes": 129419
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/binding-vc-boundary_field.hex",
+      "sha256": "a8329345bce77e33f51f4b44b099b82bda8c71376c3b39fb9a915ce6fcd892eb",
+      "bytes": 80439
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/binding-vc-bounded_sequence.hex",
+      "sha256": "168aa9ad2cbb3c8a43059b86ef186d181f80c2373795762312839c7f3717e7a5",
+      "bytes": 102529
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/binding-vc-bounded_sequence.hex",
+      "sha256": "092c89189de00d37bb5297695c62b9df87411069c40d3a7fecb2e9fee0005de3",
+      "bytes": 44463
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/binding-vc-instant.hex",
+      "sha256": "395e53cd6d3b7db9a58de3387e6636db16777caa6ab49b4fc4946cb1735898cc",
+      "bytes": 76235
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/binding-vc-instant.hex",
+      "sha256": "755a2be1ce5961e90dd2fd09a9e4f36bd4762aef6f38831572f38f8ba7076b2e",
+      "bytes": 17463
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/binding-vc-lookup.hex",
+      "sha256": "2ed7daeaa812cda2efcbbe9bdb29b784f2be9308fb0aab394729923835e3b8a1",
+      "bytes": 126919
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/binding-vc-lookup.hex",
+      "sha256": "af74a70236a620ec4447763c2059480c64aa004e8a2ce7c629673f3a740a827a",
+      "bytes": 77993
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/binding-vc-money.hex",
+      "sha256": "3760663873624b58fab44cfaef3cc4edfba5a33a6c38a5c1efb5b8ff6f2328cb",
+      "bytes": 132939
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/binding-vc-money.hex",
+      "sha256": "2a18b79cb0f32a290e8d5dd91ee3a09417d25a2a378fb5a75c0f803e64fe762e",
+      "bytes": 72909
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/binding-vc-option.hex",
+      "sha256": "848b4f07becb9d335a83cced4d15d777e1c8dca658b73aff194c8d44b76fa2d9",
+      "bytes": 126919
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/binding-vc-option.hex",
+      "sha256": "ad9509c75c9a1e26b1173b643c2bcb80092ef68f65fd14cf3ae8804a407b4070",
+      "bytes": 77993
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/binding-vc-ordered_entry.hex",
+      "sha256": "f76c1ccec503e12f6e70e6f2c8a9acad38fe2102b85dbc5a1db1e6c51851126c",
+      "bytes": 78901
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/binding-vc-ordered_entry.hex",
+      "sha256": "c2f83b336e528abe43547e03f0544f4f3929c88bf5c5f0fbf451872eec569b54",
+      "bytes": 19971
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/binding-vc-ordered_map.hex",
+      "sha256": "e804f11d2639a9d693962e676d22424cd8616130c85334b4e801505c0d056023",
+      "bytes": 171333
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/binding-vc-ordered_map.hex",
+      "sha256": "785192bffd1c98c949874d74c25fae0ee8169d5cdcc9e671c081638a1722cb2e",
+      "bytes": 114499
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/binding-vc-ordered_set.hex",
+      "sha256": "1b375b6ca74f9f32410a3995de9a078c8660e756ef69ac31d6e9f0d47224b8f1",
+      "bytes": 147165
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/binding-vc-ordered_set.hex",
+      "sha256": "74dc839bad0711837ce749ab7677e0535af94a89313bfb672a83c6a2b4b14271",
+      "bytes": 90827
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/binding-vc-result.hex",
+      "sha256": "040472da3da0440195459060fe39bf673b71c5ad80aebeb523e2673efdd382bd",
+      "bytes": 126937
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/binding-vc-result.hex",
+      "sha256": "12d25ed69b863fd90aff25ef9efcf549afcdd41afcd126f820ec6a9f7b6666d3",
+      "bytes": 77899
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/binding-vc-transition.hex",
+      "sha256": "8fb72fbc82ffc21f7ecfd6b29b429384a4855ee966982b54e55de7267291078b",
+      "bytes": 111705
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/binding-vc-transition.hex",
+      "sha256": "0f3d344216ecb513a69aa9d49a0caf543d08ad10d70585c69ab7c8bf48259bf5",
+      "bytes": 51367
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/binding-vc-validation.hex",
+      "sha256": "ad862cf5affc7eb175e99007eadb12e9d89aeee0c458efa78da75d605cac5839",
+      "bytes": 157941
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/binding-vc-validation.hex",
+      "sha256": "d54e07e539b11c1dea5e3eaa704e68e53c44baf88074dfb99a7ced0520ac63be",
+      "bytes": 99475
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/boundary-exception-empty.hex",
+      "sha256": "3603b882640ca80f1acecedd235b3ee81b2ed6a64ad80872427bee8119b392fd",
+      "bytes": 127361
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/boundary-exception-empty.hex",
+      "sha256": "a13fd114240560bc328e653f4c0ada0b29a3b20bb830b31bda216a1508bf2028",
+      "bytes": 78467
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/boundary-exception-payload.hex",
+      "sha256": "32292551887e3776c239b2dfad7fd566942140bf992e4155073c1902aee79614",
+      "bytes": 135709
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/boundary-exception-payload.hex",
+      "sha256": "996230d3259556ab80316462239c15185486222995a782befb20121910164f99",
+      "bytes": 83399
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/boundary-map-compound.hex",
+      "sha256": "43c8aaf24bb4dad351854d8227c8605925a70906525f200ac5936894a9e1e479",
+      "bytes": 211817
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/boundary-map-compound.hex",
+      "sha256": "f122795459851e21c3de8b5ad38a8337c1300c0e1f92316f38005b4df6e5d1bf",
+      "bytes": 158325
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/boundary-map-decimal.hex",
+      "sha256": "3067bed24f9ec8d6803be8a7bc2177d6b7037ae25dffb6cc9d5da64944051ef9",
+      "bytes": 982319
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/boundary-map-decimal.hex",
+      "sha256": "eebb67cdcde38d484b6ff54270a1a4aa93ac1074f3c09fd8438154f43cc22718",
+      "bytes": 915503
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/boundary-map-string.hex",
+      "sha256": "9e03e88f204e09a78dd65cec0898466135ce2ff1a3b44a2232ff6e7746954c27",
+      "bytes": 197661
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/boundary-map-string.hex",
+      "sha256": "5510a98de3f6afb32ef658f883f92329d74398516399c41d3ff3f29e05a6127e",
+      "bytes": 144305
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/boundary-set-decimal.hex",
+      "sha256": "0e2acbfe44e5f10ffebe4cd18c323e0ed33037fe533ff1fe42ab5d348ce74422",
+      "bytes": 921139
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/boundary-set-decimal.hex",
+      "sha256": "9a4a694139c25ba8c0aba094b73e913e006c78adf951120bcc96a8557fea9316",
+      "bytes": 852465
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/boundary-total-cells.hex",
+      "sha256": "5a726d390f7b1053c10852774cb41399c55d4dc8c7fb6bd9aa4e15cef0adfaf8",
+      "bytes": 166511
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/boundary-total-cells.hex",
+      "sha256": "6ae9d866b09a0f942b00c3c6a5f0acdb4c515799cef4b9bba7e9326034836029",
+      "bytes": 105797
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/construction-vc-enum_zero.hex",
+      "sha256": "3745426ff635f5590dcac9d9c04f45f9f89ad5a8e022ef6e5b44cc2f9ff75a7b",
+      "bytes": 17933
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/construction-vc-enum_zero.hex",
+      "sha256": "3745426ff635f5590dcac9d9c04f45f9f89ad5a8e022ef6e5b44cc2f9ff75a7b",
+      "bytes": 17933
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/construction-vc-positive_constructor.hex",
+      "sha256": "731a7f585f9724f57a63a003ce2a56ef650d3b49b14c902f7a5131f0e75b6f24",
+      "bytes": 76195
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/construction-vc-positive_constructor.hex",
+      "sha256": "4708de790e4e8cc1baeb9223261aff7378178ebced77a776a171aa8ef1f378fe",
+      "bytes": 17423
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/date.hex",
+      "sha256": "30d715bec964ddc1e6a9420f8814175da27cb6787200e2132d69936b95400190",
+      "bytes": 16925
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/date.hex",
+      "sha256": "30d715bec964ddc1e6a9420f8814175da27cb6787200e2132d69936b95400190",
+      "bytes": 16925
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/exception-vc-allowed.hex",
+      "sha256": "5afb12b78bbb5186fd0ff25dcde8cbff8ae95602d8c17acb73b70fd7933d1998",
+      "bytes": 125613
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/exception-vc-allowed.hex",
+      "sha256": "4c4e8c48749d4ac3855b38685be23248376cf0c99f9870cb5eb9b56802587eab",
+      "bytes": 76719
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/floats.hex",
+      "sha256": "71c4885df731a51cd63b2388e189f8dd00c41922ec6e62366eb492f35b22da04",
+      "bytes": 17493
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/floats.hex",
+      "sha256": "71c4885df731a51cd63b2388e189f8dd00c41922ec6e62366eb492f35b22da04",
+      "bytes": 17493
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/guid.hex",
+      "sha256": "c19a404e71aedbbf5dfd7aa0519d2b476b6d9e71571305a5e8c2c6c2e5124d03",
+      "bytes": 15879
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/guid.hex",
+      "sha256": "c19a404e71aedbbf5dfd7aa0519d2b476b6d9e71571305a5e8c2c6c2e5124d03",
+      "bytes": 15879
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/nested-box.hex",
+      "sha256": "afd254f7f3f50d6e1b0b5c4eb725592a0daa2061b446dbec1eee0ca0e524e36e",
+      "bytes": 164733
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/nested-box.hex",
+      "sha256": "fd4fd149b723c288a3aa040ab5a18ab8bf86f71cfc9e0b661b9361030d68bdd8",
+      "bytes": 106315
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/nullable-float.hex",
+      "sha256": "5be434232e890d94e32557f45debc8b7b45f98836633add969565afb07e2784e",
+      "bytes": 122725
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/nullable-float.hex",
+      "sha256": "ff3cc2e44acc28ebc41ada1b8c300c670b7dc3732509043606cb7bbc03332f6e",
+      "bytes": 73789
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/string.hex",
+      "sha256": "b756e4b7af6edd5c6041011ea228cbc1c9a165162ee8051c720061aa30284b80",
+      "bytes": 161405
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/string.hex",
+      "sha256": "0c8a6a0ebbe8d04522d8e3ee01191e0dac84e7d07f558a359a79d3368f582767",
+      "bytes": 103259
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/previous-step-eight/certificates.json",
+      "sha256": "acd4df043d561efad7fcb3f1452e7cef0c4f825624b1b64b43ec1b0c2019e907",
+      "bytes": 157824
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/domains/certificates.json",
+      "sha256": "c4ead0c516f8274ffd7c85ce8ed56b6c4630e93b19e63d536cf808f0c2f446d3",
+      "bytes": 157806
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/previous-step-eight/binding-vc-ordered_entry.hex",
+      "sha256": "f0739b17af995b2d9819933d6853c09af343e07d3fe0fb4116706e3a6e563295",
+      "bytes": 70235
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/binding-vc-ordered_entry.hex",
+      "sha256": "f0739b17af995b2d9819933d6853c09af343e07d3fe0fb4116706e3a6e563295",
+      "bytes": 70235
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/previous-step-eight/binding-vc-ordered_map.hex",
+      "sha256": "f0739b17af995b2d9819933d6853c09af343e07d3fe0fb4116706e3a6e563295",
+      "bytes": 70235
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/binding-vc-ordered_map.hex",
+      "sha256": "f0739b17af995b2d9819933d6853c09af343e07d3fe0fb4116706e3a6e563295",
+      "bytes": 70235
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/previous-step-eight/bool-float-entry.hex",
+      "sha256": "f57d37aa69f769ec52c579288634c3a70fd4a31191fffa639f7af6266da7e670",
+      "bytes": 52655
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/bool-float-entry.hex",
+      "sha256": "f57d37aa69f769ec52c579288634c3a70fd4a31191fffa639f7af6266da7e670",
+      "bytes": 52655
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/previous-step-eight/boundary-map-compound.hex",
+      "sha256": "4aa425d13fdd28b22d2b8c43d7a27725a2915e8b6e84b8b2837b8176c104e9e4",
+      "bytes": 156759
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/boundary-map-compound.hex",
+      "sha256": "7ffa475857f68a86ff99fd6409b2534cdc019f1e3dd0e991abad2cb4d96ae326",
+      "bytes": 107919
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/previous-step-eight/boundary-map-decimal.hex",
+      "sha256": "5df04c0be53e884e88798ea2ba4106eea586081f3bd1dd21076bc568d8783e97",
+      "bytes": 850099
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/boundary-map-decimal.hex",
+      "sha256": "5df04c0be53e884e88798ea2ba4106eea586081f3bd1dd21076bc568d8783e97",
+      "bytes": 850099
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/previous-step-eight/boundary-map-string.hex",
+      "sha256": "79c2a8ec190336feab26565f043185a3f0e51e884cedd9075013f2be703d5036",
+      "bytes": 154361
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/boundary-map-string.hex",
+      "sha256": "7c32c9d6ab12c98a42ce20e9f92e9e182fa2cd74b02e3645cce1a5e99d414faa",
+      "bytes": 105553
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/previous-step-eight/certificates.json",
+      "sha256": "2c6f730b5c6b2fc6c1e9d3c53b9afac581b131a74c5bd8a774fd96f82ff4c503",
+      "bytes": 15548
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/entry-operations/certificates.json",
+      "sha256": "88a6a98b988740f9fe03400fa2814c8a292289bbfd2039b263cf1cbdf61528cf",
+      "bytes": 15548
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/money-operations/previous-step-eight/binding-vc-money.hex",
+      "sha256": "671b95ebb55c1c12899698a374544ec07fb9ea061e71f02d026c1c2dfccc2285",
+      "bytes": 3341943
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/money-operations/binding-vc-money.hex",
+      "sha256": "24d8ac13537468233fc36d7d625ab253b91aa88a1403472551859318237747b0",
+      "bytes": 3293207
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/money-operations/previous-step-eight/shared-string-enum-money.hex",
+      "sha256": "995da4da80c0c1585af670423917ef88269ff47db667e9ed82b752d28ac5e72a",
+      "bytes": 3370109
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/money-operations/shared-string-enum-money.hex",
+      "sha256": "f217f444e06f3633930998e34b20752c5630697eb7836ec629a28d15ee335315",
+      "bytes": 3321383
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/money-operations/previous-step-eight/certificates.json",
+      "sha256": "2de6bf89dd39fd488d23e07dda39b1e82a6ef4d978f9b1d4afbffc431dc97572",
+      "bytes": 44444
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/money-operations/certificates.json",
+      "sha256": "3f33a7b44080c83d11aebce4f911d4252d3899617d70f109748660796fade19e",
+      "bytes": 44442
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/binding-vc-boundary_field.hex",
+      "sha256": "125ed6952d5f1a27f114ce55ac7e5a590f5867b6b3398e076047d923f7703ffc",
+      "bytes": 82449
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/binding-vc-boundary_field.hex",
+      "sha256": "125ed6952d5f1a27f114ce55ac7e5a590f5867b6b3398e076047d923f7703ffc",
+      "bytes": 82449
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/binding-vc-lookup.hex",
+      "sha256": "b7da360f91e5ee22239e9962b96c5d1a862551e714d9288945489fb15041aaf9",
+      "bytes": 78559
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/binding-vc-lookup.hex",
+      "sha256": "b7da360f91e5ee22239e9962b96c5d1a862551e714d9288945489fb15041aaf9",
+      "bytes": 78559
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/binding-vc-option.hex",
+      "sha256": "486955605a021f24c35fbcd8c4d3e1e5aabd2f7e0c75074087b1b2fbf91bd9a4",
+      "bytes": 79195
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/binding-vc-option.hex",
+      "sha256": "486955605a021f24c35fbcd8c4d3e1e5aabd2f7e0c75074087b1b2fbf91bd9a4",
+      "bytes": 79195
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/binding-vc-ordered_map.hex",
+      "sha256": "b7da360f91e5ee22239e9962b96c5d1a862551e714d9288945489fb15041aaf9",
+      "bytes": 78559
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/binding-vc-ordered_map.hex",
+      "sha256": "b7da360f91e5ee22239e9962b96c5d1a862551e714d9288945489fb15041aaf9",
+      "bytes": 78559
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/binding-vc-result.hex",
+      "sha256": "acf5169f0a36cee1c4f9a2d15ca40ad085ff0f7dd8e03483c3c255fa1b5fb4b1",
+      "bytes": 79691
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/binding-vc-result.hex",
+      "sha256": "acf5169f0a36cee1c4f9a2d15ca40ad085ff0f7dd8e03483c3c255fa1b5fb4b1",
+      "bytes": 79691
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/binding-vc-validation.hex",
+      "sha256": "975d59e9ccd5849319719c7b16f77188df98bbccf00a553a90820b2405600bd7",
+      "bytes": 161629
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/binding-vc-validation.hex",
+      "sha256": "8edd8729bdbcb8cb611dc46d50a55e5fa3243d68d8101c06c0f596d489961c8d",
+      "bytes": 112755
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/boundary-map-compound.hex",
+      "sha256": "b7da360f91e5ee22239e9962b96c5d1a862551e714d9288945489fb15041aaf9",
+      "bytes": 78559
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/boundary-map-compound.hex",
+      "sha256": "b7da360f91e5ee22239e9962b96c5d1a862551e714d9288945489fb15041aaf9",
+      "bytes": 78559
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/boundary-map-decimal.hex",
+      "sha256": "b7da360f91e5ee22239e9962b96c5d1a862551e714d9288945489fb15041aaf9",
+      "bytes": 78559
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/boundary-map-decimal.hex",
+      "sha256": "b7da360f91e5ee22239e9962b96c5d1a862551e714d9288945489fb15041aaf9",
+      "bytes": 78559
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/boundary-map-string.hex",
+      "sha256": "b7da360f91e5ee22239e9962b96c5d1a862551e714d9288945489fb15041aaf9",
+      "bytes": 78559
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/boundary-map-string.hex",
+      "sha256": "b7da360f91e5ee22239e9962b96c5d1a862551e714d9288945489fb15041aaf9",
+      "bytes": 78559
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/boundary-total-cells.hex",
+      "sha256": "b3ac4dd218648eccdba59f1f8b6728580eaf899d965688facc7de2d0c8f08f89",
+      "bytes": 74761
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/boundary-total-cells.hex",
+      "sha256": "b3ac4dd218648eccdba59f1f8b6728580eaf899d965688facc7de2d0c8f08f89",
+      "bytes": 74761
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/extra-lookup-nullable.hex",
+      "sha256": "bd1a97dd84d3397276c5fc2ac2701e5ead1a58d235c035641391e91aa5c938e5",
+      "bytes": 91591
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/extra-lookup-nullable.hex",
+      "sha256": "bd1a97dd84d3397276c5fc2ac2701e5ead1a58d235c035641391e91aa5c938e5",
+      "bytes": 91591
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/extra-validation-bool.hex",
+      "sha256": "cb4dff2eede3bfd676018030c13463342ff4b684bceaadc5ba9d936598f6e982",
+      "bytes": 165251
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/extra-validation-bool.hex",
+      "sha256": "71c4bcd086e7f09998c60f5c5e6e39514805abebbe1680648712f8ee6aa0a7d7",
+      "bytes": 116347
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/extra-validation-product.hex",
+      "sha256": "481902ee624a5971c879e293ca8b5ade3488db0aca2898674e2b27fe001d7707",
+      "bytes": 168353
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/extra-validation-product.hex",
+      "sha256": "19d7943fc56e11974a576f33581816d1b588b47058e1bb3a8fb449dee8ad80e2",
+      "bytes": 119453
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/nested-box.hex",
+      "sha256": "41ec16a40cf781916b1e4eb3885f9cec9ab132f09849c3d531951d36c9c75791",
+      "bytes": 145653
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/nested-box.hex",
+      "sha256": "3d58bab9c15ed8eec807448e1214c388d58055c6186b7c89ce5afcb6ab46b08e",
+      "bytes": 96865
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/nullable-float.hex",
+      "sha256": "25db18f7ad415fffac281be4fd52b559b7ab7a1bca0efdb83250b67e14ecbf2b",
+      "bytes": 91587
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/nullable-float.hex",
+      "sha256": "25db18f7ad415fffac281be4fd52b559b7ab7a1bca0efdb83250b67e14ecbf2b",
+      "bytes": 91587
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/string.hex",
+      "sha256": "307df2107cfdd9d0d9ebee7473cda8ffaf64156bacbd96695d860455525fdbed",
+      "bytes": 154965
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/string.hex",
+      "sha256": "49151dd3acb0137eee3704ca30e5daa26e8fa1fac5c6d07c3c7c761672175464",
+      "bytes": 106237
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/previous-step-eight/certificates.json",
+      "sha256": "8a328aff74af969d2f2d69a8cb123d5e20fcd183cbba3fcead438a7efde1e8a6",
+      "bytes": 118507
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/outcome-operations/certificates.json",
+      "sha256": "5e13c7fb103211c946d85c0db7398835fba134ce07231c03bcd6cf1b4e914628",
+      "bytes": 118507
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/binding-vc-bounded_sequence.hex",
+      "sha256": "d62ea68de8da237f4cc8d1c5095207fdc32a2857632a34f436e60bff8da9836a",
+      "bytes": 130385
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/binding-vc-bounded_sequence.hex",
+      "sha256": "b3c093f7c3b4fe114c6b6e3442e1f5bfdcd54f9153550ad8c9cd22cfb180e1e1",
+      "bytes": 81715
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/binding-vc-ordered_map.hex",
+      "sha256": "7feea0d9d584d3b7c607ce854778e96f387d40555b37651a566dc0ae28f3c5ec",
+      "bytes": 138649
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/binding-vc-ordered_map.hex",
+      "sha256": "c827694be3dee0d80f6dcfcaf7060e2e5823c828ae702d618e11cc5b53f1deb0",
+      "bytes": 89907
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/binding-vc-ordered_set.hex",
+      "sha256": "d62ea68de8da237f4cc8d1c5095207fdc32a2857632a34f436e60bff8da9836a",
+      "bytes": 130385
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/binding-vc-ordered_set.hex",
+      "sha256": "b3c093f7c3b4fe114c6b6e3442e1f5bfdcd54f9153550ad8c9cd22cfb180e1e1",
+      "bytes": 81715
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/binding-vc-transition.hex",
+      "sha256": "d62ea68de8da237f4cc8d1c5095207fdc32a2857632a34f436e60bff8da9836a",
+      "bytes": 130385
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/binding-vc-transition.hex",
+      "sha256": "b3c093f7c3b4fe114c6b6e3442e1f5bfdcd54f9153550ad8c9cd22cfb180e1e1",
+      "bytes": 81715
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/binding-vc-validation.hex",
+      "sha256": "d62ea68de8da237f4cc8d1c5095207fdc32a2857632a34f436e60bff8da9836a",
+      "bytes": 130385
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/binding-vc-validation.hex",
+      "sha256": "b3c093f7c3b4fe114c6b6e3442e1f5bfdcd54f9153550ad8c9cd22cfb180e1e1",
+      "bytes": 81715
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/boundary-map-compound.hex",
+      "sha256": "c6da9449b67abbaf303fc8e878d0def4e2a5b7e5089cfd07b97466aade6bbe83",
+      "bytes": 166413
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/boundary-map-compound.hex",
+      "sha256": "0405652c9b82befa460cdc30e5b53bcb4870f11638bef1e626fa8b1bcf37d3c1",
+      "bytes": 117515
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/boundary-map-decimal.hex",
+      "sha256": "029b3480b1bf230f96d273f5ca3e6e070892ab7ee882aa22967a51f83de0fce3",
+      "bytes": 925723
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/boundary-map-decimal.hex",
+      "sha256": "21d35e9d95390f0dc46d9b6dd47dc4af39a6289987bc57b7cb8ccccc52d0b403",
+      "bytes": 871879
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/boundary-map-string.hex",
+      "sha256": "5261b2e718a15b316efa1f0147c2f91ad96e7a5b1d5bc35bcd6cbd5ae05e129a",
+      "bytes": 164019
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/boundary-map-string.hex",
+      "sha256": "d99e6afbb3ae61fc6760256e2c74764287bbba377f7e5307e5299ac9b2b471ba",
+      "bytes": 115121
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/boundary-set-decimal.hex",
+      "sha256": "0fa1b7d7c4229aad6b4bdec3d4c70cc11d367beac10608be78fc7bb638c27baf",
+      "bytes": 907801
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/boundary-set-decimal.hex",
+      "sha256": "cb9335d96bc8265990325e469c2765207d946e6e80e25cb2c71519d66edff39a",
+      "bytes": 853949
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/boundary-total-cells.hex",
+      "sha256": "61aee6fbb0c209d6df36ea1636c5662c3f5defc3087ea7eb268049fcb17f00a0",
+      "bytes": 151519
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/boundary-total-cells.hex",
+      "sha256": "4af078c8a1a13a65fd7536e13286b78aa08269ed78e79b3b0834011a226c38d3",
+      "bytes": 102617
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/float-sequence.hex",
+      "sha256": "46c68c831ef93013b2a7556a1a5623d0ed1f9dea909d2f317372fa6e88557134",
+      "bytes": 143307
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/float-sequence.hex",
+      "sha256": "462e5b16c4238940039a9a1cfcaf87cf5bbb01fb57698baa7f2016a6f650893e",
+      "bytes": 94637
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/nested-box.hex",
+      "sha256": "fbe924eeed095e42319478f95201277cdc695bc62242c1262f55308cb879deb4",
+      "bytes": 132663
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/nested-box.hex",
+      "sha256": "b03d4b3a45a3706aa66d9aece0e116693b62117e25a633df97715de313b00ebd",
+      "bytes": 83993
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/previous-step-eight/certificates.json",
+      "sha256": "26f72acdcb3aa4bbc8218141841c572cdc8fbfc93950f3366b99e8453e02070a",
+      "bytes": 34818
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/sequence-operations/certificates.json",
+      "sha256": "9f9d066b49055a23f373a58085c6339edce7f4da2bdd467ed977c9ff845f5f77",
+      "bytes": 34812
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/source-observations/previous-step-eight/binding-vc-money.hex",
+      "sha256": "765ca3ed0124cb8119b0203c93e7cffa33ff55de033459d9053a59c2c0630f05",
+      "bytes": 941043
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/source-observations/binding-vc-money.hex",
+      "sha256": "5e0800745e5764fe6670e0ca7edad20bdfe147d9ba4d55db8eef2f234f2ec2ae",
+      "bytes": 887491
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/source-observations/previous-step-eight/complete-snapshot.hex",
+      "sha256": "be83574eed9f9d5c553cd0e66bb1ec25aae014f193f0b77afeb4db877b44885c",
+      "bytes": 1007117
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/source-observations/complete-snapshot.hex",
+      "sha256": "24be6fea34e0fb5a8ae71c6a17c72a2c4d33618888a640737f747053028404d7",
+      "bytes": 958945
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/source-observations/previous-step-eight/exception-vc-allowed.hex",
+      "sha256": "2c1e4bfe22c1fa384506ccaa3d980be3d753e32360fd54ce211aab0d00158894",
+      "bytes": 70081
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/source-observations/exception-vc-allowed.hex",
+      "sha256": "2c1e4bfe22c1fa384506ccaa3d980be3d753e32360fd54ce211aab0d00158894",
+      "bytes": 70081
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/source-observations/previous-step-eight/extra-bool-float-map.hex",
+      "sha256": "a2cce207b64d9a0ad464fe7f0971aac38fb445413dc0eb941000e65525b30af8",
+      "bytes": 147125
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/source-observations/extra-bool-float-map.hex",
+      "sha256": "8e70c428d981007fc3e1cec0f72a06bc410cede0be536a0d36e83e1bc1b2e3ee",
+      "bytes": 98339
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/source-observations/previous-step-eight/certificates.json",
+      "sha256": "1d2156852c1adbe53b2e11785b3192848e9dcc76ce30ba88e215d5e6a0ae923c",
+      "bytes": 25060
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/source-observations/certificates.json",
+      "sha256": "675dca53bfab5d49230cc322835aa24eda51b989f94125e88249541ebb0b7f14",
+      "bytes": 25060
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/binding-vc-boundary_field.hex",
+      "sha256": "bc9e58fe6d4e37461b427911a2a0b1a6e3badec547f5170754a325aee554dcac",
+      "bytes": 176455
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/binding-vc-boundary_field.hex",
+      "sha256": "4c6599c3df245f47b33e6eb7caf2270313aaffbc9c01ed21b8b436863de58e08",
+      "bytes": 127231
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/binding-vc-bounded_sequence.hex",
+      "sha256": "6fcb48421de6cea1f3c737a60f690c98aa12693969c89bbfce355eff6b3b257b",
+      "bytes": 170951
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/binding-vc-bounded_sequence.hex",
+      "sha256": "2eb9f8f33f9f05808b16763e6058e4f7d4ce5737d77430d197f6b550a09f21ae",
+      "bytes": 114533
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/binding-vc-instant.hex",
+      "sha256": "edd50c17d68ad7b011be1eece2925c0f6c1f879d7202622a1002e13a8a91144c",
+      "bytes": 198303
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/binding-vc-instant.hex",
+      "sha256": "eb36d4578d229fe1b244ff939693a912d696fb80a6af24d2c8aba3bb52c6cc7c",
+      "bytes": 146703
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/binding-vc-lookup.hex",
+      "sha256": "7c7ea58f23999de915ae5b894598824e9e5e0a91bfaff495fc16ce192ffd61cf",
+      "bytes": 168271
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/binding-vc-lookup.hex",
+      "sha256": "4bdb57c33e0d28251fd23cf2f21d35a86a16dd939c345b5d7995b7c3ffdbd0bc",
+      "bytes": 119109
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/binding-vc-money.hex",
+      "sha256": "9a9666c9bb6f67599cca99ba3815d484b768c9fa9affba02fa6593211ccd82f8",
+      "bytes": 3429851
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/binding-vc-money.hex",
+      "sha256": "822dc9d5c8b2fc046f8f9899599667f1e16d9f321258db204b25c86ba9949a2f",
+      "bytes": 3371239
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/binding-vc-option.hex",
+      "sha256": "40081c4c0252b34a12d01fc5ef323e604f0de7b0bf832ee7c93e351a1f61cea6",
+      "bytes": 168913
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/binding-vc-option.hex",
+      "sha256": "86cfa34f53dae435758cbe96386d3b759ddbf2bb678c9c82c79a679dd7b5263c",
+      "bytes": 119751
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/binding-vc-ordered_entry.hex",
+      "sha256": "7674df7e37e96540166bf64a259549e7677ec06ce382eb2c5e500ea7a2327fa4",
+      "bytes": 148217
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/binding-vc-ordered_entry.hex",
+      "sha256": "0dd4ce75bb8b773355dafa7c0fb43e76815220b815ae07e13de1d30d3d545bbe",
+      "bytes": 91243
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/binding-vc-ordered_map.hex",
+      "sha256": "3ef53e2f1c449d9bb0892e5e3bb3082f2853b4969c2cb27e160a6582cd1d4b77",
+      "bytes": 262075
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/binding-vc-ordered_map.hex",
+      "sha256": "44572c9e503086368dc7a4fc0fe17db61346e053ffc418ac2e5d06c22e012596",
+      "bytes": 205237
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/binding-vc-ordered_set.hex",
+      "sha256": "f2947a8203e010465fb720bfea343439900b00797c3b136e26823c56ee30924c",
+      "bytes": 199419
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/binding-vc-ordered_set.hex",
+      "sha256": "561231764276a9908563a46e4282b96c2127040c09f6f87a3e56e0a31dfd23ec",
+      "bytes": 142967
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/binding-vc-result.hex",
+      "sha256": "9fdf1229feae77cc3712401994c0e27d22dfcd51c2eea9513b4768df3f4c2cb4",
+      "bytes": 171829
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/binding-vc-result.hex",
+      "sha256": "8d770e0746feec641375dfb5d8a52e8e05c7882e2078eef1f4531bc1040ce86b",
+      "bytes": 122553
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/binding-vc-transition.hex",
+      "sha256": "aae7b688ef7e7fe5ac8117b69e16f2f4d87aa57a4d2f7de4363260a2c6ec68db",
+      "bytes": 192783
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/binding-vc-transition.hex",
+      "sha256": "053cae9f72abf20f1306688dc4a9c49aed395fdf1b2bb6e207417c5ef324ced2",
+      "bytes": 134731
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/binding-vc-validation.hex",
+      "sha256": "1d75efcaef96431abe72459ce81f53fbb25c5c96af33360f5d8222f39685a934",
+      "bytes": 229037
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/binding-vc-validation.hex",
+      "sha256": "c38c2db90f73467d2e4836309c6839d64c65fb4979db9679ff905344e3e8faf2",
+      "bytes": 170617
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/bool-construction.hex",
+      "sha256": "7bde6dab4f97aeea40808973090278993ab7982bba23076524e8941a04507895",
+      "bytes": 225207
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/bool-construction.hex",
+      "sha256": "61d16f656146c4bc452dc2684bdf215338072c9fa8030af1b1c7357d4c446ef5",
+      "bytes": 176437
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/bool-float-entry.hex",
+      "sha256": "df0bca68648745e2af93dfa43908ee56a4a971ab78f35b445b035f04af9cb8fc",
+      "bytes": 161639
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/bool-float-entry.hex",
+      "sha256": "e112494eb3d68f577f6d19615fdbe7b74d4f2f28d77c13463bc9e1ebef24e55d",
+      "bytes": 104687
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/boundary-exception-empty.hex",
+      "sha256": "12ae132be5c22d73fa8505df52433a2628bf4e8e9749e26ab6927a951b246aab",
+      "bytes": 192073
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/boundary-exception-empty.hex",
+      "sha256": "53eae91d19d6d3fdf1bf20cf82e05666efb6b06922f91153cba70c3fb7e2b086",
+      "bytes": 142929
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/boundary-exception-payload.hex",
+      "sha256": "b008c4b8b2ed3f9e9ca04fbceb4b7cebd838fdd81115c76a89212a95e91eca60",
+      "bytes": 232317
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/boundary-exception-payload.hex",
+      "sha256": "95c86269e8416f3b352e9a5d207f66f4aefc3da195f5bd3bed3ba8653f6dec05",
+      "bytes": 179863
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/boundary-map-compound.hex",
+      "sha256": "b91806099f7e2ab0a7632ba81557ce99cf05872c5d3b6ec2c555165e756d1fb0",
+      "bytes": 311549
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/boundary-map-compound.hex",
+      "sha256": "a70397a60d18bbb6fcae5b92e155a747374e50330374e4d91b1a370f90b42b56",
+      "bytes": 258075
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/boundary-map-decimal.hex",
+      "sha256": "fb1540046504014afa4a760899eba32f33a8c92f4ade8be4bf0d197e28dadd2d",
+      "bytes": 1089761
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/boundary-map-decimal.hex",
+      "sha256": "26f749b56cdfed10cd881988d08726f57db9411b21ea207cee74de6639097dfe",
+      "bytes": 1023469
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/boundary-map-string.hex",
+      "sha256": "15ff41eff049d77ce6235ea1540d7a98f94d302cd2ec074c16f40f37c560ab1c",
+      "bytes": 300767
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/boundary-map-string.hex",
+      "sha256": "a40b0a356bcfd8b1c98ae3b8904d300e2ed3929050f00bb5abc3c5ca0506e1bb",
+      "bytes": 247439
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/boundary-set-decimal.hex",
+      "sha256": "da1eca31e666818b6f7c8e74729ba82e48243cc4a4c6ab5b9b3da18c7f31854f",
+      "bytes": 1023891
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/boundary-set-decimal.hex",
+      "sha256": "9306af00df905dd5f551f4a8d9e5f58cb642b41874aabde8b0234ba6cb51af03",
+      "bytes": 957901
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/boundary-total-cells.hex",
+      "sha256": "d2e1f6f8bda542b56220098ccd1482b983fb7b679a9eb72c0f3898974ec07536",
+      "bytes": 247463
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/boundary-total-cells.hex",
+      "sha256": "2a5c957bfc08bee55d4fda05956f8a86f575c156b6683105ef379b46d9c14fff",
+      "bytes": 186725
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/complete-snapshot.hex",
+      "sha256": "e120160c21df98ed0c9b06971f61c9a780aee7fa0850e3d7fc006754d226ce20",
+      "bytes": 1185245
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/complete-snapshot.hex",
+      "sha256": "950481f873ec1d58b68af60ace7a9050321af0d561cb92fc5a74d771a743e043",
+      "bytes": 1128131
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/construction-vc-enum_zero.hex",
+      "sha256": "5a3c7c243465f78167f3b5a80039e1a7c0950849ee1ce9529608afa186bbe213",
+      "bytes": 68413
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/construction-vc-enum_zero.hex",
+      "sha256": "5a3c7c243465f78167f3b5a80039e1a7c0950849ee1ce9529608afa186bbe213",
+      "bytes": 68413
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/construction-vc-positive_constructor.hex",
+      "sha256": "1ae457a7f100259e17c7df19f1bcd3882fa046c957567a163f14477e1b3eeb61",
+      "bytes": 136995
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/construction-vc-positive_constructor.hex",
+      "sha256": "383f95e39645d5b8e143bd1afe8c27764b536f938c50aa0ed6ffbc7c69d4f5a7",
+      "bytes": 80323
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/date.hex",
+      "sha256": "77130719484c29d1beb7bf36b4f7622173f7dd205df523a1e517fd193393eb10",
+      "bytes": 61635
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/date.hex",
+      "sha256": "77130719484c29d1beb7bf36b4f7622173f7dd205df523a1e517fd193393eb10",
+      "bytes": 61635
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/enum-construction.hex",
+      "sha256": "a7deccb75cdc00ae69c3ca4fc55a382953edd3b1b49c511b9706d680513f7ac8",
+      "bytes": 241117
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/enum-construction.hex",
+      "sha256": "428079c61fd9568e22dbef9f531e664e2101e287683980c721a7cd9a1300534b",
+      "bytes": 184823
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/exception-vc-allowed.hex",
+      "sha256": "0dae9d4984d66fafa73ad66167429f564944c9fad6b85903500b7b451f2bad37",
+      "bytes": 182445
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/exception-vc-allowed.hex",
+      "sha256": "4d54348e62c554877445d28bb9853621de23ded186657282cf1b45fa71dabf7a",
+      "bytes": 133301
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/extra-bool-float-map.hex",
+      "sha256": "7c7f398e82a7bce20d9bb3584f21d04058006e8762e7683b7032f3a3793667bc",
+      "bytes": 273767
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/extra-bool-float-map.hex",
+      "sha256": "b649b75468b84294dbd50e7bd5ca0f448abdcfaa6c717ee509b3bd446c61990b",
+      "bytes": 216939
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/extra-bool-nullable-map.hex",
+      "sha256": "c72b912e969e990dcf3a11a8111f3e074d15603cf2a3175449e7c765da9912a7",
+      "bytes": 289965
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/extra-bool-nullable-map.hex",
+      "sha256": "2e82846cf4623bd1a185a4e28f01fe0ac4a4e1f2217a3827d63fc32cdd2c2892",
+      "bytes": 231597
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/extra-lookup-nullable.hex",
+      "sha256": "7e2567c04693a148c53d4684655d5653510deb2462652f53ff7fa56facca39bc",
+      "bytes": 194091
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/extra-lookup-nullable.hex",
+      "sha256": "12b60ca0f20e0a76a341205b6224506a53de032fc4306a673194f48b78a8a78b",
+      "bytes": 144917
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/extra-shared-lookup-maps.hex",
+      "sha256": "6b7908cce2b6207984988d55838cf1a15ba8d85f0f0fed2e007bd2f952d72bf0",
+      "bytes": 337065
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/extra-shared-lookup-maps.hex",
+      "sha256": "73217a08185608f252e6549756613e44601f2736fac8e720234ceebcdcc0f349",
+      "bytes": 279823
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/extra-validation-bool.hex",
+      "sha256": "3ba3a3667651053feeb72e1fc146911926990cc6298f7b225989c1dbaf0d5ab8",
+      "bytes": 219669
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/extra-validation-bool.hex",
+      "sha256": "159de38d739c4527ddabd1fce50b14af25acce399bf4616e188fb0605574906a",
+      "bytes": 169515
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/extra-validation-product.hex",
+      "sha256": "56f6aedc36b1bf330aa5d98b6d985d520130e72ff356d2f3316f32db034205ca",
+      "bytes": 242925
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/extra-validation-product.hex",
+      "sha256": "b8fd445648873e486f7d05b0df785fa9d73f491ab954d7a71a3e6d47b54f117f",
+      "bytes": 182783
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/float-sequence.hex",
+      "sha256": "220757eef4ba2624c76703e7e980a1709c84efd792afa7bc91c032861ab47c12",
+      "bytes": 260257
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/float-sequence.hex",
+      "sha256": "f8035ac0b2b598e72f209f8a5791303186a56373e9205e4c7460ce5d11773699",
+      "bytes": 203939
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/floats.hex",
+      "sha256": "19710306ca5c472711e8d1ba2c0070e9f9b48c3bedb7b6af574f79af84dd83b7",
+      "bytes": 229629
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/floats.hex",
+      "sha256": "19710306ca5c472711e8d1ba2c0070e9f9b48c3bedb7b6af574f79af84dd83b7",
+      "bytes": 229629
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/guid.hex",
+      "sha256": "4e3fff1e4dfbe4f69958f89775622e1ca00cf34ea8b3b5209601b5f4aec77b6e",
+      "bytes": 228501
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/guid.hex",
+      "sha256": "4e3fff1e4dfbe4f69958f89775622e1ca00cf34ea8b3b5209601b5f4aec77b6e",
+      "bytes": 228501
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/nested-box.hex",
+      "sha256": "2ed870c104e947e9c32119d8654f57296bc3eeb03f8c77a6ef251761f885544a",
+      "bytes": 286165
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/nested-box.hex",
+      "sha256": "76aa811a469f0320e2f113fbdf3b64c003d4c3e087c27066ee6c2760972f978d",
+      "bytes": 227729
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/nullable-float.hex",
+      "sha256": "c363ef185020543d20756de72cf7c95759ac523ed1c666954f311956c80c46e2",
+      "bytes": 167519
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/nullable-float.hex",
+      "sha256": "b823b1b1d15bf063ff978240f1030e23177bc170fc7ef11c0b0e5c40e5a03ce4",
+      "bytes": 118357
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/nullable-string-default.hex",
+      "sha256": "4ef933d66a1bbe08979bd836d6977e93b92c96e3c9769cfb29f4fa46663d3b38",
+      "bytes": 312609
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/nullable-string-default.hex",
+      "sha256": "d8d87d71cc61abe2be33cd2fbc656297ca9885cf5d0cde1b77eabc08677b6b56",
+      "bytes": 259459
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/parse-error-contract.hex",
+      "sha256": "37a5c4b4f57cd64a8a69fe40bfdf1441c19c7bec7366344047444034e4005e7a",
+      "bytes": 148497
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/parse-error-contract.hex",
+      "sha256": "78eb1e3e5342e1ef8274af9703b85eebe4d761c66cf571725a894f6af54bee29",
+      "bytes": 91675
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/product-construction.hex",
+      "sha256": "474157cfb0959b4bea6d248e939567668f3f070ace5fdaa8bca6f19e0f9e780b",
+      "bytes": 247945
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/product-construction.hex",
+      "sha256": "240858075108df8f6c148f861dad6fd677bf9353b5f193daff285633c5f01769",
+      "bytes": 191457
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/shared-string-enum-money.hex",
+      "sha256": "3f76ba16c1466259d226e0baf06f524e580a92773c489b7fbe09b55c5d06bc57",
+      "bytes": 3477635
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/shared-string-enum-money.hex",
+      "sha256": "c85164f179ba1d8d292c0a428bb986930a3879357bebfaa6d2e6ba86c93911c6",
+      "bytes": 3418899
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/string.hex",
+      "sha256": "75ca400ecac8d2bc8c101fe02e676534a5e6785066d2f0c22813f3cbcdc26216",
+      "bytes": 264415
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/string.hex",
+      "sha256": "cd2dfed617e7fc1ba84728dca0b87e07c3f3824333b5325cf09b31945238b30b",
+      "bytes": 206311
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/unit-void-source.hex",
+      "sha256": "84178cab5548743f144b904c1d12b20bb8f2aae51a525b851be5cc0f0f05a17d",
+      "bytes": 168999
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/unit-void-source.hex",
+      "sha256": "3a52a5224dab6bceb75a40d1eac5bb5ecc8b80f30561d2badd9ebfee953161be",
+      "bytes": 119875
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/previous-step-eight/certificates.json",
+      "sha256": "5aaf1a37981b5832bb2337af4a4eb21ab288b2b31f80b9e655e2d2cd037c0a4e",
+      "bytes": 2073636
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-foundations/certificates.json",
+      "sha256": "891c3e77652185c40d3af6ed9588de03f2ecaeeadd6457587827f89b086712f3",
+      "bytes": 2075808
+    }
+  ],
+  "exit_code": 101,
+  "expected_one_test_passed": false,
+  "wall_seconds": 0.1548196249641478,
+  "finished_at_utc": "2026-10-18T11:17:34.107829+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/aliased-consumers.stdout.log",
+    "sha256": "468f69e34c6d0daeeed31da0f8a73f59a3dcae8db67076190a12efb1674afd5a",
+    "bytes": 374
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/aggregate-archive-diagnosis/aliased-consumers.stderr.log",
+    "sha256": "439a63b4d65a25efb3687d7ac97ecad7cacfa5ed9a491c4d408c1fbb211952d2",
+    "bytes": 540
+  }
+}

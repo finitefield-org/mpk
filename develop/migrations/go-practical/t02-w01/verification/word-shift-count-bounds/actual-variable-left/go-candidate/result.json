@@ -1,0 +1,85 @@
+{
+  "status": "direct_candidate_observed",
+  "observed_at_utc": "2026-10-19T21:53:23.774941+00:00",
+  "command": [
+    "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "verify",
+    "develop/migrations/go-practical/t02-w01/verification/word-shift-count-bounds/actual-variable-left/rust-construction/certificates/word-shift-counts.mpcert"
+  ],
+  "exit_code": 0,
+  "seconds": 13.286088082939386,
+  "certificate": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shift-count-bounds/actual-variable-left/rust-construction/certificates/word-shift-counts.mpcert",
+    "sha256": "a56fd5d9854d6fa5f5c1ad5574ac20f51d12d73313e70f9df075dad371e06ede",
+    "bytes": 1189581
+  },
+  "original_Rust_report": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shift-count-bounds/actual-variable-left/rust-construction/certificates/word-shift-counts.rust.json",
+    "sha256": "14551c5f6cfc8bbfe31635468a019da52389bdd5a2cbb9eb959601e6099a13ea",
+    "bytes": 600
+  },
+  "unchanged_go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "unchanged_go_source_build_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shift-count-bounds/actual-variable-left/go-candidate/stdout.log",
+    "sha256": "c1ec6bf0e41900466dd6eb1f381a72438f8d1033619c5bad994eab53e0aff784",
+    "bytes": 346
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shift-count-bounds/actual-variable-left/go-candidate/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "outer_observation_wait_seconds": 300,
+  "observer_source": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-shift-count-bounds/run-candidate-go.py",
+    "sha256": "50187684fc6f161088725eb32c159bb2da6cdd09354e78c5711592be1350d6a1",
+    "bytes": 2609
+  },
+  "Rust_observation": {
+    "verdict": "accepted",
+    "module": "Mpk.Go.Practical.WordShiftFoundation",
+    "declaration_count": 3352,
+    "axiom_count": 0,
+    "hashes": {
+      "export": "7718df3cde1f184d28e38a58e70e1b68f6a0e8c952141c4a2e38ddb79021d440",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "d0f6d030d95727a8ee3b4811b47889698f776194a19d5394b0f566b953ce856c"
+    },
+    "axiom_report": {
+      "summary": {
+        "core_axiom_count": 0,
+        "builtin_theory_axiom_count": 0,
+        "go_semantics_axiom_count": 0,
+        "external_axiom_count": 0,
+        "total_axiom_count": 0
+      },
+      "entries": [],
+      "declaration_dependencies": []
+    },
+    "error_code": null,
+    "error_detail": null
+  },
+  "Go_observation": {
+    "verdict": "accepted",
+    "module": "Mpk.Go.Practical.WordShiftFoundation",
+    "declaration_count": 3352,
+    "hashes": {
+      "export": "7718df3cde1f184d28e38a58e70e1b68f6a0e8c952141c4a2e38ddb79021d440",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "d0f6d030d95727a8ee3b4811b47889698f776194a19d5394b0f566b953ce856c"
+    }
+  },
+  "semantic_negative_counted": false,
+  "complete_paired_success_claimed": false,
+  "resource_or_Linux_release_claimed": false,
+  "scope": "One original intended-positive word-shift-counts certificate. Preserve both direct outcomes; full paired acceptance still requires both unchanged checkers to accept the same final bytes. A format/fuel/resource failure supplies no semantic negative."
+}

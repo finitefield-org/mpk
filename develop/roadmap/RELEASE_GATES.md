@@ -70,91 +70,68 @@ The unsafe-code portion of this gate is defined by `specs/UNSAFE_POLICY_V0.md`.
 - Malformed certificates never panic.
 - Public API cannot bypass certificate verification.
 
-## Gate I: Go/Rust/C#/Java successor final release gate
+## Gate I: Go/Rust successor release gate
 
-The Go/Rust/C#/Java release closes only through `scripts/check-java-frontend.sh`,
-run manually in the same order on a reviewed local Linux host:
+The active release contains only Go and Rust. Provision the frozen Rust
+build-input cache explicitly before entering networkless verification:
 
-- validate the tracked Rust, C#, and Java build-input descriptors and unchanged
-  content-addressed caches before any byte is mounted or executed;
-- rebuild and validate the registered Go/Rust/C#/Java release, install only
-  registered bundle inventories, exercise both Rust target libraries, C#, and Java,
-  and reject removed predecessor publication paths and commands;
-- run all four frontends, the active corpora, both
-  source-free checkers, artifact-path scan, two-clean-build differential suite,
-  exact limits, bounded fuzz smoke, and strict obsolete-interface scan; and
-- regenerate the untrusted release provenance from registry, bundle, build
-  closure, manifest, VIR, VC, certificate, checker, axiom, determinism, path,
-  and zero-finding review records.
+```sh
+sudo ./scripts/build-release-bundles.sh --provision-build-inputs rust
+```
 
-All three frozen build-input caches must be provisioned explicitly before the
-networkless gate. Restored and newly provisioned closures run the same
-`--check-build-inputs rust` and C# `--check-build-inputs` checks before use. The
-Rust closure is provisioned as root because the frozen builder validates and
-delegates the same global cgroup-v2 hierarchy required by the installed
-release gate; compiler and build containers still run as the fixed
-unprivileged identity. C# and Java archive provisioning do not use that host
-boundary.
-Verification is networkless and cannot invoke an implicit rustup, Cargo, Go,
-container-image, or dependency download. The digest-pinned Go bundle-build and
-Rust runtime images are materialized before network isolation and every
-verification container uses `--pull=never` plus `--network=none`.
-This repository intentionally does not use GitHub Actions or workflow files.
-The operator starts the gate locally from reviewed bytes, makes host tool/cache
-roots root-owned, and uses an empty environment with a fixed tool path. The
-network namespace is an operational no-fetch control for that reviewed code,
-not containment against hostile root code. Testing an untrusted ref requires a
-separate disposable host whose egress is denied outside the guest and which
-exposes no host control socket.
-The installed Rust scan requires the initial cgroup namespace, a writable
-global cgroup-v2 hierarchy, and mount privileges for fixed `noswap` tmpfs
-backing. The local aggregate gate therefore runs as root inside a networkless
-namespace and gives `mpk` one fresh, otherwise empty delegated cgroup domain.
-The untrusted frontend, rustc, Cargo, and generated program receive none of
-those host privileges: the release bootstrap enters user and execution
-namespaces, exposes only fixed bind views, and sets `no_new_privileges` before
-starting them. Local runs require the same root/cgroup capability boundary.
+On a reviewed native x86-64 Linux host with root, strace and writable global
+cgroup v2, run the local gates from the root README:
+
+```sh
+sudo ./scripts/check-go-rust-frontend.sh
+sudo ./scripts/check-all.sh
+```
+
+The frontend gate validates the frozen build-input cache, rebuilds the
+registered Go/Rust release, exercises both Rust target libraries and both
+frontends, and repeats the installed release pass twice. It covers actual
+source artifacts, paired source-free checking, determinism, limits, fuzz smoke
+and obsolete-interface review. Old receipts apply only to their original
+registry and bundle identities; revision 4 needs fresh native release evidence.
+
+Verification uses reviewed local tools, digest-pinned images and complete
+registered inventories. Missing caches, tools or images fail closed; the gate
+does not download or upgrade dependencies. Privileged setup creates the
+required cgroup and fixed tmpfs boundary. Compiler, frontend and program work
+runs without host privileges inside the release sandbox. Use an externally
+egress-denied disposable runner for privileged release verification. GitHub
+Actions and workflow files are not used.
+
 Compiler and build-closure changes follow
-`../docs/rust-frontend-toolchain-upgrade.md` as one manually reviewed
-transaction. Gate success and every reported provenance field remain untrusted;
-proof acceptance still requires canonical certificate or checked-theory bytes
-accepted by the configured source-free checkers.
+[the Rust toolchain upgrade procedure](../docs/rust-frontend-toolchain-upgrade.md).
+Gate reports and provenance remain untrusted; canonical certificate bytes and
+checked theory certificates determine proof acceptance.
 
-## Gate J: New source-language or semantic-profile admission gate
+## Gate J: Go/Rust capability-profile expansion
 
-This gate is not part of the current Go/Rust release and does not add a Rust
-v0 prerequisite. It activates only after the serial handoff in
-`../docs/06_multilanguage_frontend_design-todo.md`: `RUST-07-T05` completes,
-then `MLANG-00`, then `MLANG-01`, and only then C# production begins. Every
-later language or source-profile expansion phase waits for its predecessor's
-complete release gate. The practical C# expansion is therefore
-`JAVA-03 -> CSHARP-03 -> DART-04`. Its T01 specification package is now
-normative but inactive, T02-W01 is ready, and publication alone does not open
-the production gate. The frozen future invocation is
-`sudo ./scripts/check-csharp-practical-release.sh`; it atomically replaces and
-retires the Java-named installed gate only at CSHARP-03-T08-W10.
+The [language scope](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md) permits Go and Rust
+only. The former other-language admission queue and release commands are
+retired. Practical Go follows its
+[work plan](../docs/09_go_practical_subset_design-todo.md) and remains inactive
+until all required implementation and release gates pass.
 
-Before a new source language or widened capability profile becomes a
-registered production frontend:
+Before activating a widened Go/Rust profile:
 
-- its exact supported subset, rejected-feature taxonomy, semantic profile,
-  contract syntax, compiler/API boundary, target model, canonical fixtures,
-  limits, diagnostics, and version policy are frozen and hash-pinned;
-- its frontend, subordinate compiler components, toolchain, runtime inputs,
-  and release bundle are exact, registered, reproducible identities rather
-  than ambient or user-selected executables;
-- phase selection resolves to exactly one registered frontend and one
-  language/profile pair before lowering; unknown identities and mismatches
-  reject;
-- the frontend emits one language-isolated, single-profile VIR module;
-  mixed-language VIR,
-  cross-language calls, FFI semantics, and ABI claims remain unsupported;
-- the language/profile phase adds no new certificate axiom category, does not
-  change Certificate v0 or either source-free checker acceptance rule, and
-  remains outside the proof trust boundary;
-- positive, negative, boundary, determinism, differential, adversarial, and
-  bounded fuzz suites pass, and both source-free checkers accept identical
-  resulting certificate bytes; and
-- the phase-specific review ledger is empty and the release report records
-  all selected profiles, bundles, inputs, manifests, VIR, VCs, certificates,
-  and recomputed hashes.
+- freeze its exact supported subset, rejection taxonomy, semantic profile,
+  contract syntax, compiler/API boundary, target, fixtures, limits and version
+  policy;
+- register reproducible frontend/toolchain identities and resolve one exact
+  language/profile tuple before lowering; reject unknown or crossed contexts;
+- bind every affected producer and consumer, shared artifact, manifest, policy,
+  recipe and release inventory to the same current identities;
+- preserve language-isolated VIR, Certificate v0, axiom categories and both
+  source-free checker acceptance rules;
+- pass the required positive, negative, boundary, differential, adversarial,
+  determinism and fuzz checks with actual certificate bytes; and
+- close the phase's review ledger and pass the complete native Linux release
+  gate before claiming release acceptance.
+
+During intermediate W items, run only affected local tests, lint/format and
+review. Run `./scripts/check-fast.sh` over cumulative T changes in its final W;
+that W and T remain incomplete until it passes. No language-specific skip mode
+or substitute aggregate gate is part of this cadence.

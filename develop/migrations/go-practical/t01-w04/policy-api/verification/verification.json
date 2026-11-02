@@ -1,0 +1,283 @@
+{
+  "Go_ordinary_elaborated": false,
+  "T01_W04_complete": false,
+  "T01_complete": false,
+  "branch": "codex/go-practical",
+  "commands": [
+    {
+      "command": "python3 -B develop/probes/go-practical/run_policy_roots.py --write",
+      "exit_code": 0,
+      "log": "materialize.log"
+    },
+    {
+      "command": "PYTHONPATH=develop/probes/go-practical python3 -B -m unittest test_policy_roots -v",
+      "exit_code": 0,
+      "log": "targeted-tests.log",
+      "tests": 20
+    },
+    {
+      "command": "python3 -B develop/probes/go-practical/check_policy_metadata.py",
+      "exit_code": 0,
+      "log": "metadata.log",
+      "results": {
+        "documents": 29,
+        "links": 504,
+        "predecessors": 143,
+        "source_inputs": 833,
+        "strict_JSONs": 186
+      }
+    },
+    {
+      "command": "rustfmt --check --edition 2021 develop/probes/go-practical/policy-native/src/main.rs",
+      "exit_code": 0,
+      "log": "rustfmt.log"
+    },
+    {
+      "command": "gofmt -d develop/probes/go-practical/policy_raw_hashes.go",
+      "exit_code": 0,
+      "log": "gofmt.log"
+    },
+    {
+      "command": "Python AST/final-LF/trailing-whitespace checks of seven new modules",
+      "exit_code": 0,
+      "log": "source-format.log"
+    },
+    {
+      "command": "/usr/bin/git diff --check (outside sandbox)",
+      "exit_code": 0
+    },
+    {
+      "command": "focused report/byte-binding unit test after repair",
+      "exit_code": 0,
+      "log": "report-byte-binding-test.log",
+      "tests": 1
+    },
+    {
+      "command": "five affected policy matrix/certificate/source-binding/zero-count tests after repair",
+      "exit_code": 0,
+      "log": "affected-tests.log",
+      "tests": 5
+    },
+    {
+      "command": "fresh offline locked Linux observer build after TOML EOF-only normalization",
+      "exit_code": 0,
+      "log": "manifest-format-build.log",
+      "result": "parsed TOML values and native executable identical; exact one source pin refreshed"
+    },
+    {
+      "command": "/usr/bin/git diff --cached --check excluding exactly two archived initial Cargo.toml snapshots",
+      "exit_code": 0,
+      "reason": "Their original raw bytes intentionally contain a final blank line and are preserved for reproducibility; active files must pass."
+    }
+  ],
+  "dependency_archives": 32,
+  "entry_commit": "e23fa47a2768d9cf41cec7be0cee9341dfe5f7d5",
+  "environment": {
+    "cargo": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)",
+    "endpoint": "unix:///Users/kazuyoshitoshiya/.orbstack/run/docker.sock",
+    "image": "sha256:d617f1b5c2a18778ba357ba0528e973bd24992b0dd18000dfbca059f4a15ebda amd64 linux",
+    "network": "none",
+    "platform": "local Linux amd64 emulation on arm64 Docker engine; not native Linux release evidence",
+    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+    "source_mount": "read-only"
+  },
+  "final_source_pin_check": {
+    "count": 833,
+    "matched": true
+  },
+  "format_only_adjustment": "manifest-format.json",
+  "initial_findings": [
+    {
+      "classification": "probe_build_dependency_graph_stale",
+      "inputs": [
+        {
+          "path": "policy-native/src/main.rs",
+          "sha256": "eebce8e14e1e125b52564c5955b37b6745168ad615cdcf543d4302241bb751ea"
+        },
+        {
+          "path": "policy-native/Cargo.toml",
+          "sha256": "02bc0e2050a04b8c4748d451bd10a509fb0e2de8a6c062952825c7f69e4c03f2"
+        },
+        {
+          "path": "policy-native/Cargo.lock",
+          "sha256": "624d32d302989d4003455214c17a09ea2eb8d09651f64c1495c508907f205523"
+        }
+      ],
+      "meaning": "An in-flight bootstrap build captured the package graph before a new direct kernel dependency was added; subsequent source referenced that crate. This is a probe build-input sequencing error,not any native source/proof verdict.",
+      "record": "initial-build-input-overlap",
+      "repair": "Wait for the terminal handle,then rebuild with all source and lock inputs fixed. No source edits during authoritative runs."
+    },
+    {
+      "classification": "observer_compile_failure",
+      "inputs": [
+        {
+          "path": "policy-native/src/main.rs",
+          "sha256": "5562e940ff1002ae2f104d86432068e289fae879678a29f596f086a8d400d852"
+        },
+        {
+          "path": "policy-native/Cargo.toml",
+          "sha256": "02bc0e2050a04b8c4748d451bd10a509fb0e2de8a6c062952825c7f69e4c03f2"
+        },
+        {
+          "path": "policy-native/Cargo.lock",
+          "sha256": "af6cb9391dce5a60d59759eb2365b1a6fed2787119a4facdd04597c6a7a6b23f"
+        }
+      ],
+      "meaning": "SuccessorApiError exposes code as a public field,not a method; no policy/proof ran.",
+      "record": "initial-native-api-shape"
+    },
+    {
+      "classification": "offline_cache_unpack_failure",
+      "inputs": [
+        {
+          "path": "policy_native_build.py",
+          "sha256": "d8e1eb8e4b820d4f4d693320e604ecf6034722ee654f74e28c3c549c64c9db20"
+        }
+      ],
+      "meaning": "Linux-only crate archive is cached,but a read-only registry/src mount prevents its extraction; no network download or proof ran.",
+      "record": "initial-offline-cargo"
+    },
+    {
+      "classification": "probe_legacy_request_binding_failure",
+      "inputs": [
+        {
+          "path": "policy_sources.py",
+          "sha256": "6236a0ad2dd0eae337f195e80d934bb8782fa6be5151bfb514b3a38a726f1017"
+        },
+        {
+          "path": "policy-native/src/main.rs",
+          "sha256": "eebce8e14e1e125b52564c5955b37b6745168ad615cdcf543d4302241bb751ea"
+        }
+      ],
+      "meaning": "Retained Go/Rust profile envelopes used the common-family entry hash instead of the exact projected retained entry; API transport omitted required LF. Scalar C#/Java scans validated. No proof execution occurred.",
+      "record": "initial-policy-request-binding",
+      "repair": "Use legacy_projection entry identity for old compiled envelope; append exactly one LF to actual old API requests."
+    },
+    {
+      "classification": "probe_reference_report_shape_failure",
+      "inputs": [
+        {
+          "path": "policy_roots.py",
+          "sha256": "5f4004d6bb075f6e8565c4b9191e95f5bd1beba5e627af7b7a2a649e5f5e6abe"
+        }
+      ],
+      "meaning": "Both actual checkers accepted the rebound certificate at zero axioms. The observer expected verbose hash names and an explicit zero axiom_count; the pinned Go checker uses short hash keys and omits zero count. The existing production parser explicitly supports that protocol.",
+      "record": "initial-reference-report-shape",
+      "repair": "Validate the actual accepted-report field set,short hash keys and documented absent-zero count; preserve exact full source bytes and compare all three hashes to Rust."
+    },
+    {
+      "classification": "probe_certificate_report_binding_gap",
+      "inputs": [
+        {
+          "path": "policy_roots.py",
+          "sha256": "3c0ef8adf7e2f0e030b642416a84dbb48ab326d29afb308479d72f4cd5e79263"
+        },
+        {
+          "path": "test_policy_roots.py",
+          "sha256": "7ad842ad76e77985b3ed4515edcfdc42c67ad27a2901356efd96e2ffd00565f9"
+        }
+      ],
+      "meaning": "All authoritative native observations remain valid. A standalone adapter trial appended a byte while retaining copied valid reports and source sidecar; the adapter did not independently recompute the certificate domain hash over its supplied byte carrier.",
+      "record": "initial-report-byte-binding",
+      "repair": "Compare both checker certificate hashes to the existing Certificate v0 domain hash of the exact byte carrier; retain the source-manifest and ordinary-interface checks."
+    }
+  ],
+  "linked_public_source_inputs": 313,
+  "log_hashes": [
+    {
+      "path": "materialize.log",
+      "sha256": "8c5c3ae20c28bdfd0481f8c4b91265666c54a8b80fe316b462b61caeba27a167"
+    },
+    {
+      "path": "targeted-tests.log",
+      "sha256": "9a196eacd557ac90c887c92ca3e8f20cf9e8a0abb92673944af07a0398a6b496"
+    },
+    {
+      "path": "affected-tests.log",
+      "sha256": "9740d2ab557d7c8f7929a3a886a9355fe71fc2502743ad42e246b690626df711"
+    },
+    {
+      "path": "report-byte-binding-test.log",
+      "sha256": "2bc79675cb0e8a062a5c3209a4563308d9e26d055a49146aa201e7dad7e6e8d7"
+    },
+    {
+      "path": "metadata.log",
+      "sha256": "6cf07c5a3b83243bc41ce570067a083dc4aedacf48fcd104dbbe2f07461e719f"
+    },
+    {
+      "path": "rustfmt.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "gofmt.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "source-format.log",
+      "sha256": "01a8fc38ba0503d77fe96119c3e07de69c8e8091a058e9e76b13e5013faf0d27"
+    },
+    {
+      "path": "replay-comparison.json",
+      "sha256": "d3fbf571675e2901378fead8e1b72587d051fe121dcad9eded6359605d484332"
+    },
+    {
+      "path": "manifest-format-build.log",
+      "sha256": "5a5e60f5fdeeca5b61deaf375f49fdbe0dcf06a6a1e695b879e0b1bd8f9b71ef"
+    },
+    {
+      "path": "manifest-format.json",
+      "sha256": "960bcbe08867c2b84cc4aaa54869778e856cc68cb20ac427a2a88b2c7e3edcdd"
+    }
+  ],
+  "main_commit": "1c34ed5701df2e53fd515d49ad4d158cc728cb4b",
+  "observations": {
+    "API_failures_atomic": 72,
+    "API_operations": 102,
+    "Go_unelaborated_requests": 169,
+    "cases": 866,
+    "hash_vectors": 44,
+    "kernel_valid_go_claims_rejected": 2,
+    "native_queries": 79,
+    "outcomes": {
+      "assembly_error": 16,
+      "checked_ordinary_vc": 8,
+      "configuration_rejection": 834,
+      "ordinary_elaboration_pending": 8
+    },
+    "rebound_zero_axiom_certificates": 2,
+    "retained_assembly_errors": 4
+  },
+  "profile_activated": false,
+  "registered_frontend_executed": false,
+  "remaining": [
+    "complete Go ordinary statement/program/assembly/skeleton context and source/elaborator/word/state/permission/frame/control/definedness/totality proofs;169 Go requests remain unelaborated",
+    "new APIv4/AI-explanation and release roots,all reviewed producer/consumer migrations and general profile-preservation/activation review; observed retained assembly interface failures remain failures",
+    "W04 freeze,W05 inactive publication and cumulative T01 gate; full T02–T11 implementation,application proofs and required native local Linux release gates"
+  ],
+  "replay_comparison": "replay-comparison.json",
+  "resource_scope": "Darwin Docker-client proxy rusage/timing only; no native/checker process-tree resource or Linux release evidence; unchanged embedded reference checker retains its own runtime limits",
+  "review": [
+    "Complete immutable source rows are compared before cached source IDs or native replies can be used; caller mutations cannot switch Go into retained dispatch.",
+    "Every root reconstructs all required fields under independent context/source/VC and registered contract authority. Own hashes and scan raw identities are exact; the DAG has no back edge.",
+    "Actual public policy/API methods are used. Four existing assembly interface failures remain failures and are not described as source or ordinary-proof rejections.",
+    "The common certificate manifest is embedded in real Certificate v0 bytes; unchanged Rust and embedded Go checkers recheck identical bytes with equal certificate/export/axiom hashes and zero axioms. Ordinary exports and statements remain unchanged.",
+    "Two kernel-valid certificates with Go source metadata are insufficient to establish unelaborated Go goals; forged checked-Go policy evidence rejects. Format corruption is separately classified.",
+    "All102 retained API operations preserve helper-only status;72 actual failures preserve mutation counts. APIv4/AI/release roots and general migration preservation remain open.",
+    "Native source/build pins are stable before and after the authoritative build. Dependency archives use exact retained lock checksums; only task-owned cache extraction is writable.",
+    "The accepted reference report omits zero axiom count and uses short hash keys as supported by the existing parser; bool counts and hash mismatches reject.",
+    "The local Linux-amd64 test is emulated on an arm64 Docker engine. It does not satisfy native Linux release or checker/process-tree resource gates.",
+    "Production sources,old helpers,installed profiles,core rules and Certificate v0 meaning are unchanged. No general compiler or Go source-correctness proof is claimed.",
+    "The adapter independently recomputes MPK-MODULE-CERT-0.1 over the exact byte carrier; copied valid reports cannot certify modified bytes. The original failing carrier trial is preserved. All79 actual native results and binaries remain unchanged after repair.",
+    "T01 design freeze requires exact semantics,limits,wire/migration closure and assigned production executors. Implementation/source-proof work assigned by the existing plan to T02–T06 remains tracked there; its incompleteness is not claimed as current implementation success."
+  ],
+  "schema": "mpk.go_practical.policy_roots_verification.v0",
+  "scope": "private four common policy roots,exact common-manifest binding of real dual-checked retained ordinary certificates,actual seven retained API operations and source/proof readiness boundaries; no Go ordinary elaboration,registered frontend execution or activation",
+  "selection_reason": "The four policy root shapes,full source/proof links,immutable source authority,source-manifest rebinding and API readiness boundary changed. Run their complete conformance matrix,actual public policy import/API operations,both unchanged source-free checkers,three-language hashes,20 targeted tests,necessary new-source formatting and the immediate frontend/source-pin metadata closure. Unaffected numerical/core/native matrices remain pinned and are not rerun.",
+  "source_inputs": 833,
+  "source_semantics_proved": false,
+  "status": "passed: policy/source/API/checker conformance,20 targeted tests plus5 affected rechecks,and retained metadata closure; W04 remains in progress",
+  "whole_gate": {
+    "reason": "AGENTS.md reserves check-fast for the final W of T01; this remains intermediate W04. No equivalent broad gate was decomposed or run.",
+    "status": "deferred to T01-W05"
+  }
+}

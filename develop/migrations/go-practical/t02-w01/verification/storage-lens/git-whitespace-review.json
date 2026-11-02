@@ -1,0 +1,168 @@
+{
+  "status": "passed_with_original_output_retained",
+  "observed_at_utc": "2026-10-21T10:07:50.492814+00:00",
+  "actual_driver_sha256": "a534f142a14441c6551651b1f82d3551a64d71221fc29d01bbb8e62e1d87f011",
+  "actual_checks": [
+    {
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 2,
+      "stdout": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-algebra-checked/foundation/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/alphabet/stdout.log:6: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/definitions/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/foundation/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/laws/stdout.log:8: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/observations/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/construction-diagnostic/foundation/stdout.log:11: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/explicit-view-equations-checked/foundation/stdout.log:7: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/fields-before-frames/foundation/stdout.log:11: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/hygienic-transport/foundation/stdout.log:11: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/initial-foundation/foundation/stdout.log:11: new blank line at EOF.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/git",
+        "diff",
+        "--cached",
+        "--check",
+        "--",
+        ".",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-algebra-checked/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/alphabet/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/definitions/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/laws/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/observations/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/construction-diagnostic/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/explicit-view-equations-checked/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/fields-before-frames/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/hygienic-transport/foundation/stdout.log",
+        ":(exclude)develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/initial-foundation/foundation/stdout.log"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "exact_raw_output_warnings": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-algebra-checked/foundation/stdout.log",
+      "bytes": 284,
+      "sha256": "424374a3e65390a52811d7bd6e685edf4c45e7900636186fdd009a751112a71c",
+      "warnings": [
+        {
+          "line": 7,
+          "message": "new blank line at EOF."
+        }
+      ]
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/alphabet/stdout.log",
+      "bytes": 183,
+      "sha256": "dcd1a0e8d93b8903542412d6d142edaa2f7f8139300f23450aa9f87312ea19ba",
+      "warnings": [
+        {
+          "line": 6,
+          "message": "new blank line at EOF."
+        }
+      ]
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/definitions/stdout.log",
+      "bytes": 254,
+      "sha256": "57cd7289ea3ed1f9036caf5f84b43e2ee459c762f40531d274d2b11c191e18be",
+      "warnings": [
+        {
+          "line": 7,
+          "message": "new blank line at EOF."
+        }
+      ]
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/foundation/stdout.log",
+      "bytes": 284,
+      "sha256": "f17407a257670f8faf29f26c242dbce968482663274fe7a589aaa01749c173ee",
+      "warnings": [
+        {
+          "line": 7,
+          "message": "new blank line at EOF."
+        }
+      ]
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/laws/stdout.log",
+      "bytes": 315,
+      "sha256": "330df74b1656532e073c6520e431b0aee08e83111a848f1720bd1beab5937a41",
+      "warnings": [
+        {
+          "line": 8,
+          "message": "new blank line at EOF."
+        }
+      ]
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/complete-harness/observations/stdout.log",
+      "bytes": 233,
+      "sha256": "c2ef19bb5a5b9beccc2e7990c512ca01340ef2b36cd14b71df64dc0be1437067",
+      "warnings": [
+        {
+          "line": 7,
+          "message": "new blank line at EOF."
+        }
+      ]
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/construction-diagnostic/foundation/stdout.log",
+      "bytes": 216,
+      "sha256": "2406ba4920632ba856294b56ed6d32f01b2f277e509672e426e2622185864413",
+      "warnings": [
+        {
+          "line": 11,
+          "message": "new blank line at EOF."
+        }
+      ]
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/explicit-view-equations-checked/foundation/stdout.log",
+      "bytes": 284,
+      "sha256": "fd01b09e91359b52fb75d0d66640b430eea045178f01f9481ce2f3b197e40b6e",
+      "warnings": [
+        {
+          "line": 7,
+          "message": "new blank line at EOF."
+        }
+      ]
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/fields-before-frames/foundation/stdout.log",
+      "bytes": 217,
+      "sha256": "43aa979667ee69d4375745fbd67c3d2e2ee755a33f111c71468688b87a7c6bde",
+      "warnings": [
+        {
+          "line": 11,
+          "message": "new blank line at EOF."
+        }
+      ]
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/hygienic-transport/foundation/stdout.log",
+      "bytes": 217,
+      "sha256": "b141c70d80f896d65cb477cb5b8f94c7e021643093c6c475e3ebc0bdc7bb92f0",
+      "warnings": [
+        {
+          "line": 11,
+          "message": "new blank line at EOF."
+        }
+      ]
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/storage-lens/epochs/initial-foundation/foundation/stdout.log",
+      "bytes": 216,
+      "sha256": "635a431c66a8b91009a2f05ab2ab0e26a72e34b40b8cbd692ec564c69a1c6926",
+      "warnings": [
+        {
+          "line": 11,
+          "message": "new blank line at EOF."
+        }
+      ]
+    }
+  ],
+  "all_other_staged_files_pass_whitespace_check": true,
+  "original_Cargo_output_bytes_modified": false,
+  "obsolete_IR_matcher_scope_seal_or_exclusion_changes": false
+}

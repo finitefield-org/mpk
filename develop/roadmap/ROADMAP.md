@@ -17,17 +17,14 @@ The forward VIR/Rust migration sequence is owned by
    boundary.
 5. The serial post-Rust program below now owns subsequent production phases.
 
-Post-Rust source-language expansion is governed by
-`../docs/06_multilanguage_frontend_design.md` and
-`../docs/06_multilanguage_frontend_design-todo.md`. It is one continuation of
-the same flow, not a parallel track. The flow completed `RUST-07-T05`,
-`MLANG-00`, `MLANG-01`, the C# scalar release, and Java through T10, including
-its native x86-64 Linux receipt. `CSHARP-03-T01` has published the normative but
-inactive practical C# package and `CSHARP-03-T02-W01` is next; Dart,
-TypeScript, and Python follow the complete practical-profile release in that
-order. A governance or inactive specification record may prepare a later
-phase, but no production profile, selection branch, release tuple, bundle, or
-frontend starts before its entry gate.
+The current product supports Go and Rust only, under
+[the normative language scope](../specs/LANGUAGE_SUPPORT_SCOPE_V1.md).
+Practical Go v1/v2 continues in the accepted feature priority and serial T/W
+order in [the Go work plan](../docs/09_go_practical_subset_design-todo.md).
+T02-W01 remains in progress; completing the source/program foundation and
+local/native release gates is required before activation. No removed-language
+release or resumption is part of this roadmap. Earlier multi-language designs
+and migration receipts retain only their historical meaning.
 
 The Phase 0 through Phase 12 entries below are a historical record of the
 replaced Go-only baseline, not a parallel active path. Certificate v0,

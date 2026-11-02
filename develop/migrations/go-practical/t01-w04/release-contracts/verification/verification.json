@@ -1,0 +1,122 @@
+{
+  "W04_frozen": false,
+  "affected_rechecks": 3,
+  "commands": [
+    {
+      "command": "python3 -B develop/probes/go-practical/run_release_contracts.py --write",
+      "log": "probe-final.log",
+      "result": "pass;5 actual old tuple selections and13 independent hashes,each repeated twice"
+    },
+    {
+      "command": "PYTHONPATH=develop/probes/go-practical python3 -B -m unittest test_release_contracts -v",
+      "log": "tests.log",
+      "result": "10 passed before final component-scope review; exact source retained in initial-component-scope"
+    },
+    {
+      "command": "PYTHONPATH=develop/probes/go-practical python3 -B -m unittest -v <3 affected ReleaseTests methods>",
+      "log": "tests-affected.log",
+      "result": "3 passed after component-scope/hash/target-ref correction"
+    },
+    {
+      "command": "rustfmt --edition2021 --check <new observer main.rs>",
+      "log": "rustfmt.log",
+      "result": "pass"
+    },
+    {
+      "command": "gofmt -d <new release_hashes.go>",
+      "log": "gofmt.log",
+      "result": "empty output/pass"
+    },
+    {
+      "command": "AST parse of6 new Python sources",
+      "log": "syntax.log",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -B develop/probes/go-practical/check_release_metadata.py",
+      "log": "metadata.log",
+      "result": "pass; immediate AI predecessor,143 consumers and all current JSON/document links"
+    }
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "reason": "AGENTS.md requires cumulative T gate at final W; current W04 remains intermediate; no equivalent full gate decomposed into separate commands",
+    "status": "deferred to GO-PRAC-T01-W05"
+  },
+  "initial_findings": [
+    {
+      "path": "initial-bootstrap-target/diagnostic.json",
+      "sha256": "2d7f35a97a1c2d0a9e7e5abe11c9f7cfdf2d85cefb397c8c0b2a0bea61000d8b"
+    },
+    {
+      "path": "initial-component-scope/diagnostic.json",
+      "sha256": "d66a807bb91d022dcc390e5e82f2eeeee1de4f89cecd07346c5e62fa5a4594be"
+    },
+    {
+      "path": "initial-empty-observer/diagnostic.json",
+      "sha256": "b1a46e101d169f5f93b31140649c4b74a44a39b25708ac29fedb5140cf1f8e67"
+    },
+    {
+      "path": "initial-native-build/diagnostic.json",
+      "sha256": "01c7bd09ac764a7a5cec1923e712c66b84ab9e7a2fb9c8548c0439e1dd238e78"
+    }
+  ],
+  "log_hashes": {
+    "gofmt.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "metadata.log": "48f843983b886ed702b4d77235087e3be2a8966d0183c657afe47d62f3df775f",
+    "probe-final.log": "ee8e617890fdd6f95ef6353bb2653e7b8c5f097d7ede3dc004d3d680a0a7d279",
+    "probe.log": "ee8e617890fdd6f95ef6353bb2653e7b8c5f097d7ede3dc004d3d680a0a7d279",
+    "rustfmt.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "syntax.log": "30b480c5c78afde24d3728d0028838110ac58cbdad0b5bba7943e0aee54fef98",
+    "tests-affected.log": "2ec88c93fc54b50477d515171657bacc2ae76afeef1baba532963e62c984eb92",
+    "tests.log": "616e2316e2188f18f715b03ed3d52e8bdc8f58000aad0f71dcf09911b06b8f68"
+  },
+  "metadata_audit": {
+    "log": "metadata.log",
+    "result": "pass",
+    "summary": "PASS:210 strict JSONs,896 pins,229 release cases/13 hashes,143 predecessors,32 documents/559 links; W04 open"
+  },
+  "native_release_gate": {
+    "scope": "local emulated Linux metadata/hash observations only; no actual new frontend/materialization/installed/cgroup/resource acceptance",
+    "status": "not run; remains mandatory T07/T11"
+  },
+  "observation_sha256": "d49138d90177036e097489c52568e332b1d9fbb5a4be71626ff95bdd49265efe",
+  "profile_activated": false,
+  "results": {
+    "cases": 229,
+    "hash_vectors": 13,
+    "required_contexts": 6,
+    "retained_frontends": 4,
+    "retained_toolchains": 4,
+    "retained_tuples": 5,
+    "roots": 7
+  },
+  "review": {
+    "all_old_registered_profiles_targets_accounted": true,
+    "all_required_native_release_gates_remain_due": true,
+    "historical_linkage_fixture_not_full_registry": true,
+    "metadata_does_not_grant_execution_or_activation": true,
+    "new_component_owner_scope_requires_rehashed_target_refs": true,
+    "old_helpers_active_registries_and_production_unchanged": true,
+    "raw_files_modes_and_runtime_meaning_preserved": true,
+    "remaining": "ordinary-program/materialized-policy signatures,exact Go host/budget closure,all143 consumer/axiom-policy/historical-source-epoch migration dispositions",
+    "self_hash_cycles_excluded": true,
+    "unbuilt_practical_go_has_no_fixed_fallback": true
+  },
+  "schema": "mpk.go_practical.release_contract_verification.v0",
+  "scope": "inactive seven-root release metadata graph and readiness/activation contracts; actual unchanged four-language/five-target registry validation/selection and independent release canonical/content hashes; no new bundle/consumer build or release/native isolation proof",
+  "selection_reason": "Only new release metadata/provenance/hash/readiness design and compact native observers changed. Verify7 roots,complete existing4-language/5-target selection,component owner/hash/target-library linkage,missing practical-Go context,no fallback,no forged gate/activation flags,and exact transports. Recheck3 affected tests after correcting component owner scopes. Real native metadata and each independent Rust/Go hash run twice. Production/kernel/frontend source is unchanged; do not rerun unrelated proof/compiler suites. Metadata audit reconstructs the immediate AI predecessor.",
+  "source_inputs": 896,
+  "status": "selected checks passed; W04/T01 remain open",
+  "targeted_tests": 10,
+  "whitespace_review": {
+    "all_other_staged_paths": "git diff --cached --check passed",
+    "excluded_raw_logs": [
+      "initial-bootstrap-target/failure.log",
+      "initial-native-build/failure.log"
+    ],
+    "full_diff_observation": "only two preserved traceback logs have their original final blank line",
+    "original_log_bytes_and_hashes_preserved": true
+  },
+  "work_item": "GO-PRAC-T01-W04"
+}

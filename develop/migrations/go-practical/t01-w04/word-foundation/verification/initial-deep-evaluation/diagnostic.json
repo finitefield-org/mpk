@@ -1,0 +1,19 @@
+{
+  "finding": "fully nested per-bit carry evaluation proofs exceed128 JSON nesting at width16",
+  "inputs": [
+    {
+      "path": "word_foundation.py.txt",
+      "sha256": "9f322b7cc7371c80923926ae05a49529f2b24fb812ec647ef971cd38c91952e3"
+    },
+    {
+      "path": "plan.json",
+      "sha256": "f69615f6c704b7cee1b651cc1d2a42d3f8af602178e4a25517307bb2df9edc39"
+    },
+    {
+      "path": "result.json",
+      "sha256": "175d685d64433d35b0fe7ce3e31e5b6cb9d277e67ea35e4cab847f57fccb1a80"
+    }
+  ],
+  "repair": "name universal carry-zero lemmas and compose each step with Eq.congr/trans; use one compact reference per carry instead of nesting the complete prior evaluation proof",
+  "scope": "untrusted emitter parser/construction depth,not a failed ordinary theorem"
+}

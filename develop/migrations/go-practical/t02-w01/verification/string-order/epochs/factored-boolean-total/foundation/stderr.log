@@ -1,0 +1,29 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+warning: function `call` is never used
+  --> crates/mpk-vc/tests/go_practical_string_order.rs:82:4
+   |
+82 | fn call(c: &mut Certificate, name: &str, arguments: Vec<u32>) -> u32 {
+   |    ^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `bad_result` is never used
+   --> crates/mpk-vc/tests/go_practical_string_order.rs:121:4
+    |
+121 | fn bad_result(c: &mut Certificate, ty: u32) -> u32 {
+    |    ^^^^^^^^^^
+
+warning: function `erase` is never used
+   --> crates/mpk-vc/tests/go_practical_string_order.rs:163:4
+    |
+163 | fn erase(c: &mut Certificate, ty: u32, at: usize, domain: u32) -> u32 {
+    |    ^^^^^
+
+warning: `mpk-vc` (test "go_practical_string_order") generated 3 warnings
+    Finished `release` profile [optimized] target(s) in 29.53s
+     Running tests/go_practical_string_order.rs (target/release/deps/go_practical_string_order-4a0089e8bcfe9e70)
+
+thread 'generic_order_preserves_all1215_original_identities' (44528046) panicked at crates/mpk-vc/tests/go_practical_string_order.rs:43:9:
+order-foundation: first declaration type-check failure Mpk.Go.Practical.String.Order.TotalCase0: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"532fd9fcb8f27a8413e107d0bdaf72c8b277edd1fc3d24559220a7b722a1b974"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"284717\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"465\",\"kind\":\"check_type_mismatch\",\"term_index\":\"405\"}}"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_string_order`

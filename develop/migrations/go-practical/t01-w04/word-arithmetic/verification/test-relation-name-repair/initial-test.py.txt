@@ -1,0 +1,105 @@
+"""Full-word/ordinary-arithmetic bridge evidence and source/proof boundaries."""
+import json
+import unittest
+from collections import Counter
+from arithmetic_terms import *
+from word_arithmetic import MODULE,SEED,OLD_SEED
+from word_arithmetic_cases import WIDTHS,MUTATIONS,negative_plan,model_observations,expected_denotation,mathematical_observation
+from run_word_arithmetic import RECORD,documents,classify
+from run_proof_pilot import sha
+
+
+def constants(x):
+    if isinstance(x,dict):
+        if x.get('kind')=='const':yield x['name']
+        for v in x.values():yield from constants(v)
+    elif isinstance(x,list):
+        for v in x:yield from constants(v)
+
+
+class WordArithmeticTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.docs=documents();cls.report=json.loads((RECORD/'observations.json').read_bytes());cls.native=json.loads((RECORD/'native.json').read_bytes());cls.model=json.loads((RECORD/'model.json').read_bytes())
+    def test_all20_actual_paired_outcomes_and_exact_certificate_bytes(self):
+        kinds=Counter(classify(r['case'],r['observations']) for r in self.report['cases']);self.assertEqual(kinds,self.report['outcomes']);self.assertEqual(kinds,{'accepted_zero_axiom':4,'ordinary_type_mismatch':16})
+        for r in self.report['cases']:self.assertEqual(sha((RECORD/(r['case']['id']+'.mpcert')).read_bytes()),r['raw_sha256'])
+    def test_each_control_changes_one_intended_new_member(self):
+        names={'dropped-final-carry':'UnsignedAddition','unrelated-overflow':'SignedAddition','missing-result-sign':'SignedCrossSums','unsigned-as-signed':'SignedValue'}
+        for w in WIDTHS:
+            p=self.docs['expansions.json'][str(w)]
+            for m in MUTATIONS:
+                q=negative_plan(p,m);self.assertEqual([a['name'] for a,b in zip(p['declarations'],q['declarations']) if a!=b],[MODULE+'.W'+str(w)+'.'+names[m]])
+    def test_both_source_seeds_and_exact_shared_export_closure_are_pinned(self):
+        doc=self.docs['schema.json'];r=self.docs['export.json'];self.assertEqual((r['base_declarations'],r['source_declarations'],len(r['common']),r['exported']),(634,187,22,165))
+        self.assertEqual(doc['seed_sha256'],sha(SEED.read_bytes()));self.assertEqual(doc['retained_seed_sha256'],sha(OLD_SEED.read_bytes()))
+        self.assertEqual(len(self.docs['retained.json']['declarations']),165);self.assertEqual(len(self.report['export_generations']),2)
+    def test_every_cube_depth_proves_arbitrary_pointwise_translation(self):
+        for w in WIDTHS:
+            p=self.docs['expansions.json'][str(w)];ds={d['name'].split('.')[-1]:d for d in p['declarations'] if d['name'].startswith(MODULE+'.')}
+            for depth in range((w-1).bit_length()+1):
+                for family in ('WeightLaw','ValueLaw'):
+                    d=ds[family+str(depth)];ty=d['ty'];names=[]
+                    while ty['kind']=='pi':names.append(ty['name']);ty=ty['body']
+                    self.assertEqual(names,['k','f','_translation']+(['word'] if family=='ValueLaw' else [])+['n'])
+    def test_large_iterations_use_checked_generic_application_and_conditional_lemmas(self):
+        for w in WIDTHS:
+            p=self.docs['expansions.json'][str(w)];ds={d['name'].split('.')[-1]:d for d in p['declarations'] if d['name'].startswith(MODULE+'.')};prefix=MODULE+'.W'+str(w)+'.'
+            self.assertEqual(ds['ApplyEquality']['kind'],'theorem');self.assertEqual(ds['MaybeTranslation']['kind'],'theorem')
+            self.assertIn(prefix+'ApplyEquality',set(constants(ds['WeightLaw'+str((w-1).bit_length())]['value'])))
+            self.assertIn(prefix+'MaybeTranslation',set(constants(ds['MaybeWeight']['value'])))
+    def test_all13_source_identities_and_exact_Value_definitions_remain_bound(self):
+        previous=json.loads((RECORD.parent/'word-numeric-bridge/source-values.json').read_bytes());old={r['operation_hash']:r for r in previous};rows=self.docs['source-values.json'];self.assertEqual(len(rows),13)
+        self.assertEqual(len({r['source_type_id'] for r in rows}),13)
+        for r in rows:
+            for field in ('operation_hash','source_type_id','signed','width','value_name','source_scope_sha256','value_definition_theorem'):self.assertEqual(r[field],old[r['operation_hash']][field])
+            p=self.docs['expansions.json'][str(r['width'])];ds={d['name']:d for d in p['declarations']};self.assertEqual(ds[r['theorem']]['kind'],'theorem');self.assertIn(r['value_name'],set(constants(ds[r['theorem']]['ty'])))
+    def test_signed_source_claim_keeps_actual_incoming_and_outgoing_sign_carries(self):
+        for r in self.docs['source-values.json']:
+            if not r['signed']:continue
+            d=next(d for d in self.docs['expansions.json'][str(r['width'])]['declarations'] if d['name']==r['theorem']);ty=d['ty']
+            while ty['kind']=='pi' and ty['name']!='no_overflow':ty=ty['body']
+            self.assertEqual(ty['name'],'no_overflow');cs=set(constants(ty['domain']));prefix='Probe.GoPractical.WordFoundation.W'+str(r['width'])+'.Carry'
+            self.assertTrue({prefix+str(r['width']-1),prefix+str(r['width'])}<=cs)
+    def test_unsigned_equation_retains_actual_result_and_final_carry(self):
+        for w in WIDTHS:
+            d=next(d for d in self.docs['expansions.json'][str(w)]['declarations'] if d['name']==MODULE+'.W'+str(w)+'.UnsignedAddition');cs=set(constants(d['ty']));prefix='Probe.GoPractical.WordFoundation.W'+str(w)+'.'
+            self.assertIn(prefix+'AddCarry',cs);self.assertIn(prefix+'Carry'+str(w),cs)
+    def test_all96_native_results_agree_with_independent_integer_oracle(self):
+        self.assertEqual(len(self.native),96);self.assertEqual(self.native,[mathematical_observation(q) for q in self.docs['queries.json']])
+        for q,n in zip(self.docs['queries.json'],self.native):
+            d=expected_denotation(q);self.assertEqual(d['unsigned_result'],str(int(n['word_hex'],16)));self.assertEqual(d['signed_result'],n['go_signed_result'])
+    def test_all24_selected_actual_new_denotations_reproduce(self):
+        self.assertEqual(self.model,model_observations(self.docs['queries.json'],self.docs['expansions.json']));self.assertEqual(self.model,[expected_denotation(q) for q in self.docs['queries.json'] if q['width']==8]);self.assertEqual(len(self.model),24)
+    def test_native_signed_guard_and_modular_overflow_remain_distinct(self):
+        self.assertEqual(Counter(n['no_overflow'] for n in self.native),{True:70,False:26})
+        for q,n in zip(self.docs['queries.json'],self.native):
+            self.assertEqual(n['no_overflow'],n['signed_cross_left']==n['signed_cross_right'])
+            if n['no_overflow']:self.assertEqual(n['integer_sum'],n['go_signed_result'])
+    def test_semantic_Int_uses_cross_sums_not_pair_function_equality(self):
+        for w in WIDTHS:
+            d=next(d for d in self.docs['expansions.json'][str(w)]['declarations'] if d['name']==MODULE+'.W'+str(w)+'.SignedAddition');self.assertIn(I+'Equiv',set(constants(d['ty'])));self.assertIn(I+'PositiveOfAdd',set(constants(d['value'])));self.assertIn(I+'NegativeOfAdd',set(constants(d['value'])))
+    def test_initial_findings_preserve_exact_inputs_and_resource_distinction(self):
+        files=list((RECORD/'verification').glob('initial-*/diagnostic.json'));self.assertEqual(len(files),5)
+        for p in files:
+            for x in json.loads(p.read_bytes())['inputs']:self.assertEqual(sha((p.parent/x['path']).read_bytes()),x['sha256'])
+        for w in (32,64):
+            for core in ('rust','go'):
+                r=json.loads((RECORD/'verification/initial-large-translation-fuel'/str(w)/(core+'.json')).read_bytes());self.assertEqual(r['exit_code'],1)
+    def test_addition_does_not_promote_source_or_all_word_proofs(self):
+        self.assertIs(self.report['word_addition_library_connection_proved'],True)
+        for flag in ('all_word_operations_proved','elaborator_correctness_proved','source_evaluation_proved','complete_go_elaboration','profile_activated'):self.assertIs(self.report[flag],False)
+        for r in self.docs['source-values.json']:self.assertIs(r['source_evaluation_proved'],False)
+    def test_preceding_logical_components_keep_large_model_and_proof_boundaries(self):
+        r=json.loads((RECORD.parent/'ordinary-arithmetic/observations.json').read_bytes());self.assertEqual((r['logical_heads'],r['actual_AST_observations'],r['model_resource_pending']),(27,139,10));self.assertIs(r['complete_go_elaboration'],False)
+    def test_all169_complete_Go_requests_remain_unelaborated(self):
+        from go_obligations import OrdinaryElaborationPending,require_materialized
+        data=json.loads((RECORD.parent/'proof-artifacts/artifacts.json').read_bytes());count=0
+        for b in data:
+            if b['id'] not in {'go-two-overlays','go-default-contracts'}:continue
+            o=b['vc']['obligations'];count+=len(o['unelaborated_request_ids'])
+            with self.assertRaises(OrdinaryElaborationPending):require_materialized(o)
+        self.assertEqual(count,169)
+
+
+if __name__=='__main__':unittest.main()

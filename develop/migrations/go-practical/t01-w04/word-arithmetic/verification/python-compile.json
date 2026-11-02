@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "-B",
+    "-c",
+    "from pathlib import Path;p=Path('develop/probes/go-practical');names=('word_arithmetic.py','word_arithmetic_cases.py','word_arithmetic_build.py','run_word_arithmetic.py','test_word_arithmetic.py','check_word_arithmetic_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: six new Python sources compile')"
+  ],
+  "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+  "exit_code": 0,
+  "wall_seconds": 0.08064366702456027,
+  "log": "python-compile.log",
+  "sha256": "5f3537ba7604ac2b60bd9acce8ddff6181bb844aa6ce5a06c3175b95c2bbdc85",
+  "reason": "All six new word arithmetic/case/build/replay/test/metadata Python sources"
+}

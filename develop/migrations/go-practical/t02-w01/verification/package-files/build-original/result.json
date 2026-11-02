@@ -1,0 +1,86 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_package_files",
+    "--test",
+    "go_practical_lex",
+    "--test",
+    "go_practical_parse",
+    "--test",
+    "go_practical_source_build",
+    "--test",
+    "go_practical_snapshot_inputs",
+    "--test",
+    "go_practical_source_languages",
+    "--test",
+    "go_practical_source_inputs",
+    "--no-run"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/package-files/build-original/inputs.json",
+    "bytes": 10355280,
+    "sha256": "504a8510b4e44df284548738ef49fffeeeb021a9f1303a19f3c91cf728af9ce3",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/package-files/run.py",
+    "bytes": 11174,
+    "sha256": "9e37def944a8c57bcd9f9479899157c124b9053acb71e2c121708971fe98ee7d",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-24T20:21:10.656628+00:00",
+  "selection_reason": "Derive original Go package/header source membership independently from the complete immutable namespace and raw buffers. Compare all new actual header/name/import/test/cgo cases and every package directory containing active Go source across all three full old snapshots. Preserve all old43-root/zero-or70-error/type universes and32 proof bytes. Exercise full restored original native lexer/parser corpora for shared prefix/full parsing, previous182 build constraints/13853 original files, source language metadata, omission rejection, strict affected Clippy, Go vet and explicit formats. No kernel or full foundation matrix, retired language test or intermediate whole-T gate.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 133.48881249999977,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/package-files/build-original/stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/package-files/build-original/stderr.log",
+    "bytes": 909,
+    "sha256": "c26a1732d261f69e1503e72bf5620a081727f838e2835fc8691e327178bc313b",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-24T20:23:24.148468+00:00"
+}

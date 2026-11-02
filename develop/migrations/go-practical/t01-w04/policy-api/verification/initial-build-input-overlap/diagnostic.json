@@ -1,0 +1,19 @@
+{
+  "classification": "probe_build_dependency_graph_stale",
+  "meaning": "An in-flight bootstrap build captured the package graph before a new direct kernel dependency was added; subsequent source referenced that crate. This is a probe build-input sequencing error,not any native source/proof verdict.",
+  "repair": "Wait for the terminal handle,then rebuild with all source and lock inputs fixed. No source edits during authoritative runs.",
+  "inputs": [
+    {
+      "path": "policy-native/src/main.rs",
+      "sha256": "eebce8e14e1e125b52564c5955b37b6745168ad615cdcf543d4302241bb751ea"
+    },
+    {
+      "path": "policy-native/Cargo.toml",
+      "sha256": "02bc0e2050a04b8c4748d451bd10a509fb0e2de8a6c062952825c7f69e4c03f2"
+    },
+    {
+      "path": "policy-native/Cargo.lock",
+      "sha256": "624d32d302989d4003455214c17a09ea2eb8d09651f64c1495c508907f205523"
+    }
+  ]
+}

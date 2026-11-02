@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 48s
+     Running tests/go_practical_word_signed_refinement.rs (target/debug/deps/go_practical_word_signed_refinement-0bda9e4c85d1a1bc)
+
+thread 'actual_signed_division_refinement_exact_import_and_all_prerequisites' (37505610) panicked at crates/mpk-vc/tests/go_practical_word_signed_refinement.rs:28:5:
+assertion `left == right` failed: word-signed-refinement: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"1795e8b4b7a1cb122ce4b6361d2a7d0ddd6ba147c4ce7093c7c01209c8cd04c8"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"571919\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"662\",\"kind\":\"check_type_mismatch\",\"term_index\":\"647\"}}"}
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_word_signed_refinement`

@@ -1,0 +1,10 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+    Finished `test` profile [optimized + debuginfo] target(s) in 49.17s
+     Running tests/go_practical_error_values.rs (target/debug/deps/go_practical_error_values-0a827eb807866ef3)
+
+thread 'actual_full_width_error_carrier_retains_entire_word_and_product_libraries' (51856169) panicked at crates/mpk-vc/tests/go_practical_error_values.rs:46:5:
+assertion `left == right` failed: error-values: {"verdict":"rejected","module":null,"declaration_count":null,"axiom_count":null,"hashes":{"export":null,"axiom_report":null,"certificate":"67bbf0a43535b67f9cefcbd664fb06292927cd45a079b33f5776c049636a6201"},"axiom_report":null,"error_code":"KERNEL_CORE_CHECK","error_detail":"{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"164945\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"468\",\"kind\":\"check_type_mismatch\",\"term_index\":\"407\"}}"}
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_error_values`

@@ -1,0 +1,3627 @@
+{
+  "schema": "mpk.go_practical.paired_word_signed_division_bounds.v1",
+  "status": "passed",
+  "observed_at_utc": "2026-10-19T19:46:59.926464+00:00",
+  "Rust_execution": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/result.json",
+    "sha256": "ce56858377234ede946e33227e103c6529bdb630a6b1e88cd59b340c9deea859",
+    "bytes": 36916
+  },
+  "go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "unchanged_go_build_evidence": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a",
+    "bytes": 45747
+  },
+  "unchanged_go_production_sources": [
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57",
+      "bytes": 23259
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432",
+      "bytes": 5272
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type.go",
+      "sha256": "d5d3e93ab336e8686092547579f0d76640d280a6b347691890e6b63aeec13a0e",
+      "bytes": 4986
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0",
+      "bytes": 2893
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "1fe9acc0f8277c1290dd24ff4af0cde526e9e0e283026192af4c0bd671331a0a",
+      "bytes": 32802
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02",
+      "bytes": 38400
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "a951f73a15315ed34c38829dfab819d34aa947b8050e3b097adb81bf37f65e0c",
+      "bytes": 10399
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75",
+      "bytes": 112
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41",
+      "bytes": 7917
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "72b3fff34b37f57dde648735a4ba1f6191f11253394f71cd30566a23e578e8bb",
+      "bytes": 5751
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996",
+      "bytes": 17766
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e",
+      "bytes": 10238
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250",
+      "bytes": 72
+    }
+  ],
+  "cases": [
+    {
+      "name": "FakeDivisorPositive",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeDivisorPositive.mpcert",
+        "sha256": "24c679d02be5bf6b802c4d12d695781de4f21914cc619121ace32d399d082dfa",
+        "bytes": 1465616
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeDivisorPositive.rust.json",
+        "sha256": "724f51d6b20d4a3d1034623cd2e8f837c92272880bc0e52663b16a94b849cbb3",
+        "bytes": 588
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeDivisorPositive.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4399070829385892,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeDivisorPositive.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeDivisorPositive.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "749c215abc2378b748b2ea71741a26ef90046b9c23e65ba3181c47d4bfb82957"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"17174\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"615890\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeExactGuard-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-16.mpcert",
+        "sha256": "92bc16b6a774a9621ecd231bc5c313ffd85ebe56c84f9a6afac0e82601ab70e9",
+        "bytes": 1465605
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-16.rust.json",
+        "sha256": "932ce239443166c315af0ca7b4f30520d85ba7e39c53af8d82ff4de34cb227d6",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4472245830111206,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeExactGuard-16.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeExactGuard-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "915dc690b494d35471364b0e5674c85790b6400aee44663fb50d388aa8bc91ba"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"625974\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"626000\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeExactGuard-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-32.mpcert",
+        "sha256": "ad4ab38b1facbc52ea194e5563da88e2fd39a0e667df709e8d5f68e44aae6ff9",
+        "bytes": 1465607
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-32.rust.json",
+        "sha256": "906d10f4b17d225665f73cfe3c9aa88fc5965cc055a5bcd86851766a82f2f51f",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4642184170661494,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeExactGuard-32.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeExactGuard-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "391719c7249dd9acfc033765ec41efc128e48f0bf47c09f5875e36da77d551aa"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"630744\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"630770\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeExactGuard-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-64.mpcert",
+        "sha256": "1d84680b8cc9fd7de67926bae207fe7c0dbadb39ffe3ff22dd3b9883d6716d80",
+        "bytes": 1465607
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-64.rust.json",
+        "sha256": "d2f27df1745d0a201043930775b68dd4abb5e544a22b7b5d5bd83dd66ad01ea1",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4961061249487102,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeExactGuard-64.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeExactGuard-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "7957cd3fcff1f5093a45b4a171f298b3486a5e6f735f1d3e3021621326b8894b"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"635580\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"635606\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeExactGuard-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-8.mpcert",
+        "sha256": "3faa9f1ceac846c29ff976e5b18c26c2b2845bab2900ce965a71ccac218e7d63",
+        "bytes": 1465604
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-8.rust.json",
+        "sha256": "fec492eeec02803d9dfe7d448166d476c301e772e549d34d22b55dab59d60d0e",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeExactGuard-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4802881670184433,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeExactGuard-8.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeExactGuard-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "0a84c8fe14ec798440db9808a2bf3c49f10b93b6434cabf0c65ec0a1087e8769"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"621207\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"621239\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeHalfPositive",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeHalfPositive.mpcert",
+        "sha256": "0d645730355653beadbba8e190ce610050277a95d48279e8617cb493f82e28a0",
+        "bytes": 1465623
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeHalfPositive.rust.json",
+        "sha256": "ff79f02e2d82d754bfd5c37cfe1aca6282f29d75000aff3bb06c0103653c6329",
+        "bytes": 588
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeHalfPositive.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4541737089166418,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeHalfPositive.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeHalfPositive.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "9e384102cd7321189b60b18ecb279939aa6ad0d5a0c447a3cdce20ec7149c54a"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"17138\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"615889\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeMinimumPremise-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-16.mpcert",
+        "sha256": "1e5dd24ed965e16df158e24693faea6cf290bfb5e33c1da9edcd60ddf2566ed7",
+        "bytes": 1465605
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-16.rust.json",
+        "sha256": "b03c765f38ba737a211a6f1d3fa2a0b6d166304b3732ad5fa7c2219cc6661687",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4399791250471026,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeMinimumPremise-16.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeMinimumPremise-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "548fc09fbc963b479765530a202be2660b80ac4474b0802a204f530ce9310050"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"624758\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"626486\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeMinimumPremise-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-32.mpcert",
+        "sha256": "c17116eb5634965636775a2d92670747c76d0ae1bdcdb8375e181c576452e66d",
+        "bytes": 1465607
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-32.rust.json",
+        "sha256": "a52ec48e71f1c748efed33a2ef0a490321e520f6c5543edfaca0fe78202a5dab",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.477030541980639,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeMinimumPremise-32.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeMinimumPremise-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "1225cd43829a9bd90605eb1dd124436f2bf54b2ab87598e338977870a8c3a0a4"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"629528\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"631256\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeMinimumPremise-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-64.mpcert",
+        "sha256": "d3af77c31afaa63c322abe909eae232cc591cd486d32dcf513f5362185d8d580",
+        "bytes": 1465607
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-64.rust.json",
+        "sha256": "3f9635ca78c57b99fbd67e60c83651a612cc162d93f6bc20d94f301a3820e95d",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.527033832971938,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeMinimumPremise-64.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeMinimumPremise-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "79925297d8fab04788ae615727c787485a4a6c8afbed64b3844b361402a56797"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"634364\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"636092\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeMinimumPremise-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-8.mpcert",
+        "sha256": "9562209baf800c2d72a50e3f73d2fcc619ed8d587de0c9b0991aff7504fd5666",
+        "bytes": 1465604
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-8.rust.json",
+        "sha256": "c7530202e53f58f618c097f2082e2ba5b25513d2b8716f42c4490fddbea8bdd0",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeMinimumPremise-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.549663917045109,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeMinimumPremise-8.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeMinimumPremise-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "c46c3e9d3061a86d7b03c70dc2605f5154a5e0161ea0498ceed2d96323a2ecc5"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"619982\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"621749\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeNegationGap",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeNegationGap.mpcert",
+        "sha256": "3d8aa3f32b9c5889a4ec0270504d6bb6d5d18c4261849a30c8051ccd0b3888c8",
+        "bytes": 1465622
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeNegationGap.rust.json",
+        "sha256": "e92c718deac9933ccc90083f4b21d3884dc988ed2a0c6e3d12ee93de2c56afde",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeNegationGap.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4092408750439063,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeNegationGap.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeNegationGap.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "828e44da59c4fd976321d44c38e3da6cb1f147215064858e86e1fd46c04fb7a4"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"612757\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"612828\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeSourceDivisor-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-16.mpcert",
+        "sha256": "923aadf7bb1be89d669f3c1cf407763138ce273f41d2ec023cc4d48438a8acb4",
+        "bytes": 1465598
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-16.rust.json",
+        "sha256": "02a1b8c1a2c3cef9702c603052386bf6e9138903ecf54de217e616124f023cbd",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4431919590570033,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeSourceDivisor-16.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeSourceDivisor-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "6b7316ee48dcf1cc34596031531b1749bf64def5b2e2cd19120660994dd21fd9"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"129215\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"625917\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeSourceDivisor-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-32.mpcert",
+        "sha256": "44363a62b1d5538477c92b9a981438006816c8a14186395924363405d981e8c7",
+        "bytes": 1465600
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-32.rust.json",
+        "sha256": "af5c2a78411796e97760ba5cb29dd2e02ca8e2d110b945c13bf7f69aa80cf145",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4987148749642074,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeSourceDivisor-32.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeSourceDivisor-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "1862f1fcca26b24a435828b4dffacfb573f7882d658e0247174e71d0482d049b"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"207242\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"630687\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeSourceDivisor-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-64.mpcert",
+        "sha256": "6b6c0385bcdc2c4d57e5108598664d66fcb4ec3905f9a6d2c67b44300ee38037",
+        "bytes": 1465600
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-64.rust.json",
+        "sha256": "71113133544ce1f123e804dee6a0c84fae0c5b155b8a08600b6d3b9e5c038fdb",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4815219580195844,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeSourceDivisor-64.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeSourceDivisor-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "b4e060634f0b82a3d861015ea0f934a17e59d87a072d3fa7f543af1f3522c600"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"350604\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"635523\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeSourceDivisor-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-8.mpcert",
+        "sha256": "eb6effe5974e383528621d8f59a6623591ffb29e80f29e4b6dc7930df10d0c84",
+        "bytes": 1465598
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-8.rust.json",
+        "sha256": "3f3261f5ca9ea1f7d3505506480c4ef422f44ac9efd584789607ba17d889f0e1",
+        "bytes": 588
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeSourceDivisor-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4558653329731897,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeSourceDivisor-8.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeSourceDivisor-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "f233302bd3fa6f870c2906ee6aff3fef9ed6241843d583207d248039a2536f60"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"24788\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"621150\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeStrictOrder",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeStrictOrder.mpcert",
+        "sha256": "59d373c7315dc392120ea209f9036944f1df2b352736aa139ec3e07dc93f9c2c",
+        "bytes": 1465610
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeStrictOrder.rust.json",
+        "sha256": "0c7d89e6b9bbaf584219276ce947e8ff015c2edfdde1a03cf5a451d03765c1fe",
+        "bytes": 588
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeStrictOrder.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.3919774590758607,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeStrictOrder.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeStrictOrder.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "639ec390225f129a3ae32434ea7e1ef7ef80e26914d26417aa9a0c3b415a51b4"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"28132\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"609271\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeUnitRemainderBound",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeUnitRemainderBound.mpcert",
+        "sha256": "ef0d046eaff59da79b0b8ca22788fee7566d429829d77f4bf57b9e77d5a29863",
+        "bytes": 1465637
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeUnitRemainderBound.rust.json",
+        "sha256": "a79ea7ef54d590f1ddff31dd15aedeea71b5454d8fbf70f88b4578bf6b78a434",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeUnitRemainderBound.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.410375125007704,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeUnitRemainderBound.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeUnitRemainderBound.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "0dc68781f370ca57bb4cb248f615098496db4bcdffb6f6010d2a8791ffd8b3d4"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"616120\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"616141\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeWordGap-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-16.mpcert",
+        "sha256": "cf2213f504b55d6edc5a30567200aef58b528f5129772a4cf547aa43da43a0c7",
+        "bytes": 1465598
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-16.rust.json",
+        "sha256": "c5942496d9f82e7067d2ccfc89c2f0655aee1bca8565a79936c44aa2e1730db7",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4300712089752778,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeWordGap-16.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeWordGap-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "953c9086da268814bc92a3aa821a6dd557b3ee02d62365132b7ee75ad3c2329e"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"622185\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"622289\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeWordGap-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-32.mpcert",
+        "sha256": "eb41d56c06aba01a77ea2b45b204c6c3134ccf23aac93b78b93cca8063d56181",
+        "bytes": 1465599
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-32.rust.json",
+        "sha256": "b0134544500b63bc9e53d4f1ee7814017c9b303352c12367a2d8253278eb9a71",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.445042832987383,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeWordGap-32.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeWordGap-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "17960525bbfc5cfd4ef5311c782e946400c3711799206757cacfb0de9dd839f3"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"626955\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"627059\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeWordGap-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-64.mpcert",
+        "sha256": "d6303a914c68cc5f3f557479d5b02b22efaa53be7d3339ea2d14c35cc04cf7a6",
+        "bytes": 1465599
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-64.rust.json",
+        "sha256": "5f2d29f78c1bfbc586ac3bef9f60df504da9a1dc464bd1a781a5426490708bd4",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.446122416993603,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeWordGap-64.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeWordGap-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "fd05bccba60ab461cdbc07361f87e1e5b29e689cdc7412151cb6fecdb6561bef"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"631791\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"631895\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FakeWordGap-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-8.mpcert",
+        "sha256": "1f2af9e6518491cbd8b19bdc832db577c87b9abff865a475c33e18a8ae81bfd4",
+        "bytes": 1465598
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-8.rust.json",
+        "sha256": "bf6e8923bfa038490ae03ed601d12b1612698197a394ff2ee5cb6c2e98952112",
+        "bytes": 589
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FakeWordGap-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.407731542014517,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeWordGap-8.stdout.log",
+        "sha256": "c0014f6a38d8742b09d079226581df271bce6b8dcf15ef1b6bfcb5fbff557c43",
+        "bytes": 89
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FakeWordGap-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "4e0d9b795f276eb0bed0d575c5556882ab4121e07025bc3b606d306026af7a0f"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"},{\"field\":\"lambda\"},{\"field\":\"domain\"}],\"details\":{\"actual_domain_index\":\"617305\",\"actual_kind\":\"app\",\"expected_domain_index\":\"450\",\"expected_kind\":\"app\",\"kind\":\"lambda_domain_mismatch\",\"term_index\":\"617409\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "lambda domain mismatch"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseClassifiedConservation-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-16.mpcert",
+        "sha256": "17d58c7a1c8a680d50d2d9f82ed57ab681545430c773f637eb6b112e19b73937",
+        "bytes": 1465601
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-16.rust.json",
+        "sha256": "178ecb7052935abdad2448db079f6aa0362c7dcc4486cb88271e8f35f218d9b8",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4804326250450686,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseClassifiedConservation-16.stdout.log",
+        "sha256": "c6a24505d688dfaafb8d6faf6a2e8399c9a298edff8ca722443c671074eb3cb1",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseClassifiedConservation-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "6a834214d776b0770e23cfc7ebdf7c419c49c0f47db58926480c72050ca84068"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"625904\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"625964\",\"kind\":\"check_type_mismatch\",\"term_index\":\"625916\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 625103 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseClassifiedConservation-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-32.mpcert",
+        "sha256": "4a29d26b3760f65c87b6d10c295036ec2494e10e3bc30c4e2484840167671fab",
+        "bytes": 1465603
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-32.rust.json",
+        "sha256": "4c4e4c67ec106e9fbbc8dfaceb453d6de45cc52151690cd72727afa36d6f087a",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4507126670796424,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseClassifiedConservation-32.stdout.log",
+        "sha256": "775a7d0ac080541d1c1e09f63089841e97829a17357fe1322012866f46210fc6",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseClassifiedConservation-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "0327da9124d26d73ef940f4b6b8ffea0956bf502fdc515f812a7d93bfcbcf69b"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"630674\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"630734\",\"kind\":\"check_type_mismatch\",\"term_index\":\"630686\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 629870 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseClassifiedConservation-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-64.mpcert",
+        "sha256": "e98ebf3cecbdce06db0e61472db50c5fbfc9c9b78a4c7f25185c985b23d461a4",
+        "bytes": 1465603
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-64.rust.json",
+        "sha256": "0eb6d175a004a88402372c89198c5c733bf60005e660d896b30e8a4753e6fbf4",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.471976040978916,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseClassifiedConservation-64.stdout.log",
+        "sha256": "c7a78bd746b402869d2f056cc1425bf1a898c6ce85d93833f66cbb60384fbfcd",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseClassifiedConservation-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "ea53f993c1cc2c8c954ac7561d9f0e6c9faca763d21fa7aa81e9e200f2ad918a"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"635510\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"635570\",\"kind\":\"check_type_mismatch\",\"term_index\":\"635522\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 634703 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseClassifiedConservation-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-8.mpcert",
+        "sha256": "98ec856ddf71e65d0d1d2127893ab4e76711b6906f8df7ca1c469f9ff9f8f161",
+        "bytes": 1465600
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-8.rust.json",
+        "sha256": "b2095ece619b022e8932f044fca680e50a20600230e5933143e9f02adaad8021",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseClassifiedConservation-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4083968329941854,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseClassifiedConservation-8.stdout.log",
+        "sha256": "fcf61c17af60c0e37bef863be61cbfd8e42f5ac562c8ca6dfe9b3ff2643c5fee",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseClassifiedConservation-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "3ef8855addbafae7168bcb74d338c84dc6d1319fa7614bef0c3634bcc85f7ec7"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"621137\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"621197\",\"kind\":\"check_type_mismatch\",\"term_index\":\"621149\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 620339 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseHalfUnit",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseHalfUnit.mpcert",
+        "sha256": "06075a791534b2c0e514f1a55964847ca26590edd5cdf830b4db60a07c98bfa8",
+        "bytes": 1465627
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseHalfUnit.rust.json",
+        "sha256": "13424ae003335ee28479dd212009cc4630eb69bdf74c8b5fbbdff378890a6928",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseHalfUnit.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4203670410206541,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseHalfUnit.stdout.log",
+        "sha256": "3fa84aeff69b168b0bc2ad8ae968ba71f47bac92735c4897c745c27ebb54a37b",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseHalfUnit.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "dd5249d74847ca923417c0df8849f0231ceacc4b28820393fcc4ef8672a3ffa3"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"615860\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"616046\",\"kind\":\"check_type_mismatch\",\"term_index\":\"615886\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 615084 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseMinimumCharacterization-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-16.mpcert",
+        "sha256": "81f22904b3062685f72fa2ec4eb876741cba2627c8abc79064676513d588fb30",
+        "bytes": 1465589
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-16.rust.json",
+        "sha256": "aa2558a027b7a67b9f923a7e2a95334da87468d94ca8418e0468c17ce4811862",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4282764580566436,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumCharacterization-16.stdout.log",
+        "sha256": "22b174ccd3897c57b750c93465063ce41ac83dc2f0b7cdf45a0e69b07210b0bb",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumCharacterization-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "3482b2ab83932ce641b92b37778607a8dfb8ab8ef1e9850c074d4b7b997cd82e"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"624693\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"625667\",\"kind\":\"check_type_mismatch\",\"term_index\":\"624792\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 623979 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseMinimumCharacterization-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-32.mpcert",
+        "sha256": "b9049d01478892b2518104ed5cd453226d762c9b8d2f7158cfa137f3aec3eadc",
+        "bytes": 1465591
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-32.rust.json",
+        "sha256": "90113f9f096124d3755133d66d749f4c8349ed2b67f8796dc98f794dec44c457",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4358154999790713,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumCharacterization-32.stdout.log",
+        "sha256": "2a7b4e05503b26ceb86e56257ea33750c7c01e6377ac58c9c86e21505ae7137c",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumCharacterization-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "926d47e79f2e996b1b664e168240d4c4bb41036f20603f37e277f70a3469d7d5"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"629463\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"630437\",\"kind\":\"check_type_mismatch\",\"term_index\":\"629562\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 628746 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseMinimumCharacterization-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-64.mpcert",
+        "sha256": "133ffb36c5e1d774b23e4ce6c2ae6d2751acb4aedf38fd3ea3ac159eae388aa4",
+        "bytes": 1465591
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-64.rust.json",
+        "sha256": "f1c7968fbdccd2812761342bd0f92137130fd64af1ab01587ebc0f938ee887ae",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4557429159758613,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumCharacterization-64.stdout.log",
+        "sha256": "19372e73affddfd5054dfe00a4a4b90ba75dda7e6fc98696ad9c553eaa22c415",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumCharacterization-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "0ff170caf2ec4baedd8888fc9b7eef71fd1180601d848eea7f79c42ca865ad16"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"634299\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"635273\",\"kind\":\"check_type_mismatch\",\"term_index\":\"634398\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 633579 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseMinimumCharacterization-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-8.mpcert",
+        "sha256": "23ea96a63c1c844861abeb9999e0c624e06860e73dff36ca1062b7ebeab394d2",
+        "bytes": 1465588
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-8.rust.json",
+        "sha256": "4e477cb0542970d48b79bce35cc400b84d437a9709034c88be9ec8d394faffe3",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumCharacterization-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4124445000197738,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumCharacterization-8.stdout.log",
+        "sha256": "bcc75dc378deb77f5a89fdf1bb6cb3460bbd36d96576cc6710c219275f54c12b",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumCharacterization-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "de16dba616768cd9eff7104a03f94e0f3278d5888235e6cb9b89bb1b9769e880"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"619912\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"620900\",\"kind\":\"check_type_mismatch\",\"term_index\":\"620017\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 619207 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseMinimumSourceQuotient-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-16.mpcert",
+        "sha256": "ed5c64944638e2caf0e8faf032e9bc6ee634455d2eec92b488bef318538fbbff",
+        "bytes": 1465597
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-16.rust.json",
+        "sha256": "fc0d6ad156ae42e2a168f5ea341711405f9da2be34acfccb6baad758cd0efa7e",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4341145829530433,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceQuotient-16.stdout.log",
+        "sha256": "90ca89d61bab25e30c5628e737818b2ee01ef2118b95595476ef06ebf541898c",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceQuotient-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "16ab72eba36f83d2b1ecf9bc0bde0ee847ae4b29a1239ff102d9b2797f4c2797"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"626471\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"626717\",\"kind\":\"check_type_mismatch\",\"term_index\":\"626485\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 625669 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseMinimumSourceQuotient-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-32.mpcert",
+        "sha256": "b15b06a301f13f669c056e6c8b32c023fa08e1d77b7f6eee1b628996382ca99e",
+        "bytes": 1465599
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-32.rust.json",
+        "sha256": "65c89f3e5d1b5c32ee4391a9b75d4706e617328657afc7b1c204e648cb4759fc",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4443212499609217,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceQuotient-32.stdout.log",
+        "sha256": "100e5f32645ecbc79a589d1f077112a4be99a82935b4a761c77f9de0ba7f873f",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceQuotient-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "46ebb015deb3dd2d65ff9ea5adec1063620c744ea98da5544a1d4b4b80da511e"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"631241\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"631553\",\"kind\":\"check_type_mismatch\",\"term_index\":\"631255\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 630436 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseMinimumSourceQuotient-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-64.mpcert",
+        "sha256": "41d3442257ff397f60b18c6bfb2aebc7420a4962dd76b3e8a8dab4073c0a2a6e",
+        "bytes": 1465599
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-64.rust.json",
+        "sha256": "974c19fff174ab5e8a78a8db2304ccbb6b4a357dbfb4c89a9fd9e6c4899dd0fa",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.467754082987085,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceQuotient-64.stdout.log",
+        "sha256": "a8260b5b83640a55c05298085ce175e3704ca0c7296f810c5b1e50dc43675959",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceQuotient-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "748b49cac598713ac46579f3a970f62df1b3e36fc703f14931c1782f7a3646b1"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"636077\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"636519\",\"kind\":\"check_type_mismatch\",\"term_index\":\"636091\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 635269 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseMinimumSourceQuotient-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-8.mpcert",
+        "sha256": "189268d9eb27105e1146995037f2f083241c5a16b34f581c3c5f688b4a101ebf",
+        "bytes": 1465596
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-8.rust.json",
+        "sha256": "f3cebf1fd4359f7d12cf01261dee00a567469ab8963baca05df18ca32a768f71",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceQuotient-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4197786659933627,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceQuotient-8.stdout.log",
+        "sha256": "12e953694b5728e2cdec2f1c2868bf508b642dcf7534a8e67ca0cc7eb00ecd46",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceQuotient-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "7c6a5c13ec056daa57630f9282af61b1c488eaf4fac09f5c106a0b3fe5acb68a"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"621734\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"621946\",\"kind\":\"check_type_mismatch\",\"term_index\":\"621748\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 620935 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseMinimumSourceRemainder-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-16.mpcert",
+        "sha256": "26a9a6f03e181113f317db534c3544ee4eb2062f7c1c1af3628805d9b0d53d3a",
+        "bytes": 1465619
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-16.rust.json",
+        "sha256": "92c7b5a4544e7cd59fbeca0faea558e6399e2c5d7f5dc25cc1b8e5671b565cdf",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4209247500402853,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceRemainder-16.stdout.log",
+        "sha256": "4992d0102b7e116c30e6cc46705154adc9fb771090f720dc8aaeaf8a44d024a5",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceRemainder-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "ca955a9328d0ace99e127429b6ba10543b5459a186927d60f08c066be4b4500f"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"626718\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"626956\",\"kind\":\"check_type_mismatch\",\"term_index\":\"626742\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 625926 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseMinimumSourceRemainder-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-32.mpcert",
+        "sha256": "88f44255ad3ab9867940931bd88235042b1fdde8e8b3ca391a40f0103f37a982",
+        "bytes": 1465621
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-32.rust.json",
+        "sha256": "4d190dca6658611d73f8428368dfb3c4fac34f936ab62a6eb1886e7db3bded6f",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4446116250474006,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceRemainder-32.stdout.log",
+        "sha256": "34d088a1e4b7cae7ec0babbda1803d7f0659467b6bffe5c8497f0ae62b171446",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceRemainder-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "43fa365c8087fe1a8de8b6d4544d5f1d8a0cb38ff43aafb9e016dbff34820be0"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"631554\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"631792\",\"kind\":\"check_type_mismatch\",\"term_index\":\"631578\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 630759 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseMinimumSourceRemainder-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-64.mpcert",
+        "sha256": "d2bbfeaf4ff419f1e2ac4e23ab61e57fd3aa76908174c20f9469d24cca3ec145",
+        "bytes": 1465621
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-64.rust.json",
+        "sha256": "38fae458f478c06aa242eca5b549cec06bc60bd8e27a00783dd07aa705516bba",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4749482090119272,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceRemainder-64.stdout.log",
+        "sha256": "2fbe97d11db22dfe48c373a8cb2b2e54bdbada8f2559a92e6ac859c5d7c67adc",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceRemainder-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "3bf93155cafef6c98d9e11225c8eb675a0e7f3359cf7feec677e69ab0d0ae058"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"636520\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"636758\",\"kind\":\"check_type_mismatch\",\"term_index\":\"636544\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 635722 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseMinimumSourceRemainder-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-8.mpcert",
+        "sha256": "0eb7eed44415b545ecaa57f52c683ea8a6c5f0be2e85088e35b28591f34f9d8b",
+        "bytes": 1465618
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-8.rust.json",
+        "sha256": "e0ecf9bd8807b483414d7d94adcd527ee5f39b3bc07de973e36f6914546c50a9",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseMinimumSourceRemainder-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.41707437497098,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceRemainder-8.stdout.log",
+        "sha256": "794246512a5614e8f69447ef877685533bfaea4bad86d5a25f0497d8fcc4fa07",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseMinimumSourceRemainder-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "07565ec09d738c4a2645d5c99849cdefe9844d46d3ef859425cc5e62f16f2d3b"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"621947\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"622186\",\"kind\":\"check_type_mismatch\",\"term_index\":\"621972\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 621159 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseNegationSign",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegationSign.mpcert",
+        "sha256": "4d39159591eba0256f6243b78c8de6619fdb66596e77fb807f9dc7eb34ba2452",
+        "bytes": 1465643
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegationSign.rust.json",
+        "sha256": "fa180b0455df5336fea4fad33e14a9dd14318c84116425648fa647a8c2ae6cb2",
+        "bytes": 542
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegationSign.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4073592090280727,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegationSign.stdout.log",
+        "sha256": "b6cff7aefbf89357dcadf7596a854d2eba4ced0d5714a1f86be8923b07b5018c",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegationSign.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "1eedc769dc5859ff75f7e5a91371318ae83f6e1b5908b916f84eb6dce1f6d9ab"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"pi\",\"expected_term_index\":\"612748\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"613294\",\"kind\":\"check_type_mismatch\",\"term_index\":\"612825\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 612031 inferred app but expected pi"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseNegativeUnitComplete-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-16.mpcert",
+        "sha256": "dde3f7932410d5ca872f5e23da763ae911786ca9b877363af8609b888178fa66",
+        "bytes": 1465583
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-16.rust.json",
+        "sha256": "f4868fb4983c87a012c68bc83003295486c7883fdef432b15133631494eafa9b",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4483584590489045,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitComplete-16.stdout.log",
+        "sha256": "8a753725a2d83820772c178f1407c4256f388b6f8e4752ea12edb4d8a5f76751",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitComplete-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "2af4ee49315f6d844959bc54f9597cefdb0aa25297ad11bfa761ec25a12f7836"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"624630\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"624549\",\"kind\":\"check_type_mismatch\",\"term_index\":\"624635\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 623822 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseNegativeUnitComplete-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-32.mpcert",
+        "sha256": "2d6913443c3d094f9ba9d55efd15d24246509ddacec4f58b56e0ad7d658ec431",
+        "bytes": 1465584
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-32.rust.json",
+        "sha256": "4263efd546a043e448e6c471e120d0d39b7b777f86a12f2b00cc71350af9f502",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4545308329397812,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitComplete-32.stdout.log",
+        "sha256": "08c0681a0a26baf97cb462159e153d92cd8ff2c875ed189fb96fdd2d3e9c5f2c",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitComplete-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "f82d1717c0622210efabd2b736facf56d5017bf6282efc4a7ad67a7bf09cb23b"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"629400\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"629319\",\"kind\":\"check_type_mismatch\",\"term_index\":\"629405\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 628589 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseNegativeUnitComplete-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-64.mpcert",
+        "sha256": "31013bede8d888de6dd3dfce8bee8b86dc360a942335b5b9e9bdedccec8ec38e",
+        "bytes": 1465584
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-64.rust.json",
+        "sha256": "fb5ae6c3757e5403d32d8a2482a26dfeabbeb27d363bf38ec7b3248fe6077307",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.5087140840478241,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitComplete-64.stdout.log",
+        "sha256": "db2a0de8f0adc94465dba88bb3b2c44a5660cda9881378c3111d8751612763a5",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitComplete-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "03edc9590ddf77164cb8b431ccf74894268847b3f6a1a10a2f27180ca18b8384"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"634236\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"634155\",\"kind\":\"check_type_mismatch\",\"term_index\":\"634241\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 633422 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseNegativeUnitComplete-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-8.mpcert",
+        "sha256": "d16c7fdf4d21a9f21bd49279e98ddd54ff26b0a44c742d13a8e3a8b389aa2a1f",
+        "bytes": 1465583
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-8.rust.json",
+        "sha256": "bda98a4dc6b90a9b5c2d04ef29d3139cfd18481c4fc78fec1900fe611b0a610b",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitComplete-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4404022089438513,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitComplete-8.stdout.log",
+        "sha256": "794f1a29bd9aba25e21d24995e27cc53ab0af79bf12cf0722a51579ced8a10a9",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitComplete-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "c1b71d0c43bf2b433223cd2165d1c7fb2e34b78dbe2fb3fd3fee12d62936107b"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"619848\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"619729\",\"kind\":\"check_type_mismatch\",\"term_index\":\"619854\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 619044 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseNegativeUnitReflect",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitReflect.mpcert",
+        "sha256": "5e69ec4f7200c8f9c581cabf7c86f6021572a107447eb096151c11dde5160352",
+        "bytes": 1465588
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitReflect.rust.json",
+        "sha256": "0f4de5837b6407a4bf4b427c7cbd8351ce902b22175af7f1d461a16892312f51",
+        "bytes": 542
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitReflect.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4138948749750853,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitReflect.stdout.log",
+        "sha256": "dffe6377f1a708350f7997b88adc1ced9f6b031403bf4de1f9a5a9e7e4e20971",
+        "bytes": 107
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitReflect.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "5443f9147527cc053b7ad36ec88cc29f235a2cdd161a6d6262215d55ee98e659"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"pi\",\"expected_term_index\":\"616321\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"616964\",\"kind\":\"check_type_mismatch\",\"term_index\":\"616412\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 615602 inferred app but expected pi"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseNegativeUnitSound-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-16.mpcert",
+        "sha256": "3be0daac914ca38fbd22af909867bc90cc28f68e20466b13805fceef24a8a855",
+        "bytes": 1465595
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-16.rust.json",
+        "sha256": "641ddf6ab9e3a9ac0bb002d990fef4617b2bb85cf3a391180dc93dd02555eef5",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4470065420027822,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitSound-16.stdout.log",
+        "sha256": "7cc4854b4758980240b39e290d4c4d8052013d7c11c71661fcfc8580d7fb4496",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitSound-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "fc44d1c84e0fe6b7be517efca41e4745c5430251cd6b5b8e72968e20ff019c89"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"624377\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"624629\",\"kind\":\"check_type_mismatch\",\"term_index\":\"624402\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 623589 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseNegativeUnitSound-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-32.mpcert",
+        "sha256": "cf7cd889abb1211e3e5559537e3dc118159cb095a68b8dd56a7c4aba6122ca35",
+        "bytes": 1465596
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-32.rust.json",
+        "sha256": "c764f0214316efa336f8d2faa6e9752306d4dd51b5ab3bebea19e6412626f03c",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4468770830426365,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitSound-32.stdout.log",
+        "sha256": "c4d680575667784219f8151a0c9afc324394189333c7dcc9d0377d98fa00fe5e",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitSound-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "2339e6819955079cd8e113c1aa7977598d65920f5c55e66e95c585745767c505"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"629147\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"629399\",\"kind\":\"check_type_mismatch\",\"term_index\":\"629172\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 628356 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseNegativeUnitSound-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-64.mpcert",
+        "sha256": "14028cb75e2e46d2757d54ff990f6c5980d7dc160b57b5c4a43942831aa098b4",
+        "bytes": 1465596
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-64.rust.json",
+        "sha256": "2b717dcf5f22abf4583850fc7a507f99b87c0713be6df744c7d16f2afe046b06",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4623970000538975,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitSound-64.stdout.log",
+        "sha256": "7dbd8375bb95fbfd00612ebf5d76671af40674adf797813ee7a81cf7d5a8139e",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitSound-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "fe4b9daccc778176830d8437f114fac49a90f16b3858dcee532eae3c89f8bd7c"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"633983\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"634235\",\"kind\":\"check_type_mismatch\",\"term_index\":\"634008\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 633189 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseNegativeUnitSound-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-8.mpcert",
+        "sha256": "f9dde25ef25d786ab7997f5c86e6371a646121689f04579c2fa51236a59dcd3f",
+        "bytes": 1465595
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-8.rust.json",
+        "sha256": "ac731fa9e680f7fe321e8f3f499dc097400fd05f84f3e2baaf792d4ea8759346",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseNegativeUnitSound-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.442992249969393,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitSound-8.stdout.log",
+        "sha256": "2ebaaca2b119a76e0c00e3fd56aeb77b08a6f8e6055fc3cb7bc4c0ffc61ffca3",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseNegativeUnitSound-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "cb9e3ac410977f877d21beb20cdc078d840311f864ba95033f15b02c1e4fa8f0"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"619533\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"619847\",\"kind\":\"check_type_mismatch\",\"term_index\":\"619567\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 618757 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseQuotientGap",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientGap.mpcert",
+        "sha256": "7f717523e439f36034f31730f58caae19747161893bd36ecaf11859509201786",
+        "bytes": 1465628
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientGap.rust.json",
+        "sha256": "4951a3185eced3f4f24f3aa09e8685bf19cdad46a804852258106c1844e59fbd",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientGap.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4305246669100598,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseQuotientGap.stdout.log",
+        "sha256": "41d93f3b75cfd8a875d5eba720e7be8aa807c7efa55e5ae512693506c6acdfc9",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseQuotientGap.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "d671a953d21abcdab5602bddc19fceb0722151fb3865bf2a77a7e47a6e9a3e1b"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"612400\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"612560\",\"kind\":\"check_type_mismatch\",\"term_index\":\"612422\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 611628 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseQuotientHalf-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-16.mpcert",
+        "sha256": "483ac1ca718795044949ae157b72a4118e8d1d536b64c697f40dc7fc2b4084fe",
+        "bytes": 1465589
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-16.rust.json",
+        "sha256": "41e0267154f43b0bdd64e3bde4b9461711fc5c2c893cf539b88b081a248f5249",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4463866669684649,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseQuotientHalf-16.stdout.log",
+        "sha256": "c8b678add4c51ba5b92350336dfaa4775fa2465d5e452654238b8c4f5c6c0979",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseQuotientHalf-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "3867a2caa97ea39bc4b47bee2c9a8319f5e7212edae3f6b87470ff469a830826"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"623226\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"623251\",\"kind\":\"check_type_mismatch\",\"term_index\":\"623233\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 622420 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseQuotientHalf-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-32.mpcert",
+        "sha256": "bf14109d804638c6aa7aa933d0e070a42febfe953ac0307eff4a66e91edbda27",
+        "bytes": 1465591
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-32.rust.json",
+        "sha256": "3904fb22dffbc94d5fcc3d11ed5069a7ad9eca65c6f9acff87e8d0f71cb2c519",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4605502499034628,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseQuotientHalf-32.stdout.log",
+        "sha256": "4e38912e1711ba61f25a40adbc3dcb1c17e4b7942b42b247cde3d57ebc58662d",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseQuotientHalf-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "00e0eaa8d76fc003c953c55de6e8a9c09142c40fe727f1a3810ac15aa03e4806"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"627996\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"628021\",\"kind\":\"check_type_mismatch\",\"term_index\":\"628003\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 627187 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseQuotientHalf-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-64.mpcert",
+        "sha256": "6898e65b4be7b652d9c6c7ead1836672d0019691ab6d23b68119bbe7c19b0abd",
+        "bytes": 1465591
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-64.rust.json",
+        "sha256": "bb1419ade0f351b43f5c6d8a4eb6245b49cef41eba87dc73eda3820cab098c3d",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4797290419228375,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseQuotientHalf-64.stdout.log",
+        "sha256": "f433b0dd935dced629124d7f513e145b8663ad1589c00bf7716aef422b00a756",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseQuotientHalf-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "25bebf582b0f4f9c00163a300366e4b85e267603a7e6833a32294306136e967b"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"632832\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"632857\",\"kind\":\"check_type_mismatch\",\"term_index\":\"632839\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 632020 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseQuotientHalf-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-8.mpcert",
+        "sha256": "ec6e37a085feea271a73f5c25e00aa47ca5f88d797b7cf5183ef0e314bc37676",
+        "bytes": 1465588
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-8.rust.json",
+        "sha256": "a6754541967fa30785c3d3f935d2d4316a964615b1afeb8c53b7c742c4bfbc30",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseQuotientHalf-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4736436660168692,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseQuotientHalf-8.stdout.log",
+        "sha256": "a55ce7520493d30eef4c8697eb9e50f05e61383f8aa72f20e14408ba13caa524",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseQuotientHalf-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "98c2cd01a6c9b9f0da9afbd1f99c69f29943263ac5c02557ad3bee1df9f1496a"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"618355\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"618380\",\"kind\":\"check_type_mismatch\",\"term_index\":\"618362\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 617552 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseRemainderHalf-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-16.mpcert",
+        "sha256": "9fbdc15a49a0481122380610b0164c36217bf767751253d89fead28a52e790e3",
+        "bytes": 1465589
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-16.rust.json",
+        "sha256": "6ecb421cca3bb6e9fb33d35587147642ebeb7260b10a94384a084da07d31cd8c",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.575334749999456,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseRemainderHalf-16.stdout.log",
+        "sha256": "22aae4548ea61e57dcaefdae0a62957e9f754098882142da8460ce874186c1ac",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseRemainderHalf-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "3c8c60a116417a88757d3ee03906b45e0f5bb82d0e24d2b6746eb425c3423d94"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"623252\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"623297\",\"kind\":\"check_type_mismatch\",\"term_index\":\"623259\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 622446 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseRemainderHalf-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-32.mpcert",
+        "sha256": "4c8bb37c585fb693cb8ec2afb6b90d9aac98e97cd49942179cd4cfbcf721e0e8",
+        "bytes": 1465591
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-32.rust.json",
+        "sha256": "89855850843bb770254b53a276dd6993a985710058ddc5b5a888cd5dab10b6c3",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.5498639170546085,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseRemainderHalf-32.stdout.log",
+        "sha256": "2a57c5a94e59b5d0867e7d80648d7f251f5bcd59551c49026005517ef542de9a",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseRemainderHalf-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "8f4cdb7949a85f3561c65927f8fea701c772980b9b5249c8466b4c226c19ca3f"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"628022\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"628067\",\"kind\":\"check_type_mismatch\",\"term_index\":\"628029\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 627213 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseRemainderHalf-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-64.mpcert",
+        "sha256": "c82ab9200ba08a030b9f3ef87109b85c091c1d071880536bccaaee5735489206",
+        "bytes": 1465591
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-64.rust.json",
+        "sha256": "ca879c7fee1dd249300de34b2299d6cbf66cf9c8ccf5402a6fbf73a8c0faa2f9",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.5241762079531327,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseRemainderHalf-64.stdout.log",
+        "sha256": "bc8f0e1b3188186e39f101556f81da3be9bb24cb36e9491281890e55aa1f8f75",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseRemainderHalf-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "f38c54e8fc10228fece570148e77b86404628448e55be6928a0de4fc9bec1fc9"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"632858\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"632903\",\"kind\":\"check_type_mismatch\",\"term_index\":\"632865\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 632046 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseRemainderHalf-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-8.mpcert",
+        "sha256": "09cdded4867871c5493009c622cdac51fc6174ebdb9ab011f79cfee1ad6d975c",
+        "bytes": 1465588
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-8.rust.json",
+        "sha256": "a944aa68753884aca55c1c3b5f4f94f6ca2bbdd8bd39a2e107077d6135b972e3",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseRemainderHalf-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4484255419811234,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseRemainderHalf-8.stdout.log",
+        "sha256": "73ea8700dcdf962d0385499d61693cd28ac2e9369f7f212f464211efe50ebed0",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseRemainderHalf-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "feed1245fb725b515788390ad5881f2a88f06c9ec41fc688e582a81a480284f3"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"618381\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"618426\",\"kind\":\"check_type_mismatch\",\"term_index\":\"618388\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 617578 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseScalarCorrection",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseScalarCorrection.mpcert",
+        "sha256": "3609be5e9ac0bb8f76f03c623366f5e052a7b68fe4e0a4985b9ef704aa820a49",
+        "bytes": 1465597
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseScalarCorrection.rust.json",
+        "sha256": "5b1f24e471dcd4eda69258de22a4d0ecc5a4dcfd2694c990ad5eff5e3fd145df",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseScalarCorrection.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4258897909894586,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseScalarCorrection.stdout.log",
+        "sha256": "5c344af6a17253aa81251596a72a99d74e5477ef0e81dee20d995284e7292696",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseScalarCorrection.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "01d1dcb56ca3da31892755acb6c90b90501adbbba6b7876069300c8d318327a9"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"613499\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"614284\",\"kind\":\"check_type_mismatch\",\"term_index\":\"613610\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 612810 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseStrictUpper",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseStrictUpper.mpcert",
+        "sha256": "63488370fc1e38ae924eaab5953a2f6a50bd6f10bf1fc3b32c394239745b5518",
+        "bytes": 1465606
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseStrictUpper.rust.json",
+        "sha256": "c25247ae71db95371ecca4b56c8ac3cd08658c50484a9544e2d6c12b1ad494c3",
+        "bytes": 542
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseStrictUpper.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4566101250238717,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseStrictUpper.stdout.log",
+        "sha256": "4a971e9eb1015af8da530401f3b0ed2f2e73460925a51f6efc92e1f388c2c1e5",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseStrictUpper.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "2bac434a7ec32b4dd4cda3d62859301023503a9ecf01b3f172357be3aeedce44"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"609231\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"33483\",\"kind\":\"check_type_mismatch\",\"term_index\":\"609270\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 608478 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "FalseUnitQuotient",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseUnitQuotient.mpcert",
+        "sha256": "a3ea0aa95528939e931d44a427044ddabb7c13fcbacbc80d24dc193c9be149a9",
+        "bytes": 1465628
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseUnitQuotient.rust.json",
+        "sha256": "d0342f661b0b31faac88fbf09aada6e6bd68d3fe4d170683e0f10de995e1af02",
+        "bytes": 542
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/FalseUnitQuotient.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.446976458071731,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseUnitQuotient.stdout.log",
+        "sha256": "9effe32603971cfa145ac2318f6fc13dc4ed3062eda85f6b852012edb1da0bc0",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/FalseUnitQuotient.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "67e7d2c6b779392137b61c8d8fa5af909aabc1966184b3670f90b5b6b2008e65"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"93520\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"616314\",\"kind\":\"check_type_mismatch\",\"term_index\":\"616139\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 615337 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "WrongMinimumDefinition-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-16.mpcert",
+        "sha256": "1f59e040426e54ca36811b498812e7c673325b9650fa9bd0bb3744de8e837225",
+        "bytes": 1465571
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-16.rust.json",
+        "sha256": "291cfbe41392ec367423ad55e599eae61a5a124ede43add97522ffadf06a9ecb",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4584804159821942,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongMinimumDefinition-16.stdout.log",
+        "sha256": "3f3fee8c3fb014777175b7510591795794012e4a3f3509ca38a507b89f21b7fc",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongMinimumDefinition-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "bf9d5b71bf29d79ea1dd0fe4ae50eebfe8acde99636645c317dcbe815ef0ff3a"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"624677\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"624683\",\"kind\":\"check_type_mismatch\",\"term_index\":\"624680\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 623867 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "WrongMinimumDefinition-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-32.mpcert",
+        "sha256": "711216797a2fa1c5738aa790bb5f5db5d62dd91c934f821c1986b74faf354e7a",
+        "bytes": 1465573
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-32.rust.json",
+        "sha256": "cb1969e7708c6e3a5bc6a972c529acde1120f64e9cca5e5f7747c014d073cca2",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4632371669868007,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongMinimumDefinition-32.stdout.log",
+        "sha256": "a1eef9f8d2044271ceaaa76c73a010b8c18a26d9c3d67cc1a5d7c6ea85769a74",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongMinimumDefinition-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "f82bb703871ba2d027b5cb7e66a63ec632658e7e5ce60c0d9411e88aea03801d"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"629447\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"629453\",\"kind\":\"check_type_mismatch\",\"term_index\":\"629450\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 628634 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "WrongMinimumDefinition-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-64.mpcert",
+        "sha256": "7946d95c21bb51a02a56e53c4a9a8f3faf3ee3f09a63bc43510451f740444b28",
+        "bytes": 1465573
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-64.rust.json",
+        "sha256": "a36c29334bfd29d5aec0f2796116071df35304a9d42cc35dc402fc21351e66ed",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4901890000328422,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongMinimumDefinition-64.stdout.log",
+        "sha256": "23b37b599fb7219f5c5e96ecd1cb7cec4195b7513fb531d1cc2014cb159c4bb6",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongMinimumDefinition-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "a4ba83515be2e495572ead0b922db2e42dc2b72973872026c86542cf41374878"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"634283\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"634289\",\"kind\":\"check_type_mismatch\",\"term_index\":\"634286\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 633467 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "WrongMinimumDefinition-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-8.mpcert",
+        "sha256": "3d7f4b6b2c9ffcc2d7014ac41e312061de85e9e5817e465e5e3548c1420fc783",
+        "bytes": 1465571
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-8.rust.json",
+        "sha256": "2b6ef1b93559b4f5633fea40a35763b5ab4904c0b39b5e22f069a0472d51dbd2",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongMinimumDefinition-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4116786250378937,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongMinimumDefinition-8.stdout.log",
+        "sha256": "1cf2e5f86a033d339c0a8ffeac06e3cc0e820ae8b20c1aad1acfb10ee8ff2641",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongMinimumDefinition-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "336f9e0be231d228dcca655456b9a3a11bc5cf0f7594de9404e0d0695ac29337"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"619896\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"619902\",\"kind\":\"check_type_mismatch\",\"term_index\":\"619899\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 619089 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "WrongNegativeUnitDefinition-16",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-16.mpcert",
+        "sha256": "e6665cac9b2fba9c15714dc907b18c3fd3613e5e95d959d2d63e4f3a3ce1d555",
+        "bytes": 1465565
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-16.rust.json",
+        "sha256": "dec94e1a3316efeef255eba61a5bba3180cf525279fd36e4370678b218b025f5",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-16.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4354774999665096,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongNegativeUnitDefinition-16.stdout.log",
+        "sha256": "341fd1493a54a2f850cc845558e002f4b5aa153b87a8f71907ddf38c26aa4386",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongNegativeUnitDefinition-16.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "f4128e03fa86c9f9a8a5f1564ba9b6b24d51bdd96ce40bb94b54874311121062"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"624365\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"624369\",\"kind\":\"check_type_mismatch\",\"term_index\":\"624367\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 623554 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "WrongNegativeUnitDefinition-32",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-32.mpcert",
+        "sha256": "f940787a75e95c0c67a20465f7f60846e75374c0f5316000c6d49663a7ae886f",
+        "bytes": 1465566
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-32.rust.json",
+        "sha256": "e51ad566524c9d25140f6f20f321cb9a43db951b35a45fb61766fc77bad05545",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-32.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.4576167919440195,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongNegativeUnitDefinition-32.stdout.log",
+        "sha256": "e1650ec30412a6b31f9c68556b00ddf063ffaa4c16a71cd39f184ab8f667ef23",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongNegativeUnitDefinition-32.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "94577c960be63b96b9b4a264d1acd63cc2d62bef016676b2a8ccc3803d383354"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"629135\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"629139\",\"kind\":\"check_type_mismatch\",\"term_index\":\"629137\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 628321 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "WrongNegativeUnitDefinition-64",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-64.mpcert",
+        "sha256": "fd9452630b270b4c18424c4c862c63a5bc51488231b94115f2deb58ceb4f4a02",
+        "bytes": 1465566
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-64.rust.json",
+        "sha256": "e16892c1945fdb36448ec32c884abeef0d15d405e2fc3cd40a3ecca8e6cd2ec5",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-64.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.9895008329767734,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongNegativeUnitDefinition-64.stdout.log",
+        "sha256": "9be96e930a2d622d2c516b82fdd7e92d2977100c86178bdeea254afceff6b3e3",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongNegativeUnitDefinition-64.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "e6901466392577e7ca949cda86738e5d6dcb4882d2f40776c605dd488b3818df"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"633971\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"633975\",\"kind\":\"check_type_mismatch\",\"term_index\":\"633973\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 633154 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "WrongNegativeUnitDefinition-8",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-8.mpcert",
+        "sha256": "55ac33440977b4f05f7883c07267a4d7fcd607a776be5180971c28dfd5247e89",
+        "bytes": 1465565
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-8.rust.json",
+        "sha256": "73f9886203a3a1272b56028cfde994f27764564109d707ecf4a95c8c23137487",
+        "bytes": 543
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/WrongNegativeUnitDefinition-8.mpcert"
+      ],
+      "exit_code": 1,
+      "seconds": 1.472959875012748,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongNegativeUnitDefinition-8.stdout.log",
+        "sha256": "9cb8a2d2f2351cba634eea9f81bb5d3cc4ae292871c851814c9353909b187ba2",
+        "bytes": 108
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/WrongNegativeUnitDefinition-8.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "rejected",
+        "module": null,
+        "declaration_count": null,
+        "axiom_count": null,
+        "hashes": {
+          "export": null,
+          "axiom_report": null,
+          "certificate": "ac6a9343c4f92154a21814a89cc758c9e08e7e0e7738db743f635a0a10fdd037"
+        },
+        "axiom_report": null,
+        "error_code": "KERNEL_CORE_CHECK",
+        "error_detail": "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"check\"}],\"details\":{\"expected_kind\":\"app\",\"expected_term_index\":\"619521\",\"inferred_kind\":\"app\",\"inferred_term_index\":\"619525\",\"kind\":\"check_type_mismatch\",\"term_index\":\"619523\"}}"
+      },
+      "go_observation": {
+        "verdict": "rejected",
+        "error_kind": "core_check",
+        "error_detail": "term 618713 inferred app but expected app"
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "honest-different-division-bounds",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/honest-different-division-bounds.mpcert",
+        "sha256": "a5ac4e326eadec5eb5b2ad1c3ed134344996941759d016760c84be8b1148b3c5",
+        "bytes": 1465656
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/honest-different-division-bounds.rust.json",
+        "sha256": "6e512b101327236066f84652e3edbddfade8780ef032c3f268741bee0f821aab",
+        "bytes": 605
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/honest-different-division-bounds.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 2.9943580830004066,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/honest-different-division-bounds.stdout.log",
+        "sha256": "3cf0ea9dbcca880ec8d20546a12c7e71dddb8e6621788333b444eb501d5d2cab",
+        "bytes": 351
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/honest-different-division-bounds.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.WordSignedDivisionBounds",
+        "declaration_count": 4094,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "a99b8db000cad1991597555845a81315146115faf8d5383a8c12052898c16277",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "3aa837df7befaee1593b58f99e516bb8e3f1ae677ffc6450761fb3d1a6f9767f"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.WordSignedDivisionBounds",
+        "declaration_count": 4094,
+        "hashes": {
+          "export": "a99b8db000cad1991597555845a81315146115faf8d5383a8c12052898c16277",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "3aa837df7befaee1593b58f99e516bb8e3f1ae677ffc6450761fb3d1a6f9767f"
+        }
+      },
+      "same_original_bytes": true
+    },
+    {
+      "name": "word-division-bounds",
+      "certificate": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/word-division-bounds.mpcert",
+        "sha256": "a0158c8449e9f44c36279dd735166fe84f5b30f1d30a8caa337d32e256927e56",
+        "bytes": 1465556
+      },
+      "rust_report": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/word-division-bounds.rust.json",
+        "sha256": "b527516b302e88cc1c4380b31ebf9b46f1a71fcd19bdcd8fcef78b88b976c0a4",
+        "bytes": 605
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/final/rust-tests/certificates/word-division-bounds.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 3.0112752080895007,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/word-division-bounds.stdout.log",
+        "sha256": "38836612bff36368bdbd3d8e421d3f0154f280e16c6df6cf4b091b1ce2b68c2d",
+        "bytes": 351
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-division-bounds/paired-final/word-division-bounds.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.WordSignedDivisionBounds",
+        "declaration_count": 4093,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "6ca64bd168c29a27eb19a5e17039ae1d6d2bb2634d617423acaf909dddeefab7",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "f847c610dd931b6cb2a6b7b99a56da0419938d819b04e1bf94577e40aaf7f047"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.WordSignedDivisionBounds",
+        "declaration_count": 4093,
+        "hashes": {
+          "export": "6ca64bd168c29a27eb19a5e17039ae1d6d2bb2634d617423acaf909dddeefab7",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "f847c610dd931b6cb2a6b7b99a56da0419938d819b04e1bf94577e40aaf7f047"
+        }
+      },
+      "same_original_bytes": true
+    }
+  ],
+  "selection_reason": "Complete all-width signed division quotient gaps/half bound, strict remainder bound, bounded correction signs, exact zero remainder correction and minimum dividend/negative-unit quotient classification with actual source guard. Negative-unit soundness/completeness, exact optional guard and normal minimum/-one source values check as genuine ordinary proofs. Two zero-axiom positives plus68 typed canonical mutations cover12 generic gaps/signs/unit premises and14 actual range/predicate/guard/source laws per width. Every stream and positive hash is identical between unchanged cores. Preserve all3897 exact prior declarations/raw producer and unchanged4096/131072/2097152 caps. No CSharp, old unaffected suite, intermediate whole gate or source/application/profile release claim.",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "public_profile_activated": false,
+  "source_program_proof_claimed": false,
+  "full_T02_gate": "deferred to W04: check-fast.sh --skip-csharp",
+  "accepted_zero_axiom": 2,
+  "rejected_core_type_mismatch": 68
+}

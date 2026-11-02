@@ -21,26 +21,15 @@ pub const SEMANTIC_REGISTRY_LIMIT_PROFILE: &str = "mpk.semantic_profile.registry
 
 pub const GO_FIXED_PROFILE: &str = "mpk.go.fixed.v0";
 pub const RUST_CHECKED_PROFILE: &str = "mpk.rust.checked.v0";
-pub const CSHARP_SCALAR_PROFILE: &str = "mpk.csharp.scalar.v0";
-pub const JAVA_SCALAR_PROFILE: &str = "mpk.java.scalar.v0";
 
 pub const GO_FIXED_ENTRY_SHA256: &str =
     "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96";
 pub const RUST_CHECKED_ENTRY_SHA256: &str =
     "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057";
-pub const CSHARP_SCALAR_ENTRY_SHA256: &str =
-    "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac";
-pub const JAVA_SCALAR_ENTRY_SHA256: &str =
-    "0d80d13f97c45557fa9978eccc2545ffdb3fc1b93a26856b365a9be200470301";
+pub const REVISION_4_REGISTRY_SHA256: &str =
+    "25c92a9be951c91d0692aeb92003ae1d9fc5dd2d6a337c980ff6e681b222d2c0";
 pub const REVISION_1_REGISTRY_SHA256: &str =
     "7c9163571cda32aa47984e3e6d949c8857bf62f00110dd1b2c3958eed5e537cc";
-pub const REVISION_2_REGISTRY_SHA256: &str =
-    "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75";
-pub const REVISION_3_REGISTRY_SHA256: &str =
-    "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557";
-pub const JAVA_TOOLCHAIN_INPUTS_SHA256: &str =
-    "a75175ba0cce86d97a8e056d4dda7a0826bb6676ba551c454bd65e5d44d23fc4";
-pub const JAVA_SELECTION_HASH_DOMAIN: HashDomain = HashDomain::new("MPK-JAVA-SELECTION-0.1");
 
 pub const SEMANTIC_PROFILE_ENTRY_HASH_DOMAIN: HashDomain =
     HashDomain::new("MPK-SEMANTIC-PROFILE-ENTRY-1.0");
@@ -90,25 +79,22 @@ const REGISTRY_TRANSPORT_LIMITS: StrictJsonLimits = StrictJsonLimits::new(
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum RegistryRevision {
     Revision1,
-    Revision2,
-    /// Sole installed revision after the Java atomic cutover.
-    Revision3,
+    /// Installed Go/Rust-only registry.
+    Revision4,
 }
 
 impl RegistryRevision {
     pub const fn revision(self) -> u64 {
         match self {
             Self::Revision1 => 1,
-            Self::Revision2 => 2,
-            Self::Revision3 => 3,
+            Self::Revision4 => 4,
         }
     }
 
     pub const fn registry_sha256(self) -> &'static str {
         match self {
             Self::Revision1 => REVISION_1_REGISTRY_SHA256,
-            Self::Revision2 => REVISION_2_REGISTRY_SHA256,
-            Self::Revision3 => REVISION_3_REGISTRY_SHA256,
+            Self::Revision4 => REVISION_4_REGISTRY_SHA256,
         }
     }
 
@@ -126,9 +112,6 @@ impl RegistryRevision {
 pub enum CompiledSemanticProfile {
     GoFixedV0,
     RustCheckedV0,
-    CSharpScalarV0,
-    /// Compiled validation does not imply membership in the installed registry.
-    JavaScalarV0,
 }
 
 impl CompiledSemanticProfile {
@@ -136,8 +119,6 @@ impl CompiledSemanticProfile {
         match self {
             Self::GoFixedV0 => "go",
             Self::RustCheckedV0 => "rust",
-            Self::CSharpScalarV0 => "csharp",
-            Self::JavaScalarV0 => "java",
         }
     }
 
@@ -145,8 +126,6 @@ impl CompiledSemanticProfile {
         match self {
             Self::GoFixedV0 => GO_FIXED_PROFILE,
             Self::RustCheckedV0 => RUST_CHECKED_PROFILE,
-            Self::CSharpScalarV0 => CSHARP_SCALAR_PROFILE,
-            Self::JavaScalarV0 => JAVA_SCALAR_PROFILE,
         }
     }
 
@@ -154,8 +133,6 @@ impl CompiledSemanticProfile {
         match self {
             Self::GoFixedV0 => "mpk.semantic_parameters.go_fixed.v0",
             Self::RustCheckedV0 => "mpk.semantic_parameters.rust_checked.v0",
-            Self::CSharpScalarV0 => "mpk.semantic_parameters.csharp_scalar.v0",
-            Self::JavaScalarV0 => "mpk.semantic_parameters.java_scalar.v0",
         }
     }
 
@@ -163,8 +140,6 @@ impl CompiledSemanticProfile {
         match self {
             Self::GoFixedV0 => "mpk.selection.go_function.v0",
             Self::RustCheckedV0 => "mpk.selection.rust_function.v0",
-            Self::CSharpScalarV0 => "mpk.selection.csharp_methods.v0",
-            Self::JavaScalarV0 => "mpk.selection.java_methods.v0",
         }
     }
 
@@ -172,8 +147,6 @@ impl CompiledSemanticProfile {
         match self {
             Self::GoFixedV0 => GO_FIXED_ENTRY_SHA256,
             Self::RustCheckedV0 => RUST_CHECKED_ENTRY_SHA256,
-            Self::CSharpScalarV0 => CSHARP_SCALAR_ENTRY_SHA256,
-            Self::JavaScalarV0 => JAVA_SCALAR_ENTRY_SHA256,
         }
     }
 
@@ -181,8 +154,6 @@ impl CompiledSemanticProfile {
         match profile {
             GO_FIXED_PROFILE => Some(Self::GoFixedV0),
             RUST_CHECKED_PROFILE => Some(Self::RustCheckedV0),
-            CSHARP_SCALAR_PROFILE => Some(Self::CSharpScalarV0),
-            JAVA_SCALAR_PROFILE => Some(Self::JavaScalarV0),
             _ => None,
         }
     }
@@ -196,8 +167,6 @@ impl CompiledSemanticProfile {
         match self {
             Self::GoFixedV0 => CompiledParameterContract::GoFixedV0,
             Self::RustCheckedV0 => CompiledParameterContract::RustCheckedV0,
-            Self::CSharpScalarV0 => CompiledParameterContract::CSharpScalarV0,
-            Self::JavaScalarV0 => CompiledParameterContract::JavaScalarV0,
         }
     }
 
@@ -205,8 +174,6 @@ impl CompiledSemanticProfile {
         match self {
             Self::GoFixedV0 => CompiledSelectionContract::GoFunctionV0,
             Self::RustCheckedV0 => CompiledSelectionContract::RustFunctionV0,
-            Self::CSharpScalarV0 => CompiledSelectionContract::CSharpMethodsV0,
-            Self::JavaScalarV0 => CompiledSelectionContract::JavaMethodsV0,
         }
     }
 }
@@ -215,16 +182,12 @@ impl CompiledSemanticProfile {
 pub enum CompiledParameterContract {
     GoFixedV0,
     RustCheckedV0,
-    CSharpScalarV0,
-    JavaScalarV0,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum CompiledSelectionContract {
     GoFunctionV0,
     RustFunctionV0,
-    CSharpMethodsV0,
-    JavaMethodsV0,
 }
 
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
@@ -279,7 +242,7 @@ pub struct CompiledProfileContract {
 
 impl CompiledProfileContract {
     pub const fn contract_id(self) -> &'static str {
-        use CompiledSemanticProfile::{CSharpScalarV0, GoFixedV0, JavaScalarV0, RustCheckedV0};
+        use CompiledSemanticProfile::{GoFixedV0, RustCheckedV0};
         use ProfileContractField::{
             Ai, Evidence, Frontend, Manifest, Policy, Release, SourceMap, Vc, Vir,
         };
@@ -302,24 +265,6 @@ impl CompiledProfileContract {
             (RustCheckedV0, SourceMap) => "mpk.profile.source_map.rust_checked.v0",
             (RustCheckedV0, Vc) => "mpk.profile.vc.rust_checked.v0",
             (RustCheckedV0, Vir) => "mpk.profile.vir.rust_checked.v0",
-            (CSharpScalarV0, Ai) => "mpk.profile.ai.csharp_scalar.v0",
-            (CSharpScalarV0, Evidence) => "mpk.profile.evidence.csharp_scalar.v0",
-            (CSharpScalarV0, Frontend) => "mpk.profile.frontend.csharp_scalar.v0",
-            (CSharpScalarV0, Manifest) => "mpk.profile.manifest.csharp_scalar.v0",
-            (CSharpScalarV0, Policy) => "mpk.profile.policy.csharp_scalar.v0",
-            (CSharpScalarV0, Release) => "mpk.profile.release.csharp_scalar.v0",
-            (CSharpScalarV0, SourceMap) => "mpk.profile.source_map.csharp_scalar.v0",
-            (CSharpScalarV0, Vc) => "mpk.profile.vc.csharp_scalar.v0",
-            (CSharpScalarV0, Vir) => "mpk.profile.vir.csharp_scalar.v0",
-            (JavaScalarV0, Ai) => "mpk.profile.ai.java_scalar.v0",
-            (JavaScalarV0, Evidence) => "mpk.profile.evidence.java_scalar.v0",
-            (JavaScalarV0, Frontend) => "mpk.profile.frontend.java_scalar.v0",
-            (JavaScalarV0, Manifest) => "mpk.profile.manifest.java_scalar.v0",
-            (JavaScalarV0, Policy) => "mpk.profile.policy.java_scalar.v0",
-            (JavaScalarV0, Release) => "mpk.profile.release.java_scalar.v0",
-            (JavaScalarV0, SourceMap) => "mpk.profile.source_map.java_scalar.v0",
-            (JavaScalarV0, Vc) => "mpk.profile.vc.java_scalar.v0",
-            (JavaScalarV0, Vir) => "mpk.profile.vir.java_scalar.v0",
         }
     }
 
@@ -327,8 +272,6 @@ impl CompiledProfileContract {
         for profile in [
             CompiledSemanticProfile::GoFixedV0,
             CompiledSemanticProfile::RustCheckedV0,
-            CompiledSemanticProfile::CSharpScalarV0,
-            CompiledSemanticProfile::JavaScalarV0,
         ] {
             for field in CONTRACT_FIELDS {
                 let contract = Self { profile, field };
@@ -974,7 +917,7 @@ pub fn validate_registry_semantic_context(
 }
 
 /// Validates one closed selection envelope for a previously validated
-/// semantic context. Detailed C# path/capture checks remain owned by T05.
+/// semantic context. Detailed path/capture checks belong to each frontend.
 pub fn validate_registry_selection_envelope(
     registry: &ValidatedSemanticProfileRegistry,
     context: &SemanticContext,
@@ -1171,103 +1114,6 @@ pub fn validate_semantic_context_linkage(
             SemanticRegistryErrorCode::ContextLinkage,
         ))
     }
-}
-
-pub fn validate_revision_2_append_only(
-    predecessor: &ValidatedSemanticProfileRegistry,
-    successor: &ValidatedSemanticProfileRegistry,
-) -> Result<(), SemanticRegistryValidationError> {
-    let valid_revisions = predecessor.revision == RegistryRevision::Revision1
-        && successor.revision == RegistryRevision::Revision2;
-    let exact_count = predecessor.entries.len() == 2 && successor.entries.len() == 3;
-    let csharp_first = successor.entries.first().is_some_and(|entry| {
-        entry.compiled_profile == CompiledSemanticProfile::CSharpScalarV0
-            && entry.entry_sha256 == CSHARP_SCALAR_ENTRY_SHA256
-    });
-    let retained = predecessor.entries.iter().all(|old| {
-        successor
-            .lookup(&old.source_language, &old.semantic_profile)
-            .is_some_and(|new| new.canonical_json == old.canonical_json)
-    });
-    let exact_profiles = successor
-        .entries
-        .iter()
-        .map(|entry| entry.compiled_profile)
-        .collect::<BTreeSet<_>>()
-        == BTreeSet::from([
-            CompiledSemanticProfile::CSharpScalarV0,
-            CompiledSemanticProfile::GoFixedV0,
-            CompiledSemanticProfile::RustCheckedV0,
-        ]);
-    if valid_revisions && exact_count && csharp_first && retained && exact_profiles {
-        Ok(())
-    } else {
-        Err(failure(
-            SemanticRegistryValidationPhase::Invariant,
-            SemanticRegistryErrorCode::RegistryInvariant,
-        ))
-    }
-}
-
-/// Proves the frozen candidate adds only Java and retains every predecessor byte.
-pub fn validate_revision_3_append_only(
-    predecessor: &ValidatedSemanticProfileRegistry,
-    successor: &ValidatedSemanticProfileRegistry,
-) -> Result<(), SemanticRegistryValidationError> {
-    let retained = predecessor.entries.iter().all(|old| {
-        successor
-            .lookup(&old.source_language, &old.semantic_profile)
-            .is_some_and(|new| new.canonical_json == old.canonical_json)
-    });
-    if predecessor.revision == RegistryRevision::Revision2
-        && successor.revision == RegistryRevision::Revision3
-        && predecessor.entries.len() == 3
-        && successor.entries.len() == 4
-        && retained
-        && successor
-            .entries
-            .iter()
-            .map(|entry| entry.compiled_profile)
-            .eq([
-                CompiledSemanticProfile::CSharpScalarV0,
-                CompiledSemanticProfile::GoFixedV0,
-                CompiledSemanticProfile::JavaScalarV0,
-                CompiledSemanticProfile::RustCheckedV0,
-            ])
-    {
-        Ok(())
-    } else {
-        Err(failure(
-            SemanticRegistryValidationPhase::Invariant,
-            SemanticRegistryErrorCode::RegistryInvariant,
-        ))
-    }
-}
-
-/// Hashes an already validated Java selection, never a caller-supplied hash or path.
-pub fn java_selection_hash(
-    selection: &SelectionEnvelope,
-) -> Result<String, SemanticRegistryValidationError> {
-    if selection.schema != CompiledSemanticProfile::JavaScalarV0.selection_schema()
-        || !crate::java_profile::valid_selection(&selection.value)
-    {
-        return Err(failure(
-            SemanticRegistryValidationPhase::SelectionValue,
-            SemanticRegistryErrorCode::SelectionInvalid,
-        ));
-    }
-    let value = serde_json::to_value(selection).expect("validated selection serializes");
-    let bytes = canonical_value(&value).ok_or_else(|| {
-        failure(
-            SemanticRegistryValidationPhase::SelectionValue,
-            SemanticRegistryErrorCode::SelectionInvalid,
-        )
-    })?;
-    Ok(
-        hash_domain_separated_raw(JAVA_SELECTION_HASH_DOMAIN, &bytes)
-            .expect("fixed Java selection hash domain")
-            .to_hex(),
-    )
 }
 
 fn validate_registry_value(
@@ -1508,14 +1354,6 @@ fn entry_invariants_hold(entry: &Value) -> bool {
 
 fn validate_parameter_value(contract: CompiledParameterContract, value: &Value) -> bool {
     match contract {
-        CompiledParameterContract::JavaScalarV0 => {
-            value
-                == &serde_json::json!({
-                    "annotation_processing": "none", "encoding": "UTF-8",
-                    "language_version": "25", "preview": false, "release": "25",
-                    "target_id": "linux-x64"
-                })
-        }
         CompiledParameterContract::GoFixedV0 => {
             has_exact_fields(value, &["target_id", "pointer_width"])
                 && string(get(value, "target_id")) == Some("linux/amd64")
@@ -1535,29 +1373,11 @@ fn validate_parameter_value(contract: CompiledParameterContract, value: &Value) 
             ) && string(get(value, "overflow_mode")) == Some("checked")
                 && string(get(value, "panic_mode")) == Some("abort")
         }
-        CompiledParameterContract::CSharpScalarV0 => {
-            value
-                == &serde_json::json!({
-                    "check_overflow_default": false,
-                    "documentation_mode": "none",
-                    "language_version": "14.0",
-                    "nullable_context": "disable",
-                    "optimization": "release",
-                    "platform": "x64",
-                    "pointer_width": 64,
-                    "preprocessor_symbols": [],
-                    "source_kind": "regular",
-                    "target_framework": "net10.0",
-                    "target_id": "linux-x64",
-                    "unsafe": false
-                })
-        }
     }
 }
 
 fn validate_selection_value(contract: CompiledSelectionContract, value: &Value) -> bool {
     match contract {
-        CompiledSelectionContract::JavaMethodsV0 => crate::java_profile::valid_selection(value),
         CompiledSelectionContract::GoFunctionV0 => {
             if !has_exact_fields(value, &["package", "function"]) {
                 return false;
@@ -1596,91 +1416,15 @@ fn validate_selection_value(contract: CompiledSelectionContract, value: &Value) 
                     .strip_prefix(crate_name)
                     .is_some_and(|suffix| suffix.starts_with("::") && suffix.len() > 2)
         }
-        CompiledSelectionContract::CSharpMethodsV0 => {
-            has_exact_fields(value, &["compilation", "contracts", "methods", "sources"])
-                && string(get(value, "compilation")).is_some_and(|item| !item.is_empty())
-                && nonempty_string_array(get(value, "contracts"))
-                && nonempty_string_array(get(value, "methods"))
-                && nonempty_string_array(get(value, "sources"))
-        }
     }
 }
 
 fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) -> bool {
-    use CompiledSemanticProfile::{CSharpScalarV0, GoFixedV0, JavaScalarV0, RustCheckedV0};
+    use CompiledSemanticProfile::{GoFixedV0, RustCheckedV0};
     use ProfileContractField::{
         Ai, Evidence, Frontend, Manifest, Policy, Release, SourceMap, Vc, Vir,
     };
     match (contract.profile, contract.field) {
-        (JavaScalarV0, Ai) => {
-            value
-                == &serde_json::json!({
-                    "display_language": "Java", "projection_profile_id": "mpk.java.ai_projection.v0",
-                    "proof_authority": false, "redaction_profile_id": "minimal-v1", "source_access": false
-                })
-        }
-        (JavaScalarV0, Evidence) => {
-            value
-                == &serde_json::json!({
-                    "proof_authority": "certificate_only", "recipe_profile_id": "mpk.java.evidence_recipe.v0",
-                    "require_reference_checker": true, "require_source_free_check": true
-                })
-        }
-        (JavaScalarV0, Frontend) => {
-            value
-                == &serde_json::json!({
-                    "argument_profile_id": "mpk.java.frontend_arguments.v0",
-                    "environment_profile_id": "mpk.java.frontend_environment.v0",
-                    "launcher_profile_id": "mpk.java.jvm_launcher.v0",
-                    "limit_profile_id": "mpk.java.limits.v0", "private_driver": "none"
-                })
-        }
-        (JavaScalarV0, Manifest) => {
-            value
-                == &serde_json::json!({
-                    "input_kinds": ["contract", "source"], "source_extension": ".java", "unit_kind": "compilation"
-                })
-        }
-        (JavaScalarV0, Policy) => {
-            value
-                == &serde_json::json!({
-                    "axiom_profile": "mvp-theory", "checker_profile": "mvp-strict",
-                    "strategy_profile": "payment-policy-java-alpha"
-                })
-        }
-        (JavaScalarV0, Release) => {
-            value
-                == &serde_json::json!({
-                    "compiler_profile_id": "mpk.java.javac_25_0_4_1_1.v0",
-                    "execution_host_profile_id": "mpk.host.linux-x86_64-gnu.java25.v0",
-                    "runtime_layout_profile_id": "mpk.runtime.linux-x86_64-gnu.java25.v0",
-                    "runtime_profile_id": "mpk.java.hotspot_25_0_4_1_1.v0",
-                    "system_modules_profile_id": "mpk.java.system_modules_25.v0",
-                    "toolchain_inputs_sha256": JAVA_TOOLCHAIN_INPUTS_SHA256
-                })
-        }
-        (JavaScalarV0, SourceMap) => {
-            value
-                == &serde_json::json!({
-                    "encoding": "utf-8", "offset_unit": "utf8-byte", "synthetic_reasons": []
-                })
-        }
-        (JavaScalarV0, Vc) => {
-            value
-                == &serde_json::json!({
-                    "contract_profile_id": "mpk.java.contract.v0",
-                    "required_check_profile_id": "mpk.java.required_checks.v0",
-                    "verification_limit_profile_id": "mpk.verify.limits.v0"
-                })
-        }
-        (JavaScalarV0, Vir) => {
-            value
-                == &serde_json::json!({
-                    "operation_profile_id": "mpk.java.operations.v0",
-                    "source_map_profile_id": "mpk.java.source_map.v0",
-                    "vir_limit_profile_id": "mpk.vir.limits.v0"
-                })
-        }
         (GoFixedV0, Frontend) => {
             value
                 == &serde_json::json!({
@@ -1695,16 +1439,6 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     "limit_profile_id": "mpk.vir.limits.v0",
                     "environment_profile_id": "mpk.rust.frontend_environment.v0",
                     "argument_profile_id": "mpk.rust.frontend_arguments.v0"
-                })
-        }
-        (CSharpScalarV0, Ai) => {
-            value
-                == &serde_json::json!({
-                    "display_language": "C#",
-                    "projection_profile_id": "mpk.csharp.ai_projection.v0",
-                    "proof_authority": false,
-                    "redaction_profile_id": "minimal-v1",
-                    "source_access": false
                 })
         }
         (GoFixedV0, Ai) => {
@@ -1727,15 +1461,6 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     "source_access": false
                 })
         }
-        (CSharpScalarV0, Evidence) => {
-            value
-                == &serde_json::json!({
-                    "proof_authority": "certificate_only",
-                    "recipe_profile_id": "mpk.csharp.evidence_recipe.v0",
-                    "require_reference_checker": true,
-                    "require_source_free_check": true
-                })
-        }
         (GoFixedV0, Evidence) => {
             value
                 == &serde_json::json!({
@@ -1754,32 +1479,6 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     "require_source_free_check": true
                 })
         }
-        (CSharpScalarV0, Frontend) => {
-            value
-                == &serde_json::json!({
-                    "argument_profile_id": "mpk.csharp.frontend_arguments.v0",
-                    "environment_profile_id": "mpk.csharp.frontend_environment.v0",
-                    "launcher_profile_id": "mpk.csharp.dotnet_launcher.v0",
-                    "limit_profile_id": "mpk.csharp.limits.v0",
-                    "private_driver": "none"
-                })
-        }
-        (CSharpScalarV0, Manifest) => {
-            value
-                == &serde_json::json!({
-                    "input_kinds": ["contract", "source"],
-                    "source_extension": ".cs",
-                    "unit_kind": "compilation"
-                })
-        }
-        (CSharpScalarV0, Policy) => {
-            value
-                == &serde_json::json!({
-                    "axiom_profile": "mvp-theory",
-                    "checker_profile": "mvp-strict",
-                    "strategy_profile": "payment-policy-csharp-alpha"
-                })
-        }
         (GoFixedV0, Policy) => {
             value
                 == &serde_json::json!({
@@ -1796,33 +1495,6 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     "strategy_profile": "payment-policy-rust-alpha"
                 })
         }
-        (CSharpScalarV0, Release) => {
-            value
-                == &serde_json::json!({
-                    "compiler_profile_id": "mpk.csharp.roslyn_5_6_0.v0",
-                    "execution_host_profile_id": "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0",
-                    "reference_profile_id": "mpk.dotnet.netcore_ref_10_0_11.v0",
-                    "runtime_layout_profile_id": "mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0",
-                    "runtime_profile_id": "mpk.dotnet.runtime_10_0_11.linux_x64.v0",
-                    "toolchain_inputs_sha256": "d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b4f"
-                })
-        }
-        (CSharpScalarV0, SourceMap) => {
-            value
-                == &serde_json::json!({
-                    "encoding": "utf-8",
-                    "offset_unit": "utf8-byte",
-                    "synthetic_reasons": []
-                })
-        }
-        (CSharpScalarV0, Vc) => {
-            value
-                == &serde_json::json!({
-                    "contract_profile_id": "mpk.csharp.contract.v0",
-                    "required_check_profile_id": "mpk.csharp.required_checks.v0",
-                    "verification_limit_profile_id": "mpk.verify.limits.v0"
-                })
-        }
         (GoFixedV0, Vc) => {
             value
                 == &serde_json::json!({
@@ -1837,14 +1509,6 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     "contract_profile_id": "mpk.rust.contract.v0",
                     "required_check_profile_id": "mpk.rust.checked.v0",
                     "verification_limit_profile_id": "mpk.verify.limits.v0"
-                })
-        }
-        (CSharpScalarV0, Vir) => {
-            value
-                == &serde_json::json!({
-                    "operation_profile_id": "mpk.csharp.vir_operations.v0",
-                    "source_map_profile_id": "mpk.csharp.source_map.v0",
-                    "vir_limit_profile_id": "mpk.vir.limits.v0"
                 })
         }
         (GoFixedV0, Release) => {
@@ -2115,15 +1779,6 @@ fn valid_sha256(value: &str) -> bool {
         && value
             .bytes()
             .all(|byte| byte.is_ascii_digit() || matches!(byte, b'a'..=b'f'))
-}
-
-fn nonempty_string_array(value: &Value) -> bool {
-    value.as_array().is_some_and(|items| {
-        !items.is_empty()
-            && items
-                .iter()
-                .all(|item| string(item).is_some_and(|text| !text.is_empty()))
-    })
 }
 
 fn has_exact_fields(value: &Value, expected: &[&str]) -> bool {

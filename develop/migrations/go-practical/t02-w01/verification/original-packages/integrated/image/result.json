@@ -1,0 +1,1638 @@
+{
+  "status": "passed",
+  "command": [
+    "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+    "test",
+    "-json",
+    "-count=1",
+    "-timeout=20m",
+    "-run",
+    "^TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage$"
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOWORK": "off",
+    "GOFLAGS": "-mod=vendor",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "1",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-go-cache",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod",
+    "MPK_GO_PRACTICAL_REPLAY_OUTPUT": "/private/tmp/mpk-go-practical-original-packages-integrated-replay",
+    "MPK_GO_PRACTICAL_SYNTAX_EVIDENCE": "/private/tmp/mpk-go-practical-original-packages-integrated-replay/evidence"
+  },
+  "compiler_version": "go version go1.25.0 darwin/arm64",
+  "compiler": {
+    "path": "/private/tmp/mpk-go-practical-original-packages-sdk-20261021/go/bin/go",
+    "sha256": "c812de5f1e8307431c5bce8ebc4887c180827abc5834a72cd640a8a14200a93b",
+    "bytes": 14117888
+  },
+  "source_receipt": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/original-packages/integrated/inputs.json",
+    "sha256": "0bac005b84b13d691da45b398257ae6991fdfa8cb97420c7c91dd496997cf219",
+    "bytes": 74553
+  },
+  "sources": [
+    {
+      "path": "go-tools/go2vir/active_corpus_test.go",
+      "sha256": "fdd64563b0103dcf833816455b181daf3df270e5d50446fee6860c4362b46369",
+      "bytes": 19494,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "851ccc8dbb9995552bb6b0ed1addf58910ab6d80"
+    },
+    {
+      "path": "go-tools/go2vir/bundle_candidate_test.go",
+      "sha256": "ca92ebb2c1b153c750db5f80724f2aa04bc60758508d77c5a6f5c72514548e41",
+      "bytes": 12027,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "d6efb70d63dd77167315ccc81469588c718796d7"
+    },
+    {
+      "path": "go-tools/go2vir/bundle_selection.go",
+      "sha256": "b174bacc9a3ee1b3793a48f801b794044b3eafb886dcb7da208666108f34962f",
+      "bytes": 22651,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "d22f6931749793efebf3af15ee5e6d20200bb248"
+    },
+    {
+      "path": "go-tools/go2vir/canonical_json.go",
+      "sha256": "0b266e9187e97e8a3275978099cafb3cc16edf12c1094d8ef533909bbf22f16b",
+      "bytes": 10460,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "f625595c190f3ea9779c63e4e81a06883b703355"
+    },
+    {
+      "path": "go-tools/go2vir/contract.go",
+      "sha256": "51316ed3fecbf200f569567f46fd9065c912a41d03299b96021e44c2418c9bda",
+      "bytes": 30100,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "094e43d6b733aa902ba3946bc71829e2a4acfbaa"
+    },
+    {
+      "path": "go-tools/go2vir/corpus_test.go",
+      "sha256": "08007ed264fcc6da716241e72d7fb26bb53918aed84b13cfd1a66f17d6711f87",
+      "bytes": 16972,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "96b5cc6953322a1af63667a7ca852db01a27ad3a"
+    },
+    {
+      "path": "go-tools/go2vir/emit.go",
+      "sha256": "8e9457ca250c53bbe01de30644dc9085946e807df75737fef5933a3de42916ec",
+      "bytes": 10285,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "a01c40f11741bd8c5d3f0f59c216e93ad09caaf0"
+    },
+    {
+      "path": "go-tools/go2vir/features.go",
+      "sha256": "050c9e7f59d429aeceb82a8fdbbac7a2ef2d78bad4e6759e237ab60508eb69fc",
+      "bytes": 18090,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "b7f3805f911307cc8c6f316063086258159cf1b2"
+    },
+    {
+      "path": "go-tools/go2vir/go.mod",
+      "sha256": "b90bfc21fd7a30139ab5852b895e0e1fcb7f8442d01ca4e2463c2ad1cfd15af3",
+      "bytes": 179,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "c4a71a54b0fda49fffb8d29026a9e712be7adc56"
+    },
+    {
+      "path": "go-tools/go2vir/go.sum",
+      "sha256": "3b423539c29460b977ec958cd53a84c813d2c15a3d2cdfb841f07f3ef7a6104c",
+      "bytes": 632,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "e1a8435ba51c6936b927bee6d4516abb1429a50d"
+    },
+    {
+      "path": "go-tools/go2vir/hash.go",
+      "sha256": "180957d685df429f8c458e503d7e3a3ce4235458dc65daeaa53e4c2e4549d7d8",
+      "bytes": 1258,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "d2fd2d2c11ccf1b3405a65c85aea50d0c8db081c"
+    },
+    {
+      "path": "go-tools/go2vir/loader.go",
+      "sha256": "6034f01b6e9b2e46adfc131299f21a8b38bbc1415a93de0de91db39eb2f296eb",
+      "bytes": 11318,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "c5b2ac5ebc85b7367d8186da1eae3ebb1599eea9"
+    },
+    {
+      "path": "go-tools/go2vir/loader_test.go",
+      "sha256": "294211d2b4a7b716b5cd9034c54c172123ff79cadc1e5afde4d71a8226d7e30d",
+      "bytes": 6649,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "3a58c7479988bd07d50d55569c4b6a7c1b55647f"
+    },
+    {
+      "path": "go-tools/go2vir/lower.go",
+      "sha256": "82b8eaad794af22071073a223a7f24cb3bae7ba8143a487f1a9fa794db140052",
+      "bytes": 50967,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "fca08cc4b68b06cd16d3a7dcacc50db68f7724d6"
+    },
+    {
+      "path": "go-tools/go2vir/lower_types.go",
+      "sha256": "40378faf14b85bd585b0425b333d1e0b4b66738912e2fbb7a0f3479ce90c33f1",
+      "bytes": 5075,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "a4082f0272b12f59e53885e33cf9572d6cae5e98"
+    },
+    {
+      "path": "go-tools/go2vir/main.go",
+      "sha256": "353468be619893d2235442d8fc686b03c4ab0e15751fc73e94f5777932d50911",
+      "bytes": 14048,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "e1e2764c96c261a2946bdf27a73dc72b59c3b1bb"
+    },
+    {
+      "path": "go-tools/go2vir/main_test.go",
+      "sha256": "ec42bf8fea669fff426d89f8e18411a4cfeae6aa8933ccfb702ae41288e73aa5",
+      "bytes": 37853,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "64dc98d53fd22ee1e50fa3bf0bec6837a0f18c97"
+    },
+    {
+      "path": "go-tools/go2vir/manifest.go",
+      "sha256": "37c20f41cb3a11b90f5dadba2aaca5e694f4ddb1d058b7d7bfde985e039a6176",
+      "bytes": 9152,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "23327f906a12714789c92216ec16b8725689c91c"
+    },
+    {
+      "path": "go-tools/go2vir/manifest_test.go",
+      "sha256": "cb75b2617a003777d68581bdde73cbc54d998bbb037fa57e96bec88f4fd4031b",
+      "bytes": 4684,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "7b11dd50aa054897cd986cdbe1a1f7b3b86f1376"
+    },
+    {
+      "path": "go-tools/go2vir/practical_analysis.go",
+      "sha256": "7681d113cfff36a5d97a8ccc76d2eab5632b764232ae516c778495946f55ef24",
+      "bytes": 13455,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "45409c63b9cb3486892d89696f124a22025adf14"
+    },
+    {
+      "path": "go-tools/go2vir/practical_analysis_capture_test.go",
+      "sha256": "999f73212ce5478b2d998211b85da8be3fa07a9096ae064f2417ee1bed20f727",
+      "bytes": 10948,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "f89d6a5a57674cda21cf19052377b36adca92c32"
+    },
+    {
+      "path": "go-tools/go2vir/practical_analysis_test.go",
+      "sha256": "e2db8c23e7f7f0786c67326cd17a88c4a60c8f971618f7c5031f74a36e54f3ca",
+      "bytes": 7294,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "31060e890f9ea13cba9a7340d02e70d01a7f64eb"
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive.go",
+      "sha256": "b198df0fa990bbedfd1e0c88bbb444d0bd86f560ccb74b912dc42f0a3b30d957",
+      "bytes": 10987,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "a414aa5ce465d46b42a1fb559ae9a6ecdae14c5e"
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_capture_test.go",
+      "sha256": "a082111f9fdb66ef54b1f4f0847580a106aea6e31eca6bbbb8da2b46698b5dce",
+      "bytes": 9691,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "ae3be1b69671f44c9d3103ff459b70db2a632535"
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_fold.go",
+      "sha256": "5791982a8213e654c8e653f6ffc1da7b9eb1900ad207826eb025e66b7aa1439e",
+      "bytes": 1072,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "64f015cebd65ba7753dfbb11d4af99b573cfb3a5"
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_ownership_test.go",
+      "sha256": "45ae78138bcfc8cdcf9eee55eeeaa0d778dcfb8c13215b53ee2f3a3d8a6104e4",
+      "bytes": 3634,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "27b13ee8528a1d01ced36689e33364127f20e48e"
+    },
+    {
+      "path": "go-tools/go2vir/practical_archive_test.go",
+      "sha256": "1a659f37f4f5523569e4608e8c7799028117b006f403cfbab7954a7912488d3a",
+      "bytes": 12048,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "253207365838e05d50730e1512b599b9f5dc71fa"
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture.go",
+      "sha256": "9328ddf2554d62a22dc916dab5036be4bbb7504b1f64456345e84ccc6383715e",
+      "bytes": 15534,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "3c471e8332a950c8e4d8a85a35fcc5ba3c61fa9b"
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture_test.go",
+      "sha256": "56c4da448eebebde85e6c9e541a4041ad016d0da8f6306b74d28bea95367e227",
+      "bytes": 15313,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "d4a7b8675f7f68459f8c028d368d14bc119eecda"
+    },
+    {
+      "path": "go-tools/go2vir/practical_cleanup_go125.go",
+      "sha256": "2fd7b44d266025e697ee0e2f6858b50762ebc192318b48d60b5c67d2bcd34b13",
+      "bytes": 1063,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "75aaf049230593460d15dab6f03912f05febad4a"
+    },
+    {
+      "path": "go-tools/go2vir/practical_cleanup_unavailable.go",
+      "sha256": "fc04fa620db586e47e3c046af6d57134fb39113de0fca03eacc29ada9e5dbc42",
+      "bytes": 185,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "7690be26b18b1279bed38e22ca8a15b2e17dc23d"
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler.go",
+      "sha256": "751aa7f5bd191c59e270aa657879113336b5061102f350092d14a53ac409440e",
+      "bytes": 9991,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "3b8361e7e223bac603a98c0b8ec62b480b1f6fad"
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler_capture_test.go",
+      "sha256": "ce8793cfc3979241dcab18e529437e54ccd89497f39d2c6e3d4c006586fe2ef2",
+      "bytes": 11094,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "fbaff39d9b85bb1ce263094fdff7308548309bc2"
+    },
+    {
+      "path": "go-tools/go2vir/practical_compiler_test.go",
+      "sha256": "b44ac68aa7bee310740f83a34874e70345cf7f99fb95a8fc735eb4cccb255b18",
+      "bytes": 2624,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "bad07ac55c6d298120be4c4789a3605d5d045744"
+    },
+    {
+      "path": "go-tools/go2vir/practical_exports.go",
+      "sha256": "92247836dccddfc403a2247609ea23c8767b144c94e9003e2de9cb3b53c111c4",
+      "bytes": 21708,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "e6903687bc0c1d22d341b392f6b215eb8e62b085"
+    },
+    {
+      "path": "go-tools/go2vir/practical_exports_test.go",
+      "sha256": "03419045a8d47e7b2e55c6fbdfb971234a65e1a77897c8091d6de4b1e30492d9",
+      "bytes": 1899,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "7e7dbb800cab1970223a30d0e7721ce5abca8b52"
+    },
+    {
+      "path": "go-tools/go2vir/practical_image_inputs.go",
+      "sha256": "dd83fc053f9760bb5cd1c75b6c4624daaa4d04177552f9d983f19e94802b3002",
+      "bytes": 9882,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "1845012793bb9ea399281432295852cf6bddb4a1"
+    },
+    {
+      "path": "go-tools/go2vir/practical_image_inputs_test.go",
+      "sha256": "2aa97cf257d290cf2fa4a43052a73fc16f9dbb7bc605ec18876b14d3be047678",
+      "bytes": 13171,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "0033e9bdc021cec796cc7d22c13e19555a94a935"
+    },
+    {
+      "path": "go-tools/go2vir/practical_module.go",
+      "sha256": "c79cf236d7799e2d6e66d5bd5e883ff56d7f495220b5a905a9df57ef155883ef",
+      "bytes": 5783,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "9a7065f5d3a39e50fa66428b1867a86e9505b4b3"
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_capture.go",
+      "sha256": "9183743b7a532f5169e9013a75c22cbd7ca7f97669b752c416e46b74def36390",
+      "bytes": 4510,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "a19c0d44c15811fb55dc074db5091f3656a2770c"
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_capture_test.go",
+      "sha256": "1575a63ae86c81abed2aeb0befcc354338df95c4874dec93585d4fe5e5b6c085",
+      "bytes": 9599,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "8390522cbae9df60c3f49393a8b69924a3b4e558"
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_inputs.go",
+      "sha256": "0b4615d58882d1a50b8ed169c795ee84d6f9d0ba2c3b65b3e13c8b1c863d93ce",
+      "bytes": 1881,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "7e94ad95d4431843e6ff441cb9eec9b55f087bf6"
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot.go",
+      "sha256": "9f3fae6478b88d18d23f59d9b2189d48edbb3bc64ba9cd6a9df8f2139b61601b",
+      "bytes": 4434,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "e8d6ade1c49b2805198fe81a7c1869cccb200ac0"
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot_capture_test.go",
+      "sha256": "3ee4ed013d253944e25a3c2e62158c14ab17d427730fc0fbedafa9777414a7bb",
+      "bytes": 8027,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "a242d31581b6fa19bed0ef50be30b012d9544829"
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_snapshot_test.go",
+      "sha256": "2bbe78c3752a8aba2ef4da3bdffcd7445ef1e03e7e05ebd657aab954474cd1fc",
+      "bytes": 1604,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "f8ffab4aec5358f15c62ebf3a909941b5916e6bd"
+    },
+    {
+      "path": "go-tools/go2vir/practical_module_test.go",
+      "sha256": "3dea953e0d21d89d43c6a89b09f31be64ee172a91780d85cfa0f828b81b8894b",
+      "bytes": 7225,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "56e54b8518326e20c17f3be8e68fe012a585631b"
+    },
+    {
+      "path": "go-tools/go2vir/practical_namespace.go",
+      "sha256": "138d1c45284c11cf78b8718194670a14be056be69005f466b02c20942e4fcb8a",
+      "bytes": 6259,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "ae4583273d5abbe52d21964f77ff1438ed64f59a"
+    },
+    {
+      "path": "go-tools/go2vir/practical_namespace_test.go",
+      "sha256": "bbf5bfa58b898ceb850aa12a5d42ff0bbedaf035e201be24cb069c0fb8f429b5",
+      "bytes": 8651,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "7984caeb4652d932ee784caa736489d75f640985"
+    },
+    {
+      "path": "go-tools/go2vir/practical_observation.go",
+      "sha256": "da6418587f9c1880270fa5a4fdfd8b951d6485e420ad894bbc0b0e8ef62a36df",
+      "bytes": 6132,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "e9ecac233d7f419c689c85e3bcae91b19e91cfad"
+    },
+    {
+      "path": "go-tools/go2vir/practical_observation_test.go",
+      "sha256": "2bd518d4c39ca4b7205e843ea4c1561a71343dcd91bf2339c5f4ef824612dd22",
+      "bytes": 6320,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "5526df639088d2b4f8be3d263d8e57146828a22d"
+    },
+    {
+      "path": "go-tools/go2vir/practical_original_packages.go",
+      "sha256": "cc3aacfcbe1ca5ce88279b2971eba5f49cad2aa4404798cde9bc232d51017e0f",
+      "bytes": 6953,
+      "complete_changed_input": "develop/migrations/go-practical/t02-w01/verification/original-packages/integrated/inputs/go-tools/go2vir/practical_original_packages.go"
+    },
+    {
+      "path": "go-tools/go2vir/practical_original_packages_test.go",
+      "sha256": "4d17adb2a84877560db496be9d64f98920a4827efca302bc9d521a16b3958f7b",
+      "bytes": 9767,
+      "complete_changed_input": "develop/migrations/go-practical/t02-w01/verification/original-packages/integrated/inputs/go-tools/go2vir/practical_original_packages_test.go"
+    },
+    {
+      "path": "go-tools/go2vir/practical_package.go",
+      "sha256": "5567b2612e07cdac329bb3050fcb6ee3f8f923c9a15461be4a6945697e813ae5",
+      "bytes": 9240,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "9055fe51ae16fb401ecea076973fca8b8442dad4"
+    },
+    {
+      "path": "go-tools/go2vir/practical_package_test.go",
+      "sha256": "3ded83bcbcd21db9676e2974a9e5a08f525ab36a3c79765f812ec996d3294c93",
+      "bytes": 17762,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "9e679842501e5844f3f5a42cd9dceacc59c182f5"
+    },
+    {
+      "path": "go-tools/go2vir/practical_replay.go",
+      "sha256": "57453ab28a0dea15810bf3847112a7b23799ed7e9c7121e73c1dd3fdf52da532",
+      "bytes": 14868,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "6b04bfd935e640f3af2d24974d9911aba0e13100"
+    },
+    {
+      "path": "go-tools/go2vir/practical_replay_compare.go",
+      "sha256": "1cbbc4ba5ef946251241ca433299f5a50acafea15492eb97ae9c6b0b080c4ba7",
+      "bytes": 10337,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "e3cf8449371fb328f7915d7c5e10d1ba3ca298b3"
+    },
+    {
+      "path": "go-tools/go2vir/practical_replay_compare_test.go",
+      "sha256": "d0d9566b1e44116ca0fa15f03e5a5d43e77c931d41fb39becde645ef3a27d4fb",
+      "bytes": 5637,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "97237416388da8e61dd6dfc7625336c42c9c4719"
+    },
+    {
+      "path": "go-tools/go2vir/practical_replay_exchange_test.go",
+      "sha256": "eb9d1d9e635579e89fd116829dd6953d0051dd0a10657c137ab0e472f0e04615",
+      "bytes": 4043,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "53e3c49b20cbb6a1c750839e2e98c932119aada0"
+    },
+    {
+      "path": "go-tools/go2vir/practical_replay_test.go",
+      "sha256": "d5514efb2d9aa1c65e8e74f9cbe1f82037d6d057005cb7023ff2937a677b42fa",
+      "bytes": 15649,
+      "complete_changed_input": "develop/migrations/go-practical/t02-w01/verification/original-packages/integrated/inputs/go-tools/go2vir/practical_replay_test.go"
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution.go",
+      "sha256": "92e7bd066717592533029b43410a7fd884774b7975507434e96f553c5a7030a3",
+      "bytes": 13426,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "5968c1af09aa8a3c517e65953fa876d8c8e2cc2a"
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution_capture_test.go",
+      "sha256": "ec40f233424e34206fa86908431a64702cb2b6b8691031687e21296371dd9be4",
+      "bytes": 12487,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "2c74c18383c1eddc021f06f967f4167db4464593"
+    },
+    {
+      "path": "go-tools/go2vir/practical_resolution_test.go",
+      "sha256": "3452a3afce4a26c02775462a8858d1a0110a77d162a82e38b37e8aaf1b923cdd",
+      "bytes": 2673,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "7db8db2356e06df9dff1ce4f0550aae9ea92cc5f"
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_go125.go",
+      "sha256": "0df55c7d98a83359e5a3b662bd28348c9f970a653a248bfc5dfdb1c8d216bc16",
+      "bytes": 519,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "fd63b705506a62e229f9b02e6e5a503ec28bb8fb"
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable.go",
+      "sha256": "3dc114afa98fcb7cf17dad7cc66b8fbb282bc5b87d201d534c9c44ceb74eaed9",
+      "bytes": 247,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "a7bd6afba579b2215c22f4e495df4e1182a8d432"
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable_test.go",
+      "sha256": "5e3b451ac8b686110a6eefaa21cb97b9d9da53866beee63e35c6d4884ad497c1",
+      "bytes": 300,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "4ddb56581cd848c08b77a504d6691d52890408fb"
+    },
+    {
+      "path": "go-tools/go2vir/practical_snapshot.go",
+      "sha256": "7efb262dd5c22e504f131a42aa5a7ff12cf90f18a8c0b583ca26be819ba06fc3",
+      "bytes": 9173,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "8ee5438e14b392e389662d4fe0905cec8924a1d0"
+    },
+    {
+      "path": "go-tools/go2vir/practical_snapshot_test.go",
+      "sha256": "09967a5aba8648123f84c00e1ff517097ed68949d05cd8f25504ba0668716682",
+      "bytes": 18104,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "ca22d643b2794b54c2ed1027c9c2dd8bfeee2356"
+    },
+    {
+      "path": "go-tools/go2vir/practical_source.go",
+      "sha256": "25d90659622e069862524c3c8b997d505e811de51e38aa76124503ca47952360",
+      "bytes": 5269,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "68aaa26877212846522dbcd423a6c90e04354902"
+    },
+    {
+      "path": "go-tools/go2vir/practical_source_test.go",
+      "sha256": "995a30a9343858bfc6c7dbcfd08875a504b389eaa52f4b011d6aa27663d88548",
+      "bytes": 8809,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "d30c9ea4719a2e1fb11b250e66c589153838dfa1"
+    },
+    {
+      "path": "go-tools/go2vir/practical_stdlib.go",
+      "sha256": "89e816dffaccfce1d6b1623de8b937a123f1b31365c36e8e8208ba26cb02b3ef",
+      "bytes": 9048,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "c3936ffb706d47c6c0fd8a4fbf580ef97071d5fc"
+    },
+    {
+      "path": "go-tools/go2vir/practical_stdlib_test.go",
+      "sha256": "46b1d72fefa1bce1ad2648343934a6cc1dfd3299055e8fa90d9855a8725daa65",
+      "bytes": 14855,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "b9105dafc0a593055a4d410393bc0e79dae9eadf"
+    },
+    {
+      "path": "go-tools/go2vir/practical_syntax.go",
+      "sha256": "3bb22cc6f6ec9f6d3d276490f573008a1b5ba2f390c17afd1aeb62a5022e0feb",
+      "bytes": 8064,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "a3c0b83f7ce406ab9f321e376ca6fea9d37d3537"
+    },
+    {
+      "path": "go-tools/go2vir/practical_syntax_test.go",
+      "sha256": "70d4bafdff346f8b71ad5a1cb2ee18eaf7555e9d340722d0b2dc47128e237798",
+      "bytes": 16165,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "14a205f8f147e38ddef1d592228a40de5aa0aabd"
+    },
+    {
+      "path": "go-tools/go2vir/practical_typecheck.go",
+      "sha256": "6dbea1598199e4e1fc0c562906ee2b1e295b03bc90e29bb8a3d4b38e35b16e46",
+      "bytes": 16051,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "2fff72d135024439e5e61e29cc6c7d55f3dc255f"
+    },
+    {
+      "path": "go-tools/go2vir/practical_view.go",
+      "sha256": "1b2096c22e4546dd31f6be77f992e0575f8ba63f90394ee31e5ebffcc03a7692",
+      "bytes": 6679,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "e16c6aa262e40f94f86c4266f623f6dcadaa32a7"
+    },
+    {
+      "path": "go-tools/go2vir/practical_view_test.go",
+      "sha256": "89ca039f5512be02f54dd10c767708dede86b087a5f2eb9e0034c416fb8785e2",
+      "bytes": 8615,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "fd6c1113a85963a9a88e0735669fa433c47be6d0"
+    },
+    {
+      "path": "go-tools/go2vir/preflight.go",
+      "sha256": "8faf415d2954ac1821dd3c8f7bbf6d58e48ce9a5bbf56fd8d46d91651120d711",
+      "bytes": 27204,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "ecab4e6f4192870cae9f94c2b2d2dca58a9749a0"
+    },
+    {
+      "path": "go-tools/go2vir/preflight_test.go",
+      "sha256": "adfa1f4844a44d66190ff8b4e7a4e5015add7f9ece73bd1d2f5cbd6547f0e100",
+      "bytes": 12140,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "f469ca2f7b71fa2e10b10269f9ceb61831679f75"
+    },
+    {
+      "path": "go-tools/go2vir/profile_v0_test.go",
+      "sha256": "72205ffe1b8ed8fa42982fc61284cb56c9c94e1723ee7e80104ca65d346e067c",
+      "bytes": 3294,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "137d4f98177318e246cba85153c907b1dd5fca51"
+    },
+    {
+      "path": "go-tools/go2vir/profile_v0_vectors_test.go",
+      "sha256": "c0960b21d6eb8ff4864fa7f4632222c54b67d331a26ecc1c6c811d63d7940c64",
+      "bytes": 2115,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "ffca8a8bbaa1df1d9798d2e36ed1c10e7fbcb135"
+    },
+    {
+      "path": "go-tools/go2vir/protocol.go",
+      "sha256": "11a2088602b48cb339dbff6c1647387df92e0d2308174c56eb2d40bbf088883f",
+      "bytes": 9548,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "328b3c56ee6b76b941c13849347d795af57d354b"
+    },
+    {
+      "path": "go-tools/go2vir/registered_selection.go",
+      "sha256": "d232c2c1640447dfece6c372d412d15ff260cae2149979f624a7044759955777",
+      "bytes": 6315,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "de8ff9755805240b2c809d73edfaef283ca8e12f"
+    },
+    {
+      "path": "go-tools/go2vir/secure_open_unix.go",
+      "sha256": "f53a822b58eae96837789f1d193665f34127ab0b74b842415e4112dc64055369",
+      "bytes": 310,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "4dd254cc76e2bdb839f52120856d8e45558de676"
+    },
+    {
+      "path": "go-tools/go2vir/secure_open_windows.go",
+      "sha256": "fb2c78196c792dc3d4f6d40731e1e3d8edd7237a982125444591724fcb7754d3",
+      "bytes": 579,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "a7e4ee8b6d5d4ca0146fc139490719e915a4c6fb"
+    },
+    {
+      "path": "go-tools/go2vir/snapshot.go",
+      "sha256": "b67ac51476f2d28b37a75fa3cd800c78c0745cdbf2cb9dd16f659be436d9e3ab",
+      "bytes": 5346,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "dcde27ad924ab31c5828d7d63b23de66207def95"
+    },
+    {
+      "path": "go-tools/go2vir/snapshot_test.go",
+      "sha256": "23aee6661119cfef77d8426c9d8d69d5b3dfb0cfe6e9ec6bb530193b37657547",
+      "bytes": 2613,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "c8612845efccf903fb82e164c71db165161ec262"
+    },
+    {
+      "path": "go-tools/go2vir/source_map.go",
+      "sha256": "393d0d1d7b17f7ceb27b8003fc4aefc85bdd35844621b9a34a974cdb0fdef3f3",
+      "bytes": 5166,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "b05a3e956fb72ef94181b09a44afaf27cbde03e3"
+    },
+    {
+      "path": "go-tools/go2vir/ssa.go",
+      "sha256": "871a444533e536a62aadb828b4c407a58cbd48b595617a17f94075934cb4384e",
+      "bytes": 1183,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "5e94c46baeb4f184ce34a0063c20e6fdb351e5bb"
+    },
+    {
+      "path": "go-tools/go2vir/successor_migration_test.go",
+      "sha256": "ce27f8982dd8d7beec8c2093bd2ba0bb75ee9c9a9350f66547d1e8751e0ad99e",
+      "bytes": 21694,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "07a25402a560b2e56e1bbc3469a8f56bfa054a27"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "bytes": 1453,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "2a7cf70da6e498df9c11ab6a5eaa2ddd7af34da4"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/PATENTS",
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc",
+      "bytes": 1303,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "733099041f84fa1e58611ab2e11af51c1f26d1d2"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/internal/lazyregexp/lazyre.go",
+      "sha256": "2c98e15329ce3fb10d4348f791446d1a7f557b92c954a26a7188dad26f78974b",
+      "bytes": 1871,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "150f887e7a4b8a33adc775e304d6da0f1267bbd0"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/modfile/print.go",
+      "sha256": "f69e398d1c0f1dad8b704f6b2b7f20e294fc2b7d90ea4ca862c17fbc3fd35514",
+      "bytes": 3870,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "2a0123d4b91556dc07f7948853804529476f08c2"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/modfile/read.go",
+      "sha256": "ae587831de240effc4b9a3f84fffb1d3e1a73ac29930ccaec0b9db8897370be9",
+      "bytes": 23964,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "2d7486804f50608e58f50b61c95a9460e8b93ba5"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/modfile/rule.go",
+      "sha256": "2aca758f4006e1f6698fa5570c36ac826959e763d729bf76f44f0514e4510731",
+      "bytes": 50421,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "a86ee4fd82575f1b1b63f6027f79063b7e0ac9ba"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/modfile/work.go",
+      "sha256": "ad31b233b102190481c0b6bb6a4b350c9b34ae8836f349431fe297687cb68fc5",
+      "bytes": 7829,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "09df5ea3c727724552d4d33e54bec4a235cd4afe"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/module/module.go",
+      "sha256": "d4ca5a29e60707f0566cc9b2fd1b6c4aef406403440c64d358f51c27da63cfbf",
+      "bytes": 27534,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "16e1aa7ab47eca50af14829f10e32a667185cd85"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/module/pseudo.go",
+      "sha256": "55f36593e394a3595a52f636028442f6be9ed010a6a7e0403dac980b545a374d",
+      "bytes": 8630,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "9cf19d3254eb3e9c1f5328d18edbef170f918aef"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/semver/semver.go",
+      "sha256": "23305fff81d9a4a2bcf643f65087287349dfd03c97aea8b7f947b1da1cd1b6a2",
+      "bytes": 9260,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "628f8fd687c90bbd75f977be183e6874bbc81e4e"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/mod/sumdb/dirhash/hash.go",
+      "sha256": "24de6a735c1605e39b6381e6962787faa5c59adab896fb66dbc1ac8b6afcb297",
+      "bytes": 4094,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "117985ac30b5f7d4f29eba62f621805518689f8e"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/sync/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "bytes": 1453,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "2a7cf70da6e498df9c11ab6a5eaa2ddd7af34da4"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/sync/PATENTS",
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc",
+      "bytes": 1303,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "733099041f84fa1e58611ab2e11af51c1f26d1d2"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/sync/errgroup/errgroup.go",
+      "sha256": "696b0385dd5f1a165c7d0251160afc3d652b9f64f4a8f64b9a9495e6ac4695eb",
+      "bytes": 4007,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "1d8cffae8cfc872e5c3748e4394da5ec1a763ccf"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/LICENSE",
+      "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "bytes": 1453,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "2a7cf70da6e498df9c11ab6a5eaa2ddd7af34da4"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/PATENTS",
+      "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc",
+      "bytes": 1303,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "733099041f84fa1e58611ab2e11af51c1f26d1d2"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/enclosing.go",
+      "sha256": "d4b16aa6d161c540127e68793394f33aabfd1a405f21dbdc606531b27bb26514",
+      "bytes": 17149,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "0fb4e7eea81af70b1b65865c5fbe178eb4fb1a8c"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/imports.go",
+      "sha256": "22a81e013209847faef4e3ef07d77048c0eef52872a45fdaf1f18e461cbf3a14",
+      "bytes": 13898,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "5e5601aa467755b41160ff4d2b5f797cf4b0e774"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/rewrite.go",
+      "sha256": "9f4e08f8ae25f0ad3841656bdccfa82f92ef6dcc9c35630771df2d5b2a9a7691",
+      "bytes": 12721,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "4ad0549304ca21d807c6fb067c56b0e890dcaa59"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ast/astutil/util.go",
+      "sha256": "c4fd6def2830db96b562cebddbe0e253f50f42f06b902a02ddbbb307e4a4884f",
+      "bytes": 369,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "c820b20849953acdb08d5299c5b8f99735ff821a"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/allpackages.go",
+      "sha256": "6d6e3c1cf1165f5c9b0aa22679e6273c71cc65010e242dafadacf31801df4c9b",
+      "bytes": 5050,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "32886a7175f5d950b46a6439663ca6d9858a021a"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/fakecontext.go",
+      "sha256": "6ded146e1702086fbc8c280cc6c44386c3987c76b919d670912effb7380b4a76",
+      "bytes": 3405,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "1f75141d504f1409801492954e543d768e3a51db"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/overlay.go",
+      "sha256": "8f815669fe88022c66f2c300ae140720f09bc80100cd263b85b02c4f0159d760",
+      "bytes": 2930,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "7e371658d9e2911c0b7cee349b7322efc4e4187e"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/tags.go",
+      "sha256": "0eb4410cbe907f4dbbb0495159120665e523e83c7293972ddcbfe1eb48e7126d",
+      "bytes": 2740,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "410c8e72d48d8f1307bd219bdddfb112f6a4de8c"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/buildutil/util.go",
+      "sha256": "44ab7b94eee0b950e1a67e7830b651359552ec2f8eec7fb6f8d63e778fb5d90c",
+      "bytes": 5871,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "bee6390de4cff110f3d84a8cebb1d99ebb4c144b"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/gcexportdata/gcexportdata.go",
+      "sha256": "11d7509118b6ea206c3eed768f3d9f48208cd1263e7b40adf92da7ec0b63e0e4",
+      "bytes": 9205,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "7b90bc92353b49ad934b1128edda173b528acfee"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/gcexportdata/importer.go",
+      "sha256": "144f9060e1cf20b36b8ca2930da56b08d3ea79fece33424bc13f420b56ea08da",
+      "bytes": 2026,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "37a7247e26867306df8cb607c0643e0975e8ed7a"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/internal/cgo/cgo.go",
+      "sha256": "144d7ea9c29a7e301bd39ecdacb697730c45d3c8988474d1ad40f943bc8ff043",
+      "bytes": 7387,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "735efeb531d960bfe20201ee65f5f1fdce0a5507"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/internal/cgo/cgo_pkgconfig.go",
+      "sha256": "a092411fb0cba1e8d8dfbdbfbd9f739c584e7dd7525d8d63c295c4180710f3aa",
+      "bytes": 1140,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "2455be54f6e7b1a6fe8d312dca596eb5d4d4a03f"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/loader/doc.go",
+      "sha256": "340f40b536bba5ff9032e872d08e258a927e035b46e60629237fc73df59e8451",
+      "bytes": 9563,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "769a1fcf7c6ec41f2db7ec88646617a97b349f08"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/loader/loader.go",
+      "sha256": "065421b19cfa4e89d859c2d160d9957b4e6d7a0b090c4895132b452a8cc9d8de",
+      "bytes": 33800,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "d06f95ad76c26b828a5d4936a191012ad2f62d35"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/loader/util.go",
+      "sha256": "102a6f34c9675e5087ae99647c36afa9b12f7dc786e2109cc9a7d5e01b438444",
+      "bytes": 2998,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "3a80acae64ec301878567ff6776578491f098cea"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/doc.go",
+      "sha256": "4a6d8ed8c653c2c3dfbe566ce30a0eece34df2bcadc012cc230b4ac92ca4d9fe",
+      "bytes": 12441,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "366aab6b2ca0ae816ed0f62027bb59ae8028fbcc"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/external.go",
+      "sha256": "913aeda530dbc214b50ebd179d3a5aded8855ed2e121451b512903eb1b174974",
+      "bytes": 5338,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "f37bc6510090163bbd602742f5f767f9645a7083"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/golist.go",
+      "sha256": "3cefc07d6729d09989d99f293d51e2755efdfdfaee4acbc33d79650822db6133",
+      "bytes": 38018,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "89f89dd2dce5178c9ebe05fdd5fb2906b3af2d10"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/golist_overlay.go",
+      "sha256": "771f2fc0133663f07056923ccd0bc22a00732d1d58cf3dd40961812e477ad9df",
+      "bytes": 2404,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "d9d5a45cd47a22dd1e88a34a188aca3e0a564bb7"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/loadmode_string.go",
+      "sha256": "b2ab5a9e57f504018fa50045ee8af11db90e7097bb3aa910a820b8a1cf757b39",
+      "bytes": 1238,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "69eec9f44ddc018d67bba0b7a1629f457fb3ec8b"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/packages.go",
+      "sha256": "578858b8bc69e9cd19effaa8d6b7a141eb4d161a44d4deda57b9c1bfef6ff73b",
+      "bytes": 50647,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "060ab08efbc6578ed283ea59f2a91f2d523af622"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/packages/visit.go",
+      "sha256": "0d697e86d8c1673d1c1cfa0014f3da44faf3ffd18fab7632e8f88b5084c46ac5",
+      "bytes": 1780,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "df14ffd94dc3edbd18133cbc7bc2d78ed65fe174"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/TODO",
+      "sha256": "c7a1ffbdd0275b2ee2f249537c7a34dc2e9cec1b3394f0e51e68274e76fc2863",
+      "bytes": 309,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "6dd444ed9557c6588eba60b3331f172a478fb869"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/block.go",
+      "sha256": "2ad41f66924645eb5238cc4475c5cd0e219adbcbcf05bbc004f8a07ca35ba483",
+      "bytes": 2848,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "28170c78764f0781fb50e7ad9e07c34f8e883473"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/blockopt.go",
+      "sha256": "f6af102e18988740f4f78c321dfc5942a3d71d69501a17f7cabecfeb1dd8882a",
+      "bytes": 4484,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "7dabce8ca34b9855aa564cb1dd8f03744ec7b649"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/builder.go",
+      "sha256": "9cce5e887959a2c8d7dc025bbfca1a364725fe99cc45f2833c000704533acf12",
+      "bytes": 94291,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "a5ef8fb40d80d34e05fbaa531b3142822815f1aa"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/const.go",
+      "sha256": "1e6747e387435f242da8baa22d45c4ff19220f7be298c1dbd8d55a5c76e17c6d",
+      "bytes": 5208,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "91ed6f28647d40584033b17712af76577f5c386a"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/create.go",
+      "sha256": "92e39cf494ce588cc0e5aa2e0bdfb56b0a1dc0e43a440d3918b43211d210f8ee",
+      "bytes": 8924,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "2fa3d0757a64e90acd648bb644ec135788381b67"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/doc.go",
+      "sha256": "6b395cddfeccacbc321c6511d6e48dc5b74b707f9c8a6f4034f0646ed8b30957",
+      "bytes": 6017,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "3310b5509b2030ab5ffdf4526b8bc8aab32f6168"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/dom.go",
+      "sha256": "9871bc1973a6a506b1a2422c8b7ade7283b7ba2ee9d7b797ae17522492cde5f9",
+      "bytes": 9672,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "78f651c8ee9000ef679a43fb6fb9c080fb80502a"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/emit.go",
+      "sha256": "0e6233bd623c8a72cdeef46fc1976726df65a47995a6cd69f32e7196732a3d07",
+      "bytes": 17249,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "e53ebf5a7fd92798505792b48567641f1b1aa6d6"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/func.go",
+      "sha256": "c708d9fc7d788d5176c4f490ed685841ee68949ec565351f71c4ac3283f6d43a",
+      "bytes": 24057,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "f48bd7184a4927079ac71a7ad934183498ac6328"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/instantiate.go",
+      "sha256": "0ffe4cc113fb4dabd3038cd01e59aa6f9b3f9e5ca7960e9b6cf4a0707b1f73aa",
+      "bytes": 3598,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "20a0986e6d3b177f6d9b27750fe5b2261f8e5650"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/lift.go",
+      "sha256": "b9da517437891c942788bbe22ab9e98bfa069cf227d7ddc64b283610b19fad76",
+      "bytes": 19285,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "d7c1bf5063effd445fdcb1f6de66e980d7c93c8b"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/lvalue.go",
+      "sha256": "32f162a4303393ebd80d615b56b58ac075a35c9361d125e3b2557221977805b4",
+      "bytes": 4166,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "eede307eabd0a244606572c6499ed942bb85957b"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/methods.go",
+      "sha256": "3a8356704edb80ac102f7db1474bdcb94470d96cab44a04d67cf9150dc5280e6",
+      "bytes": 5198,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "4b116f430723f820f79e6e79fb1e2d09f2dacf33"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/mode.go",
+      "sha256": "e8c757b27722b7cf60bdc802c125376bf9ae5f9c51014b9e3dad483f06906c76",
+      "bytes": 3219,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "61c91452ce22a9314ecd57507a9f84144430aba0"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/print.go",
+      "sha256": "c344b1b6ab172da1230698fd7040f5c6f8253c29bb4eaac1d79b3dab01819f70",
+      "bytes": 11055,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "8b92d08463a00f9ccdbbcb1958f2a231a45eb312"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/sanity.go",
+      "sha256": "9a2288a93f981531c55aad81e153d80bb06e2422e8ae249bcda2333fdcfb43a5",
+      "bytes": 18304,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "c47a137c8848622c0bfac461ce9e69b98d3874f7"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/source.go",
+      "sha256": "28ac1e6ec3315042b116b16cb7000a7829765fed4e8a5af04374e9abb587e638",
+      "bytes": 9467,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "d0cc1f4861a183c569bc543fcf89bd923011210f"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssa.go",
+      "sha256": "53c7d3587184ef3870150ff2f36f061e02f426882afd73efd79ed4e81e624894",
+      "bytes": 65046,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "ecad99d03405345360f9cf07e58a6524872a5f70"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/deprecated.go",
+      "sha256": "ac67c09546bb1bae69cc0f50d6fbb5dcb9e9437d3c0413a2ba14198dcdbb9a7d",
+      "bytes": 1088,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "4feff7131acbb51778507683f26b3916f237ccc1"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/load.go",
+      "sha256": "75d8dfc8c53af6a209147e419d6ebf0b637d21de527972b1ecaf5922d69715c0",
+      "bytes": 6785,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "c64b03f177fe7ed4c360ad723e11bc8ed3a1346a"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/switch.go",
+      "sha256": "b482570dcd2c671ccecd79edc9fa2db4a0b8b63baf3fbdd97128478a4aba4617",
+      "bytes": 6955,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "dd4b04e762128ebbe30be511629abe6c24a53664"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/ssautil/visit.go",
+      "sha256": "8a7a6bd2b641012ef17b06e4d4b43e0ea3df4a432979a5699eb1274459e31301",
+      "bytes": 5182,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "b4feb42cb3a24b6e0b836bb58c77d12e41e5f685"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/subst.go",
+      "sha256": "8d8412e368d69d2d88ccd082535307444a85b92459334eb53a3e6b4a0180e63d",
+      "bytes": 19762,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "362dce1267b60ff82697097b59763a1b314ec71c"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/task.go",
+      "sha256": "f90f38ebaea5edc6703885b3a7fc8b16f2078fadf20eaeb6331dd72760b7bfd1",
+      "bytes": 2943,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "502498526658221eeb11a9a0ee88e0b79971d4b6"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/typeset.go",
+      "sha256": "b040023683a602c27c8927b8b2b54578a664c53568a70973e8746d64bcad5d19",
+      "bytes": 4912,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "d0106dc687431499727fd3a9627392debdc849a9"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/util.go",
+      "sha256": "39603595b62b4d8bc9c2c797bfc8268564d2ca3d3e0c6682aee42e3ced649106",
+      "bytes": 10820,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "932eb6cb0e7a37cfe240e0f279ba914aa48796c3"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/ssa/wrappers.go",
+      "sha256": "16025b548f1236d9c0fadfe8c7d1348db6c711345b979182204b1f724228a9e1",
+      "bytes": 10060,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "aeb160eff23a2b2add86ca39443c46af38864794"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/objectpath/objectpath.go",
+      "sha256": "ccb1916e084d1de3d7ed826a570fd37d97ebb7234001fb3e182b73633cb93659",
+      "bytes": 25795,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "d3c2913bef336a0dba14e9abab5c80d685501651"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/callee.go",
+      "sha256": "b37197ad34f51938d5fbf72d10941f7d3d3d611b8c4dcca5bbebd9e3c9ce1c68",
+      "bytes": 2675,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "5f10f56cbaf1d6e5177e54f9ed17a13be2ad3871"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/imports.go",
+      "sha256": "0ae519946446f6dbe09a616e3c63373c2582b335ccf7b0f754b411dc2bcc407e",
+      "bytes": 883,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "b81ce0c330f3916b501376370195b2f906a1f701"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/map.go",
+      "sha256": "2ff104e4e79d0bff03184c502b02724f07fa778f4dd60d0ac4d15472ad6d8553",
+      "bytes": 12379,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "b6d542c64ee64a5ee7c19702449a5c84de6aa4d1"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/methodsetcache.go",
+      "sha256": "100c78e2baf07de1d4a620904ffb0a57ef440392629c6324fce3a385811627f2",
+      "bytes": 2132,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "f7666028fe5d38cdec8a7fc936db6613eafdd4db"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/go/types/typeutil/ui.go",
+      "sha256": "f3fab1cec5e81bdf56207ebf00a54b739c636624a4c6ab3d9b2ec26a7a486560",
+      "bytes": 1680,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "9dda6a25df79e1147f0f3baf9bd81d8f1adc56cf"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/aliases/aliases.go",
+      "sha256": "9ca766639a703d9c3b0ba68c6182068f42417e70fcca831dc6499077d87b4b90",
+      "bytes": 1414,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "b9425f5a20990fc534c08d5bcbb34502f0cee620"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/aliases/aliases_go122.go",
+      "sha256": "7fa6b0412b405a2296016c7fdb0fab26639e2ea42d8bdde6d056be1e6b4a4f9a",
+      "bytes": 2838,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "7716a3331db8afe1a07580f8f40d24087fd335ec"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/core/event.go",
+      "sha256": "6d2acef1c114259b059f9228abde12c42fd0c5d8079c101aa2be4ab6701fe6e1",
+      "bytes": 2126,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "a6cf0e64a4b17f89fba037bb953d8488b947d856"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/core/export.go",
+      "sha256": "5e21b09d6630036c00f5963ccbd8494b3138693880ad19ca4355fa3a02d5db60",
+      "bytes": 2248,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "05f3a9a5791a9d1ea3bac36f2bb26ac61e61ff24"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/core/fast.go",
+      "sha256": "eeca498a9f3c6057f571c9836a5f0c6ae2cfa9ae71a43961f935fb3db8dda83e",
+      "bytes": 2222,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "06c1d4615e6b259b05eb29eb081fb1790dbe5a0d"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/doc.go",
+      "sha256": "b445c134d90b26e77a83d413fc1be3033e2ba8979c10efb3d46280e70392e890",
+      "bytes": 298,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "5dc6e6babedd8c9b597b3726f36482eba70f85a3"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/event.go",
+      "sha256": "7c047e8aae01bd441f81bb710e9dc26a639b0bd7cdf1f6b55d425103046f33a1",
+      "bytes": 4464,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "4d55e577d1a80283fd0dd68c75eb82cd99267cbc"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/keys/keys.go",
+      "sha256": "a70eef67a67b5ae5ade4e3905466c06a7ef2a06e9fe615082b4f50f78ac3ecc0",
+      "bytes": 15856,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "4cfa51b61232fe65a5198eeac41ef8f577ff56fb"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/keys/standard.go",
+      "sha256": "a148501721c061870eed1bd936028157e6b3b109391763dafb00888b3a221b60",
+      "bytes": 961,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "7e95866592134cc4325afb76a1cdbaede72f80b8"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/keys/util.go",
+      "sha256": "0df0a7d65008baf347371eb61c8dd26d3c1eb6f22099f605ee9716d76f2dcd35",
+      "bytes": 488,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "c0e8e731c900593037dceaff79adb0f3b8b023e5"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/event/label/label.go",
+      "sha256": "3dba9ef645843ef0d98414482f60b5e0ca08c0a36427283e4e136c0bc94e8961",
+      "bytes": 5671,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "92a391057313a8af3693356d29601bece0cc87c9"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/bimport.go",
+      "sha256": "f5b8b401f4b36fdd589ba4c836fb1c74929ee63db2bad349d7092b9f24e1ad64",
+      "bytes": 2016,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "734c46198dfb746a378fd4449a9c578249170756"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/exportdata.go",
+      "sha256": "5d3acd6def1174913b2f1256492a3ca671d578f67b6907fcb548294dfcc114dd",
+      "bytes": 12356,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "5662a311dacee0cb7da4fb1bc1ab86fb0626500f"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/gcimporter.go",
+      "sha256": "2e615f50e10859939ddb1f8baa3eb94c6ba7f9a5b4a39e87687f1d9c4c1b7d4f",
+      "bytes": 3136,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "3dbd21d1b900b9e6a5cb3710b0230a09821f0475"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/iexport.go",
+      "sha256": "8eb3cf50185b0a1861c8e33d016192ec42f32b8eb30ea547457d6c39f18c1fa4",
+      "bytes": 43385,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "780873e3ae784048d7b0be8d95f70ebbd5521fd6"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/iimport.go",
+      "sha256": "b4b8ec555f6c97d1a74ea1fb2b9306b22424c90b9bc8ced656151c6ffc3d3ebc",
+      "bytes": 28798,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "82e6c9d2dc16f249721101fa3eddb23e3a4f06c8"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/iimport_go122.go",
+      "sha256": "f11a6b62c87b052147f166374bc6885317575c866ec8cb5e2c33d94551ebffae",
+      "bytes": 1087,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "7586bfaca6038e500ab278d8b0fd30d6938e3224"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/predeclared.go",
+      "sha256": "c749f1f8f79b08ec0ff11e963f54b264e2edcf1d8a79e654c9776a550e0f936a",
+      "bytes": 2116,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "907c8557a541440591e17579bbd305b5f0fe6ff6"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/support.go",
+      "sha256": "c03a9375b40c46a4ee4f8b4b89fc5b04abb60cff8f84815229febfaaffb28bc0",
+      "bytes": 697,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "4af810dc4125b9d98448fd7ac3397c38989f9c1e"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gcimporter/ureader_yes.go",
+      "sha256": "d37b69bc6374e76004da2b1bb91c3c34e53b728ebf2ce2de271492f303b47706",
+      "bytes": 19607,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "37b4a39e9e1fc7bcf3036f8bbde4843a10761ea1"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/invoke.go",
+      "sha256": "6a07f4ecd3e7566643810962ba551001b50bd4403e87a915327899f0cd6d55a5",
+      "bytes": 17409,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "58721202de76a92ba148042b68280858a16c458e"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/invoke_notunix.go",
+      "sha256": "df5c54077bf4ba9f2674cef5ccaa81e779d15dbb405845dec4ffaa4522f0c211",
+      "bytes": 377,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "469c648e4d80c016525a8fb8ec7d479cb7c59202"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/invoke_unix.go",
+      "sha256": "d2157f049e3394fa873136bd180fd295e46d543b8f13dd1542ffa21665bdf0c6",
+      "bytes": 361,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "169d37c8e9325157373b672e21e42b7d0ae740b9"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/vendor.go",
+      "sha256": "e945f1e01b59274b673488b1cbb5a0bdb470b47d26c0dfdc12f859e5860fe3be",
+      "bytes": 5242,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "e38d1fb48888c05e1353bae7961e8ab2dd21ba2c"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/gocommand/version.go",
+      "sha256": "5fdbec1757ec9f0a9a4c19d52f5dacef9268210dd0997fce2930abd378cf03e8",
+      "bytes": 2284,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "446c5846a60f9f99ba17d915491d6c592ccce25b"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/packagesinternal/packages.go",
+      "sha256": "fc0553fc12bd0244147a183719504350895c81eea15ce8bd46a63568cb3dd2aa",
+      "bytes": 788,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "929b470bebe53161f4da5ce7ff940496755972e5"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/codes.go",
+      "sha256": "5c461c53bbb51051b771cdf19529769d1f2ebfc477a55d79c577cec8d9fb36b8",
+      "bytes": 1726,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "f0cabde96eba92f937f973f45c36a346cae36ce7"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/decoder.go",
+      "sha256": "c33bc4c61be2941ad7e548add06486b9c42b6aa65cb15514089fccf19b946e06",
+      "bytes": 13766,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "c0aba26c4827a00ee5159913c3543946f19bb13d"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/doc.go",
+      "sha256": "1d77eb03ea757b7e5dfccb19f21cd37881afaf7c54a9168b12ed703ef6033744",
+      "bytes": 1543,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "c8a2796b5e4cb2c724228dbc919e6d0ffb4da3f3"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/encoder.go",
+      "sha256": "0518a4b2e6be4f9429d1b73b97388ae79574291383d131967700bb8101048cb3",
+      "bytes": 9781,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "c17a12399d05971e5755124c1fec80a3e8b92ac0"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/flags.go",
+      "sha256": "4f999d54f9614c9c2aa162e048fdec78158bbcafebeef188a2fef9a347a8e488",
+      "bytes": 253,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "654222745facd222bec7f8c9989c1fb5f5e204af"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/reloc.go",
+      "sha256": "04fe1a5ee6398ee088d2c358ffbbf5610b9a86f4db79616ae7ca823fe5365e38",
+      "bytes": 835,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "fcdfb97ca992612442adf5f837649a9dff9d90bc"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/support.go",
+      "sha256": "b21d95c059b9f6c697d2e5a4fe6907650402d26bd6d0207f2297906cd7753543",
+      "bytes": 336,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "50534a295536386b54322d764db6c0f8ee397a28"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/sync.go",
+      "sha256": "4f6b2ae8d2bef0eced46e8baf60c4b0f096615fbd8e1c10ca351e2c1e181de7d",
+      "bytes": 2475,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "1520b73afb9e960c166c587981bc934017ecbb74"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/syncmarker_string.go",
+      "sha256": "0d2ff4992c445a0c06f3a99f53f743d169e3affd7a3b7602bfcd47c99290f994",
+      "bytes": 2989,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "582ad56d3e09f3dfd7c4390312a0e9141aec50ab"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/pkgbits/version.go",
+      "sha256": "6ac51749ef68e607e0b517de0cb202ca19dbdea299be75e0ba3440837b45ca23",
+      "bytes": 2444,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "53af9df22b38a37a433e282da2329dbe328e2883"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/deps.go",
+      "sha256": "45cc3b108d99b510dcc7e29c110d0750dc663faae26c468ce94013f8bd609732",
+      "bytes": 17802,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "77cf8d2181ae465ad5022b0d163ec2b6889a8ef6"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/import.go",
+      "sha256": "616c6c669e1252a653965b65d8784bfb40a2f1185565bda3cb29fe6704ef0464",
+      "bytes": 2518,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "f6909878a8a145efdc08b4c1111ac77fad0c5503"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/manifest.go",
+      "sha256": "f82a44714aafdf9c1cf9da430737591d64fe71b3874ecf1a587e7c987e3bc068",
+      "bytes": 697762,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "64f0326b644d99e9441f9641b2af7d55882b3d95"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/stdlib/stdlib.go",
+      "sha256": "6eb0d62fad82e62b84d37c24b9bec2596f475b04466871414722ef1f0b83bf3a",
+      "bytes": 2858,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "e223e0f3405053f1939756b35ec5530d3eac7bd2"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/common.go",
+      "sha256": "897b914268f42beefb0e6c22121b59b6f89d915e18923b1f65f5153331344ea7",
+      "bytes": 2078,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "cdae2b8e818485cefe6177924a2687a856c849ad"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/coretype.go",
+      "sha256": "7dc166581791474e92609c5a176153a134d506a89ed9ed253283e163914f66b9",
+      "bytes": 5506,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "27a2b1792996812ba09b25f19f077b107d06d765"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/free.go",
+      "sha256": "b6411d6084f544aa7634356a009275c894cb8ce9a103bf17fe3a12640de0bb9a",
+      "bytes": 3159,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "709d2fc1447432bcac34dbd2435a0ec7b0cfd951"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/normalize.go",
+      "sha256": "3466cd5d44ac24f1dd392cbc99217a04bbe03d94f6dac1122f74c2da54594131",
+      "bytes": 6844,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "f49802b8ef7fdd84550e5da9fdabaaaacf8765d8"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/termlist.go",
+      "sha256": "12c02e6bfb07862b3c689521de7f140d709764615ba45a217c0975fef36775bc",
+      "bytes": 4066,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "9bc29143f6ad6cab81470747f473a1825dde7b0f"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typeparams/typeterm.go",
+      "sha256": "8b07ccdb692525921710ac25043c57b3a1472eda1bc2dfc701b9793835a662d2",
+      "bytes": 3835,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "fa758cdc9895d6e354f11ff9b2a19f882a2371ae"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/classify_call.go",
+      "sha256": "2a4cfa556b5a6c01e982a547ad18a65a7d36ca2b3783b1baeb0d74937becd0a9",
+      "bytes": 3657,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "3db2a135b97dd25d65c829d37efd0979616c49ec"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/element.go",
+      "sha256": "4db7ab3cedff579a6fdd38f27e61afb4a1422f49c5c5fac4ae8ef3d5261d4136",
+      "bytes": 4018,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "4957f0216418da16e01519aa3fe0706252352803"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/errorcode.go",
+      "sha256": "194f42c4cfa2bcb5ac5ebd9b8400a6424d4ffb4d2e4996d3763598791467207b",
+      "bytes": 34767,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "235a6defc4c73364ad59ba7d4f135e6b4031bdbc"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/errorcode_string.go",
+      "sha256": "32f91e4d3af45b513dffba82d283db0c5981ce6aa16172a74b65aed383956b8e",
+      "bytes": 7664,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "15ecf7c5ded91021f8c5c57c526be553b4b07e77"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/qualifier.go",
+      "sha256": "83d9e4277e0c47c1003224a07b39c50d0b9b696a9dd744594c4d1e32692bd590",
+      "bytes": 1226,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "b64f714eb30f6ea68841a6628373e0c9a5dbbb04"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/recv.go",
+      "sha256": "c8787e980f61efeab19c99ca7dc4d1f318b9fa77c3952add7f82be3c947b47b0",
+      "bytes": 1411,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "8352ea761736a400522045722efe79e88ab4b783"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/toonew.go",
+      "sha256": "54cff0151c458fce40c8e85746718c415087863df29229f6168ded7e338ba2c4",
+      "bytes": 2943,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "cc86487eaa0a0750f838db039c0a4ae2fc997e34"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/types.go",
+      "sha256": "543aecec3a36dc1aaa3f9e04fe81d8c7bc69adce7eb3fb544ece5f7b4322650f",
+      "bytes": 4766,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "a5cd7e8dbfcb9d9f7f46475dc04067ccec634fa9"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/varkind.go",
+      "sha256": "576a8a171f0363590ed52e599328684eab41aa40e6b908f95c1abaf411d967f8",
+      "bytes": 1141,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "e5da0495111ba1b08ad7debfe4e5181faea20e62"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/typesinternal/zerovalue.go",
+      "sha256": "b33371d9438a3cfcdcbe8409d5f5351ee2e0a427c0436d777c7f291337e873b3",
+      "bytes": 10864,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "d272949c17718996d7c09589b45284636181dd86"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/features.go",
+      "sha256": "98ab11824e7856eee2e4a3149b24bfa42bcf3a28297604edb3d8aedbdcbeddc5",
+      "bytes": 1330,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "b53f178616135c2975aad7e5331d705893d76888"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/gover.go",
+      "sha256": "fe5a58b005181f17e132c3261ce552a58454d178356bf8a5f294914d3915a750",
+      "bytes": 4297,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "bbabcd22e9488ec06bed87b72d73940a22f65c89"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/types.go",
+      "sha256": "e08b60c8fe9503229f2e5dac29d84ba092e14aba41824e68f201b338e40930a6",
+      "bytes": 1180,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "0fc10ce4eb591ea9061a68463075f70181ad44dc"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/golang.org/x/tools/internal/versions/versions.go",
+      "sha256": "c63d071bcf95bb6a3f1f869a51255198980de8c36ddbff20227653cd33b4769d",
+      "bytes": 2030,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "8d1f7453dbfce49928f4721518674a0c74899233"
+    },
+    {
+      "path": "go-tools/go2vir/vendor/modules.txt",
+      "sha256": "7acbaa5ff9b089a9665dae3dc009d872df913a55db4391bf1280243ddb60a99c",
+      "bytes": 1152,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "e1a2118732a3b96e1d561f53784646c9103f788a"
+    },
+    {
+      "path": "go-tools/go2vir/vir_limits.go",
+      "sha256": "35c56519d657de24f9c32555b5048e68411fe4d37e5f3875c5a540ff8d6a980a",
+      "bytes": 8636,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "ea75b3ee63581bdd967c2af1f0e539a4c47b618e"
+    },
+    {
+      "path": "go-tools/go2vir/vir_types.go",
+      "sha256": "46acb9fd47787e916b970f9f4d2736c0edeeb474aa842bb047a5bdae23c1177a",
+      "bytes": 17461,
+      "original_commit": "ed67a4c388defe8babdbc55f29851552562121d9",
+      "original_git_blob": "f97187c7c2aad5e0b9606929ea7c283a39820035"
+    }
+  ],
+  "selection_reason": "The new original-package owner reconstructs source/module/export inputs through the verified image, retypes complete original packages and binds actual command observations. Exercise that owner, crossing/membership/alias/lifetime controls and the directly reused image/module/checksum/observation/export/baseline consumers. Include current vet and changed-file format; legacy compilation executes zero tests. No unrelated arithmetic, kernel, protocol or whole-workspace suites are rerun.",
+  "native_release_acceptance": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "started_at_utc": "2026-10-20T17:24:40.178978+00:00",
+  "exit_code": 0,
+  "wall_seconds": 128.8634933750145,
+  "finished_at_utc": "2026-10-20T17:26:49.044587+00:00",
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/original-packages/integrated/image/stdout.log",
+    "sha256": "f0f07d38c12dd69f4ee88a57c8f3bc0955e37582e064e7ffef67c52455cc3554",
+    "bytes": 1552
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/original-packages/integrated/image/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "whole_source_inputs_unchanged": true,
+  "passed_tests": [
+    "TestPracticalReplayPrepareWholeOriginalModuleAndCompilerImage"
+  ],
+  "failed_tests": [],
+  "skipped_tests": []
+}

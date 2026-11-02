@@ -1,0 +1,109 @@
+{
+  "status": "passed",
+  "command": [
+    "/usr/local/go/bin/go",
+    "test",
+    "-mod=vendor",
+    "-run",
+    "^(TestPracticalRootUnavailableIsAnError|TestPracticalSourceDoesNotActivateInstalledProfile|TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads)$",
+    "-count=1",
+    "-json",
+    "."
+  ],
+  "cwd": "go-tools/go2vir",
+  "environment": {
+    "GOROOT": "/usr/local/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOTELEMETRY": "off",
+    "GOWORK": "off",
+    "GOCACHE": "/private/tmp/mpk-go-practical-t02-legacy-build-cache",
+    "GOPATH": "/private/tmp/mpk-go-practical-t02-gopath",
+    "GOMODCACHE": "/private/tmp/mpk-go-practical-t02-go-mod"
+  },
+  "compiler_version": "go version go1.23.2 darwin/arm64",
+  "compiler": {
+    "path": "/usr/local/go/bin/go",
+    "sha256": "783963dca805be207678efd8c436cd633ebbce53fa96b2ed95337ab43371876a",
+    "bytes": 13034160
+  },
+  "sources": [
+    {
+      "path": "go-tools/go2vir/practical_source.go",
+      "sha256": "25d90659622e069862524c3c8b997d505e811de51e38aa76124503ca47952360",
+      "bytes": 5269
+    },
+    {
+      "path": "go-tools/go2vir/practical_source_test.go",
+      "sha256": "995a30a9343858bfc6c7dbcfd08875a504b389eaa52f4b011d6aa27663d88548",
+      "bytes": 8809
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture.go",
+      "sha256": "dfb29be212671afa07acf284ad8239d8cf4da260f07b32db30e5e08391cc0696",
+      "bytes": 15359
+    },
+    {
+      "path": "go-tools/go2vir/practical_capture_test.go",
+      "sha256": "56c4da448eebebde85e6c9e541a4041ad016d0da8f6306b74d28bea95367e227",
+      "bytes": 15313
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_go125.go",
+      "sha256": "0df55c7d98a83359e5a3b662bd28348c9f970a653a248bfc5dfdb1c8d216bc16",
+      "bytes": 519
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable.go",
+      "sha256": "3dc114afa98fcb7cf17dad7cc66b8fbb282bc5b87d201d534c9c44ceb74eaed9",
+      "bytes": 247
+    },
+    {
+      "path": "go-tools/go2vir/practical_root_unavailable_test.go",
+      "sha256": "5e3b451ac8b686110a6eefaa21cb97b9d9da53866beee63e35c6d4884ad497c1",
+      "bytes": 300
+    }
+  ],
+  "frozen_contract": {
+    "path": "develop/migrations/go-practical/t01-w05/source-kind/catalog.json",
+    "sha256": "1ddbd93204546f227c43dc7729d3547b56abe2a5870a4a418e1d424806b38219",
+    "bytes": 2858
+  },
+  "selection_reason": "The new rooted backend is guarded by Go1.25/host build constraints. Verify the existing Go1.23 module build and closed public-profile arguments still compile, while unsupported rooted capture returns an error. This does not add a supported compiler/target to the practical profile. No CSharp tests or whole-stage gate.",
+  "full_T02_gate": "deferred to T02-W04; use check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "started_at_utc": "2026-10-19T08:07:48.383659+00:00",
+  "exit_code": 0,
+  "wall_seconds": 2.033715791068971,
+  "finished_at_utc": "2026-10-19T08:07:50.417854+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/reviewed/legacy/stdout.log",
+    "sha256": "fdd2b9dff708499301e0c4174b619e57e77da6b647f5efb9a18febc4d4e9a12e",
+    "bytes": 15228
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/rooted-capture/reviewed/legacy/stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "root_tests_passed": [
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads",
+    "TestPracticalRootUnavailableIsAnError",
+    "TestPracticalSourceDoesNotActivateInstalledProfile"
+  ],
+  "subtests_passed": [
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/no_default_profile_or_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_command",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_profile",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/wrong_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/missing_profile",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/missing_target",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/reordered_singleton",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/duplicate_singleton",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/unknown_trailing_argument",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/uppercase_digest",
+    "TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads/nonportable_contract"
+  ]
+}

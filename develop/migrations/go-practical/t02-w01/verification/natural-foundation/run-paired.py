@@ -1,0 +1,36 @@
+"""Check exactly the emitted ordinary Nat bytes with the unchanged Go core."""
+from pathlib import Path
+import datetime,hashlib,json,subprocess,sys,time
+
+repo=Path.cwd();root=Path(__file__).resolve().parent.relative_to(repo.resolve())
+attempt=sys.argv[1];assert attempt in ['reviewed','final']
+out=root/('paired-'+attempt);out.mkdir(exist_ok=False)
+def seal(p):
+ p=Path(p);b=p.read_bytes();return {'path':str(p),'sha256':hashlib.sha256(b).hexdigest(),'bytes':len(b)}
+rust_path=root/attempt/'rust-tests/result.json';rust=json.loads(rust_path.read_text())
+assert rust['status']=='passed' and rust['tests_passed']==5
+for original in rust['sources']:assert seal(original['path'])==original
+previous_path=root.parent/'core-interfaces/paired/result.json';previous=json.loads(previous_path.read_text())
+assert previous['status']=='passed'
+binary=previous['go_binary'];assert seal(binary['path'])==binary
+for source in previous['go_production_sources']:assert seal(source['path'])==source
+positive={'natural-foundation','retained-core-basis','honest-different-component','actual-computations','false-clause-value'}
+certificates=sorted((root/attempt/'rust-tests/certificates').glob('*.mpcert'));assert len(certificates)==15
+assert [seal(p) for p in certificates]==rust['certificates']
+rows=[]
+for certificate in certificates:
+ name=certificate.stem;accepted=name in positive;rust_report=certificate.with_suffix('.rust.json');r=json.loads(rust_report.read_text())
+ assert r['verdict']==('accepted' if accepted else 'rejected')
+ command=[binary['path'],'verify',str(certificate)];start=time.monotonic()
+ run=subprocess.run(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=60,check=False)
+ stdout=out/(name+'.stdout.log');stderr=out/(name+'.stderr.log');stdout.write_bytes(run.stdout);stderr.write_bytes(run.stderr)
+ go=json.loads(run.stdout)
+ assert not run.stderr and run.returncode==(0 if accepted else 1) and go['verdict']==r['verdict'],(name,r,go)
+ if accepted:
+  assert r['axiom_count']==0 and go.get('axiom_count',0)==0 and go['hashes']==r['hashes'] and go['declaration_count']==r['declaration_count'],(name,r,go)
+ else:
+  assert go['error_kind']=='core_check' and r['error_code']=='KERNEL_CORE_CHECK' and json.loads(r['error_detail'])['code']=='CORE_TYPE_MISMATCH', (name,r,go)
+ rows.append({'name':name,'certificate':seal(certificate),'rust_report':seal(rust_report),'command':command,'seconds':time.monotonic()-start,'exit_code':run.returncode,'stdout':seal(stdout),'stderr':seal(stderr),'rust_observation':r,'go_observation':go,'same_original_bytes':True})
+record={'schema':'mpk.go_practical.paired_natural_foundation.v1','status':'passed','observed_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'rust_execution':seal(rust_path),'unchanged_go_build_evidence':seal(previous_path),'go_binary':binary,'unchanged_go_production_sources':previous['go_production_sources'],'cases':rows,'accepted_zero_axiom':len(positive),'rejected_core_type_mismatch':len(rows)-len(positive),'selection_reason':'Both unchanged current checkers independently check the same newly compiled unbounded Nat definitions, genuinely quantified laws, concrete computations and negative proof/definition controls. Independent Go output must agree on full certificate/export/axiom hashes and declaration count for every acceptance. Each negative must be a core type mismatch, not a decoding/hash/resource failure.','CSharp_tests_executed':False,'T02_W01_complete':False,'public_profile_activated':False,'source_program_proof_claimed':False,'full_T02_gate':'deferred to W04: check-fast.sh --skip-csharp'}
+(out/'result.json').write_text(json.dumps(record,indent=2)+'\n')
+print(json.dumps({'status':'passed','same_byte_cases':len(rows),'accepted_zero_axiom':len(positive),'rejected_core_type_mismatch':len(rows)-len(positive)}))

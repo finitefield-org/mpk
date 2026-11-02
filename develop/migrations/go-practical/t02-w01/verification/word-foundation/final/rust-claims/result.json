@@ -1,0 +1,181 @@
+{
+  "schema": "mpk.go_practical.word_foundation_check.v1",
+  "status": "passed",
+  "started_at_utc": "2026-10-19T12:24:28.651269+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_word_foundation",
+    "--",
+    "false_carry_add_identity_and_divisor_guard_claims_reject_as_core_type_mismatches",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_WORD_FOUNDATION_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates",
+    "MPK_GO_WORD_MODEL_TEST_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/model"
+  },
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "58917a014921a0e09788db939213643c98c35b99c7f67c1c6104bfadc5e2dbed",
+      "bytes": 29377
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/syntax.rs",
+      "sha256": "04dd2f0327d32ab4ddf357fdbc94816fdb28c2be5fbddfc2495c11df8fc4a5c7",
+      "bytes": 7833
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/natural.rs",
+      "sha256": "483fb9d5dba921566b448ee5f2551746986e2d4a6c11209b63102a8be4f0a0ec",
+      "bytes": 47316
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/integer.rs",
+      "sha256": "893e2f1295ab018251e3f78458c8827f09c98947f687e2ef11ea828907944c1a",
+      "bytes": 31338
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/polynomial.rs",
+      "sha256": "26eacb5eff9ae9bbeb444e9b66cb77cc07d4e5f6d12172e178a23d3b23e7f756",
+      "bytes": 9618
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/range.rs",
+      "sha256": "1246a6cb1ef83c67d3507f4258956eda6ce92cda5621859dbc68058fb7558dc1",
+      "bytes": 17074
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "cfa1b7de1a7ebb675aa39e770fe2d21bd615aba97e0b218bab6599d9b84dd208",
+      "bytes": 24468
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_proofs.rs",
+      "sha256": "a700669cd5ef5dcd658c5a6201b9c0fc68e1bac2ada47a536ed88eb590116f66",
+      "bytes": 13887
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_foundation.rs",
+      "sha256": "3bead09b413996c5c732b1775a5ac2bf8cb1195191d7aabd27b7e5d3efa7e4f3",
+      "bytes": 14421
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_eval.rs",
+      "sha256": "b563f3bd0faf010764fd64306f350af2ce3716a9304898c6db0f7d02c7161664",
+      "bytes": 14378
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w04/word-foundation/queries.json",
+      "sha256": "3f9ee3ec12430dbbb08fd7bd25dca338cc4ed7f44f5b2d03382871a10dfab354",
+      "bytes": 261807
+    },
+    {
+      "path": "proofs/std/bool/std-bool.hex",
+      "sha256": "88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806",
+      "bytes": 1535
+    },
+    {
+      "path": "proofs/std/eq/std-eq.hex",
+      "sha256": "80d71a2ef388a6ad1dea166cca4bd10d9093d538edc4999743b6fb1ad80d03a1",
+      "bytes": 3069
+    },
+    {
+      "path": "proofs/std/nat/std-nat.hex",
+      "sha256": "65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583",
+      "bytes": 743
+    }
+  ],
+  "selection_reason": "The complete circuit component, actual1640-input certificate-DAG interpreter/oracle, exact import/retained Range, and typed-count/adder controls passed. One false-claim root stopped on a noncanonical hyphenated theorem name before core checking. Preserve all original bytes and diagnostics, correct only those generated test declaration names, and run just this affected12-case root. Other four roots and their unchanged production/proof/model bytes are retained; CSharp tests and intermediate full gate remain skipped.",
+  "CSharp_tests_executed": false,
+  "full_T02_gate": "deferred to T02-W04: check-fast.sh --skip-csharp",
+  "T02_W01_complete": false,
+  "exit_code": 0,
+  "wall_seconds": 15.321288208011538,
+  "finished_at_utc": "2026-10-19T12:24:43.973769+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/stdout.log",
+    "sha256": "9cb1a3c620200c2004459e1984bdd470b8c7ce231f07ccca9118ab5464862ce0",
+    "bytes": 206
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/stderr.log",
+    "sha256": "dcf8282fbbdbdce0c31b6b7d12870cc0673dc574e65b2ca35c82f675767f15f7",
+    "bytes": 262
+  },
+  "tests_passed": 1,
+  "certificates": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates/add-identity-16.mpcert",
+      "sha256": "17cca3b68c1013fe03f0dcba7259828bb0c6508e2932fe6fa8a681a5fdb6cdf4",
+      "bytes": 433331
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates/add-identity-32.mpcert",
+      "sha256": "178b54c42e6c8f0ab8bfa8ca34fec293186a528c483210f6cbcccd67565d222a",
+      "bytes": 433336
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates/add-identity-64.mpcert",
+      "sha256": "82a0800c9a028497a47b62b96ad71e0440974993a1ce4019e2d62570d4e33c80",
+      "bytes": 433341
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates/add-identity-8.mpcert",
+      "sha256": "ac44a21265780cce0342f5951d8c01c67dfd3a602cab970a4bfd189ea67542ee",
+      "bytes": 433326
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates/carry-16.mpcert",
+      "sha256": "5b78b90cc08a403a4b16a660c7e31ef7d4ad36190f0833fae186464f64889224",
+      "bytes": 433450
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates/carry-32.mpcert",
+      "sha256": "19995e0079870dfdf46ca4e0809313dec80b7920914f56fff4b97483b9baf37b",
+      "bytes": 433450
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates/carry-64.mpcert",
+      "sha256": "98ed050217177eadd1a3458ad20f74e4668908df50f989ab3a7f99b07ec870d9",
+      "bytes": 433450
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates/carry-8.mpcert",
+      "sha256": "02a621ee11ca8e60dcf0618f8ddf378ee34c14f1c61dd1b5b1d87077fa1f9eff",
+      "bytes": 433449
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates/divisor-guard-16.mpcert",
+      "sha256": "fa3251bb25db3afeee043d84e5a8107774a9561a89395a59c9b55461d9a0e675",
+      "bytes": 433433
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates/divisor-guard-32.mpcert",
+      "sha256": "f8807839147f193d42c0736b1b583a72b8f573ee1ad87f69f7ef01c9f2f5a605",
+      "bytes": 433433
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates/divisor-guard-64.mpcert",
+      "sha256": "0985d8f35e9e6822af129d8c485a3b34c78c529d82431302ed2387f7856479f9",
+      "bytes": 433433
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-foundation/final/rust-claims/certificates/divisor-guard-8.mpcert",
+      "sha256": "472d038ac584b63c176bbad7044beff32b481e29d350a6db4a2dbb115565ac8f",
+      "bytes": 433432
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "schema": "mpk.go_practical.word_division_local_source_review.v1",
+  "observed_at_utc": "2026-10-19T15:39:46.714202+00:00",
+  "review_kind": "Local agent source review, with independent named-DAG comparison and both-core proof checking; not a separate agent or Go source-program audit.",
+  "sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "bb17819a9af19508b0d9554572b642ce7c97d04073f586266dc85de354094cde",
+      "bytes": 34139
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/dependencies.rs",
+      "sha256": "df5f835b6f2c1fa462add5749831d34c16edcd2872b9ff1a2aa55d8d4d91d4d5",
+      "bytes": 8016
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "297146dfb3acf044507902fc921ff59da45db91f5f05200603a2449967a6322b",
+      "bytes": 24635
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "363a70d811e975f299dc4a64525ad817bcbf00dab8861040cf2ef25eeeb992ae",
+      "bytes": 20085
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/arithmetic.rs",
+      "sha256": "9a3c22336edb3c22be361467d5ea18119b406b8b95336791a1bcb5de29eed187",
+      "bytes": 2072
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division.rs",
+      "sha256": "f1f3d8e2d709e5cca8dee2303d802360b80e1cb0f4f3c39da11e95fc129e3d84",
+      "bytes": 4434
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/horner.rs",
+      "sha256": "d77c46b353f6734fd2c14f8a70fdc45820223fb3008ba7b99198b1071aba392c",
+      "bytes": 7161
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/natural.rs",
+      "sha256": "ba3095625b0c89d61f802312305f6ea36f02f27f59a48cfdccd220076f49f08f",
+      "bytes": 12181
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/restoring.rs",
+      "sha256": "8c8ed814a46beecf4131ffbdc21a0b43dc2fe1bb4aaa95aab7a273f83462c619",
+      "bytes": 10870
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/stages.rs",
+      "sha256": "1a249e6f97ea56be6d46702cf36a7312b267ae86bcd42f43bf863e95cbfec4e8",
+      "bytes": 17837
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/division/word_step.rs",
+      "sha256": "5f067bec0a30cd36ff6d53317199364fdb98771afd4fe6fac6f162ff62ed9747",
+      "bytes": 7882
+    },
+    {
+      "path": "crates/mpk-vc/tests/go_practical_word_division.rs",
+      "sha256": "28c851acf5e39ceeb818fa1584eb06292f5323bcc7df2ab2d0e73ecd1dfa6c4e",
+      "bytes": 6322
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_division_controls.rs",
+      "sha256": "d09033382a1cc790159ed605dcb4a14adefdcc2af5efc7892eca1227b704fab5",
+      "bytes": 7768
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_division_dependencies.rs",
+      "sha256": "1cbd08c125206c011609ac09adc7bf125ddc611fb7aef0cb21b808565d2b4a0e",
+      "bytes": 3674
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/go_word_division_observations.rs",
+      "sha256": "825292d504db0426ef5ec237c70b3ae154d6007fe1f13331b96614bd9898d5f8",
+      "bytes": 8891
+    },
+    {
+      "path": "develop/probes/go-practical/division_observer.go",
+      "sha256": "1cd611dc8d87e17b7b1922b2ab4493421e4459667a51b555c03d2cbd07c5451b",
+      "bytes": 4469
+    }
+  ],
+  "resolved_findings": [
+    {
+      "finding": "Restore00Bound passed shifted input bound to a result-bound parameter.",
+      "resolution": "Use actual Sub result ValueBound. Original typed candidate/diagnosis remain; all real word stage applications now provide checked result bound."
+    },
+    {
+      "finding": "Whole nested stage function conversion exhausted default fuel at the first source remainder fold.",
+      "resolution": "Prove each original DividendStep and QuotientBit fold separately and lift through word/Bool congruence before remainder/Value folding. All120 stages check under unchanged core limits."
+    },
+    {
+      "finding": "Selected push construction reused a different Numeric.CheckedStep0123 identity than the established full arithmetic component, despite closed validity.",
+      "resolution": "Focused regression reproduces mismatch; exact established PowerTwo-then-Push prefix restores all2198 named type/body/proof/level/metadata identities. Remove unused powers only by complete closed dependency traversal."
+    }
+  ],
+  "findings": [],
+  "reviewed_properties": [
+    "Closed assembly follows opaque proof dependencies as well as types/definition values and metadata, retains complete primitive families and remaps every reference. All retained named declarations match exact established components; all retained/new proofs check in both cores.",
+    "Restoring decision uses actual high bit OR actual subtraction carry. Both-true case is eliminated only from real strict remainder/divisor bounds; no caller truth flag or assumed quotient.",
+    "All actual source circuit DividendStep_i/QuotientBit_i/Remainder_(i+1) definitions are tied by explicit word/Bool equalities. Conditional final laws use the actual DivideDefined result and derive IsZero false before selecting the actual returned quotient/remainder.",
+    "MSB prefix uses actual raw quotient vector in the original bit order. High/low block algebra proves complete Value correspondence without function extensionality or large scalar conversion.",
+    "All widths, all120 circuit stages,124 remainder bounds and final conservation/strict-bound roots are present. Five selected roots include22 well-formed reencoded semantic/type-premise negatives; format/fuel/original compatibility failures are excluded from semantic counts.",
+    "Native typed / and % run before per-stage observation; actual zero-divisor panics are recovered as domain failure. Root inputs retain every original field/full hex string. Extra34 step cases retain exact original Sub pairs with r<d and both Bool digits, including10 high bits.",
+    "Actual Bool model reads original circuit stages and generic restore aliases. Prefix scalar quantities are explicitly host-derived; unary Nat/theorem execution and Go application source proof are not claimed. Independent Python uses exact prefix division/remainder rather than native restoring recurrence.",
+    "Old complete Order/Arithmetic generation bytes, all255 frozen design members and all frozen artifact/core limits remain. No CSharp test, intermediate full gate, profile/registry/context activation or native Linux receipt."
+  ],
+  "required_follow_up": "Signed and remaining numeric/source/foundation/registry/context/immutable application work remains open. Full T02 gate stays W04."
+}

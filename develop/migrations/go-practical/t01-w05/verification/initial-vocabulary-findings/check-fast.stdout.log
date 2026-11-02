@@ -1,0 +1,43 @@
+
+==> check_no_github_actions_workflows
+
+==> cargo fmt --check
+
+==> /Users/kazuyoshitoshiya/ff/mpk/scripts/check-no-active-gir.sh --strict
+GIR obsolete-interface self-test: ok (29290 active files scanned; 12 retained records excluded)
+Found 132 obsolete-interface occurrences in 35 active files.
+helper-kind-go-source	owner=GO-VIR-02-T12	count=12	develop/migrations/go-practical/t01-w04/api-contracts/bundles.json:1	{"csharp":[{"request":{"api_profile":"mpk.ai.api.v4","arguments":{"module_name":"Probe.Api","proof_profile":"mvp-strict"},"method":"POST","path":"/module/new","
+helper-kind-go-source	owner=GO-VIR-02-T12	count=14	develop/migrations/go-practical/t01-w04/capture-artifacts/artifacts.json:3432	"kind": "go_source",
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/migrations/go-practical/t01-w04/capture-artifacts/schema.json:24	"go_map_rule": "one entry per function,every one of seven body node arms and every region terminator,including scope children and resume continuations; function
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/migrations/go-practical/t01-w04/closed-carriers/fixture.json:1467	"kind": "go_source",
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/migrations/go-practical/t01-w04/closed-carriers/plain-error-types.json:1193	"kind": "go_source",
+helper-kind-go-source	owner=GO-VIR-02-T12	count=2	develop/migrations/go-practical/t01-w04/contract-wire/expression-witnesses.json:982	"kind": "go_source",
+helper-kind-go-source	owner=GO-VIR-02-T12	count=12	develop/migrations/go-practical/t01-w04/contract-wire/normalized-contracts.json:1434	"kind": "go_source",
+helper-kind-go-source	owner=GO-VIR-02-T12	count=2	develop/migrations/go-practical/t01-w04/frontend-envelope/requests.json:1	{"csharp":{"profile_contract":"mpk.profile.frontend.csharp_scalar.v2","protocol":"mpk.frontend.cli.v3","release_registry":{"id":"mpk.release.registry.v3","regis
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/migrations/go-practical/t01-w04/frontend-envelope/schema.json:1	{"diagnostic":"no IR/map/manifest fields; frontend-error exit1,rejected exit3,source-error exit4; exit2 usage and killed/no exit are process/protocol failures,n
+helper-kind-go-source	owner=GO-VIR-02-T12	count=14	develop/migrations/go-practical/t01-w04/frontend-envelope/successes.json:1	{"csharp":{"diagnostics":[],"ir":{"schema":"mpk.vir.v3","sha256":"955f450411fb93a2ddd8163fd923083f3b8fdee1e49aab6880b22846a101a30b","value":{"profile_contract":
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/migrations/go-practical/t01-w04/frontend-envelope/verification/initial-context-generation/frontend_vectors.py:35	a=Frontend(raw_request(c,s),snapshot,authority,native,go_source=source,go_objects=objects,go_declarations=declarations)
+helper-kind-go-source	owner=GO-VIR-02-T12	count=5	develop/migrations/go-practical/t01-w04/frontend-envelope/verification/initial-context-generation/frontend_wire.py:104	def __init__(self,semantic_request,snapshot,authority,native,*,go_source=None,go_objects=None,go_declarations=None):
+helper-kind-go-source	owner=GO-VIR-02-T12	count=5	develop/migrations/go-practical/t01-w04/frontend-envelope/verification/initial-request-oracle/frontend_wire.py:105	def __init__(self,semantic_request,snapshot,authority,native,*,go_source=None,go_objects=None,go_declarations=None):
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/migrations/go-practical/t01-w04/frontend-envelope/verification/initial-runner-syntax/run_frontend_wire.py:49	'go_protocol':'crates/mpk-cli/src/go_practical_frontend_protocol.rs (planned)','go_source':'crates/mpk-vc/src/go_practical_artifacts.rs (planned)',
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/migrations/go-practical/t01-w04/frontend-envelope/verification/initial-unobserved-query/run_frontend_wire.py:49	'go_protocol':'crates/mpk-cli/src/go_practical_frontend_protocol.rs (planned)','go_source':'crates/mpk-vc/src/go_practical_artifacts.rs (planned)',
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/migrations/go-practical/t01-w04/identity-dag/fixture.json:27	"kind": "go_source",
+helper-kind-go-source	owner=GO-VIR-02-T12	count=14	develop/migrations/go-practical/t01-w04/proof-artifacts/artifacts.json:6390	"kind": "go_source",
+helper-kind-go-source	owner=GO-VIR-02-T12	count=12	develop/migrations/go-practical/t01-w04/shared-vir/modules.json:4560	"kind": "go_source",
+helper-kind-go-source	owner=GO-VIR-02-T12	count=2	develop/probes/go-practical/capture_artifacts.py:71	if n['kind']=='go_source':raw=(HERE/'overlay-fixture.go.txt').read_bytes()
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/probes/go-practical/closed_carriers.py:36	obj=add("source_object",{"capability":"main","path":"policy.go","kind":"go_source","raw_sha256":sha(raw),"bytes":len(raw)})
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/probes/go-practical/contract_scope.py:88	self.source_id=next(n["id"] for n in nodes if n["schema"]=="mpk.go.source_object.v1" and n["kind"]=="go_source")
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/probes/go-practical/frontend_vectors.py:35	a=Frontend(raw_request(c,s),snapshot,authority,native,go_source=source,go_objects=objects,go_declarations=declarations)
+helper-kind-go-source	owner=GO-VIR-02-T12	count=5	develop/probes/go-practical/frontend_wire.py:111	def __init__(self,semantic_request,snapshot,authority,native,*,go_source=None,go_objects=None,go_declarations=None):
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/probes/go-practical/identity_vectors.py:26	source=blob("policy.go","go_source",SOURCE.encode())
+helper-kind-go-source	owner=GO-VIR-02-T12	count=2	develop/probes/go-practical/identity_wire.py:63	enums={"source_kind":{"go_source","go_mod","go_sum","overlay","metadata","export_data","excluded_source","auxiliary"},"module_kind":{"main","dependency","local_
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/probes/go-practical/run_capture_artifacts.py:43	'go_map_rule':'one entry per function,every one of seven body node arms and every region terminator,including scope children and resume continuations; function/
+helper-kind-go-source	owner=GO-VIR-02-T12	count=1	develop/probes/go-practical/run_frontend_wire.py:49	'go_protocol':'crates/mpk-cli/src/go_practical_frontend_protocol.rs (planned)','go_source':'crates/mpk-vc/src/go_practical_artifacts.rs (planned)',
+token-gir-prose	owner=GO-VIR-02-T12	count=1	develop/migrations/csharp-03/ordinary-foundation/verification-logs/concrete-operation-proofs/server-linux/final/receipt.tar.gz:3441	|b
+token-gir-prose	owner=GO-VIR-02-T12	count=1	develop/migrations/csharp-03/ordinary-foundation/verification-logs/scoped-construction-proofs/server-linux/final/receipt.tar.gz:5154	Cl`e
+token-gir-prose	owner=GO-VIR-02-T12	count=5	develop/migrations/csharp-03/probes/boolean-proof-elimination-refreeze/capture-and-original-owner-checkpoint/completed-control-pattern-consumers-with-capture-names.json.gz:3017	H
+token-gir-prose	owner=GO-VIR-02-T12	count=1	develop/migrations/csharp-03/probes/boolean-proof-elimination-refreeze/native-linux/checkpoint-384/control-responses.json.gz:11580	uh"L!^_!&]Cu[E.biɢSi
+token-gir-prose	owner=GO-VIR-02-T12	count=1	develop/migrations/csharp-03/probes/boolean-proof-elimination-refreeze/ordinary-metadata-1/linux/mpk-w09-refreeze-ordinary-40469d29-reports.tar.gz:12133	/PT$8/[kud%rw)w
+token-gir-prose	owner=GO-VIR-02-T12	count=5	develop/migrations/csharp-03/probes/boolean-proof-elimination-refreeze/pattern-consumer-checkpoint/completed-control-pattern-consumers-with-capture-names.json.gz:3017	H
+token-gir-prose	owner=GO-VIR-02-T12	count=2	develop/migrations/csharp-03/probes/boolean-proof-elimination-refreeze/standalone-execution-checkpoint/pattern-scope-initial-metadata-comparison.json.gz:856	2L5d!S
+token-gir-prose	owner=GO-VIR-02-T12	count=1	develop/migrations/go-practical/t01-w05/verification/gir-prefilter/compare.py:1	"""Differential check of the unchanged GIR matcher semantics and fixture suite."""

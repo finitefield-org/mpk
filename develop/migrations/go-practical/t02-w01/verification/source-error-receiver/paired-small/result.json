@@ -1,0 +1,1449 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-22T19:09:06.211919+00:00",
+  "actual_driver_prelaunch": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/driver.py",
+    "bytes": 4673,
+    "sha256": "3c8f1ef1b9803793877448e744dbcc0335561f3e63c5eda6b3216384f659ff66"
+  },
+  "complete_prelaunch_inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/prelaunch-inputs.json",
+    "bytes": 49881,
+    "sha256": "d7733179d61cd568f7a20b2404d303a306110dd9dcb876fccab78f796cdc7eec"
+  },
+  "original_Rust_executions": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/result.json",
+      "bytes": 10444,
+      "sha256": "ed0dd646a235186ce74166dadbf78541d38a4150e3d43ea9bb66d8d739bb29ab"
+    }
+  ],
+  "go_binary": {
+    "path": "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+    "sha256": "33018244ca886f867256330d050077f7630c503529e3dc14ac3365f333c618a6",
+    "bytes": 3239410
+  },
+  "go_production_sources": [
+    {
+      "path": "go-tools/mpk-checker-ref/axiom_report.go",
+      "sha256": "c4b90708cee28a9198de51b44882e4c6fb1b012331378ab82a1c2f9537472d57",
+      "bytes": 23259
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_cases.go",
+      "sha256": "99112f01a5a83465e7d28e47a8995fcba41dd3f3c99d6cbd423bd3e4bd709432",
+      "bytes": 5272
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/bool_rec_type.go",
+      "sha256": "d5d3e93ab336e8686092547579f0d76640d280a6b347691890e6b63aeec13a0e",
+      "bytes": 4986
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/cmd/mpk-checker-ref/main.go",
+      "sha256": "33961ea1b42b933405f3d18a05a13d9a08551879a92d699c75f674a1d7a056e0",
+      "bytes": 2893
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/core_check.go",
+      "sha256": "1fe9acc0f8277c1290dd24ff4af0cde526e9e0e283026192af4c0bd671331a0a",
+      "bytes": 32802
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/decoder.go",
+      "sha256": "636a3cefeebe2b8cdaf2191992f5ab08edb293aa019e366d33e7590a6e0e2a02",
+      "bytes": 38400
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/defeq.go",
+      "sha256": "a951f73a15315ed34c38829dfab819d34aa947b8050e3b097adb81bf37f65e0c",
+      "bytes": 10399
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/doc.go",
+      "sha256": "952a3da781b751eb063b2f4d859568453896d76ee8ab2122209720879c150b75",
+      "bytes": 112
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/hash.go",
+      "sha256": "9412b1bbabe87879061f142774bc8cbe7dd6210340855b445279bd7d1ba43c41",
+      "bytes": 7917
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/nat_induct.go",
+      "sha256": "72b3fff34b37f57dde648735a4ba1f6191f11253394f71cd30566a23e578e8bb",
+      "bytes": 5751
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/proof_check.go",
+      "sha256": "71f1b8648941e68c1bc67ae4cf640e35a31df20584b1f818f697fb5afc86e996",
+      "bytes": 17766
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/verify.go",
+      "sha256": "79d70ede0ea7453667009d4575265f8fdc2860e35026065bb4ae5d374faa1b5e",
+      "bytes": 10238
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/go.mod",
+      "sha256": "1dcc4212afe08523613abb23420df58c1bea4507db876e3ceac1e758a1b76250",
+      "bytes": 72
+    }
+  ],
+  "actual_unchanged_Go_build_evidence": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/core-interfaces/paired/result.json",
+    "bytes": 45747,
+    "sha256": "88ee756b4d9f6a61a1f61670baf626be23c6947d532a25fe3a0a65fa9b0a159a"
+  },
+  "cases": [
+    {
+      "name": "entry-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/entry-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.mpcert",
+        "bytes": 59652,
+        "sha256": "6826cacaa2e234b4cee78e046e73ba5ece1ec6124146931e9324719dbd92f7ed"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/entry-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.rust.json",
+        "bytes": 765,
+        "sha256": "158c86bc92c8a7b4e76773706c94d504638ee791a7a9c55d3715c64272f54a2d"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/entry-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.18708833400160074,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/entry-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.stdout.log",
+        "bytes": 511,
+        "sha256": "e35291bb11c0bebdc44eed204f1a8323004501a2d25e485975811b0d42c5bc1d"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/entry-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S56adfa71b9cd5b3b54ada0f53f344d1df8daf704324bcb016faf15fb5f944713.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "1da55cf34983e2cab2f9711b77f8c7afed097f4afff65240bdb6d2c44d6b8f6b",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "29467b820206d0d535dfdb14e4f654d1563a9f28cf9decce423ac3d3166f3067"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S56adfa71b9cd5b3b54ada0f53f344d1df8daf704324bcb016faf15fb5f944713.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "1da55cf34983e2cab2f9711b77f8c7afed097f4afff65240bdb6d2c44d6b8f6b",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "29467b820206d0d535dfdb14e4f654d1563a9f28cf9decce423ac3d3166f3067"
+        }
+      }
+    },
+    {
+      "name": "entry-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/entry-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.mpcert",
+        "bytes": 59583,
+        "sha256": "2a92758a0a7467a4699586d5ebe8260fee4e58e25c599f31bf05a280901f31ce"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/entry-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.rust.json",
+        "bytes": 765,
+        "sha256": "4b30943064e382f26dea8aa40ba9236a8a761ae6b30c241a1dcf1e2ea155d5a7"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/entry-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.13365899992641062,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/entry-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.stdout.log",
+        "bytes": 511,
+        "sha256": "af0cf136baeae90fb74edb06f54df54a102a25809a3360692dd6b0faf8868682"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/entry-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S1076c2282e9c306a9486108f7bf59ac441ba067c78e3f995cc4374e99c540eda.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "ad202a30280a4d003dae3924fb7d953f2ddea2ca8e74ba142469b9ab6b0d97b2",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "dd69929943053cc7ceae00821ceae81fb2ce4632a11388d38285ac9f1d53f4d3"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S1076c2282e9c306a9486108f7bf59ac441ba067c78e3f995cc4374e99c540eda.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "ad202a30280a4d003dae3924fb7d953f2ddea2ca8e74ba142469b9ab6b0d97b2",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "dd69929943053cc7ceae00821ceae81fb2ce4632a11388d38285ac9f1d53f4d3"
+        }
+      }
+    },
+    {
+      "name": "entry-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/entry-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.mpcert",
+        "bytes": 59652,
+        "sha256": "93b80b35bf73d41b80e6a9d56abfc77be3b62303118b368649decf0b3c8e9df8"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/entry-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.rust.json",
+        "bytes": 765,
+        "sha256": "c1fe648bd7db9e801926c56f0c8f22cf043d0d7d9a6b837284dc06a421fab562"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/entry-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.1262470829533413,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/entry-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.stdout.log",
+        "bytes": 511,
+        "sha256": "f1ae6f5e4a1c3875c0e7231570ceb3b627bdc13cde2a9c5fc951b23c4ad520fd"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/entry-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S4f8054a3ab804780bcb60c14570b50099bc6c2152d56923c7fc5b86b3a4ad7f2.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "caa0296d81e7a44070d1c8774260aaba6dd9f144e7967004513c836bc7c85616",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "5348cd309d89f1ce816b22311516a1e523255b68c332ea2e025b30b648b9f5d6"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S4f8054a3ab804780bcb60c14570b50099bc6c2152d56923c7fc5b86b3a4ad7f2.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "caa0296d81e7a44070d1c8774260aaba6dd9f144e7967004513c836bc7c85616",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "5348cd309d89f1ce816b22311516a1e523255b68c332ea2e025b30b648b9f5d6"
+        }
+      }
+    },
+    {
+      "name": "entry-call0-nil",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/entry-call0-nil.mpcert",
+        "bytes": 58290,
+        "sha256": "b847cb43db9d8787238358839e97dcee85a5dc497e952c42173888f547c5450e"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/entry-call0-nil.rust.json",
+        "bytes": 765,
+        "sha256": "1d509b8211cbb8b2d7bddb320b15cee1f71d5c72ad240f6c6c53dabfba69736f"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/entry-call0-nil.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.11863254103809595,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/entry-call0-nil.stdout.log",
+        "bytes": 511,
+        "sha256": "08b82ecb28b7391dc6dd982a8334769ff07784d57fd3a3e44326c98c01b40aea"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/entry-call0-nil.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sf887b5b61d1d36fa778004f675662976237df485b472516d5ee6bd54ddd312e3.Receiver",
+        "declaration_count": 175,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "d91788d178d1348393f1b771a68d4745925d47561a91c13c2b815a4287cae2de",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "ab85cfb6fc82b58d4beb6aed910072d8dafdb516d211929109974eb41a68fe9a"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sf887b5b61d1d36fa778004f675662976237df485b472516d5ee6bd54ddd312e3.Receiver",
+        "declaration_count": 175,
+        "hashes": {
+          "export": "d91788d178d1348393f1b771a68d4745925d47561a91c13c2b815a4287cae2de",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "ab85cfb6fc82b58d4beb6aed910072d8dafdb516d211929109974eb41a68fe9a"
+        }
+      }
+    },
+    {
+      "name": "expression-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/expression-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.mpcert",
+        "bytes": 59652,
+        "sha256": "098e1053a4df2af1a8170c1c73822d7ec1854716e050d268dcd94df19d0824f2"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/expression-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.rust.json",
+        "bytes": 765,
+        "sha256": "8648011dc8f12976a7e9db36714a7306a9009edf507d81ee1868ac102e3ecca2"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/expression-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.16827429202385247,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/expression-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.stdout.log",
+        "bytes": 511,
+        "sha256": "3813d34b5ebe9241b4082c0f53eedeeeaeaed5ed77e758b3a611e9953c0e3fba"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/expression-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S065de49c1eb21a70b61e3d59a0dfa16bf97137e8e7a06673c718e6af5e8b847c.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "b1dcff7505ec9c6bf8d8a3492bcac83b3d66a1b50030f911022ee48830994c32",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "85056b41e2d4166e3a466e5c9e85c2e57ac4e34dd10bdf5a46915afeadf1b87b"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S065de49c1eb21a70b61e3d59a0dfa16bf97137e8e7a06673c718e6af5e8b847c.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "b1dcff7505ec9c6bf8d8a3492bcac83b3d66a1b50030f911022ee48830994c32",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "85056b41e2d4166e3a466e5c9e85c2e57ac4e34dd10bdf5a46915afeadf1b87b"
+        }
+      }
+    },
+    {
+      "name": "expression-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/expression-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.mpcert",
+        "bytes": 59583,
+        "sha256": "27925fea0950529f6ef264048cc4760af4c1482a826c0f38f51b79e1d28c8cdd"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/expression-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.rust.json",
+        "bytes": 765,
+        "sha256": "076ce12b81e85ef40ec0afb024a167476d6d12bbf5a9651f06aa6d98b834e7b1"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/expression-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.11968308303039521,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/expression-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.stdout.log",
+        "bytes": 511,
+        "sha256": "487fd34fa2657ed05eaff58fb2b03cedd176ea9b9a62d2ae710d83b267d79e76"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/expression-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S0aabe57398efb696e752799f646a9b45d70c42b29423d7da48a44044ac90ac6a.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "cab66a772776b03d32165b63db38c319b0a336fa887c70f2f67a4d500c25bdcb",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "f45c4409bcec50877c3c7b939fe7104bcd1b393f4366bb747aa844f6410f96ee"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S0aabe57398efb696e752799f646a9b45d70c42b29423d7da48a44044ac90ac6a.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "cab66a772776b03d32165b63db38c319b0a336fa887c70f2f67a4d500c25bdcb",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "f45c4409bcec50877c3c7b939fe7104bcd1b393f4366bb747aa844f6410f96ee"
+        }
+      }
+    },
+    {
+      "name": "expression-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/expression-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.mpcert",
+        "bytes": 59652,
+        "sha256": "6016fee9f6731903e37f4f0f6057764d5dd0eca2808bd15765437f33741034e8"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/expression-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.rust.json",
+        "bytes": 765,
+        "sha256": "569831607f5e9acb532fa94ca7dfeab437af841afa0c0273b488a7cf2d63f471"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/expression-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2322514170082286,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/expression-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.stdout.log",
+        "bytes": 511,
+        "sha256": "9ca2e309d6daabf74eb77e97474624b071fbba09ec1e43dfec3ab26ae33ee4cc"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/expression-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S58fcf49a06dc24a23e5a5100ada16b6c10f6186bde67a58048f1faad804f87d7.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "7f4c39bb46626cf4c8c57d7a28c96ea55e35d2f84d1dc80e46c705804b78d707",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "a32c445b74b2a2bdf1104284fb5dcd4ca7543617c82f99e643df6fab8a7d636b"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S58fcf49a06dc24a23e5a5100ada16b6c10f6186bde67a58048f1faad804f87d7.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "7f4c39bb46626cf4c8c57d7a28c96ea55e35d2f84d1dc80e46c705804b78d707",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "a32c445b74b2a2bdf1104284fb5dcd4ca7543617c82f99e643df6fab8a7d636b"
+        }
+      }
+    },
+    {
+      "name": "expression-call0-nil",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/expression-call0-nil.mpcert",
+        "bytes": 58290,
+        "sha256": "58b480ba6bf878e56c3a917c22508becaae5b72bdf76dc5f07f1fbb4a5335447"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/expression-call0-nil.rust.json",
+        "bytes": 765,
+        "sha256": "5b746894748eb3bbe0edceb392e4055a3f9f62efa1aeeee143f194ad381fb563"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/expression-call0-nil.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.1300699170678854,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/expression-call0-nil.stdout.log",
+        "bytes": 511,
+        "sha256": "ae1e1c51f9768b0e9b2b3be2eb0dd92b70173e643299bffee9d977ec50a60b2e"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/expression-call0-nil.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Scf1fd6263000b958ab9196793fd6c2410399bd0a665c4252fead84611df4d793.Receiver",
+        "declaration_count": 175,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "d6b5219a27a605d598ca19df28cd1890e7adf9a54b9082d2ed11978edb0ffed5",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "070cf1957e49cc19848393a17bf3f09d00097c7ed8a5a71ebf23fedb86764d08"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Scf1fd6263000b958ab9196793fd6c2410399bd0a665c4252fead84611df4d793.Receiver",
+        "declaration_count": 175,
+        "hashes": {
+          "export": "d6b5219a27a605d598ca19df28cd1890e7adf9a54b9082d2ed11978edb0ffed5",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "070cf1957e49cc19848393a17bf3f09d00097c7ed8a5a71ebf23fedb86764d08"
+        }
+      }
+    },
+    {
+      "name": "multiple-roots-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.mpcert",
+        "bytes": 59652,
+        "sha256": "98e39613a806e46500d4e3801a0364da99a64d3b3e7d64742f883dd4d4461255"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.rust.json",
+        "bytes": 765,
+        "sha256": "a045398c20d37569c5d878e04b3858486d7bbe8e58fde2125dd5ab243b0bcff7"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.1362892909673974,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.stdout.log",
+        "bytes": 511,
+        "sha256": "db4efe465ebaebfc8f2c4346ed936caefe173269be1612917181514f5430868e"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sadb2c832296d721263bf22f84bdbad96e0cad5e136d08eb1148df582f7074234.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "63f4c9a258681d2acda7868b2336f025d787220fe20857e9d5af515ef264716d",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "4bb30a9b1652e4ae8ed6b6541ad9f3b9273f4daa58ccce4f67d98e29c5a85538"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sadb2c832296d721263bf22f84bdbad96e0cad5e136d08eb1148df582f7074234.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "63f4c9a258681d2acda7868b2336f025d787220fe20857e9d5af515ef264716d",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "4bb30a9b1652e4ae8ed6b6541ad9f3b9273f4daa58ccce4f67d98e29c5a85538"
+        }
+      }
+    },
+    {
+      "name": "multiple-roots-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.mpcert",
+        "bytes": 59583,
+        "sha256": "312cdbbc3210992472485dcc2b610d4a47e3df1c72141a9d2713d12a616786a6"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.rust.json",
+        "bytes": 765,
+        "sha256": "afc4aaf55607beb8aad6b4b9a860d9249f94e1bc7ccda38822755b0779e04593"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.12397537496872246,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.stdout.log",
+        "bytes": 511,
+        "sha256": "cbbb07832238499118900110e65a6a7413e7720a5b0058b305d23936b2515fda"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S3894dc57cb5a353c4437b393acd1e210e70e28874ed0acc7ae0c8e5f30702297.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "42ccdc9f7fd08e80e0bda171087b1c1a22827c55ca8742c961e2f3f74c3c1760",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "6dc0844e71e801326472613ec7aa6308b77581bca8360c91f1e30aadee0f8ecf"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S3894dc57cb5a353c4437b393acd1e210e70e28874ed0acc7ae0c8e5f30702297.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "42ccdc9f7fd08e80e0bda171087b1c1a22827c55ca8742c961e2f3f74c3c1760",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "6dc0844e71e801326472613ec7aa6308b77581bca8360c91f1e30aadee0f8ecf"
+        }
+      }
+    },
+    {
+      "name": "multiple-roots-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.mpcert",
+        "bytes": 59652,
+        "sha256": "6d7255efeaeab906d39f7aa4fffd0ffb6cc131ef94414858b189099b435f3f61"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.rust.json",
+        "bytes": 765,
+        "sha256": "739c0f899a6020cd87c130e6726a70d8b39b45fde407c20c2653fcc9c16dd384"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.1868563750758767,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.stdout.log",
+        "bytes": 511,
+        "sha256": "782dd17bcbad969e1620e713c64bc5ecab7f514aa107961f522cb3dcdadb877b"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sc1f6ba9541fff26def14903453e20c03360b28ae4c1be472dd0cb689eecb3d21.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "3ecb9e5a3701bd930640bbe91e9e04668541b9f58fbb5f894f87f7ef68ac2a09",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "20d68707afafaf108218bca8e5ba0a33274d1f25191320ac63d2917353c1dc8e"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sc1f6ba9541fff26def14903453e20c03360b28ae4c1be472dd0cb689eecb3d21.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "3ecb9e5a3701bd930640bbe91e9e04668541b9f58fbb5f894f87f7ef68ac2a09",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "20d68707afafaf108218bca8e5ba0a33274d1f25191320ac63d2917353c1dc8e"
+        }
+      }
+    },
+    {
+      "name": "multiple-roots-call0-nil",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call0-nil.mpcert",
+        "bytes": 58290,
+        "sha256": "71ee885506fdbbabfc93da812bb5b174cb95c682e61a427ee3d9162d41b893b4"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call0-nil.rust.json",
+        "bytes": 765,
+        "sha256": "90036bf428c1c3ed0801bf7654c74a6dd2ca93ef4ba76c11be7c407be23aa939"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call0-nil.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.12327070801984519,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call0-nil.stdout.log",
+        "bytes": 511,
+        "sha256": "780e98c62ff7324d3442e6f5b0d5fc84d182297daf5a3bea583633b678fc47eb"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call0-nil.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sb419f895f25769256c2f02736422c1e2eadb95eb830b7a22bf00a45a5ccd816f.Receiver",
+        "declaration_count": 175,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "cc9b8e13cabc03ff05a0a9a44b7b21dc855d03d991cd5c81213db3fbbe49289b",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "2cb6aa838bd02076a29ad64758ce2281aa5c363443ebcc6df2e6d4cb71fb0965"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sb419f895f25769256c2f02736422c1e2eadb95eb830b7a22bf00a45a5ccd816f.Receiver",
+        "declaration_count": 175,
+        "hashes": {
+          "export": "cc9b8e13cabc03ff05a0a9a44b7b21dc855d03d991cd5c81213db3fbbe49289b",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "2cb6aa838bd02076a29ad64758ce2281aa5c363443ebcc6df2e6d4cb71fb0965"
+        }
+      }
+    },
+    {
+      "name": "multiple-roots-call1-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call1-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.mpcert",
+        "bytes": 59652,
+        "sha256": "c149d41a784a787a1b77d47e72dbd40a337210aa9f9a78064eeeb2e0b92a3176"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call1-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.rust.json",
+        "bytes": 765,
+        "sha256": "70ce96d1fe9f745c76c2a2277ce1674cfcc5d45d48beb1010a76ca6ff1995c39"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call1-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.1309412500122562,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call1-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.stdout.log",
+        "bytes": 511,
+        "sha256": "e3db10674c486681fe7b0cf33fd14000d5000bd0f9141fe0769346d44eb7e82f"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call1-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S4700fc0a10cd21ad1fde0bf2e14b6e24d506e7afb14a58345243d44698fcdf45.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "5ee71ea7cecf3ca522863eb23c679871ce6a76be95be79d85b6cd3da45284390",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "561c876dfb681a2a6e4c2a3d89042a3f3e849d2b76322feea6c17473478a3df1"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S4700fc0a10cd21ad1fde0bf2e14b6e24d506e7afb14a58345243d44698fcdf45.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "5ee71ea7cecf3ca522863eb23c679871ce6a76be95be79d85b6cd3da45284390",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "561c876dfb681a2a6e4c2a3d89042a3f3e849d2b76322feea6c17473478a3df1"
+        }
+      }
+    },
+    {
+      "name": "multiple-roots-call1-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call1-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.mpcert",
+        "bytes": 59583,
+        "sha256": "c8cd4adacc0b213ec2c900b4609a59609ea2d6085cf606628ced6195c1995f14"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call1-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.rust.json",
+        "bytes": 765,
+        "sha256": "14c8ef66683362c26b6772fce75f2371d499bc00d3ee9c8d84e02efe2ea49f43"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call1-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.858855374972336,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call1-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.stdout.log",
+        "bytes": 511,
+        "sha256": "431c5e5fbd8a0da17834c062b8293311ce2374906f6dddc0ae8c2ea37b4ab084"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call1-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S4f211f786e436ffcfb427c17aa670980e08571883c0e303929ed9d4d13cade38.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "a1b6c25e9b315ac17d8340ac742a5f3c787b672031f4c9105d0a46a13ccb19d0",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "2eff967eb20c6515d7560f8cb75a659f398f431edc31f49df60b09608cfcb774"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S4f211f786e436ffcfb427c17aa670980e08571883c0e303929ed9d4d13cade38.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "a1b6c25e9b315ac17d8340ac742a5f3c787b672031f4c9105d0a46a13ccb19d0",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "2eff967eb20c6515d7560f8cb75a659f398f431edc31f49df60b09608cfcb774"
+        }
+      }
+    },
+    {
+      "name": "multiple-roots-call1-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call1-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.mpcert",
+        "bytes": 59652,
+        "sha256": "6e09f70454966317eb351affa20eb5448f48bca409515f28fb48c2e54cb0f7fc"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call1-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.rust.json",
+        "bytes": 765,
+        "sha256": "5917093548ae5958443ae0a7017914121985aa7410a025307ad3aa3273fc5a1e"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call1-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.12952787498943508,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call1-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.stdout.log",
+        "bytes": 511,
+        "sha256": "ffcf93f9dda0ff383cc96186372c304634fa47ec6f32a82779781f6264ca3738"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call1-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S94a06be34dab1b1d737ae1f4295a335e900fe4a2fa854987b3d46c1c426ac61f.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "3da1bb7f1289768a76e157bc3a0a27d9cade4ccaa73b59a1744f5ae1fa7dc79c",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "fcd1bf1731618dacd4cad7a6aaa07b0d3c4c3c6874b8ecbff1ecd17927cee8be"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S94a06be34dab1b1d737ae1f4295a335e900fe4a2fa854987b3d46c1c426ac61f.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "3da1bb7f1289768a76e157bc3a0a27d9cade4ccaa73b59a1744f5ae1fa7dc79c",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "fcd1bf1731618dacd4cad7a6aaa07b0d3c4c3c6874b8ecbff1ecd17927cee8be"
+        }
+      }
+    },
+    {
+      "name": "multiple-roots-call1-nil",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call1-nil.mpcert",
+        "bytes": 58290,
+        "sha256": "36deaa5965b611149b998ee0214f27064d3a7efead0ea26367774fe5bade6cbf"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call1-nil.rust.json",
+        "bytes": 765,
+        "sha256": "81ba0a31f2bed8fd536319cef6a16340347c75bd7014b688903d1aa308b84546"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/multiple-roots-call1-nil.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.13156379095744342,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call1-nil.stdout.log",
+        "bytes": 511,
+        "sha256": "83980328a10126f1f8db80651493f953aaafeda5fbc300cd00d17a06c111b514"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/multiple-roots-call1-nil.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sdec7fb0fdeb3261605ebba4806c72943260227dcac9f6446154c0b11c0222194.Receiver",
+        "declaration_count": 175,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "de61bc9ef14d838551584be201b3dcc75e0d8411669b9e3a735461b9ea0c4095",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "c095d7486263acd6645013ddd4d9883713c991044b161edfde8d25de76ad1f57"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sdec7fb0fdeb3261605ebba4806c72943260227dcac9f6446154c0b11c0222194.Receiver",
+        "declaration_count": 175,
+        "hashes": {
+          "export": "de61bc9ef14d838551584be201b3dcc75e0d8411669b9e3a735461b9ea0c4095",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "c095d7486263acd6645013ddd4d9883713c991044b161edfde8d25de76ad1f57"
+        }
+      }
+    },
+    {
+      "name": "nil-only-call0-nil",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/nil-only-call0-nil.mpcert",
+        "bytes": 30514,
+        "sha256": "ef26c8ab838a5a5c0f7697fdc2f92e28502ffc7b32831eed5a94fea12e80c79e"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/nil-only-call0-nil.rust.json",
+        "bytes": 764,
+        "sha256": "c26b867ed1ba184c45e53510a1e450e4d5a0e1cd8e2bb9a8905ee01f79c58c72"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/nil-only-call0-nil.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.09816795797087252,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/nil-only-call0-nil.stdout.log",
+        "bytes": 510,
+        "sha256": "0f0a3b26015cefbda31fb0d8939326bd80bb3e1c790e8acace6e2793de318e93"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/nil-only-call0-nil.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S91176e1641cc450299214f850f6f00ad3b60ce048c7a122ff38178d0e9028e43.Boxing.Operations.Dispatch.Sbd7da5c699787f89cae5a0685ab58aaee39ba866ad5747edaa1acdc1122db142.Receiver",
+        "declaration_count": 86,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "eb8129acc6092b193725c362de0b6682247ab79090b4027e8ed44ebb12b2aa16",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "5081e9a73878ee07ba635f22e1c501ab6d53ad6155759c39bac787de89a4fd6f"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S91176e1641cc450299214f850f6f00ad3b60ce048c7a122ff38178d0e9028e43.Boxing.Operations.Dispatch.Sbd7da5c699787f89cae5a0685ab58aaee39ba866ad5747edaa1acdc1122db142.Receiver",
+        "declaration_count": 86,
+        "hashes": {
+          "export": "eb8129acc6092b193725c362de0b6682247ab79090b4027e8ed44ebb12b2aa16",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "5081e9a73878ee07ba635f22e1c501ab6d53ad6155759c39bac787de89a4fd6f"
+        }
+      }
+    },
+    {
+      "name": "receiver-call-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/receiver-call-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.mpcert",
+        "bytes": 59652,
+        "sha256": "3f556dacfaf8fa96549a77d0156148be77192c4c66bc2369b5b4570db6c22b48"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/receiver-call-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.rust.json",
+        "bytes": 765,
+        "sha256": "8b15b88631d32b22ee3570f766309ce0d400942bcfb84cb4fd89697e2168d750"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/receiver-call-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.1287637079367414,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/receiver-call-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.stdout.log",
+        "bytes": 511,
+        "sha256": "2d4b6930e2fedfb4b47e7e8fea667fc81da7710abd45e248a96082bd6a0259f6"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/receiver-call-call0-6e2315cde9a64d3c19ada419e3bd610bbf67afc0027adc301c833627cf32b1b1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sf067e08bb8809e8c31d82b33b4abbcc983dc31a515c339885972d876c1a2ddf3.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "53dacb9f80a5fe0cbffbc65d96f8127cf466358afd2c6eb3c68e662df48b74ad",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "c2d910367240b1765b26958fa366549cd35a64b2f6df753e1de7cf4aaf0ee26b"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sf067e08bb8809e8c31d82b33b4abbcc983dc31a515c339885972d876c1a2ddf3.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "53dacb9f80a5fe0cbffbc65d96f8127cf466358afd2c6eb3c68e662df48b74ad",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "c2d910367240b1765b26958fa366549cd35a64b2f6df753e1de7cf4aaf0ee26b"
+        }
+      }
+    },
+    {
+      "name": "receiver-call-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/receiver-call-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.mpcert",
+        "bytes": 59583,
+        "sha256": "3d56ec3ebbd0394dc844521a4adb8bd6f30b7c06b1aae732dc648a37ade639f9"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/receiver-call-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.rust.json",
+        "bytes": 765,
+        "sha256": "6ee9fd29706143b33b481273a12c79717d37bde5e04b13c0cf6b3f72696c5981"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/receiver-call-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.12237558409105986,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/receiver-call-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.stdout.log",
+        "bytes": 511,
+        "sha256": "a460c98c8a317b1f180922d5ab94b86713c1527fa0aebfab3f98a6fb870b2723"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/receiver-call-call0-7715913faa43d340d3975854f2c58deac3a377b9e8a801a1c85cd084748c76e1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S142d6ccd6c9a7ec008ffaa2d33ad8fa789e1bd07bbc11c8417d9962e4ae0df35.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "9e636403b3995d2252534d061be308570fc4b30fa85ada410c0ff6ec7d437eae",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "7372f236a558434cf4a34336c9282678191b2698647e4b809c4525f63a741715"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S142d6ccd6c9a7ec008ffaa2d33ad8fa789e1bd07bbc11c8417d9962e4ae0df35.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "9e636403b3995d2252534d061be308570fc4b30fa85ada410c0ff6ec7d437eae",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "7372f236a558434cf4a34336c9282678191b2698647e4b809c4525f63a741715"
+        }
+      }
+    },
+    {
+      "name": "receiver-call-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/receiver-call-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.mpcert",
+        "bytes": 59652,
+        "sha256": "c8af6a9dca2966d53a5e0d18dbf291f1d3b293f47491ac5861e8025132681516"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/receiver-call-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.rust.json",
+        "bytes": 765,
+        "sha256": "d2477453a67a69cd0271a27e342c7b51f205865bb25b12673be1448e85941994"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/receiver-call-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.09502433403395116,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/receiver-call-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.stdout.log",
+        "bytes": 511,
+        "sha256": "144977a286ea81cf420e531f1b0f68d1f3cf68b64eedd5f5c4776b2ce0b47fd2"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/receiver-call-call0-9010a07fa2bf1ea502e843727a1f7364fcf37a21eeb30a55e92d6b7069bf2db1.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sa8d811963799054af9b8c4ecafb2c8b9f408921d8de72bd246406583bc648026.Receiver",
+        "declaration_count": 179,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "fd5ce296f6de1ee8518984275c02b0d0f4876dc93ce12528cc90983cbf0c3029",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "7935de9cdc78790c2937b95350172d1972c1d78b931eae018d5328135079659c"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.Sa8d811963799054af9b8c4ecafb2c8b9f408921d8de72bd246406583bc648026.Receiver",
+        "declaration_count": 179,
+        "hashes": {
+          "export": "fd5ce296f6de1ee8518984275c02b0d0f4876dc93ce12528cc90983cbf0c3029",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "7935de9cdc78790c2937b95350172d1972c1d78b931eae018d5328135079659c"
+        }
+      }
+    },
+    {
+      "name": "receiver-call-call0-nil",
+      "certificate": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/receiver-call-call0-nil.mpcert",
+        "bytes": 58290,
+        "sha256": "6969572ed46affc581a7e3d60c9881f2b59b1cbe7b6cc4c1e057c1ab26eb599d"
+      },
+      "rust_report": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/receiver-call-call0-nil.rust.json",
+        "bytes": 765,
+        "sha256": "804f98a74db6d8c8182c713afa078aad72308803de30286e4cb27ed0c0c94144"
+      },
+      "command": [
+        "/private/tmp/mpk-go-practical-t02-core-interfaces/checker-ref",
+        "verify",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/entries/certificates/receiver-call-call0-nil.mpcert"
+      ],
+      "exit_code": 0,
+      "seconds": 0.11212725006043911,
+      "stdout": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/receiver-call-call0-nil.stdout.log",
+        "bytes": 511,
+        "sha256": "c4b7b2c8fe4311898ae4a0e2ce05eec45fbe7251b21d8f340cef3ee65b085e4b"
+      },
+      "stderr": {
+        "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-receiver/paired-small/receiver-call-call0-nil.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "rust_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S0c48a47234602b33e92006fe4b8f2c41defad7e315196b68705f1c8c483bbc54.Receiver",
+        "declaration_count": 175,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "456871a44aa51bea15f696bbc63f8164a2b2cafdf766ac57c58604197ce1251b",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "4b4284ab53e20d5534db7c173fecfaef733ede413ca42e031bb732d92c71bbd6"
+        },
+        "axiom_report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        },
+        "error_code": null,
+        "error_detail": null
+      },
+      "go_observation": {
+        "verdict": "accepted",
+        "module": "Mpk.Go.Practical.SourceErrorLayout.S071a95e7e1b615db7830e0cf7b7a4b413c0e95034e18225b1350ae2663f4ad5e.Boxing.Operations.Dispatch.S0c48a47234602b33e92006fe4b8f2c41defad7e315196b68705f1c8c483bbc54.Receiver",
+        "declaration_count": 175,
+        "hashes": {
+          "export": "456871a44aa51bea15f696bbc63f8164a2b2cafdf766ac57c58604197ce1251b",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "4b4284ab53e20d5534db7c173fecfaef733ede413ca42e031bb732d92c71bbd6"
+        }
+      }
+    }
+  ],
+  "scope": "Whole original source-specific complete selector certificate streams, with all tags, active payloads and inactive zeros. Every original input and the unchanged Go binary/source closure is captured before checking. Private source-key boxing is not source-runtime validity or canonical context/program authority. No arbitrary-input validity/canonical capture/context/program/release claim.",
+  "same_byte_streams": 21,
+  "zero_axiom_acceptances": 21,
+  "whole_inputs_unchanged": true,
+  "finished_at_utc": "2026-10-22T19:09:09.947563+00:00"
+}

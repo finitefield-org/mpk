@@ -1,0 +1,127 @@
+{
+  "schema": "mpk.go_practical.decimal_clause_response_echo_repair.v0",
+  "status": "all_selected_checks_passed_complete_repaired_gate_pending",
+  "observed_at_utc": "2026-10-18T18:34:20.469570+00:00",
+  "source_base_commit": "e8ceb3c1fd8501e1fe774289091f188cdc8fdc65",
+  "compiled_original_source": "320ecd67ab420e1ea806196271eea3271f929fbe",
+  "original_failure": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-diagnosis/result.json",
+    "sha256": "d56795b04cdee86f7e8ab0e1f4d049d9c5b2369dff1073a9d3a5c139b2233dd5",
+    "bytes": 8851
+  },
+  "original_exact_assertion_operands": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-diagnosis/exact-response-operands-audit.json",
+    "sha256": "8ba9d4a3de57412cc8e4dba90435db7092637d0197b9ff2f48e7cc4336959c57",
+    "bytes": 45253
+  },
+  "input_manifest": {
+    "path": "develop/migrations/go-practical/t01-w05/retained-csharp/decimal-clause-response-echo/manifest.json",
+    "sha256": "a6d5917438eb30b5c102664b36c6bbd0e179262d445b2f15af7ebcc1ca664586",
+    "bytes": 1809
+  },
+  "source_preservation": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/source-preservation-audit-repaired-path.json",
+    "sha256": "0e24d557956799f84336785790264dadee2865c242caac4f4d29dcbbee5268eb",
+    "bytes": 1034
+  },
+  "selected": [
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/build-repaired-path/result.json",
+      "sha256": "5f6e4bca68f6caeeac8ee038f9cd48696f5b00a60ab233aaaaf5ef20057dec0f",
+      "bytes": 2155,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 42.05743604199961
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/normal/result.json",
+      "sha256": "bc1985e632e527de79499758d55ed722b842ce06219acff111eb729b2a2a4fb0",
+      "bytes": 3266,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 13.022333874949254
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/format/result.json",
+      "sha256": "ec8737c8c5c25eff6666c475c65ec9e1db99945f0acd093fad9f37731276ed61",
+      "bytes": 2732,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 4.728865250013769
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/clippy/result.json",
+      "sha256": "f37ccd9202d3848d415aab1f669f1e7d2184d25b1c9cc51bc16de001239fc2cf",
+      "bytes": 2821,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 6.72609208303038
+    },
+    {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/runtime-normal/result.json",
+      "sha256": "d60045b122cbc0ea1bbf4ac1c0c95b25f1d13829c8cbbab847ed93bd78999570",
+      "bytes": 3334,
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 1090.2644156250171
+    }
+  ],
+  "related_input_representation_audit": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/related-input-representation-audit.json",
+    "sha256": "38e117f3168db1dba2ac0d703b603d5d5ae3f3e907e149f3f9ca6d913e2e1129",
+    "bytes": 6045
+  },
+  "source_contexts": 9,
+  "operation_alias_closures": 44,
+  "contract_attachments": 49,
+  "original_assertions_preserved": 17,
+  "extra_guards": 3,
+  "complete_current_metadata_certificate_goldens_checked": true,
+  "all_original_runtime_cases_bounds_and_counts_unchanged": true,
+  "runtime_owner_validation": "Both complete candidate and original-source runtime owners now pass with full normal component JSON/certificate byte goldens, all nine contexts, all ten original selected runtime conditions and five failure definedness checks. This is component regression evidence, not universal application proof.",
+  "original_response_bytes_preserved": true,
+  "complete_original_json_values_equal": true,
+  "fields_ignored_or_normalized": false,
+  "representation_difference": "98 object member orders change when the original captured responses Value is reserialized; the fixed new echo retains the exact original failed right operand.",
+  "separate_setup_failure": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/initial-build-error.json",
+    "sha256": "fec83f5db8440fe3d806a7b42c72d3844fc019f83d129be423e6905f9958590a",
+    "bytes": 4873
+  },
+  "production_or_checker_source_changes": false,
+  "application_proofs_discharged": false,
+  "profile_activated": false,
+  "full_gate": {
+    "status": "pending_entire_repaired_retry",
+    "original_source320_still_running": true,
+    "observed_reported_failures": 22,
+    "all_reported_failures_have_selected_passing_repairs": true,
+    "fixed_codec_additional_finding": "Selected full owner passes; see ../fixed-codec-clauses-repair/verification.json."
+  },
+  "T01_complete": false,
+  "T02_started": false,
+  "runtime_owner": {
+    "status": "passed_all_nine_contexts",
+    "normal_mode": {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/runtime-normal/result.json",
+      "sha256": "d60045b122cbc0ea1bbf4ac1c0c95b25f1d13829c8cbbab847ed93bd78999570",
+      "bytes": 3334
+    },
+    "wall_seconds": 1090.2644156250171,
+    "selected_runtime_conditions": 10,
+    "failure_definedness_rejections": 5,
+    "original_cases_bounds_and_counts_unchanged": true,
+    "original_whole_failure_report": {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/original-runtime-whole-report-observation.json",
+      "sha256": "f0e0ad29056dd3fd61ea31d514b488d17bbd56e5e9c9c0fc8605077c91084753",
+      "bytes": 985
+    },
+    "original_panic_detail_pending_whole_terminal": true,
+    "snapshot_receipt": {
+      "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/decimal-clauses-repair/binary-snapshot-after-complete-selected.json",
+      "sha256": "df845d21f8a38180a6c27f0286add71d186209c89757296028666ffbea35442c",
+      "bytes": 665
+    }
+  },
+  "final_changed_input_review": "Required separately before committing these final inputs; the entire repaired gate remains mandatory."
+}

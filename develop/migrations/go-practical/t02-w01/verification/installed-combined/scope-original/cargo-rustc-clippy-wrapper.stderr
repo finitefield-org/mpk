@@ -1,0 +1,55 @@
+   Compiling version_check v0.9.5
+   Compiling serde_core v1.0.228
+   Compiling proc-macro2 v1.0.106
+   Compiling zmij v1.0.21
+   Compiling quote v1.0.46
+   Compiling unicode-ident v1.0.24
+   Compiling serde v1.0.228
+   Compiling typenum v1.20.1
+   Compiling serde_json v1.0.150
+   Compiling libc v0.2.186
+   Compiling cfg-if v1.0.4
+   Compiling cpufeatures v0.2.17
+   Compiling generic-array v0.14.7
+   Compiling rustix v1.1.4
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.2
+   Compiling mpk-core v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-core)
+   Compiling syn v2.0.118
+   Compiling bitflags v2.13.1
+   Compiling adler2 v2.0.1
+   Compiling miniz_oxide v0.8.9
+   Compiling linux-raw-sys v0.12.1
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling mpk-go-zstd-blocks v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/third_party/ruzstd-go125)
+   Compiling digest v0.10.7
+   Compiling base64 v0.22.1
+   Compiling getrandom v0.4.3
+   Compiling sha2 v0.10.9
+   Compiling mpk-cert v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cert)
+   Compiling mpk-theory v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-theory)
+   Compiling pulldown-cmark v0.13.4
+   Compiling once_cell v1.21.4
+   Compiling mpk-kernel v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-kernel)
+   Compiling fastrand v2.5.0
+   Compiling unicode-width v0.2.2
+   Compiling pulldown-cmark-escape v0.11.0
+   Compiling unicase v2.9.0
+   Compiling serde_derive v1.0.228
+   Compiling getopts v0.2.24
+   Compiling tempfile v3.27.0
+   Compiling mpk-linux-sandbox v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-linux-sandbox)
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+   Compiling mpk-api v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-api)
+   Compiling mpk-cli v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli)
+error: linking with `cc` failed: exit status: 1
+  |
+  = note:  "cc" "-m64" "/private/tmp/mpk-go-source-root-clippy-wrapper-target/x86_64-unknown-linux-gnu/debug/examples/rustc25o1o9/symbols.o" "<10 object files omitted>" "-Wl,--as-needed" "-Wl,-Bstatic" "/private/tmp/mpk-go-source-root-clippy-wrapper-target/x86_64-unknown-linux-gnu/debug/deps/{librustix-7c254ed96daf5e0a,libbitflags-7749d20ecc1a0f1e,liblinux_raw_sys-6ebe493d7ce227da,libmpk_vc-850234a75d098ea2,libbase64-47bbef8f362fbf8a,libmpk_go_zstd_blocks-c7a131c1c6df7d2a,libminiz_oxide-8a9b5581f7d958d8,libadler2-33e24a27ef170608,libserde_json-b47d64aa5914998b,libmemchr-7f34701b2d1c224e,libitoa-ac89eca85b5fd5e6,libzmij-2479a18b47f2bbea,libmpk_cert-6b493e9385b34b8e,libmpk_core-6459a7cdc250a097,libsha2-96e1dd0659246338,libcpufeatures-b99878fb7dd3f5de,libcfg_if-1b3347ff78e1a231,libdigest-40e6cfff426cb021,libblock_buffer-79c52e89302a8747,libcrypto_common-03669b9ae97ec56c,libgeneric_array-8eccdcd13784dfd4,libtypenum-77020ef24ebc52e1,libserde-8e314f0e68810db6,libserde_core-786e0a0941babc24}.rlib" "<sysroot>/lib/rustlib/x86_64-unknown-linux-gnu/lib/{libstd-*,libpanic_unwind-*,libobject-*,libmemchr-*,libaddr2line-*,libgimli-*,libcfg_if-*,librustc_demangle-*,libstd_detect-*,libhashbrown-*,librustc_std_workspace_alloc-*,libminiz_oxide-*,libadler2-*,libunwind-*,liblibc-*,librustc_std_workspace_core-*,liballoc-*,libcore-*,libcompiler_builtins-*}.rlib" "-Wl,-Bdynamic" "-lgcc_s" "-lutil" "-lrt" "-lpthread" "-lm" "-ldl" "-lc" "-L" "/private/tmp/mpk-go-source-root-clippy-wrapper-target/x86_64-unknown-linux-gnu/debug/examples/rustc25o1o9/raw-dylibs" "-Wl,--eh-frame-hdr" "-Wl,-z,noexecstack" "-L" "<sysroot>/lib/rustlib/x86_64-unknown-linux-gnu/lib" "-o" "/private/tmp/mpk-go-source-root-clippy-wrapper-target/x86_64-unknown-linux-gnu/debug/examples/go_practical_live_combined_roots-e050b033869869fa" "-Wl,--gc-sections" "-pie" "-Wl,-z,relro,-z,now" "-Wl,--strip-debug" "-nodefaultlibs"
+  = note: some arguments are omitted. use `--verbose` to show all linker arguments
+  = note: clang: warning: argument unused during compilation: '-pie' [-Wunused-command-line-argument]
+          ld: unknown options: --as-needed -Bstatic -Bdynamic --eh-frame-hdr -z --gc-sections -z -z --strip-debug 
+          clang: error: linker command failed with exit code 1 (use -v to see invocation)
+          
+
+error: could not compile `mpk-cli` (example "go_practical_live_combined_roots") due to 1 previous error

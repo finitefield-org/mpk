@@ -1,0 +1,143 @@
+{
+  "cases": [
+    {
+      "case": "metadata-over",
+      "complete_input_file": "metadata-over.rejected.json",
+      "decode_error": "invalid original observation byte field metadata_hex",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": true
+    },
+    {
+      "case": "diagnostics-over",
+      "complete_input_file": "diagnostics-over.rejected.json",
+      "decode_error": "invalid original observation byte field diagnostics_hex",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": true
+    },
+    {
+      "case": "odd-hex",
+      "complete_input_file": "odd-hex.rejected.json",
+      "decode_error": "invalid original observation byte field metadata_hex",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": true
+    },
+    {
+      "case": "uppercase-hex",
+      "complete_input_file": "uppercase-hex.rejected.json",
+      "decode_error": "invalid original observation byte field metadata_hex",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": true
+    },
+    {
+      "case": "nonhex",
+      "complete_input_file": "nonhex.rejected.json",
+      "decode_error": "invalid original observation byte field metadata_hex",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": true
+    },
+    {
+      "case": "null",
+      "complete_input_file": "null.rejected.json",
+      "decode_error": "invalid original observation byte field metadata_hex",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": true
+    },
+    {
+      "case": "array",
+      "complete_input_file": "array.rejected.json",
+      "decode_error": "invalid original observation byte field metadata_hex",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": true
+    },
+    {
+      "case": "missing",
+      "complete_input_file": "missing.rejected.json",
+      "decode_error": "missing original observation bytes",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": true
+    },
+    {
+      "case": "unknown-schema",
+      "complete_input_file": "unknown-schema.rejected.json",
+      "decode_error": "unknown private observation schema",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": true
+    },
+    {
+      "case": "ordinary-over",
+      "complete_input_file": "ordinary-over.rejected.json",
+      "decode_error": "JSON string exceeds the string-byte limit",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": true
+    },
+    {
+      "case": "nested-metadata-over",
+      "complete_input_file": "nested-metadata-over.rejected.json",
+      "decode_error": "JSON string exceeds the string-byte limit",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": true
+    },
+    {
+      "case": "unsafe-integer",
+      "complete_input_file": "unsafe-integer.rejected.json",
+      "decode_error": "JSON integer \"9007199254740992\" exceeds the interoperable range",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": true
+    },
+    {
+      "case": "cycle",
+      "complete_input_file": "cycle.rejected.json",
+      "decode_error": "",
+      "marshal_error": "json: unsupported value: encountered a cycle via map[string]interface {}",
+      "programmatic_rejected": true,
+      "serialized_input_retained": false
+    },
+    {
+      "case": "invalid-utf8",
+      "complete_input_file": "invalid-utf8.rejected.json",
+      "decode_error": "",
+      "marshal_error": "\u003cnil\u003e",
+      "programmatic_rejected": true,
+      "serialized_input_retained": false
+    },
+    {
+      "case": "lone-surrogate",
+      "complete_input_file": "lone-surrogate.rejected.json",
+      "serialized_input_retained": true
+    },
+    {
+      "case": "trailing",
+      "complete_input_file": "trailing.rejected.json",
+      "serialized_input_retained": true
+    },
+    {
+      "case": "fraction",
+      "complete_input_file": "fraction.rejected.json",
+      "serialized_input_retained": true
+    },
+    {
+      "case": "duplicate-root",
+      "complete_input_file": "duplicate-root.rejected.json",
+      "serialized_input_retained": true
+    },
+    {
+      "case": "duplicate-nested",
+      "complete_input_file": "duplicate-nested.rejected.json",
+      "serialized_input_retained": true
+    }
+  ],
+  "common_codec_unchanged": true,
+  "cross_domain_rejected": true
+}

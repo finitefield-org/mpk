@@ -1,0 +1,129 @@
+{
+  "schema": "mpk.go_practical.word_signed_equality_checkpoint.v1",
+  "status": "scoped_checks_passed",
+  "entry_commit": "c4bd126d0e347f09db444d35df3831c61e1fd4c6",
+  "observed_at_utc": "2026-10-20T01:49:40.165142+00:00",
+  "fresh_component": {
+    "certificate": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/final/tests/certificates/word-signed-equality.mpcert",
+      "sha256": "aff545ade52f37b0c5dcf215e8fd5f5aff1a06d269193a9827cbc4b350e6c06f",
+      "bytes": 1007869
+    },
+    "declarations": 3489,
+    "terms": 72690,
+    "bytes": 1007869,
+    "axioms": 0,
+    "logical_hashes": {
+      "export": "af36f383b62c03bfb59f65591df6dc2add87301db184556d05c9c3476fe23f19",
+      "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "certificate": "b8bfdb76eb03bdd11432969666a2348e836b6b7b9ea856330438d6ce07cf3e58"
+    },
+    "remaining_declaration_slots": 607
+  },
+  "production_sources": [
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary.rs",
+      "sha256": "4c39b5623723086a8190c5cd81cac9a591580315f4855f9913feb65051844919",
+      "bytes": 51185
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word.rs",
+      "sha256": "2bb225783f54dca05345d0913a8ce8956d90014f3f35562c66eccad35bed4db4",
+      "bytes": 24646
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric.rs",
+      "sha256": "0920dc00ee92297e6b9423ae8129f9300a3b085e362bea9066bdb807c017a34a",
+      "bytes": 22752
+    },
+    {
+      "path": "crates/mpk-vc/src/go_practical_ordinary/word_numeric/signed_equality.rs",
+      "sha256": "d56b45a18d874804cd4dbae3574cb2441c2792f3469bf00b7c0f5c31ac2d8d3e",
+      "bytes": 21963
+    }
+  ],
+  "checks": {
+    "initial/construction": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/initial/construction/result.json",
+        "sha256": "e74a4884d7f4989537da58011f4254557e693927400309e7a82dee8138d23d5d",
+        "bytes": 22508
+      },
+      "wall_seconds": 108.58292620896827
+    },
+    "final/tests": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/final/tests/result.json",
+        "sha256": "8a7b7c0d37fbe15b8a6cd277076ac937d1805d3853d074d4a8a562f85c1e95a0",
+        "bytes": 34728
+      },
+      "wall_seconds": 74.38217841705773
+    },
+    "final/clippy": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/final/clippy/result.json",
+        "sha256": "a5835476921eeda2b3cbfb49210e30a1e0dc7a230a18a613f7f40e1b763f0168",
+        "bytes": 22152
+      },
+      "wall_seconds": 22.795642416924238
+    },
+    "final/format": {
+      "record": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/final/format/result.json",
+        "sha256": "b3c65ed76bb91b4fd48645682d4caed236dde3a3447a1650602dccdfb091bf32",
+        "bytes": 29274
+      },
+      "wall_seconds": 0.4937995000509545
+    }
+  },
+  "paired_current_cores": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/paired-final/result.json",
+    "sha256": "de25e54aecbbe30dbe6add53235021a1ec3e390e55fc9c62d99e38efee95eda1",
+    "bytes": 116358
+  },
+  "same_byte_streams": 46,
+  "zero_axiom_positives": 2,
+  "genuine_core_type_mismatches": 44,
+  "mismatch_subtypes": {
+    "lambda_domain_mismatch": 6,
+    "check_type_mismatch": 38
+  },
+  "finite_counterparts": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/finite-counterparts/result.json",
+    "sha256": "4ff8efaf5b6df2168d57ef5f6d8f1c96da80c6e7ea3c37337fb65e94e83c275c",
+    "bytes": 3115
+  },
+  "fresh_native_equality": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native/result.json",
+    "sha256": "72447d720bc9d698d6d76c76bc3c8660de3253b79fa4420674269b1ab3de9ac9",
+    "bytes": 6190
+  },
+  "new_native_observer_vet_format": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/native-checks/result.json",
+    "sha256": "a7b6ac8e453df4edd2ef84311621a99aec46d0ac45707913ebedb0b80000c99a",
+    "bytes": 4202
+  },
+  "dependency_planning": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/dependency-analysis/result.json",
+    "sha256": "d9d07dcc6698c41fa537461a1c8a3ecad03bb1b95c0ee49d51a542f616cd8a02",
+    "bytes": 1597
+  },
+  "all_prior_signed_order_named_identities_unchanged": 3457,
+  "old_signed_order_raw_sha256": "0f61e8eb6a89cac3e2fa786f6027901424e2edaeb730df5dee0c5e8db49e8587",
+  "frozen_inputs": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/word-signed-equality/frozen-design-preservation.json",
+    "sha256": "6c0f7a7eaea54c9ab82be923fe834d92a865028ff6507bcf537415600b89b536",
+    "bytes": 52892
+  },
+  "strict_changed_input_review": "input-review/changed-inputs-review.json",
+  "proof_scope": "Unconditional source signed equality/inequality and both balanced Int equivalence directions, preserving all3457 prior signed-order declarations. Real source equality/tree and established Nat EqualNatural discharge actual sign coherence. No extensionality, new core rule/axiom, imported theorem trust or caller-supplied truth flags. Prior entire signed bounds component remains intact and full56-family assembly remains due; avoiding its unneeded382-declaration half-bound dependency is only a choice within this equality proof recipe.",
+  "CSharp_tests_executed": false,
+  "T02_W01_complete": false,
+  "remaining_application_demands": 169,
+  "public_profile_activated": false,
+  "whole_source_program_proof_claimed": false,
+  "immutable_application_replay_claimed": false,
+  "native_Linux_gate_claimed": false,
+  "full_T02_gate": "deferred to T02-W04: ./scripts/check-fast.sh --skip-csharp",
+  "remaining_scope": "Full56-family bounded ordinary foundation and complete source/carrier/nominal/type/operation/storage/lifetime/state/program bindings, descriptor/private registry/context and retained policy delegation. Original application source/export/selected-closure authoritative immutable loading/replay, all169 application demands and original T02-T11 work/gates remain required."
+}

@@ -1,0 +1,19 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--target-dir",
+    "/private/tmp/mpk-t01-w05-repair-target",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_spec",
+    "csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze",
+    "--",
+    "--exact"
+  ],
+  "exit_code": 0,
+  "selected_reason": "Historical publication assertion now matches its original test body exactly, with explicit retained-entry and inactive-profile guards. Other 17 cases passed after the shared accessor repair.",
+  "wall_seconds": 52.499460667022504
+}

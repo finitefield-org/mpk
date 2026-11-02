@@ -1,0 +1,7 @@
+# Fixed-codec request echo
+
+The original [captured requests](../../../../csharp-03/ordinary-foundation/fixed-codec-clauses/requests.json) remain unchanged. The original source owner passes all six codec contexts,44 source clauses and21,088 formatting/composition bit observations before its final request echo assertion fails. Every request JSON value, including complete nested UTF8 sidecar strings, is equal; the outer pretty serialization uses a different Unicode escape representation.
+
+[requests.json](requests.json) preserves the exact serialized right operand. The normal output helper pins both original input and this echo by SHA256, compares their complete JSON values, then retains the original full byte assertion against this fixed representation. No original source case, parser limit, packet observation, fixture, source clause or runtime assertion changes. The [manifest](manifest.json) binds both representations to the [exact original operands](../../verification/retained-csharp-repair/fixed-codec-clauses-diagnosis/exact-request-operands-audit.json). Selected repaired validation is recorded below; the entire repaired T01 gate remains mandatory.
+
+[Selected repaired validation](../../verification/retained-csharp-repair/fixed-codec-clauses-repair/verification.json) passes the entire six-codec source owner in142.775 seconds, including all44 source clauses and21,088 original bit observations. Build, format and target Clippy pass. The complete repaired T01 gate remains required.

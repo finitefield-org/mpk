@@ -1,0 +1,73 @@
+"""Compare every complete original Go/Rust manifest observation and owner."""
+from pathlib import Path
+import hashlib,json,re
+ROOT=Path(__file__).resolve().parent
+INPUTS={}
+def seal(p):
+ b=p.read_bytes();return {'path':str(p),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest(),'mode':p.stat().st_mode&0o777}
+def raw(p):INPUTS[str(p)]=seal(p);return p.read_bytes()
+def read(p):return json.loads(raw(p))
+def main():
+ out=ROOT/'inspection.json';assert not out.exists()
+ verification=read(ROOT/'verification.json')
+ epochs={p.parent.name:read(p) for p in ROOT.glob('*/result.json')}
+ assert sorted(epochs)==verification['source_epochs']
+ for name in verification['passing_check_epochs']:assert epochs[name]['status']=='passed'
+ assert sorted(n for n,r in epochs.items() if r['status']=='failed')==verification['preserved_failed_epochs']
+ for result in epochs.values():assert result['consumed_inputs_unchanged'] or result['expected_formatter_mutation']
+ for name in ['native','go-vet']:
+  assert epochs[name]['status']=='failed'
+  assert '"strings" imported and not used' in raw(ROOT/name/'stderr.log').decode()
+ native=read(ROOT/'native-toolchain/native-originals/module-manifests/complete-original-module-manifests.json')['cases']
+ observed=read(ROOT/'rust-toolchain/observations/manifests/complete-original-module-manifest-observations.json')['observations']
+ assert len(native)==len(observed)==656
+ previous_native=read(ROOT/'native-final/native-originals/module-manifests/complete-original-module-manifests.json')['cases'];assert len(previous_native)==652
+ by_current={(r['case'],r['main']):r for r in native}
+ for old in previous_native:
+  new=by_current[(old['case'],old['main'])]
+  assert old['object']==new['object'] and old['raw_hex']==new['raw_hex'] and old['accepted']==new['accepted']
+  if old['facts'] is not None:
+   facts=dict(old['facts']);suggestion=facts.pop('toolchain_suggestion');facts['toolchain_suggestion_hex']=None if suggestion is None else suggestion.encode().hex();assert facts==new['facts']
+ accepted=0
+ for original,result in zip(native,observed):
+  data=bytes.fromhex(original['raw_hex']);obj=original['object']
+  assert len(data)==obj['bytes'] and hashlib.sha256(data).hexdigest()==obj['raw_sha256']
+  assert original['case']==result['case'] and original['main']==result['main'] and original['object']==result['object']
+  assert original['accepted']==result['accepted'] and original['facts']==result['facts']
+  if original['accepted']:accepted+=1
+ by_case={(r['case'],r['main']):r for r in native}
+ assert by_case[('invalid-utf8-comment',True)]['accepted']
+ for case,suffix in [('toolchain-invalid-utf8-suffix',bytes([255])),('toolchain-incomplete-utf8-suffix',bytes([0xe2,0x82]))]:
+  for main in [True,False]:
+   row=by_case[(case,main)];assert row['accepted'] and row['facts']['toolchain_suggestion_hex']==(b'go1.25.0-original-'+suffix).hex()
+ assert by_case[('quoted-invalid-utf8-require',False)]['accepted']
+ assert by_case[('duplicate-require',True)]['facts']['requirements'][0]['version']=='v1.0.0'
+ assert len(by_case[('duplicate-require',True)]['facts']['requirements'])==2
+ assert by_case[('retract-after-module',True)]['facts']['retractions'][0]['low_hex']==b'v1'.hex()
+ assert by_case[('dependency-future-toolchain',False)]['accepted'] and not by_case[('dependency-future-toolchain',True)]['accepted']
+ owners=read(ROOT/'rust-toolchain/observations/manifests/whole-original-selected-module-manifests.json')['observations']
+ assert len(owners)==2
+ for owner in owners:
+  directory=ROOT.parent/'module-observations/native/native-originals'/owner['owner'];packet=read(directory/'complete-original-module-observations.json')
+  assert owner['original_snapshot_objects']==len(packet['snapshot_sources'])
+  export=json.loads(bytes.fromhex(packet['export_inputs_hex']));assert len(export['packages'])==owner['original_packages']
+  objects={r['object']['id']:r for r in packet['snapshot_sources']}
+  for original in packet['snapshot_sources']:
+   data=raw(directory/'original-source-objects'/original['raw_file']);obj=original['object'];assert len(data)==obj['bytes'] and hashlib.sha256(data).hexdigest()==obj['raw_sha256']
+  for row in owner['modules']:
+   original=objects[row['original_object']['id']];assert original['object']==row['original_object']
+   data=raw(directory/'original-source-objects'/original['raw_file']);assert len(data)==original['object']['bytes'] and hashlib.sha256(data).hexdigest()==original['object']['raw_sha256']
+  assert not owner['original_source_or_package_universe_reduced']
+ logs=raw(ROOT/'rust-toolchain/stdout.log').decode();counts=[int(n) for n in re.findall(r'test result: ok\. (\d+) passed; 0 failed; 0 ignored;',logs)]
+ assert counts==verification['rust_test_group_counts']
+ assert not raw(ROOT/'go-format-check-toolchain/stdout.log')
+ assert 'matching on `Some` with `ok()` is redundant' in raw(ROOT/'clippy/stderr.log').decode()
+ # These unchanged consumers/proofs are inspected from the previous complete
+ # checkpoint, not reported as newly replayed tests for this parser change.
+ previous=read(ROOT.parent/'module-data/inspection.json');assert previous['status']=='passed'
+ proofs=read(ROOT.parent/'module-data/controls-remaining/observations/sources/original-proof-replay.json')['complete_original_call_proofs'];assert len(proofs)==32
+ for row in proofs:
+  data=raw(Path(row['original_certificate']));assert len(data)==row['bytes'] and hashlib.sha256(data).hexdigest()==row['raw_sha256']
+ result={'status':'passed','driver':seal(Path(__file__).resolve()),'inputs':list(INPUTS.values()),'source_epochs':len(epochs),'native_cases':len(native),'accepted_cases':accepted,'rejected_cases':len(native)-accepted,'actual_owned_modules':sum(len(o['modules']) for o in owners),'owners':owners,'affected_rust_test_roots':sum(counts),'original_proof_byte_streams_unchanged':32,'proofs_replayed_in_this_checkpoint':False,'previous_original_roots_per_unit':43,'previous_original_error_universes':[0,70],'full_T_gate':'Deferred to final T02-W04: ./scripts/check-fast.sh'}
+ out.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:result[k] for k in ['status','source_epochs','native_cases','actual_owned_modules','affected_rust_test_roots']}))
+if __name__=='__main__':main()

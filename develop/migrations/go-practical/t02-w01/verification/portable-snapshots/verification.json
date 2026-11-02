@@ -1,0 +1,72 @@
+{
+  "status": "scoped_checks_passed_work_item_in_progress",
+  "basis_commit": "2e1330a6dc4e155399f836002491fd1e2dc13200",
+  "observed_at_utc": "2026-10-24T19:20:24.644904+00:00",
+  "component": "Restore complete original captured snapshots under the current helper root while preserving immutable original absolute origins, relative member paths, all original bytes and modes.",
+  "original_relocation_failure": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/portable-snapshots/original-reproduction.json",
+    "bytes": 1833,
+    "sha256": "5c05899ba8c1084b6ced1ff28454eabfc319ccb559d6e7c4f3a9192f9c95bdbd",
+    "mode": 420
+  },
+  "initial_complete_relocated_restoration": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/portable-snapshots/relocated/result.json",
+    "bytes": 1149,
+    "sha256": "bbd89891d9f0d010185ee1097c1be595ba4cdfaaebfff69964a10bdeb208a0a5",
+    "mode": 420
+  },
+  "initial_consumed_helper_preserved": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/portable-snapshots/relocated-source-preservation.json",
+    "bytes": 1112,
+    "sha256": "24f4d3ba6acb2f570490c938388d5042e7445b120152b7197bee37b0a32961ed",
+    "mode": 420
+  },
+  "final_actual_relocated_rust_consumers": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/portable-snapshots/relocated-rust/result.json",
+    "bytes": 1217,
+    "sha256": "cf6c1b3e95260de7c145defb07be64893353cb542090660cd8078c62f78b7a51",
+    "mode": 420
+  },
+  "focused_controls": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/portable-snapshots/controls.json",
+    "bytes": 5941,
+    "sha256": "948c5afaf0bbd3880a906d467adb0b9277149ac187b69b53f851c996ef63ebc2",
+    "mode": 420
+  },
+  "python_syntax": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/portable-snapshots/python-syntax.json",
+    "bytes": 1495,
+    "sha256": "288ac56330b5eeaff78858e57873f32459a6dd044b1b5b139a9978e22301271f",
+    "mode": 420
+  },
+  "complete_original_snapshot_files": 77162,
+  "complete_original_snapshot_bytes": 696793808,
+  "affected_rust_roots_passed": 9,
+  "focused_positive_controls": 1,
+  "focused_rejection_controls": 14,
+  "original_unit_roots": {
+    "pure": 43,
+    "wide": 43
+  },
+  "original_error_case_universes": [
+    0,
+    70
+  ],
+  "original_proof_byte_streams_replayed": 32,
+  "actual_source_workspace_recompiled_at_new_absolute_path": true,
+  "snapshot_copies_before_test_launch": 0,
+  "historical_receipts_or_storage_rewritten": false,
+  "regeneration_or_reduced_source_universe": false,
+  "language_scope": [
+    "Go",
+    "Rust"
+  ],
+  "selection_reason": "Only the Python snapshot restorer changed. Recompile and run its two real direct Rust consumers in a complete relocated workspace. Keep every original root/source/type/error/proof domain and verify all restored originals. Focused corruption/path/link checks supplement that complete integration. Unchanged Go/Rust production lint and native/checker matrices are retained without repetition.",
+  "remaining": "Canonical capture/context/descriptor/registry and launcher authority, full module/build/compiler roles, source/IR/state/storage/frame/callee/program proofs, all56 foundation families/all169 demands, native Linux gates and remaining T02-T11 remain open. This host relocation check does not establish Linux release execution.",
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "public_profile_activated": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "whole_T_gate_run": false
+}

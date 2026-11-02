@@ -1,0 +1,2976 @@
+[
+  {
+    "context": {
+      "profile_entry_sha256": "0d80d13f97c45557fa9978eccc2545ffdb3fc1b93a26856b365a9be200470301",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.java_scalar.v0",
+        "value": {
+          "annotation_processing": "none",
+          "encoding": "UTF-8",
+          "language_version": "25",
+          "preview": false,
+          "release": "25",
+          "target_id": "linux-x64"
+        }
+      },
+      "semantic_profile": "mpk.java.scalar.v0",
+      "source_language": "java"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg0"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb2"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": false
+                    }
+                  ]
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb2",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg1"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb3"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb3",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": true
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "example.Policy::and(boolean,boolean)->boolean",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "policy"
+            },
+            "features_used": [
+              "branch"
+            ],
+            "id": "example.Policy::and(boolean,boolean)->boolean",
+            "locals": [],
+            "name": "and",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "element": {
+                    "kind": "bool"
+                  },
+                  "kind": "array",
+                  "length": 1
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "unit_id": "policy"
+          }
+        ],
+        "id": "policy",
+        "name": "policy",
+        "type_decls": []
+      }
+    ]
+  },
+  {
+    "context": {
+      "profile_entry_sha256": "0d80d13f97c45557fa9978eccc2545ffdb3fc1b93a26856b365a9be200470301",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.java_scalar.v0",
+        "value": {
+          "annotation_processing": "none",
+          "encoding": "UTF-8",
+          "language_version": "25",
+          "preview": false,
+          "release": "25",
+          "target_id": "linux-x64"
+        }
+      },
+      "semantic_profile": "mpk.java.scalar.v0",
+      "source_language": "java"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg0"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb2"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": false
+                    }
+                  ]
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb2",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg1"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb3"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb3",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": true
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "example.Policy::and(boolean,boolean)->boolean",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "policy"
+            },
+            "features_used": [
+              "branch"
+            ],
+            "id": "example.Policy::and(boolean,boolean)->boolean",
+            "locals": [],
+            "name": "and",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bool"
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "unit_id": "policy"
+          }
+        ],
+        "id": "policy",
+        "name": "policy",
+        "type_decls": []
+      }
+    ]
+  },
+  {
+    "context": {
+      "profile_entry_sha256": "0d80d13f97c45557fa9978eccc2545ffdb3fc1b93a26856b365a9be200470301",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.java_scalar.v0",
+        "value": {
+          "annotation_processing": "none",
+          "encoding": "UTF-8",
+          "language_version": "25",
+          "preview": false,
+          "release": "25",
+          "target_id": "linux-x64"
+        }
+      },
+      "semantic_profile": "mpk.java.scalar.v0",
+      "source_language": "java"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "kind": "CallerInstruction"
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg0"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb2"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": false
+                    }
+                  ]
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb2",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg1"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb3"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb3",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": true
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "example.Policy::and(boolean,boolean)->boolean",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "policy"
+            },
+            "features_used": [
+              "branch"
+            ],
+            "id": "example.Policy::and(boolean,boolean)->boolean",
+            "locals": [],
+            "name": "and",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bool"
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "unit_id": "policy"
+          }
+        ],
+        "id": "policy",
+        "name": "policy",
+        "type_decls": []
+      }
+    ]
+  },
+  {
+    "context": {
+      "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.rust_checked.v0",
+        "value": {
+          "overflow_mode": "checked",
+          "panic_mode": "abort",
+          "pointer_width": 32,
+          "target_id": "i686-unknown-linux-gnu"
+        }
+      },
+      "semantic_profile": "mpk.rust.checked.v0",
+      "source_language": "rust"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "arg0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "lhs": {
+                    "result": 0
+                  },
+                  "op": "eq",
+                  "rhs": {
+                    "var": "arg0"
+                  }
+                }
+              ],
+              "function_id": "vector::helpers::private_leaf",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "vector"
+            },
+            "features_used": [],
+            "id": "vector::helpers::private_leaf",
+            "locals": [],
+            "name": "private_leaf",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "vector"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "args": [
+                      {
+                        "var": "arg0"
+                      }
+                    ],
+                    "contract_hash": "df4044c438f3b5fcd58d939afc381fd17fde0889020821487b56ace2f6f763cd",
+                    "function": "vector::helpers::private_leaf",
+                    "id": "t0",
+                    "kind": "CallStatic",
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "args": [
+                    {
+                      "var": "t0"
+                    }
+                  ],
+                  "kind": "Jump",
+                  "label": "bb1"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [
+                  {
+                    "id": "p0",
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "p0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "lhs": {
+                    "result": 0
+                  },
+                  "op": "eq",
+                  "rhs": {
+                    "var": "arg0"
+                  }
+                }
+              ],
+              "function_id": "vector::helpers::public_helper",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "vector"
+            },
+            "features_used": [
+              "call_static"
+            ],
+            "id": "vector::helpers::public_helper",
+            "locals": [],
+            "name": "public_helper",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "vector"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "args": [
+                      {
+                        "var": "arg0"
+                      }
+                    ],
+                    "contract_hash": "8b50fbad5cfade48b2c2f156b4e7ccb2026e37c22bef4b098a33a04af2b8fcf9",
+                    "function": "vector::helpers::public_helper",
+                    "id": "t0",
+                    "kind": "CallStatic",
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "args": [
+                    {
+                      "var": "t0"
+                    }
+                  ],
+                  "kind": "Jump",
+                  "label": "bb1"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [
+                  {
+                    "id": "p0",
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "p0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "lhs": {
+                    "result": 0
+                  },
+                  "op": "eq",
+                  "rhs": {
+                    "var": "arg0"
+                  }
+                }
+              ],
+              "function_id": "vector::cross_module",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "vector"
+            },
+            "features_used": [
+              "call_static"
+            ],
+            "id": "vector::cross_module",
+            "locals": [],
+            "name": "cross_module",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "vector"
+          }
+        ],
+        "id": "vector",
+        "name": "vector",
+        "type_decls": []
+      }
+    ]
+  },
+  {
+    "context": {
+      "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.rust_checked.v0",
+        "value": {
+          "overflow_mode": "checked",
+          "panic_mode": "abort",
+          "pointer_width": 64,
+          "target_id": "x86_64-unknown-linux-gnu"
+        }
+      },
+      "semantic_profile": "mpk.rust.checked.v0",
+      "source_language": "rust"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "arg0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "lhs": {
+                    "result": 0
+                  },
+                  "op": "eq",
+                  "rhs": {
+                    "var": "arg0"
+                  }
+                }
+              ],
+              "function_id": "vector::helpers::private_leaf",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "vector"
+            },
+            "features_used": [],
+            "id": "vector::helpers::private_leaf",
+            "locals": [],
+            "name": "private_leaf",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "element": {
+                    "kind": "bool"
+                  },
+                  "kind": "array",
+                  "length": 1
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "vector"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "args": [
+                      {
+                        "var": "arg0"
+                      }
+                    ],
+                    "contract_hash": "7c05d5726b380179ffbf99ad4454287e5ee24a2eb9e7caca3e66827302af9caf",
+                    "function": "vector::helpers::private_leaf",
+                    "id": "t0",
+                    "kind": "CallStatic",
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "args": [
+                    {
+                      "var": "t0"
+                    }
+                  ],
+                  "kind": "Jump",
+                  "label": "bb1"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [
+                  {
+                    "id": "p0",
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "p0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "lhs": {
+                    "result": 0
+                  },
+                  "op": "eq",
+                  "rhs": {
+                    "var": "arg0"
+                  }
+                }
+              ],
+              "function_id": "vector::helpers::public_helper",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "vector"
+            },
+            "features_used": [
+              "call_static"
+            ],
+            "id": "vector::helpers::public_helper",
+            "locals": [],
+            "name": "public_helper",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "vector"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "args": [
+                      {
+                        "var": "arg0"
+                      }
+                    ],
+                    "contract_hash": "feb9eb81ba555ee2c1755c507c45d9d3b0777e99b3eeb8b4c4ff022fccb38761",
+                    "function": "vector::helpers::public_helper",
+                    "id": "t0",
+                    "kind": "CallStatic",
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "args": [
+                    {
+                      "var": "t0"
+                    }
+                  ],
+                  "kind": "Jump",
+                  "label": "bb1"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [
+                  {
+                    "id": "p0",
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "p0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "lhs": {
+                    "result": 0
+                  },
+                  "op": "eq",
+                  "rhs": {
+                    "var": "arg0"
+                  }
+                }
+              ],
+              "function_id": "vector::cross_module",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "vector"
+            },
+            "features_used": [
+              "call_static"
+            ],
+            "id": "vector::cross_module",
+            "locals": [],
+            "name": "cross_module",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "vector"
+          }
+        ],
+        "id": "vector",
+        "name": "vector",
+        "type_decls": []
+      }
+    ]
+  },
+  {
+    "context": {
+      "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.rust_checked.v0",
+        "value": {
+          "overflow_mode": "checked",
+          "panic_mode": "abort",
+          "pointer_width": 64,
+          "target_id": "x86_64-unknown-linux-gnu"
+        }
+      },
+      "semantic_profile": "mpk.rust.checked.v0",
+      "source_language": "rust"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "arg0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "lhs": {
+                    "result": 0
+                  },
+                  "op": "eq",
+                  "rhs": {
+                    "var": "arg0"
+                  }
+                }
+              ],
+              "function_id": "vector::helpers::private_leaf",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "vector"
+            },
+            "features_used": [],
+            "id": "vector::helpers::private_leaf",
+            "locals": [],
+            "name": "private_leaf",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "vector"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "args": [
+                      {
+                        "var": "arg0"
+                      }
+                    ],
+                    "contract_hash": "7c05d5726b380179ffbf99ad4454287e5ee24a2eb9e7caca3e66827302af9caf",
+                    "function": "vector::helpers::private_leaf",
+                    "id": "t0",
+                    "kind": "CallStatic",
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "args": [
+                    {
+                      "var": "t0"
+                    }
+                  ],
+                  "kind": "Jump",
+                  "label": "bb1"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [
+                  {
+                    "id": "p0",
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "p0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "lhs": {
+                    "result": 0
+                  },
+                  "op": "eq",
+                  "rhs": {
+                    "var": "arg0"
+                  }
+                }
+              ],
+              "function_id": "vector::helpers::public_helper",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "vector"
+            },
+            "features_used": [
+              "call_static"
+            ],
+            "id": "vector::helpers::public_helper",
+            "locals": [],
+            "name": "public_helper",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "vector"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "args": [
+                      {
+                        "var": "arg0"
+                      }
+                    ],
+                    "contract_hash": "feb9eb81ba555ee2c1755c507c45d9d3b0777e99b3eeb8b4c4ff022fccb38761",
+                    "function": "vector::helpers::public_helper",
+                    "id": "t0",
+                    "kind": "CallStatic",
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "args": [
+                    {
+                      "var": "t0"
+                    }
+                  ],
+                  "kind": "Jump",
+                  "label": "bb1"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [
+                  {
+                    "id": "p0",
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "p0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "lhs": {
+                    "result": 0
+                  },
+                  "op": "eq",
+                  "rhs": {
+                    "var": "arg0"
+                  }
+                }
+              ],
+              "function_id": "vector::cross_module",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "vector"
+            },
+            "features_used": [
+              "call_static"
+            ],
+            "id": "vector::cross_module",
+            "locals": [],
+            "name": "cross_module",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "vector"
+          }
+        ],
+        "id": "vector",
+        "name": "vector",
+        "type_decls": []
+      }
+    ]
+  },
+  {
+    "context": {
+      "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.rust_checked.v0",
+        "value": {
+          "overflow_mode": "checked",
+          "panic_mode": "abort",
+          "pointer_width": 64,
+          "target_id": "x86_64-unknown-linux-gnu"
+        }
+      },
+      "semantic_profile": "mpk.rust.checked.v0",
+      "source_language": "rust"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "kind": "CallerInstruction"
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "arg0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "lhs": {
+                    "result": 0
+                  },
+                  "op": "eq",
+                  "rhs": {
+                    "var": "arg0"
+                  }
+                }
+              ],
+              "function_id": "vector::helpers::private_leaf",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "vector"
+            },
+            "features_used": [],
+            "id": "vector::helpers::private_leaf",
+            "locals": [],
+            "name": "private_leaf",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "vector"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "args": [
+                      {
+                        "var": "arg0"
+                      }
+                    ],
+                    "contract_hash": "7c05d5726b380179ffbf99ad4454287e5ee24a2eb9e7caca3e66827302af9caf",
+                    "function": "vector::helpers::private_leaf",
+                    "id": "t0",
+                    "kind": "CallStatic",
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "args": [
+                    {
+                      "var": "t0"
+                    }
+                  ],
+                  "kind": "Jump",
+                  "label": "bb1"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [
+                  {
+                    "id": "p0",
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "p0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "lhs": {
+                    "result": 0
+                  },
+                  "op": "eq",
+                  "rhs": {
+                    "var": "arg0"
+                  }
+                }
+              ],
+              "function_id": "vector::helpers::public_helper",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "vector"
+            },
+            "features_used": [
+              "call_static"
+            ],
+            "id": "vector::helpers::public_helper",
+            "locals": [],
+            "name": "public_helper",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "vector"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "args": [
+                      {
+                        "var": "arg0"
+                      }
+                    ],
+                    "contract_hash": "feb9eb81ba555ee2c1755c507c45d9d3b0777e99b3eeb8b4c4ff022fccb38761",
+                    "function": "vector::helpers::public_helper",
+                    "id": "t0",
+                    "kind": "CallStatic",
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "args": [
+                    {
+                      "var": "t0"
+                    }
+                  ],
+                  "kind": "Jump",
+                  "label": "bb1"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [
+                  {
+                    "id": "p0",
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "p0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "lhs": {
+                    "result": 0
+                  },
+                  "op": "eq",
+                  "rhs": {
+                    "var": "arg0"
+                  }
+                }
+              ],
+              "function_id": "vector::cross_module",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "vector"
+            },
+            "features_used": [
+              "call_static"
+            ],
+            "id": "vector::cross_module",
+            "locals": [],
+            "name": "cross_module",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "vector"
+          }
+        ],
+        "id": "vector",
+        "name": "vector",
+        "type_decls": []
+      }
+    ]
+  },
+  {
+    "context": {
+      "profile_entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.go_fixed.v0",
+        "value": {
+          "pointer_width": 64,
+          "target_id": "linux/amd64"
+        }
+      },
+      "semantic_profile": "mpk.go.fixed.v0",
+      "source_language": "go"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "id": "t0",
+                    "kind": "BinOp",
+                    "lhs": {
+                      "var": "arg0"
+                    },
+                    "op": "bv_add",
+                    "rhs": {
+                      "var": "arg1"
+                    },
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": true,
+                      "width": 64
+                    }
+                  },
+                  {
+                    "kind": "CallerInstruction"
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "t0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            "features_used": [],
+            "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+            "locals": [],
+            "name": "Add64",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": true,
+                  "width": 64
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bv",
+                  "signed": true,
+                  "width": 64
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": true,
+                  "width": 64
+                }
+              }
+            ],
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg0"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb2"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": false
+                    }
+                  ]
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb2",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg1"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb3"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb3",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": true
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            "features_used": [
+              "branch"
+            ],
+            "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "locals": [],
+            "name": "BoolAnd",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bool"
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "id": "t0",
+                    "kind": "BinOp",
+                    "lhs": {
+                      "var": "arg0"
+                    },
+                    "op": "bv_and",
+                    "rhs": {
+                      "var": "arg1"
+                    },
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "t0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            "features_used": [],
+            "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+            "locals": [],
+            "name": "Mask8",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        ],
+        "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith",
+        "name": "arith",
+        "type_decls": []
+      }
+    ]
+  },
+  {
+    "context": {
+      "profile_entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.go_fixed.v0",
+        "value": {
+          "pointer_width": 64,
+          "target_id": "linux/amd64"
+        }
+      },
+      "semantic_profile": "mpk.go.fixed.v0",
+      "source_language": "go"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "id": "t0",
+                    "kind": "BinOp",
+                    "lhs": {
+                      "var": "arg0"
+                    },
+                    "op": "bv_add",
+                    "rhs": {
+                      "var": "arg1"
+                    },
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": true,
+                      "width": 64
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "t0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            "features_used": [],
+            "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+            "locals": [],
+            "name": "Add64",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "element": {
+                    "kind": "bool"
+                  },
+                  "kind": "array",
+                  "length": 1
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bv",
+                  "signed": true,
+                  "width": 64
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": true,
+                  "width": 64
+                }
+              }
+            ],
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg0"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb2"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": false
+                    }
+                  ]
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb2",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg1"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb3"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb3",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": true
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            "features_used": [
+              "branch"
+            ],
+            "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "locals": [],
+            "name": "BoolAnd",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bool"
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "id": "t0",
+                    "kind": "BinOp",
+                    "lhs": {
+                      "var": "arg0"
+                    },
+                    "op": "bv_and",
+                    "rhs": {
+                      "var": "arg1"
+                    },
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "t0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            "features_used": [],
+            "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+            "locals": [],
+            "name": "Mask8",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        ],
+        "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith",
+        "name": "arith",
+        "type_decls": []
+      }
+    ]
+  },
+  {
+    "context": {
+      "profile_entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.go_fixed.v0",
+        "value": {
+          "pointer_width": 64,
+          "target_id": "linux/amd64"
+        }
+      },
+      "semantic_profile": "mpk.go.fixed.v0",
+      "source_language": "go"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "id": "t0",
+                    "kind": "BinOp",
+                    "lhs": {
+                      "var": "arg0"
+                    },
+                    "op": "bv_add",
+                    "rhs": {
+                      "var": "arg1"
+                    },
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": true,
+                      "width": 64
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "t0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            "features_used": [],
+            "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Add64",
+            "locals": [],
+            "name": "Add64",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": true,
+                  "width": 64
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bv",
+                  "signed": true,
+                  "width": 64
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": true,
+                  "width": 64
+                }
+              }
+            ],
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg0"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb2"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": false
+                    }
+                  ]
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb2",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg1"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb3"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb3",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": true
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            "features_used": [
+              "branch"
+            ],
+            "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.BoolAnd",
+            "locals": [],
+            "name": "BoolAnd",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bool"
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          },
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "id": "t0",
+                    "kind": "BinOp",
+                    "lhs": {
+                      "var": "arg0"
+                    },
+                    "op": "bv_and",
+                    "rhs": {
+                      "var": "arg1"
+                    },
+                    "safety_checks": [],
+                    "type": {
+                      "kind": "bv",
+                      "signed": false,
+                      "width": 8
+                    }
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "var": "t0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+            },
+            "features_used": [],
+            "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith.Mask8",
+            "locals": [],
+            "name": "Mask8",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bv",
+                  "signed": false,
+                  "width": 8
+                }
+              }
+            ],
+            "unit_id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith"
+          }
+        ],
+        "id": "github.com/finitefield-org/mpk/fixtures/go-basic/positive/arith",
+        "name": "arith",
+        "type_decls": []
+      }
+    ]
+  },
+  {
+    "context": {
+      "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.csharp_scalar.v0",
+        "value": {
+          "check_overflow_default": false,
+          "documentation_mode": "none",
+          "language_version": "14.0",
+          "nullable_context": "disable",
+          "optimization": "release",
+          "platform": "x64",
+          "pointer_width": 64,
+          "preprocessor_symbols": [],
+          "source_kind": "regular",
+          "target_framework": "net10.0",
+          "target_id": "linux-x64",
+          "unsafe": false
+        }
+      },
+      "semantic_profile": "mpk.csharp.scalar.v0",
+      "source_language": "csharp"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg0"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb2"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": false
+                    }
+                  ]
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb2",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg1"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb3"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb3",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": true
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "Example.Policy::And(bool,bool)->bool",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "policy"
+            },
+            "features_used": [
+              "branch"
+            ],
+            "id": "Example.Policy::And(bool,bool)->bool",
+            "locals": [],
+            "name": "And",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "element": {
+                    "kind": "bool"
+                  },
+                  "kind": "array",
+                  "length": 1
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "unit_id": "policy"
+          }
+        ],
+        "id": "policy",
+        "name": "policy",
+        "type_decls": []
+      }
+    ]
+  },
+  {
+    "context": {
+      "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.csharp_scalar.v0",
+        "value": {
+          "check_overflow_default": false,
+          "documentation_mode": "none",
+          "language_version": "14.0",
+          "nullable_context": "disable",
+          "optimization": "release",
+          "platform": "x64",
+          "pointer_width": 64,
+          "preprocessor_symbols": [],
+          "source_kind": "regular",
+          "target_framework": "net10.0",
+          "target_id": "linux-x64",
+          "unsafe": false
+        }
+      },
+      "semantic_profile": "mpk.csharp.scalar.v0",
+      "source_language": "csharp"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg0"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb2"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": false
+                    }
+                  ]
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb2",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg1"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb3"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb3",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": true
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "Example.Policy::And(bool,bool)->bool",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "policy"
+            },
+            "features_used": [
+              "branch"
+            ],
+            "id": "Example.Policy::And(bool,bool)->bool",
+            "locals": [],
+            "name": "And",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bool"
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "unit_id": "policy"
+          }
+        ],
+        "id": "policy",
+        "name": "policy",
+        "type_decls": []
+      }
+    ]
+  },
+  {
+    "context": {
+      "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+      "profile_registry": {
+        "id": "mpk.semantic_profile.registry.v1",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3,
+        "schema": "mpk.semantic_profile.registry.v1"
+      },
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.csharp_scalar.v0",
+        "value": {
+          "check_overflow_default": false,
+          "documentation_mode": "none",
+          "language_version": "14.0",
+          "nullable_context": "disable",
+          "optimization": "release",
+          "platform": "x64",
+          "pointer_width": 64,
+          "preprocessor_symbols": [],
+          "source_kind": "regular",
+          "target_framework": "net10.0",
+          "target_id": "linux-x64",
+          "unsafe": false
+        }
+      },
+      "semantic_profile": "mpk.csharp.scalar.v0",
+      "source_language": "csharp"
+    },
+    "units": [
+      {
+        "const_decls": [],
+        "functions": [
+          {
+            "blocks": [
+              {
+                "instructions": [
+                  {
+                    "kind": "CallerInstruction"
+                  }
+                ],
+                "label": "bb0",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg0"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb2"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb1",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": false
+                    }
+                  ]
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb2",
+                "parameters": [],
+                "terminator": {
+                  "cond": {
+                    "var": "arg1"
+                  },
+                  "else_args": [],
+                  "else_label": "bb1",
+                  "kind": "Branch",
+                  "then_args": [],
+                  "then_label": "bb3"
+                }
+              },
+              {
+                "instructions": [],
+                "label": "bb3",
+                "parameters": [],
+                "terminator": {
+                  "kind": "Return",
+                  "values": [
+                    {
+                      "bool": true
+                    }
+                  ]
+                }
+              }
+            ],
+            "contracts": {
+              "ensures": [
+                {
+                  "bool": true
+                }
+              ],
+              "function_id": "Example.Policy::And(bool,bool)->bool",
+              "loops": [],
+              "modifies": [],
+              "panic": "forbidden",
+              "requires": [],
+              "termination": "total",
+              "unit_id": "policy"
+            },
+            "features_used": [
+              "branch"
+            ],
+            "id": "Example.Policy::And(bool,bool)->bool",
+            "locals": [],
+            "name": "And",
+            "params": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "bool"
+                }
+              },
+              {
+                "id": "arg1",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "results": [
+              {
+                "id": "result0",
+                "type": {
+                  "kind": "bool"
+                }
+              }
+            ],
+            "unit_id": "policy"
+          }
+        ],
+        "id": "policy",
+        "name": "policy",
+        "type_decls": []
+      }
+    ]
+  }
+]

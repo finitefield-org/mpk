@@ -1,0 +1,20 @@
+{
+  "status": "original_records_preserved",
+  "original_transcript": "/Users/kazuyoshitoshiya/.codex/sessions/2026/10/16/rollout-2026-10-16T00-43-21-01a1403b-77e8-7741-95e4-e05ed6659ed6.jsonl",
+  "original_records": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/type-keys/prelaunch-errors/original-tool-output-00.jsonl",
+      "bytes": 4045,
+      "sha256": "a7a5ece61366d56dc5af75d44289178c79c58b41183f0edabc300c052a7016af",
+      "source_line": 94446,
+      "source_byte_offset": 320443423,
+      "original_record_type": "custom_tool_call_output",
+      "original_call_id": "call_ea4129940150446286ad0144edf734b7"
+    }
+  ],
+  "observed_prelaunch_driver_failures": 4,
+  "cause": "Independent commands raced while first creating shared whole-source preimages. Existing-but-incomplete file read failed the equality assertion before the four product consumers launched. Complete preimages were then reused and all four commands passed; the current driver serializes preimage creation with a lock.",
+  "product_tests_launched_by_failed_attempts": false,
+  "process_streams": "The tool originally returned merged command output; the original JSONL tool return is retained byte-for-byte. No missing separate process stdout/stderr reconstructed.",
+  "retention_probe_initial_failure": "The first in-memory search required function_call_output, but this session uses custom tool-return records. The original transcript remained intact; the actual original output record was subsequently found and copied."
+}

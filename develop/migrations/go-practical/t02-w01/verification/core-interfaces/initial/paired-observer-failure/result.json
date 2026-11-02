@@ -1,0 +1,21 @@
+{
+  "status": "failed",
+  "exit_code": 1,
+  "observed_at_utc": "2026-10-19T10:56:41.135824+00:00",
+  "observer": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/initial/paired-observer-failure/run-paired.py.txt",
+    "sha256": "b1e308ee568cc78bcbac2fc7c6c670d4d4491ebcbaf3d6fb8f1d8210f7ced430",
+    "bytes": 3483
+  },
+  "scope": "Both current checkers reject the same reserved Bool alias in core checking. The observer incorrectly expects Rust error_code CORE_*; the actual Rust API wraps the detailed CORE_INVALID_DECLARATION in KERNEL_CORE_CHECK. No checker or proof mutation is needed. Both original partial outputs and raw reproduced diagnostic remain.",
+  "stdout.log": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/initial/paired-observer-failure/stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr.log": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/core-interfaces/initial/paired-observer-failure/stderr.log",
+    "sha256": "811054d563c536c367a22e99a3ec71e9599ebcf503c1fdb7009754c39354dc94",
+    "bytes": 875
+  }
+}

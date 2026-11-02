@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "scope": "Retain exact emulator, probe and pinned-image runtime bytes in addition to the original program and bundle evidence. These are local test environment inputs, not product binaries or native Linux release acceptance.",
+  "inputs": {
+    "qemu-user/qemu-x86_64-static": {
+      "path": "/private/tmp/mpk-go-installed-205-fs/qemu-user/qemu-x86_64-static",
+      "bytes": 10624760,
+      "sha256": "16ce7dbb6626f3c0e1f932f831817dbf3b506c848a168d16f2172151e9666594",
+      "mode": 493
+    },
+    "qemu-backports/qemu-x86_64": {
+      "path": "/private/tmp/mpk-go-installed-205-fs/qemu-backports/qemu-x86_64",
+      "bytes": 4449152,
+      "sha256": "9ec48b0f4e6faa448204baca4a0761f3527bb8d48a422f23f582c6bc81090558",
+      "mode": 493
+    },
+    "qemu-probe/probe": {
+      "path": "/private/tmp/mpk-go-installed-205-fs/qemu-probe/probe",
+      "bytes": 2629773,
+      "sha256": "013f20081c1c2f0479ad26727d71cff4bbf7e1e10561dda407af735bd4b5250f",
+      "mode": 493
+    },
+    "qemu-amd64-runtime/lib64/ld-linux-x86-64.so.2": {
+      "path": "/private/tmp/mpk-go-installed-205-fs/qemu-amd64-runtime/lib64/ld-linux-x86-64.so.2",
+      "bytes": 215000,
+      "sha256": "02bcda52c1a5dfc236f94d9e5255b4a0e26347d8a372a5223b650e31f291ce3c",
+      "mode": 493
+    },
+    "qemu-amd64-runtime/lib/x86_64-linux-gnu/libc.so.6": {
+      "path": "/private/tmp/mpk-go-installed-205-fs/qemu-amd64-runtime/lib/x86_64-linux-gnu/libc.so.6",
+      "bytes": 1926232,
+      "sha256": "6b4a45352fd0c540a9c7c718f35ce8c8e46a4e482f9d3885a910c32d1a0e1421",
+      "mode": 493
+    },
+    "qemu-amd64-runtime/lib/x86_64-linux-gnu/libgcc_s.so.1": {
+      "path": "/private/tmp/mpk-go-installed-205-fs/qemu-amd64-runtime/lib/x86_64-linux-gnu/libgcc_s.so.1",
+      "bytes": 125312,
+      "sha256": "2bd1552c47799ef67e701e81d4383061fd76059868e446e63560f0dd0d5ec14e",
+      "mode": 420
+    }
+  },
+  "archive": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/qemu-retained-environment/inputs.tar.gz",
+    "bytes": 6580279,
+    "sha256": "4b9b98c5c24d7f97274485b1946eb39ee1664dc76a0f456d24852a3f5fe5a215",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/installed-compiler/retain_qemu_inputs.py",
+    "bytes": 2277,
+    "sha256": "ace78a687d71312a6b09b54737722cecf5ef03e14bacfa646d160f157d157a65",
+    "mode": 420
+  },
+  "inputs_unchanged": true,
+  "members_checked": 6,
+  "native_Linux_release_acceptance": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

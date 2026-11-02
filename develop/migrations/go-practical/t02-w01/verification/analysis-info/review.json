@@ -1,0 +1,706 @@
+{
+  "status": "passed",
+  "selection_reason": "Review the changed Rust/Go module-info validator and owner, complete original and control snapshots, all original ZIP members, affected test evidence and updated scope records. Existing scanner rules and exclusions remain unchanged; no whole T gate runs.",
+  "inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/info.rs",
+      "bytes": 7343,
+      "sha256": "9a859fe42f5b6fdae0bb246d96b17bf73bd568d7fc8cdf1dd36d5c674610f892",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/analysis_vendor/module.rs",
+      "bytes": 7365,
+      "sha256": "2afa0164c50175c197ece82f9371e957068b4378b5682173b7ab43283e82ed8e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/analysis_vendor.rs",
+      "bytes": 5579,
+      "sha256": "92c4ebbe6170d9b3501243065b206a0a91d772c7401c5d25bb892245f440c7e5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/module_observations/data/archive.rs",
+      "bytes": 15481,
+      "sha256": "683764a6b7e8bf647623412dd69b241845b8e21a3f668b2a45d8ff203a8be28a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/module_observations/data.rs",
+      "bytes": 10219,
+      "sha256": "56104fb4ea5c82f43a381db523c88f058221c4e449806e28672c881911575d8e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys/module_observations.rs",
+      "bytes": 18819,
+      "sha256": "0e07c9fad98dadb0de993cf7cd2c81bbdebf0127d2660f9ea8e2b862a502ae71",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/src/go_practical_type_keys.rs",
+      "bytes": 17110,
+      "sha256": "506081021838bb84f18bfb2da4a514c9cd97b41321aa71d59300033da4c76fb4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_analysis_info.rs",
+      "bytes": 4943,
+      "sha256": "c04dc2a0b1355c546fe6f6a1d21d2845ee62378e9fb86610ce43d32464481b08",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_analysis_module.rs",
+      "bytes": 4432,
+      "sha256": "109563078587615f80b3f33263f1743e35ebdf7fa1414c23978cbc78b99f60b0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/docs/09_go_practical_subset_design-todo.md",
+      "bytes": 50146,
+      "sha256": "f7458e55933e18b29eb28c64039101489e093149de3ac0185ebf21c02db1cb35",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/docs/go-practical-implementation-traceability-ledger.md",
+      "bytes": 654713,
+      "sha256": "1259519b6762115cd89d0ea63eb832c1ced3bd481f02eb62a62ae6b17a08c4fe",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/README.md",
+      "bytes": 163485,
+      "sha256": "d5ab22d230612b1a39a15ce03e5d904baa83862a2906b535a2eb8f778410f3d8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/requirements.json",
+      "bytes": 336907,
+      "sha256": "87bdecdd6f01da804432aa1995e18a49ec3c39a4211dc8aefe70656e045a480a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/README.md",
+      "bytes": 2086,
+      "sha256": "e3a5d792b4e0eb73dbad40a37bf5b452f38103063ac78488b1cdbb6a407cb76d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/capture_prelaunch.py",
+      "bytes": 4792,
+      "sha256": "54214f2d1c11b99a81995dccbf829c090c4d702a45d04e2297f5e457bfeccb34",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/fold-tests/inputs.json",
+      "bytes": 341291,
+      "sha256": "495a9e710a327b4cde52459b69bfc1f259ad602a49bc51f580fb4ae7763c94db",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/fold-tests/inputs.tar.gz",
+      "bytes": 19569089,
+      "sha256": "2568a30e96ca0211c1b1c4bd410687c9f75f519200677180ed55f2fadeb7bd61",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/fold-tests/result.json",
+      "bytes": 2239,
+      "sha256": "ee18a210fae43acb8b91dd302c17e46bd9aecff7a119a86aac41665828f1be47",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/fold-tests/stderr.log",
+      "bytes": 266,
+      "sha256": "17212d1fd654fc7e2b052cec48a7cff6e21c0d89b75ae33f5d4c06c0e4389161",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/fold-tests/stdout.log",
+      "bytes": 245,
+      "sha256": "03e7e2e7542ed5425c38aed0c9bc56e833fa83904731a78352e255d0a428e06f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/format_go.py",
+      "bytes": 2952,
+      "sha256": "a2dd7da88c0701822ca41777e8971d8d624b40342d6b3f5e7f3a7aed1107ad0f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-checks/commands.json",
+      "bytes": 1222,
+      "sha256": "66c36981ad952bc03286ff41e3c82f8e60e358279ac2c8b2805870001e89ab92",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-checks/format.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-checks/format.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-checks/inputs.json",
+      "bytes": 1544409,
+      "sha256": "027c78eb10edbf5fc213a48b5db9c18b550ad3a4d51c84454d192ad5959c1645",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-checks/inputs.tar.gz",
+      "bytes": 4865633,
+      "sha256": "5eaf3b89b4d4f4ee93499cd73219ef5c74dfb105e0a2ecadee2cb43a1f7cf75f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-checks/result.json",
+      "bytes": 1511,
+      "sha256": "54dd5d8720d54aad631817d335f21943ee6ffa825a07dcd7719b1242510791d7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-checks/vet.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-checks/vet.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-format-write/inputs.json",
+      "bytes": 1541103,
+      "sha256": "c6c002a6e265495d1d8658e12f6dc4cb6d163d315096b8ebb82c52d32dc077e9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-format-write/result.json",
+      "bytes": 1328,
+      "sha256": "6830f57bdfe76c06aeaf8d945ce076cd4f5edf52e4c90534bd2ca09979fff72a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-format-write/source-before.go",
+      "bytes": 8823,
+      "sha256": "e676e17c65255b4dbb876912917b64a2bae9a0c88e63d203550fa1f43996fd5a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-format-write/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/go-format-write/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-check/inputs.json",
+      "bytes": 192546,
+      "sha256": "329673f837e050ef33c8383e3414ec998d197079c941bb074fc4bfbb66aa07d6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-check/inputs.tar.gz",
+      "bytes": 7720385,
+      "sha256": "bcb99c28ecfc899ef63419ade785eaf16bb13d168066145c30e8c4ecce19a4f8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-check/result.json",
+      "bytes": 2005,
+      "sha256": "a7b0e86eca78670656170ff352c2049aa5f5c5e480a23b05d22348d2bc4332ee",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-check/stderr.log",
+      "bytes": 135,
+      "sha256": "33e118aab1e70cecba51a40769ee131eb2ba4a5e82325fa056017255ac171b82",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-check/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-clippy/inputs.json",
+      "bytes": 192547,
+      "sha256": "f85228c1693244c9280f8e7fa7ef402599c2406e75f1237902bc96ecbdf2a551",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-clippy/inputs.tar.gz",
+      "bytes": 7720385,
+      "sha256": "26bbbdf175d7ce0a6b35e2d3f61164f94d18df347216a11564e2f54cfcdfb703",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-clippy/result.json",
+      "bytes": 2213,
+      "sha256": "5fb87b7bb5611c9f8b320ea4bdb0ca8b0606affdc764e1b5509aea1e86ff345a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-clippy/stderr.log",
+      "bytes": 135,
+      "sha256": "b4b0fcd665fa9fc37e43dee970c710f72e44b825db314ea30155ac051b22e2de",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-clippy/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-tests/inputs.json",
+      "bytes": 360928,
+      "sha256": "981ab234187d09010b4f3f0afb84a08c0a93a43f820a1ecaa7c672a1724ad5d9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-tests/inputs.tar.gz",
+      "bytes": 20498425,
+      "sha256": "2991d7bde6ec49d65efcf0451a78be5607abd68fef8376d9d6173b77dac3b4de",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-tests/result.json",
+      "bytes": 2369,
+      "sha256": "36da1cef80ae5fb5487918cb4024556107745262bfddcd2a8480349eb4afb1b8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-tests/stderr.log",
+      "bytes": 608,
+      "sha256": "5c01c2a880b78fd6d161875738a11a521fa6f4853479a16bdcad4816f06cc656",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/info-tests/stdout.log",
+      "bytes": 969,
+      "sha256": "6a9950e1ddb5356f0c28f323bcfe961efccd9a979d934420fb794f47c9cb16ca",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/inspect_info.py",
+      "bytes": 5829,
+      "sha256": "be92a439f8cc38c96ae9b7a28e6c31c366dba5df3ef058bb8388531a97654c9f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/inspection.json",
+      "bytes": 2897,
+      "sha256": "0492829d8a5f999bd8781a6d5b42e29a7fd592e8d97830154adb7f2616a47065",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/inputs.json",
+      "bytes": 1543146,
+      "sha256": "34cb99b17a3aa1b5d2d24c91d45ab0c6ca1aecfc25499b5e919406cc59310db4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/inputs.tar.gz",
+      "bytes": 5193342,
+      "sha256": "82e0459a960307d82db28899300b93c7da4d70265aecabb7c21d1c577b61ab68",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/native.json",
+      "bytes": 1043441,
+      "sha256": "2487e6b9f8159d8e59ea8cb661da3371b32f211591cf2624f46fbc05af3cb8cd",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/04349209629977dda443e3693aac2e1fe69e4ec11f9e2394abd7964562081f77.raw",
+      "bytes": 190,
+      "sha256": "04349209629977dda443e3693aac2e1fe69e4ec11f9e2394abd7964562081f77",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/0827f0c92300ff20194356fee7dfda8b0441c04bd38a9b179f8636a6a6020450.raw",
+      "bytes": 203,
+      "sha256": "0827f0c92300ff20194356fee7dfda8b0441c04bd38a9b179f8636a6a6020450",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/22184cbaafd72cbb1830316363a846e137ef22bb9676ffb68a1eee5d2ca09571.raw",
+      "bytes": 189,
+      "sha256": "22184cbaafd72cbb1830316363a846e137ef22bb9676ffb68a1eee5d2ca09571",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/236ea400d19b0776a9dc0bf7c7ddbe813c342c8dac9ff334a5f12695361e13fb.raw",
+      "bytes": 195,
+      "sha256": "236ea400d19b0776a9dc0bf7c7ddbe813c342c8dac9ff334a5f12695361e13fb",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/2a632d4acd705689b0425d3100913ddf02de5715e8bb00107d5f0c6c82ba2c99.raw",
+      "bytes": 190,
+      "sha256": "2a632d4acd705689b0425d3100913ddf02de5715e8bb00107d5f0c6c82ba2c99",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/2da8077818916169da91fc4944f4eb6ea496ac0eda4396a017d5a4a19d0d1033.raw",
+      "bytes": 210,
+      "sha256": "2da8077818916169da91fc4944f4eb6ea496ac0eda4396a017d5a4a19d0d1033",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/305bbe93f567b097b35f8fafd8e029e52a51bc5603ff7bf0cabaff262352b9ad.raw",
+      "bytes": 209,
+      "sha256": "305bbe93f567b097b35f8fafd8e029e52a51bc5603ff7bf0cabaff262352b9ad",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/36753d30c7f06069ecf6a5fc094a23307fefc108a58a6f515e6205b434a4da7e.raw",
+      "bytes": 1048778,
+      "sha256": "36753d30c7f06069ecf6a5fc094a23307fefc108a58a6f515e6205b434a4da7e",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/3851fb2091f165470e37430600399c20f57d1f735b73a2069701adbfee84ee4a.raw",
+      "bytes": 190,
+      "sha256": "3851fb2091f165470e37430600399c20f57d1f735b73a2069701adbfee84ee4a",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/39a1db1bec9f9f900855a4e930f3949fc3d72155602d58b26c4b57a53d48c270.raw",
+      "bytes": 189,
+      "sha256": "39a1db1bec9f9f900855a4e930f3949fc3d72155602d58b26c4b57a53d48c270",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/3cb35cc53d6f0943b76ecc1805750ff898486d1e3763cf318c345134deda0e58.raw",
+      "bytes": 195,
+      "sha256": "3cb35cc53d6f0943b76ecc1805750ff898486d1e3763cf318c345134deda0e58",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/44bc92da828f5bf391de2d853ef749cea31338fa0b0d176a9af817d35b7405f4.raw",
+      "bytes": 195,
+      "sha256": "44bc92da828f5bf391de2d853ef749cea31338fa0b0d176a9af817d35b7405f4",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/483104c4737be85db48c83bdd977c58c25406ee360cf7ddca59bd6e402fb83cf.raw",
+      "bytes": 214,
+      "sha256": "483104c4737be85db48c83bdd977c58c25406ee360cf7ddca59bd6e402fb83cf",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/4c93d3f73ae3150733ee3c5e717b3540893fe8953e870dc2bb4cc77889f529d8.raw",
+      "bytes": 223,
+      "sha256": "4c93d3f73ae3150733ee3c5e717b3540893fe8953e870dc2bb4cc77889f529d8",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/55474b40e55f8a631a55ebec26207e933f2020db57070378cd904487e316247b.raw",
+      "bytes": 212,
+      "sha256": "55474b40e55f8a631a55ebec26207e933f2020db57070378cd904487e316247b",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/55c4c345ab2130e5e75d1790fbb5bbfb85f3b1bd5e1a89db17e534a0b1a1ed11.raw",
+      "bytes": 209,
+      "sha256": "55c4c345ab2130e5e75d1790fbb5bbfb85f3b1bd5e1a89db17e534a0b1a1ed11",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/57712a12ab0213802c86d49f20b0c7a321609757555b97312814bb1b391c5b14.raw",
+      "bytes": 1048777,
+      "sha256": "57712a12ab0213802c86d49f20b0c7a321609757555b97312814bb1b391c5b14",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/5a3dc2b191ac91884bdc659d34b897e73d57f140b8ba2057d99951b585c5317a.raw",
+      "bytes": 190,
+      "sha256": "5a3dc2b191ac91884bdc659d34b897e73d57f140b8ba2057d99951b585c5317a",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/63df2678c5422b61928c389755fd84762bd7011111c662207da454f331a45a00.raw",
+      "bytes": 202,
+      "sha256": "63df2678c5422b61928c389755fd84762bd7011111c662207da454f331a45a00",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/6c3b2fea232cfbb983a832ed2c8cc8a7877d93e717d0fe9d34ebccb1ef3772a0.raw",
+      "bytes": 205,
+      "sha256": "6c3b2fea232cfbb983a832ed2c8cc8a7877d93e717d0fe9d34ebccb1ef3772a0",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/71eff24209d120f6b4d1b4bfae033afe8c28bf839b6e3d219a262e90c056858f.raw",
+      "bytes": 195,
+      "sha256": "71eff24209d120f6b4d1b4bfae033afe8c28bf839b6e3d219a262e90c056858f",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/7406b1b341e0f857b57b4b96f2c75566627c2192cd0aa9eb22d02debf902a825.raw",
+      "bytes": 191,
+      "sha256": "7406b1b341e0f857b57b4b96f2c75566627c2192cd0aa9eb22d02debf902a825",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/798528f39adaa5ce6207255af0d81e46d42aa847110619a7ec1ac30f147f6e51.raw",
+      "bytes": 190,
+      "sha256": "798528f39adaa5ce6207255af0d81e46d42aa847110619a7ec1ac30f147f6e51",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/7b90600b0fafab8b400256585bb9c1cccedf60191ae97852a33a1d8108dfae1d.raw",
+      "bytes": 191,
+      "sha256": "7b90600b0fafab8b400256585bb9c1cccedf60191ae97852a33a1d8108dfae1d",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/801c9a8a9ceea0d13ccda7f8590718c7c315ad098841f381fb84335f17ee134a.raw",
+      "bytes": 202,
+      "sha256": "801c9a8a9ceea0d13ccda7f8590718c7c315ad098841f381fb84335f17ee134a",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/82b8c143370f2ef633a6cc8ae500ebee379a1717aec7842817810b8e21736cef.raw",
+      "bytes": 170,
+      "sha256": "82b8c143370f2ef633a6cc8ae500ebee379a1717aec7842817810b8e21736cef",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/8414f8fe7937001328b424b0b531696099cfe561077863eda9d6a2f9a02d79f7.raw",
+      "bytes": 189,
+      "sha256": "8414f8fe7937001328b424b0b531696099cfe561077863eda9d6a2f9a02d79f7",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/8e5fa298b110026945232c9872addc51e2b1c5b32f5170681f6cccff14113bd5.raw",
+      "bytes": 189,
+      "sha256": "8e5fa298b110026945232c9872addc51e2b1c5b32f5170681f6cccff14113bd5",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/91af4e092c1336831bb4d610e010a1f19937d618f7ffcf7587c437450a1ddbc1.raw",
+      "bytes": 172,
+      "sha256": "91af4e092c1336831bb4d610e010a1f19937d618f7ffcf7587c437450a1ddbc1",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/b17f4dc022bc04f8aec50ed3be37e4b5edf63c2a8cee251c4691b7fee411de03.raw",
+      "bytes": 206,
+      "sha256": "b17f4dc022bc04f8aec50ed3be37e4b5edf63c2a8cee251c4691b7fee411de03",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/bd4c51d107749ddbd15faf3e6e814b16623d3e7be36f3bd7afc0dbb0365bb65e.raw",
+      "bytes": 190,
+      "sha256": "bd4c51d107749ddbd15faf3e6e814b16623d3e7be36f3bd7afc0dbb0365bb65e",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/def5ff3a1c38bd4e486c7c7fb89f575955c3eb8c6c0cf7f3aa436273c2ddb044.raw",
+      "bytes": 710,
+      "sha256": "def5ff3a1c38bd4e486c7c7fb89f575955c3eb8c6c0cf7f3aa436273c2ddb044",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/e216832347c36cd14aef42dc5fc33f5a1cc8715533297beec84806513c697f2a.raw",
+      "bytes": 192,
+      "sha256": "e216832347c36cd14aef42dc5fc33f5a1cc8715533297beec84806513c697f2a",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/e5a37850dc93095c60205c7fc108c038e6f387def79eb2773cfa5d292604769b.raw",
+      "bytes": 712,
+      "sha256": "e5a37850dc93095c60205c7fc108c038e6f387def79eb2773cfa5d292604769b",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/ea574e18e29a1ca5705e71c149bded21ee17aa43b567fc4409e8fd045530e47f.raw",
+      "bytes": 190,
+      "sha256": "ea574e18e29a1ca5705e71c149bded21ee17aa43b567fc4409e8fd045530e47f",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/observed-bytes/fd24e5454141026609d9f4fc219860cf6b35ba6755d18fea1bb0f8c57a5c21a7.raw",
+      "bytes": 191,
+      "sha256": "fd24e5454141026609d9f4fc219860cf6b35ba6755d18fea1bb0f8c57a5c21a7",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/result.json",
+      "bytes": 13382,
+      "sha256": "9635514f24a2f5ad0b964c6c5f9c2eeadb6006002015e096b52c5755c333d8c8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/native/stdout.log",
+      "bytes": 1384,
+      "sha256": "6d97919a8fba95e219ccca442ad97e1f2096fa7cb102e99f62300d8ffa8e587f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/prelaunch/inputs.tar.gz",
+      "bytes": 27455747,
+      "sha256": "a33bafeaf6fee6b7fdab0297a3da32a293511da9ae1b497d961aa0e527a67749",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/prelaunch/result.json",
+      "bytes": 1723238,
+      "sha256": "042df756e7dac3275ff61011358964196811fd478f781764b4936ba851af9483",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/review.py",
+      "bytes": 6290,
+      "sha256": "7f368569446911273bac4f808f3c3fe30f7fc204a2126065b8857a9c6db9b9f5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/run_go_checks.py",
+      "bytes": 3869,
+      "sha256": "3956878b38b39f24bd9c961a9d709be2cab54b23381d3eaf94d5d9db090ad53e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/run_native.py",
+      "bytes": 4119,
+      "sha256": "8cd743f485f2efde3f48deec8565dae3fd897169948a64e17b69f29e78b1e223",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/run_scoped.py",
+      "bytes": 18384,
+      "sha256": "44339462360acca3541c3161977d15fb615765ea9caa8b8f233361a80ae5ac2f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/rust-format/inputs.json",
+      "bytes": 3304,
+      "sha256": "7f1e8d7af076a4dc2e8aaf7193caf6938dc9fd34cd10cda224c53d743d963240",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/rust-format/inputs.tar.gz",
+      "bytes": 29424,
+      "sha256": "263aa1ac36ea1580f126067620a94d970d130a370e06cac0645a5af14abc31fb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/rust-format/result.json",
+      "bytes": 2577,
+      "sha256": "5d19d6795f4144b21bcc3f97a34e786229d95a0bc018a2d29e2d08ca1bbf6581",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/rust-format/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/rust-format/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/rust-format-write/inputs.json",
+      "bytes": 3310,
+      "sha256": "839b8b319e47f6b367e3299da53c77fa24596e431a078e25a1aa6666c2119523",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/rust-format-write/inputs.tar.gz",
+      "bytes": 29393,
+      "sha256": "9ffcbf994b67c74a7a67fbeeeeb29476317ef7cb7168f5b04a9d3d526d0fba59",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/rust-format-write/result.json",
+      "bytes": 2581,
+      "sha256": "58571c08c5f886414b991d0179f2b0644879390d6c8a28f2da3b1b417ff49529",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/rust-format-write/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-info/rust-format-write/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-module/README.md",
+      "bytes": 2702,
+      "sha256": "14c009a7ffb794ae9c73fbcbbfd4d53e202f4b88d4c81411a6e1885eae5ed233",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/native/original-bytes/19fb241d46e4397d3193b5fa899e2a9d62bb5d1c41f73d09d29c17c3c0d3953c.raw",
+      "bytes": 172649,
+      "sha256": "19fb241d46e4397d3193b5fa899e2a9d62bb5d1c41f73d09d29c17c3c0d3953c",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/native/original-bytes/85b486030e995cd5b4d56dea92f247b32bf4e0ae2fe6816b29d4514b5a43fec8.raw",
+      "bytes": 3553586,
+      "sha256": "85b486030e995cd5b4d56dea92f247b32bf4e0ae2fe6816b29d4514b5a43fec8",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/analysis-namespace/native/original-bytes/ca43984183eb14f7f50d33da350312fed1c42e106dceac2437bfd5084b497dcd.raw",
+      "bytes": 25707,
+      "sha256": "ca43984183eb14f7f50d33da350312fed1c42e106dceac2437bfd5084b497dcd",
+      "mode": 384
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification.json",
+      "bytes": 34505,
+      "sha256": "802121b566029e9708764faf65698bf22a366c11a0c8586952d20baccae98a8d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_analysis_info_differential_test.go",
+      "bytes": 9141,
+      "sha256": "67f462caaca554cda7e612855961f3aa3ffdcc5a895567e34ff9a658db9e7bed",
+      "mode": 420
+    }
+  ],
+  "archive_members": 7714,
+  "original_zip_members": 1751,
+  "findings": [],
+  "matcher_count": 127,
+  "scopes": 4,
+  "seals": 39,
+  "exclusions": 51,
+  "native_Linux_release_acceptance": false,
+  "whole_repository_gate_run": false,
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

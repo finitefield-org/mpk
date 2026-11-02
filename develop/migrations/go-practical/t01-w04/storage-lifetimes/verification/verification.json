@@ -1,0 +1,113 @@
+{
+  "checks": [
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-m",
+        "unittest",
+        "-v",
+        "test_storage_lifetimes"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical",
+      "exit_code": 0,
+      "log": "unittest-lifetime.log",
+      "reason": "24 derived-root, slot/stale-identity, temporaries/targets/results/errors, entry/post snapshot, atomic escape and repeated-allocation tests",
+      "sha256": "21425b0836b63e2fc8397f077891bb82ea4489ece39baae20dfc3c4f5a15d0c5",
+      "wall_seconds": 0.08277829200960696
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/run_lifetime_probes.py",
+        "--check"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "fresh-replay.log",
+      "reason": "Fresh pinned source/toolchain/binary replay: 12 native/model observations, two distinct accepted ordinary statements and three altered claims in both unchanged production checkers, two legacy certificates",
+      "sha256": "d9a192c0a2d1720a5b6676a9ed5f23fafa43f1e85ee6eeb1fdaaa4a1c84b87cb",
+      "wall_seconds": 8.79848433303414
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/check_lifetime_metadata.py"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "metadata.log",
+      "reason": "Current draft evidence/ownership and retained view/overlay/Nat receipts; 143 predecessor pins, two diagnostics, ten documents and ordered ledger",
+      "sha256": "23b2de43fe9a76b9a12c1689c1484978a1798ac253fb0b461be4ede2d09d5fb8",
+      "wall_seconds": 2.1737704160041176
+    },
+    {
+      "command": [
+        "/private/tmp/mpk-go-practical-toolchains/go1.25.0-darwin-arm64/go/bin/gofmt",
+        "-l",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/lifetime_reference.go"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "gofmt.log",
+      "reason": "Only the new native lifetime observer Go source",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.027338250016327947
+    },
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "--config",
+        "skip_children=true",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/lifetime-certificates/build.rs",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/lifetime-certificates/src/main.rs",
+        "/Users/kazuyoshitoshiya/ff/mpk/develop/probes/go-practical/lifetime-certificates/src/lifetime.rs"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "rustfmt.log",
+      "reason": "Only three new untrusted producer Rust sources; pinned predecessor snapshots excluded",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.12750366696855053
+    },
+    {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "-c",
+        "import pathlib; p=pathlib.Path('develop/probes/go-practical'); names=('storage_lifetimes.py','test_storage_lifetimes.py','lifetime_cases.py','run_lifetime_probes.py','check_lifetime_metadata.py'); [compile((p/n).read_bytes(),str(p/n),'exec') for n in names]; print('PASS: five new Python sources compile')"
+      ],
+      "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+      "exit_code": 0,
+      "log": "python-compile.log",
+      "reason": "Syntax compilation of five new private model/evidence/metadata Python sources",
+      "sha256": "e7ef511670e20fa204fd39ff40fc62592d2b415aea4e870561a5113d2fbcbf21",
+      "wall_seconds": 0.03687224996974692
+    }
+  ],
+  "entry_commit": "cc6874975060743dde67fd399865caf6288d2b8b",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "GO-PRAC-T01-W05",
+    "reason": "Intermediate W04; cumulative gate reserved for final W",
+    "status": "deferred"
+  },
+  "metadata_checker_sha256": "8d75263b54ee31bee4dae3f64593198bf1ad3fa86d053db8690d056bae13fe75",
+  "not_repeated": [
+    "unchanged production/core unit suites",
+    "retained owner/overlay/type/operator native and proof matrices; source and receipt integrity checked without rerunning unrelated cases"
+  ],
+  "observed_tests": 24,
+  "output_scope": "complete raw combined stdout/stderr captured from local subprocesses",
+  "python_sources_compiled": 5,
+  "remaining": [
+    "ordinary complete typed-root/retirement/escape/packing/finite-slot and exact source/evaluation/call/frame proofs",
+    "all local/past/structural/capture/resource limits and successor schemas/hashes/independent import/migrations",
+    "inactive publication, full T01 gate, T02–T11 implementation/application/local release gates"
+  ],
+  "schema": "mpk.go_practical.w04_lifetime_verification.v0",
+  "scope": "private derived modeled roots, reusable slots and ordinary masked/past-store laws; no complete source/allocator/lifetime normalization proof",
+  "status": "W04 in progress; no T complete",
+  "work_item": "GO-PRAC-T01-W04"
+}

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "-B",
+    "-c",
+    "from pathlib import Path;p=Path('develop/probes/go-practical');names=('word_numeric_bridge.py','numeric_bridge_cases.py','run_numeric_bridge.py','test_numeric_bridge.py','check_numeric_metadata.py');[compile((p/n).read_bytes(),str(p/n),'exec') for n in names];print('PASS: five new Python sources compile')"
+  ],
+  "cwd": "/Users/kazuyoshitoshiya/ff/mpk",
+  "exit_code": 0,
+  "log": "python-compile.log",
+  "reason": "All five new numeric bridge/case/replay/test/metadata Python sources",
+  "sha256": "e7ef511670e20fa204fd39ff40fc62592d2b415aea4e870561a5113d2fbcbf21",
+  "wall_seconds": 0.07394941698294133
+}

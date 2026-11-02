@@ -1,0 +1,85 @@
+{
+  "status": "passed",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "go_practical_selection_inputs",
+    "--test",
+    "go_practical_contract_modules",
+    "--test",
+    "go_practical_source_languages",
+    "--test",
+    "go_practical_contract_inputs",
+    "--test",
+    "go_practical_source_inputs",
+    "--",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
+    "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
+    "CARGO_INCREMENTAL": "0",
+    "RUST_TEST_THREADS": "1",
+    "MPK_GO_SELECTION_INPUTS_OUTPUT": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/selection-inputs/rust/observations"
+  },
+  "inputs": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/selection-inputs/rust/inputs.json",
+    "bytes": 326589,
+    "sha256": "9f2995d8ce237473a210b17a31919b892cdf15daceeed995e7f329e9145ef0ac",
+    "mode": 420
+  },
+  "driver": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/selection-inputs/run.py",
+    "bytes": 8546,
+    "sha256": "8f7710deeb1000b716b87af2d41e010cc76a8fac3cb7fd4cfc6d28afe80d6a63",
+    "mode": 420
+  },
+  "tools": {
+    "cargo": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustc": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    },
+    "rustfmt": {
+      "path": "/Users/kazuyoshitoshiya/.cargo/bin/rustup",
+      "bytes": 11319056,
+      "sha256": "ec1b9233e7f72990ecd8e62063fa7f6c3dfc2bec8e97f88bff165f9100ac696a",
+      "mode": 493
+    }
+  },
+  "started_at_utc": "2026-10-24T17:57:39.489796+00:00",
+  "selection_reason": "Bind complete original physical function roots and the exact owned source/sidecar handoff. Compare independent physical parsing with actual original Go declarations, same-name receiver methods and every original root of both complete zero/70-case source units. Exercise the exact8192 root boundary and8193 rejection without changing source/proof scopes or budgets. Recheck shared contract-module consumers, source-language guarding, contract-input ownership and full32 source-input call-proof byte replay. No unchanged kernel, full foundation or retired-language tests.",
+  "full_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh",
+  "exit_code": 0,
+  "seconds": 597.8110596249971,
+  "consumed_inputs_unchanged": true,
+  "expected_formatter_mutation": false,
+  "stdout": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/selection-inputs/rust/stdout.log",
+    "bytes": 2307,
+    "sha256": "011c93a51bea86bd1dcc1a35875d5ec03bd9a9ea7856d8575a414110b0a5e05e",
+    "mode": 420
+  },
+  "stderr": {
+    "path": "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/selection-inputs/rust/stderr.log",
+    "bytes": 733,
+    "sha256": "5aad263618be8613be869cc6bfe43de10acf71494d9722bd02d4607297e238b5",
+    "mode": 420
+  },
+  "finished_at_utc": "2026-10-24T18:07:37.306091+00:00"
+}

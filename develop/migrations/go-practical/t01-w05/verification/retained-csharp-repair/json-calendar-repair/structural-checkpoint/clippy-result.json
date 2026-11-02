@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-10-18T09:39:49.316476+00:00",
+  "command": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "-p",
+    "mpk-vc",
+    "--test",
+    "csharp_practical_vc",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "source_inputs": [
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_json_calendar_tests.rs",
+      "sha256": "49cd75c80129e9d1e0a1517eb0fad4cb41ff597f697837cafb9abde9211a5652",
+      "bytes": 23586
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_structural_equivalence_tests.rs",
+      "sha256": "fb6020e865380d159d288677e28f28f8fee23facd229df40ca937e6aabf175a1",
+      "bytes": 41827
+    }
+  ],
+  "selection_reason": "The two changed test source files and their single integration target. No unchanged language semantic suites are included.",
+  "exit_code": 0,
+  "wall_seconds": 159.65114408289082,
+  "finished_at_utc": "2026-10-18T09:42:28.968869+00:00",
+  "stdout": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/structural-checkpoint/clippy.stdout.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "develop/migrations/go-practical/t01-w05/verification/retained-csharp-repair/json-calendar-repair/structural-checkpoint/clippy.stderr.log",
+    "sha256": "8847e93a1a2fc0df42bac6c865c5a9eaea3c87fefa42260fb54a7cc89814a487",
+    "bytes": 913
+  }
+}

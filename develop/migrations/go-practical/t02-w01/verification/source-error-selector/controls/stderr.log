@@ -1,0 +1,17 @@
+   Compiling mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+warning: unused import: `json`
+ --> crates/mpk-vc/tests/go_practical_source_error_selector_controls.rs:3:18
+  |
+3 | use serde_json::{json, Value};
+  |                  ^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mpk-vc` (test "go_practical_source_error_selector_controls") generated 1 warning (run `cargo fix --test "go_practical_source_error_selector_controls" -p mpk-vc` to apply 1 suggestion)
+    Finished `test` profile [optimized + debuginfo] target(s) in 3.26s
+     Running tests/go_practical_source_error_selector_controls.rs (target/debug/deps/go_practical_source_error_selector_controls-09671f4659226d78)
+
+thread 'original_selector_controls_and_target_ordinal_ownership' (56093538) panicked at crates/mpk-vc/tests/go_practical_source_error_selector_controls.rs:136:55:
+called `Result::unwrap()` on an `Err` value: AxiomReportBuildError { kind: FutureDeclarationReference, detail: "declaration 142 references non-previous declaration 143" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mpk-vc --test go_practical_source_error_selector_controls`

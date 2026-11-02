@@ -1,0 +1,370 @@
+{
+  "status": "scoped_checks_passed",
+  "basis_commit": "29aef5e2504cf4a753ceae571bbe30e26db6be6d",
+  "observed_at_utc": "2026-10-21T05:52:28.286323+00:00",
+  "source_languages": [
+    "Go",
+    "Rust"
+  ],
+  "implementation": "crates/mpk-vc/src/go_practical_ordinary/array.rs",
+  "foundation": {
+    "certificate": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/foundation/candidates/array-foundation.mpcert",
+      "sha256": "3fb533245b64878bd8dd5994bd2e99e2fb0adcf90e5b69b470c4b391efc66c60",
+      "bytes": 1033685
+    },
+    "declarations": 2688,
+    "terms": 80853,
+    "bytes": 1033685,
+    "new_definitions": 131,
+    "new_ordinary_laws": 303,
+    "all_prior_2254_named_identities_preserved": true,
+    "old_complete_affix_producer_bytes_exact": 916686,
+    "axioms": 0,
+    "caller_selected_roots": false
+  },
+  "passed_current_source_receipts": {
+    "foundation": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/foundation/result.json",
+      "sha256": "81f878388e570ae717aa87f929d2b642b2f847017ba64539b982fa46f056ae12",
+      "bytes": 136265
+    },
+    "observations": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/observations/result.json",
+      "sha256": "ee9623cdd4bed2b8e637275db6fee8530a3365b42897d922546dc5840453f96b",
+      "bytes": 136223
+    },
+    "lint": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/lint/result.json",
+      "sha256": "aef7a52cc00735395596db47647a7dc68c233287f777891865f74989dce98865",
+      "bytes": 136211
+    },
+    "format": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/format/result.json",
+      "sha256": "3f17e94615f62e624b9ad7d77d9745d9111cc939e5edaf1ba1f32738505c0530",
+      "bytes": 136613
+    },
+    "remaining_controls": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/remaining-controls/selected/result.json",
+      "sha256": "87f97fa8146bd8f72c20d3f907b8b323f9b13a298bc9f4d9d4d7aa85f943899e",
+      "bytes": 136374
+    },
+    "independent_cores": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/paired/result.json",
+      "sha256": "dce1b938da49443681f0672e335d021d8dbce2c4605a2dac81bb034fdb254160",
+      "bytes": 2054085
+    },
+    "original_failed_inputs": {
+      "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/original-failures/result.json",
+      "sha256": "e87ac3080876843c9ba189cc0a5530a51fd7bf613a402dbcae2f2da4b81d0316",
+      "bytes": 9468
+    }
+  },
+  "affected_Rust_roots": 5,
+  "production_and_test_sources_identical_across_current_checks": true,
+  "passed_roots_unnecessarily_repeated": false,
+  "control_inventory": {
+    "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/remaining-controls/selected/candidates/control-inventory.json",
+    "sha256": "b0f40c0473fd0c1e2e5ac48d8b901f48117571ae766842613f11aef00de2e08f",
+    "bytes": 145
+  },
+  "finite_actual_definition_observations": {
+    "actual_AST_steps": 34700456,
+    "all_depths_0_through_8": true,
+    "complete_array_outputs": 132,
+    "definition_callbacks": false,
+    "empty_dummy_cases": 1,
+    "full64_guard_cases": 9,
+    "full64_reads": 396,
+    "observer_ceilings_changed": false,
+    "positive_lengths": 22,
+    "theorem_bodies_executed": false
+  },
+  "original_source_epochs": 9,
+  "source_preimages_expected": 3679,
+  "actual_recorded_executions": [
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/complete-carriers/foundation/result.json",
+        "sha256": "37068637708056bc43e0d01794583f80d538e2579681212e6431bcbab9d894cc",
+        "bytes": 135134
+      },
+      "status": "failed",
+      "exit_code": 101,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/complete-carriers/foundation/stdout.log",
+        "sha256": "69e132b03ef79912cb031cb9de2b306b068658e2f4bc6242e0574cf1240c80a0",
+        "bytes": 241
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/complete-carriers/foundation/stderr.log",
+        "sha256": "1c6fd857d67b36e1b62c6df9541cb79578d11e41167c1fda856496f2e58f872e",
+        "bytes": 3483
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/copy-congruence/foundation/result.json",
+        "sha256": "2ae0fbdcf2c05b226fadb27c9e59436b83f3a4f170c5d6601474e12cbc1648a0",
+        "bytes": 135123
+      },
+      "status": "passed",
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/copy-congruence/foundation/stdout.log",
+        "sha256": "a4b6d8a448689199efd40f940b52a754cf68efc3d42164473515997e163559ae",
+        "bytes": 293
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/copy-congruence/foundation/stderr.log",
+        "sha256": "1340b92f66e1d5f80f775e074a80bde138f881fccd715309f8600554fb1858c0",
+        "bytes": 2485
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/explicit-equivalence/foundation/result.json",
+        "sha256": "a9f5bd6d29027f6efee946ba5973cca03775164e2861c93615cdd47dd2093bdc",
+        "bytes": 135148
+      },
+      "status": "failed",
+      "exit_code": 101,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/explicit-equivalence/foundation/stdout.log",
+        "sha256": "9bf43e2b81ed3b8ebb84276cccedcf4b179c6fdaa54ce3f527fa280b91145629",
+        "bytes": 241
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/explicit-equivalence/foundation/stderr.log",
+        "sha256": "d470e6153ccbaf5f0b4584d9fd47b986c4a1e46add30c54bacec71e8625e9c18",
+        "bytes": 3384
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/full-index-relations/foundation/result.json",
+        "sha256": "3627c09162b57bbfc0b006d139022a00a255a57e87721a3f8a4994d321d80de8",
+        "bytes": 135925
+      },
+      "status": "failed",
+      "exit_code": 101,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/full-index-relations/foundation/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/full-index-relations/foundation/stderr.log",
+        "sha256": "7f9fe213e81a66704b01661294c97a5a4f3c792096dd0fc8bc067ad840d2eb36",
+        "bytes": 903
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/format/result.json",
+        "sha256": "3f17e94615f62e624b9ad7d77d9745d9111cc939e5edaf1ba1f32738505c0530",
+        "bytes": 136613
+      },
+      "status": "passed",
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/format/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/format/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/foundation/result.json",
+        "sha256": "81f878388e570ae717aa87f929d2b642b2f847017ba64539b982fa46f056ae12",
+        "bytes": 136265
+      },
+      "status": "passed",
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/foundation/stdout.log",
+        "sha256": "9c44ea1a7af275e90ea4c816394e1431b33b5306580cfafabd207f01529d0bcb",
+        "bytes": 293
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/foundation/stderr.log",
+        "sha256": "59ac46d52d72375c39a2879728092fc1bd257a3f074e316c362ab30b91c5e754",
+        "bytes": 235
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/lint/result.json",
+        "sha256": "aef7a52cc00735395596db47647a7dc68c233287f777891865f74989dce98865",
+        "bytes": 136211
+      },
+      "status": "passed",
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/lint/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/lint/stderr.log",
+        "sha256": "c75510f18cec153519b3f4f09a08e95e7bdcf6ba3f08fb96c62bc9568bd4cbd8",
+        "bytes": 136
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/observations/result.json",
+        "sha256": "ee9623cdd4bed2b8e637275db6fee8530a3365b42897d922546dc5840453f96b",
+        "bytes": 136223
+      },
+      "status": "passed",
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/observations/stdout.log",
+        "sha256": "eeeffa91b0bc43bb4c253c1787793d2d18adbfb6684f48b5e6dcd473533458e9",
+        "bytes": 249
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/harness-context/observations/stderr.log",
+        "sha256": "6f89a6c95ef19d1263409da649ecc2235617a954f7af6e982471a9c67757db74",
+        "bytes": 161
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/native-controls/foundation/result.json",
+        "sha256": "77cb5867f6bf3fa889ef84111abc63be6818ab1a72e3d31dcf1751018c2028b5",
+        "bytes": 136269
+      },
+      "status": "failed",
+      "exit_code": 101,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/native-controls/foundation/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/native-controls/foundation/stderr.log",
+        "sha256": "060aef3f1d6d5e36f48f0164822684c968094d3d6c87e2a5f1abec4ba00d5978",
+        "bytes": 1910
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/native-controls/observations/result.json",
+        "sha256": "68e6fa10a6aafa021e451ff7c1de2ea21c0b610aecbf797c6be82581ec8e9fdb",
+        "bytes": 136225
+      },
+      "status": "failed",
+      "exit_code": 101,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/native-controls/observations/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/native-controls/observations/stderr.log",
+        "sha256": "060aef3f1d6d5e36f48f0164822684c968094d3d6c87e2a5f1abec4ba00d5978",
+        "bytes": 1910
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/ownership-import/foundation/result.json",
+        "sha256": "cff2d1e1f8ad86d52aa5edc8a1048d9e6a6e20203c52c00ea76d3c9b797d4b2f",
+        "bytes": 136274
+      },
+      "status": "passed",
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/ownership-import/foundation/stdout.log",
+        "sha256": "915890b7f549ed687fc74b145346ca5c911ad9c1826de184d3e93edeb08d38ec",
+        "bytes": 293
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/ownership-import/foundation/stderr.log",
+        "sha256": "6f89a6c95ef19d1263409da649ecc2235617a954f7af6e982471a9c67757db74",
+        "bytes": 161
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/ownership-import/observations/result.json",
+        "sha256": "fab2622c50d61224ef7f39cca163c990d4e289d2c473973c04354c344d0d61e2",
+        "bytes": 136230
+      },
+      "status": "passed",
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/ownership-import/observations/stdout.log",
+        "sha256": "80d4bb331f235034d1a7da1429d68d3af24ff834e5892e3146cd7b8cb4404845",
+        "bytes": 249
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/ownership-import/observations/stderr.log",
+        "sha256": "d569b044e06f53a0352d04dff910a795ebdc4d1c81ccc40d5747b767e88ec376",
+        "bytes": 235
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/relation-addresses/foundation/result.json",
+        "sha256": "c6de61ba30f04357f02489dfda7dc6f487f32f77b704e1c5fe95a34724fd8a1e",
+        "bytes": 135909
+      },
+      "status": "passed",
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/relation-addresses/foundation/stdout.log",
+        "sha256": "5bcfce82888775b277bee2539d8f06a6ee08fb9b3338de4689239e266c8a250e",
+        "bytes": 293
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/relation-addresses/foundation/stderr.log",
+        "sha256": "83866267c318c46bb01a18fd177736e787475f7608b544f89fe0af81b3fc8329",
+        "bytes": 2485
+      }
+    },
+    {
+      "result": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/remaining-controls/selected/result.json",
+        "sha256": "87f97fa8146bd8f72c20d3f907b8b323f9b13a298bc9f4d9d4d7aa85f943899e",
+        "bytes": 136374
+      },
+      "status": "passed",
+      "exit_code": 0,
+      "stdout": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/remaining-controls/selected/stdout.log",
+        "sha256": "804db52af445a147041c3b67f82bc18d6ab90c14ae9457823707107b4b22f016",
+        "bytes": 555
+      },
+      "stderr": {
+        "path": "develop/migrations/go-practical/t02-w01/verification/array-foundation/epochs/remaining-controls/selected/stderr.log",
+        "sha256": "35fe823af19ac049dfa14890d8414429cb822ad856de99c15283389cc9d31e54",
+        "bytes": 161
+      }
+    }
+  ],
+  "original_complete_failed_foundation_candidates": 2,
+  "original_failed_inputs_independently_rejected": 2,
+  "original_compilation_failure_executions": 3,
+  "checker_or_observer_limits_changed": false,
+  "full64_bounds_before_slot_conversion": true,
+  "heterogeneous_element_relation_lifted": true,
+  "original_Go_source_type_evaluation_nominal_binding": false,
+  "Go_storage_aliasing_proof": false,
+  "public_profile_activated": false,
+  "source_program_or_registered_context_proof": false,
+  "native_release_acceptance": false,
+  "R01_complete": false,
+  "R06_complete": false,
+  "W01_complete": false,
+  "full_T_gate_passed": false,
+  "full_T_gate": "deferred to GO-PRAC-T02-W04: ./scripts/check-fast.sh",
+  "all_consuming_test_and_checker_handles_terminal_before_staging": true
+}

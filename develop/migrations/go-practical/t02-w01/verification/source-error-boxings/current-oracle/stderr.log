@@ -1,0 +1,30 @@
+Traceback (most recent call last):
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/observe-structural.py", line 12, in <module>
+    rows=[m.inspect(p) for p in files]
+          ^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/structural-oracle.py", line 106, in inspect
+    assert observed_bit(tag_decl[3],address)==bool(ordinal&(1<<address)),(id,'full64-bit tag',address)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/structural-oracle.py", line 76, in observed_bit
+    function=evaluate(function[1],function[2]+(bool(address&(1<<digit)),))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/structural-oracle.py", line 66, in evaluate
+    return evaluate(args[1][2 if condition else 1],scope)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/structural-oracle.py", line 66, in evaluate
+    return evaluate(args[1][2 if condition else 1],scope)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/structural-oracle.py", line 66, in evaluate
+    return evaluate(args[1][2 if condition else 1],scope)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  [Previous line repeated 2 more times]
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/structural-oracle.py", line 70, in evaluate
+    function=evaluate(function[1],function[2]+(evaluate(argument,scope),))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/structural-oracle.py", line 67, in evaluate
+    function=evaluate(args[0],scope)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kazuyoshitoshiya/ff/mpk/develop/migrations/go-practical/t02-w01/verification/source-error-boxings/structural-oracle.py", line 58, in evaluate
+    d=declarations[args[0]];assert d[1]==1,name
+                            ^^^^^^^^^^^^^^^^^^^
+AssertionError: Std.Bool.rec

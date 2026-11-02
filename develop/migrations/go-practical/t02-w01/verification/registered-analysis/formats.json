@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "selection_reason": "Check only the changed Go and Rust tests using rustfmt and the registered Go 1.25 formatter, without formatting unrelated files.",
+  "inputs": [
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/go-tools/go2vir/practical_registered_analysis_test.go",
+      "bytes": 8442,
+      "sha256": "3f90f7b90e41f8db7d1a3d6d00b678f023926f8f30f2d8416073f6db859e708d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_registered_analysis.rs",
+      "bytes": 3842,
+      "sha256": "4b7f7c1f30c0125633301a343550a6bd0e19bd17b8601d68bc26c3f98c51d594",
+      "mode": 420
+    },
+    {
+      "path": "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/tests/go_practical_registered_roots.rs",
+      "bytes": 3675,
+      "sha256": "fda190884bd9849bec0ca47bf882c11336d431151293b02fb32e2dfbf6005ec6",
+      "mode": 420
+    }
+  ],
+  "inputs_unchanged": true,
+  "results": [
+    {
+      "command": [
+        "rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "--config",
+        "skip_children=true",
+        "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc/tests/go_practical_registered_analysis.rs",
+        "/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-cli/tests/go_practical_registered_roots.rs"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/local/bin/docker",
+        "run",
+        "--pull=never",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--read-only",
+        "--cap-drop",
+        "ALL",
+        "--security-opt",
+        "no-new-privileges",
+        "--user",
+        "501:20",
+        "--mount",
+        "type=bind,src=/Users/kazuyoshitoshiya/ff/mpk,dst=/workspace,readonly",
+        "--mount",
+        "type=bind,src=/private/tmp/mpk-installed-compiler-205-original-go-output/toolchain,dst=/sdk,readonly",
+        "docker.io/library/golang@sha256:ebd54034f076819b3054f155db53660ded951612bb4dfd277f933e62059e5d5a",
+        "/sdk/go/bin/gofmt",
+        "-l",
+        "/workspace/go-tools/go2vir/practical_registered_analysis_test.go"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+}

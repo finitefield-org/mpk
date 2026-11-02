@@ -1,0 +1,14 @@
+   Compiling mpk-core v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-core)
+warning: variable does not need to be mutable
+   --> crates/mpk-core/src/bool_rec_type.rs:362:17
+    |
+362 |             let mut levels = LevelArena::new();
+    |                 ----^^^^^^
+    |                 |
+    |                 help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mpk-core` (lib test) generated 1 warning (run `cargo fix --lib -p mpk-core --tests` to apply 1 suggestion)
+    Finished `test` profile [optimized + debuginfo] target(s) in 3.65s
+     Running unittests src/lib.rs (target/debug/deps/mpk_core-82b55ff068033063)

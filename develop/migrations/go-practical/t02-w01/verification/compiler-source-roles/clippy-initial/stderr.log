@@ -1,0 +1,27 @@
+    Checking mpk-vc v0.1.0 (/Users/kazuyoshitoshiya/ff/mpk/crates/mpk-vc)
+error[E0603]: function `boundary` is private
+   --> crates/mpk-vc/src/go_practical_type_keys/compiler_inputs/source_roles.rs:25:29
+    |
+ 25 |     source_package::header::boundary(source).map_err(|_| C::SourceRole)?;
+    |                             ^^^^^^^^ private function
+    |
+note: the function `boundary` is defined here
+   --> crates/mpk-vc/src/go_practical_type_keys/source_package/header.rs:207:1
+    |
+207 | pub(super) fn boundary(source: &GoTypeSourceBuffer) -> Result<usize, GoSourcePackageErrorKind> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0603]: function `compiler_role_header` is private
+   --> crates/mpk-vc/src/go_practical_type_keys/compiler_inputs/source_roles.rs:32:62
+    |
+ 32 |     let Some((documentation, cgo)) = source_package::header::compiler_role_header(source) else {
+    |                                                              ^^^^^^^^^^^^^^^^^^^^ private function
+    |
+note: the function `compiler_role_header` is defined here
+   --> crates/mpk-vc/src/go_practical_type_keys/source_package/header.rs:143:1
+    |
+143 | pub(super) fn compiler_role_header(source: &GoTypeSourceBuffer) -> Option<(bool, bool)> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0603`.
+error: could not compile `mpk-vc` (lib) due to 2 previous errors

@@ -1,0 +1,59 @@
+{
+  "status": "passed_with_exact_immutable_libtest_stdout_eof_records",
+  "initial_default_check": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "exit_code": 2,
+    "stdout": "develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/stdout.log:10: new blank line at EOF.\ndevelop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/stdout.log:135: new blank line at EOF.\n",
+    "stderr": ""
+  },
+  "preserved_original_stdout": [
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/stdout.log",
+      "bytes": 849,
+      "sha256": "36234e8ee78fdfe8fd24455fad4774d2af84d7cced975a2533a403fcfdef469f"
+    },
+    {
+      "path": "develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/stdout.log",
+      "bytes": 21360,
+      "sha256": "d8d1c07e3c9e4e8b4dfee0515a17195aba8865b5fd5a4e193669bb7dafe973c0"
+    }
+  ],
+  "default_check_all_other_files": {
+    "command": [
+      "/usr/bin/git",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      ".",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/stdout.log",
+      ":(top,literal,exclude)develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "raw_stdout_other_whitespace_check": {
+    "command": [
+      "/usr/bin/git",
+      "-c",
+      "core.whitespace=-blank-at-eof",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      "develop/migrations/go-practical/t02-w01/verification/source-string-indices/heterogeneous/stdout.log",
+      "develop/migrations/go-practical/t02-w01/verification/source-string-indices/remaining/stdout.log"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "persistent_git_or_scanner_configuration_weakened": false,
+  "scope": "Only exact receipt-bound original libtest stdout EOF blank lines are retained. Every other staged file receives the default whitespace check. No persistent Git or repository scanner setting changes."
+}

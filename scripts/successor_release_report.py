@@ -21,21 +21,13 @@ LOCK_PATH = Path("fixtures/package-lock/valid/basic-package-lock.json")
 SEMANTIC_REGISTRY_PATH = Path("release/bundles/semantic-profile-registry.json")
 BUNDLE_REGISTRY_PATH = Path("release/bundles/bundle-registry.json")
 DEFAULT_REPORT_PATH = Path("release-report.json")
-NATIVE_ACCEPTANCE_PATH = Path(
-    "develop/migrations/archive/java-03-t10-native-receipt.json"
-)
+NATIVE_ACCEPTANCE_PATH = Path("release/native-acceptance.json")
 ARCHIVED_REPORTS = (
-    Path("develop/migrations/archive/csharp-02-final-review.json"),
     Path("develop/migrations/archive/go-successor-semantic-difference-report.json"),
     Path("develop/migrations/archive/rust-successor-semantic-difference-report.json"),
 )
-ACTIVE_FIXTURES = (
-    Path("fixtures/csharp/policy/scan.json"),
-    Path("fixtures/csharp/policy/evidence.json"),
-    Path("fixtures/csharp/policy/program-certificate.hex"),
-    Path("fixtures/csharp/ai/request.json"),
-    Path("fixtures/csharp/ai/explanation.json"),
-)
+ACTIVE_FIXTURES = ()
+
 
 
 class ReleaseReportError(Exception):
@@ -152,7 +144,7 @@ def build_report(repo_root: Path) -> dict[str, Any]:
             "reproduction": [
                 "./scripts/build-release-bundles.sh --check successor",
                 "./scripts/check-release-bundles.sh --fixture successor",
-                "sudo ./scripts/check-java-frontend.sh",
+                "sudo ./scripts/check-go-rust-frontend.sh",
                 "python3 scripts/generate-release-report.py --check",
             ],
             "certificate_v0_unchanged": True,
@@ -164,32 +156,23 @@ def build_report(repo_root: Path) -> dict[str, Any]:
 def native_acceptance_receipt(
     repo_root: Path, semantic: dict[str, Any], registry: dict[str, Any]
 ) -> dict[str, Any]:
-    value = read_canonical_object(repo_root / NATIVE_ACCEPTANCE_PATH)
+    path = repo_root / NATIVE_ACCEPTANCE_PATH
+    if not path.exists():
+        return {"status": "pending", "reason": "Go/Rust registry revision 4 requires its own native Linux release gate", "command": "sudo ./scripts/check-go-rust-frontend.sh"}
+    value = read_canonical_object(path)
     if (
-        value.get("schema") != "mpk.java.t10.native_receipt.v0"
+        value.get("schema") != "mpk.go_rust.native_receipt.v1"
         or value.get("status") != "accepted"
         or value.get("architecture") != "x86_64"
-        or value.get("command") != "./scripts/check-java-frontend.sh"
+        or value.get("command") != "./scripts/check-go-rust-frontend.sh"
         or value.get("exit_code") != 0
         or value.get("installed_release_passes") != 2
-        or value.get("semantic_registry")
-        != {
-            "raw_sha256": sha256_file(repo_root / SEMANTIC_REGISTRY_PATH),
-            "registry_sha256": semantic["registry_sha256"],
-            "revision": 3,
-        }
-        or value.get("bundle_registry")
-        != {
-            "raw_sha256": sha256_file(repo_root / BUNDLE_REGISTRY_PATH),
-            "registry_sha256": registry["registry_sha256"],
-        }
+        or value.get("languages") != ["go", "rust"]
+        or value.get("semantic_registry") != {"raw_sha256": sha256_file(repo_root / SEMANTIC_REGISTRY_PATH), "registry_sha256": semantic["registry_sha256"], "revision": 4}
+        or value.get("bundle_registry") != {"raw_sha256": sha256_file(repo_root / BUNDLE_REGISTRY_PATH), "registry_sha256": registry["registry_sha256"]}
     ):
-        raise ReleaseReportError("JAVA-03-T10 native acceptance receipt is invalid")
-    return {
-        "path": NATIVE_ACCEPTANCE_PATH.as_posix(),
-        "sha256": sha256_file(repo_root / NATIVE_ACCEPTANCE_PATH),
-        **value,
-    }
+        raise ReleaseReportError("Go/Rust native acceptance receipt is invalid")
+    return {"path": NATIVE_ACCEPTANCE_PATH.as_posix(), "sha256": sha256_file(path), **value}
 
 
 def active_release(
@@ -203,11 +186,11 @@ def active_release(
     if (
         semantic.get("schema") != "mpk.semantic_profile.registry.v1"
         or semantic.get("id") != "mpk.semantic_profile.registry.v1"
-        or semantic.get("revision") != 3
+        or semantic.get("revision") != 4
         or {entry.get("source_language") for entry in semantic.get("profiles", [])}
-        != {"go", "rust", "csharp", "java"}
+        != {"go", "rust"}
     ):
-        raise ReleaseReportError("active semantic registry is not the frozen revision-3 set")
+        raise ReleaseReportError("active semantic registry is not the Go/Rust revision-4 set")
     required_contracts = {
         "ai",
         "evidence",
@@ -244,10 +227,7 @@ def archived_reports(repo_root: Path) -> list[dict[str, Any]]:
 
 
 def validate_review_reports(reports: list[dict[str, Any]]) -> None:
-    csharp = reports[0]
-    if csharp["status"] != "reviewed_zero_findings":
-        raise ReleaseReportError("C# final review is not the zero-finding archive")
-    for report in reports[1:]:
+    for report in reports:
         summary = report.get("summary")
         if not isinstance(summary, dict):
             raise ReleaseReportError(f"{report['path']}: missing semantic-difference summary")

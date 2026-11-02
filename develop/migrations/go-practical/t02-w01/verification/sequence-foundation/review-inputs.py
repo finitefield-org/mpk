@@ -1,0 +1,105 @@
+"""Full changed-input/proof/old-byte review; execute outside sandbox for Git."""
+from pathlib import Path
+import datetime
+import hashlib
+import json
+import re
+import subprocess
+import sys
+import types
+import urllib.parse
+
+ROOT = Path.cwd()
+OUT = Path(__file__).resolve().parent
+BASE = "f5f7f5415a9ac8b85d27aa4b22ed6063559e4a3b"
+REPORT = OUT / "input-review.json"
+
+
+def git(*args):
+    return subprocess.check_output(["/usr/bin/git", *args])
+
+
+def seal(path):
+    raw = Path(path).read_bytes()
+    return {"path": str(path), "sha256": hashlib.sha256(raw).hexdigest(), "bytes": len(raw)}
+
+
+assert git("rev-parse", "HEAD").decode().strip() == BASE
+assert not git("diff", "--name-only", "HEAD", "--", "crates/mpk-core", "crates/mpk-cert", "crates/mpk-kernel", "go-tools")
+script = Path("scripts/check-no-active-gir.sh")
+code = script.read_text().split("<<'PY'\n", 1)[1].rsplit("\nPY", 1)[0].rsplit("raise SystemExit(main())", 1)[0]
+module = types.ModuleType("mpk_sequence_input_review")
+module.__file__ = str(ROOT / script)
+sys.modules[module.__name__] = module
+sys.argv = [str(script), str(ROOT), "strict"]
+exec(compile(code, str(script), "exec"), module.__dict__)
+matchers = module.load_matchers()
+manifest, scanner_files, fixtures, _ = module.validate_manifest()
+module.run_fixture_self_test(manifest, matchers)
+assert (len(matchers), len(module.SCOPES), len(manifest["sealed_records"])) == (127, 4, 39)
+configured = scanner_files | fixtures | module.active_retained_record_exclusions(manifest)
+selected = git("diff", "--name-only", "-z", "HEAD", "--") + git("ls-files", "--others", "--exclude-standard", "-z")
+paths = sorted(set(selected.decode().split("\0")) - {"", str(REPORT.relative_to(ROOT))})
+findings, links, inputs = [], [], []
+cache = {}
+path_rules = [m for m in matchers if m["scope"] == "exact-path"]
+for name in paths:
+    path = ROOT / name
+    assert path.is_file() and not path.is_symlink(), name
+    raw = path.read_bytes()
+    inputs.append(seal(name))
+    if name not in configured:
+        key = (hashlib.sha256(raw).hexdigest(), tuple(module.path_matches(name, m["path"]) for m in path_rules))
+        if key not in cache:
+            cache[key] = [vars(f) for f in module.detect(name, raw.decode(errors="ignore"), matchers)]
+        findings.extend({**finding, "path": name} for finding in cache[key])
+    if path.suffix == ".md":
+        for target in re.findall(r"(?<!!)\[[^\]]*\]\(([^\n)]+)\)", raw.decode()):
+            target = target.strip().strip("<>")
+            if re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*:", target) or target.startswith("#"):
+                continue
+            links.append({"document": name, "target": target, "exists": (path.parent / urllib.parse.unquote(target.split("#", 1)[0])).resolve().exists()})
+pair = json.loads((OUT / "paired/result.json").read_bytes())
+assert pair["status"] == "passed" and len(pair["cases"]) == 63
+assert seal(pair["go_binary"]["path"]) == pair["go_binary"]
+assert all(seal(row["path"]) == row for row in pair["go_production_sources"])
+for row in pair["cases"]:
+    for key in ["input", "Rust_report", "stdout", "stderr"]:
+        assert seal(row[key]["path"]) == row[key]
+    rust = json.loads(Path(row["Rust_report"]["path"]).read_bytes())
+    go = json.loads(Path(row["stdout"]["path"]).read_bytes())
+    assert rust == row["Rust"] and go == row["Go"]
+    if rust["verdict"] == "accepted":
+        assert rust["hashes"] == go["hashes"] and rust["axiom_count"] == 0 and not rust["axiom_report"]["entries"]
+    else:
+        assert json.loads(rust["error_detail"])["code"] == "CORE_TYPE_MISMATCH" and go["error_kind"] == "core_check"
+for mode in ["typed", "lint", "format"]:
+    path = OUT / "epochs/typed-controls" / mode / "result.json"
+    record = json.loads(path.read_bytes())
+    assert record["status"] == "passed" and record["whole_source_inputs_unchanged"]
+    assert all(hashlib.sha256(Path(row["path"]).read_bytes()).hexdigest() == row["sha256"] for row in record["source_inputs"])
+for path in (OUT / "epochs/typed-controls/typed/candidates").glob("*.mpcert"):
+    assert path.read_bytes() == (OUT / "epochs/complete/selected/candidates" / path.name).read_bytes()
+    assert path.with_suffix(".rust.json").read_bytes() == (OUT / "epochs/complete/selected/candidates" / path.with_suffix(".rust.json").name).read_bytes()
+frozen = json.loads(Path("develop/migrations/go-practical/t02-w01/verification/native-observation/frozen-design-preservation.json").read_bytes())["inputs"]
+assert len(frozen) == 255 and all(seal(row["path"]) == row for row in frozen)
+go_inputs = json.loads(Path("develop/migrations/go-practical/t02-w01/verification/original-packages/integrated/analysis-inputs/captured-inputs.json").read_bytes())["build_inputs"]
+assert len(go_inputs) == 185
+for row in go_inputs:
+    raw = (Path("go-tools/go2vir") / row["path"]).read_bytes()
+    assert len(raw) == row["bytes"] and hashlib.sha256(raw).hexdigest() == row["raw_sha256"]
+missing = [row for row in links if not row["exists"]]
+unchanged = all(seal(row["path"]) == row for row in inputs)
+result = {"status": "passed" if not findings and not missing and unchanged else "failed",
+          "basis_commit": BASE, "observed_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+          "inputs": inputs, "source_inputs_unchanged": unchanged, "findings": findings,
+          "missing_links": missing, "links_checked": len(links), "paired_full_original_inputs_verified": 63,
+          "latest_complete_negative_streams_equal_original_paired_inputs": 61,
+          "frozen_design_inputs_unchanged": 255, "Go_frontend_build_inputs_unchanged": 185,
+          "original_matcher_scope_seal_counts": [127, 4, 39],
+          "new_source_JSON_directory_or_blanket_exclusions": False,
+          "core_and_Go_ref_implementations_unchanged": True,
+          "native_release_acceptance": False, "full_T_gate_passed": False}
+REPORT.write_text(json.dumps(result, indent=2) + "\n")
+print(json.dumps({key: value for key, value in result.items() if key != "inputs"}))
+raise SystemExit(result["status"] != "passed")
