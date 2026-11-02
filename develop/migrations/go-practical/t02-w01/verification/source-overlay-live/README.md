@@ -29,8 +29,8 @@ its test configuration, passed. The two original shared-path cases were
 selected because the new fixture extends their shared capture helper and
 observer. Their first retries both stopped during offline module discovery with
 `signal: killed` at the unchanged 120-second command limit under high host
-load; neither reached the new binding check. Their full-input retries remain
-in progress.
+load. The cross-package case then passed a full-input retry; the call-free
+case stopped in discovery again and remains to be rerun.
 No new validation archive is committed.
 
 R01 and T02-W01 remain open, the practical profile stays inactive, and the
