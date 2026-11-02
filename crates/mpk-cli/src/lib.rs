@@ -23,6 +23,9 @@ mod go_practical_analysis_root_binding;
 #[cfg(target_os = "linux")]
 #[allow(dead_code)]
 mod go_practical_capture_binding;
+#[cfg(target_os = "linux")]
+#[allow(dead_code)]
+mod go_practical_checked_components;
 #[allow(dead_code)]
 mod go_practical_checked_entries;
 #[allow(dead_code)]

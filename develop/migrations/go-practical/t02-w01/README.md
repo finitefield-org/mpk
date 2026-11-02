@@ -42,6 +42,11 @@ now retains the same Go package owner and independently reconstructs its offline
 module data and graph in Rust while the candidate and both root sets are held.
 Launcher authority and source/program proofs remain open.
 
+The [same-root checked components](verification/rooted-checked-components/README.md)
+construct entry and call mathematics from one held original owner and reject
+crossed graphs or functions. They do not establish launcher authority or a
+program proof.
+
 The [checked candidate call interfaces](verification/checked-candidate-invocations/README.md)
 check every original call and retain compact hashes for exact reconstruction.
 They establish mathematical interfaces, while source execution and callee

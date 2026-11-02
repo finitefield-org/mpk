@@ -8,6 +8,10 @@ mod frontend_registry;
 #[allow(dead_code)]
 mod go_practical_capture_binding;
 #[cfg(target_os = "linux")]
+#[path = "../src/go_practical_checked_components.rs"]
+#[allow(dead_code)]
+mod go_practical_checked_components;
+#[cfg(target_os = "linux")]
 #[path = "../src/go_practical_checked_entries.rs"]
 #[allow(dead_code)]
 mod go_practical_checked_entries;
@@ -457,29 +461,17 @@ fn main() {
             .map_err(|error| fail(format!("complete root binding: {error:?}")))?;
         let graph = module_graph(&packet, matched.export_inputs().clone())?;
         {
-            let invocations = matched
-                .bind_candidate_graph(&candidate, &graph)
-                .map_err(|error| fail(format!("candidate/source/graph binding: {error:?}")))?
-                .derive_contracts()
-                .map_err(|error| fail(format!("candidate source contracts: {error:?}")))?
-                .derive_invocation_catalogue()
-                .map_err(|error| fail(format!("candidate call catalogue: {error:?}")))?;
-            let checked =
-                go_practical_checked_invocations::check_go_graph_invocations(invocations)?;
-            if !checked.invocations().catalogue().sites().is_empty()
-                || !checked.checked().receipts().is_empty()
+            let components = go_practical_checked_components::check_go_root_components(
+                &matched, &candidate, &graph,
+            )?;
+            let invocations = components.invocations();
+            if !invocations.invocations().catalogue().sites().is_empty()
+                || !invocations.checked().receipts().is_empty()
             {
                 return Err(fail("original call-free root gained a call site").into());
             }
-            std::hint::black_box(&checked);
-        }
-        {
-            let binding = matched
-                .bind_candidate_graph(&candidate, &graph)
-                .map_err(|error| fail(format!("candidate/source/graph binding: {error:?}")))?;
-            let contracts = binding
-                .derive_contracts()
-                .map_err(|error| fail(format!("candidate source contracts: {error:?}")))?;
+            let checked = components.entries();
+            let contracts = checked.entries().contracts();
             let module = contracts.contracts().module();
             if contracts.contracts().source().source_inputs().roots().len() != 1
                 || module.selected_roots().len() != 1
@@ -498,11 +490,7 @@ fn main() {
             {
                 return Err(fail("original zero-overlay default contract changed").into());
             }
-            let entries = contracts
-                .derive_entry_catalogue()
-                .map_err(|error| fail(format!("candidate entry catalogue: {error:?}")))?;
-            let module = entries.contracts().contracts().module();
-            let layouts = entries.catalogue().layouts();
+            let layouts = checked.entries().catalogue().layouts();
             if layouts.len() != 1
                 || layouts[0].function() != &module.selected_roots()[0]
                 || layouts[0].inputs().len() != 1
@@ -510,8 +498,6 @@ fn main() {
             {
                 return Err(fail("candidate entry layout lost the original function").into());
             }
-            let checked = go_practical_checked_entries::check_go_graph_entries(entries)?;
-            let module = checked.entries().contracts().contracts().module();
             let parts = checked.checked().assemblies().parts();
             let reports = checked.checked().reports();
             if parts.len() != 1
@@ -533,7 +519,7 @@ fn main() {
                 "candidate-entry-rust.json",
                 &json!({"verdict":report["verdict"],"module":report["module"],"declaration_count":report["declaration_count"],"axiom_count":report["axiom_count"],"hashes":report["hashes"]}),
             )?;
-            std::hint::black_box(&checked);
+            std::hint::black_box(&components);
         }
         // This optional negative control imports another complete original
         // fixture only in the local test observer; production gets no path or
@@ -569,6 +555,16 @@ fn main() {
                     || !matches!(
                         matched.bind_candidate_graph(&candidate, &other_graph),
                         Err(go_practical_capture_binding::GoCandidateRootGraphBindingError::Export)
+                    )
+                    || !matches!(
+                        go_practical_checked_components::check_go_root_components(
+                            &matched,
+                            &candidate,
+                            &other_graph
+                        ),
+                        Err(go_practical_checked_components::GoCheckedComponentsError::Binding(
+                            go_practical_capture_binding::GoCandidateRootGraphBindingError::Export
+                        ))
                     )
                 {
                     return Err(fail("crossed original graph was not rejected").into());
@@ -613,6 +609,15 @@ fn main() {
                 return Err(fail("test installed owner lost original roots").into());
             }
             {
+                let components =
+                    go_practical_checked_components::check_installed_go_root_components(
+                        &owner, &candidate, &graph,
+                    )?;
+                if components.entries().checked().assemblies().parts().len() != 1
+                    || !components.invocations().checked().receipts().is_empty()
+                {
+                    return Err(fail("test installed components lost the original root").into());
+                }
                 let binding = owner
                     .bind_candidate_graph(&candidate, &graph)
                     .map_err(|error| {
@@ -627,13 +632,24 @@ fn main() {
                 if !matches!(
                     owner.bind_candidate_request(&other),
                     Err(GoPracticalSourceBindingError::Mismatch { root: Some(0) })
+                ) || !matches!(
+                    go_practical_checked_components::check_installed_go_root_components(
+                        &owner, &other, &graph
+                    ),
+                    Err(
+                        go_practical_checked_components::GoCheckedComponentsError::Binding(
+                            go_practical_capture_binding::GoCandidateRootGraphBindingError::Source(
+                                GoPracticalSourceBindingError::Mismatch { root: Some(0) }
+                            )
+                        )
+                    )
                 ) {
                     return Err(fail(
                         "test installed owner accepted a different original function",
                     )
                     .into());
                 }
-                std::hint::black_box(&binding);
+                std::hint::black_box((&binding, &components));
             }
             owner
         };
@@ -642,7 +658,7 @@ fn main() {
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"same_root_components_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_components_checked":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
         std::hint::black_box((&held_owner, &graph));
         Ok(())
