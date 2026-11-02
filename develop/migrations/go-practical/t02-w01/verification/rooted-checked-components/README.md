@@ -37,8 +37,8 @@ separate long-running regression continued at lower scheduling priority. Go
 installed owner is test-only, and this is not native Linux release acceptance.
 No new validation archive was added.
 
-The separate existing 70-error invocation regression is still running, as
-recorded in the candidate-invocation checkpoint. Complete foundation, launcher
-authority, source/IR correspondence, callee proofs and application verification
+The complete existing invocation regression passed, including its 70-error
+case, as recorded in the candidate-invocation checkpoint. Complete foundation,
+launcher authority, source/IR correspondence, callee proofs and application verification
 remain open. R01 and T02-W01 remain open, the practical profile stays inactive,
 and the cumulative `./scripts/check-fast.sh` gate is deferred to final T02-W04.

@@ -31,8 +31,8 @@ root has no call sites.
 The new original-source, contract-only and full-owner graph tests passed.
 Strict Clippy passed for those affected tests and the existing invocation
 consumer; changed-file Rust formatting passed. The existing full invocation
-suite's controls and zero-error case passed; its 70-error case is still running
-and is not yet recorded as a completed run. These tests were selected because
+suite passed all three tests, including the unchanged 70-error case (6,486.28
+seconds in total). These tests were selected because
 the existing catalogue now shares its construction routine with the bound
 contract path. Unrelated Go suites and new validation archives were not added.
 

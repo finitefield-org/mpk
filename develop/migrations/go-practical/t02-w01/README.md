@@ -59,8 +59,8 @@ proofs remain open.
 
 The [candidate-bound call interfaces](verification/candidate-invocations/README.md)
 retain the original contracts and graph, including types referenced only by
-annotations. The affected 70-error invocation regression remains running;
-callee execution and program proof remain open.
+annotations. The complete affected invocation regression passes, including the
+70-error case; callee execution and program proof remain open.
 
 The [checked candidate entry parts](verification/checked-candidate-entries/README.md)
 cover all original contract bodies and require zero-axiom Rust kernel acceptance

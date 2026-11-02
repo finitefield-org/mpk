@@ -37,8 +37,9 @@ not the installed launcher and this is not native Linux release acceptance.
 The targeted original-source test and complete live capture were selected for
 the new checked owner and its held-root consumer. Strict Clippy passed for the
 affected test and Linux observer, including its test configuration; changed
-Rust formatting and diff checks passed. The separate existing 70-error
-invocation regression remains running, as recorded in the preceding checkpoint.
+Rust formatting and diff checks passed. The complete existing invocation
+regression also passed, including its 70-error case, as recorded in the
+preceding checkpoint.
 No unrelated suite or new validation archive was added.
 
 R01 and T02-W01 remain open, and the practical profile stays inactive. The

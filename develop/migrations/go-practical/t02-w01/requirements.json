@@ -28,7 +28,7 @@
       "checked_candidate_invocation_checkpoint": {
         "evidence": "verification/checked-candidate-invocations/README.md",
         "executor": "crates/mpk-cli/src/go_practical_checked_invocations.rs",
-        "scope": "The private candidate owner checks every original call interface with the Rust kernel and requires zero axioms. Compact site/hash receipts permit exact one-at-a-time certificate reconstruction. The original cross-package call matches independent Go/Rust hashes; complete live roots pass with the original empty call closure. The existing 70-error regression remains running; no callee or program theorem is claimed.",
+        "scope": "The private candidate owner checks every original call interface with the Rust kernel and requires zero axioms. Compact site/hash receipts permit exact one-at-a-time certificate reconstruction. The original cross-package call matches independent Go/Rust hashes; complete live roots pass with the original empty call closure. The complete affected invocation regression passes, including 70 error cases; no callee or program theorem is claimed.",
         "R01_completed": false,
         "public_profile_activated": false,
         "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
@@ -36,7 +36,7 @@
       "candidate_invocation_domain_checkpoint": {
         "evidence": "verification/candidate-invocations/README.md",
         "executor": "crates/mpk-vc/src/go_practical_ordinary/source_invocation.rs",
-        "scope": "A source- or graph-bound contract derives invocation candidates from its complete original call closure and full contract value domain, preserving annotation-only types and the same error universe. Both checkers accept the original cross-package call interface; the type-only and full graph controls pass. The existing 70-error invocation regression remains running, and no callee or program theorem is claimed.",
+        "scope": "A source- or graph-bound contract derives invocation candidates from its complete original call closure and full contract value domain, preserving annotation-only types and the same error universe. Both checkers accept the original cross-package call interface; the type-only and full graph controls pass. The complete affected invocation regression passes, including 70 error cases, and no callee or program theorem is claimed.",
         "R01_completed": false,
         "public_profile_activated": false,
         "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"

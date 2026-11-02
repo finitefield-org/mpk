@@ -39,6 +39,6 @@ complete source comparison were selected to exercise the new nonempty call
 closure without weakening the existing capture. Go 1.25 `vet`, changed-file Go
 and Rust formatting, and strict affected Linux observer Clippy (including its
 test configuration) passed. No unrelated suites or new validation archives
-were added. The separate 70-error invocation regression remains running.
-R01 and T02-W01 remain open, the practical profile stays inactive, and the
-cumulative `./scripts/check-fast.sh` gate is deferred to final T02-W04.
+were added. The complete existing invocation regression also passed, including
+its 70-error case. R01 and T02-W01 remain open, the practical profile stays
+inactive, and the cumulative `./scripts/check-fast.sh` gate is deferred to final T02-W04.
