@@ -16,6 +16,11 @@ The [request selection boundary](verification/request-selection/README.md)
 validates and hashes the frozen raw Go function/method selectors. It does not
 activate the profile or replace later original-source and alias resolution.
 
+The [private candidate context](verification/private-context/README.md) binds
+the frozen Go/Rust configuration and delegates retained profiles to the actual
+revision-4 validators. Its foundation reference is still a candidate, not a
+checked complete foundation or installed profile.
+
 Status: In progress. Entry is T01 completion commit
 `fe1b85cb70c7ea390c02469706d09cdc913f973f`. The
 [requirements](requirements.json) retain the complete W01 scope: private

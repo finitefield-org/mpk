@@ -9,6 +9,8 @@ pub mod call_wp;
 pub mod canonical_json;
 pub mod expr_encode;
 #[doc(hidden)]
+pub mod go_practical_context;
+#[doc(hidden)]
 pub mod go_practical_ordinary;
 #[doc(hidden)]
 pub mod go_practical_selection;
