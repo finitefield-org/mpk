@@ -21,6 +21,10 @@ the frozen Go/Rust configuration and delegates retained profiles to the actual
 revision-4 validators. Its foundation reference is still a candidate, not a
 checked complete foundation or installed profile.
 
+The [Go candidate producer](verification/go-context-producer/README.md) now
+emits the same complete request bytes consumed by Rust. Source selection and
+launcher authority remain later bindings.
+
 Status: In progress. Entry is T01 completion commit
 `fe1b85cb70c7ea390c02469706d09cdc913f973f`. The
 [requirements](requirements.json) retain the complete W01 scope: private

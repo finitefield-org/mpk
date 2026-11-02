@@ -326,3 +326,24 @@ fn request_hash_covers_full_context_and_selection_and_rejects_duplicate_json() {
         Err(GoPrivateContextError::Json)
     );
 }
+
+#[test]
+fn imports_the_exact_request_emitted_by_the_go_candidate_producer() {
+    let raw = include_bytes!("fixtures/go-practical-candidate-request.json");
+    let parsed = parse_strict_json(
+        raw,
+        StrictJsonLimits::new(4_194_304, 1_000_000, 64, 1_000_000),
+    )
+    .unwrap();
+    let registry = GoPrivateCandidateRegistry::new().unwrap();
+    let request = registry.import_request(&parsed).unwrap();
+    assert_eq!(request.canonical_bytes(), raw.strip_suffix(b"\n").unwrap());
+    assert_eq!(
+        request.request_sha256(),
+        "03d66cea6a8f161a4d528b6a72183ff771aec76d3054762fa939accd3eb3c8ea"
+    );
+    assert!(matches!(
+        request.selection(),
+        GoPrivateCandidateSelection::Practical(_)
+    ));
+}
