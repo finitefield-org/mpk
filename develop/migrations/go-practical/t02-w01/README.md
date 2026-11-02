@@ -42,6 +42,10 @@ now retains the same Go package owner and independently reconstructs its offline
 module data and graph in Rust while the candidate and both root sets are held.
 Launcher authority and source/program proofs remain open.
 
+The [live error-dispatch capture](verification/error-dispatch-live/README.md)
+checks a selected `error.Error()` call and its original concrete method with
+the complete application and SDK. Method execution is not yet proved.
+
 The [same-root value components](verification/rooted-value-components/README.md)
 derive checked entry, call and value mathematics from one held owner. Complete
 call-free, error-contract and annotated-call captures pass.

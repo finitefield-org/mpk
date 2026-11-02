@@ -58,6 +58,13 @@ func TestPracticalInstalledCompilerInputsKeepWholePackagesWithErrorContract(t *t
 	practicalCompilerInputsWithOriginalCandidate(t, compiler, "RootWithError", policy, overlay)
 }
 
+func TestPracticalInstalledCompilerInputsKeepWholePackagesWithErrorDispatch(t *testing.T) {
+	compiler := practicalTestRegisteredCompiler(t)
+	overlay := []byte(`{"schema":"mpk.go.practical.source_overlay.v1","source":"policy.go","function":{"package":"example.com/policy","function":"RootErrorText","receiver":null},"termination":"partial","requires":[],"ensures":[{"op":"bool.literal","value":true}],"error_inputs":[{"input":0,"path":[],"cases":["example.com/policy.Refusal"]}],"loops":[],"modifies":[]}` + "\n")
+	policy := []byte("type Refusal uint8\nfunc (Refusal) Error() string { return \"refusal\" }\nfunc RootErrorText(e error) string { if e == nil { return \"\" }; return e.Error() }\n")
+	practicalCompilerInputsWithOriginalCandidate(t, compiler, "RootErrorText", policy, overlay)
+}
+
 func practicalTestRegisteredCompiler(t *testing.T) practicalCompilerImage {
 	t.Helper()
 	if runtime.GOOS != "linux" || runtime.GOARCH != "amd64" {

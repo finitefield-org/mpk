@@ -491,7 +491,7 @@ fn main() {
         };
         #[cfg(not(test))]
         let expect_error = false;
-        if (expect_overlay && (!expect_call || expect_error)) || (expect_error && expect_call) {
+        if expect_overlay && (!expect_call || expect_error) {
             return Err(fail("invalid source-overlay test combination").into());
         }
         let expected_functions = if expect_call { 2 } else { 1 };
@@ -564,7 +564,12 @@ fn main() {
                 }
                 let raw = captured[0].overlay().source_buffer();
                 let expected_overlay = if expect_error {
-                    json!({"schema":"mpk.go.practical.source_overlay.v1","source":"policy.go","function":{"package":"example.com/policy","function":"RootWithError","receiver":null},"termination":"partial","requires":[],"ensures":[{"op":"bool.literal","value":true}],"error_inputs":[{"input":0,"path":[],"cases":["example.com/policy.Refusal"]}],"loops":[],"modifies":[]})
+                    let function = if expect_call {
+                        "RootErrorText"
+                    } else {
+                        "RootWithError"
+                    };
+                    json!({"schema":"mpk.go.practical.source_overlay.v1","source":"policy.go","function":{"package":"example.com/policy","function":function,"receiver":null},"termination":"partial","requires":[],"ensures":[{"op":"bool.literal","value":true}],"error_inputs":[{"input":0,"path":[],"cases":["example.com/policy.Refusal"]}],"loops":[],"modifies":[]})
                 } else {
                     json!({"schema":"mpk.go.practical.source_overlay.v1","source":"policy.go","function":{"package":"example.com/policy","function":"RootWithCall","receiver":null},"termination":"partial","requires":[],"ensures":[{"op":"eq","args":[{"op":"result","position":0},{"op":"input","position":0}]}],"error_inputs":[],"loops":[],"modifies":[]})
                 };
@@ -675,7 +680,17 @@ fn main() {
                     .selection()
                     .source(site.targets()[0].callee().source_object_id())
                     .ok_or_else(|| fail("missing original call target source"))?;
-                if callee.source().object().capability != "workspace/dep"
+                if expect_error {
+                    if !site.is_error_dispatch()
+                        || site.targets()[0].dynamic_type_id()
+                            != Some(module.value_domain().error_cases()[0].value_type_id())
+                        || callee.source().object().capability != "workspace/main"
+                        || callee.source().object().path != "policy.go"
+                    {
+                        return Err(fail("closed error dispatch target changed").into());
+                    }
+                } else if site.is_error_dispatch()
+                    || callee.source().object().capability != "workspace/dep"
                     || callee.source().object().path != "example.com/c@v1.1.0/dep.go"
                 {
                     return Err(fail("cross-package call target differs from original c").into());
