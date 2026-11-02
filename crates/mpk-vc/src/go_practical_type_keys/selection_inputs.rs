@@ -1,6 +1,7 @@
 //! Physical original roots bound to complete source/contract input bytes.
 //! Independent parsing supplies node identities; native names/types never do.
 use super::*;
+use crate::go_practical_context::{GoPrivateCandidateRequest, GoPrivateCandidateSelection};
 
 const DOMAIN: HashDomain = HashDomain::new("MPK-PRIVATE-GO-SOURCE-SELECTION-INPUTS-1.0");
 
@@ -56,6 +57,75 @@ pub struct GoSourceSelectionInputs {
     wire: Wire,
     resolved: Vec<GoSourceSelectionRef>,
     canonical: Vec<u8>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum GoPracticalSourceBindingError {
+    Profile,
+    Scope(GoSourceScopeError),
+    Resolve {
+        root: Option<usize>,
+        error: GoSourceOverlayError,
+    },
+    Duplicate {
+        first: usize,
+        second: usize,
+    },
+    Mismatch {
+        root: Option<usize>,
+    },
+}
+impl std::fmt::Display for GoPracticalSourceBindingError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Go candidate request/source selection binding: {self:?}")
+    }
+}
+impl std::error::Error for GoPracticalSourceBindingError {}
+
+/// The complete original physical-root owner and the independently validated
+/// raw candidate request agree after source/receiver-alias resolution. The
+/// borrowed owners remain live without cloning the full captured source set.
+/// This does not authenticate the launcher, installed profile or a source theorem.
+pub struct GoPracticalSourceBinding<'a> {
+    request: &'a GoPrivateCandidateRequest,
+    inputs: &'a GoSourceSelectionInputs,
+}
+impl GoPracticalSourceBinding<'_> {
+    pub fn request(&self) -> &GoPrivateCandidateRequest {
+        self.request
+    }
+    pub fn source_inputs(&self) -> &GoSourceSelectionInputs {
+        self.inputs
+    }
+}
+
+/// Resolve the request against original parsed source, then require exactly
+/// the already imported physical roots. No caller-supplied locator adapter or
+/// relabeled source is accepted. This does not derive a verification closure.
+pub fn bind_go_practical_source_selection<'a>(
+    request: &'a GoPrivateCandidateRequest,
+    inputs: &'a GoSourceSelectionInputs,
+) -> std::result::Result<GoPracticalSourceBinding<'a>, GoPracticalSourceBindingError> {
+    let GoPrivateCandidateSelection::Practical(selection) = request.selection() else {
+        return Err(GoPracticalSourceBindingError::Profile);
+    };
+    let resolved = source_overlays::resolve_go_practical_named_roots(
+        inputs.contracts.source_inputs().components(),
+        selection,
+    )?;
+    let expected = inputs.resolved.iter().collect::<BTreeSet<_>>();
+    if let Some(root) = resolved
+        .iter()
+        .position(|reference| !expected.contains(reference))
+    {
+        return Err(GoPracticalSourceBindingError::Mismatch { root: Some(root) });
+    }
+    if resolved.len() != inputs.resolved.len()
+        || resolved.iter().collect::<BTreeSet<_>>() != expected
+    {
+        return Err(GoPracticalSourceBindingError::Mismatch { root: None });
+    }
+    Ok(GoPracticalSourceBinding { request, inputs })
 }
 impl GoSourceSelectionInputs {
     pub fn contract_inputs(&self) -> &GoSourceContractInputs {

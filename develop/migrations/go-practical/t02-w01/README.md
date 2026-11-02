@@ -22,8 +22,13 @@ revision-4 validators. Its foundation reference is still a candidate, not a
 checked complete foundation or installed profile.
 
 The [Go candidate producer](verification/go-context-producer/README.md) now
-emits the same complete request bytes consumed by Rust. Source selection and
-launcher authority remain later bindings.
+emits the same complete request bytes consumed by Rust. The producer alone
+does not supply launcher or source authority.
+
+The [request/source binding](verification/request-source-binding/README.md)
+now resolves that request against the original physical declarations while
+both source and export roots remain held. The complete live application and
+SDK case passes; launcher authority and source/program proofs remain open.
 
 Status: In progress. Entry is T01 completion commit
 `fe1b85cb70c7ea390c02469706d09cdc913f973f`. The
@@ -196,7 +201,7 @@ or C# test is used. These are component checks, not Linux release acceptance.
 
 No complete W01 or T02 claim is made. Targeted checks cover changed code and
 affected consumers; the cumulative T02 gate is deferred to W04 and will use
-`./scripts/check-fast.sh --skip-csharp` under the user's explicit instruction.
+`./scripts/check-fast.sh` under the current Go/Rust-only scope.
 All169 Go theorem demands remain unelaborated and no practical profile activates.
 
 The [rooted capture checkpoint](verification/rooted-capture/README.md) now adds

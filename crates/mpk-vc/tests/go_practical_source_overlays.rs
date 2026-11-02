@@ -429,3 +429,40 @@ fn entry_overlay_sets_share_global_cases_and_reject_alias_duplicate_roots() {
         &json!({"canonical_root_order":true,"global_case_count":2,"duplicate_paths_and_alias_resolved_functions_reject":true,"whole_module_contract_set_or_context_claimed":false}),
     );
 }
+
+#[test]
+fn practical_request_roots_resolve_original_receiver_aliases_and_reject_duplicates() {
+    use mpk_vc::go_practical_selection::import_go_practical_selection;
+    use mpk_vc::{canonical_json_bytes, parse_strict_json, StrictJsonLimits};
+    let corpus = corpus();
+    let keys = keys(&corpus);
+    let original = raw(&corpus["cases"][6])["function"].clone();
+    let alias = raw(&corpus["cases"][7])["function"].clone();
+    let strict = |value: &Value| {
+        parse_strict_json(
+            &serde_json::to_vec(value).unwrap(),
+            StrictJsonLimits::new(4_194_304, 1_000_000, 64, 1_000_000),
+        )
+        .unwrap()
+    };
+    let selection = |roots: Vec<Value>| {
+        import_go_practical_selection(&strict(&json!({
+            "schema":"mpk.selection.go_functions.v1", "value":{"roots":roots}
+        })))
+        .unwrap()
+    };
+    let direct =
+        resolve_go_practical_named_roots(&keys, &selection(vec![original.clone()])).unwrap();
+    let via_alias =
+        resolve_go_practical_named_roots(&keys, &selection(vec![alias.clone()])).unwrap();
+    assert_eq!(direct, via_alias);
+    let mut roots = vec![original, alias];
+    roots.sort_by_cached_key(|root| canonical_json_bytes(&strict(root)).unwrap());
+    assert!(matches!(
+        resolve_go_practical_named_roots(&keys, &selection(roots)),
+        Err(GoPracticalSourceBindingError::Duplicate {
+            first: 0,
+            second: 1
+        })
+    ));
+}

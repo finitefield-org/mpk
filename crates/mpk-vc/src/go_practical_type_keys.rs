@@ -68,8 +68,9 @@ mod source_declarations;
 mod source_dependencies;
 mod source_inputs;
 pub use selection_inputs::{
-    import_go_source_selection_inputs, GoSourcePhysicalRoot, GoSourceSelectionInputError,
-    GoSourceSelectionInputs,
+    bind_go_practical_source_selection, import_go_source_selection_inputs,
+    GoPracticalSourceBinding, GoPracticalSourceBindingError, GoSourcePhysicalRoot,
+    GoSourceSelectionInputError, GoSourceSelectionInputs,
 };
 mod source_languages;
 pub use source_languages::{
@@ -106,14 +107,14 @@ pub use source_declarations::{GoBoundTypeDeclaration, GoSourceTypeDeclarations};
 pub use source_inputs::{import_go_source_inputs, GoSourceInputs};
 pub use source_overlays::{
     bind_go_source_overlay, derive_go_source_contract_module, derive_go_source_overlay_selection,
-    derive_go_typed_source_overlays, GoBoundOverlayLoop, GoBoundSourceOverlay,
-    GoCapturedFunctionOverlay, GoContractExpression, GoContractExpressionReference,
-    GoContractExpressionType, GoContractHeaderBinding, GoContractObservation, GoContractPhase,
-    GoContractTypingError, GoContractTypingErrorKind, GoSourceContractModule,
-    GoSourceContractOrigin, GoSourceFunctionContract, GoSourceFunctionLoopContract,
-    GoSourceFunctionSelector, GoSourceLoopCandidateOrigin, GoSourceOverlay, GoSourceOverlayError,
-    GoSourceOverlayErrorKind, GoSourceOverlaySelection, GoSourceReceiverSelector,
-    GoTypedOverlayLoop, GoTypedSourceOverlay, GoTypedSourceOverlaySet,
+    derive_go_typed_source_overlays, resolve_go_practical_named_roots, GoBoundOverlayLoop,
+    GoBoundSourceOverlay, GoCapturedFunctionOverlay, GoContractExpression,
+    GoContractExpressionReference, GoContractExpressionType, GoContractHeaderBinding,
+    GoContractObservation, GoContractPhase, GoContractTypingError, GoContractTypingErrorKind,
+    GoSourceContractModule, GoSourceContractOrigin, GoSourceFunctionContract,
+    GoSourceFunctionLoopContract, GoSourceFunctionSelector, GoSourceLoopCandidateOrigin,
+    GoSourceOverlay, GoSourceOverlayError, GoSourceOverlayErrorKind, GoSourceOverlaySelection,
+    GoSourceReceiverSelector, GoTypedOverlayLoop, GoTypedSourceOverlay, GoTypedSourceOverlaySet,
 };
 pub use source_scalar_typing::{
     check_go_assignment, check_go_assignment_statement, check_go_function_body,

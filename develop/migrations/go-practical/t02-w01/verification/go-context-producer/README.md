@@ -13,7 +13,10 @@ The affected Go tests passed using the registered Go1.25.0 Linux/amd64 SDK in
 local emulation. They cover the original shared canonical request, Unicode and
 receiver cases, rejected malformed and unordered roots, the full 8,192/8,193
 boundary and caller mutation of owned data. The changed Go package also passed
-`go vet` and `gofmt` checks. The affected Rust context tests passed after adding
+`go vet` and `gofmt` checks. The existing fixed-Go launcher/profile guard,
+help, canonical-hash and strict-JSON tests also passed against the same pinned
+SDK, because the new producer is compiled into that frontend package. The
+affected Rust context tests passed after adding
 an import of the exact same canonical request; strict Clippy and Rust format
 checks passed. The small checked-in request is a conformance vector used by
 both consumers, not a validation archive. These checks were selected because

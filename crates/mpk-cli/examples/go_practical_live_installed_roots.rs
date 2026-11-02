@@ -145,6 +145,23 @@ fn main() {
             capture,
         )?)
     }
+    fn candidate_request(
+        packet: &Value,
+    ) -> Result<mpk_vc::go_practical_context::GoPrivateCandidateRequest> {
+        let raw = unhex(
+            packet["candidate_request_hex"]
+                .as_str()
+                .ok_or_else(|| fail("missing original Go candidate request"))?,
+        )?;
+        let value = mpk_vc::parse_strict_json(
+            &raw,
+            mpk_vc::StrictJsonLimits::new(268_435_456, 268_435_456, 64, 16_777_216),
+        )?;
+        Ok(
+            mpk_vc::go_practical_context::GoPrivateCandidateRegistry::new()?
+                .import_request(&value)?,
+        )
+    }
     fn compiler_inputs(
         packet: &Value,
         directory: &Path,
@@ -374,6 +391,7 @@ fn main() {
             return Err(fail("invalid original owner path").into());
         }
         let packet: Value = serde_json::from_slice(&fs::read(owner_path)?)?;
+        let candidate = candidate_request(&packet)?;
         let original = exports(&packet, directory)?;
         let matched = roots
             .bind(original)
@@ -412,12 +430,18 @@ fn main() {
             }
             owner
         };
+        let binding = held_owner
+            .bind_candidate_request(&candidate)
+            .map_err(|error| fail(format!("installed candidate/source binding: {error:?}")))?;
+        if binding.source_inputs().roots().len() != 1 {
+            return Err(fail("installed Go request lost its selected root").into());
+        }
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"staged_installed_root_opened":true,"staged_test_executable":true,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"staged_installed_root_opened":true,"staged_test_executable":true,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
-        std::hint::black_box(&held_owner);
+        std::hint::black_box((&held_owner, &binding));
         Ok(())
     }
 

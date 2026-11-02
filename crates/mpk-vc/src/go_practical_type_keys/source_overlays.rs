@@ -412,12 +412,11 @@ impl Binder<'_> {
         }
         Ok(r)
     }
-    fn resolve(&self, selector: &GoSourceFunctionSelector) -> OverlayResult<GoSourceSelectionRef> {
-        if !selector.validate() {
-            return Err(failure(GoSourceOverlayErrorKind::Selector));
-        }
-        let package = self.package(&selector.package)?;
-        let receiver = selector
+    fn selector_receiver(
+        &self,
+        selector: &GoSourceFunctionSelector,
+    ) -> OverlayResult<Option<GoSourceSelectionRef>> {
+        selector
             .receiver
             .as_ref()
             .map(|r| {
@@ -436,7 +435,14 @@ impl Binder<'_> {
                 self.receiver_declaration(binding.source_object_id(), binding.declaration_node())?
                     .ok_or_else(|| failure(GoSourceOverlayErrorKind::TypeSelector))
             })
-            .transpose()?;
+            .transpose()
+    }
+    fn resolve(&self, selector: &GoSourceFunctionSelector) -> OverlayResult<GoSourceSelectionRef> {
+        if !selector.validate() {
+            return Err(failure(GoSourceOverlayErrorKind::Selector));
+        }
+        let package = self.package(&selector.package)?;
+        let receiver = self.selector_receiver(selector)?;
         let mut matches = vec![];
         for source in &package.source_objects {
             let parsed = self
@@ -632,6 +638,117 @@ impl Binder<'_> {
         })
     }
 }
+
+/// Resolve all raw candidate roots against the same original source scopes.
+/// Build one name index per selected package so the frozen 8,192-root bound
+/// does not require rescanning the whole source universe for every root.
+pub fn resolve_go_practical_named_roots(
+    keys: &GoTypeKeyComponents,
+    selection: &crate::go_practical_selection::GoPracticalSelection,
+) -> std::result::Result<Vec<GoSourceSelectionRef>, GoPracticalSourceBindingError> {
+    use GoPracticalSourceBindingError as E;
+    let roots = selection.roots();
+    let scopes = Arc::new(build_go_source_scopes(keys).map_err(E::Scope)?);
+    let binder = Binder { keys, scopes };
+    type RootKey = (String, String, Option<GoSourceSelectionRef>);
+    let mut wanted = BTreeMap::<RootKey, usize>::new();
+    let mut names = BTreeMap::<String, BTreeSet<String>>::new();
+    for (index, root) in roots.iter().enumerate() {
+        let selector = GoSourceFunctionSelector {
+            package: root.package().to_owned(),
+            function: root.function().to_owned(),
+            receiver: root.receiver().map(|receiver| GoSourceReceiverSelector {
+                package: receiver.package().to_owned(),
+                type_name: receiver.type_name().to_owned(),
+            }),
+        };
+        if !selector.validate() {
+            return Err(E::Resolve {
+                root: Some(index),
+                error: failure(GoSourceOverlayErrorKind::Selector),
+            });
+        }
+        let package = binder
+            .package(&selector.package)
+            .map_err(|error| E::Resolve {
+                root: Some(index),
+                error,
+            })?;
+        let receiver = binder
+            .selector_receiver(&selector)
+            .map_err(|error| E::Resolve {
+                root: Some(index),
+                error,
+            })?;
+        let key = (package.id.clone(), selector.function, receiver);
+        if let Some(first) = wanted.insert(key.clone(), index) {
+            return Err(E::Duplicate {
+                first,
+                second: index,
+            });
+        }
+        names.entry(key.0).or_default().insert(key.1);
+    }
+    let mut found = vec![None; roots.len()];
+    for package in &keys.wire.packages {
+        let Some(package_names) = names.get(&package.id) else {
+            continue;
+        };
+        for source in &package.source_objects {
+            let parsed = binder.scopes.source(source).ok_or_else(|| E::Resolve {
+                root: None,
+                error: failure(GoSourceOverlayErrorKind::Source),
+            })?;
+            for (node, declaration) in parsed.nodes().iter().enumerate() {
+                if declaration.kind() != "FuncDecl" {
+                    continue;
+                }
+                let Some(name) = source_signatures::list(declaration, "Name")
+                    .first()
+                    .and_then(|&i| source_signatures::attr(&parsed.nodes()[i], "Name"))
+                else {
+                    continue;
+                };
+                if !package_names.contains(name) {
+                    continue;
+                }
+                let recv = source_signatures::list(declaration, "Recv")
+                    .first()
+                    .and_then(|&f| source_signatures::list(&parsed.nodes()[f], "List").first())
+                    .and_then(|&f| source_signatures::list(&parsed.nodes()[f], "Type").first())
+                    .copied();
+                let receiver = match recv {
+                    None => None,
+                    Some(typ) => match binder.receiver_declaration(source, typ) {
+                        Ok(Some(receiver)) => Some(receiver),
+                        _ => continue,
+                    },
+                };
+                let key = (package.id.clone(), name.to_owned(), receiver);
+                if let Some(&index) = wanted.get(&key) {
+                    let reference = GoSourceSelectionRef::new(source, node);
+                    if found[index].replace(reference).is_some() {
+                        return Err(E::Resolve {
+                            root: Some(index),
+                            error: failure(GoSourceOverlayErrorKind::Selector),
+                        });
+                    }
+                }
+            }
+        }
+    }
+    found
+        .into_iter()
+        .enumerate()
+        .map(|(index, root)| {
+            root.ok_or_else(|| E::Resolve {
+                root: Some(index),
+                error: failure(GoSourceOverlayErrorKind::Selector),
+            })
+        })
+        .collect()
+}
+
 fn original_loops(
     scopes: &GoSourceScopes,
     root: &GoSourceSelectionRef,

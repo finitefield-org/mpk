@@ -173,6 +173,11 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 		t.Fatal("compiler/source export owners differ")
 	}
 	packet["compiler_inputs_hex"] = hex.EncodeToString(compilerInputs.canonical)
+	request, err := newPracticalCandidateRequest([]practicalCandidateSelector{{Package: "example.com/policy", Function: "Root"}})
+	if err != nil {
+		fail(err)
+	}
+	packet["candidate_request_hex"] = hex.EncodeToString(request.requestBytes())
 	files := []any{}
 	totalBytes := int64(0)
 	large := 0

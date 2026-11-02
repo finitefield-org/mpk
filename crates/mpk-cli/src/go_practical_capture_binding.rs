@@ -6,7 +6,9 @@ use crate::go_practical_installed_compiler::{
     InstalledGoCompiler, InstalledGoCompilerError, InstalledGoSourceCompilerInputs,
 };
 use crate::go_practical_source_roots::{GoSourceRootError, GoSourceRoots, GoSourceRootsMatch};
+use mpk_vc::go_practical_context::GoPrivateCandidateRequest;
 use mpk_vc::go_practical_type_keys::{
+    bind_go_practical_source_selection, GoPracticalSourceBinding, GoPracticalSourceBindingError,
     GoSourceCompilerInputs, GoSourceExportInputs, GoSourceSnapshotInputs,
 };
 use mpk_vc::ReleaseRegistryIdentity;
@@ -181,6 +183,17 @@ impl GoCompleteRootMatchedExportInputs {
     pub(crate) fn export_snapshot(&self) -> &GoSourceSnapshotInputs {
         self.export_roots.snapshot()
     }
+
+    /// The binding borrows the exact source owner covered by both held roots.
+    pub(crate) fn bind_candidate_request<'a>(
+        &'a self,
+        request: &'a GoPrivateCandidateRequest,
+    ) -> Result<GoPracticalSourceBinding<'a>, GoPracticalSourceBindingError> {
+        bind_go_practical_source_selection(
+            request,
+            self.exports.capture_inputs().selection_inputs(),
+        )
+    }
 }
 
 /// Require the two disjoint root sets to cover every original capability,
@@ -241,6 +254,21 @@ impl InstalledGoCompleteRootMatchedCompilerInputs {
 
     pub(crate) fn export_snapshot(&self) -> &GoSourceSnapshotInputs {
         self.export_roots.snapshot()
+    }
+
+    /// Keep installed compiler and both root owners borrowed for the complete
+    /// request/source match; this does not authorize launcher-selected paths.
+    pub(crate) fn bind_candidate_request<'a>(
+        &'a self,
+        request: &'a GoPrivateCandidateRequest,
+    ) -> Result<GoPracticalSourceBinding<'a>, GoPracticalSourceBindingError> {
+        bind_go_practical_source_selection(
+            request,
+            self.compiler_inputs()
+                .export_inputs()
+                .capture_inputs()
+                .selection_inputs(),
+        )
     }
 }
 
