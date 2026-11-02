@@ -52,7 +52,8 @@ were unchanged. The added annotation-only test also ran independently. After
 adding the private CLI check, the affected full-graph test passed again with
 byte-identical, independently Go-checked certificates. No new validation
 archive is committed. Strict affected Clippy for the CLI library and affected
-tests, and changed-file Rust formatting, passed.
+tests, including the Linux x86_64 CLI target, and changed-file Rust formatting,
+passed.
 
 These are relations on the complete encoded values, including padding and
 ghost fields. They do not establish Go `==`, runtime input validity, source

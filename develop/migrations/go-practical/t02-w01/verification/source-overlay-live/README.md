@@ -27,10 +27,13 @@ The new complete-capture test and the source comparison passed. Go 1.25 vet,
 changed-file formatting and strict affected Linux observer Clippy, including
 its test configuration, passed. The two original shared-path cases were
 selected because the new fixture extends their shared capture helper and
-observer. Their first retries both stopped during offline module discovery with
+observer. Their initial retries stopped during offline module discovery with
 `signal: killed` at the unchanged 120-second command limit under high host
-load. The cross-package case then passed a full-input retry; the call-free
-case stopped in discovery again and remains to be rerun.
+load. Both then passed full-input retries: the cross-package case in 919 seconds
+and the call-free case in 475 seconds. Their entry certificates match the
+corresponding previously Go-checked bytes; the cross-package call certificate
+also matches. The call-free case required three unsuccessful discovery attempts
+before its successful retry.
 No new validation archive is committed.
 
 R01 and T02-W01 remain open, the practical profile stays inactive, and the
