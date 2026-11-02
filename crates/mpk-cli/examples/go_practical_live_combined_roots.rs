@@ -463,6 +463,17 @@ fn main() {
         };
         #[cfg(not(test))]
         let expect_call = false;
+        #[cfg(test)]
+        let expect_overlay = match std::env::var("MPK_GO_TEST_EXPECT_OVERLAY") {
+            Ok(value) if value == "1" => true,
+            Err(std::env::VarError::NotPresent) => false,
+            _ => return Err(fail("invalid test overlay expectation").into()),
+        };
+        #[cfg(not(test))]
+        let expect_overlay = false;
+        if expect_overlay && !expect_call {
+            return Err(fail("overlay fixture requires the original call").into());
+        }
         let expected_functions = if expect_call { 2 } else { 1 };
         let expected_calls = usize::from(expect_call);
         let original = exports(&packet, directory)?;
@@ -496,15 +507,51 @@ fn main() {
                 .count()
                 != 1
                 || module.functions().iter().any(|function| {
-                    function.origin() != &GoSourceContractOrigin::Default
-                        || function.termination() != "partial"
+                    function.termination() != "partial"
                         || !function.requires().is_empty()
                         || function.ensures().len() != 1
-                        || function.ensures()[0].operator() != "bool.literal"
-                        || function.ensures()[0].literal() != Some(&Value::Bool(true))
+                        || if expect_overlay && function.is_selected_root() {
+                            !matches!(
+                                function.origin(),
+                                GoSourceContractOrigin::SourceOverlay { .. }
+                            ) || function.ensures()[0].operator() != "eq"
+                                || function.ensures()[0].children().len() != 2
+                                || function.ensures()[0].children()[0].operator() != "result"
+                                || function.ensures()[0].children()[1].operator() != "input"
+                        } else {
+                            function.origin() != &GoSourceContractOrigin::Default
+                                || function.ensures()[0].operator() != "bool.literal"
+                                || function.ensures()[0].literal() != Some(&Value::Bool(true))
+                        }
                 })
             {
-                return Err(fail("original zero-overlay default contract changed").into());
+                return Err(fail("original source contracts changed").into());
+            }
+            if expect_overlay {
+                let captured = module.captured_overlays();
+                if captured.len() != 1
+                    || !captured[0].in_body_closure()
+                    || captured[0].function() != &module.selected_roots()[0]
+                    || captured[0].overlay().source_path() != "policy.go"
+                {
+                    return Err(fail("original selected overlay was lost").into());
+                }
+                let raw = captured[0].overlay().source_buffer();
+                if raw.object().capability != "workspace/main"
+                    || raw.object().path != "contracts/root.json"
+                    || serde_json::from_slice::<Value>(raw.bytes())?
+                        != json!({"schema":"mpk.go.practical.source_overlay.v1","source":"policy.go","function":{"package":"example.com/policy","function":"RootWithCall","receiver":null},"termination":"partial","requires":[],"ensures":[{"op":"eq","args":[{"op":"result","position":0},{"op":"input","position":0}]}],"error_inputs":[],"loops":[],"modifies":[]})
+                    || module
+                        .functions()
+                        .iter()
+                        .find(|function| function.is_selected_root())
+                        .and_then(|function| function.overlay_object_id())
+                        != Some(raw.object().id.as_str())
+                {
+                    return Err(fail("original selected overlay identity changed").into());
+                }
+            } else if !module.captured_overlays().is_empty() {
+                return Err(fail("unexpected original overlay").into());
             }
             if expect_call {
                 let site = &invocations.invocations().catalogue().sites()[0];
@@ -720,7 +767,7 @@ fn main() {
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"candidate_function_bodies":expected_functions,"candidate_call_sites":expected_calls,"same_root_components_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_components_checked":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"candidate_function_bodies":expected_functions,"candidate_call_sites":expected_calls,"test_overlay_bound":expect_overlay,"same_root_components_checked":true,"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_components_checked":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
         std::hint::black_box((&held_owner, &graph));
         Ok(())

@@ -9,6 +9,22 @@
       "requirement": "Private frozen registry/context/parameters/foundation contracts; retained policy delegation; no installed/public activation",
       "status": "partial_checked_ordinary_components_full_foundation_and_context_pending",
       "executor": "crates/mpk-vc/src/go_practical_ordinary.rs and go_practical_ordinary/{syntax,natural,integer,polynomial,range,word,word_proofs}.rs, crates/mpk-core and go-tools/mpk-checker-ref; candidate Go practical_context.go exists, while complete producer and checked context remain due",
+      "error_free_value_relations_checkpoint": {
+        "evidence": "verification/error-free-value-relations/README.md",
+        "executor": "crates/mpk-vc/src/go_practical_ordinary/source_value_relations.rs",
+        "scope": "Original source domains without error values retain every type and nominal underlying relation, with no synthetic error type. Both checkers accept the original three-type case, an original slice case and the complete graph-bound case. Original nil-only and 70-case error domains reject this specialized path. These are whole-carrier mathematics, not Go equality, source execution or a complete foundation.",
+        "R01_completed": false,
+        "public_profile_activated": false,
+        "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
+      "source_overlay_live_checkpoint": {
+        "evidence": "verification/source-overlay-live/README.md",
+        "executor": "go-tools/go2vir/practical_compiler_inputs_test.go and crates/mpk-cli/examples/go_practical_live_combined_roots.rs",
+        "scope": "The complete original application, graph and registered SDK retain an actual result/input postcondition and cross-package call. All 5516 existing non-export objects match the preceding original capture byte-for-byte. Both checkers accept the entry and call-interface certificates, which are identical to the no-overlay case and therefore do not prove the postcondition. Original shared-path retries remain in progress after discovery timeouts.",
+        "R01_completed": false,
+        "public_profile_activated": false,
+        "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
       "cross_package_live_checkpoint": {
         "evidence": "verification/cross-package-live/README.md",
         "executor": "go-tools/go2vir/practical_compiler_inputs_test.go and crates/mpk-cli/examples/go_practical_live_combined_roots.rs",

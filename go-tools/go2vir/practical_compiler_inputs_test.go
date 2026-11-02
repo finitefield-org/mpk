@@ -42,7 +42,13 @@ func TestPracticalInstalledCompilerInputsKeepWholeRegisteredSDKAndPackages(t *te
 
 func TestPracticalInstalledCompilerInputsKeepWholePackagesWithCrossPackageCall(t *testing.T) {
 	compiler := practicalTestRegisteredCompiler(t)
-	practicalCompilerInputsWithOriginalCandidate(t, compiler, "RootWithCall", []byte("func RootWithCall(x int64) int64 { return c.Identity(x) }\n"))
+	practicalCompilerInputsWithOriginalCandidate(t, compiler, "RootWithCall", []byte("func RootWithCall(x int64) int64 { return c.Identity(x) }\n"), nil)
+}
+
+func TestPracticalInstalledCompilerInputsKeepWholePackagesWithSourceOverlay(t *testing.T) {
+	compiler := practicalTestRegisteredCompiler(t)
+	overlay := []byte(`{"schema":"mpk.go.practical.source_overlay.v1","source":"policy.go","function":{"package":"example.com/policy","function":"RootWithCall","receiver":null},"termination":"partial","requires":[],"ensures":[{"op":"eq","args":[{"op":"result","position":0},{"op":"input","position":0}]}],"error_inputs":[],"loops":[],"modifies":[]}` + "\n")
+	practicalCompilerInputsWithOriginalCandidate(t, compiler, "RootWithCall", []byte("func RootWithCall(x int64) int64 { return c.Identity(x) }\n"), overlay)
 }
 
 func practicalTestRegisteredCompiler(t *testing.T) practicalCompilerImage {
@@ -80,10 +86,10 @@ func practicalTestRegisteredCompiler(t *testing.T) practicalCompilerImage {
 
 func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T, compiler practicalCompilerImage) {
 	t.Helper()
-	practicalCompilerInputsWithOriginalCandidate(t, compiler, "Root", nil)
+	practicalCompilerInputsWithOriginalCandidate(t, compiler, "Root", nil, nil)
 }
 
-func practicalCompilerInputsWithOriginalCandidate(t *testing.T, compiler practicalCompilerImage, selectedFunction string, additionalPolicy []byte) {
+func practicalCompilerInputsWithOriginalCandidate(t *testing.T, compiler practicalCompilerImage, selectedFunction string, additionalPolicy, overlay []byte) {
 	t.Helper()
 	practicalContractTestOutput(t, "versioned-owned")
 	roots, _ := practicalTestCaptureRoots(t)
@@ -108,10 +114,18 @@ func practicalCompilerInputsWithOriginalCandidate(t *testing.T, compiler practic
 	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "go.mod"), manifest, 0o600)
 	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "go.sum"), []byte(sums), 0o600)
 	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "policy.go"), policy, 0o600)
+	if overlay != nil {
+		writePracticalTestFile(t, filepath.Join(roots[0].Directory, "contracts", "root.json"), overlay, 0o600)
+	}
 	practicalGraphTestOriginals(t, roots)
 	roots = append(roots, practicalSourceRoot{Capability: "original-go-sdk", Directory: compiler.selection.GoRoot})
 	practicalLiveRootComparisonStart(t, roots)
 	session := practicalTestSession(t, roots)
+	if overlay != nil {
+		if _, err := session.readSource(roots[0].Capability, "contracts/root.json", "overlay"); err != nil {
+			t.Fatal(err)
+		}
+	}
 	fail := func(err error) {
 		var native *practicalGoDiscoveryFailure
 		if errors.As(err, &native) {

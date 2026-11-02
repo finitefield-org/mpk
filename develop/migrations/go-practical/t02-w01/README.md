@@ -42,6 +42,15 @@ now retains the same Go package owner and independently reconstructs its offline
 module data and graph in Rust while the candidate and both root sets are held.
 Launcher authority and source/program proofs remain open.
 
+The [error-free value relations](verification/error-free-value-relations/README.md)
+cover complete original source domains without inventing an `error` value.
+The complete graph-bound check passes; source execution and the complete
+foundation remain open.
+
+The [complete source-overlay capture](verification/source-overlay-live/README.md)
+retains an actual result/input postcondition with the full application and
+SDK. The current entry and call certificates do not prove that postcondition.
+
 The [complete cross-package capture](verification/cross-package-live/README.md)
 also checks an actual call into the original Go 1.22 dependency while preserving
 the whole application and SDK. Both checkers accept its entry and call-interface
