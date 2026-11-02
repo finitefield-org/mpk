@@ -11,6 +11,8 @@ pub mod expr_encode;
 #[doc(hidden)]
 pub mod go_practical_ordinary;
 #[doc(hidden)]
+pub mod go_practical_selection;
+#[doc(hidden)]
 pub mod go_practical_type_keys;
 pub mod grouping;
 pub mod hash;

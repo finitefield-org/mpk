@@ -12,6 +12,10 @@ owns the two held root sets through their complete export-owner binding. Its
 full original Go capture and affected Linux tests pass; launcher authority,
 private context and source/program proofs remain open.
 
+The [request selection boundary](verification/request-selection/README.md)
+validates and hashes the frozen raw Go function/method selectors. It does not
+activate the profile or replace later original-source and alias resolution.
+
 Status: In progress. Entry is T01 completion commit
 `fe1b85cb70c7ea390c02469706d09cdc913f973f`. The
 [requirements](requirements.json) retain the complete W01 scope: private

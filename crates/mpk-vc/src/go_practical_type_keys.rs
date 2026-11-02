@@ -87,6 +87,13 @@ mod source_scopes;
 mod source_signatures;
 mod source_types;
 mod validate;
+
+/// Reuse the pinned Go Unicode/keyword table for private request selectors.
+/// Source membership and alias resolution remain later obligations.
+pub(crate) fn is_go_practical_identifier(value: &str) -> bool {
+    validate::identifier(value)
+}
+
 pub use lex::{lex_go_source, GoLexError, GoLexErrorKind, GoLexToken, GoLexedSource};
 pub use parse::{
     parse_go_source, GoParseError, GoParseErrorKind, GoParsedSource, GoSyntaxEdge, GoSyntaxNode,
