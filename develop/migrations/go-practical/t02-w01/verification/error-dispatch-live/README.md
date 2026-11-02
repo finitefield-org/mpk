@@ -32,7 +32,9 @@ release acceptance.
 The full capture, source comparison and both checkers were selected to cover
 the new nonempty error-dispatch closure. Go vet, changed-file formatting and
 strict affected Linux observer Clippy, including its test configuration,
-passed. The complete 70-case regression also passed; the affected existing
-static-call case remains in progress. No validation archive is committed.
+passed. The complete 70-case regression also passed. The affected existing
+static-call case passed with its full original application, SDK and dependency
+inputs; its entry, call and value-relation certificates were byte-identical to
+the previously Go-checked certificates. No validation archive is committed.
 R01 and T02-W01 remain open, the practical profile remains inactive, and the
 cumulative `./scripts/check-fast.sh` gate is deferred to final T02-W04.
