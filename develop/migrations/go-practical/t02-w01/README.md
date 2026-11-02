@@ -44,8 +44,8 @@ Launcher authority and source/program proofs remain open.
 
 The [error-free value relations](verification/error-free-value-relations/README.md)
 cover complete original source domains without inventing an `error` value.
-The complete graph-bound check passes; source execution and the complete
-foundation remain open.
+The private CLI checks the complete graph-bound certificate; live-root
+authority, source execution and the complete foundation remain open.
 
 The [complete source-overlay capture](verification/source-overlay-live/README.md)
 retains an actual result/input postcondition with the full application and

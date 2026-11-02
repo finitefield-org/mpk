@@ -5,6 +5,9 @@ use serde_json::{json, Value};
 use sha2::{Digest, Sha256};
 use std::path::{Path, PathBuf};
 
+#[path = "../../mpk-cli/src/go_practical_checked_value_relations.rs"]
+mod checked_value_relations;
+
 fn root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../../develop/migrations/go-practical/t02-w01/verification")
@@ -356,6 +359,9 @@ fn candidate_graph_binding_rejects_crossed_complete_original_owners() {
         .unwrap()
         .derive_error_free_value_relations()
         .unwrap();
+    let checked_relations =
+        checked_value_relations::check_go_graph_value_relations(relations).unwrap();
+    let relations = checked_relations.binding();
     assert_eq!(
         relations.contracts().graph().canonical_bytes(),
         versioned.canonical_bytes()
@@ -369,8 +375,7 @@ fn candidate_graph_binding_rejects_crossed_complete_original_owners() {
             .collect::<Vec<_>>(),
         domain.types().collect::<Vec<_>>()
     );
-    let checked =
-        mpk_kernel::verify_certificate_bytes(relations.relations().certificate_bytes()).unwrap();
+    let checked = checked_relations.report();
     assert_eq!(checked.axiom_count, 0);
     if let Some(dir) = std::env::var_os("MPK_GO_GRAPH_INPUTS_OUTPUT") {
         use std::io::Write;
@@ -384,7 +389,7 @@ fn candidate_graph_binding_rejects_crossed_complete_original_owners() {
             .write_all(relations.relations().certificate_bytes())
             .unwrap();
         let report: Value =
-            serde_json::from_str(&mpk_kernel::render_verification_report_json(&checked)).unwrap();
+            serde_json::from_str(&mpk_kernel::render_verification_report_json(checked)).unwrap();
         output("candidate-graph-error-free-relations.rust.json", &report);
     }
     let local_source =
