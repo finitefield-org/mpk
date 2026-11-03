@@ -129,6 +129,9 @@ func (owner *practicalOriginalPackages) candidateSourceSelection(request *practi
 	if owner.closed || owner.inputs == nil || owner.loader == nil || owner.loader.syntax == nil {
 		return practicalCandidateSourceSelection{}, fmt.Errorf("candidate source owner is closed or incomplete")
 	}
+	if len(owner.candidateRequest) != 0 && !bytes.Equal(owner.candidateRequest, request.requestBytes()) {
+		return practicalCandidateSourceSelection{}, fmt.Errorf("candidate source owner belongs to a different complete request")
+	}
 	for _, failure := range []error{owner.inputs.failed, owner.loader.failed, owner.loader.syntax.failed} {
 		if failure != nil {
 			return practicalCandidateSourceSelection{}, failure

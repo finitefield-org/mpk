@@ -5,8 +5,9 @@ source-typed package closure. The binder derives every selected package from
 the complete owned request, requires all selected packages to have been
 type-checked, and applies the existing whole-closure source, import, compiler
 archive and native metadata correspondence checks. Candidate and legacy
-single-package observations remain separate. This check does not yet construct
-a candidate-aware owned image or pass the closure to the Rust wire reader.
+single-package observations remain separate. This correspondence check alone
+does not construct an owned image or pass the closure to the Rust wire reader;
+the subsequent candidate image checkpoint is documented separately.
 
 The targeted test uses the original HTTP application, all original
 dependencies and the full 5,577-file registered Go SDK. It adds a function and
@@ -26,8 +27,8 @@ because this change shares their correspondence code. Go vet and changed-file
 formatting also passed. These checks ran locally under Linux amd64 emulation;
 they are not a native Linux release gate.
 
-This is an internal preparation checkpoint. Candidate-aware immutable image
-ownership, independent Rust multi-package input, exact handling for Go command
+This is an internal preparation checkpoint. Independent Rust multi-package
+input, exact handling for Go command
 pattern spellings, launcher authority and source/program proofs remain open.
 W01 remains incomplete; the T02-wide `./scripts/check-fast.sh` gate is deferred
 to final T02-W04. No validation archive is committed.

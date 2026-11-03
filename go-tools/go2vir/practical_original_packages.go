@@ -21,6 +21,8 @@ type practicalOriginalPackages struct {
 	packages                                  map[string]practicalCapturedPackageExport
 	imageDigest, compilerDigest, mainSourceID string
 	requestedPackage                          string
+	requestedPackages                         []string
+	candidateRequest                          []byte
 	moduleOutput, packageOutput               []byte
 	moduleDiagnostics, packageDiagnostics     []byte
 	closed                                    bool
@@ -30,14 +32,39 @@ type practicalOriginalPackages struct {
 // replacement command. Rebuild every original package, including unused bodies,
 // from the owned image and bind the actual full source/export observation.
 func (image *practicalReplayImage) originalPackages(main, cache practicalModuleLocation, discovery practicalModuleDiscovery, exports practicalPackageExports, sdkCapability string) (result *practicalOriginalPackages, failure error) {
+	return image.originalPackagesExact(main, cache, discovery, exports, sdkCapability, nil)
+}
+
+// Reconstruct every candidate package from the immutable original image.
+// The legacy single-package input handoffs do not accept this owner.
+func (image *practicalReplayImage) originalCandidatePackages(main, cache practicalModuleLocation, discovery practicalModuleDiscovery, exports practicalPackageExports, sdkCapability string, request *practicalCandidateRequest) (*practicalOriginalPackages, error) {
+	if request == nil {
+		return nil, fmt.Errorf("candidate package universe needs its complete original request")
+	}
+	return image.originalPackagesExact(main, cache, discovery, exports, sdkCapability, request)
+}
+
+func (image *practicalReplayImage) originalPackagesExact(main, cache practicalModuleLocation, discovery practicalModuleDiscovery, exports practicalPackageExports, sdkCapability string, request *practicalCandidateRequest) (result *practicalOriginalPackages, failure error) {
 	if image == nil || image.compiler == nil {
 		return nil, fmt.Errorf("original package universe needs its complete owned compiler image")
 	}
 	if err := discovery.requireOriginalObservation(); err != nil {
 		return nil, err
 	}
-	if err := exports.requireOriginalObservation(); err != nil {
-		return nil, err
+	selectedPackages := []string{exports.requestedPackage}
+	if request == nil {
+		if err := exports.requireOriginalObservation(); err != nil {
+			return nil, err
+		}
+	} else {
+		if err := exports.requireCandidateOriginalObservation(request); err != nil {
+			return nil, err
+		}
+		var err error
+		selectedPackages, err = practicalCandidatePackagePaths(request)
+		if err != nil {
+			return nil, err
+		}
 	}
 	view, err := image.openVerifiedView()
 	if err != nil {
@@ -93,11 +120,19 @@ func (image *practicalReplayImage) originalPackages(main, cache practicalModuleL
 	if err != nil {
 		return nil, err
 	}
-	if _, err := loader.typecheck(exports.requestedPackage); err != nil {
-		return nil, err
+	for _, selected := range selectedPackages {
+		if _, err := loader.typecheck(selected); err != nil {
+			return nil, err
+		}
 	}
-	if err := exports.bindOriginalSourceTypes(loader, rebound, *image.compiler, sdkCapability); err != nil {
-		return nil, err
+	if request == nil {
+		if err := exports.bindOriginalSourceTypes(loader, rebound, *image.compiler, sdkCapability); err != nil {
+			return nil, err
+		}
+	} else {
+		if err := exports.bindCandidateOriginalSourceTypes(loader, rebound, *image.compiler, sdkCapability, request); err != nil {
+			return nil, err
+		}
 	}
 	if err := view.check(); err != nil {
 		return nil, err
@@ -108,6 +143,10 @@ func (image *practicalReplayImage) originalPackages(main, cache practicalModuleL
 		mainSourceID: rebound.mainSourceID, requestedPackage: exports.requestedPackage,
 		moduleOutput: bytes.Clone(rebound.observation.output), packageOutput: bytes.Clone(exports.observation.output),
 		moduleDiagnostics: bytes.Clone(rebound.observation.diagnostics), packageDiagnostics: bytes.Clone(exports.observation.diagnostics),
+	}
+	if request != nil {
+		result.requestedPackages = append([]string(nil), selectedPackages...)
+		result.candidateRequest = request.requestBytes()
 	}
 	for _, pkg := range exports.packages {
 		result.packages[pkg.importPath] = copyPracticalOriginalPackage(pkg)
@@ -178,6 +217,8 @@ func (packages *practicalOriginalPackages) Close() {
 	clear(packages.packageOutput)
 	clear(packages.moduleDiagnostics)
 	clear(packages.packageDiagnostics)
+	clear(packages.candidateRequest)
+	packages.candidateRequest, packages.requestedPackages = nil, nil
 	if packages.moduleGraph != nil {
 		clear(packages.moduleGraph.output)
 		clear(packages.moduleGraph.diagnostics)

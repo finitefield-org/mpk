@@ -1637,10 +1637,18 @@
       "requirement": "Original source/export metadata and complete compiler identity; immutable original packages without rewritten/stub source; closed capture for the later verification-closure algorithm",
       "status": "pending",
       "executor": "go-tools/go2vir/practical_capture.go, snapshot.go, loader.go",
+      "candidate_original_packages_checkpoint": {
+        "evidence": "verification/candidate-original-packages/README.md",
+        "executor": "go-tools/go2vir/practical_original_packages.go",
+        "scope": "A private image owner reconstructs every request-derived candidate package and the complete source-typed closure from the original captured image. The full registered SDK and original application plus an independent package yield 183 packages and 5699 source/export objects; all objects retain their complete identity and content hashes after original temporary inputs and buffers are retired. Different requests, crossed snapshots and legacy single-package ownership reject; caller mutation and owner closure are checked. Existing full registered-SDK and 15 original-owner negative controls pass. Candidate-aware selection/source and independent Rust multi-package handoffs, launcher authority and complete R06 capture remain due.",
+        "R06_completed": false,
+        "public_profile_activated": false,
+        "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
       "candidate_source_types_checkpoint": {
         "evidence": "verification/candidate-source-types/README.md",
         "executor": "go-tools/go2vir/practical_exports.go",
-        "scope": "Private candidate exports bind all request-derived packages against the complete source-typed closure and the original native metadata, source/import and compiler export identities. The 183-package original HTTP application plus independent package produces 182 typed packages and one unsafe intrinsic; incomplete selected types, changed requests and missing source membership reject. The unchanged full registered-SDK owner, no-unsafe and standard-library correspondence controls pass. Candidate-aware immutable image ownership, Rust multi-package input, exact Go command-pattern names and native argument-size handling remain due.",
+        "scope": "Private candidate exports bind all request-derived packages against the complete source-typed closure and the original native metadata, source/import and compiler export identities. The 183-package original HTTP application plus independent package produces 182 typed packages and one unsafe intrinsic; incomplete selected types, changed requests and missing source membership reject. The unchanged full registered-SDK owner, no-unsafe and standard-library correspondence controls pass. A candidate-aware image owner is recorded separately; Rust multi-package input, exact Go command-pattern names and native argument-size handling remain due.",
         "R06_completed": false,
         "public_profile_activated": false,
         "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
@@ -1648,7 +1656,7 @@
       "candidate_package_exports_checkpoint": {
         "evidence": "verification/candidate-package-exports/README.md",
         "executor": "go-tools/go2vir/practical_observation.go and practical_exports.go",
-        "scope": "A complete candidate request derives all distinct package arguments and captures their original offline Go source/export closure. The full application plus one additional original package retains 183 packages, 5517 source objects and 182 export objects while selecting functions in three packages including an original dependency. All 5516 original source objects and 181 original compiler exports match the single-package baseline byte for byte; request, argument, output and selected-root mutations reject. All 8192 distinct package paths derive without truncation, and the unchanged full single-package case and affected Go observation checks pass. This remains a private preparation: typed-package and Rust consumers, exact literal handling for Go command-pattern names, native argument-size boundaries, launcher authority and the complete R06 capture remain due.",
+        "scope": "A complete candidate request derives all distinct package arguments and captures their original offline Go source/export closure. The full application plus one additional original package retains 183 packages, 5517 source objects and 182 export objects while selecting functions in three packages including an original dependency. All 5516 original source objects and 181 original compiler exports match the single-package baseline byte for byte; request, argument, output and selected-root mutations reject. All 8192 distinct package paths derive without truncation, and the unchanged full single-package case and affected Go observation checks pass. This remains a private preparation: candidate source/selection and Rust handoffs, exact literal handling for Go command-pattern names, native argument-size boundaries, launcher authority and the complete R06 capture remain due.",
         "R06_completed": false,
         "public_profile_activated": false,
         "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
