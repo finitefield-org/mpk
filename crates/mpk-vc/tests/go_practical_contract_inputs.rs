@@ -14,18 +14,77 @@ fn unhex(s: &str) -> Vec<u8> {
         .collect()
 }
 fn seal(v: &mut Value) {
+    seal_domain(v, "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-1.0");
+}
+fn seal_domain(v: &mut Value, domain: &'static str) {
     v.as_object_mut().unwrap().remove("content_sha256");
     let parsed = parse_strict_json(
         &serde_json::to_vec(v).unwrap(),
         StrictJsonLimits::new(268435456, 268435456, 64, 16777216),
     )
     .unwrap();
-    v["content_sha256"] = json!(hash_canonical_json(
-        HashDomain::new("MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-1.0"),
-        &parsed
-    )
-    .unwrap()
-    .to_hex());
+    v["content_sha256"] = json!(hash_canonical_json(HashDomain::new(domain), &parsed)
+        .unwrap()
+        .to_hex());
+}
+
+#[test]
+fn candidate_contract_inputs_preserve_all_selected_packages_and_request_identity() {
+    let p = packet();
+    let overlays = buffers(&p, "overlays");
+    let mut candidate = envelope(&p);
+    candidate
+        .as_object_mut()
+        .unwrap()
+        .remove("requested_package");
+    candidate["schema"] = json!("mpk.go.practical.source_contract_inputs.v2");
+    candidate["requested_packages"] = json!(["example.com/policy", "example.com/policy/helper"]);
+    candidate["candidate_request_sha256"] = json!("a".repeat(64));
+    seal_domain(&mut candidate, "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-2.0");
+    let imported = import(&p, &candidate, &overlays).unwrap();
+    assert_eq!(imported.requested_package(), None);
+    assert_eq!(
+        imported.requested_packages(),
+        ["example.com/policy", "example.com/policy/helper"]
+    );
+    assert_eq!(
+        imported.candidate_request_sha256(),
+        Some("a".repeat(64).as_str())
+    );
+
+    for control in [
+        "empty",
+        "duplicate",
+        "order",
+        "absent",
+        "hash",
+        "mixed",
+        "null",
+    ] {
+        let mut changed = candidate.clone();
+        match control {
+            "empty" => changed["requested_packages"] = json!([]),
+            "duplicate" => {
+                changed["requested_packages"] = json!(["example.com/policy", "example.com/policy"])
+            }
+            "order" => {
+                changed["requested_packages"] =
+                    json!(["example.com/policy/helper", "example.com/policy"])
+            }
+            "absent" => {
+                changed["requested_packages"] = json!(["example.com/absent", "example.com/policy"])
+            }
+            "hash" => changed["candidate_request_sha256"] = json!("A".repeat(64)),
+            "mixed" => changed["requested_package"] = json!("example.com/policy"),
+            "null" => changed["requested_package"] = Value::Null,
+            _ => unreachable!(),
+        }
+        seal_domain(&mut changed, "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-2.0");
+        assert!(
+            import(&p, &changed, &overlays).is_err(),
+            "accepted {control}"
+        );
+    }
 }
 fn packet() -> Value {
     serde_json::from_slice(
@@ -94,7 +153,7 @@ fn contract_inputs_bind_actual_owned_sources_and_every_sidecar() {
         unhex(p["components_hex"].as_str().unwrap())
     );
     assert_eq!(input.overlays().len(), 3);
-    assert_eq!(input.requested_package(), "example.com/policy");
+    assert_eq!(input.requested_package(), Some("example.com/policy"));
     for (got, key) in [
         (input.image_sha256(), "image_sha256"),
         (input.compiler_sha256(), "compiler_sha256"),

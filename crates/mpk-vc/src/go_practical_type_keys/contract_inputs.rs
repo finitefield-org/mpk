@@ -3,6 +3,7 @@
 use super::*;
 
 const DOMAIN: HashDomain = HashDomain::new("MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-1.0");
+const CANDIDATE_DOMAIN: HashDomain = HashDomain::new("MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-2.0");
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -11,7 +12,12 @@ struct Wire {
     image_sha256: String,
     compiler_sha256: String,
     main_source_object_id: String,
-    requested_package: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    requested_package: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    requested_packages: Option<Vec<String>>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    candidate_request_sha256: Option<String>,
     source_components_sha256: String,
     overlays: Vec<GoTypeSourceObject>,
     content_sha256: String,
@@ -46,6 +52,7 @@ pub struct GoSourceContractInputs {
     source: GoSourceInputs,
     overlays: Vec<GoSourceOverlay>,
     wire: Wire,
+    requested_packages: Vec<String>,
     canonical: Vec<u8>,
 }
 impl GoSourceContractInputs {
@@ -67,8 +74,16 @@ impl GoSourceContractInputs {
     pub fn main_source_object_id(&self) -> &str {
         &self.wire.main_source_object_id
     }
-    pub fn requested_package(&self) -> &str {
-        &self.wire.requested_package
+    /// The legacy single-package provenance, if this is a v1 record.
+    pub fn requested_package(&self) -> Option<&str> {
+        self.wire.requested_package.as_deref()
+    }
+    /// Every selected native package, in strictly increasing import-path order.
+    pub fn requested_packages(&self) -> &[String] {
+        &self.requested_packages
+    }
+    pub fn candidate_request_sha256(&self) -> Option<&str> {
+        self.wire.candidate_request_sha256.as_deref()
     }
     pub fn content_sha256(&self) -> &str {
         &self.wire.content_sha256
@@ -102,9 +117,31 @@ pub fn import_go_source_contract_inputs(
 ) -> std::result::Result<GoSourceContractInputs, GoSourceContractInputError> {
     let input = |e| GoSourceContractInputError::Input(e);
     let wire: Wire = decode(record).map_err(input)?;
-    if wire.schema != "mpk.go.practical.source_contract_inputs.v1" {
-        return Err(input(GoTypeKeyError::Shape));
-    }
+    let (requested_packages, domain) = match (
+        wire.schema.as_str(),
+        &wire.requested_package,
+        &wire.requested_packages,
+        &wire.candidate_request_sha256,
+    ) {
+        ("mpk.go.practical.source_contract_inputs.v1", Some(package), None, None)
+            if !package.is_empty() =>
+        {
+            (vec![package.clone()], DOMAIN)
+        }
+        ("mpk.go.practical.source_contract_inputs.v2", None, Some(packages), Some(request))
+            if !packages.is_empty()
+                && packages.len() <= 8192
+                && packages.iter().all(|p| !p.is_empty())
+                && packages.windows(2).all(|pair| pair[0] < pair[1])
+                && request.len() == 64
+                && request
+                    .bytes()
+                    .all(|c| c.is_ascii_digit() || (b'a'..=b'f').contains(&c)) =>
+        {
+            (packages.clone(), CANDIDATE_DOMAIN)
+        }
+        _ => return Err(input(GoTypeKeyError::Shape)),
+    };
     if ![
         &wire.image_sha256,
         &wire.compiler_sha256,
@@ -117,18 +154,22 @@ pub fn import_go_source_contract_inputs(
         s.len() == 64
             && s.bytes()
                 .all(|c| c.is_ascii_digit() || (b'a'..=b'f').contains(&c))
-    }) || identity(&wire, DOMAIN, "content_sha256").map_err(input)? != wire.content_sha256
+    }) || identity(&wire, domain, "content_sha256").map_err(input)? != wire.content_sha256
     {
         return Err(input(GoTypeKeyError::Identity));
     }
     let source = import_go_source_inputs(components, sources).map_err(input)?;
     let keys = source.components();
+    let package_paths = keys
+        .wire
+        .packages
+        .iter()
+        .map(|p| p.import_path.as_str())
+        .collect::<BTreeSet<_>>();
     if keys.wire.content_sha256 != wire.source_components_sha256
-        || !keys
-            .wire
-            .packages
+        || requested_packages
             .iter()
-            .any(|p| p.import_path == wire.requested_package)
+            .any(|package| !package_paths.contains(package.as_str()))
     {
         return Err(input(GoTypeKeyError::Reference));
     }
@@ -201,6 +242,7 @@ pub fn import_go_source_contract_inputs(
         source,
         overlays: parsed,
         wire,
+        requested_packages,
         canonical,
     })
 }

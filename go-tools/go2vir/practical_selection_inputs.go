@@ -50,6 +50,39 @@ func (owner *practicalOriginalPackages) selectionInputsLocked(roots []practicalC
 	if len(roots) == 0 || len(roots) > 8192 {
 		return practicalSelectionInputs{}, fmt.Errorf("selection inputs require original function roots within the frozen count")
 	}
+	if len(owner.candidateRequest) != 0 {
+		if owner.closed || owner.inputs == nil || owner.loader == nil || owner.loader.syntax == nil {
+			return practicalSelectionInputs{}, fmt.Errorf("candidate selection owner is closed or incomplete")
+		}
+		request, _, err := owner.ownedCandidateRequestLocked()
+		if err != nil {
+			return practicalSelectionInputs{}, err
+		}
+		selectors, err := practicalCandidateRequestRoots(request)
+		if err != nil {
+			return practicalSelectionInputs{}, err
+		}
+		expected, err := owner.candidateSourceRefsLocked(selectors)
+		if err != nil {
+			return practicalSelectionInputs{}, err
+		}
+		if len(expected) != len(roots) {
+			return practicalSelectionInputs{}, fmt.Errorf("candidate selection lost its complete original roots")
+		}
+		remaining := make(map[practicalClosureRef]bool, len(expected))
+		for _, ref := range expected {
+			remaining[ref] = true
+		}
+		for _, ref := range roots {
+			if !remaining[ref] {
+				return practicalSelectionInputs{}, fmt.Errorf("candidate selection crossed its complete original roots")
+			}
+			delete(remaining, ref)
+		}
+		if len(remaining) != 0 {
+			return practicalSelectionInputs{}, fmt.Errorf("candidate selection lost its complete original roots")
+		}
+	}
 	contracts, err := owner.contractInputsLocked()
 	if err != nil {
 		return practicalSelectionInputs{}, err

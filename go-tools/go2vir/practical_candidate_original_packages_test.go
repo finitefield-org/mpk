@@ -4,8 +4,10 @@ package main
 
 import (
 	"bytes"
+	"encoding/hex"
 	"os"
 	"reflect"
+	"slices"
 	"strings"
 	"testing"
 )
@@ -77,14 +79,55 @@ func TestPracticalCandidateOriginalPackagesOwnWholeImage(t *testing.T) {
 			if image.activeViews != 0 || owner.requestedPackage != "" || !reflect.DeepEqual(owner.requestedPackages, []string{"example.com/c", "example.com/policy", "example.com/policy/second"}) || !bytes.Equal(owner.candidateRequest, request.requestBytes()) {
 				t.Fatal("candidate owner lost the complete request or retained its image view")
 			}
-			if _, err := owner.sourceInputs(); err == nil {
-				t.Fatal("candidate owner entered the legacy single-package source handoff")
+			source, err := owner.sourceInputs()
+			if err != nil || source.requestedPackage != "" || !reflect.DeepEqual(source.requestedPackages, owner.requestedPackages) || source.candidateRequestSHA256 == "" {
+				t.Fatal("candidate source inputs lost complete request provenance", err)
 			}
 			if _, err := owner.candidateSourceSelection(other); err == nil || !strings.Contains(err.Error(), "different complete request") {
 				t.Fatal("candidate owner accepted another request", err)
 			}
+			candidate, err := image.candidateCompilerInputs(owner, request)
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer candidate.Close()
+			refs := candidate.selection.rootRefs()
+			if len(refs) != 4 {
+				t.Fatalf("candidate source selection lost roots: %d", len(refs))
+			}
+			for _, ref := range []practicalClosureRef{
+				practicalClosureTestRef(t, owner, "example.com/c", "Identity"),
+				practicalClosureTestRef(t, owner, "example.com/policy", "Root"),
+				practicalClosureTestRef(t, owner, "example.com/policy", "OtherRoot"),
+				practicalClosureTestRef(t, owner, "example.com/policy/second", "Select"),
+			} {
+				if !slices.Contains(refs, ref) {
+					t.Fatal("candidate source selection lost an original function")
+				}
+			}
+			if _, err := owner.selectionInputs(refs[:3]); err == nil {
+				t.Fatal("candidate owner accepted a narrowed physical selection")
+			}
+			changedRoots := append([]practicalClosureRef(nil), refs...)
+			changedRoots[0] = practicalClosureTestRef(t, owner, "example.com/policy", "Unused")
+			if _, err := owner.selectionInputs(changedRoots); err == nil {
+				t.Fatal("candidate owner accepted a different physical root")
+			}
 			if err := image.Close(); err != nil {
 				t.Fatal(err)
+			}
+			graph, err := candidate.moduleGraphInputs()
+			if err != nil || !bytes.Equal(graph.modules.exports.canonical, candidate.compiler.exports.canonical) {
+				t.Fatal("candidate graph lost the complete export owner", err)
+			}
+			if os.Getenv("MPK_GO_PRACTICAL_SYNTAX_EVIDENCE") != "" {
+				retainPracticalStandardSnapshot(t, owner.inputs.snapshot)
+				packet := practicalCaptureInputEvidence(t, graph.modules.exports.capture)
+				packet["export_inputs_hex"] = hex.EncodeToString(graph.modules.exports.canonical)
+				packet["module_observations_hex"] = hex.EncodeToString(graph.modules.canonical)
+				packet["module_graph_inputs_hex"] = hex.EncodeToString(graph.canonical)
+				packet["candidate_request_hex"] = hex.EncodeToString(request.requestBytes())
+				retainPracticalSyntaxEvidence(t, "candidate-multi-inputs.json", packet)
 			}
 			inventory, err := owner.inventory()
 			if err != nil || len(inventory) != 183 || len(owner.loader.packages) != 182 {

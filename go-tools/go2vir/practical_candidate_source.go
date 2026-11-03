@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"go/ast"
 	"go/types"
+	"slices"
 )
 
 // The request and the physical roots are derived from the same original
@@ -106,6 +107,32 @@ func practicalCandidateRequestRoots(request *practicalCandidateRequest) ([]pract
 	return envelope.Value.Roots, nil
 }
 
+// Reconstruct the original validated request, including its complete package
+// set, from bytes owned by the candidate package universe. Caller-provided
+// roots or hashes cannot substitute for this provenance.
+func (owner *practicalOriginalPackages) ownedCandidateRequestLocked() (*practicalCandidateRequest, string, error) {
+	var envelope struct {
+		Selection struct {
+			Value struct {
+				Roots []practicalCandidateSelector `json:"roots"`
+			} `json:"value"`
+		} `json:"selection"`
+		RequestSHA256 string `json:"request_sha256"`
+	}
+	if len(owner.candidateRequest) == 0 || owner.requestedPackage != "" || json.Unmarshal(owner.candidateRequest, &envelope) != nil {
+		return nil, "", fmt.Errorf("candidate owner lost its complete request")
+	}
+	rebuilt, err := newPracticalCandidateRequest(envelope.Selection.Value.Roots)
+	if err != nil || !bytes.Equal(rebuilt.request, owner.candidateRequest) || !sha256Pattern.MatchString(envelope.RequestSHA256) {
+		return nil, "", fmt.Errorf("candidate owner lost its complete request identity")
+	}
+	packages, err := practicalCandidatePackagePaths(rebuilt)
+	if err != nil || !slices.Equal(owner.requestedPackages, packages) {
+		return nil, "", fmt.Errorf("candidate owner lost its complete requested package set")
+	}
+	return rebuilt, envelope.RequestSHA256, nil
+}
+
 type practicalCandidateSourceKey struct {
 	packagePath string
 	function    string
@@ -137,6 +164,19 @@ func (owner *practicalOriginalPackages) candidateSourceSelection(request *practi
 			return practicalCandidateSourceSelection{}, failure
 		}
 	}
+	refs, err := owner.candidateSourceRefsLocked(roots)
+	if err != nil {
+		return practicalCandidateSourceSelection{}, err
+	}
+	selection, err := owner.selectionInputsLocked(refs)
+	if err != nil {
+		return practicalCandidateSourceSelection{}, err
+	}
+	return practicalCandidateSourceSelection{request: bytes.Clone(request.request), roots: refs, selection: selection}, nil
+}
+
+// The owner mutex is held and the raw request has already been validated.
+func (owner *practicalOriginalPackages) candidateSourceRefsLocked(roots []practicalCandidateSelector) ([]practicalClosureRef, error) {
 	wanted := make(map[practicalCandidateSourceKey]int, len(roots))
 	names := make(map[string]map[string]bool)
 	packages := make([]string, 0)
@@ -144,22 +184,22 @@ func (owner *practicalOriginalPackages) candidateSourceSelection(request *practi
 		loaded := owner.loader.packages[root.Package]
 		captured, present := owner.packages[root.Package]
 		if loaded == nil || loaded.types == nil || loaded.info == nil || !present || captured.intrinsic {
-			return practicalCandidateSourceSelection{}, fmt.Errorf("candidate root %d is outside the original typed packages", index)
+			return nil, fmt.Errorf("candidate root %d is outside the original typed packages", index)
 		}
 		key := practicalCandidateSourceKey{packagePath: root.Package, function: root.Function}
 		if root.Receiver != nil {
 			binding, ok := loaded.types.Scope().Lookup(root.Receiver.TypeName).(*types.TypeName)
 			if !ok {
-				return practicalCandidateSourceSelection{}, fmt.Errorf("candidate root %d has no original named receiver", index)
+				return nil, fmt.Errorf("candidate root %d has no original named receiver", index)
 			}
 			named, ok := types.Unalias(binding.Type()).(*types.Named)
 			if !ok {
-				return practicalCandidateSourceSelection{}, fmt.Errorf("candidate root %d has no value receiver", index)
+				return nil, fmt.Errorf("candidate root %d has no value receiver", index)
 			}
 			key.receiver = named.Origin().Obj()
 		}
 		if first, exists := wanted[key]; exists {
-			return practicalCandidateSourceSelection{}, fmt.Errorf("candidate roots %d and %d name the same original function", first, index)
+			return nil, fmt.Errorf("candidate roots %d and %d name the same original function", first, index)
 		}
 		wanted[key] = index
 		if names[root.Package] == nil {
@@ -182,11 +222,11 @@ func (owner *practicalOriginalPackages) candidateSourceSelection(request *practi
 				if function.Recv != nil {
 					object, ok := loaded.info.Defs[function.Name].(*types.Func)
 					if !ok {
-						return practicalCandidateSourceSelection{}, fmt.Errorf("candidate method lost its original type")
+						return nil, fmt.Errorf("candidate method lost its original type")
 					}
 					signature, ok := object.Type().(*types.Signature)
 					if !ok || signature.Recv() == nil {
-						return practicalCandidateSourceSelection{}, fmt.Errorf("candidate method lost its original receiver")
+						return nil, fmt.Errorf("candidate method lost its original receiver")
 					}
 					named, ok := types.Unalias(signature.Recv().Type()).(*types.Named)
 					if !ok {
@@ -199,11 +239,11 @@ func (owner *practicalOriginalPackages) candidateSourceSelection(request *practi
 					continue
 				}
 				if found[index] {
-					return practicalCandidateSourceSelection{}, fmt.Errorf("candidate root %d is ambiguous in the original package", index)
+					return nil, fmt.Errorf("candidate root %d is ambiguous in the original package", index)
 				}
 				span, _, err := owner.loader.syntax.spanBytes(function)
 				if err != nil {
-					return practicalCandidateSourceSelection{}, err
+					return nil, err
 				}
 				refs[index] = practicalClosureRef{packagePath, span}
 				found[index] = true
@@ -212,12 +252,8 @@ func (owner *practicalOriginalPackages) candidateSourceSelection(request *practi
 	}
 	for index, ok := range found {
 		if !ok {
-			return practicalCandidateSourceSelection{}, fmt.Errorf("candidate root %d has no original value function or method", index)
+			return nil, fmt.Errorf("candidate root %d has no original value function or method", index)
 		}
 	}
-	selection, err := owner.selectionInputsLocked(refs)
-	if err != nil {
-		return practicalCandidateSourceSelection{}, err
-	}
-	return practicalCandidateSourceSelection{request: bytes.Clone(request.request), roots: refs, selection: selection}, nil
+	return refs, nil
 }

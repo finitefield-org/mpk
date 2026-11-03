@@ -104,6 +104,90 @@ fn original_roots() -> Vec<Value> {
 }
 
 #[test]
+fn candidate_contract_keeps_request_and_physical_selection_in_agreement() {
+    let packet = original_packet();
+    let request = request(original_roots());
+    let sources = buffers(&packet, "sources");
+    let overlays = buffers(&packet, "overlays");
+    let components = unhex(packet["components_hex"].as_str().unwrap());
+    let mut contract: Value =
+        serde_json::from_slice(&unhex(packet["envelope_hex"].as_str().unwrap())).unwrap();
+    contract
+        .as_object_mut()
+        .unwrap()
+        .remove("requested_package");
+    contract["schema"] = json!("mpk.go.practical.source_contract_inputs.v2");
+    contract["requested_packages"] = json!(["example.com/policy"]);
+    contract["candidate_request_sha256"] = json!(request.request_sha256());
+    seal(
+        &mut contract,
+        "content_sha256",
+        "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-2.0",
+    );
+    let mut selection = selection_wire(&packet);
+    selection["source_contract_inputs_sha256"] = contract["content_sha256"].clone();
+    seal(
+        &mut selection,
+        "content_sha256",
+        "MPK-PRIVATE-GO-SOURCE-SELECTION-INPUTS-1.0",
+    );
+    let import = |selection: &Value, contract: &Value| {
+        import_go_source_selection_inputs(
+            &serde_json::to_vec(selection).unwrap(),
+            &serde_json::to_vec(contract).unwrap(),
+            &components,
+            &sources,
+            &overlays,
+        )
+    };
+    let original = import(&selection, &contract).unwrap();
+    bind_go_practical_source_selection(&request, &original).unwrap();
+
+    let mut extra = contract.clone();
+    extra["requested_packages"] = json!(["example.com/policy", "example.com/policy/helper"]);
+    seal(
+        &mut extra,
+        "content_sha256",
+        "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-2.0",
+    );
+    let mut extra_selection = selection.clone();
+    extra_selection["source_contract_inputs_sha256"] = extra["content_sha256"].clone();
+    seal(
+        &mut extra_selection,
+        "content_sha256",
+        "MPK-PRIVATE-GO-SOURCE-SELECTION-INPUTS-1.0",
+    );
+    assert!(import(&extra_selection, &extra).is_err());
+
+    let mut different = contract.clone();
+    different["candidate_request_sha256"] = json!("a".repeat(64));
+    seal(
+        &mut different,
+        "content_sha256",
+        "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-2.0",
+    );
+    let mut different_selection = selection.clone();
+    different_selection["source_contract_inputs_sha256"] = different["content_sha256"].clone();
+    seal(
+        &mut different_selection,
+        "content_sha256",
+        "MPK-PRIVATE-GO-SOURCE-SELECTION-INPUTS-1.0",
+    );
+    let different = import(&different_selection, &different).unwrap();
+    assert!(bind_go_practical_source_selection(&request, &different).is_err());
+
+    let mut missing = selection;
+    missing["roots"].as_array_mut().unwrap().pop();
+    seal(
+        &mut missing,
+        "content_sha256",
+        "MPK-PRIVATE-GO-SOURCE-SELECTION-INPUTS-1.0",
+    );
+    let missing = import(&missing, &contract).unwrap();
+    assert!(bind_go_practical_source_selection(&request, &missing).is_err());
+}
+
+#[test]
 fn binds_complete_original_named_roots_to_their_physical_declarations() {
     let packet = original_packet();
     let wire = selection_wire(&packet);

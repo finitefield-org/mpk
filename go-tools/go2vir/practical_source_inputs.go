@@ -13,6 +13,8 @@ type practicalSourceInputs struct {
 	components                                practicalTypeKeyComponents
 	imageDigest, compilerDigest, mainSourceID string
 	requestedPackage, contentSHA256           string
+	requestedPackages                         []string
+	candidateRequestSHA256                    string
 }
 
 // Retain every non-intrinsic package in the intact original export universe,
@@ -43,10 +45,26 @@ func (owner *practicalOriginalPackages) sourceInputsLocked() (practicalSourceInp
 			return practicalSourceInputs{}, err
 		}
 	}
-	selected := owner.loader.packages[owner.requestedPackage]
+	selectedPackages := []string{owner.requestedPackage}
+	candidateHash := ""
+	if len(owner.candidateRequest) != 0 {
+		_, hash, err := owner.ownedCandidateRequestLocked()
+		if err != nil {
+			return practicalSourceInputs{}, err
+		}
+		selectedPackages = append([]string(nil), owner.requestedPackages...)
+		candidateHash = hash
+	} else if len(owner.requestedPackages) != 0 {
+		return practicalSourceInputs{}, fmt.Errorf("source inputs lost their original candidate request")
+	}
 	main, captured := owner.inputs.snapshot.buffers[owner.mainSourceID]
-	if selected == nil || !captured || main.object.Kind != "go_mod" {
+	if !captured || main.object.Kind != "go_mod" {
 		return practicalSourceInputs{}, fmt.Errorf("source inputs lost their original module/package provenance")
+	}
+	for _, selected := range selectedPackages {
+		if selected == "" || owner.loader.packages[selected] == nil {
+			return practicalSourceInputs{}, fmt.Errorf("source inputs lost an original requested package")
+		}
 	}
 	// The already owned requested package may belong to a local replacement.
 	// Its own exact module is retained below; this handoff is not root admission.
@@ -69,8 +87,10 @@ func (owner *practicalOriginalPackages) sourceInputsLocked() (practicalSourceInp
 		}
 		roots = append(roots, id)
 	}
-	if _, exists := b.packageIDs[owner.requestedPackage]; !exists {
-		return practicalSourceInputs{}, fmt.Errorf("source inputs lost their original requested package")
+	for _, selected := range selectedPackages {
+		if _, exists := b.packageIDs[selected]; !exists {
+			return practicalSourceInputs{}, fmt.Errorf("source inputs lost an original requested package")
+		}
 	}
 	sort.Strings(roots)
 	objects := make([]practicalSourceObject, 0, len(b.sources))
@@ -102,11 +122,20 @@ func (owner *practicalOriginalPackages) sourceInputsLocked() (practicalSourceInp
 	}
 	// This private identity ties the source-only component to its intact owner.
 	// It does not replace the frozen captured-context/admission algorithm.
-	digest, err := hashTypedCanonicalJSON("MPK-PRIVATE-GO-SOURCE-INPUTS-1.0", map[string]any{
+	body := map[string]any{
 		"image_sha256": owner.imageDigest, "compiler_sha256": owner.compilerDigest,
-		"main_source_object_id": owner.mainSourceID, "requested_package": owner.requestedPackage,
+		"main_source_object_id":    owner.mainSourceID,
 		"source_components_sha256": componentHash,
-	})
+	}
+	domain := "MPK-PRIVATE-GO-SOURCE-INPUTS-1.0"
+	if candidateHash == "" {
+		body["requested_package"] = owner.requestedPackage
+	} else {
+		domain = "MPK-PRIVATE-GO-SOURCE-INPUTS-2.0"
+		body["requested_packages"] = selectedPackages
+		body["candidate_request_sha256"] = candidateHash
+	}
+	digest, err := hashTypedCanonicalJSON(domain, body)
 	if err != nil {
 		return practicalSourceInputs{}, err
 	}
@@ -114,6 +143,14 @@ func (owner *practicalOriginalPackages) sourceInputsLocked() (practicalSourceInp
 		components:  practicalTypeKeyComponents{canonical: canonical, sources: buffers},
 		imageDigest: owner.imageDigest, compilerDigest: owner.compilerDigest,
 		mainSourceID: owner.mainSourceID, requestedPackage: owner.requestedPackage,
-		contentSHA256: digest,
+		requestedPackages:      selectedPackagesIfCandidate(selectedPackages, candidateHash),
+		candidateRequestSHA256: candidateHash, contentSHA256: digest,
 	}, nil
+}
+
+func selectedPackagesIfCandidate(packages []string, candidateHash string) []string {
+	if candidateHash == "" {
+		return nil
+	}
+	return append([]string(nil), packages...)
 }

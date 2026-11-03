@@ -11,6 +11,7 @@ fn known_schema(value: &StrictJsonValue) -> bool {
         value.get("schema").and_then(StrictJsonValue::as_str),
         Some(
             "mpk.go.practical.source_export_inputs.v1"
+                | "mpk.go.practical.source_export_inputs.v2"
                 | "mpk.go.practical.source_module_observations.v1"
                 | "mpk.go.practical.source_module_graph_inputs.v2"
         )
@@ -83,6 +84,9 @@ pub(super) fn identity<T: Serialize>(record: &T, domain: HashDomain) -> Result<S
     let expected = match schema {
         Some("mpk.go.practical.source_export_inputs.v1") => {
             HashDomain::new("MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-1.0")
+        }
+        Some("mpk.go.practical.source_export_inputs.v2") => {
+            HashDomain::new("MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-2.0")
         }
         Some("mpk.go.practical.source_module_observations.v1") => {
             HashDomain::new("MPK-PRIVATE-GO-SOURCE-MODULE-OBSERVATIONS-1.0")

@@ -16,6 +16,8 @@ func practicalObservationDomain(schema string) string {
 	switch schema {
 	case "mpk.go.practical.source_export_inputs.v1":
 		return practicalExportInputsDomain
+	case "mpk.go.practical.source_export_inputs.v2":
+		return practicalCandidateExportInputsDomain
 	case "mpk.go.practical.source_module_observations.v1":
 		return practicalModuleObservationInputsDomain
 	case "mpk.go.practical.source_module_graph_inputs.v2":

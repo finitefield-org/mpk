@@ -4,8 +4,47 @@ package main
 
 import (
 	"bytes"
+	"slices"
 	"testing"
 )
+
+func TestPracticalOwnedCandidateRequestRequiresCompletePackageSet(t *testing.T) {
+	request := practicalTestCandidateRequest(t, []practicalCandidateSelector{
+		{Package: "example.com/a", Function: "First"},
+		{Package: "example.com/b", Function: "Second"},
+		{Package: "example.com/b", Function: "Third"},
+	})
+	packages, err := practicalCandidatePackagePaths(request)
+	if err != nil {
+		t.Fatal(err)
+	}
+	owner := &practicalOriginalPackages{candidateRequest: request.requestBytes(), requestedPackages: packages}
+	rebuilt, digest, err := owner.ownedCandidateRequestLocked()
+	if err != nil || !bytes.Equal(rebuilt.requestBytes(), request.requestBytes()) || !sha256Pattern.MatchString(digest) {
+		t.Fatal("complete owned candidate request rejected", err)
+	}
+	for _, control := range []string{"missing", "changed", "subset", "order", "legacy"} {
+		changed := &practicalOriginalPackages{
+			candidateRequest:  bytes.Clone(owner.candidateRequest),
+			requestedPackages: slices.Clone(owner.requestedPackages),
+		}
+		switch control {
+		case "missing":
+			changed.candidateRequest = nil
+		case "changed":
+			changed.candidateRequest[0] ^= 1
+		case "subset":
+			changed.requestedPackages = changed.requestedPackages[:1]
+		case "order":
+			slices.Reverse(changed.requestedPackages)
+		case "legacy":
+			changed.requestedPackage = "example.com/a"
+		}
+		if actual, _, err := changed.ownedCandidateRequestLocked(); err == nil || actual != nil {
+			t.Fatalf("accepted %s candidate request control", control)
+		}
+	}
+}
 
 func TestPracticalCandidateSourceRequiresCompleteRequestAndOwner(t *testing.T) {
 	request, err := newPracticalCandidateRequest([]practicalCandidateSelector{{Package: "example.com/policy", Function: "Root"}})

@@ -3,6 +3,9 @@ use serde_json::{json, Value};
 use std::path::{Path, PathBuf};
 
 fn root() -> PathBuf {
+    if let Some(path) = std::env::var_os("MPK_GO_OBSERVATION_JSON_INPUT") {
+        return PathBuf::from(path);
+    }
     Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../../develop/migrations/go-practical/t02-w01/verification/observation-json")
 }
@@ -37,6 +40,9 @@ fn domain(schema: &str) -> HashDomain {
         "mpk.go.practical.source_export_inputs.v1" => {
             HashDomain::new("MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-1.0")
         }
+        "mpk.go.practical.source_export_inputs.v2" => {
+            HashDomain::new("MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-2.0")
+        }
         "mpk.go.practical.source_module_observations.v1" => {
             HashDomain::new("MPK-PRIVATE-GO-SOURCE-MODULE-OBSERVATIONS-1.0")
         }
@@ -46,13 +52,63 @@ fn domain(schema: &str) -> HashDomain {
         _ => panic!("unknown original schema"),
     }
 }
+
+#[test]
+fn candidate_export_uses_the_existing_byte_bounds_and_its_own_domain() {
+    let mut probe = Probe {
+        schema: "mpk.go.practical.source_export_inputs.v2".into(),
+        metadata_hex: "00".repeat(STDOUT_BYTES),
+        diagnostics_hex: "ff".repeat(STDERR_BYTES),
+        original_bytes: STDOUT_BYTES as u64,
+        content_sha256: String::new(),
+    };
+    let candidate = HashDomain::new("MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-2.0");
+    probe.content_sha256 = identity(&probe, candidate).unwrap();
+    let raw = serde_json::to_vec(&probe).unwrap();
+    let decoded: Probe = decode(&raw).unwrap();
+    assert_eq!(decoded.metadata_hex, probe.metadata_hex);
+    assert_eq!(decoded.diagnostics_hex, probe.diagnostics_hex);
+    assert_eq!(identity(&decoded, candidate).unwrap(), probe.content_sha256);
+    assert!(identity(
+        &decoded,
+        HashDomain::new("MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-1.0")
+    )
+    .is_err());
+    probe.metadata_hex.push_str("00");
+    assert!(decode::<Probe>(&serde_json::to_vec(&probe).unwrap()).is_err());
+    probe.metadata_hex.truncate(2 * STDOUT_BYTES);
+    probe.diagnostics_hex.push_str("ff");
+    assert!(decode::<Probe>(&serde_json::to_vec(&probe).unwrap()).is_err());
+}
 #[test]
 fn original_go_observation_byte_boundaries_keep_same_bytes_and_hashes() {
     let directory = root().join("native/native-originals/observation-json");
     let corpus =
         read("native/native-originals/observation-json/complete-observation-json-budgets.json");
     let rows = corpus["cases"].as_array().unwrap();
-    assert_eq!(rows.len(), 30);
+    let mut counts = std::collections::BTreeMap::new();
+    for row in rows {
+        *counts
+            .entry(row["schema"].as_str().unwrap())
+            .or_insert(0usize) += 1;
+    }
+    assert_eq!(
+        counts.remove("mpk.go.practical.source_export_inputs.v1"),
+        Some(10)
+    );
+    assert_eq!(
+        counts.remove("mpk.go.practical.source_module_observations.v1"),
+        Some(10)
+    );
+    assert_eq!(
+        counts.remove("mpk.go.practical.source_module_graph_inputs.v2"),
+        Some(10)
+    );
+    assert!(matches!(
+        counts.remove("mpk.go.practical.source_export_inputs.v2"),
+        None | Some(10)
+    ));
+    assert!(counts.is_empty());
     let mut observed = vec![];
     for row in rows {
         let raw = std::fs::read(directory.join(row["canonical_file"].as_str().unwrap())).unwrap();

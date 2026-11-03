@@ -7,7 +7,10 @@ import (
 	"sort"
 )
 
-const practicalExportInputsDomain = "MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-1.0"
+const (
+	practicalExportInputsDomain          = "MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-1.0"
+	practicalCandidateExportInputsDomain = "MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-2.0"
+)
 
 type practicalExportInputs struct {
 	capture   practicalCaptureInputs
@@ -38,7 +41,12 @@ func (owner *practicalOriginalPackages) exportInputsLocked(roots []practicalClos
 	if err != nil {
 		return practicalExportInputs{}, err
 	}
-	if err := validatePracticalExportRoot(rows, owner.requestedPackage); err != nil {
+	source := capture.selection.contracts.source
+	selectedPackages := []string{source.requestedPackage}
+	if source.candidateRequestSHA256 != "" {
+		selectedPackages = source.requestedPackages
+	}
+	if err := validatePracticalExportRoots(rows, selectedPackages); err != nil {
 		return practicalExportInputs{}, err
 	}
 	if len(rows) != len(owner.packages) {
@@ -93,8 +101,17 @@ func (owner *practicalOriginalPackages) exportInputsLocked(roots []practicalClos
 	if err != nil {
 		return practicalExportInputs{}, err
 	}
-	body := map[string]any{"schema": "mpk.go.practical.source_export_inputs.v1", "source_capture_inputs_sha256": selected.(map[string]jsonValue)["content_sha256"], "image_sha256": owner.imageDigest, "compiler_sha256": owner.compilerDigest, "go_binary_sha256": owner.loader.stdlib.compilerSHA256, "sdk_capability": owner.loader.stdlib.location.capability, "requested_package": owner.requestedPackage, "origins": origins, "packages": packages, "metadata_hex": hex.EncodeToString(owner.packageOutput), "diagnostics_hex": hex.EncodeToString(owner.packageDiagnostics)}
-	canonical, err := sealPracticalObservationJSON(practicalExportInputsDomain, body)
+	body := map[string]any{"schema": "mpk.go.practical.source_export_inputs.v1", "source_capture_inputs_sha256": selected.(map[string]jsonValue)["content_sha256"], "image_sha256": owner.imageDigest, "compiler_sha256": owner.compilerDigest, "go_binary_sha256": owner.loader.stdlib.compilerSHA256, "sdk_capability": owner.loader.stdlib.location.capability, "origins": origins, "packages": packages, "metadata_hex": hex.EncodeToString(owner.packageOutput), "diagnostics_hex": hex.EncodeToString(owner.packageDiagnostics)}
+	domain := practicalExportInputsDomain
+	if source.candidateRequestSHA256 == "" {
+		body["requested_package"] = source.requestedPackage
+	} else {
+		body["schema"] = "mpk.go.practical.source_export_inputs.v2"
+		body["requested_packages"] = source.requestedPackages
+		body["candidate_request_sha256"] = source.candidateRequestSHA256
+		domain = practicalCandidateExportInputsDomain
+	}
+	canonical, err := sealPracticalObservationJSON(domain, body)
 	if err != nil {
 		return practicalExportInputs{}, err
 	}

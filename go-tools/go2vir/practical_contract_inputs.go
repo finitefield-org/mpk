@@ -5,7 +5,10 @@ import (
 	"sort"
 )
 
-const practicalContractInputsDomain = "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-1.0"
+const (
+	practicalContractInputsDomain          = "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-1.0"
+	practicalCandidateContractInputsDomain = "MPK-PRIVATE-GO-SOURCE-CONTRACT-INPUTS-2.0"
+)
 
 // The complete owned source packet and every captured raw sidecar from that
 // same original universe. This is an input handoff, not a registered context
@@ -68,10 +71,19 @@ func (owner *practicalOriginalPackages) contractInputsLocked() (practicalContrac
 	body := map[string]any{
 		"schema":       "mpk.go.practical.source_contract_inputs.v1",
 		"image_sha256": source.imageDigest, "compiler_sha256": source.compilerDigest,
-		"main_source_object_id": source.mainSourceID, "requested_package": source.requestedPackage,
+		"main_source_object_id":    source.mainSourceID,
 		"source_components_sha256": root["content_sha256"], "overlays": objects,
 	}
-	digest, err := hashTypedCanonicalJSON(practicalContractInputsDomain, body)
+	domain := practicalContractInputsDomain
+	if source.candidateRequestSHA256 == "" {
+		body["requested_package"] = source.requestedPackage
+	} else {
+		body["schema"] = "mpk.go.practical.source_contract_inputs.v2"
+		body["requested_packages"] = source.requestedPackages
+		body["candidate_request_sha256"] = source.candidateRequestSHA256
+		domain = practicalCandidateContractInputsDomain
+	}
+	digest, err := hashTypedCanonicalJSON(domain, body)
 	if err != nil {
 		return practicalContractInputs{}, err
 	}

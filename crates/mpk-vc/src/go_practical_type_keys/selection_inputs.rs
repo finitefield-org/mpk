@@ -136,6 +136,22 @@ pub fn bind_go_practical_source_selection<'a>(
     let GoPrivateCandidateSelection::Practical(selection) = request.selection() else {
         return Err(GoPracticalSourceBindingError::Profile);
     };
+    if let Some(hash) = inputs.contracts.candidate_request_sha256() {
+        let selected = selection
+            .roots()
+            .iter()
+            .map(|root| root.package())
+            .collect::<BTreeSet<_>>();
+        let captured = inputs
+            .contracts
+            .requested_packages()
+            .iter()
+            .map(String::as_str)
+            .collect::<BTreeSet<_>>();
+        if hash != request.request_sha256() || selected != captured {
+            return Err(GoPracticalSourceBindingError::Mismatch { root: None });
+        }
+    }
     let resolved = source_overlays::resolve_go_practical_named_roots(
         inputs.contracts.source_inputs().components(),
         selection,
@@ -300,6 +316,7 @@ pub fn import_go_source_selection_inputs(
     let mut resolved = vec![];
     let mut distinct = BTreeSet::new();
     let mut functions = BTreeMap::new();
+    let mut selected_packages = BTreeSet::new();
     for root in &wire.roots {
         let package = keys
             .wire
@@ -307,6 +324,7 @@ pub fn import_go_source_selection_inputs(
             .iter()
             .find(|p| p.id == root.package_id)
             .ok_or(GoSourceSelectionInputError::Root)?;
+        selected_packages.insert(package.import_path.as_str());
         if package
             .source_objects
             .binary_search(&root.source_object_id)
@@ -351,6 +369,14 @@ pub fn import_go_source_selection_inputs(
             return Err(GoSourceSelectionInputError::Root);
         }
         resolved.push(reference);
+    }
+    if contracts.candidate_request_sha256().is_some()
+        && !selected_packages
+            .iter()
+            .copied()
+            .eq(contracts.requested_packages().iter().map(String::as_str))
+    {
+        return Err(GoSourceSelectionInputError::Root);
     }
     let canonical = canonical_json_bytes(
         &parse_strict_json(record, limits()).map_err(|_| input(GoTypeKeyError::Json))?,

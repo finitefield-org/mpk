@@ -25,7 +25,7 @@ func practicalObservationJSONTestFile(t *testing.T, name string, raw []byte) {
 func TestPracticalObservationJSONPreservesExactNativeByteBudgets(t *testing.T) {
 	practicalContractTestOutput(t, "observation-json")
 	rows := []any{}
-	for _, schema := range []string{"mpk.go.practical.source_export_inputs.v1", "mpk.go.practical.source_module_observations.v1", "mpk.go.practical.source_module_graph_inputs.v2"} {
+	for _, schema := range []string{"mpk.go.practical.source_export_inputs.v1", "mpk.go.practical.source_export_inputs.v2", "mpk.go.practical.source_module_observations.v1", "mpk.go.practical.source_module_graph_inputs.v2"} {
 		for _, field := range []string{"metadata_hex", "diagnostics_hex"} {
 			maximum := practicalObservationHexLimit(field) / 2
 			for _, size := range []int{0, 1, maximumStringBytes / 2, maximumStringBytes/2 + 1, maximum} {

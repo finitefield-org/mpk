@@ -5,8 +5,9 @@ their full source-typed dependency closure from its captured original inputs.
 The owner retains its own copy of the complete candidate request, package set,
 native observations, source objects and compiler export objects. It rejects a
 different request, a crossed export snapshot and use of a candidate observation
-through the legacy single-package constructor. Existing single-package input
-handoffs do not accept this candidate owner.
+through the legacy single-package constructor. The subsequent multi-package
+handoff uses distinct candidate records rather than the legacy single-package
+record.
 
 The targeted test uses the full registered Go SDK and the original HTTP
 application and dependencies, with one added function and independent source
@@ -27,9 +28,9 @@ tests were selected because the new constructor shares their reconstruction
 and request-selection paths. Go vet and changed-file formatting passed. All
 checks ran locally under Linux amd64 emulation, not a native Linux release gate.
 
-This is a private preparation checkpoint. Candidate-aware selection/source
-input and independent Rust multi-package handoffs are still missing. Exact Go
-command-pattern spellings, native argument-size boundaries, launcher authority
-and source/program proofs remain open. W01 remains incomplete; the T02-wide
+This is a private preparation checkpoint. The later multi-package handoff has
+its own verification record. Exact Go command-pattern spellings, native
+argument-size boundaries, launcher authority and source/program proofs remain
+open. W01 remains incomplete; the T02-wide
 `./scripts/check-fast.sh` gate is deferred to final T02-W04. No validation
 archive is committed.

@@ -32,9 +32,8 @@ These tests were selected because the implementation shares the native command
 and export-validation paths with the prior single-package consumer.
 
 This is a private preparation checkpoint. Subsequent checks bind the captured
-closure to source types and a private image owner; the independent Rust wire
-consumer is not yet connected. None of these proves source execution or an
-application property.
+closure to source types, a private image owner and an independent Rust wire
+consumer. None of these proves source execution or an application property.
 Go's `all`, `std`, `cmd` and `...` command-pattern spellings fail closed here;
 an exact source-root-based route for any real package with such a name remains
 required. The 8,192-package derivation is covered, but a full native command

@@ -3,6 +3,7 @@
 use super::*;
 
 const DOMAIN: HashDomain = HashDomain::new("MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-1.0");
+const CANDIDATE_DOMAIN: HashDomain = HashDomain::new("MPK-PRIVATE-GO-SOURCE-EXPORT-INPUTS-2.0");
 #[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Origin {
@@ -26,7 +27,12 @@ struct Wire {
     compiler_sha256: String,
     go_binary_sha256: String,
     sdk_capability: String,
-    requested_package: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    requested_package: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    requested_packages: Option<Vec<String>>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    candidate_request_sha256: Option<String>,
     origins: Vec<Origin>,
     packages: Vec<Package>,
     metadata_hex: String,
@@ -250,12 +256,37 @@ pub fn import_go_source_export_inputs(
 ) -> ExportResult<GoSourceExportInputs> {
     use GoSourceExportInputError as E;
     let wire: Wire = observation_json::decode(record).map_err(E::Input)?;
+    let (requested_packages, request_hash, domain) = match (
+        wire.schema.as_str(),
+        &wire.requested_package,
+        &wire.requested_packages,
+        &wire.candidate_request_sha256,
+    ) {
+        ("mpk.go.practical.source_export_inputs.v1", Some(package), None, None)
+            if !package.is_empty() =>
+        {
+            (vec![package.as_str()], None, DOMAIN)
+        }
+        ("mpk.go.practical.source_export_inputs.v2", None, Some(packages), Some(hash))
+            if !packages.is_empty()
+                && packages.len() <= 8192
+                && packages.iter().all(|p| !p.is_empty())
+                && packages.windows(2).all(|pair| pair[0] < pair[1])
+                && hash.len() == 64
+                && hash
+                    .bytes()
+                    .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b)) =>
+        {
+            (
+                packages.iter().map(String::as_str).collect(),
+                Some(hash.as_str()),
+                CANDIDATE_DOMAIN,
+            )
+        }
+        _ => return Err(E::Input(GoTypeKeyError::Shape)),
+    };
     need(
-        wire.schema == "mpk.go.practical.source_export_inputs.v1",
-        E::Input(GoTypeKeyError::Shape),
-    )?;
-    need(
-        observation_json::identity(&wire, DOMAIN).map_err(E::Input)? == wire.content_sha256,
+        observation_json::identity(&wire, domain).map_err(E::Input)? == wire.content_sha256,
         E::Input(GoTypeKeyError::Identity),
     )?;
     let capture_value: serde_json::Value =
@@ -265,7 +296,12 @@ pub fn import_go_source_export_inputs(
         capture_value["content_sha256"] == wire.source_capture_inputs_sha256
             && contracts.image_sha256() == wire.image_sha256
             && contracts.compiler_sha256() == wire.compiler_sha256
-            && contracts.requested_package() == wire.requested_package,
+            && contracts
+                .requested_packages()
+                .iter()
+                .map(String::as_str)
+                .eq(requested_packages.iter().copied())
+            && contracts.candidate_request_sha256() == request_hash,
         E::Root,
     )?;
     need(
@@ -349,9 +385,12 @@ pub fn import_go_source_export_inputs(
             E::Metadata,
         )?;
         need(row.standard == row.goroot, E::Root)?;
-        if row.import_path == wire.requested_package {
+        if requested_packages
+            .binary_search(&row.import_path.as_str())
+            .is_ok()
+        {
             need(
-                !row.dep_only && row.r#match == [wire.requested_package.clone()],
+                !row.dep_only && row.r#match == [row.import_path.clone()],
                 E::Root,
             )?;
         } else {
@@ -515,7 +554,9 @@ pub fn import_go_source_export_inputs(
     need(
         package_names == source_packages.keys().copied().collect::<BTreeSet<_>>()
             && intrinsic <= 1
-            && native.contains_key(wire.requested_package.as_str()),
+            && requested_packages
+                .iter()
+                .all(|name| native.contains_key(name)),
         E::Membership,
     )?;
     need(
