@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"os/exec"
 	"path/filepath"
+	"slices"
+	"sort"
+	"strings"
 	"time"
 
 	"golang.org/x/mod/module"
@@ -26,6 +29,8 @@ type practicalGoObservation struct {
 	kind                                practicalGoCommandKind
 	compilerSHA256, distributionSHA256  string
 	mainSourceID, requestedPackage      string
+	requestedPackages                   []string
+	candidateRequest                    []byte
 	executable, directory, compilerRoot string
 	buildCache, moduleCache             string
 	arguments, environment              []string
@@ -66,6 +71,54 @@ func practicalGoExecutableMatches(selection validatedLauncherSelection, digest s
 }
 
 func runPracticalGoObservation(selection validatedLauncherSelection, filesystem loaderFilesystem, directory, mainSourceID string, kind practicalGoCommandKind, requested string) (*practicalGoObservation, error) {
+	return runPracticalGoObservationExact(selection, filesystem, directory, mainSourceID, kind, requested, nil, nil)
+}
+
+// Package arguments are derived only from the complete owned request. Multiple
+// functions in one package still require only one exact go list pattern.
+func practicalCandidatePackagePaths(request *practicalCandidateRequest) ([]string, error) {
+	roots, err := practicalCandidateRequestRoots(request)
+	if err != nil {
+		return nil, err
+	}
+	seen := make(map[string]bool, len(roots))
+	packages := make([]string, 0, len(roots))
+	for _, root := range roots {
+		if err := module.CheckImportPath(root.Package); err != nil {
+			return nil, fmt.Errorf("candidate package is not an exact Go import path: %w", err)
+		}
+		// These spellings are Go command patterns, not exact list arguments.
+		// Exact loading of a real path containing "..." needs a separate
+		// source-root-based route and is not claimed by this preparation.
+		if strings.Contains(root.Package, "...") || root.Package == "all" || root.Package == "std" || root.Package == "cmd" {
+			return nil, fmt.Errorf("candidate package cannot be passed as an exact Go list argument")
+		}
+		if !seen[root.Package] {
+			seen[root.Package] = true
+			packages = append(packages, root.Package)
+		}
+	}
+	sort.Strings(packages)
+	return packages, nil
+}
+
+func runPracticalGoCandidatePackageObservation(selection validatedLauncherSelection, filesystem loaderFilesystem, directory, mainSourceID string, request *practicalCandidateRequest) (*practicalGoObservation, error) {
+	packages, err := practicalCandidatePackagePaths(request)
+	if err != nil {
+		return nil, err
+	}
+	requestBytes := request.requestBytes()
+	observation, err := runPracticalGoObservationExact(selection, filesystem, directory, mainSourceID, practicalGoPackages, "", packages, requestBytes)
+	if err != nil {
+		return nil, err
+	}
+	if err := observation.requireCandidatePackages(request, observation.compilerSHA256, mainSourceID, observation.output); err != nil {
+		return nil, err
+	}
+	return observation, nil
+}
+
+func runPracticalGoObservationExact(selection validatedLauncherSelection, filesystem loaderFilesystem, directory, mainSourceID string, kind practicalGoCommandKind, requested string, packages []string, candidate []byte) (*practicalGoObservation, error) {
 	digest, err := practicalGoCommandCompiler(selection)
 	if err != nil || !sha256Pattern.MatchString(mainSourceID) || !practicalReplayAbsolute(directory) {
 		return nil, fmt.Errorf("native preparation has invalid original compiler/main/directory ownership")
@@ -73,17 +126,25 @@ func runPracticalGoObservation(selection validatedLauncherSelection, filesystem 
 	arguments := []string{"list", "-mod=readonly"}
 	switch kind {
 	case practicalGoModules:
-		if requested != "" {
+		if requested != "" || len(packages) != 0 || len(candidate) != 0 {
 			return nil, fmt.Errorf("native module observation cannot take a package selector")
 		}
 		arguments = append(arguments, "-m", "-json", "all")
 	case practicalGoPackages:
-		if module.CheckImportPath(requested) != nil {
-			return nil, fmt.Errorf("native package observation needs one exact original import path")
+		if len(candidate) == 0 {
+			if len(packages) != 0 || module.CheckImportPath(requested) != nil {
+				return nil, fmt.Errorf("native package observation needs one exact original import path")
+			}
+			arguments = append(arguments, "-deps", "-export", "-compiled", "-json", requested)
+		} else {
+			if requested != "" || len(packages) == 0 {
+				return nil, fmt.Errorf("native candidate observation needs its complete package set")
+			}
+			arguments = append(arguments, "-deps", "-export", "-compiled", "-json")
+			arguments = append(arguments, packages...)
 		}
-		arguments = append(arguments, "-deps", "-export", "-compiled", "-json", requested)
 	case practicalGoGraph:
-		if requested != "" {
+		if requested != "" || len(packages) != 0 || len(candidate) != 0 {
 			return nil, fmt.Errorf("native graph observation cannot take a selector")
 		}
 		// Go1.25's mod graph does not accept -mod. Its fixed offline
@@ -111,7 +172,8 @@ func runPracticalGoObservation(selection validatedLauncherSelection, filesystem 
 	}
 	return &practicalGoObservation{
 		kind: kind, compilerSHA256: digest, distributionSHA256: selection.Toolchain.DistributionSHA256,
-		mainSourceID: mainSourceID, requestedPackage: requested, executable: selection.GoExecutable,
+		mainSourceID: mainSourceID, requestedPackage: requested, requestedPackages: append([]string(nil), packages...),
+		candidateRequest: bytes.Clone(candidate), executable: selection.GoExecutable,
 		directory: directory, compilerRoot: selection.GoRoot, buildCache: filesystem.goBuild, moduleCache: filesystem.goMod,
 		arguments: append([]string(nil), arguments...), environment: append([]string(nil), environment...),
 		output: bytes.Clone(stdout.Bytes()), diagnostics: bytes.Clone(stderr.Bytes()),
@@ -120,8 +182,22 @@ func runPracticalGoObservation(selection validatedLauncherSelection, filesystem 
 
 func (observation *practicalGoObservation) require(kind practicalGoCommandKind, compiler, mainSourceID, requested string, output []byte) error {
 	if observation == nil || observation.kind != kind || observation.compilerSHA256 != compiler || observation.mainSourceID != mainSourceID ||
-		observation.requestedPackage != requested || !bytes.Equal(observation.output, output) {
+		observation.requestedPackage != requested || len(observation.requestedPackages) != 0 || len(observation.candidateRequest) != 0 || !bytes.Equal(observation.output, output) {
 		return fmt.Errorf("native Go metadata has no matching original command observation")
+	}
+	return nil
+}
+
+func (observation *practicalGoObservation) requireCandidatePackages(request *practicalCandidateRequest, compiler, mainSourceID string, output []byte) error {
+	packages, err := practicalCandidatePackagePaths(request)
+	if err != nil {
+		return fmt.Errorf("native package metadata has no matching complete candidate request")
+	}
+	arguments := append([]string{"list", "-mod=readonly", "-deps", "-export", "-compiled", "-json"}, packages...)
+	if observation == nil || observation.kind != practicalGoPackages || observation.compilerSHA256 != compiler ||
+		observation.mainSourceID != mainSourceID || observation.requestedPackage != "" || !slices.Equal(observation.requestedPackages, packages) ||
+		!slices.Equal(observation.arguments, arguments) || !bytes.Equal(observation.candidateRequest, request.requestBytes()) || !bytes.Equal(observation.output, output) {
+		return fmt.Errorf("native package metadata has no matching complete candidate request")
 	}
 	return nil
 }

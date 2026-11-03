@@ -9,6 +9,7 @@ import (
 	"path"
 	"path/filepath"
 	"reflect"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -52,6 +53,8 @@ type practicalPackageExports struct {
 	distributionSHA256  string
 	mainSourceID        string
 	requestedPackage    string
+	requestedPackages   []string
+	candidateRequest    []byte
 	buildCacheDirectory string
 	output, diagnostics []byte
 	packages            []practicalCapturedPackageExport
@@ -152,7 +155,30 @@ func (session *practicalCaptureSession) capturePracticalPackageExports(compiler 
 }
 
 func (session *practicalCaptureSession) capturePracticalPackageExportsObserved(compiler practicalCompilerImage, discovery practicalModuleDiscovery, sdkCapability string, mainLocation practicalModuleLocation, selectedPackage string, observer *practicalExportCaptureObserver) (practicalPackageExports, error) {
+	return session.capturePracticalPackageExportsExact(compiler, discovery, sdkCapability, mainLocation, selectedPackage, nil, observer)
+}
+
+// Capture the complete package/export closure of the candidate's original
+// selection. No caller-supplied package subset or wildcard is accepted.
+func (session *practicalCaptureSession) capturePracticalCandidatePackageExports(compiler practicalCompilerImage, discovery practicalModuleDiscovery, sdkCapability string, mainLocation practicalModuleLocation, request *practicalCandidateRequest) (practicalPackageExports, error) {
+	if request == nil {
+		return practicalPackageExports{}, session.reject(fmt.Errorf("candidate export preparation needs an owned request"))
+	}
+	return session.capturePracticalPackageExportsExact(compiler, discovery, sdkCapability, mainLocation, "", request, nil)
+}
+
+func (session *practicalCaptureSession) capturePracticalPackageExportsExact(compiler practicalCompilerImage, discovery practicalModuleDiscovery, sdkCapability string, mainLocation practicalModuleLocation, selectedPackage string, request *practicalCandidateRequest, observer *practicalExportCaptureObserver) (practicalPackageExports, error) {
 	result := practicalPackageExports{compilerSHA256: discovery.compilerSHA256, distributionSHA256: compiler.selection.Toolchain.DistributionSHA256, mainSourceID: discovery.mainSourceID, requestedPackage: selectedPackage}
+	selectedPackages := []string{selectedPackage}
+	if request != nil {
+		var err error
+		selectedPackages, err = practicalCandidatePackagePaths(request)
+		if err != nil || selectedPackage != "" {
+			return result, session.reject(fmt.Errorf("candidate export preparation needs its complete original request"))
+		}
+		result.requestedPackages = append([]string(nil), selectedPackages...)
+		result.candidateRequest = request.requestBytes()
+	}
 	if observer != nil && (observer.before == nil || observer.after == nil) {
 		return result, session.reject(fmt.Errorf("export root observer is incomplete"))
 	}
@@ -174,7 +200,7 @@ func (session *practicalCaptureSession) capturePracticalPackageExportsObserved(c
 			main = &discovery.modules[i]
 		}
 	}
-	if main == nil || main.location == nil || *main.location != mainLocation || selectedPackage != main.identity.Path && !strings.HasPrefix(selectedPackage, main.identity.Path+"/") {
+	if main == nil || main.location == nil || *main.location != mainLocation || request == nil && selectedPackage != main.identity.Path && !strings.HasPrefix(selectedPackage, main.identity.Path+"/") {
 		return result, session.reject(fmt.Errorf("export preparation selected a package outside the original main module"))
 	}
 	directory, err := session.practicalPhysicalDirectory(mainLocation)
@@ -204,7 +230,11 @@ func (session *practicalCaptureSession) capturePracticalPackageExportsObserved(c
 			return result, err
 		}
 	}
-	result.observation, err = runPracticalGoObservation(compiler.selection, environmentFS, directory, discovery.mainSourceID, practicalGoPackages, selectedPackage)
+	if request == nil {
+		result.observation, err = runPracticalGoObservation(compiler.selection, environmentFS, directory, discovery.mainSourceID, practicalGoPackages, selectedPackage)
+	} else {
+		result.observation, err = runPracticalGoCandidatePackageObservation(compiler.selection, environmentFS, directory, discovery.mainSourceID, request)
+	}
 	if err != nil {
 		return result, session.reject(err)
 	}
@@ -217,7 +247,7 @@ func (session *practicalCaptureSession) capturePracticalPackageExportsObserved(c
 	if err != nil {
 		return result, session.reject(err)
 	}
-	if err := validatePracticalExportRoot(rows, selectedPackage); err != nil {
+	if err := validatePracticalExportRoots(rows, selectedPackages); err != nil {
 		return result, session.reject(err)
 	}
 	if observer != nil {
@@ -233,8 +263,12 @@ func (session *practicalCaptureSession) capturePracticalPackageExportsObserved(c
 		return result, session.reject(err)
 	}
 	selectedCount := 0
+	wanted := make(map[string]bool, len(selectedPackages))
+	for _, selected := range selectedPackages {
+		wanted[selected] = true
+	}
 	for _, row := range rows {
-		if row.ImportPath == selectedPackage {
+		if wanted[row.ImportPath] {
 			selectedCount++
 		}
 		location, err := practicalExportSourceLocation(compiler, discovery, sdkCapability, row)
@@ -329,8 +363,8 @@ func (session *practicalCaptureSession) capturePracticalPackageExportsObserved(c
 		}
 		result.packages = append(result.packages, captured)
 	}
-	if selectedCount != 1 {
-		return result, session.reject(fmt.Errorf("native export preparation did not resolve the selected package exactly once"))
+	if selectedCount != len(selectedPackages) {
+		return result, session.reject(fmt.Errorf("native export preparation did not resolve every selected package exactly once"))
 	}
 	result.replay, err = exports.sealPracticalReplaySources()
 	if err != nil {
@@ -347,7 +381,28 @@ func (session *practicalCaptureSession) capturePracticalPackageExportsObserved(c
 		}
 	}
 	sort.Slice(result.packages, func(i, j int) bool { return result.packages[i].importPath < result.packages[j].importPath })
+	if request != nil {
+		if err := result.requireCandidateOriginalObservation(request); err != nil {
+			return result, session.reject(err)
+		}
+	}
 	return result, nil
+}
+
+func (exports practicalPackageExports) requireCandidateOriginalObservation(request *practicalCandidateRequest) error {
+	packages, err := practicalCandidatePackagePaths(request)
+	if err != nil || exports.requestedPackage != "" || !slices.Equal(exports.requestedPackages, packages) ||
+		!bytes.Equal(exports.candidateRequest, request.requestBytes()) {
+		return fmt.Errorf("candidate exports crossed their complete original request")
+	}
+	if err := exports.observation.requireCandidatePackages(request, exports.compilerSHA256, exports.mainSourceID, exports.output); err != nil {
+		return err
+	}
+	if exports.distributionSHA256 != exports.observation.distributionSHA256 || exports.buildCacheDirectory != exports.observation.buildCache ||
+		!bytes.Equal(exports.diagnostics, exports.observation.diagnostics) {
+		return fmt.Errorf("candidate exports crossed original compiler/cache/diagnostic ownership")
+	}
+	return nil
 }
 
 // The native export command must read the same original offline module cache
@@ -435,10 +490,21 @@ func validatePracticalExportArchive(raw []byte, expectedBuildID string) error {
 }
 
 func validatePracticalExportRoot(rows []practicalGoPackageExport, selectedPackage string) error {
+	return validatePracticalExportRoots(rows, []string{selectedPackage})
+}
+
+func validatePracticalExportRoots(rows []practicalGoPackageExport, selectedPackages []string) error {
+	wanted := make(map[string]bool, len(selectedPackages))
+	for _, name := range selectedPackages {
+		if name == "" || wanted[name] {
+			return fmt.Errorf("native export has an invalid or duplicate selected package")
+		}
+		wanted[name] = true
+	}
 	selected := 0
 	for _, row := range rows {
-		if row.ImportPath == selectedPackage {
-			if row.DepOnly || len(row.Match) != 1 || row.Match[0] != selectedPackage {
+		if wanted[row.ImportPath] {
+			if row.DepOnly || len(row.Match) != 1 || row.Match[0] != row.ImportPath {
 				return fmt.Errorf("native export selected root differs from the original command")
 			}
 			selected++
@@ -446,8 +512,8 @@ func validatePracticalExportRoot(rows []practicalGoPackageExport, selectedPackag
 			return fmt.Errorf("native export introduced an extra selected root")
 		}
 	}
-	if selected != 1 {
-		return fmt.Errorf("native export lost its original selected root")
+	if selected != len(selectedPackages) || selected == 0 {
+		return fmt.Errorf("native export lost an original selected root")
 	}
 	return nil
 }

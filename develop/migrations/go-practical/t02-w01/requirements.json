@@ -1637,6 +1637,14 @@
       "requirement": "Original source/export metadata and complete compiler identity; immutable original packages without rewritten/stub source; closed capture for the later verification-closure algorithm",
       "status": "pending",
       "executor": "go-tools/go2vir/practical_capture.go, snapshot.go, loader.go",
+      "candidate_package_exports_checkpoint": {
+        "evidence": "verification/candidate-package-exports/README.md",
+        "executor": "go-tools/go2vir/practical_observation.go and practical_exports.go",
+        "scope": "A complete candidate request derives all distinct package arguments and captures their original offline Go source/export closure. The full application plus one additional original package retains 183 packages, 5517 source objects and 182 export objects while selecting functions in three packages including an original dependency. All 5516 original source objects and 181 original compiler exports match the single-package baseline byte for byte; request, argument, output and selected-root mutations reject. All 8192 distinct package paths derive without truncation, and the unchanged full single-package case and affected Go observation checks pass. This remains a private preparation: typed-package and Rust consumers, exact literal handling for Go command-pattern names, native argument-size boundaries, launcher authority and the complete R06 capture remain due.",
+        "R06_completed": false,
+        "public_profile_activated": false,
+        "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
       "go_candidate_source_checkpoint": {
         "evidence": "verification/go-source-selection/README.md",
         "executor": "go-tools/go2vir/practical_candidate_source.go",

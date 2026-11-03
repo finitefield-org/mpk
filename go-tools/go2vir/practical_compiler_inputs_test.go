@@ -104,6 +104,15 @@ func practicalCompilerInputsKeepWholeOriginalPreparedSDKAndPackages(t *testing.T
 }
 
 func practicalCompilerInputsWithOriginalCandidate(t *testing.T, compiler practicalCompilerImage, selectedFunction string, additionalPolicy, overlay []byte) {
+	practicalCompilerInputsWithCandidateHook(t, compiler, selectedFunction, additionalPolicy, overlay, nil, nil)
+}
+
+type practicalCandidateExtraFile struct {
+	name string
+	data []byte
+}
+
+func practicalCompilerInputsWithCandidateHook(t *testing.T, compiler practicalCompilerImage, selectedFunction string, additionalPolicy, overlay []byte, additionalFiles []practicalCandidateExtraFile, hook func(*practicalCaptureSession, practicalModuleDiscovery, practicalModuleLocation, practicalCompilerImage, string)) {
 	t.Helper()
 	practicalContractTestOutput(t, "versioned-owned")
 	roots, _ := practicalTestCaptureRoots(t)
@@ -128,6 +137,9 @@ func practicalCompilerInputsWithOriginalCandidate(t *testing.T, compiler practic
 	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "go.mod"), manifest, 0o600)
 	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "go.sum"), []byte(sums), 0o600)
 	writePracticalTestFile(t, filepath.Join(roots[0].Directory, "policy.go"), policy, 0o600)
+	for _, file := range additionalFiles {
+		writePracticalTestFile(t, filepath.Join(roots[0].Directory, filepath.FromSlash(file.name)), file.data, 0o600)
+	}
 	if overlay != nil {
 		writePracticalTestFile(t, filepath.Join(roots[0].Directory, "contracts", "root.json"), overlay, 0o600)
 	}
@@ -160,6 +172,10 @@ func practicalCompilerInputsWithOriginalCandidate(t *testing.T, compiler practic
 	retainPracticalSyntaxEvidence(t, "graph-original-edges.json", map[string]any{"stdout": discovery.graph.output, "stderr": discovery.graph.diagnostics})
 	if err := session.capturePracticalStandardLibrary(compiler, roots[2].Capability); err != nil {
 		fail(err)
+	}
+	if hook != nil {
+		hook(session, discovery, main, compiler, roots[2].Capability)
+		return
 	}
 	exports, err := session.capturePracticalPackageExportsObserved(compiler, discovery, roots[2].Capability, main, "example.com/policy", practicalLiveExportRootObserver(t))
 	if err != nil {
