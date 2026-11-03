@@ -1637,6 +1637,15 @@
       "requirement": "Original source/export metadata and complete compiler identity; immutable original packages without rewritten/stub source; closed capture for the later verification-closure algorithm",
       "status": "pending",
       "executor": "go-tools/go2vir/practical_capture.go, snapshot.go, loader.go",
+      "candidate_multi_8192_checkpoint": {
+        "evidence": "verification/candidate-multi-8192/README.md",
+        "executor": "go-tools/go2vir/practical_candidate_multi_boundary_test.go and crates/mpk-vc/tests/go_practical_candidate_multi_inputs.rs",
+        "status": "local_implementation_experiments_passed_baseline_running",
+        "scope": "The complete 183-package/5699-object original candidate binds 8192 actual functions across three packages. Go independently compares all physical spans and rejects an omitted root; experimental Rust source-sharing/index changes derive and check all 8192 original contracts, their roots and signatures. Original source scopes, contextual iota and all affected selection, typing and contract tests pass. The unmodified Rust baseline is still running and the experimental implementation is not yet applied. The 8192-root test does not establish 8192 distinct packages or operating-system argument handling.",
+        "R06_completed": false,
+        "public_profile_activated": false,
+        "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
       "candidate_batch_observation_checkpoint": {
         "evidence": "verification/candidate-batch-observation/README.md",
         "executor": "go-tools/go2vir/practical_candidate_batches_test.go",
