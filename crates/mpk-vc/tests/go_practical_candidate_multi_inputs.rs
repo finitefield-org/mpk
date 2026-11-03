@@ -226,3 +226,80 @@ fn complete_go_multi_package_capture_binds_independently_in_rust() {
     let contracts = bound.derive_contracts().unwrap();
     assert_eq!(contracts.contracts().module().selected_roots().len(), 4);
 }
+
+#[test]
+#[ignore = "requires the complete fresh 8192-root Go capture in MPK_GO_CANDIDATE_MULTI_INPUTS"]
+fn complete_8192_root_multi_package_capture_binds_independently_in_rust() {
+    let dir = PathBuf::from(std::env::var_os("MPK_GO_CANDIDATE_MULTI_INPUTS").unwrap());
+    let packet: Value = serde_json::from_slice(
+        &std::fs::read(dir.join("candidate-multi-8192-inputs.json")).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(packet["snapshot_sources"].as_array().unwrap().len(), 5699);
+    let request = GoPrivateCandidateRegistry::new()
+        .unwrap()
+        .import_request(
+            &parse_strict_json(&bytes(&packet, "candidate_request_hex"), LIMITS).unwrap(),
+        )
+        .unwrap();
+    let selection = import_go_source_selection_inputs(
+        &bytes(&packet, "selection_hex"),
+        &bytes(&packet, "envelope_hex"),
+        &bytes(&packet, "components_hex"),
+        &buffers(&packet, "sources", &dir),
+        &buffers(&packet, "overlays", &dir),
+    )
+    .unwrap();
+    assert_eq!(selection.roots().len(), 8192);
+    assert_eq!(
+        selection.contract_inputs().requested_packages(),
+        [
+            "example.com/c",
+            "example.com/policy",
+            "example.com/policy/second"
+        ]
+    );
+    assert_eq!(
+        selection.contract_inputs().candidate_request_sha256(),
+        Some(request.request_sha256())
+    );
+    let snapshot = import_go_source_snapshot_inputs(
+        &bytes(&packet, "snapshot_hex"),
+        &buffers(&packet, "snapshot_sources", &dir),
+    )
+    .unwrap();
+    let capture =
+        import_go_source_capture_inputs(&bytes(&packet, "capture_hex"), selection, snapshot)
+            .unwrap();
+    let exports =
+        import_go_source_export_inputs(&bytes(&packet, "export_inputs_hex"), capture).unwrap();
+    assert_eq!(exports.export_sources().len(), 182);
+    let modules =
+        import_go_source_module_observations(&bytes(&packet, "module_observations_hex"), exports)
+            .unwrap();
+    let graph = import_go_source_module_graph_inputs(
+        &bytes(&packet, "module_graph_inputs_hex"),
+        modules.verify_offline_module_data().unwrap(),
+    )
+    .unwrap();
+    let selected = graph
+        .module_data()
+        .module_observations()
+        .export_inputs()
+        .capture_inputs()
+        .selection_inputs();
+    let start = std::time::Instant::now();
+    let bound = bind_go_practical_source_selection(&request, selected).unwrap();
+    eprintln!("bound 8192 original roots in {:?}", start.elapsed());
+    let bound = bind_go_practical_module_graph(bound, &graph).unwrap();
+    let start = std::time::Instant::now();
+    let contracts = bound.derive_contracts().unwrap();
+    let module = contracts.contracts().module();
+    assert_eq!(module.selected_roots().len(), 8192);
+    assert_eq!(module.functions().len(), 8192);
+    assert_eq!(module.expression_nodes(), 8192);
+    eprintln!(
+        "derived 8192 original contract candidates in {:?}",
+        start.elapsed()
+    );
+}

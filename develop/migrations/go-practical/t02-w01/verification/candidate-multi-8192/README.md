@@ -14,8 +14,12 @@ the pinned Go 1.25 Linux/amd64 SDK under emulation. This targets the changed
 multi-package handoff at the existing root limit while retaining the original
 application, compiler and full dependency closure. The Rust reader has
 independently bound all 8,192 requested roots to that capture; contract
-candidate derivation is still being checked. No conclusion about source or
-program proof is asserted by this boundary check.
+candidate derivation also passed in two local implementation experiments:
+sharing immutable source scopes alone, and sharing them together with an
+original-syntax constant index. Both derived 8,192 functions and 8,192
+expression nodes. These implementation changes are not yet committed, and
+the earlier unmodified Rust derivation is still running. No conclusion about
+source or program proof is asserted by this boundary check.
 
 This is not a test of 8,192 distinct packages or operating-system argument
 limits. Exact literal `...` package paths, production batching, launcher
