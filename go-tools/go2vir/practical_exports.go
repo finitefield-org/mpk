@@ -528,17 +528,42 @@ func (exports practicalPackageExports) bindOriginalSourceTypes(loader *practical
 	if err := exports.requireOriginalObservation(); err != nil {
 		return err
 	}
-	if loader == nil || loader.failed != nil || loader.syntax.failed != nil || loader.stdlib == nil || exports.compilerSHA256 != discovery.compilerSHA256 || exports.compilerSHA256 != loader.stdlib.compilerSHA256 || exports.distributionSHA256 != loader.stdlib.distributionSHA256 || exports.distributionSHA256 != compiler.selection.Toolchain.DistributionSHA256 || exports.mainSourceID != discovery.mainSourceID {
+	return exports.bindOriginalSourceTypesExact(loader, discovery, compiler, sdkCapability, []string{exports.requestedPackage})
+}
+
+// Bind every candidate package to the same source-checked closure. The
+// complete original request, not a caller-selected subset, determines roots.
+func (exports practicalPackageExports) bindCandidateOriginalSourceTypes(loader *practicalSourceTypes, discovery practicalModuleDiscovery, compiler practicalCompilerImage, sdkCapability string, request *practicalCandidateRequest) error {
+	if err := discovery.requireOriginalObservation(); err != nil {
+		return err
+	}
+	if err := exports.requireCandidateOriginalObservation(request); err != nil {
+		return err
+	}
+	packages, err := practicalCandidatePackagePaths(request)
+	if err != nil {
+		return err
+	}
+	return exports.bindOriginalSourceTypesExact(loader, discovery, compiler, sdkCapability, packages)
+}
+
+func (exports practicalPackageExports) bindOriginalSourceTypesExact(loader *practicalSourceTypes, discovery practicalModuleDiscovery, compiler practicalCompilerImage, sdkCapability string, selectedPackages []string) error {
+	if loader == nil || loader.failed != nil || loader.syntax == nil || loader.syntax.failed != nil || loader.stdlib == nil || exports.compilerSHA256 != discovery.compilerSHA256 || exports.compilerSHA256 != loader.stdlib.compilerSHA256 || exports.distributionSHA256 != loader.stdlib.distributionSHA256 || exports.distributionSHA256 != compiler.selection.Toolchain.DistributionSHA256 || exports.mainSourceID != discovery.mainSourceID {
 		return fmt.Errorf("export preparation crossed original compiler/module/source ownership")
 	}
-	if loader.packages[exports.requestedPackage] == nil || exports.snapshot.contentSHA256 == "" || exports.snapshot.contentSHA256 != practicalSnapshotDigest(exports.snapshot) || loader.syntax.snapshot.contentSHA256 != practicalSnapshotDigest(loader.syntax.snapshot) {
+	for _, selected := range selectedPackages {
+		if loader.packages[selected] == nil {
+			return fmt.Errorf("export preparation lost a selected original source package")
+		}
+	}
+	if exports.snapshot.contentSHA256 == "" || exports.snapshot.contentSHA256 != practicalSnapshotDigest(exports.snapshot) || loader.syntax.snapshot.contentSHA256 != practicalSnapshotDigest(loader.syntax.snapshot) {
 		return fmt.Errorf("export preparation needs intact original source/export snapshots")
 	}
 	rows, err := decodePracticalPackageExports(exports.output)
 	if err != nil {
 		return err
 	}
-	if err := validatePracticalExportRoot(rows, exports.requestedPackage); err != nil {
+	if err := validatePracticalExportRoots(rows, selectedPackages); err != nil {
 		return err
 	}
 	intrinsics := 0
