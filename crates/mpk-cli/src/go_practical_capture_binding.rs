@@ -3,7 +3,8 @@
 //! The distinct export-cache root and launcher authorization remain separate;
 //! this private owner cannot publish a practical context or source theorem.
 use crate::go_practical_installed_compiler::{
-    InstalledGoCompiler, InstalledGoCompilerError, InstalledGoSourceCompilerInputs,
+    InstalledGoCompiler, InstalledGoCompilerError, InstalledGoFrontend, InstalledGoRelease,
+    InstalledGoSourceCompilerInputs,
 };
 use crate::go_practical_source_roots::{GoSourceRootError, GoSourceRoots, GoSourceRootsMatch};
 use mpk_vc::go_practical_context::GoPrivateCandidateRequest;
@@ -339,4 +340,30 @@ pub(crate) fn bind_installed_go_complete_root_matched_inputs(
         source_roots,
         export_roots,
     })
+}
+
+/// Keep the exact registered frontend with the SDK and both independently
+/// matched root sets. The frontend has not been shown to execute the capture.
+pub(crate) struct InstalledGoCompleteRootMatchedReleaseInputs {
+    compiler: InstalledGoCompleteRootMatchedCompilerInputs,
+    frontend: InstalledGoFrontend,
+}
+impl InstalledGoCompleteRootMatchedReleaseInputs {
+    pub(crate) fn compiler(&self) -> &InstalledGoCompleteRootMatchedCompilerInputs {
+        &self.compiler
+    }
+
+    pub(crate) fn frontend(&self) -> &InstalledGoFrontend {
+        &self.frontend
+    }
+}
+
+pub(crate) fn bind_installed_go_complete_root_matched_release_inputs(
+    release: InstalledGoRelease,
+    record: &[u8],
+    matched: GoCompleteRootMatchedExportInputs,
+) -> Result<InstalledGoCompleteRootMatchedReleaseInputs, InstalledGoCompilerError> {
+    let (compiler, frontend) = release.into_parts();
+    let compiler = bind_installed_go_complete_root_matched_inputs(compiler, record, matched)?;
+    Ok(InstalledGoCompleteRootMatchedReleaseInputs { compiler, frontend })
 }

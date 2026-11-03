@@ -7,12 +7,17 @@ mod frontend_registry;
 #[allow(dead_code)]
 mod go_practical_installed_compiler;
 
-use go_practical_installed_compiler::{InstalledGoCompiler, InstalledGoCompilerError};
+use go_practical_installed_compiler::{
+    InstalledGoCompiler, InstalledGoCompilerError, InstalledGoRelease,
+};
 use mpk_vc::go_practical_type_keys::*;
-use mpk_vc::release_bundle_v1::{validate_successor_release_registry, GO_TOOLCHAIN_BUNDLE_ID};
+use mpk_vc::release_bundle_v1::{
+    validate_successor_release_registry, GO_FRONTEND_BUNDLE_ID, GO_TOOLCHAIN_BUNDLE_ID,
+};
 use mpk_vc::semantic_profile_registry::{validate_semantic_profile_registry, RegistryRevision};
 use mpk_vc::{hash_canonical_json, parse_strict_json, HashDomain, StrictJsonLimits};
 use serde_json::{json, Value};
+use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
@@ -129,6 +134,119 @@ fn whole_snapshot_binding(linux: &Path, darwin: &Path) {
     let snapshot = Arc::new(frontend_registry::test_snapshot(inventory, objects).unwrap());
     let original_exports = exports(&packet, linux);
     let record = unhex(packet["compiler_inputs_hex"].as_str().unwrap());
+
+    // Both snapshots are independently sealed from the entire registered
+    // frontend and SDK inventories. This test does not impersonate the
+    // installed root or establish that the frontend produced the capture.
+    let frontend = registry
+        .registry()
+        .frontend_bundles
+        .iter()
+        .find(|bundle| bundle.bundle_id == GO_FRONTEND_BUNDLE_ID)
+        .unwrap();
+    assert_eq!(frontend.inventory.files.len(), 1);
+    let frontend_entry = &frontend.inventory.files[0];
+    assert_eq!(frontend_entry.path, frontend.main.path);
+    let frontend_hex = std::fs::read_to_string(
+        Path::new(env!("CARGO_MANIFEST_DIR")).join(
+            "../../develop/migrations/go-practical/t02-w01/verification/registered-analysis/rebuild-original/frontend-0.elf.hex",
+        ),
+    )
+    .unwrap();
+    let frontend_bytes = unhex(&frontend_hex);
+    assert_eq!(frontend_bytes.len(), 9_004_378);
+    let frontend_snapshot = Arc::new(
+        frontend_registry::test_snapshot(
+            &frontend.inventory,
+            vec![(
+                frontend_entry.path.clone(),
+                frontend_bytes.clone(),
+                frontend_entry.executable,
+            )],
+        )
+        .unwrap(),
+    );
+    let release = InstalledGoRelease::test_original_snapshots(
+        &registry,
+        frontend_snapshot.clone(),
+        snapshot.clone(),
+    )
+    .expect("the complete registered frontend and SDK snapshots bind");
+    assert_eq!(release.frontend().bundle_id(), GO_FRONTEND_BUNDLE_ID);
+    assert_eq!(release.frontend().main_path(), frontend.main.path);
+    assert_eq!(release.frontend().inventory(), &frontend.inventory);
+    assert_eq!(release.compiler().inventory(), inventory);
+    let release_inputs = release
+        .bind_original_inputs(&record, original_exports.clone())
+        .expect("both original snapshots remain with the original compiler input");
+    assert_eq!(
+        release_inputs
+            .frontend()
+            .snapshot()
+            .file(release_inputs.frontend().main_path())
+            .unwrap()
+            .bytes,
+        frontend_bytes
+    );
+    assert_eq!(release_inputs.frontend().inventory(), &frontend.inventory);
+    assert_eq!(
+        release_inputs.compiler().release_registry(),
+        &registry.release_identity()
+    );
+    assert_eq!(
+        release_inputs
+            .compiler()
+            .compiler_inputs()
+            .canonical_bytes(),
+        record
+    );
+    assert_eq!(
+        release_inputs.compiler().compiler_inputs().files().len(),
+        5577
+    );
+    drop(release_inputs);
+
+    // A complete, coherently resealed different frontend is not the frontend
+    // pinned by this registry, even when the original SDK remains unchanged.
+    let mut altered_frontend = frontend_bytes.clone();
+    let last = altered_frontend.len() - 1;
+    altered_frontend[last] ^= 1;
+    let mut alternate_inventory = frontend.inventory.clone();
+    alternate_inventory.files[0].sha256 = format!("{:x}", Sha256::digest(&altered_frontend));
+    let alternate = Arc::new(
+        frontend_registry::test_snapshot(
+            &alternate_inventory,
+            vec![(
+                frontend_entry.path.clone(),
+                altered_frontend,
+                frontend_entry.executable,
+            )],
+        )
+        .unwrap(),
+    );
+    assert!(matches!(
+        InstalledGoRelease::test_original_snapshots(&registry, alternate, snapshot.clone()),
+        Err(InstalledGoCompilerError::Identity)
+    ));
+
+    let mut wrong_mode_inventory = frontend.inventory.clone();
+    wrong_mode_inventory.files[0].executable = !frontend_entry.executable;
+    let wrong_mode = Arc::new(
+        frontend_registry::test_snapshot(
+            &wrong_mode_inventory,
+            vec![(
+                frontend_entry.path.clone(),
+                frontend_bytes,
+                !frontend_entry.executable,
+            )],
+        )
+        .unwrap(),
+    );
+    assert!(matches!(
+        InstalledGoRelease::test_original_snapshots(&registry, wrong_mode, snapshot.clone()),
+        Err(InstalledGoCompilerError::Identity)
+    ));
+
     let accepted = InstalledGoCompiler::test_original_snapshot(&registry, snapshot.clone())
         .unwrap()
         .bind_original_inputs(&record, original_exports.clone())
@@ -211,7 +329,7 @@ fn whole_snapshot_binding(linux: &Path, darwin: &Path) {
     assert!(matches!(crossed, Err(InstalledGoCompilerError::Inputs)));
     println!(
         "{}",
-        json!({"status":"passed", "method":"test-only-sealed-snapshot", "installed_root_exercised":false, "registered_sdk_files":5577, "registered_sdk_bytes":166354960, "sdk_sources":5480, "sdk_source_directories":source_directories, "original_objects":packet["snapshot_sources"].as_array().unwrap().len(), "original_packages":182, "root_selections":roots.len(), "contract_overlays":packet["overlays"].as_array().unwrap().len(), "same_selected_original_source_and_root":true, "coherently_rehashed_host_rejected":true, "complete_darwin_owner_crossed_with_linux_snapshot_rejected":true})
+        json!({"status":"passed", "method":"test-only-sealed-snapshot", "installed_root_exercised":false, "registered_frontend_files":1, "registered_frontend_bytes":9004378, "registered_frontend_and_sdk_retained":true, "coherently_resealed_frontend_rejected":true, "coherently_resealed_frontend_mode_rejected":true, "registered_sdk_files":5577, "registered_sdk_bytes":166354960, "sdk_sources":5480, "sdk_source_directories":source_directories, "original_objects":packet["snapshot_sources"].as_array().unwrap().len(), "original_packages":182, "root_selections":roots.len(), "contract_overlays":packet["overlays"].as_array().unwrap().len(), "same_selected_original_source_and_root":true, "coherently_rehashed_host_rejected":true, "complete_darwin_owner_crossed_with_linux_snapshot_rejected":true})
     );
 }
 
@@ -285,6 +403,13 @@ fn main() {
             ),
             "uninstalled executable acquired installed authority"
         );
+        assert!(
+            matches!(
+                InstalledGoRelease::open(),
+                Err(InstalledGoCompilerError::Release)
+            ),
+            "uninstalled executable acquired installed frontend authority"
+        );
         run_whole_snapshot();
         return;
     }
@@ -312,6 +437,75 @@ fn main() {
             );
             return;
         }
+    }
+    if matches!(
+        args.first().map(String::as_str),
+        Some("--release-snapshot" | "--release-bind")
+    ) {
+        let release = match InstalledGoRelease::open() {
+            Ok(release) => release,
+            Err(error) => {
+                println!(
+                    "{}",
+                    json!({"status":"rejected", "phase":"installed", "error":format!("{error:?}")})
+                );
+                return;
+            }
+        };
+        let frontend = release.frontend();
+        let file = frontend.snapshot().file(frontend.main_path()).unwrap();
+        let frontend_bytes = file.bytes.len();
+        let frontend_hash = file.sha256.clone();
+        let frontend_files = frontend.inventory().files.len();
+        let frontend_id = frontend.bundle_id().to_owned();
+        let result = match args.as_slice() {
+            [mode] if mode == "--release-snapshot" => json!({
+                "status":"accepted", "phase":"installed-release",
+                "frontend_id":frontend_id, "frontend_files":frontend_files,
+                "frontend_bytes":frontend_bytes, "frontend_sha256":frontend_hash,
+                "sdk_files":release.compiler().inventory().files.len()
+            }),
+            [mode, directory, record] if mode == "--release-bind" => {
+                let directory = Path::new(directory);
+                let packet: Value = serde_json::from_slice(
+                    &std::fs::read(directory.join("complete-original-module-graph-inputs.json"))
+                        .unwrap(),
+                )
+                .unwrap();
+                let inputs = exports(&packet, directory);
+                let record = if record == "original" {
+                    unhex(packet["compiler_inputs_hex"].as_str().unwrap())
+                } else {
+                    std::fs::read(record).unwrap()
+                };
+                match release.bind_original_inputs(&record, inputs) {
+                    Ok(bound) => {
+                        let compiler = bound.compiler().compiler_inputs();
+                        let file = bound
+                            .frontend()
+                            .snapshot()
+                            .file(bound.frontend().main_path())
+                            .unwrap();
+                        assert_eq!(file.bytes.len(), frontend_bytes);
+                        assert_eq!(file.sha256, frontend_hash);
+                        json!({"status":"accepted", "phase":"release-bound",
+                            "frontend_id":frontend_id, "frontend_files":frontend_files,
+                            "frontend_bytes":frontend_bytes, "frontend_sha256":frontend_hash,
+                            "release_registry":bound.compiler().release_registry(),
+                            "files":compiler.files().len(),
+                            "bytes":compiler.files().iter().map(|f| f.bytes().len()).sum::<usize>(),
+                            "original_objects":packet["snapshot_sources"].as_array().unwrap().len(),
+                            "original_packages":serde_json::from_slice::<Value>(compiler.export_inputs().canonical_bytes()).unwrap()["packages"].as_array().unwrap().len()})
+                    }
+                    Err(error) => {
+                        json!({"status":"rejected", "phase":"binding", "error":format!("{error:?}")})
+                    }
+                }
+            }
+            _ => panic!("unexpected installed release test arguments"),
+        };
+        println!("{result}");
+        return;
     }
     let authority = match InstalledGoCompiler::open() {
         Ok(authority) => authority,

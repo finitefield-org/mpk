@@ -268,16 +268,17 @@ fn main() {
         }
         Ok(owner)
     }
-    // This constructor is compiled only for the local test observer. Its
-    // complete SDK bytes come from the independently imported original image;
+    // This constructor is compiled only for the local test observer. It
+    // retains the full registered frontend and the independently imported SDK;
     // it does not open or authorize a production installed release.
     #[cfg(test)]
-    fn test_installed_owner(
+    fn test_registered_release_owner(
         compiler_inputs: &GoSourceCompilerInputs,
         matched: go_practical_capture_binding::GoCompleteRootMatchedExportInputs,
-    ) -> Result<go_practical_capture_binding::InstalledGoCompleteRootMatchedCompilerInputs> {
-        use go_practical_capture_binding::bind_installed_go_complete_root_matched_inputs;
-        use go_practical_installed_compiler::InstalledGoCompiler;
+    ) -> Result<go_practical_capture_binding::InstalledGoCompleteRootMatchedReleaseInputs> {
+        use go_practical_capture_binding::bind_installed_go_complete_root_matched_release_inputs;
+        use go_practical_installed_compiler::InstalledGoRelease;
+        use mpk_vc::release_bundle_v1::GO_FRONTEND_BUNDLE_ID;
         use std::sync::Arc;
 
         let semantic = validate_semantic_profile_registry(
@@ -311,18 +312,55 @@ fn main() {
             .collect();
         let snapshot = frontend_registry::test_snapshot(inventory, files)
             .map_err(|error| fail(format!("test SDK snapshot: {error:?}")))?;
-        let compiler = InstalledGoCompiler::test_original_snapshot(&registry, Arc::new(snapshot))
-            .map_err(|error| fail(format!("test compiler owner: {error:?}")))?;
-        let owner = bind_installed_go_complete_root_matched_inputs(
-            compiler,
+        let frontend = registry
+            .registry()
+            .frontend_bundles
+            .iter()
+            .find(|bundle| bundle.bundle_id == GO_FRONTEND_BUNDLE_ID)
+            .ok_or_else(|| fail("registered Go frontend is missing"))?;
+        if frontend.inventory.files.len() != 1
+            || frontend.inventory.files[0].path != frontend.main.path
+        {
+            return Err(fail("registered Go frontend inventory changed").into());
+        }
+        let hex = fs::read_to_string(Path::new(env!("CARGO_MANIFEST_DIR")).join(
+            "../../develop/migrations/go-practical/t02-w01/verification/registered-analysis/rebuild-original/frontend-0.elf.hex",
+        ))?;
+        let original = unhex(&hex)?;
+        let frontend_snapshot = frontend_registry::test_snapshot(
+            &frontend.inventory,
+            vec![(
+                frontend.main.path.clone(),
+                original,
+                frontend.inventory.files[0].executable,
+            )],
+        )
+        .map_err(|error| fail(format!("test frontend snapshot: {error:?}")))?;
+        let release = InstalledGoRelease::test_original_snapshots(
+            &registry,
+            Arc::new(frontend_snapshot),
+            Arc::new(snapshot),
+        )
+        .map_err(|error| fail(format!("test release owner: {error:?}")))?;
+        let owner = bind_installed_go_complete_root_matched_release_inputs(
+            release,
             compiler_inputs.canonical_bytes(),
             matched,
         )
-        .map_err(|error| fail(format!("test installed-root binding: {error:?}")))?;
-        if owner.compiler_inputs().canonical_bytes() != compiler_inputs.canonical_bytes()
-            || owner.release_registry() != &registry.release_identity()
+        .map_err(|error| fail(format!("test release-root binding: {error:?}")))?;
+        if owner.compiler().compiler_inputs().canonical_bytes() != compiler_inputs.canonical_bytes()
+            || owner.compiler().release_registry() != &registry.release_identity()
+            || owner.frontend().bundle_id() != GO_FRONTEND_BUNDLE_ID
+            || owner.frontend().inventory() != &frontend.inventory
+            || owner.frontend().main_path() != frontend.main.path
+            || owner
+                .frontend()
+                .snapshot()
+                .file(owner.frontend().main_path())
+                .map(|file| file.bytes.len())
+                != Some(9_004_378)
         {
-            return Err(fail("test installed owner differs from original compiler inputs").into());
+            return Err(fail("test release owner differs from registered original inputs").into());
         }
         Ok(owner)
     }
@@ -900,7 +938,8 @@ fn main() {
         }
         #[cfg(test)]
         let held_owner = {
-            let owner = test_installed_owner(&compiler, matched)?;
+            let release = test_registered_release_owner(&compiler, matched)?;
+            let owner = release.compiler();
             if owner.source_snapshot().source_objects().len() != source_count
                 || owner.export_snapshot().source_objects().len() != export_count
             {
@@ -909,7 +948,7 @@ fn main() {
             {
                 let installed_strings =
                     go_practical_checked_root_strings::check_installed_go_root_string_components(
-                        &owner, &candidate, &graph,
+                        owner, &candidate, &graph,
                     )?;
                 let installed_values = installed_strings.values();
                 let installed_receipts = installed_strings
@@ -966,7 +1005,7 @@ fn main() {
                     Err(GoPracticalSourceBindingError::Mismatch { root: Some(0) })
                 ) || !matches!(
                     go_practical_checked_components::check_installed_go_root_components(
-                        &owner, &other, &graph
+                        owner, &other, &graph
                     ),
                     Err(
                         go_practical_checked_components::GoCheckedComponentsError::Binding(
@@ -977,7 +1016,7 @@ fn main() {
                     )
                 ) || !matches!(
                     go_practical_checked_root_values::check_installed_go_root_value_components(
-                        &owner, &other, &graph
+                        owner, &other, &graph
                     ),
                     Err(
                         go_practical_checked_root_values::GoCheckedRootValueError::Components(
@@ -990,7 +1029,7 @@ fn main() {
                     )
                 ) || !matches!(
                     go_practical_checked_root_strings::check_installed_go_root_string_components(
-                        &owner, &other, &graph
+                        owner, &other, &graph
                     ),
                     Err(go_practical_checked_root_strings::GoCheckedRootStringError::Values(
                         go_practical_checked_root_values::GoCheckedRootValueError::Components(
@@ -1009,14 +1048,14 @@ fn main() {
                 }
                 std::hint::black_box((&binding, &components));
             }
-            owner
+            release
         };
         #[cfg(not(test))]
         let held_owner = matched;
         publish(
             combined_dir,
             "owner-matched.json",
-            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"candidate_function_bodies":expected_functions,"candidate_call_sites":expected_calls,"test_overlay_bound":expect_overlay,"test_error_contract_bound":expect_error,"same_root_components_checked":true,"same_root_value_components_checked":true,"same_root_string_components_checked":true,"source_string_rows":string_receipts.len(),"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_components_checked":cfg!(test),"test_only_installed_values_checked":cfg!(test),"test_only_installed_strings_checked":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
+            &json!({"status":"passed","both_root_sets_retained":true,"export_cache_retirement_checked_before_binding":true,"source_objects":source_count,"export_objects":export_count,"total_objects":total,"compiler_inputs_imported":true,"registered_sdk_files":compiler_files,"registered_sdk_bytes":compiler_bytes,"candidate_request_bound":true,"candidate_request_sha256":candidate.request_sha256(),"module_graph_verified":true,"candidate_contracts_derived":true,"candidate_entry_math_checked":true,"candidate_invocations_checked":true,"candidate_function_bodies":expected_functions,"candidate_call_sites":expected_calls,"test_overlay_bound":expect_overlay,"test_error_contract_bound":expect_error,"same_root_components_checked":true,"same_root_value_components_checked":true,"same_root_string_components_checked":true,"source_string_rows":string_receipts.len(),"graph_roots":graph.derived_roots().len(),"graph_expansion_manifests":graph.expansion_manifests().len(),"graph_selected_versions":graph.observed_selected_versions().len(),"test_only_crossed_graph_rejected":crossed_graph_rejected,"test_only_installed_owner_bound":cfg!(test),"test_only_installed_frontend_retained":cfg!(test),"test_only_installed_components_checked":cfg!(test),"test_only_installed_values_checked":cfg!(test),"test_only_installed_strings_checked":cfg!(test),"test_only_installed_request_bound":cfg!(test),"test_only_installed_other_function_rejected":cfg!(test),"installed_authority_claimed":false,"launcher_authority_claimed":false,"compiler_to_source_proved":false,"application_proof_claimed":false}),
         )?;
         std::hint::black_box((&held_owner, &graph));
         Ok(())

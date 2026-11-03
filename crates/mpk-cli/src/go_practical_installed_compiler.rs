@@ -1,5 +1,5 @@
-//! Private installed SDK authority. This authenticates compiler bytes, not a
-//! practical semantic context, foundation descriptor or source/program theorem.
+//! Private installed Go frontend and SDK snapshots. These authenticate the
+//! registered bytes, not a source capture, semantic context or program theorem.
 use crate::frontend_registry::{
     BundleSnapshot, InstalledSuccessorRelease, EXPECTED_REGISTRY_SHA256_HEX,
     EXPECTED_SEMANTIC_REGISTRY_SHA256,
@@ -17,6 +17,7 @@ use mpk_vc::{
     BundleInventory, ComponentIdentity, ReleaseRegistryIdentity, ToolchainComponent,
     ToolchainIdentity,
 };
+use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
 use std::sync::Arc;
 
@@ -42,6 +43,51 @@ pub(crate) struct InstalledGoSourceCompilerInputs {
     inputs: GoSourceCompilerInputs,
 }
 
+/// One registered frontend and SDK, snapshotted from the same installed
+/// release. Retention does not prove that the frontend produced a capture.
+pub(crate) struct InstalledGoRelease {
+    compiler: InstalledGoCompiler,
+    frontend: InstalledGoFrontend,
+}
+
+pub(crate) struct InstalledGoFrontend {
+    bundle_id: String,
+    main_path: String,
+    inventory: BundleInventory,
+    snapshot: Arc<BundleSnapshot>,
+}
+
+/// The installed frontend remains owned alongside the original compiler,
+/// source and export inputs. Launcher and source execution authority are due.
+pub(crate) struct InstalledGoReleaseInputs {
+    compiler: InstalledGoSourceCompilerInputs,
+    frontend: InstalledGoFrontend,
+}
+
+impl InstalledGoFrontend {
+    pub(crate) fn bundle_id(&self) -> &str {
+        &self.bundle_id
+    }
+    pub(crate) fn main_path(&self) -> &str {
+        &self.main_path
+    }
+    pub(crate) fn inventory(&self) -> &BundleInventory {
+        &self.inventory
+    }
+    pub(crate) fn snapshot(&self) -> &BundleSnapshot {
+        &self.snapshot
+    }
+}
+
+impl InstalledGoReleaseInputs {
+    pub(crate) fn compiler(&self) -> &InstalledGoSourceCompilerInputs {
+        &self.compiler
+    }
+    pub(crate) fn frontend(&self) -> &InstalledGoFrontend {
+        &self.frontend
+    }
+}
+
 impl InstalledGoSourceCompilerInputs {
     pub(crate) fn compiler_inputs(&self) -> &GoSourceCompilerInputs {
         &self.inputs
@@ -51,7 +97,7 @@ impl InstalledGoSourceCompilerInputs {
     }
 }
 
-impl InstalledGoCompiler {
+impl InstalledGoRelease {
     pub(crate) fn open() -> Result<Self, InstalledGoCompilerError> {
         let installed =
             InstalledSuccessorRelease::open().map_err(|_| InstalledGoCompilerError::Release)?;
@@ -83,26 +129,102 @@ impl InstalledGoCompiler {
         let snapshots = installed
             .snapshot_selected_bundles(&expected, GO_FRONTEND_BUNDLE_ID, GO_TOOLCHAIN_BUNDLE_ID)
             .map_err(|_| InstalledGoCompilerError::Release)?;
+        let frontend = snapshots
+            .get(GO_FRONTEND_BUNDLE_ID)
+            .cloned()
+            .ok_or(InstalledGoCompilerError::Release)?;
+        let toolchain = snapshots
+            .get(GO_TOOLCHAIN_BUNDLE_ID)
+            .cloned()
+            .ok_or(InstalledGoCompilerError::Release)?;
+        Self::from_verified_snapshots(&registry, frontend, toolchain)
+    }
+
+    fn from_verified_snapshots(
+        registry: &ValidatedSuccessorReleaseRegistry,
+        frontend_snapshot: Arc<BundleSnapshot>,
+        toolchain_snapshot: Arc<BundleSnapshot>,
+    ) -> Result<Self, InstalledGoCompilerError> {
+        if registry.registry_sha256() != EXPECTED_REGISTRY_SHA256_HEX {
+            return Err(InstalledGoCompilerError::Release);
+        }
         let frontend = registry
             .registry()
             .frontend_bundles
             .iter()
             .find(|bundle| bundle.bundle_id == GO_FRONTEND_BUNDLE_ID)
             .ok_or(InstalledGoCompilerError::Release)?;
-        let executable = snapshots
-            .get(GO_FRONTEND_BUNDLE_ID)
-            .and_then(|snapshot| snapshot.file(&frontend.main.path))
+        if frontend_snapshot.files().len() != frontend.inventory.files.len() {
+            return Err(InstalledGoCompilerError::Identity);
+        }
+        for expected in &frontend.inventory.files {
+            let actual = frontend_snapshot
+                .file(&expected.path)
+                .ok_or(InstalledGoCompilerError::Identity)?;
+            let digest = format!("{:x}", Sha256::digest(&actual.bytes));
+            if actual.executable != expected.executable
+                || i64::try_from(actual.bytes.len()).ok() != Some(expected.size_bytes)
+                || actual.sha256 != expected.sha256
+                || digest != expected.sha256
+            {
+                return Err(InstalledGoCompilerError::Identity);
+            }
+        }
+        let executable = frontend_snapshot
+            .file(&frontend.main.path)
             .ok_or(InstalledGoCompilerError::Identity)?;
         // Build metadata identifies compiler and linked analysis modules only;
         // it does not establish which source generation produced these bytes.
         read_go_executable_build_info(&executable.bytes)
             .and_then(|info| info.validate_analysis_frontend("linux_amd64"))
             .map_err(|_| InstalledGoCompilerError::Identity)?;
-        let snapshot = snapshots
-            .get(GO_TOOLCHAIN_BUNDLE_ID)
-            .cloned()
-            .ok_or(InstalledGoCompilerError::Release)?;
-        Self::from_verified_snapshot(&registry, snapshot)
+        let compiler = InstalledGoCompiler::from_verified_snapshot(registry, toolchain_snapshot)?;
+        Ok(Self {
+            compiler,
+            frontend: InstalledGoFrontend {
+                bundle_id: frontend.bundle_id.clone(),
+                main_path: frontend.main.path.clone(),
+                inventory: frontend.inventory.clone(),
+                snapshot: frontend_snapshot,
+            },
+        })
+    }
+
+    #[cfg(test)]
+    pub(crate) fn test_original_snapshots(
+        registry: &ValidatedSuccessorReleaseRegistry,
+        frontend: Arc<BundleSnapshot>,
+        toolchain: Arc<BundleSnapshot>,
+    ) -> Result<Self, InstalledGoCompilerError> {
+        Self::from_verified_snapshots(registry, frontend, toolchain)
+    }
+
+    pub(crate) fn compiler(&self) -> &InstalledGoCompiler {
+        &self.compiler
+    }
+
+    pub(crate) fn frontend(&self) -> &InstalledGoFrontend {
+        &self.frontend
+    }
+
+    pub(crate) fn into_parts(self) -> (InstalledGoCompiler, InstalledGoFrontend) {
+        (self.compiler, self.frontend)
+    }
+
+    pub(crate) fn bind_original_inputs(
+        self,
+        record: &[u8],
+        exports: GoSourceExportInputs,
+    ) -> Result<InstalledGoReleaseInputs, InstalledGoCompilerError> {
+        let Self { compiler, frontend } = self;
+        let compiler = compiler.bind_original_inputs(record, exports)?;
+        Ok(InstalledGoReleaseInputs { compiler, frontend })
+    }
+}
+
+impl InstalledGoCompiler {
+    pub(crate) fn open() -> Result<Self, InstalledGoCompilerError> {
+        Ok(InstalledGoRelease::open()?.compiler)
     }
 
     // The production caller above obtains this snapshot only from the installed
