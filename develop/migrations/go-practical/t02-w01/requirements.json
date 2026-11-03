@@ -1637,6 +1637,22 @@
       "requirement": "Original source/export metadata and complete compiler identity; immutable original packages without rewritten/stub source; closed capture for the later verification-closure algorithm",
       "status": "pending",
       "executor": "go-tools/go2vir/practical_capture.go, snapshot.go, loader.go",
+      "candidate_batch_observation_checkpoint": {
+        "evidence": "verification/candidate-batch-observation/README.md",
+        "executor": "go-tools/go2vir/practical_candidate_batches_test.go",
+        "scope": "The complete 183-package/5699-object original candidate was observed with one whole and three separate native commands. An initial cold-to-warm comparison failed on actual stale-cache metadata; the unchanged full input was rerun with cold and warm observations retained. All 182 export-bearing packages changed stale state after warming; the warm batch union covers all 183 packages, preserves all other metadata apart from independently checked selected-root roles, and keeps all 182 compiler exports byte-identical. This is scoped empirical evidence only: production batching, independent multi-command Rust ownership, literal ... paths, argument-size handling, launcher authority and source/program proofs remain due.",
+        "R06_completed": false,
+        "public_profile_activated": false,
+        "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
+      "candidate_package_patterns_checkpoint": {
+        "evidence": "verification/candidate-package-patterns/README.md",
+        "executor": "go-tools/go2vir/practical_observation.go",
+        "scope": "The Go1.25 candidate argument guard rejects all five exact non-importable meta-package names: all, std, cmd, tool and work. The registered Go compiler independently rejects each actual module root as non-importable, while ordinary example.com/tool and example.com/work remain valid candidates. Actual original packages named p...q and p123q demonstrate why a literal ... import path cannot be passed as an exact command argument. The full 183-package candidate and 8192-root derivation tests pass. Exact literal ... selection, native argument-size handling, launcher authority and source/program proofs remain due.",
+        "R06_completed": false,
+        "public_profile_activated": false,
+        "full_T_gate": "Deferred to final T02-W04: ./scripts/check-fast.sh"
+      },
       "candidate_multi_handoff_checkpoint": {
         "evidence": "verification/candidate-multi-handoff/README.md",
         "executor": "go-tools/go2vir/practical_source_inputs.go, practical_selection_inputs.go, practical_export_inputs.go and crates/mpk-vc/src/go_practical_type_keys",

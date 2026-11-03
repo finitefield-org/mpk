@@ -29,8 +29,8 @@ and request-selection paths. Go vet and changed-file formatting passed. All
 checks ran locally under Linux amd64 emulation, not a native Linux release gate.
 
 This is a private preparation checkpoint. The later multi-package handoff has
-its own verification record. Exact Go command-pattern spellings, native
-argument-size boundaries, launcher authority and source/program proofs remain
+its own verification record. Literal `...` import paths, native argument-size
+boundaries, launcher authority and source/program proofs remain
 open. W01 remains incomplete; the T02-wide
 `./scripts/check-fast.sh` gate is deferred to final T02-W04. No validation
 archive is committed.

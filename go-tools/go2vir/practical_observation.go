@@ -90,7 +90,7 @@ func practicalCandidatePackagePaths(request *practicalCandidateRequest) ([]strin
 		// These spellings are Go command patterns, not exact list arguments.
 		// Exact loading of a real path containing "..." needs a separate
 		// source-root-based route and is not claimed by this preparation.
-		if strings.Contains(root.Package, "...") || root.Package == "all" || root.Package == "std" || root.Package == "cmd" {
+		if strings.Contains(root.Package, "...") || root.Package == "all" || root.Package == "std" || root.Package == "cmd" || root.Package == "tool" || root.Package == "work" {
 			return nil, fmt.Errorf("candidate package cannot be passed as an exact Go list argument")
 		}
 		if !seen[root.Package] {

@@ -34,9 +34,10 @@ and export-validation paths with the prior single-package consumer.
 This is a private preparation checkpoint. Subsequent checks bind the captured
 closure to source types, a private image owner and an independent Rust wire
 consumer. None of these proves source execution or an application property.
-Go's `all`, `std`, `cmd` and `...` command-pattern spellings fail closed here;
-an exact source-root-based route for any real package with such a name remains
-required. The 8,192-package derivation is covered, but a full native command
+Go's `all`, `std`, `cmd`, `tool` and `work` meta-package names are rejected;
+Go itself does not import packages with those exact names. A valid import path
+containing `...` still needs an exact route without wildcard expansion. The
+8,192-package derivation is covered, but a full native command
 at that size and any operating-system argument-size limit are not yet closed.
 W01 and the inactive practical profile remain open. The cumulative
 `./scripts/check-fast.sh` gate is deferred to final T02-W04. No validation

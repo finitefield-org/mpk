@@ -28,7 +28,7 @@ formatting also passed. These checks ran locally under Linux amd64 emulation;
 they are not a native Linux release gate.
 
 This is an internal preparation checkpoint. The later Rust multi-package
-handoff has a separate verification record. Exact handling for Go command
-pattern spellings, launcher authority and source/program proofs remain open.
+handoff has a separate verification record. Exact handling for literal `...`
+import paths, launcher authority and source/program proofs remain open.
 W01 remains incomplete; the T02-wide `./scripts/check-fast.sh` gate is deferred
 to final T02-W04. No validation archive is committed.

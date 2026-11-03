@@ -59,11 +59,19 @@ func TestPracticalCandidatePackagePathsPreserveAllRoots(t *testing.T) {
 	if _, err := practicalCandidatePackagePaths(nil); err == nil {
 		t.Fatal("missing request was accepted")
 	}
-	for _, name := range []string{"example.com/p...q", "all", "std", "cmd"} {
+	for _, name := range []string{"example.com/p...q", "all", "std", "cmd", "tool", "work"} {
 		pattern := practicalTestCandidateRequest(t, []practicalCandidateSelector{{Package: name, Function: "F"}})
 		if _, err := practicalCandidatePackagePaths(pattern); err == nil {
 			t.Fatalf("Go list pattern %q was treated as an exact package", name)
 		}
+	}
+	ordinary := practicalTestCandidateRequest(t, []practicalCandidateSelector{
+		{Package: "example.com/tool", Function: "F"},
+		{Package: "example.com/work", Function: "F"},
+	})
+	got, err = practicalCandidatePackagePaths(ordinary)
+	if err != nil || !reflect.DeepEqual(got, []string{"example.com/tool", "example.com/work"}) {
+		t.Fatalf("ordinary tool/work path components rejected: %v %v", got, err)
 	}
 }
 
